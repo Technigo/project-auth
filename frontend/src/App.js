@@ -1,20 +1,21 @@
-import React, { useState } from 'react'
-import { RegistrationForm } from './components/RegistrationForm.js'
-import { SigninForm } from './components/SigninForm.js'
-import { LoggedInArea } from './components/LoggedInArea.js'
+import React from 'react'
 
+import { Provider } from 'react-redux'
+import { configureStore, combineReducers } from "@reduxjs/toolkit"
+import { auth } from './reducers/auth.js'
+
+import { AuthApp } from './components/AuthApp.js'
+
+const reducer = combineReducers({
+  auth: auth.reducer
+})
+
+const store = configureStore({ reducer })
 
 export const App = () => {
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [showRegistrationForm, setShowRegistrationForm] = useState(true)
-
   return (
-    <div>
-      {(!isLoggedIn && showRegistrationForm) && <RegistrationForm />}
-      {(!isLoggedIn && !showRegistrationForm) && <SigninForm />}
-      {isLoggedIn && <LoggedInArea />}
-
-    </div>
+    <Provider store={store}>
+      <AuthApp />
+    </Provider>
   )
 }
