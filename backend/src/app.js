@@ -12,7 +12,7 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
-// Start defining your routes here
+/* Authenticate the user, then go to next route */
 app.get('/', async (req, res, next) => {
   try {
     const authToken = req.header('Authorization')
@@ -28,11 +28,13 @@ app.get('/', async (req, res, next) => {
   }
 })
 
+/* Main endpoint for logged in users */
 app.get('/', async (req, res, next) => {
   const data = { 'message': 'This is a secret message' }
   res.json({ data })
 })
 
+/* Admin endpoint - to be removed */
 app.get('/user', async (req, res, next) => {
   try {
     const users = await User.find()
@@ -82,6 +84,7 @@ app.use((req, res) => {
   res.status(404).json({ error: `route ${req.originalUrl} doesn't exist` })
 })
 
+/* Error handling */
 app.use((err, req, res, next) => {
   res.status(500).json({ "error": err.message })
 })
