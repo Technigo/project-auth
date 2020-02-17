@@ -26,13 +26,6 @@ app.get('/user', async (req, res, next) => {
 
 app.post('/registration', async (req, res, next) => {
   try {
-    /*
-    * TODO
-    * name => Firstname + lastname
-    * email => email + username
-    * password => string (to be hashed)
-    */
-
     const {
       name,
       email,
@@ -43,6 +36,24 @@ app.post('/registration', async (req, res, next) => {
     res.json(newUser)
   } catch (err) {
     next(err)
+  }
+})
+
+app.post('/login', async (req, res, next) => {
+  try {
+    const {
+      email,
+      password
+    } = req.body
+    const user = await User.findOne({ email: email })
+    if(user && bcrypt.compareSync(password, user.password)){
+      res.json(user)
+    } else {
+      throw new Error(`user not found or password doesn't match`)
+    }
+  } catch (err) {
+    next(err)
+
   }
 })
 
