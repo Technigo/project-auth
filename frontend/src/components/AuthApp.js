@@ -10,11 +10,13 @@ export const AuthApp = () => {
   const showSigninForm = useSelector(store => store.auth.showSigninForm)
 
   return (
-    <>
-      {(!isLoggedIn && !showSigninForm) && <RegistrationForm />}
-      {(!isLoggedIn && showSigninForm) && <SigninForm />}
-      {isLoggedIn && <LoggedInArea />}
-    </>
+    <main>
+      <div className="app">
+        {(!isLoggedIn && !showSigninForm) && <RegistrationForm />}
+        {(!isLoggedIn && showSigninForm) && <SigninForm />}
+        {isLoggedIn && <LoggedInArea />}
+      </div>
+    </main>
 
   )
 }

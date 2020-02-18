@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useDispatch } from "react-redux"
 import { auth } from '../reducers/auth'
 
-import TextField from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 
 const url = process.env.API_URL || 'http://localhost:8080'
 
@@ -34,18 +35,15 @@ export const RegistrationForm = () => {
   const [password, setPassword] = useState('')
 
   return (
-    <>
+    <div className="form-container">
       <h2>Sign up</h2>
-      <p>Or <button onClick={() => { dispatch(auth.actions.toggleSigninForm()) }}> sign in to your account</button></p>
+      <p>Or <button className="redirect-button" onClick={() => { dispatch(auth.actions.toggleSigninForm()) }}> sign in to your account</button></p>
       <form onSubmit={event => handleSubmit(event, name, email, password)}>
         <TextField id="standard-basic" label="Name" onChange={(event) => setName(event.target.value)} />
         <TextField id="standard-basic" label="E-mail" type="email" onChange={(event) => setEmail(event.target.value)} />
         <TextField id="standard-basic" label="Password" type="password" onChange={(event) => setPassword(event.target.value)} />
-        <button type="submit">Submit</button>
+        <Button variant="contained" disableElevation type="submit">Create account</Button>
       </form>
-      {name}
-      {email}
-      {password}
-    </>
+    </div>
   )
 }
