@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import Button from '@material-ui/core/Button'
 import { auth } from '../reducers/auth'
+
 
 
 
@@ -25,8 +27,7 @@ export const LoggedInArea = () => {
           throw new Error(response.json())
         }
       })
-      .then(json => { // if a successful request, do this
-        console.log(json)
+      .then(json => {
         setData(json)
       })
       .catch(err => {
@@ -35,14 +36,17 @@ export const LoggedInArea = () => {
 
   }, [accessToken, dispatch])
 
+
   return (
     <div>
-      <h2> LoggedInArea</h2>
+      <h2>LoggedInArea</h2>
       <ul>
         {data.map((item, index) =>
           (<li key={index}>{item}</li>)
         )}
       </ul>
+      <Button disableElevation variant="contained" color="primary" type="button" onClick={() => dispatch(auth.actions.logOutUser())}>Sign out</Button>
+
     </div>
   )
 

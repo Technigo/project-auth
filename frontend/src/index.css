@@ -1,6 +1,7 @@
 * {
   padding: 0;
   margin: 0;
+  font-family: 'Work Sans', sans-serif;
 }
 
 body {
@@ -39,8 +40,8 @@ main {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  width: 50%;
-  height: 80%;
+  width: 400px;
+  height: 400px;
   margin: 20px 0;
 }
 

@@ -9,7 +9,6 @@ const url = process.env.API_URL || 'http://localhost:8080'
 
 const handleSubmit = (event, email, password, setLoginFailed, dispatch) => {
   event.preventDefault()
-  console.log(url)
   fetch(`${url}/login`, {
     method: 'POST',
     headers: {
@@ -28,7 +27,6 @@ const handleSubmit = (event, email, password, setLoginFailed, dispatch) => {
       }
     })
     .then(json => {
-      console.log(json)
       dispatch(auth.actions.logInUser(json))
 
     })
