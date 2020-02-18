@@ -26,9 +26,11 @@ code {
   width: 50%;
 }
 
-button:hover {
+button:hover,
+button:focus{
   background: lightskyblue;
 }
+
 
 /* Styling the forms */
 form {
@@ -67,6 +69,32 @@ input {
   border: 1px solid #1E90FF;
   cursor: pointer;
   height: 5vh;
+}
+
+/* Styling the ContentPage component */
+.welcome-sign{
+  border: 1px solid #ccc;
+  margin-left: 20vw;
+  margin-top: 10vh;
+  width: 64vw;
+  text-align:center;
+}
+
+.img-checked {
+  margin:auto;
+  height:20vh;
+}
+
+.btn-signout {
+  display:flex;
+  margin:auto;
+  margin-top:2vh;
+  margin-bottom: 2vh;
+  border: 1px solid #1E90FF;
+  cursor: pointer;
+  height: 5vh;
+  width: 15vh;
+  justify-content:center;
 }
 
 /* Media queries ***********************/
