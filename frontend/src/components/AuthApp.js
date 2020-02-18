@@ -11,12 +11,11 @@ export const AuthApp = () => {
 
   return (
     <main>
-      <div className="app">
-        {(!isLoggedIn && !showSigninForm) && <RegistrationForm />}
-        {(!isLoggedIn && showSigninForm) && <SigninForm />}
+      <div className='app'>
+        {!isLoggedIn && !showSigninForm && <RegistrationForm />}
+        {!isLoggedIn && showSigninForm && <SigninForm />}
         {isLoggedIn && <LoggedInArea />}
       </div>
     </main>
-
   )
 }

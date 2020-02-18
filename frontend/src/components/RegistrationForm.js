@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from "react-redux"
+import { useDispatch } from 'react-redux'
 import { auth } from '../reducers/auth'
 
 import TextField from '@material-ui/core/TextField'
@@ -13,12 +13,12 @@ const handleSubmit = (event, name, email, password) => {
   fetch(`${url}/registration`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      "name": name,
-      "email": email,
-      "password": password
+      name: name,
+      email: email,
+      password: password
     })
   })
     .then(response => response.json())
@@ -35,14 +35,37 @@ export const RegistrationForm = () => {
   const [password, setPassword] = useState('')
 
   return (
-    <div className="form-container">
+    <div className='form-container'>
       <h2>Sign up</h2>
-      <p>Or <button className="redirect-button" onClick={() => { dispatch(auth.actions.toggleSigninForm()) }}> sign in to your account</button></p>
+      <p>
+        Or{' '}
+        <button
+          className='redirect-button'
+          onClick={() => {
+            dispatch(auth.actions.toggleSigninForm())
+          }}
+        >
+          {' '}
+          sign in to your account
+        </button>
+      </p>
       <form onSubmit={event => handleSubmit(event, name, email, password)}>
-        <TextField className="standard-basic" label="Name" onChange={(event) => setName(event.target.value)} />
-        <TextField className="standard-basic" label="E-mail" type="email" onChange={(event) => setEmail(event.target.value)} />
-        <TextField className="standard-basic" label="Password" type="password" onChange={(event) => setPassword(event.target.value)} />
-        <Button variant="contained" disableElevation type="submit">Create account</Button>
+        <TextField className='standard-basic' label='Name' onChange={event => setName(event.target.value)} />
+        <TextField
+          className='standard-basic'
+          label='E-mail'
+          type='email'
+          onChange={event => setEmail(event.target.value)}
+        />
+        <TextField
+          className='standard-basic'
+          label='Password'
+          type='password'
+          onChange={event => setPassword(event.target.value)}
+        />
+        <Button variant='contained' disableElevation type='submit'>
+          Create account
+        </Button>
       </form>
     </div>
   )
