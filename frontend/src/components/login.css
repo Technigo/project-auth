@@ -1,13 +1,16 @@
-/*****FORM********/
+/*****LOGIN/FORM********/
 
 .loginForm {  
-    display: flex;
-    flex-direction: row;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
     align-items: center;
     background-color: #f1adbf;
-    padding: 30px;
+    padding: 100px;
     color: #fff;
     font-size: 20px;
+
   }
   
   .loginForm h1 {
@@ -25,6 +28,13 @@
     font-size: 15px;
   }
     
+  .loginContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-items: center;
+  }
+
   /*Style for the text field*/
   .loginForm input {
     flex-wrap: wrap;
@@ -55,7 +65,8 @@
     padding: 9px;
     display: inline-block;
     cursor: pointer;
-    margin-right: 30px;
+    margin-top: 20px;
    
   }
+
   

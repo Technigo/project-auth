@@ -1,9 +1,10 @@
-/*****FORM********/
+
+
+/*****REGISTRATION/FORM********/
 
 .registrationForm {  
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
     background-color: #3c5670d5;
     padding: 30px;
     color: #fff;
@@ -24,18 +25,25 @@
     margin-bottom: 13px;
     font-size: 15px;
   }
-    
+
+  /*Style for the label and input*/
+  .infoContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-items: center;
+    width: auto;
+  }
+
   /*Style for the text field*/
   .registrationForm input {
-    flex-wrap: wrap;
     justify-items: center;
     font-size: 10px;
     margin: 5px 10px 5px 0;
     padding: 10px;
     background-color: #fff;
     border: 1px solid #ddd;
-    background: #f1f1f1;
-    /* border-radius: 15px; /* border gets rounded corners */  
+    background: #f1f1f1; 
   }
     
   /*changes the color of the button upon hovering*/
@@ -55,7 +63,6 @@
     padding: 9px;
     display: inline-block;
     cursor: pointer;
-    margin-right: 30px;
-    margin-top: 30px;
+    margin-top: 20px;
   }
   

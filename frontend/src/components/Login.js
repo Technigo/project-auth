@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import login from 'components/login.css'
+import './login.css'
 
 export const Login = () => {
  const[email, setEmail] = useState('')
@@ -28,17 +28,19 @@ const handleFormSubmit = user => {
 
   return (
     <section>
-      <form class="loginForm" submitForm={handleFormSubmit}>
-      <h1><strong>Member login</strong></h1>
-      <h2>Welcome back</h2>
-        <label >Username/Email:
-        <input value={email} placeholder="Enter Email"type="email" name="email" onChange={event => {setEmail(event.target.value)}} required></input>
-        </label>
-        <label>Password:
-        <input value={password} placeholder="Enter Password" type="password"  name="password" onChange={event => {setPassword(event.target.value)}} required> 
-        </input>
-        </label>
-        <button type="submit">Login</button>
+      <form className="loginForm" submitForm={handleFormSubmit}>
+        <h1><strong>Member login</strong></h1>
+        <h2>Welcome back</h2>
+        <div className="loginContainer">  
+            <label >Username/Email:  </label>
+            <input value={email} placeholder="Enter Email"type="email" name="email" onChange={event => {setEmail(event.target.value)}} required></input>
+        
+            <label>Password:     </label>
+            <input value={password} placeholder="Enter Password" type="password"  name="password" onChange={event => {setPassword(event.target.value)}} required> 
+            </input>
+    
+            <button type="submit">Login</button>
+        </div>
       </form>
     </section>
   )
