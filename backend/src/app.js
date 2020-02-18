@@ -30,8 +30,12 @@ app.get('/', async (req, res, next) => {
 
 /* Main endpoint for logged in users */
 app.get('/', async (req, res, next) => {
-  const data = { 'message': 'This is a secret message' }
-  res.json({ data })
+  const data = [
+    'This is a secret message',
+    'This is another secret message',
+    `This is a third secret message, don't tell`
+  ]
+  res.json(data)
 })
 
 /* Admin endpoint - to be removed */
@@ -45,6 +49,7 @@ app.get('/user', async (req, res, next) => {
 })
 
 app.post('/registration', async (req, res, next) => {
+  console.log(req.body)
   try {
     const {
       name,
