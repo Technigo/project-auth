@@ -4,7 +4,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
-import { runInNewContext } from 'vm'
+
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -13,6 +13,8 @@ mongoose.Promise = Promise
 const User = mongoose.model('User', {
   username: {
     type: String,
+    minlength: 2,
+    maxlength: 25,
     unique: true
   },
   password: {
@@ -26,7 +28,7 @@ const User = mongoose.model('User', {
 })
 
 
-const authenticateUser = async (req, res) => {
+const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({ accessToken: req.header('Authorization') })
   if (user) {
     req.user = user
