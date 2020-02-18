@@ -1,8 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -10,4 +8,98 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* Styling the App.js component */
+.btn-container {
+  border: 1px solid #ccc;
+  margin-left: 20vw;
+  margin-top: 10vh;
+  width: 64vw;
+}
+
+.btn-chooseform {
+  background: white;
+  border: none;
+  cursor: pointer;
+  height: 5vh;
+  width: 50%;
+}
+
+button:hover {
+  background: lightskyblue;
+}
+
+/* Styling the forms */
+form {
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 60vh;
+  margin-left: 20vw;
+  margin-top: 5vh;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-top: 2vh;
+  width: 60vw;
+}
+
+.form-title {
+  font-weight: bold;
+  padding-bottom: 3vh;
+  text-align: center;
+}
+
+.form-text {
+  padding-bottom: 1vh;
+}
+
+input {
+  border: 1px solid lightskyblue;
+  margin-bottom: 2vh;
+  padding-bottom: 2vh;
+  padding-left: 0.5vw;
+  padding-top: 1vh;
+}
+
+.btn-submit {
+  border: 1px solid #1E90FF;
+  cursor: pointer;
+  height: 5vh;
+}
+
+/* Media queries ***********************/
+
+/* Medium-sized devices, e.g. tablets */
+@media(min-width: 768px) {
+/* Styling the App.js component */
+.btn-container {
+  margin-left: 20vw;
+  margin-top: 10vh;
+  width: 49vw;
+}
+
+/* Styling the forms */
+form {
+  height: 60vh;
+  margin-left: 20vw;
+  margin-top: 5vh;
+  width: 45vw;
+}
+}
+
+/* Large devices, e.g. laptop or larger */
+@media(min-width: 1024px) {
+.btn-container {
+  margin-left: 30vw;
+  width: 30vw;
+}
+  
+/* Styling the forms */
+form {
+  height: 60vh;
+  margin-left: 30vw;
+  width: 26vw;
+}
 }
