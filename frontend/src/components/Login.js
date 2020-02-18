@@ -30,7 +30,7 @@ const handleFormSubmit = user => {
     <section>
       <form className="loginForm" submitForm={handleFormSubmit}>
         <h1><strong>Member login</strong></h1>
-        <h2>Welcome back</h2>
+        <h2>Welcome back - we've missed you!</h2>
         <div className="loginContainer">  
             <label >Username/Email:  </label>
             <input value={email} placeholder="Enter Email"type="email" name="email" onChange={event => {setEmail(event.target.value)}} required></input>

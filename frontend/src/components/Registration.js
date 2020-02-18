@@ -52,13 +52,13 @@ const handleFormSubmit = (event) => {
     <section>
       <form className="registrationForm" >
       <h1><strong>Sign up</strong></h1>
-      <h2>Not a member? Fill in this form and you're all set!</h2>
+      <h2>Not a member? Fill in this form and you're set!</h2>
         <div className="infoContainer">  
           <label>Name:</label> 
-          <input value={name} placeholder="Enter Username" type="text" name="name" onChange={event => {setName(event.target.value)}} required></input>
+          <input value={name} placeholder="Enter Name" type="text" name="name" onChange={event => {setName(event.target.value)}} required></input>
         
           <label >Email:</label>
-          <input value={email} placeholder="Enter Name"type="email" name="email" onChange={event => {setEmail(event.target.value)}} required></input>
+          <input value={email} placeholder="Enter Email"type="email" name="email" onChange={event => {setEmail(event.target.value)}} required></input>
           
           <label>Password:</label>
           <input value={password} placeholder="Enter Password" type="password"  name="password" onChange={event => {setPassword(event.target.value)}} required> 
