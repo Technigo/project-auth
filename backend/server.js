@@ -76,7 +76,7 @@ app.post("/login", async (req, res) => {
     res.json({ userId: user._id, accessToken: user.accessToken })
   } else {
     //Failure because user doesn't exist or encrypted password doesn't match
-    res.json({ notFound: true })
+    res.status(400).json({ notFound: true })
   }
 }
 )
@@ -84,7 +84,7 @@ app.post("/login", async (req, res) => {
 app.get("/content", authenticateUser)
 //This will only be shown if the next()-function is called from the middleware
 app.get("/content", (req, res) => {
-  res.json({ message: "You're logged in" })
+  res.json({ message: "😎 This is the secret message 😎" })
 })
 
 // Start the server

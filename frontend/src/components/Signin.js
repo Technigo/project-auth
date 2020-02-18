@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
-export const Signin = () => {
+export const Signin = ({ onLoggedIn }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [message, setMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState('')
 
   // We need to add code that checks if the email exists in our API
   // and if the password is correct
@@ -16,13 +16,22 @@ export const Signin = () => {
       body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" }
     })
-      .then(() => fetch("http://localhost:8080/content", {
-        method: "GET",
-        // headers: { "Authorization": { accessToken } }
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Your e-mail and/or password was incorrect')
+        }
+        return res.json()
       })
-        .then(res => res.json())
-        .then(json => setMessage(json.message))
-      )
+      .then(({ accessToken }) => {
+        // Spara accessToken i webbläsarens local storage,
+        window.localStorage.setItem('accessToken', accessToken)
+
+        // Kalla på inskickade funktionen från App, eftersom inloggningen lyckades.
+        onLoggedIn()
+      })
+      .catch(err => {
+        setErrorMessage(err.message)
+      })
   }
 
   // Need to create functions that handle form submit
@@ -60,9 +69,7 @@ export const Signin = () => {
           Sign-in
         </button>
       </form>
-      {message && (
-        <p>{message}</p>
-      )}
+      {errorMessage && <div>{errorMessage}</div>}
     </div>
   )
 }
