@@ -5,6 +5,23 @@ export const Registration = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
+  // We should check if this works and show different messages
+  // to the user depending on if the registration was successful or not
+  const handleRegister = event => {
+    event.preventDefault()
+    fetch("localhost:8080/users", {
+      method: "POST",
+      body: JSON.stringify({name, email, password}),
+      headers: {"Content-Type": "application/json"}
+    })
+      .then(() => {
+        setName("")
+        setEmail("")
+        setPassword("")
+      })
+      .catch(err => console.log("error:", err))
+  }
+
 // Need to create functions that handle form submit
 // We also need to think about the interplay between the frontend and backend parts
   return (
@@ -41,6 +58,7 @@ export const Registration = () => {
         <button 
           className="btn-submit"
           type="submit"
+          onClick={handleRegister}
         >
           Register
         </button>
