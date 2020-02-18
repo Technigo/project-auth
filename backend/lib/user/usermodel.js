@@ -1,8 +1,6 @@
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 
-
-
 const User = mongoose.model('User', {
   name: {
     type: String,

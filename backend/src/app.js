@@ -73,6 +73,7 @@ app.post('/login', async (req, res, next) => {
 
     const user = await User.findOne({ email: email })
     if (user && bcrypt.compareSync(password, user.password)) {
+      user.password = undefined /* we don't want to send the password hash to the client */
       res.json(user)
     } else {
       throw new Error(`user not found or password doesn't match`)
