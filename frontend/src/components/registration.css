@@ -1,0 +1,61 @@
+/*****FORM********/
+
+.registrationForm {  
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #3c5670d5;
+    padding: 30px;
+    color: #fff;
+    font-size: 20px;
+  }
+  
+  .registrationForm h1 {
+    margin: 5px 10px 5px 0;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 13px;
+  }
+
+  .registrationForm h2 {
+    margin: 5px 10px 5px 0;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 13px;
+    font-size: 15px;
+  }
+    
+  /*Style for the text field*/
+  .registrationForm input {
+    flex-wrap: wrap;
+    justify-items: center;
+    font-size: 10px;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    background: #f1f1f1;
+    /* border-radius: 15px; /* border gets rounded corners */  
+  }
+    
+  /*changes the color of the button upon hovering*/
+  .registrationForm button:hover {
+    background-color:#a0d0df;
+    color: #fff;
+  }
+    
+  /* The submit button styling */
+  .registrationForm button {
+    color: #a0d0df;
+    font-size: 15px;
+    border: #fff;
+    border-radius: 40px; /* Button gets rounded corners */ ;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 9px;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 30px;
+    margin-top: 30px;
+  }
+  

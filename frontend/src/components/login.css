@@ -1,0 +1,61 @@
+/*****FORM********/
+
+.loginForm {  
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #f1adbf;
+    padding: 30px;
+    color: #fff;
+    font-size: 20px;
+  }
+  
+  .loginForm h1 {
+    margin: 5px 10px 5px 0;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 13px;
+  }
+
+  .loginForm h2 {
+    margin: 5px 10px 5px 0;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 13px;
+    font-size: 15px;
+  }
+    
+  /*Style for the text field*/
+  .loginForm input {
+    flex-wrap: wrap;
+    justify-items: center;
+    font-size: 10px;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    background: #f1f1f1;
+    /* border-radius: 15px; /* border gets rounded corners */  
+  }
+    
+  /*changes the color of the button upon hovering*/
+  .loginForm button:hover {
+    background-color:#fbe9e4;
+    color: #fff;
+  }
+    
+  /* The submit button styling */
+  .loginForm button {
+    color: #f1adbf;
+    font-size: 15px;
+    border: #fff;
+    border-radius: 40px; /* Button gets rounded corners */ ;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 9px;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 30px;
+   
+  }
+  
