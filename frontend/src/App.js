@@ -1,25 +1,26 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { signIn } from "components/signIn";
-import { register } from "components/register";
-import { summary } from "components/summary";
+import { SignIn } from "components /SignIn";
+import { Register } from "components /Register";
+import { Summary } from "components /Summary";
+
 export const App = () => {
   return (
     <BrowserRouter>
       <Switch>
         {/* the login page */}
-        <Route path="/" exact>
-          <signIn />
+        <Route path="/signIn" exact>
+          <SignIn />
         </Route>
 
         {/* the register page */}
-        <Route path="/register">
-          <register />
+        <Route path="/">
+          <Register />
         </Route>
 
         {/* summary page */}
         <Route path="/summary">
-          <summary />
+          <Summary />
         </Route>
       </Switch>
     </BrowserRouter>
