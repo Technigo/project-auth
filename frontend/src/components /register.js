@@ -55,7 +55,7 @@ export const Register = () => {
         </span>
       </form>
       <button className="btn" onClick={handelRegisterSubmit} type="submit">
-        Submit
+        Submit test
       </button>
     </section>
   );
