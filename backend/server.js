@@ -44,9 +44,9 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // Start defining your routes here
-// app.get('/', (req, res) => {
-//   res.send('Hello world')
-// })
+app.get('/', (req, res) => {
+  res.send('Hello world')
+})
 
 app.post('/users', async (req, res) => {
   try {
