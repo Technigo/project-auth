@@ -3,5 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "postinstall": "npm install --prefix backend"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.8",
+    "crypto": "^1.0.1",
+    "react-router-dom": "^5.1.2"
   }
 }
