@@ -13,9 +13,9 @@ mongoose.Promise = Promise
 const User = mongoose.model('User', {
   username: {
     type: String,
+    unique: true,
     minlength: 2,
-    maxlength: 25,
-    unique: true
+    maxlength: 25
   },
   password: {
     type: String,
@@ -57,7 +57,7 @@ app.post('/users', async (req, res) => {
     user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
   } catch (err) {
-    res.status(403).json({ message: 'Could not create user! Are you sure you are a wizard?', errors: err.errors })
+    res.status(400).json({ message: 'Could not create user! Are you sure you are a wizard?', errors: err.errors })
   }
 })
 
