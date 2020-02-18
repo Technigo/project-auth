@@ -39,9 +39,9 @@ export const RegistrationForm = () => {
       <h2>Sign up</h2>
       <p>Or <button className="redirect-button" onClick={() => { dispatch(auth.actions.toggleSigninForm()) }}> sign in to your account</button></p>
       <form onSubmit={event => handleSubmit(event, name, email, password)}>
-        <TextField id="standard-basic" label="Name" onChange={(event) => setName(event.target.value)} />
-        <TextField id="standard-basic" label="E-mail" type="email" onChange={(event) => setEmail(event.target.value)} />
-        <TextField id="standard-basic" label="Password" type="password" onChange={(event) => setPassword(event.target.value)} />
+        <TextField className="standard-basic" label="Name" onChange={(event) => setName(event.target.value)} />
+        <TextField className="standard-basic" label="E-mail" type="email" onChange={(event) => setEmail(event.target.value)} />
+        <TextField className="standard-basic" label="Password" type="password" onChange={(event) => setPassword(event.target.value)} />
         <Button variant="contained" disableElevation type="submit">Create account</Button>
       </form>
     </div>
