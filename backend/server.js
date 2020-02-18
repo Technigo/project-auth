@@ -84,7 +84,7 @@ app.post("/login", async (req, res) => {
 app.get("/content", authenticateUser)
 //This will only be shown if the next()-function is called from the middleware
 app.get("/content", (req, res) => {
-  res.json({ content: "You're logged in" })
+  res.json({ message: "You're logged in" })
 })
 
 // Start the server

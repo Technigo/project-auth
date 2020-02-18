@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 export const Registration = () => {
   const [name, setName] = useState("")
@@ -9,10 +9,10 @@ export const Registration = () => {
   // to the user depending on if the registration was successful or not
   const handleRegister = event => {
     event.preventDefault()
-    fetch("localhost:8080/users", {
+    fetch("http://localhost:8080/users", {
       method: "POST",
-      body: JSON.stringify({name, email, password}),
-      headers: {"Content-Type": "application/json"}
+      body: JSON.stringify({ name, email, password }),
+      headers: { "Content-Type": "application/json" }
     })
       .then(() => {
         setName("")
@@ -22,21 +22,21 @@ export const Registration = () => {
       .catch(err => console.log("error:", err))
   }
 
-// Need to create functions that handle form submit
-// We also need to think about the interplay between the frontend and backend parts
+  // Need to create functions that handle form submit
+  // We also need to think about the interplay between the frontend and backend parts
   return (
     <div className="form-container">
       <form>
         <div className="form-title">Register</div>
 
         <div className="form-text">Name</div>
-        <input 
+        <input
           type="text"
-          onChange={event => setName(event.target.value)} 
+          onChange={event => setName(event.target.value)}
           value={name}
           placeholder="Name"
         />
-        
+
         <div className="form-text">Email</div>
         <input
           type="text"
@@ -52,10 +52,10 @@ export const Registration = () => {
           value={password}
           placeholder="Password"
         />
-          
+
         <br></br>
 
-        <button 
+        <button
           className="btn-submit"
           type="submit"
           onClick={handleRegister}
