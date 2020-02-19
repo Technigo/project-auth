@@ -56,7 +56,6 @@ export const Register = () => {
           />
         </span>
       </form>
-<<<<<<< HEAD
 
       <Link className="link" to={`/Summary`}>
         <Button onClick={handelRegisterSubmit} type="submit">
@@ -67,11 +66,6 @@ export const Register = () => {
       <Button onClick={() => (window.location.href = "/SignIn")} type="button">
         SignIn
       </Button>
-=======
-      <button className="btn" onClick={handelRegisterSubmit} type="submit">
-        Submit
-      </button>
->>>>>>> 21297bba0c9e0bc627d477af8aa391c6665167f3
     </section>
   );
 };
