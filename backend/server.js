@@ -51,6 +51,7 @@ app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
+//create new user
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body
@@ -70,6 +71,7 @@ app.get('/secrets', (req, res) => {
   res.json({ secret: 'This is our secret message' })
 })
 
+//sign in
 app.post('/sessions', async (req, res) => {
   const user = await User.findOne({ email: req.body.email })
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
@@ -78,6 +80,7 @@ app.post('/sessions', async (req, res) => {
     res.json({ notFound: true })
   }
 })
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
