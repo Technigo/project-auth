@@ -5,6 +5,7 @@ export const auth = createSlice({
   initialState: {
     isLoggedIn: false,
     showSigninForm: true,
+    isRegistrated: false,
     user: {}
   },
   reducers: {
@@ -23,6 +24,16 @@ export const auth = createSlice({
     logOutUser: (state, action) => {
       state.isLoggedIn = false
       state.user = {}
+    },
+    userRegistrated: (state, action) => {
+      state.isRegistrated = true
+      state.user = {
+        name: action.payload.name,
+        email: action.payload.email,
+        password: action.payload.password,
+        accessToken: action.payload.accessToken
+      }
+
     }
 
   }
