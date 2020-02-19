@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
+import {Link} from 'react-router-dom'
 import './registration.css' 
+import {LinkButton} from './LinkButton'
 
-export const Registration = (props) => {
+export const Registration = () => {
  const[name, setName] = useState('')
  const[email, setEmail] = useState('')
  const[password, setPassword] = useState('')
@@ -14,13 +16,10 @@ const handleFormSubmit = (event) => {
     body: JSON.stringify({name, email, password}),
     headers: {"Content-Type": "application/json"}
   })
-  .then(() => {
-    setName("")
-    setEmail("")
-    setPassword("")
-  })
+  .then(res => res.json())
+  .then(json => console.log(json))
   
-}
+};
 
 // useEffect(() => {
 //     fetch('http://localhost:8080/users')
@@ -45,9 +44,6 @@ const handleFormSubmit = (event) => {
 //       })
 // }
 
-
-
-
   return (
     <section>
       <form className="registrationForm" >
@@ -67,8 +63,10 @@ const handleFormSubmit = (event) => {
           <label>Repeat Password:</label>
           <input value={repeat} placeholder="Repeat Password" type="password"  name="repeat" onChange={event => {setRepeat(event.target.value)}} required>
           </input>
-    
-          <button type="submit" onClick={handleFormSubmit}>Submit</button>
+          
+          <Link to={`/memberPage`} >
+          <button onClick={handleFormSubmit}type="submit" >Submit</button>
+          </Link>
         </div>
       </form>
     </section>
