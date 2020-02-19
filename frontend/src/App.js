@@ -9,17 +9,17 @@ export const App = () => {
     <BrowserRouter>
       <Switch>
         {/* the login page */}
-        <Route path="/signIn" exact>
+        <Route path="/SignIn" exact>
           <SignIn />
         </Route>
 
         {/* the register page */}
-        <Route path="/">
+        <Route path="/" exact>
           <Register />
         </Route>
 
         {/* summary page */}
-        <Route path="/summary">
+        <Route path="/Summary" exact>
           <Summary />
         </Route>
       </Switch>

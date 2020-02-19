@@ -34,7 +34,7 @@ const authenticateUser = async (req, res, next) => {
     req.user = user;
     next();
   } else {
-    res.status(403).json({ logedOut: true, message: "Invalid password" });
+    res.status(403).json({ loggedOut: true, message: "Invalid password" });
   }
 };
 // Defines the port the app will run on. Defaults to 8080, but can be
@@ -67,9 +67,10 @@ app.post("/", async (req, res) => {
       .json({ message: "Could not create user", errors: err.errors });
   }
 });
-app.get("/secrets", authenticateUser);
-app.get("/secrets", (req, res) => {
-  res.json({ secret: "This is a super secret message." });
+// this was secrets authenticates the user you get error message in line 37 "invaild password"
+app.get("/summary", authenticateUser);
+app.get("/summary", (req, res) => {
+  res.json({ secret: "This is a the summary page" });
 });
 //the log in .post
 app.post("/signIn", async (req, res) => {

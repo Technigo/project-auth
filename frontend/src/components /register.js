@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components/macro";
 
 const url = "http://localhost:5000/";
 
 export const Register = () => {
   const [name, setName] = useState(" ");
   const [email, setEmail] = useState(" ");
-  const [password, setPassword] = useState(false);
+  const [password, setPassword] = useState(" ");
 
   const handelRegisterSubmit = () => {
     // event.preventDefault();
@@ -54,9 +56,25 @@ export const Register = () => {
           />
         </span>
       </form>
-      <button className="btn" onClick={handelRegisterSubmit} type="submit">
-        Submit
-      </button>
+
+      <Link className="link" to={`/Summary`}>
+        <Button onClick={handelRegisterSubmit} type="submit">
+          Submit
+        </Button>
+      </Link>
+
+      <Button onClick={() => (window.location.href = "/SignIn")} type="button">
+        SignIn
+      </Button>
     </section>
   );
 };
+
+const Button = styled.button`
+  color: palevioletred;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid palevioletred;
+  border-radius: 3px;
+`;
