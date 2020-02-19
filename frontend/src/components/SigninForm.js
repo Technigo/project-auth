@@ -45,15 +45,20 @@ export const SigninForm = () => {
 
   return (
     <div className="form-container">
-      <h2>Sign in</h2>
-      <p>Or <button className="redirect-button" onClick={() => { dispatch(auth.actions.toggleSigninForm()) }}> create an account</button></p>
+      <div class="upper-form-container">
+        <h2>Sign in</h2>
+        <p>Or <button className="redirect-button" onClick={() => { dispatch(auth.actions.toggleSigninForm()) }}> create an account</button></p>
+      </div>
       <form onSubmit={event => handleSubmit(event, email, password, setLoginFailed, dispatch)}>
         {loginFailed &&
-          <p className="failed-login">The e-mail or password can't be found. Please try again.</p>}
-        <TextField className="standard-basic" label="E-mail" type="email" onChange={(event) => setEmail(event.target.value)} />
-        <TextField className="standard-basic" label="Password" type="password" onChange={(event) => setPassword(event.target.value)} />
-        <Button variant="contained" disableElevation type="submit">Sign in</Button>
+          <p className="failed-login">The e-mail or password can't be found. Please try again!</p>}
+        <div className="text-input">
+          <TextField className="standard-basic" label="E-mail" type="email" onChange={(event) => setEmail(event.target.value)} />
+          <TextField className="standard-basic" label="Password" type="password" onChange={(event) => setPassword(event.target.value)} />
+        </div>
+        <Button variant="contained" disableElevation type="submit" disabled={email === "" && password === "" ? true : false}>Sign in</Button>
+
       </form>
-    </div>
+    </div >
   )
 }

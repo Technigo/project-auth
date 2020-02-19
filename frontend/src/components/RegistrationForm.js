@@ -49,15 +49,20 @@ export const RegistrationForm = () => {
 
   return (
     <div className='form-container'>
-      <h2>Sign up</h2>
-      <p>Or <button className="redirect-button" onClick={() => { dispatch(auth.actions.toggleSigninForm()) }}> sign in to your account</button></p>
+      <div class="upper-form-container">
+        <h2>Sign up</h2>
+        <p>Or <button className="redirect-button" onClick={() => { dispatch(auth.actions.toggleSigninForm()) }}> sign in to your account</button></p>
+      </div>
       <form onSubmit={event => handleSubmit(event, name, email, password, dispatch, setIsRegistrated)}>
         {isRegistrated &&
-          <p className="success-message">You are now registrated</p>}
-        <TextField className="standard-basic" label="Name" onChange={(event) => setName(event.target.value)} />
-        <TextField className="standard-basic" label="E-mail" type="email" onChange={(event) => setEmail(event.target.value)} />
-        <TextField className="standard-basic" label="Password" type="password" onChange={(event) => setPassword(event.target.value)} />
+          <p className="success-message">You are now registrated<span>✔️</span></p>}
+        <div className="text-input">
+          <TextField className="standard-basic" label="Name" onChange={(event) => setName(event.target.value)} />
+          <TextField className="standard-basic" label="E-mail" type="email" onChange={(event) => setEmail(event.target.value)} />
+          <TextField className="standard-basic" label="Password" type="password" onChange={(event) => setPassword(event.target.value)} />
+        </div>
         <Button variant="contained" disableElevation type="submit">Create account</Button>
+
       </form>
     </div>
   )

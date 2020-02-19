@@ -37,9 +37,9 @@ export const LoggedInArea = () => {
   }, [accessToken, dispatch])
 
   return (
-    <div>
+    <div className="logedin-area">
       <h2>User area</h2>
-      <List component='nav' aria-label='secondary mailbox folders'>
+      <List className="secret-message" component='nav' aria-label='secondary mailbox folders'>
         {data.map((item, index) => (
           <ListItem button>
             <ListItemText primary={item} />
@@ -47,6 +47,7 @@ export const LoggedInArea = () => {
         ))}
       </List>
       <Button
+        className="signout-btn"
         disableElevation
         variant='contained'
         color='primary'
