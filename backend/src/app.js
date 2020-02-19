@@ -7,7 +7,6 @@ import createError from 'http-errors'
 
 const app = express()
 
-
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(bodyParser.json())
@@ -22,8 +21,7 @@ app.get('/', async (req, res, next) => {
     } else {
       throw new createError(403, 'you are not authorized to access this') // TODO fix status code in error handling
     }
-  }
-  catch (err) {
+  } catch (err) {
     next(err)
   }
 })
@@ -51,11 +49,7 @@ app.get('/user', async (req, res, next) => {
 app.post('/registration', async (req, res, next) => {
   console.log(req.body)
   try {
-    const {
-      name,
-      email,
-      password
-    } = req.body
+    const { name, email, password } = req.body
 
     const newUser = await new User({ name, email, password: bcrypt.hashSync(password) }).save()
     res.status(201).json(newUser)
@@ -66,10 +60,7 @@ app.post('/registration', async (req, res, next) => {
 
 app.post('/login', async (req, res, next) => {
   try {
-    const {
-      email,
-      password
-    } = req.body
+    const { email, password } = req.body
 
     const user = await User.findOne({ email: email })
     if (user && bcrypt.compareSync(password, user.password)) {
@@ -80,11 +71,8 @@ app.post('/login', async (req, res, next) => {
     }
   } catch (err) {
     next(err)
-
   }
 })
-
-
 
 app.use((req, res) => {
   res.status(404).json({ error: `route ${req.originalUrl} doesn't exist` })
@@ -92,8 +80,8 @@ app.use((req, res) => {
 
 /* Error handling */
 app.use((err, req, res, next) => {
-  res.status(500).json({ "error": err.message })
+  const status = err.status || 500
+  res.status(status).json({ error: err.message })
 })
-
 
 module.exports = app
