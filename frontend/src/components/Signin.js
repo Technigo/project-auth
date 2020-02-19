@@ -11,6 +11,7 @@ export const Signin = ({ onLoggedIn }) => {
   // and otherwise to show an error message
   const handleSignin = event => {
     event.preventDefault()
+    setErrorMessage("")
     fetch("http://localhost:8080/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
