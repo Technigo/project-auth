@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
+import { Summary } from "components /Summary";
 
 const url = "http://localhost:5000/";
 
 export const Register = () => {
+  // hover function turn on and off
+  const inputRef = useRef();
   const [name, setName] = useState(" ");
   const [email, setEmail] = useState(" ");
   const [password, setPassword] = useState(" ");
@@ -24,9 +27,13 @@ export const Register = () => {
     <section>
       <form onSubmit={event => event.preventDefault()}>
         {/* name */}
-        <span className="input">
-          <input
-            className="name"
+        <span>
+          <Input
+            placeholder="Name"
+            ref={inputRef}
+            onMouseEnter={() => {
+              inputRef.current.focus();
+            }}
             type="text"
             onChange={event => setName(event.target.value)}
             value={name}
@@ -35,9 +42,13 @@ export const Register = () => {
         </span>
 
         {/* email */}
-        <span className="input">
-          <input
-            className="email"
+        <span>
+          <Input
+            placeholder="Email@mail.com"
+            ref={inputRef}
+            onMouseEnter={() => {
+              inputRef.current.focus();
+            }}
             type="text"
             onChange={event => setEmail(event.target.value)}
             value={email}
@@ -46,9 +57,13 @@ export const Register = () => {
         </span>
 
         {/* password */}
-        <span className="input">
-          <input
-            className="password"
+        <span>
+          <Input
+            ref={inputRef}
+            placeholder="Password"
+            onMouseEnter={() => {
+              inputRef.current.focus();
+            }}
             type="text"
             onChange={event => setPassword(event.target.value)}
             value={password}
@@ -77,4 +92,16 @@ const Button = styled.button`
   padding: 0.25em 1em;
   border: 2px solid palevioletred;
   border-radius: 3px;
+  width: 120px;
+`;
+
+const Input = styled.input`
+  padding: 0.5em;
+  margin: 0.5em;
+  color: palevioletred;
+  background: papayawhip;
+  border: none;
+  border-radius: 3px;
+  width: 300px;
+  height: 25px;
 `;

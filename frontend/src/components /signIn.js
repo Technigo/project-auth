@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 
@@ -8,11 +9,17 @@ export const SignIn = () => {
   // hover function turn on and off
   const inputRef = useRef();
 
+  // for validation useForm
+  const { errors, register, handleSubmit } = useForm();
+  const onSubmit = values => {
+    console.log(values);
+  };
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   const handelSignInSubmit = () => {
-    // event.preventDefault();
+    //event.preventDefault();
     fetch(url, {
       method: "POST",
       body: JSON.stringify({ email, password }),
@@ -24,11 +31,21 @@ export const SignIn = () => {
 
   return (
     <section>
-      <form onSubmit={event => event.preventDefault()}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {/* email */}
         <span className="input">
           <Input
-            ref={inputRef}
+            name="email"
+            ref={
+              (inputRef,
+              register({
+                required: "Required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: "invalid email address"
+                }
+              }))
+            }
             placeholder="Email@mail.com"
             onMouseEnter={() => {
               inputRef.current.focus();
@@ -36,8 +53,8 @@ export const SignIn = () => {
             type="text"
             onChange={event => setEmail(event.target.value)}
             value={email}
-            required
           />
+          {errors.email && errors.email.message}
         </span>
 
         {/* password */}
@@ -59,9 +76,9 @@ export const SignIn = () => {
             id="signIn"
             className="btn"
             onClick={handelSignInSubmit}
-            type="button"
+            type="submit"
           >
-            Submit
+            Register
           </Button>
         </Link>
       </form>
@@ -76,6 +93,7 @@ const Button = styled.button`
   padding: 0.25em 1em;
   border: 2px solid palevioletred;
   border-radius: 3px;
+  width: 120px;
 `;
 
 const Input = styled.input`
