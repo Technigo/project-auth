@@ -53,10 +53,22 @@ export const SigninForm = () => {
         {loginFailed &&
           <p className="failed-login">The e-mail or password can't be found. Please try again!</p>}
         <div className="text-input">
-          <TextField className="standard-basic" label="E-mail" type="email" onChange={(event) => setEmail(event.target.value)} />
-          <TextField className="standard-basic" label="Password" type="password" onChange={(event) => setPassword(event.target.value)} />
+          <TextField
+            required
+            className="outlined-basic"
+            variant="outlined"
+            label="E-mail"
+            type="email"
+            onChange={(event) => setEmail(event.target.value)} />
+          <TextField
+            required
+            className="outlined-basic"
+            variant="outlined"
+            label="Password"
+            type="password"
+            onChange={(event) => setPassword(event.target.value)} />
         </div>
-        <Button variant="contained" disableElevation type="submit" disabled={email === "" && password === "" ? true : false}>Sign in</Button>
+        <Button variant="contained" disableElevation type="submit">Sign in</Button>
 
       </form>
     </div >
