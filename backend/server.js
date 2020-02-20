@@ -14,6 +14,10 @@ const User = mongoose.model('User', {
     type: String,
     unique: true
   },
+  email: {
+    type: String,
+    unique: true
+  },
   password: {
     type: String,
     required: true
@@ -37,6 +41,17 @@ const port = process.env.PORT || 8080
 const app = express()
 
 // Add middlewares to enable cors and json body parsing
+
+const authenticateUser = async (req, res, next) => {
+  const user = await User.findOne({ accessToken: req.header('Authorization') })
+  if (user) {
+    req.user = user
+    next()
+  } else {
+    res.status(401).json({ loggedOut: true })
+  }
+}
+
 app.use(cors())
 app.use(bodyParser.json())
 
@@ -44,8 +59,28 @@ app.use(bodyParser.json())
 app.get('/', (req, res) => {
   res.send('Hello world')
 })
-// access point for the session
+// Registration post
+app.post('/users', async (req, res) => {
+  // try to register the user
+  try {
+    const { name, email, password } = req.body
+    // it is very important to encrypt the passwords and store them encrypted in our db!
+    const user = new User({ name, email, password: bcrypt.hashSync(password) })
+    user.save()
+    res.status(201).json({ id: user._id, accessToken: user.accessToken })
+    // if the user is not registered, then we catch the error
+  } catch (err) {
+    res.status(400).json({ message: 'Couldn´t create user', errors: err.errors })
+  }
+})
+//authenticated users
+app.post('/tweets', authenticateUser)
+app.post('/tweets', async (req, res) => {
+  //This will only happen if the next() function is called from the middleware!
+  // now we can access the req.user object from the middleware
+})
 
+// authentication access point (login/sign in)
 app.post('/sessions', async (req, res) => {
   const user = await User.findOne({ name: req.body.name })
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
@@ -57,6 +92,12 @@ app.post('/sessions', async (req, res) => {
     // b) the encrypted password does not match
     res.json({ notFound: true })
   }
+})
+
+//Autorization for the super secret  message, only available for authenticated users
+app.get('/secrets', authenticateUser)
+app.get('/secrets', (req, res) => {
+  res.json({ secret: 'This is a super secret message!' })
 })
 
 // Start the server
