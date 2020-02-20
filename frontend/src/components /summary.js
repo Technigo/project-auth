@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import { Register } from "components /Register";
+
 export const Summary = props => {
   return (
     <section>
@@ -14,7 +15,7 @@ export const Summary = props => {
         onClick={() => (window.location.href = "/Signin")}
         type="button"
       >
-        logout
+        Log Out
       </Button>
     </section>
   );

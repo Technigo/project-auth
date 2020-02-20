@@ -29,7 +29,7 @@ export const Register = () => {
   };
 
   return (
-    <Container>
+    <Section>
       <Title>Register:</Title>
       <Form onSubmit={event => event.preventDefault()}>
         {/* name */}
@@ -87,23 +87,36 @@ export const Register = () => {
           onClick={() => (window.location.href = "/SignIn")}
           type="button"
         >
-          SignIn
+          Sign In
         </Button>
       </ButtonContainer>
-    </Container>
+    </Section>
   );
 };
 
+const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+`;
+
 const Title = styled.h1``;
+
+const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const Button = styled.button`
   color: palevioletred;
-  font-size: 1em;
+  font-size: 1.8vw;
   margin: 1em;
   padding: 0.25em 1em;
   border: 2px solid palevioletred;
   border-radius: 3px;
-  width: 120px;
+  width: 20vw;
 `;
 
 const Input = styled.input`
@@ -113,25 +126,20 @@ const Input = styled.input`
   background: papayawhip;
   border: none;
   border-radius: 3px;
-  width: 70vw;
+  width: 50vw;
   height: 25px;
   @media (min-width: 768px) {
     width: 50vw;
   }
 `;
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Container = styled.section``;
 
 const ButtonContainer = styled.div`
   margin-left: 1vw;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: end;
   @media (min-width: 768px) {
     width: 50vw;
-    margin-left: 9vw;
   }
 `;

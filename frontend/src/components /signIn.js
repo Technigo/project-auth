@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
@@ -18,27 +18,41 @@ export const SignIn = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const handelSignInSubmit = () => {
-    //event.preventDefault();
+  const handelSignInSubmit = event => {
+    event.preventDefault();
     fetch(url, {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" }
     })
-      .then(res => res.json())
+      // First one runs
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error(res.json());
+        if (!res.ok) {
+          throw new Error("Your e-mail and/or password was incorrect");
         }
-      });
+        return res.json();
+      })
+      // Second will run too?
+      .then(
+        ({ accessToken }) => {
+          window.localStorage.setItem("accessToken", accessToken);
+          console.log({ accessToken });
+          // onLoggedIn();
+          handelSignInSubmit();
+        },
+        [email, password]
+      );
+
+    // (useEffect(() => {
+    //   handelSignInSubmit();
+    // }, [email, password]);)
   };
 
   return (
-    <section>
+    <Section>
       <Title>Sign in:</Title>
-      <form onSubmit={handleSubmit(onSubmit)}>
+
+      <Form onSubmit={handleSubmit(onSubmit)}>
         {/* email */}
         <span className="input">
           <Input
@@ -59,7 +73,7 @@ export const SignIn = () => {
             }}
             type="email"
             onChange={event => setEmail(event.target.value)}
-            value={email}
+            // value={email}
           />
           {errors.email && errors.email.message}
         </span>
@@ -90,20 +104,32 @@ export const SignIn = () => {
               onClick={handelSignInSubmit}
               type="submit"
             >
-              SignIn
+              Sign In
             </Button>
           </Link>
         </ButtonContainer>
-      </form>
-    </section>
+      </Form>
+    </Section>
   );
 };
 
+const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+`;
 const Title = styled.h1``;
+
+const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const Button = styled.button`
   color: palevioletred;
-  font-size: 1em;
+  font-size: 1.8vw;
   margin: 1em;
   padding: 0.25em 1em;
   border: 2px solid palevioletred;
@@ -118,7 +144,7 @@ const Input = styled.input`
   background: papayawhip;
   border: none;
   border-radius: 3px;
-  width: 70vw;
+  width: 50vw;
   height: 25px;
   @media (min-width: 768px) {
     width: 50vw;
@@ -129,8 +155,10 @@ const ButtonContainer = styled.div`
   width: 70vw;
   height: 25px;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: end;
   @media (min-width: 768px) {
     width: 50vw;
-    margin-left: 9vw;
   }
 `;
