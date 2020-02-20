@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom'
 import './registration.css' 
 import {LinkButton} from './LinkButton'
 
+const URL = 'http://localhost:8080/users'
+
 export const Registration = () => {
  const[name, setName] = useState('')
  const[email, setEmail] = useState('')
@@ -11,8 +13,8 @@ export const Registration = () => {
 
 const handleFormSubmit = (event) => {
   event.preventDefault()
-  fetch('http://localhost:8080/users', {
-    method: "POST",
+  fetch(URL, {
+    method: 'POST',
     body: JSON.stringify({name, email, password}),
     headers: {"Content-Type": "application/json"}
   })
@@ -46,26 +48,26 @@ const handleFormSubmit = (event) => {
 
   return (
     <section>
-      <form className="registrationForm" >
+      <form onSubmit={handleFormSubmit} className="registrationForm" >
       <h1><strong>Sign up</strong></h1>
       <h2>Not a member? Fill in this form and you're set!</h2>
         <div className="infoContainer">  
           <label>Name:</label> 
-          <input value={name} placeholder="Enter Name" type="text" name="name" onChange={event => {setName(event.target.value)}} required></input>
+          <input value={name} placeholder="Enter Name" type="text" name="name" onChange={event => setName(event.target.value)} required></input>
         
           <label >Email:</label>
-          <input value={email} placeholder="Enter Email"type="email" name="email" onChange={event => {setEmail(event.target.value)}} required></input>
+          <input value={email} placeholder="Enter Email"type="email" name="email" onChange={event => setEmail(event.target.value)} required></input>
           
           <label>Password:</label>
-          <input value={password} placeholder="Enter Password" type="password"  name="password" onChange={event => {setPassword(event.target.value)}} required> 
+          <input value={password} placeholder="Enter Password" type="password"  name="password" onChange={event => setPassword(event.target.value)} required> 
           </input>
     
           <label>Repeat Password:</label>
-          <input value={repeat} placeholder="Repeat Password" type="password"  name="repeat" onChange={event => {setRepeat(event.target.value)}} required>
+          <input value={repeat} placeholder="Repeat Password" type="password"  name="repeat" onChange={event => setRepeat(event.target.value)} required>
           </input>
-          
+
           <Link to={`/memberPage`} >
-          <button onClick={handleFormSubmit}type="submit" >Submit</button>
+          <button onClick={handleFormSubmit} type="submit" >Submit</button>
           </Link>
         </div>
       </form>

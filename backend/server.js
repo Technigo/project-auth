@@ -28,15 +28,15 @@ const User = mongoose.model('User', {
   }
 });
 
-const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header('Authorization') });
-  if (user) {
-    req.user = user;
-    next();
-  } else {
-    res.json({ loggedOut: true });
-  }
-};
+// const authenticateUser = async (req, res, next) => {
+//   const user = await User.findOne({ accessToken: req.header('Authorization') });
+//   if (user) {
+//     req.user = user;
+//     next();
+//   } else {
+//     res.json({ loggedOut: true });
+//   }
+// };
 
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
@@ -48,6 +48,24 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(bodyParser.json());
+
+const authenticateUser = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      accessToken: req.header('Authorization')
+    })
+    if (user) {
+      req.user = user
+      next()
+    } else {
+      res.status(401).json({ loggedOut: true })
+    }
+  } catch (err) {
+    res
+      .status(403)
+      .json({ message: 'access token missing or wrong', errors: err.errors })
+  }
+}
 
 // Start defining your routes here
 app.get('/', (req, res) => {
@@ -68,22 +86,31 @@ app.post('/users', async (req, res) => {
   }
 });
 
-app.get('/secrets', authenticateUser);
-app.get('/secrets', (req, res) => {
-  res.json({ secret: 'This is secret message' });
-});
+// app.get('/secrets', authenticateUser);
+// app.get('/secrets', (req, res) => {
+//   res.json({ secret: 'This is secret message' });
+// });
 
+// Secure endpoint, user needs to be logged in to access this.
+// This function calls up to the const authenticateUser further up
+app.get('/users/:id', authenticateUser)
+app.get('/users/:id', (req, res) => {
+  res.send('YEAH')
+})
 
 app.post('/sessions', async (req, res) => {
-  const user = await User.findOne({ email: req.body.email }) //retrieve user
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    //success 
-    res.json({ userId: user._id, accessToken: user.accessToken })
-  } else {
-    //faliure 
-    //a.
-    //b.
-    res.json({ notFund: true })
+  try {  
+    const { email, password } = req.body
+    const user = await User.findOne({ email }) //retrieve user, can use name too, change in const above in that case
+    if (user && bcrypt.compareSync(password, user.password)) { //comparing passwords
+      //success 
+      res.status(201).json({ userId: user._id, accessToken: user.accessToken })
+    } else {
+      //faliure 
+      res.json({ notFund: true })
+    }
+  } catch (err) {
+    res.status(400).json({ message: 'could not find user', errors: err.errors })
   }
 })
 
