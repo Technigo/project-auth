@@ -9,7 +9,7 @@ export const Signin = ({ onLoggedIn }) => {
   const handleSignin = event => {
     event.preventDefault()
     setErrorMessage("")
-    fetch("http://localhost:8080/login", {
+    fetch("https://project-auth-jmm.herokuapp.com/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" }

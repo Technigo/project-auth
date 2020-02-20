@@ -10,7 +10,7 @@ export const ContentPage = () => {
 
     useEffect(() => {
       setErrorMessage('')
-      fetch("http://localhost:8080/content", {
+      fetch("https://project-auth-jmm.herokuapp.com/content", {
         method: "GET",
         headers: { "Authorization": accessToken }
       })
