@@ -26,11 +26,18 @@ export const SignIn = () => {
       headers: { "Content-Type": "application/json" }
     })
       .then(res => res.json())
-      .then(json => console.log(json));
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error(res.json());
+        }
+      });
   };
 
   return (
     <section>
+      <Title>Sign in:</Title>
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* email */}
         <span className="input">
@@ -50,7 +57,7 @@ export const SignIn = () => {
             onMouseEnter={() => {
               inputRef.current.focus();
             }}
-            type="text"
+            type="email"
             onChange={event => setEmail(event.target.value)}
             value={email}
           />
@@ -65,26 +72,34 @@ export const SignIn = () => {
             onMouseEnter={() => {
               inputRef.current.focus();
             }}
-            type="text"
+            type="password"
             onChange={event => setPassword(event.target.value)}
             value={password}
             required
           />
         </span>
-        <Link className="link" to={`/Summary`}>
-          <Button
-            id="signIn"
-            className="btn"
-            onClick={handelSignInSubmit}
-            type="submit"
-          >
+        <ButtonContainer>
+          <Button onClick={() => (window.location.href = "/")} type="button">
             Register
           </Button>
-        </Link>
+
+          <Link className="link" to={`/Summary`}>
+            <Button
+              id="signIn"
+              className="btn"
+              onClick={handelSignInSubmit}
+              type="submit"
+            >
+              SignIn
+            </Button>
+          </Link>
+        </ButtonContainer>
       </form>
     </section>
   );
 };
+
+const Title = styled.h1``;
 
 const Button = styled.button`
   color: palevioletred;
@@ -103,4 +118,19 @@ const Input = styled.input`
   background: papayawhip;
   border: none;
   border-radius: 3px;
+  width: 70vw;
+  height: 25px;
+  @media (min-width: 768px) {
+    width: 50vw;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 70vw;
+  height: 25px;
+  display: flex;
+  @media (min-width: 768px) {
+    width: 50vw;
+    margin-left: 9vw;
+  }
 `;

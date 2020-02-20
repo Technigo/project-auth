@@ -27,14 +27,22 @@ const User = mongoose.model("User", {
   }
 });
 // this is a middleware that checks the accessToken finds a user that matches a registrated user
+
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header("Authorization") });
-  //if user is found
-  if (user) {
-    req.user = user;
-    next();
-  } else {
-    res.status(403).json({ loggedOut: true, message: "Invalid password" });
+  try {
+    const user = await User.findOne({
+      accessToken: req.header("Authorization")
+    });
+    if (user) {
+      req.user = user;
+      next();
+    } else {
+      res.status(401).json({ loggedOut: true });
+    }
+  } catch (err) {
+    res
+      .status(403)
+      .json({ message: "access token missing or wrong", errors: err.errors });
   }
 };
 // Defines the port the app will run on. Defaults to 8080, but can be

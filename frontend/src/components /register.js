@@ -20,12 +20,18 @@ export const Register = () => {
       headers: { "Content-Type": "application/json" }
     })
       .then(res => res.json())
-      .then(json => console.log(json));
+      .then(json => {
+        setName("");
+        setEmail("");
+        setPassword("");
+        console.log(json);
+      });
   };
 
   return (
-    <section>
-      <form onSubmit={event => event.preventDefault()}>
+    <Container>
+      <Title>Register:</Title>
+      <Form onSubmit={event => event.preventDefault()}>
         {/* name */}
         <span>
           <Input
@@ -49,7 +55,7 @@ export const Register = () => {
             onMouseEnter={() => {
               inputRef.current.focus();
             }}
-            type="text"
+            type="email"
             onChange={event => setEmail(event.target.value)}
             value={email}
             required
@@ -64,26 +70,31 @@ export const Register = () => {
             onMouseEnter={() => {
               inputRef.current.focus();
             }}
-            type="text"
+            type="password"
             onChange={event => setPassword(event.target.value)}
             value={password}
             required
           />
         </span>
-      </form>
-
-      <Link className="link" to={`/Summary`}>
-        <Button onClick={handelRegisterSubmit} type="submit">
-          Submit
+      </Form>
+      <ButtonContainer>
+        <Link className="link" to={`/Summary`}>
+          <Button onClick={handelRegisterSubmit} type="submit">
+            Register
+          </Button>
+        </Link>
+        <Button
+          onClick={() => (window.location.href = "/SignIn")}
+          type="button"
+        >
+          SignIn
         </Button>
-      </Link>
-
-      <Button onClick={() => (window.location.href = "/SignIn")} type="button">
-        SignIn
-      </Button>
-    </section>
+      </ButtonContainer>
+    </Container>
   );
 };
+
+const Title = styled.h1``;
 
 const Button = styled.button`
   color: palevioletred;
@@ -102,6 +113,25 @@ const Input = styled.input`
   background: papayawhip;
   border: none;
   border-radius: 3px;
-  width: 300px;
+  width: 70vw;
   height: 25px;
+  @media (min-width: 768px) {
+    width: 50vw;
+  }
+`;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Container = styled.section``;
+
+const ButtonContainer = styled.div`
+  margin-left: 1vw;
+  display: flex;
+  @media (min-width: 768px) {
+    width: 50vw;
+    margin-left: 9vw;
+  }
 `;
