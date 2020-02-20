@@ -46,7 +46,7 @@ app.get('/', (req, res) => {
 })
 // access point for the session
 
-app.post('/session', async (req, res) => {
+app.post('/sessions', async (req, res) => {
   const user = await User.findOne({ name: req.body.name })
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     //Successful
