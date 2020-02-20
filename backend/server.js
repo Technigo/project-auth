@@ -56,7 +56,7 @@ app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body
     //do not store plaintext passwords
-    const user = new User({ name, email, passeword: bcrypt.hashSync(password) })
+    const user = new User({ name, email, password: bcrypt.hashSync(password) })
     user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
   } catch (err) {
@@ -73,11 +73,19 @@ app.get('/secrets', (req, res) => {
 
 //sign in
 app.post('/sessions', async (req, res) => {
-  const user = await User.findOne({ email: req.body.email })
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken })
-  } else {
-    res.json({ notFound: true })
+  try {
+    const { name, password } = req.body
+    const user = await User.findOne({ email: req.body.email })
+    if (user && bcrypt.compareSync(req.body.password, user.password)) {
+      res.json({ userId: user._id, accessToken: user.accessToken })
+    } else {
+      res.json({ notFound: true })
+    }
+  } catch (err) {
+    res.status(400).json({
+      message: 'Username or password is incorrect',
+      errors: err.errors
+    })
   }
 })
 
