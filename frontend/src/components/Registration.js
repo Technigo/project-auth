@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './registration.css' 
-import {LinkButton} from './LinkButton'
+import { MemberPage } from "components/MemberPage"
+// import {LinkButton} from './LinkButton'
 
 const URL = 'http://localhost:8080/users'
 
@@ -15,7 +16,7 @@ const handleFormSubmit = (event) => {
   event.preventDefault()
   fetch(URL, {
     method: 'POST',
-    body: JSON.stringify({name, email, password}),
+    body: JSON.stringify({name: name, email: email, password: password}),
     headers: {"Content-Type": "application/json"}
   })
   .then(res => res.json())
@@ -66,9 +67,10 @@ const handleFormSubmit = (event) => {
           <input value={repeat} placeholder="Repeat Password" type="password"  name="repeat" onChange={event => setRepeat(event.target.value)} required>
           </input>
 
-          <Link to={`/memberPage`} >
+          <Link to={`/memberPage`}>
           <button onClick={handleFormSubmit} type="submit" >Submit</button>
           </Link>
+          {/* <Link to={`/memberPage`}> <button> sign in </button></Link> */}
         </div>
       </form>
     </section>

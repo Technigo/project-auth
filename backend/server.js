@@ -22,6 +22,7 @@ const User = mongoose.model('User', {
     type: String,
     required: true
   },
+
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
@@ -78,7 +79,8 @@ app.post('/users', async (req, res) => {
     const { name, email, password } = req.body;
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
     const saved = await user.save();
-    res.status(201).json({ saved });
+    res
+      .status(201).json({ saved });
   } catch (err) {
     res
       .status(400)
@@ -98,11 +100,13 @@ app.get('/users/:id', (req, res) => {
   res.send('YEAH')
 })
 
+// Member signing in
 app.post('/sessions', async (req, res) => {
   try {  
     const { email, password } = req.body
-    const user = await User.findOne({ email }) //retrieve user, can use name too, change in const above in that case
-    if (user && bcrypt.compareSync(password, user.password)) { //comparing passwords
+
+    const user = await User.findOne({ email: email }) //retrieve user, can use name too, change in const above in that case
+    if (user && bcrypt.compareSync(password, user.password)) { //comparing passwords so the member already has signed up
       //success 
       res.status(201).json({ userId: user._id, accessToken: user.accessToken })
     } else {
