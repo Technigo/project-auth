@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import '../index.css'
 
 const URL = 'http://localhost:3000/users'
@@ -8,6 +8,7 @@ export const SignUp = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const history = useHistory()
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -22,6 +23,10 @@ export const SignUp = () => {
       .then((res) => res.json())
       .then((user) => {
         console.log(user)
+        history.push('/sessions')
+      })
+      .catch((e) => {
+        console.log(e)
       })
   }
   return (
@@ -55,9 +60,7 @@ export const SignUp = () => {
           value={password}
         />
 
-        <Link to='/sessions'>
-          <button type='submit'>Sign up</button>
-        </Link>
+        <button type='submit'>Sign up</button>
       </form>
     </main>
   )

@@ -1,12 +1,38 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import '../index.css'
 
-export const Secret = () => {
+const URL = 'http://localhost:3000/secrets'
+
+export const Secret = ({ accessToken }) => {
+  const [secret, setSecret] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  useEffect(() => {
+    fetch(URL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      }
+    })
+      .then((res) => res.json())
+      .then((object) => {
+        console.log(object.secret)
+        if (object.secret) {
+          setSecret()
+        } else {
+          setErrorMessage('no pic for you')
+        }
+      })
+      .catch((e) => {
+        //console.log(e)
+      })
+  }, [])
+
   return (
     <div>
-      <h2>Carpe Diem</h2>
       <iframe
-        src='https://giphy.com/embed/JIX9t2j0ZTN9S'
+        src={secret}
         width='480'
         height='480'
         frameBorder='0'

@@ -68,7 +68,7 @@ app.post('/users', async (req, res) => {
 
 app.get('/secrets', authenticateUser)
 app.get('/secrets', (req, res) => {
-  res.json({ secret: 'This is our secret message' })
+  res.json({ secret: 'https://giphy.com/embed/JIX9t2j0ZTN9S' })
 })
 
 //sign in
