@@ -8,11 +8,11 @@ export const Main = () => {
   const [password, setPassword] = useState();
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [login, setLogin] = useState(false);
   const [message, setMessage] = useState(false);
 
   const accessToken = window.localStorage.getItem("accessToken");
 
+  //REGISTRATION, add new user
   const addUser = event => {
     event.preventDefault();
 
@@ -23,6 +23,7 @@ export const Main = () => {
       setSuccess(true);
     }
 
+    //POST method to create new user
     fetch("http://localhost:8080/users", {
       method: "POST",
       headers: {
@@ -46,6 +47,7 @@ export const Main = () => {
       });
   };
 
+  // LOGIN, to see if user exists and setting the accessToken
   const loginUser = event => {
     event.preventDefault();
 
@@ -75,6 +77,8 @@ export const Main = () => {
       .then(({ accessToken }) => {
         window.localStorage.setItem("accessToken", accessToken);
         window.location.reload();
+        setPassword("");
+        setEmail("");
         // onLoggedIn();
       })
       .catch(err => {
@@ -93,6 +97,7 @@ export const Main = () => {
     // });
   };
 
+  //Authorization of the logged in user via accessToken and sending out the secret
   useEffect(() => {
     fetch("http://localhost:8080/secrets", {
       method: "GET",
@@ -107,13 +112,10 @@ export const Main = () => {
       .then(json => setMessage(json.secret));
   }, []);
 
+  //SIGN OUT
   const handleSignOut = event => {
     event.preventDefault();
     window.location.reload();
-
-    // setShowForm(true)
-    // setShowContentPage(false)
-
     console.log("Signed out");
 
     window.localStorage.removeItem("accessToken");
@@ -141,7 +143,6 @@ export const Main = () => {
         setPassword={setPassword}
         onClick={loginUser}
       />
-      {login && <div> You are in!</div>}
       {error && (
         <div>
           <p>Error! Try again!</p>
