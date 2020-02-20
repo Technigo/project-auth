@@ -1,24 +1,26 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
+import { Link } from "react-router-dom";
 import './login.css'
 
 export const Login = () => {
  const[email, setEmail] = useState('')
  const[password, setPassword] = useState('')
  
-useEffect(() => {
-    fetch('http://localhost:8080/users')
-    .then(res => res.json())
-    .then(json => {
-      console.log(json)
-      setEmail(json)
-      setPassword(json)
-    })
-}, [])
+// useEffect(() => {
+//     fetch('http://localhost:8080/sessions')
+//     .then(res => res.json())
+//     .then(json => {
+//       console.log(json)
+//       setEmail(json)
+//       setPassword(json)
+//     })
+// }, [])
 
-const handleFormSubmit = user => {
-    fetch('http://localhost:8080/users', {
+const handleFormSubmit = event => {
+  event.preventDefault();
+    fetch('http://localhost:8080/sessions', {
         method: 'POST',
-        body: JSON.stringify({user}),
+        body: JSON.stringify({email, password }),
         headers: { 'Content-Type': 'application/json'}
     })
         .catch(() => {
@@ -38,8 +40,9 @@ const handleFormSubmit = user => {
             <label>Password:     </label>
             <input value={password} placeholder="Enter Password" type="password"  name="password" onChange={event => {setPassword(event.target.value)}} required> 
             </input>
-    
+            <Link to={`/MemberPage`}>
             <button type="submit">Login</button>
+            </Link>
         </div>
       </form>
     </section>

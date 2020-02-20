@@ -105,8 +105,8 @@ app.post('/sessions', async (req, res) => {
   try {  
     const { email, password } = req.body
 
-    const user = await User.findOne({ email: email }) //retrieve user, can use name too, change in const above in that case
-    if (user && bcrypt.compareSync(password, user.password)) { //comparing passwords so the member already has signed up
+    const user = await User.findOne({ email: req.body.email}) //retrieve user, can use name too, change in const above in that case
+    if (user && bcrypt.compareSync(req.password, user.password)) { //comparing passwords so the member already has signed up
       //success 
       res.status(201).json({ userId: user._id, accessToken: user.accessToken })
     } else {

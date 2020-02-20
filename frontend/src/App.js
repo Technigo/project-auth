@@ -15,7 +15,7 @@ export const App = () => {
         <Login />
       </div>
       </Route>
-      <Route path="/MemberPage">
+      <Route path="/Memberpage">
         <MemberPage />
       </Route>
     </Switch>

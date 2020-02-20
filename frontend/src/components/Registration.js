@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './registration.css' 
 import { MemberPage } from "components/MemberPage"
 // import {LinkButton} from './LinkButton'
 
-const URL = 'http://localhost:8080/users'
+const URL = "http://localhost:8080/users"
 
 export const Registration = () => {
  const[name, setName] = useState('')
@@ -66,9 +66,9 @@ const handleFormSubmit = (event) => {
           <label>Repeat Password:</label>
           <input value={repeat} placeholder="Repeat Password" type="password"  name="repeat" onChange={event => setRepeat(event.target.value)} required>
           </input>
-
-          <Link to={`/memberPage`}>
-          <button onClick={handleFormSubmit} type="submit" >Submit</button>
+         
+          <Link to={`/MemberPage`}>
+            <button onClick={handleFormSubmit} type="submit" >Submit</button>
           </Link>
           {/* <Link to={`/memberPage`}> <button> sign in </button></Link> */}
         </div>

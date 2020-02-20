@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import { Registration } from 'components/Registration'
+import React from "react"
+
 
 
 export const MemberPage = (props) => {
