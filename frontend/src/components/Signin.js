@@ -5,10 +5,7 @@ export const Signin = ({ onLoggedIn }) => {
   const [password, setPassword] = useState("")
   const [errorMessage, setErrorMessage] = useState('')
 
-  // We need to add code that checks if the email exists in our API
-  // and if the password is correct
-  // We also need to direct the user to a new page if the login is successful
-  // and otherwise to show an error message
+  // We need to add code that checks if the email exists in our API and if the password is correct
   const handleSignin = event => {
     event.preventDefault()
     setErrorMessage("")
@@ -35,10 +32,6 @@ export const Signin = ({ onLoggedIn }) => {
       })
   }
 
-  // Need to create functions that handle form submit
-  // We also need to think about the interplay between the frontend and backend parts
-  // We should think about if the user would sign-in with email, name or both
-  // In this component we should also check whether the password is correct or not
   return (
     <div className="form-container">
       <form>

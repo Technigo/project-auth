@@ -64,8 +64,13 @@ export const App = () => {
       {showContentPage &&
         <div className="welcome-sign">
           <ContentPage />
-          <button className="btn-signout" type="button"
-            onClick={handleSignOut}>Sign out</button>
+          <button 
+            className="btn-signout" 
+            type="button"
+            onClick={handleSignOut}
+          > 
+            Sign out
+          </button>
         </div>
       }
     </div>
