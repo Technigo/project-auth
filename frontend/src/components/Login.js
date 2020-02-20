@@ -1,13 +1,22 @@
 import React from "react";
 
-export const Login = () => {
+export const Login = props => {
+  let { email, setEmail, password, setPassword, onClick } = props;
   return (
     <form>
       <label>Email:</label>
-      <input type="email"></input>
+      <input
+        type="email"
+        value={email}
+        onChange={event => setEmail(event.target.value)}
+      ></input>
       <label>Password:</label>
-      <input type="password"></input>
-      <button>LOGIN</button>
+      <input
+        type="password"
+        value={password}
+        onChange={event => setPassword(event.target.value)}
+      ></input>
+      <button onClick={onClick}>LOGIN</button>
     </form>
   );
 };
