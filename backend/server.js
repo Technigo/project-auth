@@ -59,39 +59,33 @@ app.get('/', (req, res) => {
   try {
     const { name, email, password} = req.body;
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
-    user.save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
+    const saved = await user.save();
+    res.status(201).json(saved);
   } catch (err) {
-    res 
-    .status(400)
-    .json({ message: 'could not create user', error: err.errors })
+    res.status(400).json({ message: 'could not save user', error: err.errors })
   }  
 });
 
  //funkar
- app.get('/secrets', authenticateUser)
- app.get('/secrets', async (req, res) => {
-   res.json({ secret: 'This is a secret message'})
+ app.get('/users/:id', authenticateUser)
+ app.get('/users/:id', (req, res) => {
+   res.send('YEAH')
  })
 //login 
 
+// login user
 app.post('/sessions', async (req, res) => {
   try {
-  const user = await User.findOne({ email: req.body.email }) //retrieve user
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    //success 
-    res.json({ userId: user._id, accessToken: user.accessToken })
-  } else {
-    //faliure 
-    //a.
-    //b.
-    res.json({ notFund: true })
+    const { name, password } = req.body
+    const user = await User.findOne({ name })
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(201).json({ useId: user._id, accessToken: user.accessToken })
+    } else {
+      res.json({ notFound: true })
+    }
+  } catch (err) {
+    res.status(400).json({ message: 'could not find user', errors: err.errors })
   }
-} catch (err) {
-  res
-  .status(400)
-  .json({ message:'Could not create user', error: err.errors })
-}
 })
 
 // Start the server
