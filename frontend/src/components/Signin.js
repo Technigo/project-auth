@@ -21,10 +21,11 @@ export const Signin = ({ onLoggedIn }) => {
         return res.json()
       })
       .then(({ accessToken }) => {
-        // Spara accessToken i webbläsarens local storage,
+        //Saving the accessToken in the browser's localStorage
         window.localStorage.setItem('accessToken', accessToken)
 
-        // Kalla på inskickade funktionen från App, eftersom inloggningen lyckades.
+        //Since the login succeeded, we're calling the loggedIn-
+        //function from App, which makes the content show
         onLoggedIn()
       })
       .catch(err => {

@@ -66,8 +66,9 @@ app.post("/users", async (req, res) => {
 
 //Log in
 app.post("/login", async (req, res) => {
-  const user = await User.findOne({ email: req.body.email })
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+  const { email, password } = req.body
+  const user = await User.findOne({ email })
+  if (user && bcrypt.compareSync(password, user.password)) {
     //Success
     res.json({ userId: user._id, accessToken: user.accessToken })
   } else {

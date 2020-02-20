@@ -16,7 +16,7 @@ export const App = () => {
     setShowRegister(true)
   }
 
-  // Funktion som ska kallas på vid godkänd inloggning
+  //Handles all that happens once the user succeeds with login
   const onLoggedIn = () => {
     setShowRegister(false)
     setShowForm(false)
@@ -28,7 +28,7 @@ export const App = () => {
     setShowForm(true)
     setShowContentPage(false)
 
-    // Tar bort accessToken och userId från webbläsarens localStorage
+    //Removing the accessToken and userId from the brower's localStorage
     window.localStorage.removeItem('accessToken')
   }
 
@@ -64,11 +64,11 @@ export const App = () => {
       {showContentPage &&
         <div className="welcome-sign">
           <ContentPage />
-          <button 
-            className="btn-signout" 
+          <button
+            className="btn-signout"
             type="button"
             onClick={handleSignOut}
-          > 
+          >
             Sign out
           </button>
         </div>
