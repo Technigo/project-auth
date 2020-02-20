@@ -55,15 +55,7 @@ export const SignUp = () => {
           value={password}
         />
 
-        {/* <label htmlFor='name'>Repeat password</label>
-        <input
-          id='password'
-          type='text'
-          onChange={(event) => setPassword(event.target.value)}
-          required
-          value={password}
-        /> */}
-        <Link to='/signin'>
+        <Link to='/sessions'>
           <button type='submit'>Sign up</button>
         </Link>
       </form>

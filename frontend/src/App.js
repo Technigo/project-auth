@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './index.css'
 import { SignUp } from './components/SignUp'
@@ -9,13 +9,13 @@ export const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path='/' exact>
+        <Route path='/users' exact>
           <SignUp />
         </Route>
-        <Route path='/signin'>
+        <Route path='/sessions'>
           <SignIn />
         </Route>
-        <Route path='/secret'>
+        <Route path='/secrets'>
           <Secret />
         </Route>
       </Switch>

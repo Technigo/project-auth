@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../index.css'
 
-const URL = 'http://localhost:3000/users'
+const URL = 'http://localhost:3000/sessions'
 
 export const SignIn = () => {
   const [email, setEmail] = useState('')
@@ -45,7 +45,7 @@ export const SignIn = () => {
           value={password}
         />
 
-        <Link to='/secret'>
+        <Link to='/secrets'>
           <button type='submit'>Sign in</button>
         </Link>
       </form>
