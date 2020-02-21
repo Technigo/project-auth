@@ -4,6 +4,7 @@ export const Registration = () => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [message, setMessage] = useState("")
 
   // We should check if this works and show different messages
   // to the user depending on if the registration was successful or not
@@ -14,6 +15,9 @@ export const Registration = () => {
       body: JSON.stringify({ name, email, password }),
       headers: { "Content-Type": "application/json" }
     })
+      .then(res => {
+        res.json().then(json => setMessage(json.message))
+      })
       .then(() => {
         setName("")
         setEmail("")
@@ -62,6 +66,7 @@ export const Registration = () => {
           Register
         </button>
       </form>
+      {message}
     </div>
   )
 }
