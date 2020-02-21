@@ -27,16 +27,16 @@ const User = mongoose.model("User", {
     default: () => crypto.randomBytes(128).toString("hex")
   },
   favoriteFood: {
-    type: String, 
-    default:""
+    type: String,
+    default: ""
   },
   favoriteMovie: {
     type: String,
-    default:""
+    default: ""
   },
   favoriteBook: {
     type: String,
-    default:""
+    default: ""
   }
 })
 
@@ -66,15 +66,27 @@ app.get('/', (req, res) => {
 //Registration
 app.post("/users", async (req, res) => {
   try {
-    const { name, email, password, favoriteFood, favoriteMovie, favoriteBook } = req.body
+    const { name, email, password } = req.body
     //bcrypt because we should not store plain text passwords
-    const user = new User({ name, email, favoriteFood, favoriteMovie, favoriteBook, 
-      password: bcrypt.hashSync(password) })
+    const user = new User({
+      name, email,
+      password: bcrypt.hashSync(password)
+    })
     const saved = await user.save()
     res.status(201).json({ saved, message: "Registration succeeded" })
   } catch (err) {
     res.status(400).json({ message: "Could not create user", errors: err.errors })
   }
+})
+
+//Content update
+app.put("/users", async (req, res) => {
+  try {
+    await User.updateOne(req.body, { accessToken: req.header("Authorization") })
+  } catch (err) {
+    res.status(400).json({ message: "Could not save update", errors: err.errors })
+  }
+  res.send()
 })
 
 //Log in
@@ -94,7 +106,7 @@ app.post("/login", async (req, res) => {
 app.get("/content", authenticateUser)
 //This will only be shown if the next()-function is called from the middleware
 app.get("/content", (req, res) => {
-  res.json({ message: "😎 This is the secret message 😎" })
+  res.json({ message: "😎 This is a secret message 😎" })
 })
 
 // Start the server
