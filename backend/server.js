@@ -78,7 +78,7 @@ app.post('/users', async (req, res) => {
 
 app.get('/users/:id', authenticateUser)
 app.get('/users/:id', (req, res) => {
-  res.send('Welcome to the Jungle!!')
+  res.json({ secret: 'Welcome to the Jungle!!' })
 })
 
 app.post('/sessions', async (req, res) => {
