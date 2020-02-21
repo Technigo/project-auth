@@ -25,6 +25,18 @@ const User = mongoose.model("User", {
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex")
+  },
+  favoriteFood: {
+    type: String, 
+    default:""
+  },
+  favoriteMovie: {
+    type: String,
+    default:""
+  },
+  favoriteBook: {
+    type: String,
+    default:""
   }
 })
 
@@ -54,9 +66,10 @@ app.get('/', (req, res) => {
 //Registration
 app.post("/users", async (req, res) => {
   try {
-    const { name, email, password } = req.body
+    const { name, email, password, favoriteFood, favoriteMovie, favoriteBook } = req.body
     //bcrypt because we should not store plain text passwords
-    const user = new User({ name, email, password: bcrypt.hashSync(password) })
+    const user = new User({ name, email, favoriteFood, favoriteMovie, favoriteBook, 
+      password: bcrypt.hashSync(password) })
     const saved = await user.save()
     res.status(201).json({ saved, message: "Registration succeeded" })
   } catch (err) {
