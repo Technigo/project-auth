@@ -12,12 +12,8 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
-// Start defining your routes here
-app.get('/', (req, res) => {
-  res.send('Hello world')
-})
+// Routes
 app.use('/users', usersRoutes)
-
 app.use('/sessions', sessionsRoutes)
 
 // Start the server

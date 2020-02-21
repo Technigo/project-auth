@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { BtnLogOut } from 'components/UI'
@@ -8,10 +9,10 @@ export const Header = () => (
     {!window.localStorage.accessToken &&
       <>
         <Link to="/login">
-          <button>Log In</button>
+          <button type="button">Log In</button>
         </Link>
-        <Link to="//signup">
-          <button>Sign Up</button>
+        <Link to="/signup">
+          <button type="button">Sign Up</button>
         </Link>
       </>}
   </header>

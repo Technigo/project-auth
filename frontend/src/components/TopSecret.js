@@ -9,8 +9,6 @@ export const TopSecret = () => {
 
   const history = useHistory()
 
-
-
   useEffect(() => {
     fetch(url, {
       headers: {
@@ -19,7 +17,7 @@ export const TopSecret = () => {
     })
       .then((res) => {
         if (res.status !== 200) {
-          throw "not authorized"
+          throw new Error('not authorized')
         } else {
           return res.json()
         }
@@ -28,7 +26,7 @@ export const TopSecret = () => {
         setSecret(data.secret)
       }, [])
       .catch((err) => {
-        history.push("/login")
+        history.push('/login')
       })
   })
   return (

@@ -1,13 +1,18 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom'
 import { Signup } from 'components/Signup'
 import { Login } from 'components/Login'
 import { TopSecret } from 'components/TopSecret'
 import { Header } from 'components/Header'
+import { PrivateRoute } from 'util/PrivateRoute'
 
 export const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Header />
       <Switch>
         <Route path="/" exact>
@@ -19,13 +24,14 @@ export const App = () => {
         <Route path="/signup">
           <Signup />
         </Route>
-        <Route path="/mySite">
+        <PrivateRoute path="/mySite">
           <TopSecret />
-        </Route>
+        </PrivateRoute>
         <Route path="*">
           <h1>Error</h1>
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   )
 }
+
