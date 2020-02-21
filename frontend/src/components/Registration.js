@@ -1,52 +1,35 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import './registration.css' 
-import { MemberPage } from "components/MemberPage"
+import MemberPage from 'components/MemberPage' // --van´s profile
 // import {LinkButton} from './LinkButton'
 
-const URL = "http://localhost:8080/users"
+const URL = 'http://localhost:8080/users'
 
 export const Registration = () => {
  const[name, setName] = useState('')
  const[email, setEmail] = useState('')
  const[password, setPassword] = useState('')
  const[repeat, setRepeat] = useState('')
+ const [loggedInUser, setLoggedInUser] = useState(null)
 
-const handleFormSubmit = (event) => {
-  event.preventDefault()
-  fetch(URL, {
-    method: 'POST',
-    body: JSON.stringify({name: name, email: email, password: password}),
-    headers: {"Content-Type": "application/json"}
-  })
-  .then(res => res.json())
-  .then(json => console.log(json))
-  
-};
+  // To sign up a user.
+  const handleFormSubmit = event => {
+    event.preventDefault()
+    
+    fetch(URL, {
+      method: 'POST',
+      body: JSON.stringify({name, email, password}),
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    .then(json => console.log(json))
+    .then(json => setLoggedInUser(json))
+    .catch(err => console.log('error:', err))
+  };  
 
-// useEffect(() => {
-//     fetch('http://localhost:8080/users')
-//     .then(res => res.json())
-//     .then(json => {
-//       console.log(json)
-//       setName(json)
-//       setEmail(json)
-//       setPassword(json)
-//       setRepeat(json)
-//     })
-// }, [])
-
-// const handleFormSubmit = user => {
-//   fetch('http://localhost:8080/users', {
-//       method: 'POST',
-//       body: JSON.stringify({user}),
-//       headers: { 'Content-Type': 'application/json'}
-//   })
-//       .catch(() => {
-//           alert('try again')
-//       })
-// }
-
+if (loggedInUser === null) {
+  // If user is logged out, show login form
   return (
     <section>
       <form onSubmit={handleFormSubmit} className="registrationForm" >
@@ -67,12 +50,18 @@ const handleFormSubmit = (event) => {
           <input value={repeat} placeholder="Repeat Password" type="password"  name="repeat" onChange={event => setRepeat(event.target.value)} required>
           </input>
          
-          <Link to={`/MemberPage`}>
+          {/* <Link to={`/MemberPage`}> */}
             <button onClick={handleFormSubmit} type="submit" >Submit</button>
-          </Link>
-          {/* <Link to={`/memberPage`}> <button> sign in </button></Link> */}
+          {/* </Link> */}
+          
         </div>
       </form>
     </section>
   )
+} else {
+  // If user is logged in, show profile
+  return (<MemberPage loggedInUser={loggedInUser}/>);
 }
+}
+
+export default Registration;
