@@ -28,8 +28,9 @@ export const Login = () => {
         value={password}
         onChange={event => setPassword(event.target.value)}
       ></input>
-      <button onClick={event => handleLoginUser(event)}>LOGIN</button>
+      <button onClick={event => handleLoginUser(event)}>Login</button>
       {errorText}
+      <button onClick={() => history.push("/register")}>Sign up for an account</button>
     </form>
   );
 };

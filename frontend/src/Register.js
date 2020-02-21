@@ -33,6 +33,7 @@ export const Register = () => {
       ></input>
       <button onClick={event => handleRegister(event)}>REGISTER</button>
       {errorText}
+      <button onClick={() => history.push("/login")}>Already have an account? Login</button>
     </form>
   );
 };
