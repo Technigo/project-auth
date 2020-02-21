@@ -24,7 +24,6 @@ export const loginUser = (email, password) => {
   })
     .then(res => {
       console.log("res", res);
-      debugger;
       return res.json();
     })
     .then(({ accessToken }) => {
