@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const SignIn = () => {
+export const Login = () => {
     return (
         <section>
           <form method="post">
@@ -12,6 +12,7 @@ export const SignIn = () => {
             </input>
             </label>
           <button type="submit">Submit</button>
+          {/*<Link to={/MemberPage}><button>SIGN IN</button></Link>*/}
           </form>
        </section>
     )
