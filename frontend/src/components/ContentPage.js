@@ -7,6 +7,7 @@ export const ContentPage = () => {
   const [favoriteFood, setFavoriteFood] = useState("")
   const [favoriteMovie, setFavoriteMovie] = useState("")
   const [favoriteBook, setFavoriteBook] = useState("")
+  const [showSurveyMessage, setShowSurveyMessage] = useState(false)
 
   //Getting the accessToken from the browser's localStorage
   //and sending it as the header "Authorization"
@@ -46,6 +47,7 @@ export const ContentPage = () => {
       headers: { "Content-Type": "application/json" }
     })
       .then(() => {
+        setShowSurveyMessage(true)
         setFavoriteFood("")
         setFavoriteMovie("")
         setFavoriteBook("")
@@ -100,7 +102,7 @@ export const ContentPage = () => {
                 value={favoriteBook}
                 placeholder="Favorite Book"
               />
-
+              {!showSurveyMessage && 
               <button
                 className="btn-submit"
                 type="submit"
@@ -108,6 +110,11 @@ export const ContentPage = () => {
               >
                 Submit
                 </button>
+              }
+              {showSurveyMessage &&
+                <div className="form-text">Thank you for sharing your favorites!
+                You answered: Food: {food}, Movie: {movie} and Book:{book}</div>
+              }
             </form>
           </div>
         }
