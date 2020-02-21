@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 
 // const url = "http://localhost:5000/";
 const url = "https://anna-sarah-auth-project.herokuapp.com/";

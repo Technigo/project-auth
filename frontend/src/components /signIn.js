@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 
 // const url = "http://localhost:5000/SignIn";
 const url = "https://anna-sarah-auth-project.herokuapp.com/SignIn";

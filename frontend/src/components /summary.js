@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components/macro";
-import { Register } from "components /Register";
-import { Redirect } from "react-router-dom";
+import styled from "styled-components";
 
 // const url = "http://localhost:5000/summary";
 const url = "https://anna-sarah-auth-project.herokuapp.com/summary";

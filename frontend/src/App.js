@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { SignIn } from "components /SignIn";
 import { Register } from "components /Register";
 import { Summary } from "components /Summary";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import img from "./components /images/img.jpg";
 
 export const App = () => {
