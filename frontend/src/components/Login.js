@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom"
 export const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
   const history = useHistory()
 
   const url = 'http://localhost:8080/sessions'
@@ -20,20 +21,21 @@ export const Login = () => {
         throw new Error("Your e-mail and/or password was incorrect")
       }
       return res.json()
-    }).then(({ _id, accessToken }) => {
+    }).then(({ userId, accessToken }) => {
       if (accessToken) {
         window.localStorage.setItem("accessToken", accessToken)
-        window.localStorage.setItem("id", _id)
-        history.push(`/mySite/${_id}`)
+        window.localStorage.setItem("userId", userId)
+        history.push(`/mySite`)
       }
     }).catch(err => {
-      console.log(err)
+      setError(err.message)
     })
   }
 
   return (
     <form>
       <h2>Log in</h2>
+      {error && <h3>{error}</h3>}
       <label htmlFor="email">Email:
         <input id="email" type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       </label>

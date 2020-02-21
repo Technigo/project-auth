@@ -77,8 +77,9 @@ app.post('/users', async (req, res) => {
 })
 
 app.get('/users/:id', authenticateUser)
-app.get('/users/:id', (req, res) => {
-  res.json({ secret: 'Welcome to the Jungle!!' })
+app.get('/users/:id', async (req, res) => {
+  const user = await User.findById(req.params.id)
+  res.json({ secret: `Welcome to the Jungle!! ${user.name}` })
 })
 
 app.post('/sessions', async (req, res) => {
@@ -88,7 +89,7 @@ app.post('/sessions', async (req, res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(201).json({ userId: user._id, accessToken: user.accessToken })
     } else {
-      res.json({ notFund: true })
+      throw new Error('could not find user')
     }
   } catch (err) {
     res.status(400).json({ message: 'could not find user', errors: err.errors })

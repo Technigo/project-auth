@@ -1,23 +1,39 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 export const TopSecret = () => {
+  const token = window.localStorage.accessToken
+  const id = window.localStorage.userId
   const [secret, setSecret] = useState('')
-  const { id } = useParams()
   const url = `http://localhost:8080/users/${id}`
+
+  const history = useHistory()
+
+
 
   useEffect(() => {
     fetch(url, {
       headers: {
-        Authorization: window.localStorage.accessToken
+        Authorization: token
       }
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status !== 200) {
+          throw "not authorized"
+        } else {
+          return res.json()
+        }
+      })
       .then((data) => {
         setSecret(data.secret)
       }, [])
+      .catch((err) => {
+        history.push("/login")
+      })
   })
   return (
-    <h1>{secret}</h1>
+    <div>
+      <h1>{secret}</h1>
+    </div>
   )
 }
