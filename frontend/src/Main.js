@@ -22,14 +22,14 @@ export const Main = () => {
   }, []);
 
   //SIGN OUT
-  const handleSignOut = () => {
+  const handleLogOut = () => {
     window.localStorage.removeItem("accessToken");
     history.push("/login");
   };
 
   return (
     <div>
-      <button onClick={handleSignOut}>Sign out</button>
+      <button onClick={handleLogOut}>Log out</button>
       <div>{message}</div>
     </div>
   );
