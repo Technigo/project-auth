@@ -10,6 +10,33 @@ export const checkAuth = accessToken => {
   });
 };
 
+export const registerUser = (name, email, password) => {
+  return fetch("http://localhost:8080/users", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      password
+    })
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (!res.accessToken) {
+        return {
+          success: false,
+          message: res.message
+        };
+      }
+      return {
+        success: true
+      };
+    });
+};
+
 export const loginUser = (email, password) => {
   return fetch("http://localhost:8080/sessions", {
     method: "POST",
@@ -23,17 +50,16 @@ export const loginUser = (email, password) => {
     })
   })
     .then(res => {
-      console.log("res", res);
       return res.json();
     })
-    .then(({ accessToken }) => {
-      if (!accessToken) {
+    .then(res => {
+      if (!res.accessToken) {
         return {
           success: false,
-          text: "Your e-mail and/or password was incorrect"
+          message: res.message
         };
       }
-      window.localStorage.setItem("accessToken", accessToken);
+      window.localStorage.setItem("accessToken", res.accessToken);
       return {
         success: true
       };
