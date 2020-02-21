@@ -1,4 +1,5 @@
 import React, {useState} from 'react' ;
+import {Link} from 'react-router-dom'
 
 export const SignUpForm = () => {
 
@@ -11,13 +12,14 @@ export const SignUpForm = () => {
     event.preventDefault()
     console.log('event handleSubmit= when a new user signs up')
 // Sends the POST request with the input from your form 
-    fetch('https://localhost:8080/users', {
+    fetch('http://localhost:8080/users', {
       method: 'POST',
       body: JSON.stringify({name, email, password}),
       headers: { 'Content-Type': 'application/json' }
     })
       .then((res) => res.json())
       .catch(err => console.log('error:', err))
+     
   
 }
   
@@ -25,8 +27,8 @@ export const SignUpForm = () => {
     <div className='backgroundContainer'>
       <form className='mainContainer' onSubmit={handleSubmit}>
         <label className='text'>
-          {/* name */}
-          <p>name</p>
+          {/* sign up */}
+          <p>sign up</p>
           <input className='formField' 
             type='text'
             value={name}
@@ -37,7 +39,7 @@ export const SignUpForm = () => {
         </label>
         <label className='text'>
           {/* e-mail */}
-          <p>e-mail</p>
+         
           <input className='formField' 
             type='email'
             value={email}
@@ -48,17 +50,22 @@ export const SignUpForm = () => {
         </label>
         <label className='text'>
           {/* password */}
-          <p>password</p>
+          
           <input className='formField' 
             type='text'
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
-            placeholder='*******'
+            placeholder='password'
           />
         </label>
         <div className='btn-Container'>
-          <button  type='submit' className='btn' >submit</button>
+          <Link to='/secrets'><button  type='submit' className='btn' >sign up</button></Link>
+         
+        </div>
+        <div className='sign-in-container'>
+       <Link to='/sessions'> <p className='sign-in'>sign in</p></Link>
+       
         </div>
       </form>
     </div>
