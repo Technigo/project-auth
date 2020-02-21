@@ -23,6 +23,7 @@ export const SignUp = (props) => {
     })
     .catch(err => console.log('error:', err))
     // TODO: Add when next
+    // TODO: Add message if there is an error
   }
 
   return(
