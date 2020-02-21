@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { SignIn } from "components /SignIn";
-import { Register } from "components /Register";
-import { Summary } from "components /Summary";
+import { SignIn } from "./components /signIns";
+import { Register } from "./components /registers";
+import { Summary } from "./components /summarys";
 import styled from "styled-components";
 import img from "./components /images/img.jpg";
 
