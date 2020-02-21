@@ -15,4 +15,4 @@ Once a user is logged in, the user is returned with some content which only the 
 
 ## View it live
 
-anna-sarah-project-auth.netlify.com
+(anna-sarah-project-auth.netlify.com)
