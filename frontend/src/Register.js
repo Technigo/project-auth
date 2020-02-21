@@ -22,9 +22,17 @@ export const Register = () => {
   return (
     <form>
       <label>Name:</label>
-      <input type="text" value={name} onChange={event => setName(event.target.value)}></input>
+      <input
+        type="text"
+        value={name}
+        onChange={event => setName(event.target.value)}
+      ></input>
       <label>Email:</label>
-      <input type="email" value={email} onChange={event => setEmail(event.target.value)}></input>
+      <input
+        type="email"
+        value={email}
+        onChange={event => setEmail(event.target.value)}
+      ></input>
       <label>Password:</label>
       <input
         type="password"
@@ -33,7 +41,9 @@ export const Register = () => {
       ></input>
       <button onClick={event => handleRegister(event)}>REGISTER</button>
       {errorText}
-      <button onClick={() => history.push("/login")}>Already have an account? Login</button>
+      <button onClick={() => history.push("/login")}>
+        Already have an account? Login
+      </button>
     </form>
   );
 };

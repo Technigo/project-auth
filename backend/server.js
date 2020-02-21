@@ -28,9 +28,6 @@ const User = mongoose.model("User", {
   }
 });
 
-// const user = new User({ name: "Bob", password: bcrypt.hashSync("foobar") });
-// user.save();
-
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
@@ -67,7 +64,9 @@ app.post("/users", async (req, res) => {
     user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (err) {
-    res.status(400).json({ message: "could not create user", errors: err.errors });
+    res
+      .status(400)
+      .json({ message: "could not create user", errors: err.errors });
   }
 });
 
@@ -76,9 +75,9 @@ app.post("/users", async (req, res) => {
 app.post("/sessions", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken });
+    res.status(201).json({ userId: user._id, accessToken: user.accessToken });
   } else {
-    res.json({ message: "User not found" });
+    res.status(403).json({ message: "User not found, access forbidden" });
   }
 });
 

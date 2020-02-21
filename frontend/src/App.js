@@ -4,6 +4,7 @@ import { Register } from "./Register";
 import { Login } from "./Login";
 
 import { Main } from "Main";
+// import { Welcome } from "Welcome";
 
 export const App = () => {
   return (

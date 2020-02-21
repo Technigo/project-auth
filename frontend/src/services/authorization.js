@@ -4,7 +4,7 @@ export const checkAuth = accessToken => {
     headers: { Authorization: accessToken }
   }).then(res => {
     if (!res.ok) {
-      // !TODO: Handle status 401 and show error message.
+      console.log("forbidden");
     }
     return res.json();
   });

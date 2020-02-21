@@ -21,7 +21,11 @@ export const Login = () => {
   return (
     <form>
       <label>Email:</label>
-      <input type="email" value={email} onChange={event => setEmail(event.target.value)}></input>
+      <input
+        type="email"
+        value={email}
+        onChange={event => setEmail(event.target.value)}
+      ></input>
       <label>Password:</label>
       <input
         type="password"
@@ -30,7 +34,9 @@ export const Login = () => {
       ></input>
       <button onClick={event => handleLoginUser(event)}>Login</button>
       {errorText}
-      <button onClick={() => history.push("/register")}>Sign up for an account</button>
+      <button onClick={() => history.push("/register")}>
+        Sign up for an account
+      </button>
     </form>
   );
 };
