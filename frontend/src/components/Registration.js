@@ -10,7 +10,7 @@ export const Registration = () => {
   // to the user depending on if the registration was successful or not
   const handleRegister = event => {
     event.preventDefault()
-    fetch("http://project-auth-jmm.herokuapp.com/users", {
+    fetch("https://project-auth-jmm.herokuapp.com/users", {
       method: "POST",
       body: JSON.stringify({ name, email, password }),
       headers: { "Content-Type": "application/json" }
