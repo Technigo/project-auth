@@ -5,13 +5,13 @@ the frontend showed a registration form which POSTs to the API we build. it logi
 Once a user is logged in, the user is returned with some content which only the user sees when logged-in.
 
 ## technologies implementation 
-**React
-**React Router
-**javascript
-**MongoDb
-**Node.js
-**Mongoose
-**Styled components 
+* React
+* React Router
+* javascript
+* MongoDb
+* Node.js
+* Mongoose
+* Styled components 
 
 ## View it live
 
