@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
-import { Summary } from "components /Summary";
 
-const url = "http://localhost:5000/";
+// const url = "http://localhost:5000/";
+const url = "https://anna-sarah-auth-project.herokuapp.com/";
 
 export const Register = () => {
   // hover function turn on and off
@@ -13,7 +13,6 @@ export const Register = () => {
   const [password, setPassword] = useState(" ");
 
   const handelRegisterSubmit = () => {
-    // event.preventDefault();
     fetch(url, {
       method: "POST",
       body: JSON.stringify({ name, email, password }),

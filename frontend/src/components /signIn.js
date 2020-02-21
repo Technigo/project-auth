@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 
-const url = "http://localhost:5000/SignIn";
+// const url = "http://localhost:5000/SignIn";
+const url = "https://anna-sarah-auth-project.herokuapp.com/SignIn";
 
 export const SignIn = () => {
   // hover function turn on and off
@@ -18,8 +18,7 @@ export const SignIn = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const handelSignInSubmit = event => {
-    event.preventDefault();
+  const handelSignInSubmit = () => {
     fetch(url, {
       method: "POST",
       body: JSON.stringify({ email, password }),
@@ -30,22 +29,22 @@ export const SignIn = () => {
         if (!res.ok) {
           throw new Error("Your e-mail and/or password was incorrect");
         }
+        window.location.href = "/Summary";
         return res.json();
       })
-      // Second will run too?
+
       .then(
+        // if 200 message
         ({ accessToken }) => {
           window.localStorage.setItem("accessToken", accessToken);
           console.log({ accessToken });
-          // onLoggedIn();
-          handelSignInSubmit();
         },
         [email, password]
-      );
-
-    // (useEffect(() => {
-    //   handelSignInSubmit();
-    // }, [email, password]);)
+      )
+      .catch(err => {
+        // if 400 message
+        alert(err.message);
+      });
   };
 
   return (
@@ -73,7 +72,6 @@ export const SignIn = () => {
             }}
             type="email"
             onChange={event => setEmail(event.target.value)}
-            // value={email}
           />
           {errors.email && errors.email.message}
         </span>
@@ -97,16 +95,15 @@ export const SignIn = () => {
             Register
           </Button>
 
-          <Link className="link" to={`/Summary`}>
-            <Button
-              id="signIn"
-              className="btn"
-              onClick={handelSignInSubmit}
-              type="submit"
-            >
-              Sign In
-            </Button>
-          </Link>
+          <Button
+            id="signIn"
+            className="btn"
+            onClick={() => handelSignInSubmit()}
+            type="submit"
+          >
+            Sign In
+          </Button>
+          {/* </Link> */}
         </ButtonContainer>
       </Form>
     </Section>

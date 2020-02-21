@@ -54,10 +54,6 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(bodyParser.json());
-// Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
 
 // register form
 app.post("/", async (req, res) => {
@@ -75,11 +71,12 @@ app.post("/", async (req, res) => {
       .json({ message: "Could not create user", errors: err.errors });
   }
 });
-// this was secrets authenticates the user you get error message in line 37 "invaild password"
+// this was message authenticates the user you get error message in line 37 "invaild password"
 app.get("/summary", authenticateUser);
 app.get("/summary", (req, res) => {
-  res.json({ secret: "This is a the summary page" });
+  res.json({ message: "You have been authenticated. " });
 });
+
 //the log in .post
 app.post("/signIn", async (req, res) => {
   //get the user from the DB checking by email & password
@@ -89,7 +86,7 @@ app.post("/signIn", async (req, res) => {
     //the return will be user id and the accessToken
     res.json({ userId: user._id, accessToken: user.accessToken });
   } else {
-    res.json({ notFound: true });
+    res.status(404).json({ notFound: true });
   }
 });
 // Start the server
