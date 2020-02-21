@@ -42,14 +42,14 @@ export const App = () => {
               onClick={clickSignin}
             >
               Sign-in
-        </button>
+            </button>
 
             <button
               className="btn-chooseform"
               onClick={clickRegister}
             >
               Register
-        </button>
+            </button>
           </div>
 
           {!showRegister &&
@@ -62,7 +62,7 @@ export const App = () => {
         </div>
       }
       {showContentPage &&
-        <div className="welcome-sign">
+        <div>
           <ContentPage />
           <button
             className="btn-signout"

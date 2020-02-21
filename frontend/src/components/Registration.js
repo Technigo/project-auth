@@ -9,7 +9,7 @@ export const Registration = () => {
   // to the user depending on if the registration was successful or not
   const handleRegister = event => {
     event.preventDefault()
-    fetch("https://project-auth-jmm.herokuapp.com/users", {
+    fetch("http://localhost:8083/users", {
       method: "POST",
       body: JSON.stringify({ name, email, password }),
       headers: { "Content-Type": "application/json" }
@@ -22,8 +22,7 @@ export const Registration = () => {
       .catch(err => console.log("error:", err))
   }
 
-  // Need to create functions that handle form submit
-  // We also need to think about the interplay between the frontend and backend parts
+
   return (
     <div className="form-container">
       <form>

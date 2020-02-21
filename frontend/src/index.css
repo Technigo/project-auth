@@ -74,7 +74,7 @@ input {
 /* Styling the ContentPage component */
 .welcome-sign{
   border: 1px solid #ccc;
-  margin-left: 20vw;
+  margin-left: 18vw;
   margin-top: 10vh;
   width: 64vw;
   text-align:center;
@@ -96,6 +96,15 @@ input {
   width: 15vh;
   justify-content:center;
 }
+
+.btn-secret {
+  border: 1px solid #1E90FF;
+  cursor: pointer;
+  height: 5vh;
+  margin-bottom: 3vh;
+  margin-top: 3vh;
+}
+
 
 /* Media queries ***********************/
 
@@ -129,5 +138,9 @@ form {
   height: 60vh;
   margin-left: 30vw;
   width: 26vw;
+}
+
+.show-secret {
+  margin-left: 4vw;
 }
 }
