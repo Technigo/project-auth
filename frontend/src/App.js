@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 
+// La till en ny component 
+import { Login } from './Login'
+
 const URL = 'https://harry-potter-auth.herokuapp.com/users'
 
 export const App = () => {
@@ -16,6 +19,7 @@ export const App = () => {
     })
       .then(res => res.json())
       .then(json => console.log(json))
+      .catch(err => console.log('error:', err))
   }
 
   return (
@@ -34,12 +38,14 @@ export const App = () => {
           Password:
             <input
             required
+            type="password"
             value={password}
             onChange={event => setPassword(event.target.value)}
           />
         </label>
         <button type="submit" onClick={handleSubmit}>REGISTER</button>
       </form>
+      <Login />
     </div>
   )
 }
