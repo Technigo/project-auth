@@ -6,6 +6,7 @@ export const SignUpForm = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [accessToken, setAccessToken] = useState('')
 
 // post to API backend localhost:8080/users
   const handleSubmit = (event) => {
@@ -17,9 +18,21 @@ export const SignUpForm = () => {
       body: JSON.stringify({name, email, password}),
       headers: { 'Content-Type': 'application/json' }
     })
-      .then((res) => res.json())
-      .catch(err => console.log('error:', err))
-     
+      //.then((res) => res.json())
+     // .catch(err => console.log('error:', err))
+      .then(res => {
+
+        if (!res.ok) {
+
+          throw new Error("Something went wrong");
+
+        }
+
+       // {secrets};
+
+        return res.json();
+
+      })
   
 }
   
@@ -52,7 +65,7 @@ export const SignUpForm = () => {
           {/* password */}
           
           <input className='formField' 
-            type='text'
+            type='password'
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
@@ -60,8 +73,8 @@ export const SignUpForm = () => {
           />
         </label>
         <div className='btn-Container'>
-          <Link to='/secrets'><button  type='submit' className='btn' >sign up</button></Link>
-         
+          {/*<Link to='/secrets'><button  type='submit' className='btn' >sign up</button></Link>*/}
+         <button  type='submit' className='btn' >sign up</button>
         </div>
         <div className='sign-in-container'>
        <Link to='/sessions'> <p className='sign-in'>sign in</p></Link>
