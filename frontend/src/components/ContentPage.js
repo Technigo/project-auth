@@ -18,7 +18,7 @@ export const ContentPage = () => {
 
   useEffect(() => {
     setErrorMessage('')
-    fetch("http://project-auth-jmm.herokuapp.com/content", {
+    fetch("https://project-auth-jmm.herokuapp.com/content", {
       method: "GET",
       headers: { "Authorization": accessToken }
     })
@@ -40,7 +40,7 @@ export const ContentPage = () => {
 
   const handleFavorites = event => {
     event.preventDefault()
-    fetch("http://project-auth-jmm.herokuapp.com/users", {
+    fetch("https://project-auth-jmm.herokuapp.com/users", {
       method: "POST",
       body: JSON.stringify({ favoriteFood, favoriteMovie, favoriteBook }),
       headers: { "Content-Type": "application/json" }
@@ -55,64 +55,64 @@ export const ContentPage = () => {
 
 
   return (
-      <>
-        <div>
-          {!showSecret && 
+    <>
+      <div>
+        {!showSecret &&
           <div className="welcome-sign">
             <h1>Welcome!</h1>
             <h3>You´ve successfully signed in!</h3>
             <h5>{message}</h5>
             <img className="img-checked" src="/assets/checked.png" alt="checked" />
             <br></br>
-            <button 
+            <button
               className="btn-secret"
               onClick={showContent}
-            > 
+            >
               Show secret content
             </button>
           </div>
-          }
+        }
 
-          {showSecret && 
-            <div className="show-secret">
-              <form>
-                <div className="form-title">Please fill in your favorites</div>
-                <div className="form-text">Favorite food</div>
-                <input
-                  type="text"
-                  onChange={event => setFavoriteFood(event.target.value)}
-                  value={favoriteFood}
-                  placeholder="Favorite food"
-                />
-                
-                <div className="form-text">Favorite movie</div>
-                <input
-                  type="text"
-                  onChange={event => setFavoriteMovie(event.target.value)}
-                  value={favoriteMovie}
-                  placeholder="Favorite movie"
-                />
-                
-                <div className="form-text">Favorite book</div>
-                <input
-                  type="text"
-                  onChange={event => setFavoriteBook(event.target.value)}
-                  value={favoriteBook}
-                  placeholder="Favorite Book"
-                />
+        {showSecret &&
+          <div className="show-secret">
+            <form>
+              <div className="form-title">Please fill in your favorites</div>
+              <div className="form-text">Favorite food</div>
+              <input
+                type="text"
+                onChange={event => setFavoriteFood(event.target.value)}
+                value={favoriteFood}
+                placeholder="Favorite food"
+              />
 
-                <button
-                  className="btn-submit"
-                  type="submit"
-                  onClick={handleFavorites}
-                >
-                  Submit
+              <div className="form-text">Favorite movie</div>
+              <input
+                type="text"
+                onChange={event => setFavoriteMovie(event.target.value)}
+                value={favoriteMovie}
+                placeholder="Favorite movie"
+              />
+
+              <div className="form-text">Favorite book</div>
+              <input
+                type="text"
+                onChange={event => setFavoriteBook(event.target.value)}
+                value={favoriteBook}
+                placeholder="Favorite Book"
+              />
+
+              <button
+                className="btn-submit"
+                type="submit"
+                onClick={handleFavorites}
+              >
+                Submit
                 </button>
-              </form>
-            </div>
-          }
-        </div>
-          {errorMessage && <div>{errorMessage}</div>}
-      </>
-    )
+            </form>
+          </div>
+        }
+      </div>
+      {errorMessage && <div>{errorMessage}</div>}
+    </>
+  )
 }
