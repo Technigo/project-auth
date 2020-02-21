@@ -28,16 +28,12 @@ export const loginUser = (email, password) => {
       return res.json();
     })
     .then(({ accessToken }) => {
-      console.log(accessToken);
-      debugger;
       if (!accessToken) {
         return {
           success: false,
           text: "Your e-mail and/or password was incorrect"
         };
       }
-
-      debugger;
       window.localStorage.setItem("accessToken", accessToken);
       return {
         success: true
