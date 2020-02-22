@@ -2,6 +2,12 @@ import React from 'react'
 
 export const MemberSite = () => {
 
+return ( 
+    <>
+    <div>
+        <p>You are loged in</p>
+        </div>
+    </>
 
-    <div>You are loged in</div>
+        )
 }

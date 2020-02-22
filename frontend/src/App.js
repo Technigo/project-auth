@@ -4,6 +4,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import {SignUpForm} from 'components/SignUpForm'
 import {FirstPage} from 'components/FirstPage'
 import {NavBar} from 'components/NavBar'
+// import {MemberSite} from 'components/MemberSite'
 
 import './app.css'
 import {LogInForm} from 'components/LogInForm'
@@ -36,6 +37,9 @@ export const App = () => {
       <Route path="/sessions" exact>
       <LogInForm/>
       </Route>
+      {/* <Route path="/" exact>
+      <MemberSite/>
+      </Route> */}
       </Switch>
       </main>
       
