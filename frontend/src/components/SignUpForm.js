@@ -1,12 +1,15 @@
 import React, {useState} from 'react' ;
 import {Link} from 'react-router-dom'
+import {SignUpResult} from 'components/SignUpResult'
 
 export const SignUpForm = () => {
+  
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [accessToken, setAccessToken] = useState('')
+  const [status, setStatus] = useState('')
 
 // post to API backend localhost:8080/users
   const handleSubmit = (event) => {
@@ -18,21 +21,21 @@ export const SignUpForm = () => {
       body: JSON.stringify({name, email, password}),
       headers: { 'Content-Type': 'application/json' }
     })
-      //.then((res) => res.json())
-     // .catch(err => console.log('error:', err))
+      //.then(res => { res.json(); })
       .then(res => {
-
         if (!res.ok) {
-
-          throw new Error("Something went wrong");
-
+          setStatus('Something went wrong')
+          // TODO: Spara vad det blev för felmeddelande från back-end
+          // för att kunna se json måste man först "resolva" json i en första ".then"
+          // annars visas bara "Promise", det är för att fetch är en asynkron funktion
+        }else{
+          // {secrets};
+          console.log('success')
+          console.log(res.json())
+          setStatus('Yes you are now logged in')
         }
-
-       // {secrets};
-
-        return res.json();
-
-      })
+    })
+  
   
 }
   
@@ -72,6 +75,7 @@ export const SignUpForm = () => {
             placeholder='password'
           />
         </label>
+        <SignUpResult status={status}/>
         <div className='btn-Container'>
           {/*<Link to='/secrets'><button  type='submit' className='btn' >sign up</button></Link>*/}
          <button  type='submit' className='btn' >sign up</button>

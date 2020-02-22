@@ -4,6 +4,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import {SignUpForm} from 'components/SignUpForm'
 import {FirstPage} from 'components/FirstPage'
 import {NavBar} from 'components/NavBar'
+
 import './app.css'
 
 //export const App = () => {
@@ -22,6 +23,7 @@ export const App = () => {
     <BrowserRouter>
       <main className='backgroundContainer'>
       {/*<NavBar/>*/}
+     
       
       <Switch>
       <Route path="/" exact>

@@ -40,10 +40,11 @@ align-items: center;
 .btn-firstPage{
 padding: 10px;
 width: 264px;
+height: 36px;
 justify-content: center;
 
 color: grey; 
-font-size: 1.2em;
+
 border: none;
 margin-top: 20px;
 }
