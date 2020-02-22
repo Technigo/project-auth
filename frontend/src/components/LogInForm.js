@@ -33,19 +33,18 @@ export const LogInForm = () => {
 
 
 return (
-    <div>
-        <form onLogIn={handleLogIn}>
-            <h2>Log In</h2>
-            <label>
-                <p>E-mail:</p>
-                <input required type="text" value={email} />
+    <div className='backgroundContainer'>
+        <form className='mainContainer' onLogIn={handleLogIn}>
+            <h2>Login</h2>
+            <label className='text'>
+                <p>E-mail and Password:</p>
+                <input className='formField' required type="text" Placeholder="email@mail.com" value={email} onChange={event => setEmail(event.target.value)} />
             </label>
-            <label>
-                <p>Password:</p>
-                <input required type="password" placeholder="Enter Password" value={password} />
+            <label className='text'>
+                <input className='formField' required type="password" placeholder="Enter Password" value={password} onChange={event => setPassword(event.target.value)}/>
             </label>
             <div className='btn-Container'>
-          <button  type='submit' className='btn' >Login</button>
+          <button type='submit' className='btn' onClick={() => (window.location.href ="/MemberSite")} >Login</button>
         </div>
         </form>
     </div>
