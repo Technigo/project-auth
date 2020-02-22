@@ -32,7 +32,7 @@ export const SignUpForm = () => {
           // {secrets};
           console.log('success')
           console.log(res.json())
-          setStatus('Yes you are now logged in')
+          setStatus('Yes you are now signed up')
         }
     })
   
