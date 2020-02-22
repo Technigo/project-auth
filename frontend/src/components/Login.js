@@ -5,7 +5,7 @@ import MemberPage from 'components/MemberPage' // --van´s profile
 
 const URL = 'http://localhost:8080/sessions'
 
-export const Login = () => {
+export const Login = ({ props })  => {
  const[email, setEmail] = useState('')
  const[password, setPassword] = useState('')
  const [loggedInUser, setLoggedInUser] = useState(null)

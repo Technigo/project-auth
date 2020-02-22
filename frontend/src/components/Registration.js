@@ -6,6 +6,7 @@ import MemberPage from 'components/MemberPage' // --van´s profile
 
 const URL = 'http://localhost:8080/users'
 
+
 export const Registration = () => {
  const[name, setName] = useState('')
  const[email, setEmail] = useState('')

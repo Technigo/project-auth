@@ -1,5 +1,6 @@
 import React from "react"
 import './member.css' 
+
 export const MemberPage = (props) => {
 
   return(
