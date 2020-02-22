@@ -22,7 +22,8 @@
 
 .header{
     margin-top: 100px; 
-    color: grey;   
+    color: grey; 
+    text-align: center;  
 }
 
 .btn-Container-firtsPage{
@@ -30,7 +31,6 @@ width: 600px;
 height: 100px;
 display: flex;
 flex-direction: column;
-
 margin-top: 50px;
 justify-content: center;
 align-items: center;
@@ -42,9 +42,7 @@ padding: 10px;
 width: 264px;
 height: 36px;
 justify-content: center;
-
 color: grey; 
-
 border: none;
 margin-top: 20px;
 }
@@ -69,13 +67,10 @@ margin-top: 20px;
     align-items: center;
 }
 
-p{
-    
-}
 
-.text{
-    font-size: 1.5em;
-    margin-left: 10px;
+
+h1{
+    width: 250px;
     margin-right: 10px;
 }
 
@@ -116,3 +111,19 @@ a{
     text-decoration: none;
     color: grey;
    }
+
+.txt-btn-container{
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 250px;
+
+}
+
+.signout-btn{
+    margin-top: 50px;
+    width: 264px;
+    height: 36px;
+    border: none;
+    color: grey;
+}

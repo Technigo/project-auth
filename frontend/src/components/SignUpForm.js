@@ -44,7 +44,7 @@ export const SignUpForm = () => {
       <form className='mainContainer' onSubmit={handleSubmit}>
         <label className='text'>
           {/* sign up */}
-          <p>sign up</p>
+          <h1>sign up</h1>
           <input className='formField' 
             type='text'
             value={name}
