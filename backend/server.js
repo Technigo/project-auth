@@ -80,7 +80,7 @@ app.post('/users', async (req, res) => {
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
     const saved = await user.save();
     res
-      .status(201).json( saved ); // previous ({saved})
+      .status(201).json( {saved} ); // previous ({saved})
   } catch (err) {
     res
       .status(400)
@@ -109,8 +109,8 @@ app.post('/sessions', async (req, res) => {
   try {  
     const { email, password } = req.body
 
-    const user = await User.findOne({ email }) //retrieve user, can use name too, change in const above in that case
-    if (user && bcrypt.compareSync(password, user.password)) { //comparing passwords so the member already has signed up
+    const user = await User.findOne({ email: req.body.email }) //retrieve user, can use name too, change in const above in that case
+    if (user && bcrypt.compareSync(req.password, user.password)) { //comparing passwords so the member already has signed up
       //success 
       res.status(201).json({ userId: user._id, accessToken: user.accessToken })
     } else {
