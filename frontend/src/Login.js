@@ -12,7 +12,9 @@ export const Login = () => {
     event.preventDefault();
     const response = await loginUser(email, password);
     if (response.success) {
-      history.push("/");
+      history.push("/sessions");
+      console.log(response.success);
+
       return;
     }
     setErrorText(response.message);

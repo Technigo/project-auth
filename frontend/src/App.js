@@ -4,7 +4,7 @@ import { Register } from "./Register";
 import { Login } from "./Login";
 
 import { Main } from "Main";
-// import { Welcome } from "Welcome";
+import { Welcome } from "Welcome";
 
 export const App = () => {
   return (
@@ -18,6 +18,9 @@ export const App = () => {
         </Route>
         <Route path="/register">
           <Register />
+        </Route>
+        <Route path="/sessions">
+          <Welcome />
         </Route>
         <Route path="*">
           <h1>Error</h1>

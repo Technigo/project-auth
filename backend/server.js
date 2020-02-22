@@ -75,7 +75,10 @@ app.post("/users", async (req, res) => {
 app.post("/sessions", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.status(201).json({ userId: user._id, accessToken: user.accessToken });
+    res.status(201).json({
+      userId: user._id,
+      accessToken: user.accessToken
+    });
   } else {
     res.status(403).json({ message: "User not found, access forbidden" });
   }
