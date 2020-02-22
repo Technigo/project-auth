@@ -109,7 +109,8 @@ export const ContentPage = () => {
                   </button>
                 }
                 {showSurveyMessage &&
-                  <div className="form-text">Thank you for sharing your favorites!</div>
+                <div className="form-text">Thank you for sharing your favorites!
+                   You answered: Food: {favoriteFood}, Movie: {favoriteMovie} and Book:{favoriteBook}</div>
                 }
               </form>
               </div>
