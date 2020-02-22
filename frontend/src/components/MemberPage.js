@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import './member.css' 
 
-const URL = 'http://localhost:8080/users'
+const URL = 'http://localhost:9000/users'
 
 export const MemberPage = () => {
   const accessToken = window.localStorage.getItem("accessToken")
@@ -11,7 +11,7 @@ export const MemberPage = () => {
 
   useEffect(() => {
     fetch(`${URL}/${userId}`, {
-      method: "POST",
+      method: "GET", // changed from POST
       headers: {
         Authorization: accessToken
       }
@@ -29,7 +29,7 @@ export const MemberPage = () => {
     setAuthorized(true)
   })
   .catch(err => {
-    console.log("error", err)
+    console.log("ERROR", err)
   })
   }, [userId, accessToken])
 
@@ -41,17 +41,20 @@ export const MemberPage = () => {
   return (
  
     <div>
-     {authorized &&  <section className="memberSection" >
+       {/* if authorized display member section */}
+     {authorized &&  
+      <section className="memberSection" >
         <h2>Member information</h2>
         <h3>{user.name}</h3>
         <h3>You can't imagine how awesome you are!</h3>
         <div className="infoContainer">
-        <button id="logout"className="btn" onClick={() => handleLogOut()} type="button">
-          Log Out
-        </button>
+          <button id="logout" className="btn" onClick={() => handleLogOut()} type="button">
+            Log Out
+          </button>
         </div>
       </section>
       }
+        {/* if not authorized display message */}
      {!authorized && <div className="memberSection"> You are not authorized </div>}
     </div>
    

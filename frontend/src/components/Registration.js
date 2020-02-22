@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-// import { Link } from 'react-router-dom'
 import './registration.css' 
 
-// import {LinkButton} from './LinkButton'
 
-const URL = 'http://localhost:8080/register'
+const URL = 'http://localhost:9000/register'
 
 
 export const Registration = () => {
@@ -12,8 +10,8 @@ export const Registration = () => {
  const[email, setEmail] = useState('')
  const[password, setPassword] = useState('')
  const[repeat, setRepeat] = useState('')
- const [errorMessage, setErrorMessage] = useState(null)
- const [successMessage, setSuccessMessage] = useState(null)
+ const [errorMsg, setErrorMsg] = useState(null)
+ const [successMsg, setSuccessMsg] = useState(null)
 
   // To sign up a user.
   const handleFormSubmit = event => {
@@ -21,22 +19,23 @@ export const Registration = () => {
     
     fetch(URL, {
       method: 'POST',
-      body: JSON.stringify({name, email, password}),
-      headers: {'Content-Type': 'application/json'}
+      body: JSON.stringify({ name, email, password }),
+      headers: { 'Content-Type': 'application/json' }
     })
-    .then(res => {
-      if(res.ok) {
-        setSuccessMessage("User created!") //sets sucess message
-        setErrorMessage(false) // set error message to false
-      }
-      else {
-        setErrorMessage("Could not create user") // set error message
-        setSuccessMessage(false) // set successmessage to false
-        return res.text().then(json => { throw new Error(json)})
-      }
-    })
-    .then(user => console.log("created user:", user))
-    .catch(err => console.log('error:', err))
+      .then(res => {
+        if (res.ok) {
+          setSuccessMsg("User created!") // set success message
+          setErrorMsg(false) // set error message to false
+          return res.json()
+        }
+        else {
+          setErrorMsg("could not create user") // set error message
+          setSuccessMsg(false) // set success message to false
+          return res.text().then(json => { throw new Error(json) })
+        }
+      })
+      .then(user => console.log("created user:", user))
+      .catch(err => { console.error(err) }) // previous this code .catch(err =>  console.log('error:', err) )
   };  
 
 
@@ -44,6 +43,7 @@ export const Registration = () => {
   return (
     <section>
       <form onSubmit={handleFormSubmit} className="registrationForm" >
+      
       <h1><strong>Sign up</strong></h1>
       <h2>Not a member? Fill in this form and you're set!</h2>
         <div className="infoContainer">  
@@ -60,13 +60,12 @@ export const Registration = () => {
           <label>Repeat Password:</label>
           <input value={repeat} placeholder="Repeat Password" type="password"  name="repeat" onChange={event => setRepeat(event.target.value)} required>
           </input>
-
-          {errorMessage && <div className="error-message"> {errorMessage} </div>}
-          {successMessage && <div classname="success-message"> {successMessage} </div>}
+          {/* success and error messages */}
+          {errorMsg && <div className="error-message"> {errorMsg} </div>}
+          {successMsg && <div className="success-message"> {successMsg} </div>}
     
-          {/* <Link to={`/MemberPage`}> */}
             <button onClick={handleFormSubmit} type="submit" >Submit</button>
-          {/* </Link> */}
+    
           
         </div>
       </form>
@@ -74,4 +73,4 @@ export const Registration = () => {
   )
 
   }
-export default Registration
+export default Registration;

@@ -12,7 +12,8 @@ export const App = () => {
     <BrowserRouter>
       <Switch>
       {/* Route for Singing up new member and logging in exicsting member */}
-        <Route path="/">
+        <Route path="/" exact>    
+        {/* Added exact above */}
         <div className="authContainer">
           <Registration />
           <Login />
