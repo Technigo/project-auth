@@ -13,8 +13,7 @@ export const Profile = (loggedInUser) => {
 
     useEffect(() => {
         console.log(loggedInUser)
-        // Never do this unless you messed up somewhere else
-        loggedInUser = loggedInUser.loggedInUser;
+
         setUserId(loggedInUser._id);
         setAccessToken(loggedInUser.accessToken);
         // Include userId in the path
