@@ -34,26 +34,28 @@ export const SignInForm = () => {
           })
           .catch(err => {
             setErrorMessage(err.message)
+            alert(err.message);
           })
     }
 
 return (
     <div>
         <form onSubmit={handleSignInForm}>
-          
-            <h2>Log In</h2>
+           
+            <div className='mainContainer'>
+            <h1>log in</h1>
             <label>
-                <p>E-mail:</p>
-                <input type="email" value={email}
+            <input className='formField' type="email" placeholder="email" value={email}
             onChange={(event) => setEmail(event.target.value)}  required />
             </label>
             <label>
-                <p>Password:</p>
-                <input required type="password" placeholder="Enter Password" value={password} onChange={(event) => setPassword(event.target.value)}/>
+            <input className='formField' required type="password" placeholder="enter password" value={password} onChange={(event) => setPassword(event.target.value)}/>
             </label>
             <div className='btn-Container'>
           <button  type='submit' className='btn' >Login</button>
         </div>
+            </div>
+        
         </form>
     </div>
 )

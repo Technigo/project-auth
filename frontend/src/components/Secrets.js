@@ -26,6 +26,23 @@ export const Secrets = () => {
     })
 
     return (
+      <div className='mainContainer'>
+      <div className='txt-btn-container'>
         <div>Status: { authStatus }.<br />Secret: { secret }</div>
+        <button className='signout-btn' onClick={() => (
+           window.localStorage.removeItem('accessToken'),
+           window.location.href = "/sessions"
+           )} type="button"> Log Out </button>
+        </div>
+        </div>
+         
+
+        
+
+      
+
+       
+
+       
     )
 }
