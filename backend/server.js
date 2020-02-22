@@ -29,15 +29,6 @@ const User = mongoose.model('User', {
   }
 });
 
-// const authenticateUser = async (req, res, next) => {
-//   const user = await User.findOne({ accessToken: req.header('Authorization') });
-//   if (user) {
-//     req.user = user;
-//     next();
-//   } else {
-//     res.json({ loggedOut: true });
-//   }
-// };
 
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
@@ -74,7 +65,7 @@ app.get('/', (req, res) => {
 });
 
 // Creating user who is signing up
-app.post('/users', async (req, res) => {
+app.post('/register', async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
@@ -84,7 +75,7 @@ app.post('/users', async (req, res) => {
   } catch (err) {
     res
       .status(400)
-      .json({ message: 'could not create user', error: err.errors });
+      .json({ message: 'Error! Could not create user', error: err.errors });
   }
 });
 
@@ -98,11 +89,11 @@ app.post('/users', async (req, res) => {
 app.get('/users/:id', authenticateUser)
 app.get('/users/:id', (req, res) => {
   res.send('YEAH')
-  // try {
-  //   res.status(201).json(req.user)
-  // } catch (err) {
-  //   res.status(400).json({message: 'could not save user', errors: err.errors})
-  // }
+  try {
+    res.status(201).json(req.user)
+  } catch (err) {
+    res.status(400).json({message: 'could not save user', errors: err.errors})
+  }
 })
 
 // Member signing in
