@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // import { Link } from 'react-router-dom'
 import './registration.css' 
-import MemberPage from 'components/MemberPage' // --van´s profile
+
 // import {LinkButton} from './LinkButton'
 
 const URL = 'http://localhost:8080/register'

@@ -46,6 +46,7 @@ const authenticateUser = async (req, res, next) => {
     const user = await User.findOne({
       accessToken: req.header('Authorization')
     })
+    user.password = undefined // so password is not returned
     if (user) {
       req.user = user
       next()
@@ -55,7 +56,7 @@ const authenticateUser = async (req, res, next) => {
   } catch (err) {
     res
       .status(403)
-      .json({ message: 'access token missing or wrong', errors: err.errors })
+      .json({ message: 'access token missing or wrong', errors: err.message })
   }
 }
 
@@ -71,11 +72,12 @@ app.post('/register', async (req, res) => {
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
     const saved = await user.save();
     res
-      .status(201).json({saved}); 
+      .status(201).json(saved); 
   } catch (err) {
+    console.error(err.message)
     res
       .status(400)
-      .json({ message: 'Error! Could not create user', error: err.errors });
+      .json({ message: 'Error! Could not create user', error: err.message });
   }
 });
 
@@ -88,11 +90,10 @@ app.post('/register', async (req, res) => {
 // This function calls up to the const authenticateUser further up
 app.get('/users/:id', authenticateUser)
 app.get('/users/:id', (req, res) => {
-  res.send('YEAH')
   try {
     res.status(201).json(req.user)
   } catch (err) {
-    res.status(400).json({message: 'could not save user', errors: err.errors})
+    res.status(400).json({message: 'could not save user', errors: err.message})
   }
 })
 
@@ -107,10 +108,10 @@ app.post('/sessions', async (req, res) => {
       res.status(201).json({ userId: user._id, accessToken: user.accessToken })
     } else {
       //faliure 
-      res.json({ notFund: true })
+      res.json({ message: "wrong username or paaaword" })
     }
   } catch (err) {
-    res.status(400).json({ message: 'could not find user', errors: err.errors })
+    res.status(400).json({  errors: err.errors })
   }
 })
 
