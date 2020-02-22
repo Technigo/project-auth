@@ -6,8 +6,10 @@ import {SignInForm} from 'components/SignInForm'
 import {FirstPage} from 'components/FirstPage'
 import {Secrets} from 'components/Secrets'
 import {NavBar} from 'components/NavBar'
+// import {MemberSite} from 'components/MemberSite'
 
 import './app.css'
+import {LogInForm} from 'components/LogInForm'
 
 //export const App = () => {
   //return (
@@ -35,13 +37,17 @@ export const App = () => {
       <SignUpForm/>
       </Route>
       <Route path="/sessions" exact>
+
       <SignInForm/>
       </Route>
       <Secrets />
+
+    
+
       </Switch>
       </main>
       
-      </BrowserRouter>
-    
+      </BrowserRouter> 
+
   )
 }
