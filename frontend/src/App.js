@@ -2,7 +2,9 @@ import React, {useState} from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom' 
 
 import {SignUpForm} from 'components/SignUpForm'
+import {SignInForm} from 'components/SignInForm'
 import {FirstPage} from 'components/FirstPage'
+import {Secrets} from 'components/Secrets'
 import {NavBar} from 'components/NavBar'
 // import {MemberSite} from 'components/MemberSite'
 
@@ -35,11 +37,13 @@ export const App = () => {
       <SignUpForm/>
       </Route>
       <Route path="/sessions" exact>
-      <LogInForm/>
+
+      <SignInForm/>
       </Route>
-      {/* <Route path="/" exact>
-      <MemberSite/>
-      </Route> */}
+      <Secrets />
+
+    
+
       </Switch>
       </main>
       
