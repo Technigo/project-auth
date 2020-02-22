@@ -110,7 +110,7 @@ app.post('/sessions', async (req, res) => {
 //Autorization for the super secret  message, only available for authenticated users
 app.get('/secrets', authenticateUser)
 app.get('/secrets', (req, res) => {
-  res.json({ secret: 'This is a super secret message!' })
+  res.status(200).json({ secret: 'This is a super secret message!' })
 })
 
 // Start the server
