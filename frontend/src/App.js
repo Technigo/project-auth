@@ -6,6 +6,7 @@ import {FirstPage} from 'components/FirstPage'
 import {NavBar} from 'components/NavBar'
 
 import './app.css'
+import {LogInForm} from 'components/LogInForm'
 
 //export const App = () => {
   //return (
@@ -31,11 +32,12 @@ export const App = () => {
       </Route>
       <Route path="/users" exact>
       <SignUpForm/>
+
       </Route>
       </Switch>
       </main>
       
-      </BrowserRouter>
-    
+      </BrowserRouter> 
+
   )
 }
