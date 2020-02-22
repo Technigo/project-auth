@@ -1,7 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 
 export const LogInForm = () => {
     
+    const [errorMessage, setErrorMessage] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
     const handleLogIn = (event) => {
         event.preventDefault()
         console.log("Log In")
@@ -17,15 +21,15 @@ export const LogInForm = () => {
             }
             return res.json()
           })
-          .then(({ accessToken }) => {
-            window.localStorage.setItem('accessToken', accessToken)
-            onLoggedIn()
-          })
+        //   .then(({ accessToken }) => {
+        //     window.localStorage.setItem('accessToken', accessToken)
+        //     onLoggedIn()
+        //   })
           .catch(err => {
             setErrorMessage(err.message)
           })
     }
-}
+
 
 return (
     <div>
@@ -45,3 +49,4 @@ return (
         </form>
     </div>
 )
+}
