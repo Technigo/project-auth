@@ -1,6 +1,10 @@
-import React, {useState} from 'react' 
+import React, {useState} from 'react'
+import {BrowserRouter, Switch, Route} from 'react-router-dom' 
 
 import {SignUpForm} from 'components/SignUpForm'
+import {FirstPage} from 'components/FirstPage'
+import {NavBar} from 'components/NavBar'
+
 import './app.css'
 import {LogInForm} from 'components/LogInForm'
 
@@ -16,13 +20,24 @@ import {LogInForm} from 'components/LogInForm'
 
 export const App = () => {
   return (
-    <>
-      <div className='backgroundContainer'>
+    
+    <BrowserRouter>
+      <main className='backgroundContainer'>
+      {/*<NavBar/>*/}
+     
+      
+      <Switch>
+      <Route path="/" exact>
+      <FirstPage/>
+      </Route>
+      <Route path="/users" exact>
       <SignUpForm/>
-      </div>
-      <div className='backgroundContainer'>
-      <LogInForm/>
-      </div>
-    </>
+
+      </Route>
+      </Switch>
+      </main>
+      
+      </BrowserRouter> 
+
   )
 }
