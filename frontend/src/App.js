@@ -32,7 +32,9 @@ export const App = () => {
       </Route>
       <Route path="/users" exact>
       <SignUpForm/>
-
+      </Route>
+      <Route path="/sessions" exact>
+      <LogInForm/>
       </Route>
       </Switch>
       </main>
