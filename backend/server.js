@@ -9,7 +9,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-console.log('Start111')
+console.log('Start1112')
 
 const User = mongoose.model('User', {
   name: {
@@ -68,10 +68,12 @@ app.post('/users', async (req, res) => {
 try {
   const {name, email, password} = req.body;
   const user = new User({name, email, password: bcrypt.hashSync(password)});
-  user.save();
+  // Must use "await" here, else the try/catch will not work since "save" an asynch function
+  await user.save()
   res.status(201).json({id: user._id, accessToken: user.accessToken});
+
 } catch (err) {
-res.status(400).json({message: 'Could not create user', errors: err.errors});
+  res.status(400).json({message: 'Could not create user', errors: err.errors});
 }
 });
 
