@@ -57,7 +57,7 @@ app.use(bodyParser.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  res.send('Tiago was here!')
 })
 // Registration post
 app.post('/users', async (req, res) => {
