@@ -5,7 +5,8 @@ const initialState = {
     name: '',
     email: '',
     accessToken: '',
-    secrets: []
+    secrets: [],
+    userID: ''
 }
 
 export const auth = createSlice({
@@ -14,6 +15,9 @@ export const auth = createSlice({
     reducers: {
         setToken: (state, action) => {
             state.accessToken = action.payload
+        },
+        setUser: (state, action) => {
+            state.userID = action.payload
         },
         logout: (state, action) => {
             state.accessToken = ''

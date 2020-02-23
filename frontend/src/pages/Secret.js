@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
-import { auth } from "../reducers/auth"
-import { BeatLoader } from 'react-spinners'
+import { auth } from '../reducers/auth'
+
+// import { BeatLoader } from 'react-spinners'
 
 export const Secret = () => {
     const [secrets, setSecrets] = useState([])
@@ -32,7 +33,7 @@ export const Secret = () => {
     }, [token])
 
     if (loading) {
-        return <main><BeatLoader color='#000' /></main>
+        // return <main><BeatLoader color='#000' /></main>
     }
 
     if (loading === false && status !== 200) {
