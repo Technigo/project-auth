@@ -36,26 +36,33 @@ const User = mongoose.model('user', {
 const port = process.env.PORT || 8080
 const app = express()
 
+// Add middlewares to enable cors and json body parsing
+app.use(cors());
+app.use(bodyParser.json());
+
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header('Authorization') })
+try {  
+  const user = await User.findOne({ 
+    accessToken: req.header('Authorization') 
+  })
   if (user) {
     req.user = user
     next()
   } else {
-    res.status(401).json({ loggedOut: true })
+    res.status(401).json({ loggedOut: true, message: 'Please try login again' })
   }
+} catch (err) {
+  res
+    .status(403)
+    .json({ message: 'access token missing or wrong', errors: err.errors })
 }
-
-// Add middlewares to enable cors and json body parsing
-app.use(cors())
-app.use(bodyParser.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
   res.send('Hello world')
- })
+ });
 
- app.post('/users', async (req, res) => {
+ app.post('/register', async (req, res) => {
   try {
     const { name, email, password} = req.body;
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
@@ -66,12 +73,14 @@ app.get('/', (req, res) => {
   }  
 });
 
- //funkar
  app.get('/users/:id', authenticateUser)
  app.get('/users/:id', (req, res) => {
-   res.send('YEAH')
+   try {
+     res.status(201).json(req.user)
+   } catch (err) {
+     res.status(400).json({message: 'could not save user', errors: err.message})
+   }
  })
-//login 
 
 // login user
 app.post('/sessions', async (req, res) => {
@@ -81,15 +90,15 @@ app.post('/sessions', async (req, res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(201).json({ useId: user._id, accessToken: user.accessToken })
     } else {
-      res.json({ notFound: true })
+      res.json({ message: "wrong username or paaaword" })
     }
   } catch (err) {
     res.status(400).json({ message: 'could not find user', errors: err.errors })
   }
 })
+}  
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
 })
-// console.log(crypto.randomBytes(2).toString('hex'))
