@@ -22,9 +22,7 @@ export const SignUp = (props) => {
       setEmail('')
       setPassword('')
     })
-    .catch(err => console.log('error:', err))
-    // TODO: Add when next
-    // TODO: Add message if there is an error
+    .catch((err) => {console.log('error:', err)})
   }
 
   return(
@@ -32,13 +30,13 @@ export const SignUp = (props) => {
     <form className='signup-container' onSubmit={handleSubmit}>
       <h2>Sign up</h2>
       <label>
-        <input className='signup-input' type='text'placeholder='Name' value={name} onChange={(event)=> {setName(event.target.value)}} />
+        <input required className='signup-input' type='text'placeholder='Name' value={name} onChange={(event)=> {setName(event.target.value)}} />
       </label>
       <label>
-        <input className='signup-input' type='email' placeholder=' Email' value={email} onChange={(event)=> {setEmail(event.target.value)}} />
+        <input required className='signup-input' type='email' placeholder=' Email' value={email} onChange={(event)=> {setEmail(event.target.value)}} />
       </label>
       <label>
-        <input className='signup-input' type='password' placeholder=' Password' value={password} onChange={(event)=> {setPassword(event.target.value)}} />
+        <input required className='signup-input' type='password' placeholder=' Password' value={password} onChange={(event)=> {setPassword(event.target.value)}} />
       </label>
       <button type='submit' className='submit-button'>Submit</button>
     </form>
