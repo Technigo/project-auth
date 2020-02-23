@@ -66,10 +66,10 @@ app.get('/', (req, res) => {
 //Registration
 app.post("/users", async (req, res) => {
   try {
-    const { name, email, password } = req.body
+    const { name, email, password, favoriteFood, favoriteMovie, favoriteBook } = req.body
     //bcrypt because we should not store plain text passwords
     const user = new User({
-      name, email,
+      name, email, favoriteFood, favoriteMovie, favoriteBook,
       password: bcrypt.hashSync(password)
     })
     const saved = await user.save()
