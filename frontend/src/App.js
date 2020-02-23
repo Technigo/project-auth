@@ -1,43 +1,42 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { LoginForm } from 'components/LoginForm'
+import { SignUpForm } from 'components/SignUpForm'
+import { MemeVault } from 'pages/MemeVault'
 
-const URL = 'http://localhost:8080/users'
+const Wrapper = styled.main`
+display: flex;
+justify-content: center;
+align-items: center;
+`
+
+const Text = styled.p`
+font-size: 24px;
+font-weight: bold;
+`
 
 export const App = () => {
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-
-    fetch(URL, {
-      method: 'POST',
-      body: JSON.stringify({})
-    })
-      .then((res) => res.json())
-      .then((json) => console.log(json))
-  }
+  const [username, setUsername] = useState()
 
   return (
-    <div>
-      <from>
-        <h1>Sign Up</h1>
-        <label>
-          Name
-          <input
-            required
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </from>
-    </div>
+    <Wrapper>
+    <BrowserRouter>
+
+      <Switch>
+      <Route path='/' exact>
+      <Text>Want to see some dank programmer memes? Sign up or login!</Text>
+      <SignUpForm/>
+      <LoginForm setUsername={setUsername}/>
+      </Route>
+
+      <Route path='/memevault' exact>
+      <MemeVault username={username}/>
+      </Route>
+
+      </Switch>      
+      </BrowserRouter>
+      </Wrapper>
+    
   )
 }
