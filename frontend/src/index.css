@@ -1,13 +1,130 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+body {
+  font-family: "Share Tech Mono", source-code-pro, Menlo, Monaco, Consolas,
+    "Courier New", monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  max-width: 1600px;
+  margin: 0 auto;
+  background-color: #000;
+  color: #fff;
+}
+
+p {
+  font-size: 1.5rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  font-size: 2rem;
+  align-items: center;
+  color: #fff;
+}
+
+strong {
+  color: #0f0;
+}
+
+button {
+  background-color: #000;
+  color: #fff;
+  font-family: "Share Tech Mono";
+  font-size: 1.5rem;
+  border: 0;
+  margin: 10px;
+  cursor: pointer;
+  outline-color: #55dd44;
+  padding: 10px;
+}
+
+button:hover {
+  border-bottom: #5f4 2px solid;
+  color: #5f4;
+  margin-bottom: 8px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 80px;
+  position: relative;
+  justify-content: center;
+  text-align: center;
+  min-height: 50vh;
+  color: #fff;
+  background: url("/img/hero-bg.jpg");
+  background-position: center;
+  background-size: cover;
+  text-shadow: 0px 0px 15px #000;
+}
+
+h1 {
+  font-size: 4rem;
+  margin: 2rem;
+  color: #0f0;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 2rem;
+  color: #0f0;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+.error {
+  color: #f00;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  text-align: center;
+}
+
+label {
+  color: #fff;
+  margin: 5px;
+  font-size: 1.5rem;
+}
+
+input {
+  min-width: 100%;
+  padding: 10px;
+  font-size: 1.25rem;
+  border-radius: 15px;
+  border-color: #00ff00;
+  color: #00ff00;
+  background-color: #444;
+}
+input:focus {
+  border-color: #55dd44;
+  outline: #55dd44;
+}
+
+form button {
+  max-width: 50%;
+  align-self: center;
 }
