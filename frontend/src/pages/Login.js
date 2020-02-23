@@ -6,11 +6,18 @@ import { Link } from 'react-router-dom'
 const URL = 'http://localhost:8080/sessions'
 
 export const Login = () => {
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
-    // const login = () => {
-    //     dispatch(auth.actions.setToken('fc7d56b7d781b50dda47c6b0d5731265101dc11a21064845ac27ffd0950a0da5b52cab2d389e9f6fc42e23cfbdb556047a6aaad8bd2cc5c60163ddf99570f1658c32469a25837fc21747dbec3e73e213cfce555e56c19bcd2f413f4c2e3b6df74635aa63599aad8b573d20c831a5dcc29460756c50ec126d4a869a78c21a8aa8'))
-    // }
+    const login = () => {
+        const foundUserToken = state.users.find((user) => user.accessToken === action.payload)
+        console.log('found', JSON.stringify(foundUserToken))
+        // and toggle its state under "complete"
+        if (foundUserToken) {
+            dispatch(auth.actions.setToken({ foundUserToken }))
+        } else {
+            //error
+        }
+    }
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const handleSubmit = (event) => {
@@ -24,7 +31,7 @@ export const Login = () => {
             .then(res => res.json())
             .then(json => console.log(json))
             .catch(err => console.log('error:', err))
-    }
+    }l
     return (
         <div>
             <h1>Login</h1>
