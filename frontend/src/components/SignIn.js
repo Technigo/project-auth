@@ -9,7 +9,8 @@ export const SignIn = ({ onAuthenticate }) => {
   const [password, setPassword] = useState('')
 
   const [errorMessage, setErrorMessage] = useState()
-  const history = useHistory()
+  let history = useHistory()
+  //changed to let
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -27,7 +28,7 @@ export const SignIn = ({ onAuthenticate }) => {
           onAuthenticate(user.accessToken)
           history.push('/secrets')
         } else {
-          setErrorMessage('ohno')
+          setErrorMessage('Username or password is incorrect')
         }
         console.log(user)
       })

@@ -8,11 +8,11 @@ export const SignUp = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const history = useHistory()
+  let history = useHistory()
+  //changed to let
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    // setShowResult(true)
     fetch(URL, {
       method: 'POST',
       body: JSON.stringify({ name: name, email: email, password: password }),

@@ -10,10 +10,13 @@ export const Secret = ({ accessToken }) => {
   useEffect(() => {
     fetch(URL, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: accessToken
-      }
+      headers: [
+        {
+          'Content-Type': 'application/json'
+        },
+        { Authorization: accessToken }
+      ]
+      //put each different header in {} and both of them in []
     })
       .then((res) => res.json())
       .then((object) => {
@@ -30,14 +33,15 @@ export const Secret = ({ accessToken }) => {
   }, [])
 
   return (
-    <div>
-      <iframe
-        src={secret}
-        width='480'
-        height='480'
-        frameBorder='0'
-        className='giphy-embed'
-        allowFullScreen></iframe>
-    </div>
+    <p>here is your secret</p>
+    // <div>
+    //   <iframe
+    //     src={secret}
+    //     width='480'
+    //     height='480'
+    //     frameBorder='0'
+    //     className='giphy-embed'
+    //     allowFullScreen></iframe>
+    // </div>
   )
 }
