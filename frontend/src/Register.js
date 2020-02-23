@@ -108,6 +108,7 @@ const Signup = styled.button`
   border: none;
   border-radius: 30px;
   font-family: "Open Sans";
+  cursor: pointer;
   letter-spacing: 1px;
   :hover {
     background: #cfac99;
