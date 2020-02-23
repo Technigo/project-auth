@@ -61,12 +61,15 @@ app.post("/users", async (req, res) => {
   try {
     const { name, password, email } = req.body;
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
-    user.save();
+    await user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (err) {
     res
       .status(400)
-      .json({ message: "could not create user", errors: err.errors });
+      .json({
+        message: "Could not create user. Please try again!",
+        errors: err.errors
+      });
   }
 });
 

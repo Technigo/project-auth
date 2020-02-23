@@ -69,9 +69,12 @@ const Signin = styled.button`
 
 const Label = styled.label`
   margin: 0 auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0.5rem;
   color: grey;
+  @media (min-width: 600px) {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
 `;
 
 const Input = styled.input`
@@ -80,19 +83,25 @@ const Input = styled.input`
   border-top: none;
   border-left: none;
   border-right: none;
-
-  padding: 1rem;
+  padding: 0.5rem;
+  @media (min-width: 600px) {
+    padding: 1rem;
+  }
 `;
 
 const HeaderRight = styled.h2`
   text-align: center;
+  font-size: 1rem;
+  @media (min-width: 600px) {
+    font-size: 2rem;
+  }
 `;
 
 const Signup = styled.button`
   margin: 0 auto;
   text-align: center;
   margin-top: 3rem;
-  width: 30%;
+  width: 6rem;
   padding: 1rem;
   background: #a46c4d;
   color: white;
@@ -103,10 +112,14 @@ const Signup = styled.button`
   :hover {
     background: #cfac99;
   }
+  @media (min-width: 600px) {
+    width: 12rem;
+  }
 `;
 
 const Form = styled.form`
   width: 80%;
+
   height: 70%;
   margin: 0 auto;
   display: flex;
@@ -120,11 +133,17 @@ const Form = styled.form`
   margin: auto;
 `;
 
+const Error = styled.div`
+  color: red;
+  margin: 0 auto;
+  margin-top: 1rem;
+`;
+
 export const Register = () => {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [errorText, setErrorText] = useState("");
+  const [errorText, setErrorText] = useState(false);
   const history = useHistory();
 
   const handleRegister = async event => {
@@ -132,9 +151,11 @@ export const Register = () => {
     const response = await registerUser(name, email, password);
     if (response.success) {
       history.push("/login");
+      console.log("success");
       return;
     }
-    setErrorText(response.message);
+    setErrorText(true);
+    console.log("error");
   };
 
   return (
@@ -151,7 +172,6 @@ export const Register = () => {
           <Signin onClick={() => history.push("/login")}>SIGN IN</Signin>
         </Left>
         <Right>
-          {/* <InputContainer> */}
           <HeaderRight>Register with us, let´s travel together:</HeaderRight>
           <Label>Name</Label>
           <Input
@@ -159,25 +179,23 @@ export const Register = () => {
             value={name}
             onChange={event => setName(event.target.value)}
           ></Input>
-          {/* </InputContainer> */}
-          {/* <InputContainer> */}
+
           <Label>Email</Label>
           <Input
             type="email"
             value={email}
             onChange={event => setEmail(event.target.value)}
           ></Input>
-          {/* </InputContainer> */}
-          {/* <InputContainer> */}
+
           <Label>Password</Label>
           <Input
             type="password"
             value={password}
             onChange={event => setPassword(event.target.value)}
           ></Input>
-          {/* </InputContainer> */}
+
           <Signup onClick={event => handleRegister(event)}>REGISTER</Signup>
-          {errorText}
+          {errorText && <Error>Could not add user. Please try again!</Error>}
         </Right>
       </Form>
     </Container>
