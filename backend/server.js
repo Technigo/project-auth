@@ -80,13 +80,14 @@ app.post("/users", async (req, res) => {
 })
 
 //Content update
-app.put("/users", async (req, res) => {
+app.put("/users/:id", async (req, res) => {
+  const {id} = req.params
   try {
-    await User.updateOne(req.body, { accessToken: req.header("Authorization") })
+    await User.updateOne({'_id': id}, req.body, { accessToken: req.header("Authorization") })
+    res.status(201).json()
   } catch (err) {
     res.status(400).json({ message: "Could not save update", errors: err.errors })
   }
-  res.send()
 })
 
 //Log in

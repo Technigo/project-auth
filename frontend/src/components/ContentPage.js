@@ -41,12 +41,13 @@ export const ContentPage = () => {
 
     const handleFavorites = event => {
       event.preventDefault()
-      fetch("https://project-auth-jmm.herokuapp.com/users", {
+      fetch(`https://project-auth-jmm.herokuapp.com/users/${_id}`, {
         method: "PUT",
         body: JSON.stringify({ favoriteFood, favoriteMovie, favoriteBook }),
         headers: { "Content-Type": "application/json", "Authorization": accessToken }
       })
-      .then(() => {
+      .then(res => {
+        res.json()
         setShowSurveyMessage(true)
       })
         .catch(err => console.log("error:", err))
