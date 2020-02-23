@@ -9,14 +9,8 @@ export const Login = () => {
     const dispatch = useDispatch()
 
     const login = () => {
-        const foundUserToken = state.users.find((user) => user.accessToken === action.payload)
-        console.log('found', JSON.stringify(foundUserToken))
-        // and toggle its state under "complete"
-        if (foundUserToken) {
-            dispatch(auth.actions.setToken({ foundUserToken }))
-        } else {
-            //error
-        }
+        dispatch(auth.actions.setToken(''))
+        dispatch(auth.actions.setUser(''))
     }
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
