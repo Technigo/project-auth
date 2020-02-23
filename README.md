@@ -1,13 +1,22 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+An build API with authentication to implement a registration flow, and a frontend with forms to register, sign in, and view some content once you're logged in.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+Made of two parts; a backend API, and a React frontend. A `User` model is creted using mongoose, with properties for the registered user, and to store a user's access token.
+
+On the frontend side of things, a registration form is build which POSTs to the API. The access token is stores to get back in the browser using local storage, and then use that token when making other requests to your API.
+
+Once a user is logged in, there is a final endpoint which returns some content which only logged-in users should be able to access. 
+
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We worked in teams (one located on Bali!) with one coding and one driving. The problems was to tie it all together with the different endpoints but with help from google and classmates we solved the problem
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Heroku
+https://project20-auth.herokuapp.com/
+
+Netlify
+https://project20-auth.netlify.com/
