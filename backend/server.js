@@ -50,12 +50,16 @@ app.post('/users', async(req, res) => {
 })
 
 const authenticateUser = async(req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header('Authorization') })
-  if (user) {
-    req.user = user
-    next()
-  } else {
-    res.status(401).json({ loggedOut: true })
+  try {
+    const user = await User.findOne({ accessToken: req.header('Authorization') })
+    if (user) {
+      req.user = user
+      next()
+    } else {
+      res.status(401).json({ loggedOut: true, message: 'Please try logging in again!' })
+    }
+  } catch (err) {
+    res.status(403).json({ message: 'Access token is missing or wrong', error: err.errors })
   }
 }
 
@@ -71,8 +75,8 @@ app.post('/sessions', async(req, res) => {
 
 //TODO: Change the message
 app.get('/users/current', authenticateUser)
-app.get('/users/current', async(req, res) => {
-  res.json({ message: "Hej!" })
+app.get('/users/current', (req, res) => {
+  res.json(req.user)
 })
 
 

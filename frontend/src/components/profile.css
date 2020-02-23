@@ -1,0 +1,26 @@
+.profile-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.button-signout {
+  padding: 5px;
+  margin: 6px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f6f2df;
+  color: #3f4b41;
+  font-family: 'Oswald';
+  width: 70px;
+}
+
+h2 {
+  color: #f6f2df;
+  font-family: 'Oswald';
+}
+
+p {
+  color: #f6f2df;
+  font-family: 'Oswald';
+}

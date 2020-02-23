@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-
-const URL = 'http://localhost:8080/sessions'
+import {Profile} from './Profile'
+import './signin.css'
 
 export const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [signedIn, setSignedIn] = useState(false)
-  const [accessToken, setAccessToken] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [user, setUser] = useState({})
+  const URL = 'http://localhost:8080/sessions'
 
   const fetchProfile = async() => {
    const response = await
@@ -16,52 +17,62 @@ export const SignIn = () => {
       body: JSON.stringify({ email, password}),
       headers: { 'Content-Type': 'application/json' }
     })
+    
     const json = await response.json()
       return json
     }
 
   const handleSubmit = (event) => {
     event.preventDefault()
+   
     fetchProfile().then(data => {
+      setEmail('')
+      setPassword('')
+      
       if (data.notFound) {
         setErrorMessage('Username or password is invalid')
         setSignedIn(false)
       } else {
-             window.localStorage.setItem('accessToken', data.accessToken)
-             setErrorMessage('')
-             setSignedIn(true)
+        window.localStorage.setItem('accessToken', data.accessToken)
+        setErrorMessage('')
+        setSignedIn(true)
+        setUser(data)
       }
     })   
   }
+  
   const signOut = () => {
     window.localStorage.clear()
     setSignedIn(false)
   }
 
-  const accessTokenTest = window.localStorage.getItem('accessToken')
   return ( 
     <>
     {signedIn &&
-    <button type='button' onClick={signOut}>Sign out </button>}
-    {accessTokenTest && <p>{accessTokenTest}</p>}
+    <Profile userSignedIn={signedIn} onClick={signOut} user={user}/>
+    }
     {errorMessage && <p>{errorMessage}</p>}
    {!signedIn && 
    <>
     <form className='signin-form' onSubmit={handleSubmit} >
     <label>
-    Email 
+  
     <input type = 'email'
+    className='input-box'
+    placeholder='Email'
     value = { email }
     onChange = {(event) => { setEmail(event.target.value) }} /> 
     </label>
     <label>
-    Password 
+    
     <input type = 'password'
+    placeholder='Password'
+    className='input-box'
     value = { password }
     onChange = {(event) => { setPassword(event.target.value) }} /> 
     </label> 
     <button className='signin-button' type='submit'> Sign in </button> 
     </form> 
-    <p> { `Signed in: ${signedIn}`} </p></> }
+    </>}
     </>
   )}

@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import './signup.css'
 
 const URL = 'http://localhost:8080/users'
 
@@ -28,19 +29,16 @@ export const SignUp = (props) => {
 
   return(
     <>
-    <form className='sign-up-container' onSubmit={handleSubmit}>
+    <form className='signup-container' onSubmit={handleSubmit}>
       <h2>Sign up</h2>
       <label>
-        Name
-        <input type='text' value={name} onChange={(event)=> {setName(event.target.value)}} />
+        <input className='signup-input' type='text'placeholder='Name' value={name} onChange={(event)=> {setName(event.target.value)}} />
       </label>
       <label>
-        Email
-        <input type='email' value={email} onChange={(event)=> {setEmail(event.target.value)}} />
+        <input className='signup-input' type='email' placeholder=' Email' value={email} onChange={(event)=> {setEmail(event.target.value)}} />
       </label>
       <label>
-        Password
-        <input type='password' value={password} onChange={(event)=> {setPassword(event.target.value)}} />
+        <input className='signup-input' type='password' placeholder=' Password' value={password} onChange={(event)=> {setPassword(event.target.value)}} />
       </label>
       <button type='submit' className='submit-button'>Submit</button>
     </form>
