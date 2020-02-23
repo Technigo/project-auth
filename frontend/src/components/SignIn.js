@@ -8,7 +8,7 @@ export const SignIn = () => {
   const [signedIn, setSignedIn] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [user, setUser] = useState({})
-  const URL = 'http://localhost:8080/sessions'
+  const URL = 'http://localhost:4000/sessions'
 
   const fetchProfile = async() => {
    const response = await
@@ -55,6 +55,7 @@ export const SignIn = () => {
    {!signedIn && 
    <>
     <form className='signin-form' onSubmit={handleSubmit} >
+    <h2>Sign in</h2>
     <label>
   
     <input type = 'email'
@@ -63,15 +64,14 @@ export const SignIn = () => {
     value = { email }
     onChange = {(event) => { setEmail(event.target.value) }} /> 
     </label>
-    <label>
-    
+    <label>    
     <input type = 'password'
     placeholder='Password'
     className='input-box'
     value = { password }
     onChange = {(event) => { setPassword(event.target.value) }} /> 
     </label> 
-    <button className='signin-button' type='submit'> Sign in </button> 
+    <button className='signin-button' type='submit'>Sign in </button> 
     </form> 
     </>}
     </>

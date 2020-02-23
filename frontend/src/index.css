@@ -9,3 +9,22 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+.start-button {
+  padding: 5px;
+  margin: 6px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f6f2df;
+  color: #3f4b41;
+  font-family: 'Oswald';
+  width: 70px;
+  margin: 15px;
+}
+
+.start-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 25px;
+}

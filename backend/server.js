@@ -31,7 +31,7 @@ const User = mongoose.model('User', {
 })
 
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 4000
 const app = express()
 
 app.use(cors())

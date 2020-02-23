@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import './signup.css'
 
-const URL = 'http://localhost:8080/users'
+const URL = 'http://localhost:4000/users'
 
 export const SignUp = (props) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [signedUp, setSignedUp] = useState()
+  const [signedUp, setSignedUp] = useState(false)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -17,7 +17,7 @@ export const SignUp = (props) => {
       body: JSON.stringify({name: name, email: email, password: password}),
       headers: {'Content-Type': 'application/json'}
     }).then(() => {
-      setSignedUp('Thanks for signing up!')
+      setSignedUp(true)
       setName('')
       setEmail('')
       setPassword('')
@@ -42,7 +42,7 @@ export const SignUp = (props) => {
       </label>
       <button type='submit' className='submit-button'>Submit</button>
     </form>
-    <p>{signedUp}</p>
+    {signedUp && <p>Thanks for signing up!</p>}
     </>
   )
 }

@@ -8,7 +8,7 @@ export const Profile = ({userSignedIn, onClick, user}) => {
  
   useEffect(() => {
     const fetchUserData = () => {
-     const URL= `http://localhost:8080/users/current`
+     const URL= `http://localhost:4000/users/current`
       return fetch(URL, {
         method: 'GET',
         headers: {'Authorization': accessToken}

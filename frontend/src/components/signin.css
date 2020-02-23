@@ -32,3 +32,8 @@ p {
   display: flex;
   justify-content: center;
 }
+
+h2 {
+  color: #f6f2df;
+  font-family: 'Oswald';
+}
