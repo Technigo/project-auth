@@ -16,7 +16,7 @@ export const App = () => {
           <Route path='/' exact>
             <StartPage />
           </Route>
-          <Route path='/users' exact>
+          <Route path='/users'>
             <SignUp />
           </Route>
           <Route path='/sessions'>

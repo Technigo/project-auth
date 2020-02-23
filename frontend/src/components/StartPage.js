@@ -9,10 +9,10 @@ export const StartPage = () => {
       <h1>Sign up or sign in to see todays secret picture!</h1>
       <div className='buttonRow'>
         <Link to='/users' className='button'>
-          <p>Sign Up</p>
+          Sign Up
         </Link>
         <Link to='/sessions' className='button'>
-          <p>Sign In</p>
+          Sign In
         </Link>
       </div>
       <img src={SecretImage} className='secretImage' alt='blurred image' />

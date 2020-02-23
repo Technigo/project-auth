@@ -11,8 +11,7 @@ mongoose.Promise = Promise
 
 const User = mongoose.model('User', {
   name: {
-    type: String,
-    unique: true
+    type: String
   },
   email: {
     type: String,
@@ -57,7 +56,7 @@ app.post('/users', async (req, res) => {
     const { name, email, password } = req.body
     //do not store plaintext passwords
     const user = new User({ name, email, password: bcrypt.hashSync(password) })
-    user.save()
+    await user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
   } catch (err) {
     res
@@ -70,6 +69,7 @@ app.get('/secrets', authenticateUser)
 app.get('/secrets', (req, res) => {
   res.json({ secret: 'https://giphy.com/embed/JIX9t2j0ZTN9S' })
 })
+//res.json(req.user)
 
 //sign in
 app.post('/sessions', async (req, res) => {

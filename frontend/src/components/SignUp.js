@@ -8,11 +8,13 @@ export const SignUp = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState()
   let history = useHistory()
   //changed to let
 
   const handleSubmit = (event) => {
     event.preventDefault()
+
     fetch(URL, {
       method: 'POST',
       body: JSON.stringify({ name: name, email: email, password: password }),
@@ -22,17 +24,20 @@ export const SignUp = () => {
     })
       .then((res) => res.json())
       .then((user) => {
-        console.log(user)
-        history.push('/sessions')
-      })
-      .catch((e) => {
-        console.log(e)
+        if (user.accessToken) {
+          history.push('/sessions')
+        } else {
+          setErrorMessage(user.message)
+        }
       })
   }
+
   return (
     <main>
       <h1>Sign up to see secret image! </h1>
       <form onSubmit={handleSubmit}>
+        {errorMessage && <p className='errorMessage'>{errorMessage}</p>}
+
         <label htmlFor='name'>Name</label>
         <input
           id='name'

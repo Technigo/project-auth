@@ -7,14 +7,13 @@ const URL = 'http://localhost:3000/sessions'
 export const SignIn = ({ onAuthenticate }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
   const [errorMessage, setErrorMessage] = useState()
   let history = useHistory()
   //changed to let
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    //setShowResult(true)
+
     fetch(URL, {
       method: 'POST',
       body: JSON.stringify({ email: email, password: password }),
@@ -30,14 +29,15 @@ export const SignIn = ({ onAuthenticate }) => {
         } else {
           setErrorMessage('Username or password is incorrect, try again!')
         }
-        console.log(user)
       })
   }
+
   return (
     <main>
       <h1>Sign in to see secret image! </h1>
       <form onSubmit={handleSubmit}>
         {errorMessage && <p className='errorMessage'>{errorMessage}</p>}
+
         <label htmlFor='email'>Email</label>
         <input
           id='email'
