@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import '../index.css'
+import { Link } from 'react-router-dom'
 
 const URL = 'http://localhost:3000/secrets'
 
 export const Secret = ({ accessToken }) => {
-  const [secret, setSecret] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
+  const [secret, setSecret] = useState()
 
   useEffect(() => {
     fetch(URL, {
@@ -17,27 +17,28 @@ export const Secret = ({ accessToken }) => {
     })
       .then((res) => res.json())
       .then((object) => {
-        console.log(object.secret)
-        if (object.secret) {
-          setSecret(object.secret)
-        } else {
-          setErrorMessage('no pic for you')
-        }
-      })
-      .catch((e) => {
-        //console.log(e)
+        setSecret(object.secret)
       })
   }, [])
 
   return (
     <div>
-      <iframe
-        src={secret}
-        width='480'
-        height='480'
-        frameBorder='0'
-        className='giphy-embed'
-        allowFullScreen></iframe>
+      {secret ? (
+        <>
+          <h1>Here is the secret picture!</h1>
+          <iframe
+            src={secret}
+            width='480'
+            height='480'
+            frameBorder='0'
+            className='giphy-embed'
+            allowFullScreen></iframe>
+        </>
+      ) : (
+        <>
+          <Link to='/sessions'>Sign in</Link> to see the secret picture
+        </>
+      )}
     </div>
   )
 }
