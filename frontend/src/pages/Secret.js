@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
-<<<<<<< HEAD
-import { auth } from '../reducers/auth'
-
-// import { BeatLoader } from 'react-spinners'
-=======
 import { auth } from "../reducers/auth"
 import { BeatLoader } from 'react-spinners'
 import styled from 'styled-components/macro'
@@ -79,7 +74,6 @@ const StyledSecret = styled.li`
 const SecretDate = styled.p`
     font-size: 12px;
 `
->>>>>>> ce3b63ccbfa661e96f8e94c7ba4a2ea39f912dcd
 
 export const Secret = () => {
     const [secrets, setSecrets] = useState([])
@@ -133,11 +127,8 @@ export const Secret = () => {
     }, [token, userId])
 
     if (loading) {
-<<<<<<< HEAD
-        // return <main><BeatLoader color='#000' /></main>
-=======
         return <Loading><BeatLoader color='#000' /></Loading>
->>>>>>> ce3b63ccbfa661e96f8e94c7ba4a2ea39f912dcd
+
     }
 
     if (loading === false && status !== 200) {
