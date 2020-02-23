@@ -13,9 +13,9 @@ export const App = () => {
     <>
       <BrowserRouter>
         <Switch>
-          {/* <Route path='/'>
+          <Route path='/' exact>
             <StartPage />
-          </Route> */}
+          </Route>
           <Route path='/users' exact>
             <SignUp />
           </Route>
