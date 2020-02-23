@@ -32,7 +32,7 @@ export const Secret = () => {
     }, [token])
 
     if (loading) {
-        return <main><BeatLoader color='#fff' /></main>
+        return <main><BeatLoader color='#000' /></main>
     }
 
     if (loading === false && status !== 200) {

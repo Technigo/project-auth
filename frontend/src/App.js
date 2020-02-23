@@ -20,9 +20,8 @@ export const App = () => {
         <Switch>
           <Route path='/' exact>
             <Signup />
-
           </Route>
-          <Route path='/signup' exact>
+          <Route path='/login' exact>
             <Login />
           </Route>
           <Route path='/secrets' exact>
