@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
-const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI'
+const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/newestauthAPI'
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
@@ -29,6 +29,16 @@ const User = mongoose.model('User', {
   }
 })
 
+const authenticateUser = async (req, res, next) => {
+  const user = await User.findOne({ accessToken: req.header('Authorization') })
+  if (user) {
+    req.user = user
+    next()
+  } else {
+    res.status(401).json({ loggedOut: true })
+  }
+}
+
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
 //
@@ -42,7 +52,7 @@ app.use(bodyParser.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello world!?!?!?')
+  res.send('Hello world! Work!')
 })
 
 //create user
@@ -52,27 +62,58 @@ app.post('/users', async (req, res) => {
     const newUser = await new User({
       username,
       email,
-      password
-      // : bcrypt.hashSync(password)
+      password: bcrypt.hashSync(password)
     })
-    const saved = await newUser.save()
-    res.status(200).json(saved)
+    newUser.save()
+    res.status(201).json(newUser)
   } catch (err) {
-    res.status(400).json({ message: 'could not save user', errors: err.errors })
+    res
+      .status(400)
+      .json({ messsage: 'Could not create user', error: err.errors })
   }
 })
 
-//find / login
-app.post('/sessions', async (req, res) => {
+// //find / login
+// app.post('/sessions', async (req, res) => {
+//   try {
+//     const user = await User.findOne({ email: req.body.email })
+//     if (user && bcrypt.compareSync(req.body.password, user.password)) {
+//       res.status(201).json({ useId: user._id, accesToken: user.accesToken })
+//     } else {
+//       res.json({ notFound: true })
+//     }
+//   } catch (err) {
+//     res.status(400).json({ message: 'could not save user', errors: err.errors })
+//   }
+// })
+
+// ROUTE FOR SECRETS
+app.get('/secrets', authenticateUser, (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email })
-    if (user && bcrypt.compareSync(req.body.password, user.password)) {
-      res.status(201).json({ useId: user._id, accesToken: user.accesToken })
-    } else {
-      res.json({ notFound: true })
-    }
+    res.status(200).json({
+      status: 'success',
+      message: 'ure logged in'
+    })
   } catch (err) {
-    res.status(400).json({ message: 'could not save user', errors: err.errors })
+    res.status(403).json({ message: 'Not authorized', error: err.errors })
+  }
+})
+
+// ROUTE FOR LOGIN - FINDS A USER INSTEAD OF CREATE
+app.post('/sessions', async (req, res) => {
+  const user = await User.findOne({ email: req.body.email })
+  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    res.json({
+      username: user.username,
+      userId: user._id,
+      accessToken: user.accessToken
+    })
+  } else {
+    res.status(401).json({
+      statusCode: 401,
+      notFound: true,
+      error: 'Login failed'
+    })
   }
 })
 
