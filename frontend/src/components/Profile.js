@@ -8,7 +8,7 @@ export const Profile = ({userSignedIn, onClick, user}) => {
  
   useEffect(() => {
     const fetchUserData = () => {
-     const URL= `http://localhost:4000/users/current`
+     const URL= `https://project-auth-app.herokuapp.com/users/current`
       return fetch(URL, {
         method: 'GET',
         headers: {'Authorization': accessToken}

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './signup.css'
 
-const URL = 'http://localhost:4000/users'
+const URL = 'https://project-auth-app.herokuapp.com/users'
 
 export const SignUp = (props) => {
   const [name, setName] = useState('')

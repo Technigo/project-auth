@@ -31,7 +31,7 @@ const User = mongoose.model('User', {
 })
 
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 8080
 const app = express()
 
 app.use(cors())
@@ -73,7 +73,7 @@ app.post('/sessions', async(req, res) => {
   }
 })
 
-//TODO: Change the message
+
 app.get('/users/current', authenticateUser)
 app.get('/users/current', (req, res) => {
   res.json(req.user)

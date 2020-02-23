@@ -8,7 +8,7 @@ export const SignIn = () => {
   const [signedIn, setSignedIn] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [user, setUser] = useState({})
-  const URL = 'http://localhost:4000/sessions'
+  const URL = 'https://project-auth-app.herokuapp.com/sessions'
 
   const fetchProfile = async() => {
    const response = await
