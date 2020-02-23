@@ -60,7 +60,7 @@ const authenticateUser = async (req, res, next) => {
       req.user = user
       next()
     } else {
-      res.status(401).json({ loggedOut: true })
+      res.status(401).json({ loggedIn: false })
     }
   } catch (err) {
     res.status(403).json({ message: 'Access token missing or invalid', errors: err.errors })
@@ -84,7 +84,7 @@ app.post('/users', async (req, res) => {
       // it is very important to encrypt the passwords and store them encrypted in our db!
       const user = new User({ name, email, password: bcrypt.hashSync(password) })
       await user.save()
-      res.status(201).json({ id: user._id, name: user.name, password: user.password, accessToken: user.accessToken })
+      res.status(201).json({ id: user._id, name: user.name, accessToken: user.accessToken })
       console.log({ user })
       // if the user is not registered, then we catch the error
     } else res.status(400).json({ message: 'Invalid email', errors: err.errors })
@@ -99,7 +99,7 @@ app.post('/sessions', async (req, res) => {
     const user = await User.findOne({ email: req.body.email })
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       //Successful
-      res.status(200).json({ userId: user._id, accessToken: user.accessToken })
+      res.status(200).json({ userId: user._id, accessToken: user.accessToken, name: user.name, loggedIn: true })
     } else {
       //Failure:
       // a) user does not exist

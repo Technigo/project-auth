@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
-<<<<<<< HEAD
-import { auth } from '../reducers/auth'
-
-// import { BeatLoader } from 'react-spinners'
-=======
 import { auth } from "../reducers/auth"
 import { BeatLoader } from 'react-spinners'
 import styled from 'styled-components/macro'
@@ -79,10 +73,10 @@ const StyledSecret = styled.li`
 const SecretDate = styled.p`
     font-size: 12px;
 `
->>>>>>> ce3b63ccbfa661e96f8e94c7ba4a2ea39f912dcd
 
 export const Secret = () => {
     const [secrets, setSecrets] = useState([])
+    const [sentMessage, setSentMessage] = useState(false)
     const [status, setStatus] = useState()
     const [loading, setLoading] = useState(true)
     const [message, setMessage] = useState('')
@@ -96,7 +90,7 @@ export const Secret = () => {
     }
 
     const sendSecret = event => {
-        console.log(message)
+        event.preventDefault()
         if (message !== "") {
             fetch(`http://localhost:8080/secret/${userId}`, {
                 method: "POST",
@@ -105,55 +99,40 @@ export const Secret = () => {
             }).catch(err => console.log("error:", err))
         }
         setMessage("")
+        setSentMessage(!sentMessage)
     }
 
     useEffect(() => {
-        if (userId) {
-            fetch(`http://localhost:8080/secrets/${userId}`, {
-                headers: {
-                    "Authorization": token
-                }
+        fetch(`http://localhost:8080/secrets/${userId}`, {
+            headers: {
+                "Authorization": token
+            }
+        })
+            .then(res => {
+                setStatus(res.status)
+                return res.json()
             })
-                .then(res => {
-                    setStatus(res.status)
-                    return res.json()
-                })
-                .then(json => {
-                    setSecrets(json)
-                    setLoading(false)
-                })
-                .catch(err => {
-                    setLoading(false)
-                    setStatus(404)
-                })
-        } else {
-            setLoading(false)
-            setStatus(404)
-        }
-    }, [token, userId])
+            .then(json => {
+                setSecrets(json)
+                setLoading(false)
+            })
+            .catch(err => {
+                setLoading(false)
+                setStatus(404)
+            })
+    }, [sentMessage, status])
 
     if (loading) {
-<<<<<<< HEAD
-        // return <main><BeatLoader color='#000' /></main>
-=======
         return <Loading><BeatLoader color='#000' /></Loading>
->>>>>>> ce3b63ccbfa661e96f8e94c7ba4a2ea39f912dcd
     }
 
-    if (loading === false && status !== 200) {
-        return (
-            <Main>
-                <h1>Unauthorized</h1>
-                <h1><span role="img" aria-label="Unauthorized">👮</span></h1>
-            </Main>
-        )
-    }
+
     return (
         <Main>
             <h1>Welcome {name}! Here are your secrets.</h1>
             <SecretForm onSubmit={sendSecret}>
                 <SecretText type="text" value={message} onChange={event => setMessage(event.target.value)} placeholder="Share a secret..."></SecretText>
-                <AddSecret type="submit" value="🤫" active={message.length > 0} disabled={message.length === 0} />
+                <AddSecret type="submit" value="+" active={message.length > 0} disabled={message.length === 0} />
             </SecretForm>
             <SecretList>
                 {secrets.map(secret => (
@@ -163,7 +142,7 @@ export const Secret = () => {
                     </StyledSecret>
                 ))}
             </SecretList>
-            <Link to='/'><button type='button' onClick={logout}>Logout</button></Link>
+            <button type='button' onClick={logout}>Logout</button>
         </Main>
     )
 }

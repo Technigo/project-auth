@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
+import { useDispatch } from "react-redux"
+import { auth } from "../reducers/auth"
+import styled from 'styled-components/macro'
 
 const URL = 'http://localhost:8080/users'
 export const Signup = () => {
     const [name, setName] = useState('')
+    const dispatch = useDispatch()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const handleSubmit = (event) => {
@@ -13,7 +17,11 @@ export const Signup = () => {
             body: JSON.stringify({ name, email, password }),
             headers: { 'Content-Type': 'application/json' }
         })
-            .then(res => res.json())
+            .then(res => {
+                res.json()
+                if (res.status === 201)
+                    dispatch(auth.actions.setSignedUp(false))
+            })
             .then(json => console.log(json))
             .catch(err => console.log('error:', err))
     }

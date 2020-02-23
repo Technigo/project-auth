@@ -1,7 +1,15 @@
 import React, { useState } from 'react'
 import { useDispatch } from "react-redux"
 import { auth } from "../reducers/auth"
-import { Link } from 'react-router-dom'
+import styled from 'styled-components/macro'
+
+const LoginForm = styled.form`
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+width: 50vw;
+`
+
 
 const URL = 'http://localhost:8080/sessions'
 
@@ -11,7 +19,9 @@ export const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     // const [isUserLoggedin, setIsUserLoggedin] = useState(null)
-
+    const signUp = () => {
+        dispatch(auth.actions.setSignedUp(true))
+    }
     const handleSubmit = (event) => {
         console.log("In handleSumbit()")
         event.preventDefault()
@@ -33,8 +43,10 @@ export const Login = () => {
             })
             .then(json => {
                 console.log(json)
+                dispatch(auth.actions.setLoggedIn(json.loggedIn))
                 dispatch(auth.actions.setToken(json.accessToken))
                 dispatch(auth.actions.setUser(json.userId))
+                dispatch(auth.actions.setName(json.name))
             })
             // .then(json => setIsUserLoggedin(json))
             .catch(err => console.log('error:', "TEST" + err))
@@ -44,7 +56,7 @@ export const Login = () => {
     return (
         <div>
             <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
+            <LoginForm onSubmit={handleSubmit}>
                 <div>{error}</div>
                 <label> e-mail:
                 <input required
@@ -65,7 +77,10 @@ export const Login = () => {
                 <button type="submit" onClick={handleSubmit}>
                     LOGIN
                 </button>
-            </form>
+                <button type="button" onClick={signUp}>
+                    SIGN UP
+                </button>
+            </LoginForm>
 
             {/* <Link to='/secrets'><button onClick={login}>Set Token</button></Link> */}
         </div>
