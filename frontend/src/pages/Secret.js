@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
 import { auth } from "../reducers/auth"
+import { BeatLoader } from 'react-spinners'
 
 export const Secret = () => {
     const [secrets, setSecrets] = useState([])
     const [status, setStatus] = useState()
+    const [loading, setLoading] = useState(true)
     const dispatch = useDispatch()
     const token = useSelector(store => store.auth.accessToken);
 
@@ -25,10 +27,15 @@ export const Secret = () => {
             })
             .then(json => {
                 setSecrets(json.secret)
+                setLoading(false)
             })
     }, [token])
 
-    if (status !== 200) {
+    if (loading) {
+        return <main><BeatLoader color='#000' /></main>
+    }
+
+    if (loading === false && status !== 200) {
         return (
             <div>
                 <h1>Unauthorized</h1>
