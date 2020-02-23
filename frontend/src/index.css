@@ -61,16 +61,7 @@ button {
   padding: 10px;
 }
 
-.secretImage {
-  width: 70%;
-}
-
-.buttonRow {
-  display: flex;
-}
-
-.buttonSignUp,
-.buttonSignIn {
+.button {
   text-decoration: none;
   font-weight: 800;
   margin: 20px;
@@ -78,4 +69,12 @@ button {
   border: solid 1px black;
   border-radius: 5px;
   color: black;
+}
+
+.secretImage {
+  width: 70%;
+}
+
+.buttonRow {
+  display: flex;
 }

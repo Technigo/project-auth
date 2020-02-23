@@ -8,10 +8,10 @@ export const StartPage = () => {
     <main>
       <h1>Sign up or sign in to see todays secret picture!</h1>
       <div className='buttonRow'>
-        <Link to='/users' className='buttonSignUp'>
+        <Link to='/users' className='button'>
           <p>Sign Up</p>
         </Link>
-        <Link to='/sessions' className='buttonSignIn'>
+        <Link to='/sessions' className='button'>
           <p>Sign In</p>
         </Link>
       </div>
