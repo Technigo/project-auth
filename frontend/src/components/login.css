@@ -1,0 +1,65 @@
+/*****LOGIN/FORM********/
+
+section{
+
+}
+
+.loginForm {  
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    background-color: #ffff;
+    color: black;
+    font-size: 20px;
+  }
+  
+  .loginForm h1 {
+    margin: 5px 10px 5px 0;
+    color: black;
+    text-align: center;
+    margin-bottom: 13px;
+  }
+
+  .loginForm h2 {
+    margin: 5px 10px 5px 0;
+    color: black;
+    text-align: center;
+    margin-bottom: 13px;
+    font-size: 15px;
+  }
+    
+
+
+  .loginForm input {
+    flex-wrap: wrap;
+    justify-items: center;
+    font-size: 10px;
+    margin: 10px 15px 10px 0px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    background: #f1f1f1;
+  }
+    
+  /* The submit button styling */
+  .loginForm button {
+    color: black;
+    font-size: 15px;
+    border: black;
+    border-radius: 40px; 
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 9px;
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 20px;
+    background-color: lightgreen;
+    width: 100px;
+  }
+
+  .loginForm button:hover {
+    background-color: grey;
+  }
+    
+

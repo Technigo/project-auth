@@ -1,18 +1,31 @@
-import React, { useState } from 'react'
-import { Link, useHistory, BrowserRouter, Switch, Route } from "react-router-dom"
-import { MemberPage } from './components/MemberPage'
+import { Link, useHistory } from "react-router-dom"
+import React from 'react'
 
-import { Login } from './components/Login'
-import { Registration } from './components/Registration'
+import Login from './components/Login'
+import MemberPage from './components/MemberPage'
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import Registration from './components/Registration' // Van´s LoginForm
+
 
 export const App = () => {
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
-
+  
   return (
-    <div>
-      < Login />
-      < Registration />
-      Find me in src/app.js!
-      </div>
-  )}
+    <BrowserRouter>
+      <Switch>
+      {/* Route for Singing up new member and logging in exicsting member */}
+        <Route path="/" exact>    
+        {/* Added exact above */}
+        <div className="authContainer">
+          <Registration />  
+          <Login />
+        </div>
+        </Route>
+        {/* Route for memberpage   */}
+        <Route path="/MemberPage">
+          <MemberPage />
+        </Route>
+      
+      </Switch>
+    </BrowserRouter>
+  )
+}
