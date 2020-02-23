@@ -36,7 +36,7 @@ export const Signup = () => {
                     />
                 </label>
                 <label>
-                    password
+                    password:
                 <input required
                         type="password"
                         value={password}
