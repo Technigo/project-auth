@@ -19,10 +19,11 @@ export const App = () => {
       <Router>
         <Switch>
           <Route path='/' exact>
-            <Login />
+            <Signup />
+
           </Route>
           <Route path='/signup' exact>
-            <Signup />
+            <Login />
           </Route>
           <Route path='/secrets' exact>
             <Secret />
