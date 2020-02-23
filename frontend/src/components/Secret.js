@@ -10,19 +10,16 @@ export const Secret = ({ accessToken }) => {
   useEffect(() => {
     fetch(URL, {
       method: 'GET',
-      headers: [
-        {
-          'Content-Type': 'application/json'
-        },
-        { Authorization: accessToken }
-      ]
-      //put each different header in {} and both of them in []
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      }
     })
       .then((res) => res.json())
       .then((object) => {
         console.log(object.secret)
         if (object.secret) {
-          setSecret()
+          setSecret(object.secret)
         } else {
           setErrorMessage('no pic for you')
         }
@@ -33,15 +30,14 @@ export const Secret = ({ accessToken }) => {
   }, [])
 
   return (
-    <p>here is your secret</p>
-    // <div>
-    //   <iframe
-    //     src={secret}
-    //     width='480'
-    //     height='480'
-    //     frameBorder='0'
-    //     className='giphy-embed'
-    //     allowFullScreen></iframe>
-    // </div>
+    <div>
+      <iframe
+        src={secret}
+        width='480'
+        height='480'
+        frameBorder='0'
+        className='giphy-embed'
+        allowFullScreen></iframe>
+    </div>
   )
 }
