@@ -28,16 +28,16 @@ export const SignIn = ({ onAuthenticate }) => {
           onAuthenticate(user.accessToken)
           history.push('/secrets')
         } else {
-          setErrorMessage('Username or password is incorrect')
+          setErrorMessage('Username or password is incorrect, try again!')
         }
         console.log(user)
       })
   }
   return (
     <main>
-      {errorMessage && <div>{errorMessage}</div>}
       <h1>Sign in to see secret image! </h1>
       <form onSubmit={handleSubmit}>
+        {errorMessage && <p className='errorMessage'>{errorMessage}</p>}
         <label htmlFor='email'>Email</label>
         <input
           id='email'
