@@ -103,24 +103,29 @@ export const Secret = () => {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:8080/secrets/${userId}`, {
-            headers: {
-                "Authorization": token
-            }
-        })
-            .then(res => {
-                setStatus(res.status)
-                return res.json()
+        if (userId) {
+            fetch(`http://localhost:8080/secrets/${userId}`, {
+                headers: {
+                    "Authorization": token
+                }
             })
-            .then(json => {
-                setSecrets(json)
-                setLoading(false)
-            })
-            .catch(err => {
-                setLoading(false)
-                setStatus(404)
-            })
-    }, [sentMessage, status])
+                .then(res => {
+                    setStatus(res.status)
+                    return res.json()
+                })
+                .then(json => {
+                    setSecrets(json)
+                    setLoading(false)
+                })
+                .catch(err => {
+                    setLoading(false)
+                    setStatus(404)
+                })
+        } else {
+            setLoading(false)
+            setStatus(404)
+        }
+    }, [userId, token, sentMessage])
 
     if (loading) {
         return <Loading><BeatLoader color='#000' /></Loading>
