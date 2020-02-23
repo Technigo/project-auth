@@ -76,6 +76,7 @@ app.get('/', (req, res) => {
 })
 // Signup post
 app.post('/users', async (req, res) => {
+  console.log('ivett')
   // try to register the user
   try {
     const { name, email, password } = req.body
@@ -83,7 +84,8 @@ app.post('/users', async (req, res) => {
       // it is very important to encrypt the passwords and store them encrypted in our db!
       const user = new User({ name, email, password: bcrypt.hashSync(password) })
       await user.save()
-      res.status(201).json({ id: user._id, name: user.name, accessToken: user.accessToken })
+      res.status(201).json({ id: user._id, name: user.name, password: user.password, accessToken: user.accessToken })
+      console.log({ user })
       // if the user is not registered, then we catch the error
     } else res.status(400).json({ message: 'Invalid email', errors: err.errors })
   } catch (err) {
