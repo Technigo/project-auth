@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 
 
-const URL = 'http://localhost:8000/users'
+const URL = 'http://auth-ninadisa.herokuapp.com/users'
 
 export const NewUser = () => {
   const [name, setName] = useState("")

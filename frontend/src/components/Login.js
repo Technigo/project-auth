@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-const URL = 'http://localhost:8000/sessions'
-
-
+const URL = 'https://auth-ninadisa.herokuapp.com/sessions'
 
 
 export const LoginUser = props => {

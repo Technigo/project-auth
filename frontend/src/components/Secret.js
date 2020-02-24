@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 
-const URL = 'http://localhost:8000/secrets'
+const URL = 'http://auth-ninadisa.herokuapp.com/secrets'
 
 export const Secret = () => {
   const [message, setMessage] = useState('')

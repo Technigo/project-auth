@@ -1,6 +1,5 @@
 import React from 'react'
 
-// const URL = 'http://localhost:8000/sessions'
 
 export const LogoutUser = props => {
   const accessToken = localStorage.removeItem('accessToken')
@@ -10,8 +9,6 @@ export const LogoutUser = props => {
     event.preventDefault()
     window.localStorage.removeItem('accessToken', accessToken)
   }
-
-
 
   return (
     <div>
