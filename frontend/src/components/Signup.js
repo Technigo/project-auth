@@ -27,9 +27,8 @@ export const Signup = () => {
             window.localStorage.setItem('accessToken', accessToken)
             window.localStorage.setItem('userId', userId)
             dispatch(auth.actions.login())
-            history.push('/mySite')
           }
-        })
+        }).then(() => history.push('/mySite'))
     } else {
       setError(true)
     }
