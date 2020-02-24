@@ -1,9 +1,39 @@
 import React from 'react'
+import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { NewUser } from './components/Form1'
+import { LoginUser } from './components/Login'
+import { LogoutUser } from './components/Logout'
+import { Secret } from './components/Secret'
 
 export const App = () => {
   return (
-    <div>
-      Find me in src/app.js!
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact>
+          <section>
+            <h1>Tell us who you are!</h1>
+            <div>
+              <NewUser />
+
+              <LoginUser />
+
+              <LogoutUser />
+
+            </div>
+          </section>
+        </Route>
+        <Route path="/secrets" exact>
+          <Secret />
+
+        </Route>
+      </Switch>
+    </BrowserRouter>
   )
 }
+
+
+//Sign up form - localhost:8000/users
+//namn, email, password
+//Login form - localhost:8000/sessions
+//email, password
+//Authenicated content - localhost:8000/secrets
