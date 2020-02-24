@@ -39,7 +39,7 @@ export const Header = () => {
         </span>
       </nav>
       <div className="hero">
-        <h1>Auth'O'Matic</h1>
+        <h1>Auth 'O' Matic</h1>
         <h3>Simple Authentication/Authorization tool</h3>
         <h2>Created by Pinky and The Brain</h2>
       </div>
