@@ -6,7 +6,7 @@
     justify-content: center;
     position: relative;
     align-items: center;
-    background-color: #f1adbf;
+    background-color: #b6657b;
     padding: 68px;
     color: #fff;
     font-size: 20px;
@@ -50,12 +50,14 @@
   /*changes the color of the button upon hovering*/
   .loginForm button:hover {
     background-color:#fbe9e4;
-    color: #fff;
+    /* color: #fff; */
+    color: #000;
+   
   }
     
   /* The submit button styling */
   .loginForm button {
-    color: #f1adbf;
+    color: #447483;
     font-size: 15px;
     border: #fff;
     border-radius: 40px; /* Button gets rounded corners */ ;

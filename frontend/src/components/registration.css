@@ -3,7 +3,7 @@
 .registrationForm {  
     flex-wrap: wrap;
     flex-direction: column;
-    background-color: #3c5670d5;
+    background-color: #7943638a;
     padding: 30px;
     color: #fff;
     font-size: 20px;
@@ -36,7 +36,7 @@
   /*Style for the text field*/
   .registrationForm input {
     justify-items: center;
-    font-size: 10px;
+    font-size: 12px;
     margin: 5px 10px 5px 0;
     padding: 10px;
     background-color: #fff;
@@ -47,15 +47,16 @@
   /*changes the color of the button upon hovering*/
   .registrationForm button:hover {
     background-color:#a0d0df;
-    color: #fff;
+    color: #21383f;
+    /* color: #fff; */
   }
     
   /* The submit button styling */
   .registrationForm button {
-    color: #a0d0df;
+    color: #447483;
     font-size: 15px;
     border: #fff;
-    border-radius: 40px; /* Button gets rounded corners */ ;
+    border-radius: 20px; /* Button gets rounded corners */ ;
     text-transform: uppercase;
     text-decoration: none;
     padding: 9px;
