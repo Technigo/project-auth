@@ -80,11 +80,10 @@ app.post("/users", async (req, res) => {
 })
 
 //Content update
-app.put("/users/userId", async (req, res) => {
-  const { id } = req.params
+app.put("/users/:userId", async (req, res) => {
+  const { userId } = req.params
   try {
-    await User.updateOne({ 'userId': user._id }, req.body, { accessToken: req.header("Authorization") })
-    console.log(userId)
+    await User.updateOne({ '_id': userId }, req.body, { accessToken: req.header("Authorization") })
     res.status(201).json()
   } catch (err) {
     res.status(400).json({ message: "Could not save update", errors: err.errors })
