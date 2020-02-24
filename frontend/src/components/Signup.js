@@ -19,9 +19,12 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-width: 100%;
+border-radius: 5px;
+width: 500px;
+height: 600px;
+border: 1px solid #000;
 @media (min-width: 768px) {
-    width: 65%;
+  
   }
 
 `

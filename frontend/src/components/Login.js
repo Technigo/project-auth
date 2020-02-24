@@ -19,6 +19,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+border-radius: 5px;
 width: 500px;
 height: 600px;
 border: 1px solid #000;
@@ -73,7 +74,7 @@ const Button = styled.button`
   font-size:14px;
   margin: 15px;
   &:hover {
-    background: #a3a3c2;
+    background: #eee;
     cursor: pointer;
   }
 `
@@ -145,10 +146,11 @@ export const Login = () => {
                         placeholder="password"
                     />
                 </LabelText>
-                <ButtonWrapper>
-                    <Button type="submit" onClick={handleSubmit}>
+                <Button type="submit" onClick={handleSubmit}>
                         LOGIN
                 </Button>
+                <ButtonWrapper>
+
                     <Button type="button" onClick={signUp}>
                         SIGN UP
                 </Button>
