@@ -91,7 +91,7 @@ export const Secret = (props) => {
 
     const sendSecret = (event) => {
         event.preventDefault()
-        props.onFormSubmit(message)
+
         if (message !== "") {
             fetch(`https://authentication-tiago-ivett.herokuapp.com/secret/${userId}`, {
                 method: "POST",
@@ -99,8 +99,9 @@ export const Secret = (props) => {
                 headers: { "Content-Type": "application/json", "Authorization": token }
             }).catch(err => console.log("error:", err))
         }
+        props.onFormSubmit(message)
         setMessage("")
-        // setSentMessage(!sentMessage)
+        setSentMessage(!sentMessage)
     }
 
     useEffect(() => {
