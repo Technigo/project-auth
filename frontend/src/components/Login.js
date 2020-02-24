@@ -19,9 +19,11 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-width: 80%;
+width: 500px;
+height: 600px;
+border: 1px solid #000;
 @media (min-width: 768px) {
-    width: 65%;
+  
   }
 
 `
@@ -49,7 +51,7 @@ justify-content: center;
 flex-direction: column;
 padding: 0px 10px;
 @media (min-width: 768px) {
-    width: 40vw;
+   
 }
 `
 const ButtonWrapper = styled.div`
