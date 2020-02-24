@@ -10,5 +10,6 @@ Frontend is built with React.js and React Router.
 
 ## View it live
 
-dssdf
-sfagfg
+
+https://auth-ninadisa.netlify.com/
+https://auth-ninadisa.herokuapp.com/
