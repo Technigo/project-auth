@@ -16,9 +16,9 @@ export const Signup = () => {
     e.preventDefault()
     if (password === passwordConfirm) {
       fetch(url, {
-        method: "post",
+        method: 'post',
         body: JSON.stringify({ name, email, password }),
-        headers: { "Content-Type": "application/json" }
+        headers: { 'Content-Type': 'application/json' }
       })
         .then(() => (dispatch(auth.actions.login())))
     } else {
