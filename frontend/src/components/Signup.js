@@ -21,14 +21,18 @@ export const Signup = () => {
         method: 'post',
         body: JSON.stringify({ name, email, password }),
         headers: { 'Content-Type': 'application/json' }
-      })
-        .then(({ userId, accessToken }) => {
-          if (accessToken) {
-            window.localStorage.setItem('accessToken', accessToken)
-            window.localStorage.setItem('userId', userId)
-            dispatch(auth.actions.login())
-          }
-        }).then(() => history.push('/mySite'))
+      }).then((res) => {
+        if (!res.ok) {
+          throw new Error('Your e-mail and/or password was incorrect')
+        }
+        return res.json()
+      }).then(({ userId, accessToken }) => {
+        if (accessToken) {
+          window.localStorage.setItem('accessToken', accessToken)
+          window.localStorage.setItem('userId', userId)
+          dispatch(auth.actions.login())
+        }
+      }).then(() => history.push('/mySite'))
     } else {
       setError(true)
     }
