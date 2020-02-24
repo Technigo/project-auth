@@ -49,7 +49,7 @@ justify-content: center;
 flex-direction: column;
 padding: 0px 10px;
 @media (min-width: 768px) {
-    width: 60vw;
+   
 }
 `
 
