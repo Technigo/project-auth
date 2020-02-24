@@ -31,9 +31,3 @@ export const App = () => {
   )
 }
 
-
-//Sign up form - localhost:8000/users
-//namn, email, password
-//Login form - localhost:8000/sessions
-//email, password
-//Authenicated content - localhost:8000/secrets

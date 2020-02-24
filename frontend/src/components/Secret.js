@@ -31,15 +31,15 @@ export const Secret = () => {
         setErrorMessage(err.message)
       })
   }
-
+  // We can not get this error message to work
   // if (!message) {
   //   return <div>We are trying to log you in</div>
   // }
 
   return (
     <article>
-      <h1>{message}</h1>
-      <div>
+
+      <div className="buttons-loggedin">
         <div>
           <button className="secret-button"
             type='submit'
@@ -56,6 +56,7 @@ export const Secret = () => {
             <span role="img" aria-label="take me back">  ⬅️ </span> Back
           </button>
         </Link>
+        <h4>{message}</h4>
       </div>
     </article >
   )

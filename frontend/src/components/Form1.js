@@ -25,15 +25,13 @@ export const NewUser = () => {
         }
         return res.json()
           .then(json => console.log(json))
-          .then(json => setMessage(message.json))
+          .then(json => setMessage(json.message))
       })
       .then(() => {
         setName("")
         setEmail("")
         setPassword("")
       })
-
-
       .catch(err => console.log("error:", err))
       .catch(err => {
         setErrorMessage(err.message)
@@ -64,15 +62,17 @@ export const NewUser = () => {
           SIGN UP
       </button>
       </form>
-      <p className="charCount">{name.length} / 100 </p>
-      <p className="charCount">{password.length} / 12 </p>
+      <div className="charcountWrapper">
+        <p className="charCount">{name.length} / 100 </p>
+        <p className="charCount">{password.length} / 12 </p>
+      </div>
       <p>{message}</p>
 
       {errorMessage && <div><p>{errorMessage}</p></div>}
       {message && <div><p>{message}</p></div>}
 
 
-    </div>
+    </div >
   )
 }
 

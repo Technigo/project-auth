@@ -41,7 +41,6 @@ export const LoginUser = props => {
       })
   }
 
-  //console.log("error:", err))
 
   return (
     <div>
@@ -55,6 +54,7 @@ export const LoginUser = props => {
         </label>
         <button
           type="submit"
+          disabled={password.length < 4 ? true : false}
           onClick={onLoggedIn}>
           LOG IN
         </button>

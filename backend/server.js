@@ -44,7 +44,7 @@ const authenticateUser = async (req, res, next) => {
     req.user = user
     next()
   } else {
-    res.status(401).json({ loggedOut: true })
+    res.status(403).json({ message: "You need to login to access this page" })
   }
 }
 
@@ -83,7 +83,7 @@ app.post('/users', async (req, res) => {
 //Applies the middleware-function above that checks authentication
 app.get('/secrets', authenticateUser)
 app.get('/secrets', (req, res) => {
-  res.json({ message: 'This is a very secret message' })
+  res.json({ message: '"And above all, watch with glittering eyes the whole world around you because the greatest secrets are always hidden in the most unlikely places. Those who don´t believe in magic will never find it."' })
 })
 
 //Logging in endpoint
