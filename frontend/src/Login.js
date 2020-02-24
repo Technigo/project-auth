@@ -3,15 +3,15 @@ import { useHistory } from "react-router-dom";
 import { loginUser } from "./services/authorization";
 import van from "./images/van.jpg";
 import {
-  Container,
+  Body,
   ColoredBackgroundHeader,
-  WhiteBackgroundHeader,
+  LeftColumnHeader,
   LoginLeft,
   LoginRight,
   Image,
   Label,
   Input,
-  Form,
+  Container,
   TransparentButton,
   FullButton,
   Error
@@ -36,11 +36,11 @@ export const Login = () => {
   };
 
   return (
-    <Container>
-      <Form>
+    <Body>
+      <Container>
         <LoginLeft>
           <p>Welcome back!</p>
-          <WhiteBackgroundHeader>Login to your account</WhiteBackgroundHeader>
+          <LeftColumnHeader>Login to your account</LeftColumnHeader>
           <Label>Email</Label>
           <Input
             type="email"
@@ -63,7 +63,7 @@ export const Login = () => {
             Sign up for an account
           </TransparentButton>
         </LoginRight>
-      </Form>
-    </Container>
+      </Container>
+    </Body>
   );
 };

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "./services/authorization";
 import {
-  Container,
+  Body,
   RegTop,
   RegLeft,
   RegRight,
@@ -12,7 +12,7 @@ import {
   TransparentButton,
   Label,
   Input,
-  Form,
+  Container,
   WhiteBackgroundHeader
 } from "./styles";
 import woman from "./images/woman.jpg";
@@ -37,8 +37,8 @@ export const Register = () => {
   };
 
   return (
-    <Container>
-      <Form>
+    <Body>
+      <Container>
         <RegLeft>
           <Image src={woman} />
           <RegTop>
@@ -69,7 +69,7 @@ export const Register = () => {
           <FullButton onClick={event => handleRegister(event)}>REGISTER</FullButton>
           {errorText && <Error>Could not add user. Please try again!</Error>}
         </RegRight>
-      </Form>
-    </Container>
+      </Container>
+    </Body>
   );
 };

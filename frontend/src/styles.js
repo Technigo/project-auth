@@ -1,7 +1,7 @@
 import styled from "styled-components/macro";
 
 //Global
-export const Container = styled.div`
+export const Body = styled.div`
   background: #eee;
   height: 100vh;
 `;
@@ -82,7 +82,7 @@ export const Input = styled.input`
   }
 `;
 
-export const Form = styled.form`
+export const Container = styled.div`
   width: 80%;
   height: 70%;
   margin: 0 auto;
@@ -129,15 +129,15 @@ export const LoginHeader = styled.h2`
   }
 `;
 
-// export const RightHeader = styled.h2`
-//   font-family: "Open Sans";
-//   letter-spacing: 2px;
-//   font-size: 1rem;
-//   margin-top: 0;
-//   @media (min-width: 600px) {
-//     font-size: 1.5rem;
-//   }
-// `;
+export const LeftColumnHeader = styled.h2`
+  font-family: "Open Sans";
+  letter-spacing: 2px;
+  font-size: 1rem;
+  margin-top: 0;
+  @media (min-width: 600px) {
+    font-size: 1.5rem;
+  }
+`;
 
 export const LoginLeft = styled.div`
   width: 35%;
@@ -189,4 +189,14 @@ export const RegTop = styled.div`
   @media (min-width: 600px) {
     font-size: 1rem;
   }
+`;
+
+export const WelcomeBackground = styled.div`
+  width: 100%;
+  height: 100%;
+  background: black;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 10% 10% 60% 10% 10%;
+  grid-template-rows: 10% 25% 40% 10% 15%;
 `;

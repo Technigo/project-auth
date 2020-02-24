@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components/macro";
-
-const LogoutButton = styled.button``;
+import {
+  Body,
+  Image,
+  WelcomeBackground,
+  TransparentButton,
+  ColoredBackgroundHeader,
+  Container
+} from "./styles";
+import boat from "./images/boat.jpg";
 
 export const Welcome = () => {
   const [message, setMessage] = useState(false);
@@ -31,10 +37,15 @@ export const Welcome = () => {
   };
 
   return (
-    <div>
-      <button onClick={handleLogOut}>Log out</button>
-      <div>{message}</div>
-    </div>
+    <Body>
+      <Container>
+        <WelcomeBackground>
+          <Image src={boat} />
+          <TransparentButton onClick={handleLogOut}>Log out</TransparentButton>
+          <ColoredBackgroundHeader>{message}</ColoredBackgroundHeader>
+        </WelcomeBackground>
+      </Container>
+    </Body>
   );
 };
 
