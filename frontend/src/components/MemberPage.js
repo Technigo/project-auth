@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import './memberpage.css' 
 
-const URL = 'https://project-auth.herokuapp.com/users'
+const URL = 'https://pb-auth-api.herokuapp.com/users'
 
 export const MemberPage = () => {
   const accessToken = window.localStorage.getItem("accessToken")

@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from "react-router-dom"
 import './login.css'
 
-const URL = 'https://project-auth.herokuapp.com/users'
+const URL = 'https://pb-auth-api.herokuapp.com/sessions'
 
 export const Login = () => {
  const[email, setEmail] = useState('')
  const[password, setPassword] = useState('')
  const [errorMsg, setErrorMsg] = useState(null)
- const history = useHistory()
 
  // To log in an exicting member
 const handleFormSubmit = event => {
@@ -54,7 +52,6 @@ const handleFormSubmit = event => {
             onChange={event => { setEmail(event.target.value) }} 
             required>
           </input>
-
           <label></label>
           <input 
             value={password} 

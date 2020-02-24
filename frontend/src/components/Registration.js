@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './registration.css' 
 
-const URL = 'https://project-auth.herokuapp.com/users'
+const URL = 'https://pb-auth-api.herokuapp.com/register'
 
 export const Registration = () => {
  const[name, setName] = useState('')
