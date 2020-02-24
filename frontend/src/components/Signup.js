@@ -54,18 +54,18 @@ padding: 0px 10px;
 `
 
 const Button = styled.button`
-  background: transparent;
-  color: #47476b;
-  border: 3px solid #47476b;
-  padding: 15px;
-  border-radius: 20px;
-  text-transform: uppercase;
-  font-size:14px;
-  margin: 15px;
-  &:hover {
-    background: #a3a3c2;
-    cursor: pointer;
-  }
+background: transparent;
+color: #47476b;
+border: 3px solid #47476b;
+padding: 15px;
+border-radius: 20px;
+text-transform: uppercase;
+font-size:14px;
+margin: 15px;
+&:hover {
+  background: #eee;
+  cursor: pointer;
+}
 `
 const LabelText = styled.label`
 margin-bottom: 10px;
@@ -103,14 +103,15 @@ export const Signup = () => {
         <Wrapper>
             <Title>Sign up!</Title>
             <SignupForm onSubmit={handleSubmit}>
-                <LabelText> name:
+                 <ErrorText>{error}</ErrorText>
+                <LabelText>
                 <Input required
                         value={name}
                         onChange={event => setName(event.target.value)}
                         placeholder="name"
                     />
                 </LabelText>
-                <LabelText> e-mail:
+                <LabelText>
                 <Input required
                         value={email}
                         onChange={event => setEmail(event.target.value)}
@@ -118,7 +119,6 @@ export const Signup = () => {
                     />
                 </LabelText>
                 <LabelText>
-                    password:
                 <Input required
                         type="password"
                         value={password}
