@@ -1,13 +1,14 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+We have created a authentication flow with registration, login and a secret page with a secret message. The users are stored in a mongo database.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We worked with pairprogramming together starting with planning of the project. The server backend was created with mongoose and tested with postman and checked in compass.
+
+Frontend is built with React.js and React Router.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+dssdf
+sfagfg
