@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { auth } from 'reducers/auth'
+import { useHistory } from 'react-router-dom'
 
 export const Signup = () => {
   const dispatch = useDispatch()
@@ -9,6 +10,7 @@ export const Signup = () => {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [error, setError] = useState(false)
+  const history = useHistory()
 
   const url = 'https://auth-pinky-and-brain.herokuapp.com/users'
 
@@ -16,11 +18,18 @@ export const Signup = () => {
     e.preventDefault()
     if (password === passwordConfirm) {
       fetch(url, {
-        method: 'post',
+        method: "post",
         body: JSON.stringify({ name, email, password }),
-        headers: { 'Content-Type': 'application/json' }
+        headers: { "Content-Type": "application/json" }
       })
-        .then(() => (dispatch(auth.actions.login())))
+        .then(({ userId, accessToken }) => {
+          if (accessToken) {
+            window.localStorage.setItem('accessToken', accessToken)
+            window.localStorage.setItem('userId', userId)
+            dispatch(auth.actions.login())
+            history.push('/mySite')
+          }
+        })
     } else {
       setError(true)
     }
