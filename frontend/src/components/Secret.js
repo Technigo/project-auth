@@ -74,7 +74,7 @@ const SecretDate = styled.p`
     font-size: 12px;
 `
 
-export const Secret = (props) => {
+export const Secret = () => {
     const [secrets, setSecrets] = useState([])
     const [sentMessage, setSentMessage] = useState(false)
     const [status, setStatus] = useState()
@@ -99,7 +99,6 @@ export const Secret = (props) => {
                 headers: { "Content-Type": "application/json", "Authorization": token }
             }).catch(err => console.log("error:", err))
         }
-        props.onFormSubmit(message)
         setMessage("")
         setSentMessage(!sentMessage)
     }

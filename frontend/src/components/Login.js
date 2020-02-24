@@ -65,17 +65,18 @@ width:100%;
 
 `
 const Button = styled.button`
-  background: transparent;
-  color: #47476b;
-  padding: 15px;
-  border-radius: 20px;
-  text-transform: uppercase;
-  font-size:14px;
-  margin: 15px;
-  &:hover {
-    color: #eee;
-    cursor: pointer;
-  }
+background: transparent;
+color: #47476b;
+border: 3px solid #47476b;
+padding: 15px;
+border-radius: 20px;
+text-transform: uppercase;
+font-size:14px;
+margin: 15px;
+&:hover {
+  background: #eee;
+  cursor: pointer;
+}
 `
 const LabelText = styled.label`
 margin-bottom: 10px;
@@ -145,11 +146,11 @@ export const Login = () => {
                         placeholder="password"
                     />
                 </LabelText>
+
+                <ButtonWrapper>
                 <Button type="submit" onClick={handleSubmit}>
                         LOGIN
                 </Button>
-                <ButtonWrapper>
-
                     <Button type="button" onClick={signUp}>
                         SIGN UP
                 </Button>
