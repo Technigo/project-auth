@@ -15,7 +15,7 @@ export const SignUpForm = () => {
     event.preventDefault()
     console.log('event handleSubmit= when a new user signs up')
   // Sends the POST request with the input from your form 
-    fetch('http://projectauthannaochelin.herokuapp.com/users', {
+    fetch('https://projectauthannaochelin.herokuapp.com/users', {
       method: 'POST',
       body: JSON.stringify({name, email, password}),
       headers: { 'Content-Type': 'application/json' }

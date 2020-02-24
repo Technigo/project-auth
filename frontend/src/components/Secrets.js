@@ -8,7 +8,7 @@ export const Secrets = () => {
   console.log("Access token from localStorage: " + accessToken)
 
   // Get secret from back-end. Here we use GET and not POST (see back end code)
-  fetch('http://projectauthannaochelin.herokuapp.com/secrets', {
+  fetch('https://projectauthannaochelin.herokuapp.com/secrets', {
       method: 'GET',
       headers: { 'Authorization': accessToken }
     })
