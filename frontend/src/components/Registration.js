@@ -4,7 +4,6 @@ import './registration.css'
 // const URL = 'http://localhost:9000/register'
 // const URL = 'https://pb-auth-api.herokuapp.com/register'
 const URL = process.env.REACT_APP_API_URL || 'https://pb-auth-api.herokuapp.com/register'
-// const URL = 'http://heruko......' put the deployed url here
 
 export const Registration = () => {
     const [name, setName] = useState('')
