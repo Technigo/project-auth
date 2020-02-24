@@ -1,4 +1,5 @@
 import db from '../models'
+import bcrypt from 'bcrypt-nodejs'
 
 exports.createUser = async (req, res) => {
   try {
