@@ -14,7 +14,7 @@ export const SignInForm = () => {
   const handleSignInForm = (event) => {
     event.preventDefault()
     console.log("Log In")
-      fetch('https://projectauthannaochelin.herokuapp.com/sessions', {
+      fetch('http://projectauthannaochelin.herokuapp.com/sessions', {
           method: 'POST',
           body: JSON.stringify({email, password}),
           headers: { 'Content-Type': 'application/json' }
