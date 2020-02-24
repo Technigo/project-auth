@@ -74,7 +74,7 @@ const SecretDate = styled.p`
     font-size: 12px;
 `
 
-export const Secret = () => {
+export const Secret = (props) => {
     const [secrets, setSecrets] = useState([])
     const [sentMessage, setSentMessage] = useState(false)
     const [status, setStatus] = useState()
@@ -89,8 +89,9 @@ export const Secret = () => {
         dispatch(auth.actions.logout())
     }
 
-    const sendSecret = event => {
+    const sendSecret = (event) => {
         event.preventDefault()
+        props.onFormSubmit(message)
         if (message !== "") {
             fetch(`https://authentication-tiago-ivett.herokuapp.com/secret/${userId}`, {
                 method: "POST",
@@ -99,7 +100,7 @@ export const Secret = () => {
             }).catch(err => console.log("error:", err))
         }
         setMessage("")
-        setSentMessage(!sentMessage)
+        // setSentMessage(!sentMessage)
     }
 
     useEffect(() => {
