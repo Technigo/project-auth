@@ -1,12 +1,11 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+Anna and Elins project on how to sign up a new user and log in a user. How to create a authorize function.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We started do build a sign up form, were the user should sign up with name, email and password. The password gets encrypted and a token is connected to the user.
+Then we created a Sign in function were you should log in with you email and password still encrypted and end up on a member page were you can log out.
 
 ## View it live
 
