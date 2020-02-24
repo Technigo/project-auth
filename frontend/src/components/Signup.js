@@ -74,7 +74,7 @@ font-size: 18px;
 
 
 
-const URL = 'http://localhost:8080/users'
+const URL = 'https://authentication-tiago-ivett.herokuapp.com/users'
 export const Signup = () => {
     const [name, setName] = useState('')
     const dispatch = useDispatch()

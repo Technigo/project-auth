@@ -92,7 +92,7 @@ export const Secret = () => {
     const sendSecret = event => {
         event.preventDefault()
         if (message !== "") {
-            fetch(`http://localhost:8080/secret/${userId}`, {
+            fetch(`https://authentication-tiago-ivett.herokuapp.com/secret/${userId}`, {
                 method: "POST",
                 body: JSON.stringify({ message }),
                 headers: { "Content-Type": "application/json", "Authorization": token }

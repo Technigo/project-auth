@@ -83,7 +83,7 @@ font-size: 18px;
 
 
 
-const URL = 'http://localhost:8080/sessions'
+const URL = 'https://authentication-tiago-ivett.herokuapp.com/sessions'
 
 export const Login = () => {
     const dispatch = useDispatch()
