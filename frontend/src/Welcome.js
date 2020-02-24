@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components/macro";
+
+const LogoutButton = styled.button``;
 
 export const Welcome = () => {
   const [message, setMessage] = useState(false);
