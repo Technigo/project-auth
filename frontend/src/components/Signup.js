@@ -32,7 +32,7 @@ export const Signup = () => {
   }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <h2>Sign up!</h2>
       <label htmlFor="name">Name:
         <input className={error ? 'error' : ''} id="name" type="text" name="name" value={name} onChange={(e) => handleChange(e, setName)} />
@@ -47,7 +47,7 @@ export const Signup = () => {
         <input className={error ? 'error' : ''} id="password-confirm" type="password" name="password-confirm" value={passwordConfirm} onChange={(e) => handleChange(e, setPasswordConfirm)} />
       </label>
       {error && <p className="error">* Both passwords must be identical</p>}
-      <button type="button" onClick={handleSubmit}>Submit</button>
+      <button type="submit">Submit</button>
     </form>
   )
 }
