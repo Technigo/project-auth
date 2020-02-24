@@ -35,6 +35,28 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
+const authenticateUser = async(req, res, next) => {
+
+    try {
+        const user = await User.findOne({
+            accessToken: req.header('Authorization')
+        })
+        if (user) {
+            req.user = user
+            next()
+        } else {
+            res.status(401).json({ loggedOut: true, message: 'Please try to login again' })
+        }
+    } catch (err) {
+        res
+            .status(403)
+            .json({ message: 'acess token missing or wrong', errors: err.errors })
+    }
+}
+
+
+
+
 // Start defining your routes here
 app.get('/', (req, res) => {
     res.send('Hello world')
@@ -51,6 +73,30 @@ app.post('/users', async(req, res) => {
         res.status(400).json({ message: 'could not save user', errors: err.errors })
     }
 })
+
+// Secure endpoint, user need to be logged in
+app.get('/users/:id', authenticateUser)
+app.get('/users/:id', async(req, res) => {
+    res.send('hellow fella')
+})
+
+// login user
+app.post('/sessions', async(req, res) => {
+    try {
+        const { name, password } = req.body
+        const user = await User.findOne({ name })
+        if (user && bcrypt.compareSync(password, user.password)) {
+            res.status(201).json({ useId: user._id, accessToken: user.accessToken })
+        } else {
+            res.status(401).json({ notFound: true })
+        }
+
+    } catch (err) {
+        res.status(400).json({ message: 'could not save user', errors: err.errors })
+    }
+})
+
+
 
 // Start the server
 app.listen(port, () => {
