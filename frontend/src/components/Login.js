@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import './login.css'
 
-const URL = 'http://localhost:9000/sessions'
+// const URL = 'http://localhost:9000/sessions'
+const URL = 'https://pb-auth-api.herokuapp.com/sessions'
 
 export const Login = () => {
     const [email, setEmail] = useState('')

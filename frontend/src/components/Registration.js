@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import './registration.css'
 
-const URL = 'http://localhost:9000/register'
+// const URL = 'http://localhost:9000/register'
+const URL = 'https://pb-auth-api.herokuapp.com/register'
 // const URL = 'http://heruko......' put the deployed url here
 
 export const Registration = () => {
