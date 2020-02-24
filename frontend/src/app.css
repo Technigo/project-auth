@@ -14,7 +14,6 @@
     background-color:  rgb(197, 233, 229);
     display: flex;
     flex-direction: column;
-   
     height: 500px;
     width: 600px;
     align-items: center;
@@ -34,7 +33,6 @@ flex-direction: column;
 margin-top: 50px;
 justify-content: center;
 align-items: center;
-
 }
 
 .btn-firstPage{
@@ -47,13 +45,11 @@ border: none;
 margin-top: 20px;
 }
 
-
 .backgroundContainer{
     height: 600px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center;  
 }
 
 .mainContainer{
@@ -66,8 +62,6 @@ margin-top: 20px;
     justify-content: center;
     align-items: center;
 }
-
-
 
 h1{
     width: 250px;
@@ -84,8 +78,7 @@ h1{
 .btn-Container{
     display: flex;
     justify-content: center;
-    margin-top: 60px;
-    
+    margin-top: 60px; 
 }
 
 .btn{
@@ -105,19 +98,16 @@ h1{
     margin: 5px;
 }
 
-
-
 a{
     text-decoration: none;
     color: grey;
-   }
+}
 
 .txt-btn-container{
 display: flex;
 flex-direction: column;
 align-items: center;
 width: 250px;
-
 }
 
 .signout-btn{

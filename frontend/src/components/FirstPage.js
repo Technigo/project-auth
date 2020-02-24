@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import { SignUpForm } from './SignUpForm';
 
 export const FirstPage = () => {
-
-    
+  
 return (
     <>
         <div className='firstPage'>
