@@ -8,6 +8,7 @@ const Form = styled.form`
 const Label = styled.label`
 `
 const LabelText = styled.p`
+color: #F5F3F5;
 `
 const Input = styled.input`
 `
@@ -64,7 +65,7 @@ export const LoginForm = ({ setUsername }) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      {loginFailed && <LoginFailed>Login failed</LoginFailed>}
+      {loginFailed && <LoginFailed>Incorrect username or password</LoginFailed>}
       <Label>
         <LabelText>E-mail</LabelText>
         <Input

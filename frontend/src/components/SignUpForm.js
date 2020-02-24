@@ -9,6 +9,7 @@ const Label = styled.label`
 `
 
 const Text = styled.p`
+color: #F5F3F5;
 `
 
 const Input = styled.input`
