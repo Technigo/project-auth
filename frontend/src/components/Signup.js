@@ -33,7 +33,9 @@ color: #47476b;
 text-transform: uppercase;
 font-size:40px;
 `
-
+const ErrorText = styled.h2`
+color: red;
+`
 const Input = styled.input`
 border-style: hidden;
 border-radius: 5px;
@@ -83,6 +85,8 @@ export const Signup = () => {
     const dispatch = useDispatch()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+    
     const handleSubmit = (event) => {
         event.preventDefault()
 
@@ -93,12 +97,18 @@ export const Signup = () => {
         })
             .then(res => {
                 res.json()
-                if (res.status === 201)
+                if (res.status === 201) {
                     dispatch(auth.actions.setSignedUp(false))
+            } else {
+                setError("Something went wrong, please try again.")
+                throw new Error('Unable to sign Up, please try again')
+            }
+            
             })
             .then(json => console.log(json))
             .catch(err => console.log('error:', err))
     }
+
     return (
         <Wrapper>
             <Title>Sign up!</Title>

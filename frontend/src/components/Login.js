@@ -67,14 +67,13 @@ width:100%;
 const Button = styled.button`
   background: transparent;
   color: #47476b;
-  border: 3px solid #47476b;
   padding: 15px;
   border-radius: 20px;
   text-transform: uppercase;
   font-size:14px;
   margin: 15px;
   &:hover {
-    background: #eee;
+    color: #eee;
     cursor: pointer;
   }
 `
