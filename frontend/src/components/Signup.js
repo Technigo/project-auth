@@ -3,6 +3,77 @@ import { useDispatch } from "react-redux"
 import { auth } from "../reducers/auth"
 import styled from 'styled-components/macro'
 
+const Wrapper = styled.section`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 100vh;
+  padding: 10px;
+`;
+const SignupForm = styled.form`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 100%;
+@media (min-width: 768px) {
+    width: 65%;
+  }
+
+`
+const Title = styled.h1`
+color: #47476b;
+text-transform: uppercase;
+font-size:40px;
+`
+
+const Input = styled.input`
+border-style: hidden;
+border-radius: 5px;
+border-bottom: 2px solid black;
+background-color: #eee;
+width: 100%;
+height: 40px;
+font-size: 20px;
+line-height: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+padding: 0px 10px;
+@media (min-width: 768px) {
+    width: 60vw;
+}
+`
+
+const Button = styled.button`
+  background: transparent;
+  color: #47476b;
+  border: 3px solid #47476b;
+  padding: 15px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-size:14px;
+  margin: 15px;
+  &:hover {
+    background: #a3a3c2;
+    cursor: pointer;
+  }
+`
+const LabelText = styled.label`
+margin-bottom: 10px;
+margin-top: 5px;
+font-size: 18px;
+`
+
+
+
+
+
 const URL = 'http://localhost:8080/users'
 export const Signup = () => {
     const [name, setName] = useState('')
@@ -26,37 +97,37 @@ export const Signup = () => {
             .catch(err => console.log('error:', err))
     }
     return (
-        <div>
-            <h1>Sign up!</h1>
-            <form onSubmit={handleSubmit}>
-                <label> name:
-                <input required
+        <Wrapper>
+            <Title>Sign up!</Title>
+            <SignupForm onSubmit={handleSubmit}>
+                <LabelText> name:
+                <Input required
                         value={name}
                         onChange={event => setName(event.target.value)}
                         placeholder="name"
                     />
-                </label>
-                <label> e-mail:
-                <input required
+                </LabelText>
+                <LabelText> e-mail:
+                <Input required
                         value={email}
                         onChange={event => setEmail(event.target.value)}
                         placeholder="email"
                     />
-                </label>
-                <label>
+                </LabelText>
+                <LabelText>
                     password:
-                <input required
+                <Input required
                         type="password"
                         value={password}
                         onChange={event => setPassword(event.target.value)}
                         placeholder="password"
                     />
-                </label>
-                <button type="submit" onClick={handleSubmit}>
+                </LabelText>
+                <Button type="submit" onClick={handleSubmit}>
                     SIGN UP
-                    </button>
-            </form>
+                    </Button>
+            </SignupForm>
 
-        </div>
+        </Wrapper>
     )
 }
