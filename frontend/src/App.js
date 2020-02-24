@@ -30,6 +30,7 @@ export const App = () => {
 
     //Removing the accessToken and userId from the brower's localStorage
     window.localStorage.removeItem('accessToken')
+    window.localStorage.removeItem('userId')
   }
 
   return (

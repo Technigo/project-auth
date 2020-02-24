@@ -20,9 +20,10 @@ export const Signin = ({ onLoggedIn }) => {
         }
         return res.json()
       })
-      .then(({ accessToken }) => {
+      .then(({ accessToken, userId }) => {
         //Saving the accessToken in the browser's localStorage
         window.localStorage.setItem('accessToken', accessToken)
+        window.localStorage.setItem('userId', userId)
 
         //Since the login succeeded, we're calling the loggedIn-
         //function from App, which makes the content show
@@ -51,7 +52,7 @@ export const Signin = ({ onLoggedIn }) => {
           type="password"
           onChange={event => setPassword(event.target.value)}
           value={password}
-          placeholder="Password"
+          placeholder=" Password"
         />
 
         <br></br>
