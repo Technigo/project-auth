@@ -4,18 +4,17 @@ import {SignUpResult} from 'components/SignUpResult'
 
 export const SignUpForm = () => {
   
-
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [accessToken, setAccessToken] = useState('')
   const [status, setStatus] = useState('')
 
-// post to API backend localhost:8080/users
+  // post to API backend localhost:8080/users
   const handleSubmit = (event) => {
     event.preventDefault()
     console.log('event handleSubmit= when a new user signs up')
-// Sends the POST request with the input from your form 
+  // Sends the POST request with the input from your form 
     fetch('http://localhost:8080/users', {
       method: 'POST',
       body: JSON.stringify({name, email, password}),
@@ -35,8 +34,6 @@ export const SignUpForm = () => {
           setStatus('Yes you are now signed up')
         }
     })
-  
-  
 }
   
   return (
@@ -55,7 +52,6 @@ export const SignUpForm = () => {
         </label>
         <label className='text'>
           {/* e-mail */}
-         
           <input className='formField' 
             type='email'
             value={email}
@@ -66,7 +62,6 @@ export const SignUpForm = () => {
         </label>
         <label className='text'>
           {/* password */}
-          
           <input className='formField' 
             type='password'
             value={password}
@@ -78,11 +73,10 @@ export const SignUpForm = () => {
         <SignUpResult status={status}/>
         <div className='btn-Container'>
           {/*<Link to='/secrets'><button  type='submit' className='btn' >sign up</button></Link>*/}
-         <button  type='submit' className='btn' >sign up</button>
+          <button  type='submit' className='btn' >sign up</button>
         </div>
         <div className='sign-in-container'>
-       <Link to='/sessions'> <p className='sign-in'>sign in</p></Link>
-       
+          <Link to='/sessions'> <p className='sign-in'>sign in</p></Link>
         </div>
       </form>
     </div>
