@@ -8,13 +8,13 @@ export const SignInForm = () => {
 
   const onLoggedIn = (event) => {
     console.log('login successfull')
-    window.location.href='/secrets'
+    window.location.href='/Secrets'
  }
 
   const handleSignInForm = (event) => {
     event.preventDefault()
     console.log("Log In")
-      fetch('http://projectauthannaochelin.herokuapp.com/sessions', {
+      fetch('https://projectauthannaochelin.herokuapp.com/sessions', {
           method: 'POST',
           body: JSON.stringify({email, password}),
           headers: { 'Content-Type': 'application/json' }
