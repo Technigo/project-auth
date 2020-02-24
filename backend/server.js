@@ -79,8 +79,8 @@ try {
 
 
 //a get to '/secrets' gives the user access to secrets if the user is authenticated (exists)
-app.get('/secrets/:id', authenticateUser);
-app.get('/secrets/:id', (req, res) => {
+app.get('/secrets/', authenticateUser);
+app.get('/secrets/', (req, res) => {
   console.log('Inside /secrets')
 res.json({secret: 'This is a message only shown if user is logged in and has an accessToken'});
 });
