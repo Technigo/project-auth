@@ -10,7 +10,7 @@ export const Login = () => {
   const [error, setError] = useState('')
   const history = useHistory()
 
-  const url = 'http://localhost:8080/sessions'
+  const url = 'https://auth-pinky-and-brain.herokuapp.com/sessions'
 
   const handleSubmit = (e) => {
     e.preventDefault()

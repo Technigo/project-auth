@@ -5,7 +5,7 @@ export const TopSecret = () => {
   const token = window.localStorage.accessToken
   const id = window.localStorage.userId
   const [secret, setSecret] = useState('')
-  const url = `http://localhost:8080/users/${id}`
+  const url = `https://auth-pinky-and-brain.herokuapp.com/users/${id}`
 
   const history = useHistory()
 

@@ -10,7 +10,7 @@ export const Signup = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [error, setError] = useState(false)
 
-  const url = 'http://localhost:8080/users'
+  const url = 'https://auth-pinky-and-brain.herokuapp.com/users'
 
   const handleSubmit = (e) => {
     e.preventDefault()
