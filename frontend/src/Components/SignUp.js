@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const signUpUrl = 'http://localhost:8080/users'
+const signUpUrl = 'https://auth-login-project.herokuapp.com/users'
 
 export const SignUp = () => {
   const [name, setName] = useState('')
@@ -32,7 +32,7 @@ export const SignUp = () => {
       <label>
         Password
       <input
-          // type="password"
+          type="password"
           required
           value={password}
           onChange={event => setPassword(event.target.value)} />

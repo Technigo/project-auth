@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Login } from 'Components/Login'
 
-const URL = 'http://localhost:8080/users'
+const URL = 'https://auth-login-project.herokuapp.com/users'
 
 export const Profile = (loggedInUser) => {
   // loggedInUser = loggedInUser.loggedInUser

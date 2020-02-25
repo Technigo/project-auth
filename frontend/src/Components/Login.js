@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Profile } from './Profile'
 
-const loginUrl = 'http://localhost:8080/sessions'
+const loginUrl = 'https://auth-login-project.herokuapp.com/sessions'
 
 export const Login = () => {
   const [name, setName] = useState('')
@@ -44,9 +44,6 @@ export const Login = () => {
           </label>
           <button>Login</button>
         </form>
-
-        {/* if account exist{
-            // <Profile /> }*/}
 
       </>
     )
