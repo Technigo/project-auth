@@ -14,7 +14,7 @@ const URL = 'http://localhost:8080/users'
 
 // DONE A registration form.
 // DONE A sign-in form.
-// - A page to show the authenticated content from the API.
+// DONE  A page to show the authenticated content from the API.
 // - A 'sign out' button which removes the saved access token and redirects the user to the login form.
 
 export const App = () => {
@@ -41,8 +41,8 @@ export const App = () => {
   return (
     <>
       <Login />
-      <span>or</span>
-      <SignUp />
+      {/* <span>or</span>
+      <SignUp /> */}
     </>
   )
 }

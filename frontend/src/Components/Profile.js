@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { Login } from 'Components/Login'
 
-export const Profile = () => {
+const URL = 'http://localhost:8080/users'
+
+export const Profile = (loggedInUser) => {
+  // loggedInUser = loggedInUser.loggedInUser
   const [userId, setUserId] = useState(0)
   const [accessToken, setAccessToken] = useState('')
+  console.log(loggedInUser)
 
   const [logout, setLogout] = useState(false)
-  const URL = 'http://localhost:8080/users'
+
 
   useEffect(() => {
     fetch(`${URL}/${userId}`, {
