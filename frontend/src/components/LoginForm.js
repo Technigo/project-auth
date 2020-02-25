@@ -4,14 +4,24 @@ import styled from 'styled-components/macro'
 import { Button } from 'components/Button'
 
 const Form = styled.form`
+margin: 15px;
 `
 const Label = styled.label`
+margin: 10px;
 `
-const LabelText = styled.p`
+const Text = styled.p`
+color: #F5F3F5;
 `
 const Input = styled.input`
+border: 2px solid #576CA8;
+padding: 3px;
+font-style: italic;
 `
 const LoginFailed = styled.p`
+  padding-top: 25px;
+  font-weight: 700;
+  font-style: italic;
+  color: red;
 `
 
 export const LoginForm = ({ setUsername }) => {
@@ -19,13 +29,13 @@ export const LoginForm = ({ setUsername }) => {
   const history = useHistory()
   const [loginFailed, setLoginFailed] = useState(false)
   const [formValues, setFormValues] = useState({
-    email: '',
+    username: '',
     password: ''
   })
 
   const clearInputs = () => {
     setFormValues({
-      email: '',
+      username: '',
       password: ''
     })
   }
@@ -64,24 +74,24 @@ export const LoginForm = ({ setUsername }) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      {loginFailed && <LoginFailed>Login failed</LoginFailed>}
+      {loginFailed && <LoginFailed>Incorrect username or password</LoginFailed>}
       <Label>
-        <LabelText>E-mail</LabelText>
+        <Text>Username</Text>
         <Input
           onChange={e =>
-            setFormValues({ ...formValues, email: e.target.value })
+            setFormValues({ ...formValues, username: e.target.value })
           }
-          value={formValues.email}
-          type="email"
-          placeholder="Enter a valid email adress"
-          minLength="4"
+          value={formValues.username}
+          type="text"
+          placeholder="enter username"
+          minLength="2"
           maxLength="50"
           required
         />
       </Label>
 
       <Label>
-        <LabelText>Password</LabelText>
+        <Text>Password</Text>
         <Input
           onChange={e =>
             setFormValues({ ...formValues, password: e.target.value })
