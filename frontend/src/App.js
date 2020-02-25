@@ -21,9 +21,19 @@ flex-direction: column;
 }
 `
 
-const Text = styled.p`
+const Title = styled.h1`
 font-size: 24px;
-font-weight: bold;
+font-weight: 700;
+color: #F5F3F5;
+margin-left: 50px;
+@media (min-width: 992px) {
+  max-width: 550px;
+  margin: 20px;
+}
+`
+
+const Instruction = styled.h3`
+font-size: 20px;
 color: #F5F3F5;
 `
 
@@ -36,7 +46,8 @@ export const App = () => {
       <Switch>
       
       <Route path='/' exact>
-      <Text>Want to see some dank programmer memes? Sign up or login!</Text>
+      <Title>Want to see some dank programmer memes?</Title>
+      <Instruction>Sign up or login!</Instruction>
       <ContentWrapper>
       <SignUpForm/>
       <LoginForm setUsername={setUsername}/>

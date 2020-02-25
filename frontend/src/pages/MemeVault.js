@@ -1,11 +1,26 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { ImageDisplay } from './components/Images' 
+
+
+
+const Wrapper = styled.section`
+
+`
+
+const Text = styled.h3`
+font-size: 20px;
+color: #F5F3F5;
+`
 
 export const MemeVault = ({ username }) => {
   return (
-    <div>
-      <h1>hej</h1>
+
+    <Wrapper>
+      <Text>Hey! You made it. Scroll down to take part of my private programmer memestash</Text>
+      <ImageDisplay />
       <Link to={`/`}>Tillbaka</Link>
-    </div>
+    </Wrapper>
   )
 }

@@ -7,13 +7,21 @@ const Form = styled.form`
 margin: 15px;
 `
 const Label = styled.label`
+margin: 10px;
 `
-const LabelText = styled.p`
+const Text = styled.p`
 color: #F5F3F5;
 `
 const Input = styled.input`
+border: 2px solid #576CA8;
+padding: 3px;
+font-style: italic;
 `
 const LoginFailed = styled.p`
+  padding-top: 25px;
+  font-weight: 700;
+  font-style: italic;
+  color: red;
 `
 
 export const LoginForm = ({ setUsername }) => {
@@ -68,14 +76,14 @@ export const LoginForm = ({ setUsername }) => {
     <Form onSubmit={handleSubmit}>
       {loginFailed && <LoginFailed>Incorrect username or password</LoginFailed>}
       <Label>
-        <LabelText>Username</LabelText>
+        <Text>Username</Text>
         <Input
           onChange={e =>
             setFormValues({ ...formValues, username: e.target.value })
           }
           value={formValues.username}
           type="text"
-          placeholder="Enter username"
+          placeholder="enter username"
           minLength="2"
           maxLength="50"
           required
@@ -83,7 +91,7 @@ export const LoginForm = ({ setUsername }) => {
       </Label>
 
       <Label>
-        <LabelText>Password</LabelText>
+        <Text>Password</Text>
         <Input
           onChange={e =>
             setFormValues({ ...formValues, password: e.target.value })

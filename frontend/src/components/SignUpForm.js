@@ -7,6 +7,7 @@ margin: 15px;
 `
 
 const Label = styled.label`
+margin: 10px;
 `
 
 const Text = styled.p`
@@ -14,6 +15,9 @@ color: #F5F3F5;
 `
 
 const Input = styled.input`
+border: 2px solid #576CA8;
+padding: 3px;
+font-style: italic;
 `
 
 export const SignUpForm = () => {
@@ -48,7 +52,7 @@ return (
       onChange={e => setsignUpValues({ ...signUpValues, username: e.target.value })}
       value={signUpValues.username}
       type='text'
-      placeholder='Enter Username'
+      placeholder='enter username'
       minLength='2'
       maxLength='20'
       required
@@ -59,8 +63,8 @@ return (
       <Input 
       onChange={e => setsignUpValues({ ...signUpValues, email: e.target.value })}
       value={signUpValues.email}
-      type='text'
-      placeholder='Enter Username'
+      type='email'
+      placeholder='enter email'
       minLength='2'
       maxLength='20'
       required
