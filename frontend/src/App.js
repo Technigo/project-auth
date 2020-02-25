@@ -41,8 +41,7 @@ export const App = () => {
   return (
     <>
       <Login />
-      {/* <span>or</span>
-      <SignUp /> */}
+      <SignUp />
     </>
   )
 }

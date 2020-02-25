@@ -26,12 +26,6 @@ const User = mongoose.model('User', {
 })
 
 
-// - login, and finally an authenticated endpoint.
-// - The authenticated endpoint should return a 403 with an error message if you try to access it without an `Authentication` access token, or with an invalid token.
-// - DONE! Your frontend should have a registration form which POSTs to the API to create a new user
-// - DONE! Your passwords in the database should be encrypted with bcrypt
-// - Your API should validate the user input when creating a new user, and return error messages which could be shown by the frontend (displaying the errors in a nice way in the frontend is a stretch goal - its fine to just show 'Something went wrong' on the frontend if you run out of time)
-// - Once a user is logged in, you will need to have one last endpoint which returns some content which only logged-in users should be able to access. 
 
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080
@@ -66,16 +60,10 @@ app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
-//Secure endpoint for signed in user... IS THIS THE SAME AS THE BELOW WHERE WE GET "Welcome"?
-// app.get('/signedin', (req, res) => {
-//   res.json({ secret: "signed in" })
-// })
-
-
+//Secure endpoint for signed in user... 
 app.use('/users/:id', authenticateUser)
 app.get('/users/:id', (req, res) => {
   try {
-    // res.send('Welcome')
     res.status(201).json(req.user)
   } catch (err) {
     res.status(400).json({ message: 'Could not save user', errors: err.errors })
@@ -112,17 +100,6 @@ app.post('/sessions', async (req, res) => {
     res.status(400).json({ message: 'Could not create user', errors: err.errors })
   }
 });
-
-// User - singIn
-
-// app.post('/sessions', async (req, res) => {
-
-// })
-
-// Secure endpoint 
-
-// app.get
-
 
 // Start the server
 app.listen(port, () => {
