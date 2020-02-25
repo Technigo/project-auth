@@ -37,7 +37,7 @@ export const Login = () => {
           <label>
             Password
       <input
-              // type="password"
+              type="password"
               required
               value={password}
               onChange={event => setPassword(event.target.value)} />
