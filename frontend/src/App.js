@@ -15,10 +15,10 @@ flex-direction: column;
 
 const ContentWrapper = styled.section`
 display: flex;
-background: #302B27;
-justify-content: center;
-align-items: center;
-flex-direction: row;
+flex-direction: column;
+@media (min-width: 992px) {
+  flex-direction: row;
+}
 `
 
 const Text = styled.p`
@@ -44,7 +44,6 @@ export const App = () => {
       </Route>
 
       <Route path='/memevault' exact>
-        
       <MemeVault username={username}/>
       </Route>
       </Switch>      

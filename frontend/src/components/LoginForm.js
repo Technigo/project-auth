@@ -4,6 +4,7 @@ import styled from 'styled-components/macro'
 import { Button } from 'components/Button'
 
 const Form = styled.form`
+margin: 15px;
 `
 const Label = styled.label`
 `
@@ -20,13 +21,13 @@ export const LoginForm = ({ setUsername }) => {
   const history = useHistory()
   const [loginFailed, setLoginFailed] = useState(false)
   const [formValues, setFormValues] = useState({
-    email: '',
+    username: '',
     password: ''
   })
 
   const clearInputs = () => {
     setFormValues({
-      email: '',
+      username: '',
       password: ''
     })
   }
@@ -67,15 +68,15 @@ export const LoginForm = ({ setUsername }) => {
     <Form onSubmit={handleSubmit}>
       {loginFailed && <LoginFailed>Incorrect username or password</LoginFailed>}
       <Label>
-        <LabelText>E-mail</LabelText>
+        <LabelText>Username</LabelText>
         <Input
           onChange={e =>
-            setFormValues({ ...formValues, email: e.target.value })
+            setFormValues({ ...formValues, username: e.target.value })
           }
-          value={formValues.email}
-          type="email"
-          placeholder="Enter a valid email adress"
-          minLength="4"
+          value={formValues.username}
+          type="text"
+          placeholder="Enter username"
+          minLength="2"
           maxLength="50"
           required
         />
