@@ -17,7 +17,7 @@ export const Welcome = () => {
 
   //Authorization of the logged in user via accessToken and sending out the secret
   useEffect(() => {
-    fetch("http://localhost:8080/secrets", {
+    fetch("https://project-authorization.herokuapp.com/secrets", {
       method: "GET",
       headers: { Authorization: accessToken }
     })

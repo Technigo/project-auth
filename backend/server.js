@@ -64,12 +64,10 @@ app.post("/users", async (req, res) => {
     await user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (err) {
-    res
-      .status(400)
-      .json({
-        message: "Could not create user. Please try again!",
-        errors: err.errors
-      });
+    res.status(400).json({
+      message: "Could not create user. Please try again!",
+      errors: err.errors
+    });
   }
 });
 
@@ -86,18 +84,6 @@ app.post("/sessions", async (req, res) => {
     res.status(403).json({ message: "User not found, access forbidden" });
   }
 });
-
-// app.post("/tweets", authenticateUser);
-// app.post("/tweets", async (req, res) => {});
-
-// app.post("/sessions", async (req, res) => {
-//   const user = await User.findOne({ name: req.body.name });
-//   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-//     res.json({ userId: user._id, accessToken: user.accessToken });
-//   } else {
-//     res.json({ notFound: true });
-//   }
-// });
 
 // Start the server
 app.listen(port, () => {

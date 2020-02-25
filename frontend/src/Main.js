@@ -2,7 +2,6 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
 
-import car from "./videos/car.mp4";
 import water from "./videos/water.mp4";
 
 const Container = styled.div`

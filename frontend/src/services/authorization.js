@@ -1,5 +1,5 @@
 export const checkAuth = accessToken => {
-  fetch("http://localhost:8080/secrets", {
+  fetch("https://project-authorization.herokuapp.com/secrets", {
     method: "GET",
     headers: { Authorization: accessToken }
   }).then(res => {
@@ -11,7 +11,7 @@ export const checkAuth = accessToken => {
 };
 
 export const registerUser = (name, email, password) => {
-  return fetch("http://localhost:8080/users", {
+  return fetch("https://project-authorization.herokuapp.com/users", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -38,7 +38,7 @@ export const registerUser = (name, email, password) => {
 };
 
 export const loginUser = (email, password) => {
-  return fetch("http://localhost:8080/sessions", {
+  return fetch("https://project-authorization.herokuapp.com/sessions", {
     method: "POST",
     headers: {
       Accept: "application/json",
