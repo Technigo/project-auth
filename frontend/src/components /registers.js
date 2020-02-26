@@ -84,9 +84,9 @@ export const Register = () => {
             Register
           </Button>
         </Link>
-        <Button onClick={() => history.push("/SignIn")} type="button">
-          Sign In
-        </Button>
+        <Link to={`/SignIn`}>
+          <Button type="button">Sign In</Button>
+        </Link>
       </ButtonContainer>
     </Section>
   );
