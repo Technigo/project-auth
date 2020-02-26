@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-
+import { useHistory } from "react-router";
 // const url = "http://localhost:5000/SignIn";
 const url = "https://anna-sarah-auth-project.herokuapp.com/SignIn";
 
 export const SignIn = () => {
+  const history = useHistory();
   // hover function turn on and off
   const inputRef = useRef();
 
@@ -29,7 +30,7 @@ export const SignIn = () => {
         if (!res.ok) {
           throw new Error("Your e-mail and/or password was incorrect");
         }
-        window.location.href = "/Summary";
+        history.push("/Summary");
         return res.json();
       })
 
