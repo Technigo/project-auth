@@ -4,18 +4,18 @@ import styled from 'styled-components/macro'
 import { Button } from 'components/Button'
 
 const Form = styled.form`
-margin: 15px;
+  margin: 15px;
 `
 const Label = styled.label`
-margin: 10px;
+  margin: 10px;
 `
 const Text = styled.p`
-color: #F5F3F5;
+  color: #f5f3f5;
 `
 const Input = styled.input`
-border: 2px solid #576CA8;
-padding: 3px;
-font-style: italic;
+  border: 2px solid #576ca8;
+  padding: 3px;
+  font-style: italic;
 `
 const LoginFailed = styled.p`
   padding-top: 25px;
@@ -25,7 +25,6 @@ const LoginFailed = styled.p`
 `
 
 export const LoginForm = ({ setUsername }) => {
-
   const history = useHistory()
   const [loginFailed, setLoginFailed] = useState(false)
   const [formValues, setFormValues] = useState({
@@ -40,7 +39,7 @@ export const LoginForm = ({ setUsername }) => {
     })
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     localStorage.removeItem('accessToken')
 
@@ -49,16 +48,16 @@ export const LoginForm = ({ setUsername }) => {
       body: JSON.stringify(formValues),
       headers: { 'Content-Type': 'application/json' }
     })
-      .then(response => {
+      .then((response) => {
         if (response.status !== 200) {
           setLoginFailed(true)
           return
         }
 
-        response.json().then(data => {
+        response.json().then((data) => {
           if (data.notFound !== true) {
             localStorage.setItem('accessToken', data.accessToken)
-            setUsername(data.name)
+            setUsername(data.username)
             clearInputs()
             setLoginFailed(false)
             history.push('/memevault')
@@ -68,9 +67,8 @@ export const LoginForm = ({ setUsername }) => {
           }
         })
       })
-      .catch(err => console.log('error:', err)
-      )}
-  
+      .catch((err) => console.log('error:', err))
+  }
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -78,7 +76,7 @@ export const LoginForm = ({ setUsername }) => {
       <Label>
         <Text>Username</Text>
         <Input
-          onChange={e =>
+          onChange={(e) =>
             setFormValues({ ...formValues, username: e.target.value })
           }
           value={formValues.username}
@@ -93,7 +91,7 @@ export const LoginForm = ({ setUsername }) => {
       <Label>
         <Text>Password</Text>
         <Input
-          onChange={e =>
+          onChange={(e) =>
             setFormValues({ ...formValues, password: e.target.value })
           }
           value={formValues.password}
