@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 const URL = 'https://auth-ninadisa.herokuapp.com/sessions'
-
+//const URL = 'http://localhost:8000/sessions'
 
 export const LoginUser = props => {
   //useHistory this to route to "StartPage" when login succeeded. 
@@ -33,7 +33,6 @@ export const LoginUser = props => {
           history.push(`/secrets`)
         }
       })
-      .then(json => console.log(json))
       .catch(err => {
         setErrorMessage(err.message)
       })
@@ -43,7 +42,7 @@ export const LoginUser = props => {
   return (
     <div>
       <form onSubmit={onLoggedIn}>
-        <h3>Login</h3>
+        <h3>Login with email and password</h3>
         <label>
           <input className="log-in" value={email} type="email" placeholder="Email" required onChange={event => setEmail(event.target.value)} />
         </label>

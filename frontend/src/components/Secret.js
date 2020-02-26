@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 
 
 const URL = 'https://auth-ninadisa.herokuapp.com/secrets'
+//const URL = 'http://localhost:8000/secrets'
+
 
 export const Secret = () => {
   const [message, setMessage] = useState('')
@@ -25,8 +27,13 @@ export const Secret = () => {
           throw new Error('Access denied')
         }
         return res.json()
+
       })
-      .then(json => setMessage(json.message))
+      .then(json => {
+        console.log(json)
+        setMessage(json.message)
+      })
+
       .catch(err => {
         setErrorMessage(err.message)
       })

@@ -73,7 +73,7 @@ app.post('/users', async (req, res) => {
     const saved = await
       // const saved = await user.save() res.status(201).json(saved)
       user.save()
-    res.status(201).json({ id: user._id, accessToken: user.accessToken, message: "Created user" })
+    res.status(201).json({ id: user._id, accessToken: user.accessToken, message: "✨Created user ✨" })
   } catch (err) {
     res.status(400).json({ message: 'Could not create User', errors: err.errors })
   }

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 
 const URL = 'https://auth-ninadisa.herokuapp.com/users'
+//const URL = 'http://localhost:8000/users'
 
 export const NewUser = () => {
   const [name, setName] = useState("")
@@ -24,16 +25,17 @@ export const NewUser = () => {
           throw new Error('Could not create user')
         }
         return res.json()
-          .then(json => console.log(json))
-          .then(json => setMessage(json.message))
       })
-      .then(() => {
+      .then((json) => {
+        console.log(json)
+        setMessage(json.message)
         setName("")
         setEmail("")
         setPassword("")
       })
-      .catch(err => console.log("error:", err))
+
       .catch(err => {
+        console.log("error:", err)
         setErrorMessage(err.message)
       })
 
@@ -57,17 +59,15 @@ export const NewUser = () => {
         <button
           className="button"
           type="submit"
-          disabled={name.length < 3 || password.length < 4 ? true : false}
+          disabled={name.length < 4 || password.length < 4 ? true : false}
           onClick={handleSubmit}>
           SIGN UP
       </button>
       </form>
       <div className="charcountWrapper">
-        <p className="charCount">{name.length} / 100 </p>
-        <p className="charCount">{password.length} / 12 </p>
+        <p className="charCount">{name.length} /min 4</p>
+        <p className="charCount">{password.length} /min 4 </p>
       </div>
-      <p>{message}</p>
-
       {errorMessage && <div><p>{errorMessage}</p></div>}
       {message && <div><p>{message}</p></div>}
 

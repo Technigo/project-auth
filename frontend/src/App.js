@@ -17,14 +17,14 @@ export const App = () => {
 
               <LoginUser />
 
-              <LogoutUser />
-
             </div>
           </section>
         </Route>
         <Route path="/secrets" exact>
-          <Secret />
-
+          <section>
+            <Secret />
+            <LogoutUser />
+          </section>
         </Route>
       </Switch>
     </BrowserRouter>

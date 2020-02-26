@@ -2,12 +2,12 @@ import React from 'react'
 
 
 export const LogoutUser = props => {
-  const accessToken = localStorage.removeItem('accessToken')
+  // const accessToken = localStorage.removeItem('accessToken')
 
 
   const onLoggedOut = event => {
     event.preventDefault()
-    window.localStorage.removeItem('accessToken', accessToken)
+    window.localStorage.removeItem('accessToken')
   }
 
   return (
