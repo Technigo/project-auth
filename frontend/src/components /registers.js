@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useHistory } from "react-router";
 
 // const url = "http://localhost:5000/";
 const url = "https://anna-sarah-auth-project.herokuapp.com/";
@@ -11,6 +12,7 @@ export const Register = () => {
   const [name, setName] = useState(" ");
   const [email, setEmail] = useState(" ");
   const [password, setPassword] = useState(" ");
+  const history = useHistory();
 
   const handelRegisterSubmit = () => {
     fetch(url, {
@@ -82,10 +84,7 @@ export const Register = () => {
             Register
           </Button>
         </Link>
-        <Button
-          onClick={() => (window.location.href = "/SignIn")}
-          type="button"
-        >
+        <Button onClick={() => history.push("/SignIn")} type="button">
           Sign In
         </Button>
       </ButtonContainer>
