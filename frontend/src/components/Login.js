@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router' /** Viktor */
 import './login.css'
 
 // const URL = 'http://localhost:9000/sessions'
@@ -9,6 +10,8 @@ export const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMsg, setErrorMsg] = useState(null)
+
+    const history = useHistory() /** Viktor */
 
     // To log in an exicting member
     const handleFormSubmit = event => {
@@ -34,7 +37,8 @@ export const Login = () => {
                 else {
                     window.localStorage.setItem('userId', user.userId)
                     window.localStorage.setItem('accessToken', user.accessToken)
-                    window.location.href = '/MemberPage'
+                    //window.location.href = '/MemberPage'
+                    history.push('/MemberPage') /** Viktor */
                 }
             })
             .catch(err => console.log('error:', err))
