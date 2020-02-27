@@ -1,9 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { ImageDisplay } from './components/Images' 
-
-
+import { Images } from '../components/Images' 
 
 const Wrapper = styled.section`
 
@@ -19,7 +17,7 @@ export const MemeVault = ({ username }) => {
 
     <Wrapper>
       <Text>Hey! You made it. Scroll down to take part of my private programmer memestash</Text>
-      <ImageDisplay />
+      <Images />
       <Link to={`/`}>Tillbaka</Link>
     </Wrapper>
   )
