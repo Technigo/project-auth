@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import { Images } from '../components/Images' 
+import { Images } from '../components/Images'
 import { Button } from '../components/Button'
 
-const Wrapper = styled.section`
-
-`
+const Wrapper = styled.section``
 
 const Text = styled.h3`
-font-size: 20px;
-color: #F5F3F5;
+  font-size: 20px;
+  color: #f5f3f5;
 `
 
 const ErrorMsg = styled.p`
@@ -39,7 +37,7 @@ export const MemeVault = ({ username }) => {
         Authorization: `${accessToken}`
       },
       signal: abortController.signal
-    }).then(response => {
+    }).then((response) => {
       if (response.status !== 200) {
         setError(`${response.status}: Error: Not logged in`)
         return
@@ -49,17 +47,11 @@ export const MemeVault = ({ username }) => {
 
   return (
     <Wrapper>
-{username && <Text>Hey, you made it {username}!</Text>}
-{!error && accessToken && (
-  <Button onClick={handleLogout} title="Log out" />
-)}
-{!error ? (
-  <Images />
-) : (
-    <ErrorMsg>{error}</ErrorMsg>
-  )}
-</Wrapper>
+      {username && <Text>Hey, you made it {username}!</Text>}
+      {!error && accessToken && (
+        <Button onClick={handleLogout} title="Log out" />
+      )}
+      {!error ? <Images /> : <ErrorMsg>{error}</ErrorMsg>}
+    </Wrapper>
   )
 }
-
-

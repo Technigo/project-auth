@@ -73,22 +73,8 @@ app.post('/users', async (req, res) => {
   }
 })
 
-// //find / login
-// app.post('/sessions', async (req, res) => {
-//   try {
-//     const user = await User.findOne({ email: req.body.email })
-//     if (user && bcrypt.compareSync(req.body.password, user.password)) {
-//       res.status(201).json({ useId: user._id, accesToken: user.accesToken })
-//     } else {
-//       res.json({ notFound: true })
-//     }
-//   } catch (err) {
-//     res.status(400).json({ message: 'could not save user', errors: err.errors })
-//   }
-// })
-
-// ROUTE FOR SECRETS
-app.get('/secrets', authenticateUser, (req, res) => {
+// ROUTE FOR PROFILE PAGE
+app.get('/memevault', authenticateUser, (req, res) => {
   try {
     res.status(200).json({
       status: 'success',
@@ -99,9 +85,9 @@ app.get('/secrets', authenticateUser, (req, res) => {
   }
 })
 
-// ROUTE FOR LOGIN - FINDS A USER INSTEAD OF CREATE
+// ROUTE FOR LOGIN
 app.post('/sessions', async (req, res) => {
-  const user = await User.findOne({ email: req.body.email })
+  const user = await User.findOne({ username: req.body.username })
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     res.json({
       username: user.username,
@@ -112,7 +98,7 @@ app.post('/sessions', async (req, res) => {
     res.status(401).json({
       statusCode: 401,
       notFound: true,
-      error: 'Login failed'
+      error: 'Login failed, username or password incorrect'
     })
   }
 })
