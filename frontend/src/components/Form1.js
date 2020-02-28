@@ -47,13 +47,13 @@ export const NewUser = () => {
         <h3>Fill in your name, email and password</h3>
         <div className="login-form">
           <label>
-            <input className="register" value={name} type="text" placeholder="My name" required onChange={event => setName(event.target.value)} />
+            <input className="register" value={name} type="text" placeholder="My name (> 4 char)" required onChange={event => setName(event.target.value)} />
           </label>
           <label>
             <input className="register" value={email} type="email" placeholder="Email" required onChange={event => setEmail(event.target.value)} />
           </label>
           <label>
-            <input className="register" value={password} type="password" placeholder="Password" required onChange={event => setPassword(event.target.value)} />
+            <input className="register" value={password} type="password" placeholder="Password (> 4 char)" required onChange={event => setPassword(event.target.value)} />
           </label>
         </div>
         <button
@@ -64,10 +64,10 @@ export const NewUser = () => {
           SIGN UP
       </button>
       </form>
-      <div className="charcountWrapper">
-        <p className="charCount">{name.length} /min 4</p>
-        <p className="charCount">{password.length} /min 4 </p>
-      </div>
+      {/* <div className="charcountWrapper">
+        <p className="charCount">{name.length} /4 is required </p>
+        <p className="charCount">{password.length} / 4 is required  </p>
+      </div> */}
       {errorMessage && <div><p>{errorMessage}</p></div>}
       {message && <div><p>{message}</p></div>}
 
