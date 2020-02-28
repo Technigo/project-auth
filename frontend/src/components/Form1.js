@@ -47,13 +47,13 @@ export const NewUser = () => {
         <h3>Fill in your name, email and password</h3>
         <div className="login-form">
           <label>
-            <input className="register" value={name} type="text" placeholder="My name (> 4 char)" required onChange={event => setName(event.target.value)} />
+            <input className="register" value={name} type="text" placeholder="My name > 4 characters" required onChange={event => setName(event.target.value)} />
           </label>
           <label>
             <input className="register" value={email} type="email" placeholder="Email" required onChange={event => setEmail(event.target.value)} />
           </label>
           <label>
-            <input className="register" value={password} type="password" placeholder="Password (> 4 char)" required onChange={event => setPassword(event.target.value)} />
+            <input className="register" value={password} type="password" placeholder="Password > 4 characters" required onChange={event => setPassword(event.target.value)} />
           </label>
         </div>
         <button
