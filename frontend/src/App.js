@@ -1,10 +1,13 @@
 import React, {useState} from 'react'
+import { LoginForm } from 'LoginForm'
+
 
 const URL = 'http://localhost:8080/users'
 
 export const App = () => {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
+  
 
   // To sign up a user.
   const handleSubmit = event => {
@@ -20,29 +23,6 @@ export const App = () => {
       .catch(err => console.log('error:', err))
   }
 
+  return (<LoginForm />)
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h1>Sign up</h1>
-        <label>
-          name
-          <input 
-          required 
-          value={name} 
-          onChange={event => setName(event.target.value)} 
-        />
-        </label>
-        <label>
-          password
-          <input
-            required
-            value={password}
-            onChange={event => setPassword(event.target.value)}
-          />
-        </label>
-        <button type='submit' onClick={handleSubmit}>Sign up</button>
-      </form>
-    </div>
-  )
 }

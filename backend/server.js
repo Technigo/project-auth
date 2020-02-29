@@ -4,6 +4,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
+import { restart } from 'nodemon'
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/auth'
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -77,7 +78,11 @@ app.post('/users', async(req, res) => {
 // Secure endpoint, user need to be logged in
 app.get('/users/:id', authenticateUser)
 app.get('/users/:id', async(req, res) => {
-    res.send('hellow fella')
+    try {
+        res.status(201).json(req.user)
+    } catch (err) {
+        res.status(400).json({ message: 'could not save user', errors: err.errors })
+    }
 })
 
 // login user
