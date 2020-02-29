@@ -3,7 +3,8 @@
 .registrationForm {  
     flex-wrap: wrap;
     flex-direction: column;
-    background-color: #540a36f0;
+     background-color: #dcc0c7;
+    /* background-color: #540a36f0; */
     /* background-color: #7943638a; */
     padding: 30px;
     color: #fff;
