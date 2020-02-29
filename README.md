@@ -1,12 +1,16 @@
-# Project Auth // work in progress app: https://pb-authorization.netlify.com
+Project Auth
+An build API with authentication to implement a registration flow and a frontend with forms to register and login and view some content once you're logged in.
 
+Its created with a backend API and a React frontend. A User model is created with mongoose with properties for the registered user and to store a user's access token.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+On the frontend side a registration form is built which POSTs to the API. The access token is stored in order to get back in the browser using local storage. Then we use that token when we are making other requests to the API.
 
-## The problem
+Once a user is logged in, there is a final endpoint which returns some content which only logged-in users should be able to access.
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+The problem
+The problems was to tie the backend to the frontend and to make sure the access token really worked as a gate keeper.
+With help from google and peers we solved the problems.
 
-## View it live
-
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+See it live here:
+Heroku https://pb-auth-api.herokuapp.com/ 
+Netlify https://pb-authorization.netlify.com
