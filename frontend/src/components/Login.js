@@ -11,7 +11,7 @@ export const Login = () => {
     const [password, setPassword] = useState('')
     const [errorMsg, setErrorMsg] = useState(null)
 
-    const history = useHistory() /** Viktor */
+    const history = useHistory() /** Viktor... same as use dispatch*/
 
     // To log in an exicting member
     const handleFormSubmit = event => {
