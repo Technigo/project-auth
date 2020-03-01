@@ -39,20 +39,14 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-// Defines the port the app will run on. Defaults to 8080, but can be
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
 const port = process.env.PORT || 8080
 const app = express()
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(bodyParser.json())
 
-// Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello world! Work!')
+  res.send('Dank Memes Project By Joacim & Jens')
 })
 
 //create user
@@ -73,7 +67,7 @@ app.post('/users', async (req, res) => {
   }
 })
 
-// ROUTE FOR PROFILE PAGE
+// Route to logged in Memevault
 app.get('/memevault', authenticateUser, (req, res) => {
   try {
     res.status(200).json({
@@ -85,7 +79,7 @@ app.get('/memevault', authenticateUser, (req, res) => {
   }
 })
 
-// ROUTE FOR LOGIN
+// Rout for logging in
 app.post('/sessions', async (req, res) => {
   const user = await User.findOne({ username: req.body.username })
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
