@@ -35,7 +35,6 @@ export const SignUp = () => {
     <main>
       <h1>Sign up to see secret image! </h1>
       <form onSubmit={handleSubmit}>
-        {errorMessage && <p className='errorMessage'>{errorMessage}</p>}
 
         <label htmlFor='name'>Name</label>
         <input
@@ -65,6 +64,8 @@ export const SignUp = () => {
         />
 
         <button type='submit'>Sign up</button>
+
+        {errorMessage && <p className='errorMessage'>{errorMessage}</p>}
       </form>
     </main>
   )

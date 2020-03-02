@@ -35,7 +35,6 @@ export const SignIn = ({ onAuthenticate }) => {
     <main>
       <h1>Sign in to see secret image! </h1>
       <form onSubmit={handleSubmit}>
-        {errorMessage && <p className='errorMessage'>{errorMessage}</p>}
 
         <label htmlFor='email'>Email</label>
         <input
@@ -56,6 +55,8 @@ export const SignIn = ({ onAuthenticate }) => {
         />
 
         <button type='submit'>Sign in</button>
+
+        {errorMessage && <p className='errorMessage'>{errorMessage}</p>}
       </form>
     </main>
   )

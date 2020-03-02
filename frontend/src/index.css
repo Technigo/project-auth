@@ -71,4 +71,6 @@ button {
 
 .errorMessage {
     margin-top: 5px;
+    font-size: 23px;
+    font-weight: bold;
 }
