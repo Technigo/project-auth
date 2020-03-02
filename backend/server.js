@@ -5,7 +5,8 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
-const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/newestauthAPI'
+const mongoUrl =
+  process.env.MONGO_URL || 'https://new-project-auth.herokuapp.com/'
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
