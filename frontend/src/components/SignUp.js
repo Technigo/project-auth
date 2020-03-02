@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import '../index.css'
 
-const URL = 'http://localhost:3000/users'
+const URL = 'http://localhost:8000/users'
 
 export const SignUp = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState()
-  let history = useHistory()
-  //changed to let
+  const history = useHistory()
 
   const handleSubmit = (event) => {
     event.preventDefault()

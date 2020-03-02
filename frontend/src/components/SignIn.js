@@ -2,14 +2,13 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import '../index.css'
 
-const URL = 'http://localhost:3000/sessions'
+const URL = 'http://localhost:8000/sessions'
 
 export const SignIn = ({ onAuthenticate }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState()
-  let history = useHistory()
-  //changed to let
+  const history = useHistory()
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -28,7 +27,6 @@ export const SignIn = ({ onAuthenticate }) => {
           history.push('/secrets')
         } else {
           setErrorMessage('Username or password is incorrect, try again!')
-          //user.message instead so equal to SignIn
         }
       })
   }

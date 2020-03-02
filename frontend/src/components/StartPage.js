@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
 import '../index.css'
 import SecretImage from '../secret_pixel.png'
+import { useHistory } from 'react-router-dom'
 
 export const StartPage = () => {
+  const history = useHistory()
+  
   return (
     <main>
       <h1>Sign up or sign in to see todays secret picture!</h1>
       <div className='buttonRow'>
-        <Link to='/users' className='button'>
-          Sign Up
-        </Link>
-        <Link to='/sessions' className='button'>
-          Sign In
-        </Link>
+        <button onClick={() => history.push("/users")}>Sign Up</button>
+        <button onClick={() => history.push("/sessions")}>Sign In</button>
       </div>
       <img src={SecretImage} className='secretImage' alt='blurred image' />
     </main>

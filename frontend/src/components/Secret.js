@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import '../index.css'
-import { Link } from 'react-router-dom'
 
-const URL = 'http://localhost:3000/secrets'
+const URL = 'http://localhost:8000/secrets'
 
 export const Secret = ({ accessToken }) => {
   const [secret, setSecret] = useState()
+  const history = useHistory()
 
   useEffect(() => {
     fetch(URL, {
@@ -22,20 +23,19 @@ export const Secret = ({ accessToken }) => {
   }, [])
 
   return (
-    <div className='secret'>
+    <main>
       {secret ? (
         <>
           <h1>Here is the secret picture!</h1>
           <img className='revealedSecret' src={secret} />
-          <Link to='/' className='signOut'>
-            Sign Out
-          </Link>
+          <button onClick={() => history.push("/")}>Sign Out</button>
         </>
       ) : (
         <>
-          <Link to='/sessions'>Sign in</Link> to see the secret picture
+        <p>Sign in to see the secret picture! It will be awesome!</p>
+        <button onClick={() => history.push("/sessions")}>Sign In</button>
         </>
       )}
-    </div>
+    </main>
   )
 }

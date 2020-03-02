@@ -1,97 +1,74 @@
 body {
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: white;
 }
 
 main {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #fce043;
+    background-image: linear-gradient(315deg, #fce043 0%, #fb7ba2 74%);
 }
 
 h1 {
-  text-align: center;
+    text-align: center;
 }
 
 p {
-  margin: 0;
+    margin: 0;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 20px;
-  width: 450px;
-  margin-bottom: 100px;
-  background-color: cadetblue;
-  color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+    width: 450px;
+    margin-bottom: 100px;
+    color: white;
 }
 
 label {
-  margin-top: 1em;
-  padding: 10px;
-  font-size: 1.2em;
+    margin-top: 1em;
+    padding: 10px;
+    font-size: 1.2em;
 }
 
 input {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.2em;
-  padding: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+    padding: 5px;
 }
 
 button {
-  width: 100px;
-  margin: 40px 0;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.2em;
-  font-weight: bold;
-  border-radius: 5px;
-  padding: 10px;
+    width: 110px;
+    margin: 40px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px;
 }
 
-.button {
-  text-decoration: none;
-  font-weight: 800;
-  margin: 20px;
-  padding: 10px;
-  border: solid 1px black;
-  border-radius: 5px;
-  color: black;
-}
-
-.signOut {
-  text-decoration: none;
-  font-weight: 800;
-  margin: 20px auto;
-  padding: 10px;
-  border: solid 1px black;
-  border-radius: 5px;
-  color: black;
-}
-
-.secret {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.secretImage {
-  width: 70%;
-}
-
+.secretImage,
 .revealedSecret {
-  width: 480px;
-  height: 480px;
-  margin: 0 auto;
+    width: 480px;
+    height: 480px;
+    margin: 0 auto;
 }
 
 .buttonRow {
-  display: flex;
+    display: flex;
+}
+
+.errorMessage {
+    margin-top: 5px;
 }
