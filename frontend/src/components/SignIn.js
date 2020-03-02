@@ -28,6 +28,7 @@ export const SignIn = ({ onAuthenticate }) => {
           history.push('/secrets')
         } else {
           setErrorMessage('Username or password is incorrect, try again!')
+          //user.message instead so equal to SignIn
         }
       })
   }

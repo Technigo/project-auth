@@ -22,17 +22,14 @@ export const Secret = ({ accessToken }) => {
   }, [])
 
   return (
-    <div>
+    <div className='secret'>
       {secret ? (
         <>
           <h1>Here is the secret picture!</h1>
-          <iframe
-            src={secret}
-            width='480'
-            height='480'
-            frameBorder='0'
-            className='giphy-embed'
-            allowFullScreen></iframe>
+          <img className='revealedSecret' src={secret} />
+          <Link to='/' className='signOut'>
+            Sign Out
+          </Link>
         </>
       ) : (
         <>

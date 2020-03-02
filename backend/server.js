@@ -54,7 +54,6 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body
-    //do not store plaintext passwords
     const user = new User({ name, email, password: bcrypt.hashSync(password) })
     await user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
@@ -67,14 +66,14 @@ app.post('/users', async (req, res) => {
 
 app.get('/secrets', authenticateUser)
 app.get('/secrets', (req, res) => {
-  res.json({ secret: 'https://giphy.com/embed/JIX9t2j0ZTN9S' })
+  res.json({ secret: 'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif' })
 })
 //res.json(req.user)
 
 //sign in
 app.post('/sessions', async (req, res) => {
   try {
-    const { name, password } = req.body
+    //const { name, password } = req.body //what is this, doesnt seem to be used
     const user = await User.findOne({ email: req.body.email })
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       res.json({ userId: user._id, accessToken: user.accessToken })
