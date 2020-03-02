@@ -75,7 +75,7 @@ export const LoginForm = ({ setUsername }) => {
     e.preventDefault()
     localStorage.removeItem('accessToken')
 
-    fetch('http://localhost:8080/sessions', {
+    fetch('https://new-project-auth.herokuapp.com/sessions', {
       method: 'POST',
       body: JSON.stringify(formValues),
       headers: { 'Content-Type': 'application/json' }

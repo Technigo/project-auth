@@ -63,7 +63,7 @@ export const SignUpForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    fetch('http://localhost:8080/users', {
+    fetch('https://new-project-auth.herokuapp.com/users', {
       method: 'POST',
       body: JSON.stringify(signUpValues),
       headers: { 'content-type': 'application/json' }
