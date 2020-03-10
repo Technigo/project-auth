@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import './login.css'
 
-const URL = 'https://pb-auth-api.herokuapp.com/sessions'
+const URL = process.env.REACT_APP_API_URL || 'https://pb-auth-api.herokuapp.com/sessions'
 
 export const Login = () => {
  const[email, setEmail] = useState('')
  const[password, setPassword] = useState('')
  const [errorMsg, setErrorMsg] = useState(null)
+
+ const history = useHistory()
 
  // To log in an exicting member
 const handleFormSubmit = event => {
@@ -14,29 +17,30 @@ const handleFormSubmit = event => {
 
     fetch(URL, {
         method: 'POST',
-        body: JSON.stringify({email, password }),
+        body: JSON.stringify({ email, password }),
         headers: { 'Content-Type': 'application/json'}
     })
     .then(res => {
       if (res.ok) {
-        return res.json()
+          return res.json()
       }
       else {
-        return res.text().then(json => { throw new Error(json) })
+          return res.text().then(json => { throw new Error(json) })
       }
-    })
-    .then(user => {
+  })
+  .then(user => {
       if (user['message']) {
-        setErrorMsg(user.message)
+          setErrorMsg(user.message)
       }
       else {
-        window.localStorage.setItem("userId", user.userId)
-        window.localStorage.setItem("accessToken", user.accessToken)
-        window.location.href = "/MemberPage"
+          window.localStorage.setItem('userId', user.userId)
+          window.localStorage.setItem('accessToken', user.accessToken)
+          //window.location.href = '/MemberPage'
+          history.push('/MemberPage') /** Viktor */
       }
-    })
-    .catch(err => console.log('error:', err))
-};
+  })
+  .catch(err => console.log('error:', err))
+}
 
 // If user is logged out, show login form
   return (
