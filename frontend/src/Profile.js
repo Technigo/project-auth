@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const URL = 'https://harry-potter-auth.herokuapp.com/users'
+const URL = 'https://harry-potter-auth.herokuapp.com/spells'
 
 // Include loggedInUser as a parameter to PRofile
 export const Profile = (loggedInUser) => {
