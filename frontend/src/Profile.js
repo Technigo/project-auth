@@ -18,7 +18,7 @@ export const Profile = (loggedInUser) => {
         setUserId(loggedInUser._id);
         setAccessToken(loggedInUser.accessToken);
         // Include userId in the path
-        fetch(`${URL}/${userId}`, {
+        fetch(`${URL}/spells`, {
             method: 'GET',
             // Include the accessToken to get the protected endpoint
             headers: { 'Authorization': accessToken }
