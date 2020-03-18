@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
-const URL = 'https://harry-potter-auth.herokuapp.com/spells'
-// const URL = 'http:localhost8080/spells'
+// const URL = 'https://harry-potter-auth.herokuapp.com/secrets'
+const URL = 'http://localhost:9000/secrets'
 
 // Include loggedInUser as a parameter to PRofile
 export const Profile = (loggedInUser) => {
@@ -25,7 +25,8 @@ export const Profile = (loggedInUser) => {
         })
             .then(res => res.json())
             // SUCCESS: Do something with the information we got back
-            .then(json => changeName(json))
+
+            .then(json => console.log(json))
             .catch(err => console.log('error:', err)) //401
     })
 

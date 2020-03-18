@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import Profile from './Profile'
 
-const URL = 'https://harry-potter-auth.herokuapp.com/login'
-// const URL = 'http:localhost8080/login'
+// const URL = 'https://harry-potter-auth.herokuapp.com/login'
+const URL = 'http://localhost:9000/login'
 
 export const Login = () => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [loggedInUser, setLoggedInUser] = useState(null)
+    const [signedIn, setSignedIn] = useState(false)
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -20,7 +20,7 @@ export const Login = () => {
         })
             .then(res => res.json())
             .then((json) => {
-                setLoggedInUser(json)
+                setSignedIn(json)
                 setPassword('')
                 setUsername('')
             }).catch(err => console.log('error:', err))
