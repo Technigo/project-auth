@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
 import Profile from './Profile'
 
-// const URL = 'https://harry-potter-auth.herokuapp.com/login'
-// http://localhost:8080/login
-const URL = 'http://localhost:8080/login'
-
+const URL = 'https://harry-potter-auth.herokuapp.com/login'
 
 export const Login = () => {
-    // Vi måste ändra setState till rätt namn
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -59,5 +55,4 @@ export const Login = () => {
         //If user is logged in, show profile
         return (<Profile loggedInUser={loggedInUser} />);
     }
-}
-
+} 

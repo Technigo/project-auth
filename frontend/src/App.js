@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 
+
 // La till en ny component 
 import { Login } from './Login'
 
-//const URL = 'https://harry-potter-auth.herokuapp.com/users'
-// 'http://localhost:8080/users'
-const URL = 'http://localhost:8080/users'
+const URL = 'https://harry-potter-auth.herokuapp.com/users'
 
 export const App = () => {
   const [username, setUsername] = useState('')
