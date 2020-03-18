@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
-// const URL = 'https://harry-potter-auth.herokuapp.com/secrets'
-const URL = 'http://localhost:9000/secrets'
+const URL = 'https://harry-potter-auth.herokuapp.com/secrets'
+// const URL = 'http://localhost:9000/secrets'
 
 // Include loggedInUser as a parameter to PRofile
 export const Profile = () => {
@@ -11,7 +11,7 @@ export const Profile = () => {
 
     useEffect(() => {
         const fetchUserData = () => {
-            fetch(URL, {
+            return fetch(URL, {
                 method: 'GET',
                 headers: { Authorization: accessToken }
             })
