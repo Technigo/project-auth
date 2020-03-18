@@ -64,7 +64,7 @@ app.post('/users', async (req, res) => {
 app.get('/secrets', authenticateUser)
 app.get('/secrets', (req, res) => {
   res.json(req.user)
-  res.json({ secret: 'This is a super secret message.' })
+  // res.json({ secret: 'This is a super secret message.' })
 })
 
 // login user
