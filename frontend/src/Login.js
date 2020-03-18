@@ -25,15 +25,14 @@ export const Login = () => {
                 setUsername('')
             }).catch(err => console.log('error:', err))
     }
-    if (loggedInUser === null) {
-
+    if (signedIn === false) {
         return (
             <div>
                 <form onSubmit={handleSubmit}>
                     <h1>Login to Hogwarts:</h1>
                     <label>
                         Username:
-            <input
+                        <input
                             required
                             value={username}
                             onChange={event => setUsername(event.target.value)}
@@ -41,7 +40,7 @@ export const Login = () => {
                     </label>
                     <label>
                         Password:
-            <input
+                        <input
                             required
                             type="password"
                             value={password}
@@ -54,6 +53,8 @@ export const Login = () => {
         )
     } else {
         //If user is logged in, show profile
-        return (<Profile loggedInUser={loggedInUser} />);
+        return (
+            <Profile />
+        )
     }
 } 

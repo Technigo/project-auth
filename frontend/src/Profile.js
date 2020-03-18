@@ -4,35 +4,31 @@ import React, { useState, useEffect } from 'react'
 const URL = 'http://localhost:9000/secrets'
 
 // Include loggedInUser as a parameter to PRofile
-export const Profile = (loggedInUser) => {
-    const [userId, setUserId] = useState(0)
-    const [accessToken, setAccessToken] = useState('')
-
-    const changeName = (userObject) => {
-        document.getElementById("name").innerHTML = userObject.name;
-    }
+export const Profile = () => {
+    const accessToken = window.localStorage.getItem('accessToken')
+    // userName är default user
+    const [userName, setUserName] = useState('')
 
     useEffect(() => {
-        console.log(loggedInUser)
-
-        setUserId(loggedInUser._id);
-        setAccessToken(loggedInUser.accessToken);
-        // Include userId in the path
-        fetch(`${URL}`, {
-            method: 'GET',
-            // Include the accessToken to get the protected endpoint
-            headers: { 'Authorization': accessToken }
-        })
-            .then(res => res.json())
-            // SUCCESS: Do something with the information we got back
-
-            .then(json => console.log(json))
-            .catch(err => console.log('error:', err)) //401
+        const fetchUserData = () => {
+            fetch(URL, {
+                method: 'GET',
+                headers: { Authorization: accessToken }
+            })
+                .then(res => res.json())
+                .then(json => {
+                    console.log('json', json)
+                    setUserName(json.username)
+                })
+                .catch(err => {
+                    console.log('error', err)
+                })
+        }
+        fetchUserData()
     })
-
     return (
         <div>
-            Profile <div id="name"></div>
+            <h1>{`Hello ${userName}`}</h1>
         </div>
     )
 }
