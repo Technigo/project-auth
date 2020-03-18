@@ -55,14 +55,25 @@ app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
+// app.post('/users', async (req, res) => {
+//   try {
+//     const { username, password } = req.body
+//     const user = new User({ username, password: bcrypt.hashSync(password) })
+//     const saved = await user.save()
+//     res.status(201).json(saved)
+//   } catch (err) {
+//     res.status(400).json({ message: 'Could not create user! Are you sure you are a wizard?', errors: err.errors })
+//   }
+// })
+
 app.post('/users', async (req, res) => {
   try {
     const { username, password } = req.body
     const user = new User({ username, password: bcrypt.hashSync(password) })
-    const saved = await user.save()
-    res.status(201).json(saved)
+    user.save()
+    res.status(201).json({ id: user._id, accessToken: user.accessToken })
   } catch (err) {
-    res.status(400).json({ message: 'Could not create user! Are you sure you are a wizard?', errors: err.errors })
+    res.status(400).json({ message: "Could not register user", errors: err.errors })
   }
 })
 
