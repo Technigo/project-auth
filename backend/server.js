@@ -72,6 +72,7 @@ app.post('/users', async (req, res) => {
     const user = new User({ username, password: bcrypt.hashSync(password) })
     user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
+    console.log(json)
   } catch (err) {
     res.status(400).json({ message: "Could not register user", errors: err.errors })
   }
