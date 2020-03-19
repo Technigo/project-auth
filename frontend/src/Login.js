@@ -29,6 +29,7 @@ export const Login = (props) => {
                     setErrorMsg(json.message)
                 } else {
                     // Status 201 - All good
+                    localStorage.setItem('accessToken', json.accessToken)
                     setErrorMsg('')
                     setSignedIn(true) // Just set this to true or false
                     setPassword('')
