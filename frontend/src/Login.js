@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
 import { Profile } from './Profile'
 
-// const URL = 'https://harry-potter-auth.herokuapp.com/login'
-const URL = 'http://localhost:9000/login'
+const URL = 'https://harry-potter-auth.herokuapp.com/login'
+// const URL = 'http://localhost:9000/login'
 
-export const Login = () => {
+export const Login = (props) => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [signedIn, setSignedIn] = useState(false)
+    const [errorMsg, setErrorMsg] = useState('')
 
     const handleSubmit = event => {
         event.preventDefault()
+        localStorage.removeItem('accessToken')
+        // Clear the last accessToken from previous loggedIn user
 
         fetch(URL, {
             method: 'POST',
@@ -20,15 +23,26 @@ export const Login = () => {
         })
             .then(res => res.json())
             .then((json) => {
-                setSignedIn(json)
-                setPassword('')
-                setUsername('')
-            }).catch(err => console.log('error:', err))
+                console.log('LOGIN:', json)
+                if (json.notFound) {
+                    // Status 404 - user not found
+                    setErrorMsg(json.message)
+                } else {
+                    // Status 201 - All good
+                    setErrorMsg('')
+                    setSignedIn(true) // Just set this to true or false
+                    setPassword('')
+                    setUsername('')
+                }
+            })
+            .catch(err => console.log('error:', err))
     }
 
     if (signedIn === false) {
         return (
             <div>
+                {errorMsg && <h1 style={{ color: 'red' }}>{errorMsg}
+                </h1>}
                 <form onSubmit={handleSubmit}>
                     <h1>Login to Hogwarts:</h1>
                     <label>

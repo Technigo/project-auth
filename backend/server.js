@@ -63,8 +63,10 @@ app.post('/users', async (req, res) => {
 
 app.get('/secrets', authenticateUser)
 app.get('/secrets', (req, res) => {
-  res.json(req.user)
-  // res.json({ secret: 'This is a super secret message.' })
+  res.json({
+    secret: 'This is a super secret message.',
+    user: req.user.username
+  })
 })
 
 // login user
@@ -77,7 +79,7 @@ app.post('/login', async (req, res) => {
       res.status(201).json({ userId: user._id, accessToken: user.accessToken })
       // Failure
     } else {
-      res.json({ notFound: true })
+      res.status(404).json({ notFound: true, message: 'username or password incorrect' })
     }
   } catch (err) {
     res.status(400).json({ message: 'could not find user', errors: err.errors })
