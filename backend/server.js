@@ -84,7 +84,7 @@ app.get('/memevault', authenticateUser, (req, res) => {
 app.post('/sessions', async (req, res) => {
   const user = await User.findOne({ username: req.body.username })
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({
+    res.status(201).json({
       username: user.username,
       userId: user._id,
       accessToken: user.accessToken
