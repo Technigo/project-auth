@@ -1,6 +1,6 @@
 # Project Auth 
 
-Pair-programming with petrabrink buildning an authorization app where you can sign up, log in and see a secret message.
+The frontend to a pair-programming with petrabrink buildning an authorization app where you can sign up, log in and see a secret message. The backend is found at Petras git hub account.
 
 ## How did we do it
 
