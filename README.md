@@ -1,13 +1,11 @@
-# Project Auth
+# Project Auth 
 
-Replace this readme with your own information about your project.
+Pair-programming with petrabrink buildning an authorization app where you can sign up, log in and see a secret message.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+## How did we do it
 
-## The problem
+We used MongoDB to create the backend using Mongoose model for the user an bcrypt to crypt the password into hex-code that we then fetched into the frontend. The front-end is built in React using hooks. If we had more time we would of used react routes to sign up and log in trough different pages.
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+## View it live here
 
-## View it live
-
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+https://elegant-tesla-808cf0.netlify.com/
