@@ -39,3 +39,12 @@ code {
   text-align: center;
   align-self: center;
 }
+
+@media (min-width: 650px) {
+
+  .authContainer {
+    display: inline-flex;
+    text-align: center;
+    width: -webkit-fill-available;
+  }
+}

@@ -1,15 +1,16 @@
 /*****LOGIN/FORM********/
 
 .loginForm {  
-    /* flex-wrap: wrap; */
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    align-items: center;
-    background-color: #f1adbf;
-    padding: 68px;
-    color: #fff;
-    font-size: 20px;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+  background-color: #f1adbf;
+  padding: 68px;
+  color: #fff;
+  font-size: 20px;
+  padding-bottom: 126px;
 
   }
   
