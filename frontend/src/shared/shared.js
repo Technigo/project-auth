@@ -9,4 +9,13 @@ export const Form = styled.form`
   align-items: center;
   margin: 20px;
   padding: 20px
-` 
+`
+export const Button = styled.button`
+  font-size: 20px;
+  padding: 10px 20px;
+  color: blue;
+  background-color: white;
+  border: 2px solid blue;
+  border-radius: 5px;
+  cursor: pointer;
+`

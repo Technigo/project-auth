@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Form } from '../shared/shared'
+import { Button } from '../shared/shared'
 
 export const LogIn = () => {
   const [userName, setUserName] = useState('')
@@ -29,10 +30,10 @@ export const LogIn = () => {
           placeholder="password">
         </input>
       </label>
-      <button
+      <Button
         type='submit'>
         ENTER
-      </button>
+      </Button>
     </Form>
   )
 }

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Form } from '../shared/shared'
+import { Button } from '../shared/shared'
+
 export const Register = () => {
   const [userName, setUserName] = useState('')
   const [userPassword, setUserPassword] = useState('')
@@ -40,10 +42,10 @@ export const Register = () => {
           placeholder='password'>
         </input>
       </label>
-      <button
+      <Button
         type='submit'>
         REGISTER
-      </button>
+      </Button>
     </Form>
   )
 }
