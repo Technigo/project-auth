@@ -5,8 +5,32 @@ import { Button } from '../shared/shared'
 export const LogIn = () => {
   const [userName, setUserName] = useState('')
   const [userPassword, setUserPassword] = useState('')
+
+  const handleLogin = async (event) => {
+    event.preventDefault()
+    let user = {
+      name: userName,
+      password: userPassword
+    };
+    console.log(user)
+    let response = await fetch('http://localhost:8080/sessions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(user)
+    });
+
+    let result = await response.json()
+    console.log("fetch result", result)
+    setUserName('')
+    setUserPassword('')
+  }
+
+
+
   return (
-    <Form>
+    <Form onSubmit={handleLogin}>
       <h1>
         LOG IN HERE:
       </h1>
@@ -16,7 +40,7 @@ export const LogIn = () => {
           type='text'
           required='true'
           value={userName}
-          // onChange={setUserName()}
+          onChange={e => setUserName(e.target.value)}
           placeholder='name'>
         </input>
       </label>
@@ -26,7 +50,7 @@ export const LogIn = () => {
           type='password'
           required='true'
           value={userPassword}
-          // onChange={setUserPassword()}
+          onChange={e => setUserPassword(e.target.value)}
           placeholder="password">
         </input>
       </label>

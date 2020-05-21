@@ -7,12 +7,13 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin: 20px;
+  margin: 20px 60px;
   padding: 20px
 `
 export const Button = styled.button`
   font-size: 20px;
   padding: 10px 20px;
+  margin-top: 20px;
   color: blue;
   background-color: white;
   border: 2px solid blue;
