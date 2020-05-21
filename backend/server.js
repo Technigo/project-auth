@@ -60,6 +60,10 @@ const authenticateUser = async (req, res, next) => {
 app.get('/', (req, res) => {
   res.send('Hello world')
 })
+app.get('/users', async (req, res) => {
+  const users = await User.find()
+  res.json(users)
+})
 
 app.post('/users', async (req, res) => {
   try {
