@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
+import bcrypt from 'bcrypt-nodejs'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -27,6 +28,11 @@ const User = mongoose.model('User', {
     default: () => crypto.randomBytes(128).toString('hex')
   }
 })
+
+
+const newUser = new User({ name: "hanna", email: "hannasEmail", password: bcrypt.hashSync("hanna") })
+newUser.save()
+
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
 //
@@ -42,7 +48,9 @@ const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({
       accessToken: req.header('Authorization')
+
     })
+    console.log(req.header('Authorization'))
     if (user) {
       req.user = user
       next()
