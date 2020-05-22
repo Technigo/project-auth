@@ -35,7 +35,7 @@ const authenticateUser = async (req, res, next) => {
     req.user = user
     next()
   } else {
-    res.status(401).json({ message: 'boiiiinnnggggg?', loggedOut: true })
+    res.status(403).json({ message: 'boiiiinnnggggg?', loggedOut: true })
   }
 }
 
