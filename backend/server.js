@@ -46,14 +46,15 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // Start defining your routes here
-app.get('/', (req, res) => {
-  res.send('Hello world')
+app.get('/', async (req, res) => {
+  const users = await User.find()
+  res.json(users)
 })
 
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body
-    const user = new User({ name, email, password: bcrypt.hashSync(password) })
+    const user = await new User({ name, email, password: bcrypt.hashSync(password) })
     user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
   } catch (err) {
