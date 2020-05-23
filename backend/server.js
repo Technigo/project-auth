@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 })
 
 // Sign up endpoint
-app.post('/register', async (req, res) => {
+app.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body
     const user = new User({ name, email, password: bcrypt.hashSync(password) })
