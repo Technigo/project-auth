@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const URL_AUTH = 'mongodb://localhost/authAPI/'
+const URL_AUTH = 'http://localhost:8080/users'
 
 export const SignUp = () => {
   const [name, setName] = useState()
@@ -14,21 +14,17 @@ export const SignUp = () => {
     fetch(URL_AUTH,
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ name, email, password })
       }
-    ).then(() => {
-      window.location.reload()
+    ).then((res) => res.json())
+    .then((userData) => {
+      console.log(userData)
     })
   }
 
-
   return (
     <div>
-    <h1>HELLOOOO</h1>
-    
     <form onSubmit={handleSubmit}>
       <input
         type='text'
