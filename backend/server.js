@@ -53,7 +53,7 @@ app.post('/login', async (req, res) => {
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     res.json({ userId: user._id, accessToken: user.accessToken })
   } else {
-    res.json({ notFound: true })
+    res.status(400).json({ message: 'Could not find user' })
   }
 })
 
