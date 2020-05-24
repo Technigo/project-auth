@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
-import { Form } from '../components/Form'
-import { Container } from '../components/Container'
-import { H1 } from '../components/TextStyles'
+import { Form } from 'components/Form'
+import { Container } from 'components/Container'
+import { H1 } from 'components/TextStyles'
 
 export const Login = () => {  
   const [name, setName] = useState()

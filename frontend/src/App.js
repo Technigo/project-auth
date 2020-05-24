@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Welcome } from './pages/Welcome'
 import { SignUp } from './pages/SignUp'
 import { Login } from './pages/Login'
+import { Secret } from './pages/Secret'
 
 
 export const App = () => {
@@ -21,7 +22,7 @@ export const App = () => {
             <Login />
           </Route>
           <Route path='/secret'>
-            <h1>Secrets Page</h1>
+            <Secret />
           </Route>
         </Switch>
       </BrowserRouter>
