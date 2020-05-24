@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Article } from '../lib/FormStyle'
 import { From } from '../lib/FormStyle'
+import { Input } from '../lib/FormStyle'
 
 export const SignInfrom = () => {
 
@@ -12,21 +13,21 @@ export const SignInfrom = () => {
           <From>
           <h1>Sign in</h1>
 
-          <input
+          <Input
           type="email"
           placeholder="Email"
           required
           >
-          </input>
-          <input
+          </Input>
+          <Input
           type="password"
           placeholder="Password"
           minlength="8"
           required
           >
-          </input>
+          </Input>
 
-          <input type="submit" value="Sign up"></input>
+          <Input type="submit" value="Sign up"></Input>
 
           </From>
 
