@@ -12,15 +12,18 @@ mongoose.Promise = Promise
 const User = mongoose.model('User', {
   name: {
     type: String,
-    required: true
+    required: true,
+    minlength: 1
   },
   email: {
     type: String,
-    unique: true
+    unique: true,
+    minlength: 1
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minlength: 1
   },
   accessToken: {
     type: String,
@@ -51,21 +54,27 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // Start defining your routes here
-app.get('/', (req, res) => {
-  res.send('Hello world')
+app.get('/', async (req, res) => {
+  const users = await User.find()
+  res.send(users)
 })
-
-app.post('/users', (req, res) => {
-  try {
+// SIGN UP
+app.post('/users', async (req, res) => {
+  // Got accessTokens returned even tho a new user was not created, added if to check email.
+  const user = await User.findOne({ email: req.body.email })
+  if (!user) {
+    // try {
     const { name, email, password } = req.body
     const user = new User({ name, email, password: bcrypt.hashSync(password) })
     user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
-  } catch (err) {
-    res.status(400).json({ message: 'Could not create user', error: err.errors })
+    // } catch (err) {
+  } else {
+    res.status(400).json({ message: 'Could not create user', signUpSuccessful: false })
+    // }
   }
 })
-
+// LOG IN
 app.post('/sessions', async (req, res) => {
   const user = await User.findOne({ email: req.body.email })
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
