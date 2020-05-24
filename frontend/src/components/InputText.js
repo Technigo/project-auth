@@ -1,20 +1,27 @@
-import React from 'react'
+import React from 'react';
 
-export const InputText = ({ label, type, id, placeholder, state, setState }) => {
+export const InputText = ({ label, type, id, placeholder, value, name, setInputValue, minLength }) => {
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setInputValue((prevState) => ({
+			...prevState,
+			[name]: value
+		}));
+	};
 
-  return (
-    <>
-      <label htmlFor={id}>{label}</label>
-      <input
-        type={type}
-        id={id}
-        onChange={event => setState(event.target.value)}
-        value={state}
-        minLength="2"
-        placeholder={placeholder}
-        required
-      />
-      {console.log(state)}
-    </>
-  )
-}
+	return (
+		<div>
+			<label htmlFor={id}>{label}</label>
+			<input
+				type={type}
+				id={id}
+				name={name}
+				value={value}
+				onChange={handleChange}
+				placeholder={placeholder}
+				required
+				minLength={minLength}
+			/>
+		</div>
+	);
+};
