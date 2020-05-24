@@ -20,9 +20,7 @@ export const App = () => {
           <h1>Secrets Page</h1>
         </Route>
       </Switch>
-      <div>
-        Same footer text on all pages!
-      </div>
+
     </BrowserRouter>
     
   )

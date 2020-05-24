@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import { useHistory } from 'react-router'
+import { Container } from '../components/Container'
+import { Form} from '../components/Form'
 
 const URL_AUTH = 'http://localhost:8080/users'
 //const URL_AUTH = 'https://week20-auth-app.herokuapp.com/'
@@ -28,7 +30,7 @@ export const SignUp = () => {
   }
 
   return (
-    <div>
+    <Container>
     <form onSubmit={handleSubmit}>
       <input
         type='text'
@@ -50,6 +52,6 @@ export const SignUp = () => {
         onChange={event => setPassword(event.target.value)} reuiered />
       <button onClick={handleSubmit}>Submit</button>
     </form>
-    </div>
+    </Container>
   )
   }
