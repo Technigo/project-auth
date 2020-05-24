@@ -1,14 +1,16 @@
 import React from 'react'
-import { SignUpform } from './components/SignUpform'
-import { SignInfrom } from './components/SignInform'
+import { Card } from './components/Card'
+
+
 
 export const App = () => {
   return (
     <div>
 
-      <SignUpform />
-      <SignInfrom /> 
+      <Card />
 
     </div>
   )
 }
+
+

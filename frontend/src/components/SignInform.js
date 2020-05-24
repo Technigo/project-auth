@@ -1,14 +1,16 @@
 import React from 'react'
 
+import { Article } from '../lib/FormStyle'
+import { From } from '../lib/FormStyle'
+
 export const SignInfrom = () => {
 
     return (
 
-        <article>
+        <Article>
 
+          <From>
           <h1>Sign in</h1>
-
-          <from>
 
           <input
           type="email"
@@ -26,10 +28,10 @@ export const SignInfrom = () => {
 
           <input type="submit" value="Sign up"></input>
 
-          </from>
+          </From>
 
 
-        </article>
+        </Article>
 
 
     )

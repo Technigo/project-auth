@@ -1,14 +1,16 @@
 import React from 'react'
 
+import { Article } from '../lib/FormStyle'
+import { From } from '../lib/FormStyle'
+
 export const SignUpform = () => {
 
     return (
 
-        <article>
+        <Article>
 
+          <From>
           <h1>Sign up here</h1>
-
-          <from>
 
           <input
           type="text"
@@ -32,10 +34,10 @@ export const SignUpform = () => {
 
           <input type="submit" value="Sign up"></input>
 
-          </from>
+          </From>
 
 
-        </article>
+        </Article>
 
 
     )
