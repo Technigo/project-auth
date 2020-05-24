@@ -2,18 +2,17 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Container} from '../components/Container'
+import { H1 } from '../components/TextStyles'
 
 export const Welcome = () => {
   return (
     <Container>
-      <h1>Welcome to the Biggest Secret Ever!</h1>
+      <H1>Welcome to the Biggest Secret Ever!</H1>
       <StyledLink to='/signup'>To Sign Up</StyledLink> 
       <StyledLink to='/login'>To Login</StyledLink>
     </Container>
   )
-
 }
-
 
 const StyledLink = styled(Link)`
   text-decoration: none;

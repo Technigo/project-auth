@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { useHistory } from 'react-router'
 import { Container } from '../components/Container'
 import { Form} from '../components/Form'
+import { H1 } from '../components/TextStyles'
 
 const URL_AUTH = 'http://localhost:8080/users'
 //const URL_AUTH = 'https://week20-auth-app.herokuapp.com/'
@@ -31,7 +32,8 @@ export const SignUp = () => {
 
   return (
     <Container>
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
+      <H1>Sign Up!</H1>
       <input
         type='text'
         value={name}
@@ -51,7 +53,7 @@ export const SignUp = () => {
         placeholder='password'
         onChange={event => setPassword(event.target.value)} reuiered />
       <button onClick={handleSubmit}>Submit</button>
-    </form>
+    </Form>
     </Container>
   )
   }

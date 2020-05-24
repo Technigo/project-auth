@@ -5,9 +5,9 @@ border: solid 2px black;
 display: flex;
 jystify-content: center;
 align-items: center;
-width: 140%;
+width: 80%;
 flex-direction: column;
-padding-bottom: 20px;
-font-size: 50px;
+padding: 20px;
+font-size: 30px;
 background-color: whitesmoke;
 `
