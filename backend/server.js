@@ -15,11 +15,13 @@ mongoose.Promise = Promise;
 const User = mongoose.model('User', {
   name: {
     type: String, 
-    unique: true
+    unique: true,
+    required: true,
   },
   email: {
     type: String,
     unique: true,
+    required: true,
   },
   password: {
     type: String,

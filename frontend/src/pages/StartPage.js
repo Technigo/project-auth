@@ -4,7 +4,7 @@ import { LogIn } from '../components/LogIn';
 
 export const StartPage = () => {
   return (
-    <div>
+    <div> 
       <SignUp />
       <LogIn />
     </div> 
