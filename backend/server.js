@@ -72,8 +72,8 @@ app.post('/users', async (req, res) => {
   try {
     const {name, email, password } = req.body;
     const user = new User({name, email, password: bcrypt.hashSync(password)});
-    user.save();
-    res.status(201).json({id: user._id, accessToken: user.accessToken});
+    const saved = await user.save();
+    res.status(201).json({id: saved._id, accessToken: saved.accessToken});
   } catch (err) {
     res.status(400).json({message:'Could not create user', errors: err.errors})
   }
@@ -92,8 +92,8 @@ app.get('/users/:id', (req, res) => {
 app.post('/sessions', async (req, res) => {
 
   try {
-    const { name, password } = req.body;
-    const user = await User.findOne({ name });
+    const { name, email, password } = req.body;
+    const user = await User.findOne({ name, email});
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(201).json({ id: user._id, accessToken: user.accessToken });
