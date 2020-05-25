@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form } from '../shared/shared'
 import { Button } from '../shared/shared'
 
-export const LogIn = ({ loggedIn, setLoggedIn, currentUser, setCurrentUser }) => {
+export const LogIn = ({ currentUser, setCurrentUser, setLoggedIn }) => {
   const [userName, setUserName] = useState('')
   const [userPassword, setUserPassword] = useState('')
 
@@ -26,11 +26,9 @@ export const LogIn = ({ loggedIn, setLoggedIn, currentUser, setCurrentUser }) =>
 
     setUserName('')
     setUserPassword('')
-    setCurrentUser(result)
-    //setLoggedIn(true)
-    if (currentUser) {
-      setLoggedIn(true)
-    }
+    setCurrentUser({userId:result.userId, accessToken:result.accessToken})
+    setLoggedIn(true)
+   
   }
 
 
