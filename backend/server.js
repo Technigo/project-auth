@@ -1,12 +1,12 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import cors from 'cors'
+import cors from 'cors' 
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
 const User = mongoose.model('User', {
@@ -28,24 +28,32 @@ const User = mongoose.model('User', {
   }
 })
 
-const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header('Authorization') })
-  if (user) {
-    req.user = user
-    next()
-  } else {
-    res.status(401).json({ loggedOut: true })
-  }
-}
-
 const port = process.env.PORT || 8080
 const app = express()
-
 
 app.use(cors())
 app.use(bodyParser.json())
 
-// Start defining your routes here
+const authenticateUser = async (req , res, next) => {
+  try {
+    const user = User.findOne({
+      accessToken: req.header('Authorization'),
+    })
+    if (user) {
+      req.user = user
+      next()
+    } else {
+      res
+        .status(401)
+        .json({ loggedOut: true, message: 'Not loged in, please try again' })
+    }
+  } catch (err) {
+    res
+      .status(403)
+      .json({ message: 'Access token is wrong or missing', errors: err })
+  }
+}
+
 app.get('/', async (req, res) => {
   const users = await User.find()
   res.json(users)
@@ -54,25 +62,30 @@ app.get('/', async (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body
-    const user = await new User({ name, email, password: bcrypt.hashSync(password) })
-    user.save()
-    res.status(201).json({ id: user._id, accessToken: user.accessToken })
+    const user = new User({ name, email, password: bcrypt.hashSync(password) })
+    const saved = await user.save() 
+    res.status(201).json({ userId: saved._id, accessToken: saved.accessToken })
   } catch (err) {
     res.status(400).json({ message: 'Could not create user', errors: err.errors })
   }
-})
+})  
 
-app.get('/secrets', authenticateUser)
-app.get('/secrets', (req, res) => {
-  res.json({ secret: 'This is a super secret secret' })
+app.get('/secret', authenticateUser)
+app.get('/secret', async (req, res) => {
+  res.status(200).json({ secret: 'This is a super secret secret' })
 })
 
 app.post('/sessions', async (req, res) => {
-  const user = await User.findOne({ email: req.body.email })
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken })
-  } else {
-    res.json({ notFound: true })
+  try {
+    const { name, password } = req.body
+    const user = await User.findOne({ name })
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(201).json({ userId: user._id, accessToken: user.accessToken })
+    } else {
+      res.status(404).json({ notFound: true })
+    }
+  } catch (err) {
+    res.status(404).json({ notFound: true })
   }
 })
 // Start the server
