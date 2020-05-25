@@ -1,15 +1,12 @@
-import React from 'react'
+import React from "react";
 
 export const SignOut = ({ setSignedIn }) => {
-
   const handleOnClick = () => {
-    localStorage.clear()
-    setSignedIn(false)
-    console.log("Nu har du tryckt logga ut")
+    localStorage.clear();
+    setSignedIn(false);
+    localStorage.setItem("signedIn", false);
+    console.log("Nu har du tryckt logga ut");
+  };
 
-  }
-
-  return (
-    <button onClick={handleOnClick}>Sign out</button>
-  )
-}
+  return <button onClick={handleOnClick}>Sign out</button>;
+};

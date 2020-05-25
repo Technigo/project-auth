@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { InputText } from './InputText.js';
+import React, { useState } from "react";
+import { InputText } from "./InputText.js";
 
 export const SignUp = ({ setSignedIn }) => {
   const [inputValue, setInputValue] = useState({
-    name: '',
-    email: '',
-    password: ''
+    name: "",
+    email: "",
+    password: "",
   });
-  const [signUpFailed, setSignUpFailed] = useState(false)
+  const [signUpFailed, setSignUpFailed] = useState(false);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -24,20 +24,20 @@ export const SignUp = ({ setSignedIn }) => {
       .then((json) => {
         if (json.accessToken) {
           //Save accessToken to localStorage
-          setSignedIn(true)
-          localStorage.setItem('accessToken', json.accessToken);
-          localStorage.setItem('userID', json._id);
+          setSignedIn(true);
+          localStorage.setItem("accessToken", json.accessToken);
+          localStorage.setItem("userID", json.id);
+          localStorage.setItem("signedIn", true);
         } else if (!json.signUpSuccessful) {
-          setSignUpFailed(true)
+          setSignUpFailed(true);
         }
-        // GÖR DETTA I SAMBAND MED UTLOGGKLICK localStorage.removeItem('accessToken');
       });
 
     //Empties inputValue object
     setInputValue({
       name: "",
       email: "",
-      password: ""
+      password: "",
     });
   };
 
