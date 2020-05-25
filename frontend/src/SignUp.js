@@ -7,9 +7,11 @@ export const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showSummary, setShowSummary] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     fetch(URL, {
       method: 'POST',
       body: JSON.stringify({ name, email, password }),
@@ -18,6 +20,7 @@ export const SignUp = () => {
       //.then((res) => res.json())
       .then((res) => {
         if (res.ok) {
+          setShowSummary(true);
           return res.json();
         } else {
           throw new Error('Unable to sign up');
@@ -28,7 +31,7 @@ export const SignUp = () => {
       // .catch((err) => status(403).json('error:', err));
       // will show this error message if name or password is not unique
       .catch((err) => {
-        setErrorMessage('error: Could not create user', err);
+        setErrorMessage('error: Username/email is already registered.', err);
       });
   };
 
@@ -64,11 +67,8 @@ export const SignUp = () => {
           SIGN UP
         </button>
       </form>
-      {errorMessage && (
-        <div>
-          <h1>{errorMessage}</h1>
-        </div>
-      )}
+      {showSummary ? <p>You are now signed up {name}</p> : <></>}
+      {errorMessage && <h1>{errorMessage}</h1>}
     </div>
   );
 };
