@@ -67,7 +67,7 @@ export const SignUp = () => {
           SIGN UP
         </button>
       </form>
-      {showSummary ? <p>You are now signed up {name}</p> : <></>}
+      {showSummary && <p>You are now signed up {name}</p>}
       {errorMessage && <h1>{errorMessage}</h1>}
     </div>
   );
