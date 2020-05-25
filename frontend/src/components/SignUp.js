@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { InputText } from './InputText.js';
 
-export const SignUp = () => {
+export const SignUp = ({ setSignedIn }) => {
   const [inputValue, setInputValue] = useState({
     name: '',
     email: '',
     password: ''
   });
-  const [loginFailed, setLoginFailed] = useState(false)
+  const [signUpFailed, setSignUpFailed] = useState(false)
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -23,29 +23,32 @@ export const SignUp = () => {
       .then((res) => res.json())
       .then((json) => {
         if (json.accessToken) {
-          console.log("hello")
           //Save accessToken to localStorage
+          setSignedIn(true)
           localStorage.setItem('accessToken', json.accessToken);
+          localStorage.setItem('userID', json._id);
         } else if (!json.signUpSuccessful) {
-          console.log("not hello")
-          setLoginFailed(true)
+          setSignUpFailed(true)
         }
-
-        //headers: { "Authotzzzzz": "accessToken" },
         // GÖR DETTA I SAMBAND MED UTLOGGKLICK localStorage.removeItem('accessToken');
       });
 
-    //Empty inputValue object. 
+    //Empties inputValue object
+    setInputValue({
+      name: "",
+      email: "",
+      password: ""
+    });
   };
 
   return (
     <form onSubmit={handleFormSubmit}>
+      <p>Sign Up</p>
       <InputText
         value={inputValue.name}
         name="name"
         label="Name"
         type="text"
-        id="inputName"
         placeholder="Name"
         setInputValue={setInputValue}
         minLength="1"
@@ -55,7 +58,6 @@ export const SignUp = () => {
         name="email"
         label="Email"
         type="email"
-        id="inputEmail"
         placeholder="Email"
         setInputValue={setInputValue}
         minLength="3"
@@ -65,13 +67,12 @@ export const SignUp = () => {
         name="password"
         label="Password"
         type="password"
-        id="inputPassword"
         placeholder="Password"
         setInputValue={setInputValue}
         minLength="6"
       />
       <button>submit</button>
-      {loginFailed && <p>Login failed</p>}
+      {signUpFailed && <p>SignUp failed</p>}
     </form>
   );
 };

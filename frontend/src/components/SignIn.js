@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { InputText } from './InputText.js';
 
-export const SignUp = () => {
+export const SignIn = ({ setSignedIn }) => {
   const [inputValue, setInputValue] = useState({
-    name: '',
     email: '',
     password: ''
   });
@@ -11,10 +10,9 @@ export const SignUp = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    fetch(`http://localhost:8080/users`, {
+    fetch(`http://localhost:8080/sessions`, {
       method: "POST",
       body: JSON.stringify({
-        name: inputValue.name,
         email: inputValue.email,
         password: inputValue.password,
       }),
@@ -23,39 +21,31 @@ export const SignUp = () => {
       .then((res) => res.json())
       .then((json) => {
         if (json.accessToken) {
-          console.log("hello")
           //Save accessToken to localStorage
+          setSignedIn(true)
+          //Komponent som fetchar till user/:id med accessToken
           localStorage.setItem('accessToken', json.accessToken);
+          localStorage.setItem('userID', json._id);
         } else if (!json.signUpSuccessful) {
-          console.log("not hello")
           setLoginFailed(true)
         }
-
-        //headers: { "Authotzzzzz": "accessToken" },
-        // GÖR DETTA I SAMBAND MED UTLOGGKLICK localStorage.removeItem('accessToken');
       });
 
     //Empty inputValue object. 
+    setInputValue({
+      email: "",
+      password: ""
+    });
   };
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <InputText
-        value={inputValue.name}
-        name="name"
-        label="Name"
-        type="text"
-        id="inputName"
-        placeholder="Name"
-        setInputValue={setInputValue}
-        minLength="1"
-      />
+      <p>Sign In</p>
       <InputText
         value={inputValue.email}
         name="email"
         label="Email"
         type="email"
-        id="inputEmail"
         placeholder="Email"
         setInputValue={setInputValue}
         minLength="3"
@@ -65,7 +55,6 @@ export const SignUp = () => {
         name="password"
         label="Password"
         type="password"
-        id="inputPassword"
         placeholder="Password"
         setInputValue={setInputValue}
         minLength="6"
