@@ -12,7 +12,7 @@ export const ContentPage = ({ id }) => {
       headers: { "Authorization": accessToken }
     })
       .then(res => {
-        console.log(res.ok)
+        console.log("Testar inloggning", res.ok)
         if (!res.ok) {
           throw new Error('Access denied')
         }
@@ -22,7 +22,7 @@ export const ContentPage = ({ id }) => {
       .catch(err => {
         setErrorMessage(err.message)
       })
-  }, [accessToken])
+  }, [accessToken, id])
 
 
   return (

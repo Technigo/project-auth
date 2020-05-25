@@ -26,6 +26,7 @@ export const SignIn = ({ setSignedIn }) => {
           //Komponent som fetchar till user/:id med accessToken
           localStorage.setItem('accessToken', json.accessToken);
           localStorage.setItem('userID', json._id);
+          localStorage.setItem('signedIn', true);
         } else if (!json.signUpSuccessful) {
           setLoginFailed(true)
         }
