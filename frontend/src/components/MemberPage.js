@@ -27,7 +27,10 @@ export const MemberPage = () => {
   })
   return (
     <Section>
-      <Text> Hej här ska det stå massa saker om användare. Hej här ska det stå massa saker om använadre. Hej här ska det stå massa saker om använadre. Hej här ska det stå massa saker om använadre. Hej här ska det stå massa saker om använadre.</Text>
+      <Text> Hej här ska det stå massa saker om användare.
+      Hej här ska det stå massa saker om användare.
+      Hej här ska det stå massa saker om användare.
+      </Text>
       < Button title='Sign out' />
     </Section>
   )

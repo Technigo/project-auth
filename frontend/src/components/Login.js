@@ -50,7 +50,7 @@ export const Login = () => {
   // posts email and password to the api
   const handleLogin = event => {
     event.preventDefault()
-    fetch('url', {
+    fetch(url, {
       method: 'POST',
       body: JSON.stringify(signInValues),
       headers: { 'Content-Type': 'application/json' }
@@ -62,7 +62,7 @@ export const Login = () => {
         res.json().then(data => {
           if (data.notFound !== true) {
             localStorage.setItem('accessToken', data.accessToken)
-            history.push('/memberpage')
+            history.push('/MemberPage')
           }
         })
       })

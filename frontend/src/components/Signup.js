@@ -42,7 +42,7 @@ export const Signup = () => {
   // creates new user
   const handleSignup = event => {
     event.preventDefault()
-    fetch('url', {
+    fetch(url, {
       method: 'POST',
       body: JSON.stringify(signUpValues),
       headers: { 'Content-Type': 'application/json' }
