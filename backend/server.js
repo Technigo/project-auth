@@ -32,13 +32,19 @@ const User = mongoose.model('User', {
 })
 
 const authenticateUser = async (req, res, next) => {
-  // Find a user based on the access token they send in in the header called Authorization
-  const user = await User.findOne({ accessToken: req.header('Authorization') })
-  if (user) { // If the user is found in the DB, then attach the user object to the request
-    req.user = user
-    next()
-  } else {
-    res.status(403).json({ message: 'boiiiinnnggggg?', loggedOut: true })
+  try {
+    // Find a user based on the access token they send in header Authorization
+    const user = await User.findOne({ accessToken: req.header('Authorization') })
+
+    // If user is found in the DB, attach the user object to the request
+    if (user) {
+      req.user = user
+      next()
+    } else {
+      res.status(401).json({ message: 'Please try logging in again', loggedOut: true })
+    }
+  } catch (err) {
+    res.status(403).json({ message: 'Access token is wrong or missing', errors: err })
   }
 }
 
@@ -70,7 +76,7 @@ app.post('/users', async (req, res) => {
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
     // } catch (err) {
   } else {
-    res.status(400).json({ message: 'Could not create user', signUpSuccessful: false })
+    res.status(400).json({ message: 'Could not create user', signUpSucces: false })
     // }
   }
 })
