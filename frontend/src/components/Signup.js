@@ -52,8 +52,8 @@ export const Signup = () => {
       <Header> Sign up below</Header>
       <Form>
         <label for='name'>Name <input type='text' id='name' name='name' /> </label>
-        <label for='email'>Email  <input type='text' id='email' name='email' /> </label>
-        <label for='password'>Password  <input type='text' id='password' name='password' /> </label>
+        <label for='email'>Email  <input type='email' id='email' name='email' /> </label>
+        <label for='password'>Password  <input type='password' id='password' name='password' /> </label>
       </Form>
       <Button title='Register' onClick={handleSignin} />
     </Section>
