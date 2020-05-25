@@ -1,9 +1,21 @@
-import React from 'react'
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { StartPage } from './pages/StartPage';
+import { Secret } from './pages/Secret';
 
 export const App = () => {
   return (
-    <div>
-      Find me in src/app.js! Eller gå ut i solen i stället!
-    </div>
-  )
-}
+    <BrowserRouter>
+      <main>
+        <Switch>
+          <Route path='/' exact>
+            <StartPage />
+          </Route>
+          <Route path='/secrets' exact>
+            <Secret />
+          </Route>
+        </Switch>
+      </main>
+    </BrowserRouter>
+  );
+};

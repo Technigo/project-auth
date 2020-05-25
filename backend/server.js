@@ -6,9 +6,9 @@ import crypto from 'crypto';
 import bcrypt from 'bcrypt-nodejs';
 
 // Mongoose & Database setup:
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-mongoose.Promise = Promise
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.Promise = Promise;
 
 // Mongoose model setup:
 
@@ -32,6 +32,7 @@ const User = mongoose.model('User', {
 });
 
 // middleware to authenticate user:
+// use try/catch + status message??
 
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({ accessToken: req.header("Authorization") });
@@ -53,6 +54,8 @@ const app = express()
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(bodyParser.json())
+
+// Middleware for handling if "no connection to Mongodb":
 
 
 // Start defining your routes here
@@ -79,7 +82,6 @@ app.post('/users', async (req, res) => {
 // restrict access - - using authenticateUser:
 // GET - http://localhost:8080/secrets
 // app.get('/secrets', authenticateUser);
-
 app.get('/secrets', authenticateUser, async (req, res) => {
   // can do anything here, but we just put in a message
   try {
@@ -92,6 +94,7 @@ app.get('/secrets', authenticateUser, async (req, res) => {
 
 // endpoint to login a User - and check email and password:
 // POST - http://localhost:8080/sessions
+// use try/catch + status message??
 app.post('/sessions', async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
