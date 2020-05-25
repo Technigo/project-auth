@@ -22,11 +22,13 @@ const Form = styled.form`
     input {
       width: 100%;
       height: 20px;
+      border-radius: 6px;
     }
 `
 
 const Header = styled.h1`
   color:  #254b62;
+  text-shadow: 2px 2px #cff532;
   font-size: 40px;
   margin-top: 40px;
 `
