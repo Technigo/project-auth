@@ -38,7 +38,7 @@ const authenticateUser = async (req, res, next) => {
       req.user = user;
       next();
     } else {
-      res.status(401).json({ loggedOut: true });
+      res.status(401).json({ message: 'you need to log in to see this page' });
     }
   } catch (err) {
     res.status(403).json({ message: 'access denied', errors: err.errors });
@@ -63,16 +63,14 @@ app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
-    user.save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
+    const saved = await user.save();
+    res.status(201).json({ userId: saved._id, accessToken: saved.accessToken });
   } catch (err) {
-    res
-      .status(400)
-      .json({ message: 'Could not create user', errors: err.errors });
+    res.status(400).json({ message: 'Could not create user', errors: err });
   }
 });
 
-// CHECK IF USER IS AUTHORIZED
+// SECURE ENDPOINT, CHECK IF USER IS AUTHORIZED
 app.get('/users/:id', authenticateUser);
 app.get('/users/:id', (req, res) => {
   res.send('This is a super secret message.');

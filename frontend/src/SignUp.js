@@ -13,10 +13,16 @@ export const SignUp = () => {
       method: 'POST',
       body: JSON.stringify({ name, email, password }),
       headers: { 'content-Type': 'application/json' },
-    })
-      .then((res) => res.json())
-      .then((json) => console.log(json))
-      .catch((err) => console.log('error:', err));
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error('Unable to sign-in');
+      }
+    });
+    // .then((res) => res.json())
+    // .then((json) => console.log(json))
+    // .catch((err) => console.log('error:', err));
   };
 
   return (
