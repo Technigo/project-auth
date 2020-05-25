@@ -6,19 +6,26 @@ import { SignOut } from "./SignOut";
 
 export const Home = () => {
   const [signedIn, setSignedIn] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false)
 
   return (
     <>
-      {!signedIn && (
+      {!signedIn && ( // Signed out
         <>
-          <SignUp setSignedIn={setSignedIn} />
-          <SignIn setSignedIn={setSignedIn} />
+          {!showSignUp ? // Show Sign in
+            <>
+              <SignIn setSignedIn={setSignedIn} />
+              <button onClick={() => setShowSignUp(true)}>Sign up</button>
+            </>
+            : // Show Sign up
+            <SignUp setSignedIn={setSignedIn} />
+          }
         </>
       )}
-      {signedIn && (
+      {signedIn && ( // Signed in
         <>
           <ContentPage id={localStorage.getItem("userID")} />
-          <SignOut setSignedIn={setSignedIn} />
+          <SignOut setSignedIn={setSignedIn} setShowSignUp={setShowSignUp} />
         </>
       )}
     </>
