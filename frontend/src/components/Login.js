@@ -45,7 +45,7 @@ export const Login = () => {
   })
   const history = useHistory()
   const [error, setError] = useState('')
-  const url = 'https://anna-project-auth.herokuapp.com/sessions'
+  const url = 'http://localhost:8080/sessions'
 
   // posts email and password to the api
   const handleLogin = event => {

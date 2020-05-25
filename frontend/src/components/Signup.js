@@ -37,10 +37,9 @@ export const Signup = () => {
   })
   const [error, setError] = useState('')
   const history = useHistory()
-  // const [success, setSuccess] = useState('')
-  const url = 'https://anna-project-auth.herokuapp.com/users'
+  const url = 'http://localhost:8080/users'
 
-  // posts email and password to the api
+  // creates new user
   const handleSignup = event => {
     event.preventDefault()
     fetch('url', {
@@ -52,7 +51,6 @@ export const Signup = () => {
         if (!res.ok) {
           throw new Error('Could not register new user.')
         }
-        // res.json()
         res.json().then(data => {
           if (data.notFound !== true) {
             history.push('/')
