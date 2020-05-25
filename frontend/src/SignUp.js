@@ -37,36 +37,38 @@ export const SignUp = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          username
-          <input
-            required
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </label>
-        <label>
-          email
-          <input
-            required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </label>
-        <label>
-          password
-          <input
-            required
-            type='password'
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-        <button type='submit' onClick={handleSubmit}>
-          SIGN UP
-        </button>
-      </form>
+      {!showSummary && (
+        <form onSubmit={handleSubmit}>
+          <label>
+            username
+            <input
+              required
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+            />
+          </label>
+          <label>
+            email
+            <input
+              required
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          </label>
+          <label>
+            password
+            <input
+              required
+              type='password'
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </label>
+          <button type='submit' onClick={handleSubmit}>
+            SIGN UP
+          </button>
+        </form>
+      )}
       {showSummary && <p>You are now signed up {name}</p>}
       {errorMessage && <h1>{errorMessage}</h1>}
     </div>

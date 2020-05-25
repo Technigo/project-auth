@@ -38,10 +38,10 @@ const authenticateUser = async (req, res, next) => {
       req.user = user;
       next();
     } else {
-      res.status(401).json({ message: 'you need to log in to see this page' });
+      res.status(403).json({ message: 'you need to log in to see this page' });
     }
   } catch (err) {
-    res.status(403).json({ message: 'access denied', errors: err.errors });
+    res.status(400).json({ message: 'access denied', errors: err.errors });
   }
 };
 
