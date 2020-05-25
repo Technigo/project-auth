@@ -22,11 +22,11 @@ export const SignIn = ({ setSignedIn }) => {
       .then((json) => {
         if (json.accessToken) {
           //Save accessToken to localStorage
-          setSignedIn(true);
           //Komponent som fetchar till user/:id med accessToken
           localStorage.setItem("accessToken", json.accessToken);
           localStorage.setItem("userID", json.id);
-          localStorage.setItem("signedIn", true);
+          localStorage.setItem("signedIn", JSON.stringify(true));
+          setSignedIn(JSON.parse(localStorage.getItem("signedIn")));
         } else if (!json.signUpSuccessful) {
           setLoginFailed(true);
         }

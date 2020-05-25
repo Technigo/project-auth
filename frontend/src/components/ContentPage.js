@@ -12,7 +12,6 @@ export const ContentPage = ({ id }) => {
       headers: { Authorization: accessToken },
     })
       .then((res) => {
-        console.log("Testar inloggning", res.ok);
         if (!res.ok) {
           throw new Error("Access denied");
         }

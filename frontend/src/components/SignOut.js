@@ -3,9 +3,8 @@ import React from "react";
 export const SignOut = ({ setSignedIn }) => {
   const handleOnClick = () => {
     localStorage.clear();
-    setSignedIn(false);
-    localStorage.setItem("signedIn", false);
-    console.log("Nu har du tryckt logga ut");
+    localStorage.setItem("signedIn", JSON.stringify(false));
+    setSignedIn(JSON.parse(localStorage.getItem("signedIn")));
   };
 
   return <button onClick={handleOnClick}>Sign out</button>;

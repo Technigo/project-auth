@@ -5,7 +5,10 @@ import { ContentPage } from "./ContentPage.js";
 import { SignOut } from "./SignOut";
 
 export const Home = () => {
-  const [signedIn, setSignedIn] = useState(false);
+  const [signedIn, setSignedIn] = useState(
+    JSON.parse(localStorage.getItem("signedIn"))
+  );
+  const [id, setId] = useState(localStorage.getItem("userID"));
 
   return (
     <>
@@ -17,7 +20,7 @@ export const Home = () => {
       )}
       {signedIn && (
         <>
-          <ContentPage id={localStorage.getItem("userID")} />
+          <ContentPage id={id} />
           <SignOut setSignedIn={setSignedIn} />
         </>
       )}
