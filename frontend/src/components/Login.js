@@ -87,13 +87,15 @@ export const Login = () => {
         <label for='password'>Password
         <input type='password' id='password' name='password' required minLength='6' value={signInValues.password} onChange={event => setSignInValues({ ...signInValues, password: event.target.value })} />
         </label>
+
         <Button type='submit' title='Login' />
+
         <Text>New user? Sign up here. </Text>
         <Link to={'/signup'}>
           <Button title='Register' />
         </Link>
         {error && <p>{error}</p>}
       </Form>
-    </Section>
+    </Section >
   )
 }

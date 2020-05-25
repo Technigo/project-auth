@@ -12,7 +12,8 @@ const StyledButton = styled.button`
   border-radius: 4px;
   font-size: 22px;
   display: block;
-  margin-top: 25px;
+  margin: 25px 0 0 10px;
+  width: fit-content;
 `
 
 export const Button = ({ title, onClick }) => (

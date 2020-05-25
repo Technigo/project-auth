@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { Button } from './Button'
 
@@ -29,33 +30,63 @@ const Header = styled.h1`
 `
 
 export const Signup = () => {
-  const [name, setName] = useState()
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
-
+  const [signUpValues, setSignUpValues] = useState({
+    name: '',
+    email: '',
+    password: ''
+  })
+  const [error, setError] = useState('')
+  const history = useHistory()
+  // const [success, setSuccess] = useState('')
   const url = 'https://anna-project-auth.herokuapp.com/users'
-  // posts email and password to the api
 
-  const handleSignin = event => {
+  // posts email and password to the api
+  const handleSignup = event => {
     event.preventDefault()
     fetch('url', {
       method: 'POST',
-      body: JSON.stringify({ email, password, name }),
+      body: JSON.stringify(signUpValues),
       headers: { 'Content-Type': 'application/json' }
     })
-    //Här ska det komma en .then av något slag 
-    //vi behöver local storage någonstans
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Could not register new user.')
+        }
+        // res.json()
+        res.json().then(data => {
+          if (data.notFound !== true) {
+            history.push('/')
+          }
+        })
+      })
+      .catch((err) => {
+        setError(err.message)
+      })
+      .then(() => {
+        setSignUpValues({
+          name: '',
+          email: '',
+          password: ''
+        })
+      })
   }
 
   return (
     <Section>
       <Header> Sign up below</Header>
-      <Form>
-        <label for='name'>Name <input type='text' id='name' name='name' /> </label>
-        <label for='email'>Email  <input type='email' id='email' name='email' /> </label>
-        <label for='password'>Password  <input type='password' id='password' name='password' /> </label>
+      <Form onSubmit={handleSignup}>
+        <label for='name'>Name
+        <input type='text' id='name' name='name' required value={signUpValues.name} onChange={event => setSignUpValues({ ...signUpValues, name: event.target.value })} />
+        </label>
+        <label for='email'>Email
+        <input type='email' id='email' name='email' required value={signUpValues.email} onChange={event => setSignUpValues({ ...signUpValues, email: event.target.value })} />
+        </label>
+        <label for='password'>Password
+        <input type='password' id='password' name='password' required minLength='6' value={signUpValues.password} onChange={event => setSignUpValues({ ...signUpValues, password: event.target.value })} />
+        </label>
+        <Button type='submit' title='Register' />
+        {error && <p>{error}</p>}
       </Form>
-      <Button title='Register' onClick={handleSignin} />
     </Section>
   )
 }
