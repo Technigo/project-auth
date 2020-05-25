@@ -27,13 +27,15 @@ export const Login = () => {
           return res.json()
         }
       })
-      .then(({ userId, accessToken }) => {
+      .then(({ accessToken }) => {
         setEmail('')
         setPassword('')
-        dispatch(users.actions.logIn())
-        dispatch(users.actions.access(accessToken))
-        dispatch(users.actions.id(userId))
-        history.push('/narnia')
+        if (accessToken) {
+          dispatch(users.actions.logIn())
+          dispatch(users.actions.access(accessToken))
+          // dispatch(users.actions.id(userId))
+          history.push('/narnia')
+        }
       })
       .catch(err => console.log("error:", err))
   }

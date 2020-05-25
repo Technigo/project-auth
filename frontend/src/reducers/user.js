@@ -1,17 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const initialState = {
+  loggedIn: false,
+  userId: '',
+  accessToken: ''
+}
+
 export const users = createSlice({
   name: 'userList',
-  initialState: {
-    loggedIn: false,
-    userId: '',
-    accessToken: ''
-  },
+  initialState,
   reducers: {
     // logIn: (state, action) => {
     //   state.loggedIn = action.payload
     // },
-    logIn: (state) => { state.loggedIn = true },
+    logIn: (state) => {
+      state.loggedIn = true
+    },
+
+    // logOut: (state) => {
+    //   state.loggedIn = false
+    // },
+
+    logOut: () => {
+      return initialState
+    },
 
     access: (state, action) => {
       state.accessToken = action.payload
@@ -21,4 +33,3 @@ export const users = createSlice({
     }
   },
 })
-
