@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form } from '../shared/shared'
 import { Button } from '../shared/shared'
 
-export const LogIn = () => {
+export const LogIn = ({ loggedIn, setLoggedIn, currentUser, setCurrentUser }) => {
   const [userName, setUserName] = useState('')
   const [userPassword, setUserPassword] = useState('')
 
@@ -11,7 +11,7 @@ export const LogIn = () => {
     let user = {
       name: userName,
       password: userPassword
-    };
+    }
     console.log(user)
     let response = await fetch('http://localhost:8080/sessions', {
       method: 'POST',
@@ -19,12 +19,18 @@ export const LogIn = () => {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify(user)
-    });
+    })
 
     let result = await response.json()
     console.log("fetch result", result)
+
     setUserName('')
     setUserPassword('')
+    setCurrentUser(result)
+    //setLoggedIn(true)
+    if (currentUser) {
+      setLoggedIn(true)
+    }
   }
 
 
@@ -38,7 +44,7 @@ export const LogIn = () => {
         Name:
       <input
           type='text'
-          required='true'
+          required
           value={userName}
           onChange={e => setUserName(e.target.value)}
           placeholder='name'>
@@ -48,7 +54,7 @@ export const LogIn = () => {
         Password:
       <input
           type='password'
-          required='true'
+          required
           value={userPassword}
           onChange={e => setUserPassword(e.target.value)}
           placeholder="password">

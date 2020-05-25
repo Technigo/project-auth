@@ -30,8 +30,8 @@ const User = mongoose.model('User', {
 })
 
 
-const newUser = new User({ name: "hanna", email: "hannasEmail", password: bcrypt.hashSync("hanna") })
-newUser.save()
+// const newUser = new User({ name: "hanna", email: "hannasEmail", password: bcrypt.hashSync("hanna") })
+// newUser.save()
 
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
