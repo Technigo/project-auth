@@ -33,16 +33,6 @@ export const SignUp = () => {
       .catch(err => console.log("error:", err))
   }
 
-  // .then(res => {
-  //   if (!res.ok) {
-  //     console.log('error')
-  //     // throw new Error('Email or password is incorrect')
-  //   } else {
-  //     return res.json()
-  //   }
-  // })
-
-
   return (
     <form>
       <label> Name:

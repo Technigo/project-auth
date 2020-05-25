@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { users } from '../reducers/user'
 
+import { Giphy } from './Giphy'
+
 const narniaURL = 'https://auth-narnia.herokuapp.com/narnia'
 
 export const Narnia = () => {
@@ -34,7 +36,8 @@ export const Narnia = () => {
 
 
   return (
-    <>
+    <div>
+    <Giphy />
     <Link to='/login'>
       <button
         type="button"
@@ -42,7 +45,7 @@ export const Narnia = () => {
         Log out!
       </button>
       </Link>
-      <img src={process.env.PUBLIC_URL + '/lion.jpg'} alt="Lion" />
-    </>
+      {/* <img src={process.env.PUBLIC_URL + '/lion.jpg'} alt="Lion" /> */}
+    </div>
   )
 }
