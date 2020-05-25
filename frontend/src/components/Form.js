@@ -23,7 +23,6 @@ export const Form = () => {
     })
       .then((res) => res.json())
       .then((json) => {
-        // console.log(json.accessToken)
         if (json.accessToken) {
           console.log("hello")
           //Save accessToken to localStorage
@@ -32,12 +31,8 @@ export const Form = () => {
           console.log("not hello")
           setLoginFailed(true)
         }
-        //CHECK IF BACKEND COULD CREATE USER
 
-        // Save accessToken to local storage?
         //headers: { "Authotzzzzz": "accessToken" },
-
-
         // GÖR DETTA I SAMBAND MED UTLOGGKLICK localStorage.removeItem('accessToken');
       });
 

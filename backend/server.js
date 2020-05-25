@@ -39,11 +39,11 @@ const authenticateUser = async (req, res, next) => {
     // If user is found in the DB, attach the user object to the request
     if (user) {
       req.user = user
-      next()
+      next() // Executes the endpoint protected by this function
     } else {
       res.status(401).json({ message: 'Please try logging in again', loggedOut: true })
     }
-  } catch (err) {
+  } catch (err) { // Something else happens (?)
     res.status(403).json({ message: 'Access token is wrong or missing', errors: err })
   }
 }
@@ -64,22 +64,21 @@ app.get('/', async (req, res) => {
   const users = await User.find()
   res.send(users)
 })
+
 // SIGN UP
 app.post('/users', async (req, res) => {
   // Got accessTokens returned even tho a new user was not created, added if to check email.
-  const user = await User.findOne({ email: req.body.email })
-  if (!user) {
-    // try {
+
+  try {
     const { name, email, password } = req.body
     const user = new User({ name, email, password: bcrypt.hashSync(password) })
-    user.save()
-    res.status(201).json({ id: user._id, accessToken: user.accessToken })
-    // } catch (err) {
-  } else {
+    const saved = await user.save()
+    res.status(201).json({ id: saved._id, accessToken: saved.accessToken })
+  } catch (err) {
     res.status(400).json({ message: 'Could not create user', signUpSucces: false })
-    // }
   }
 })
+
 // LOG IN
 app.post('/sessions', async (req, res) => {
   const user = await User.findOne({ email: req.body.email })
@@ -90,8 +89,8 @@ app.post('/sessions', async (req, res) => {
   }
 })
 
-app.get('/secrets', authenticateUser)
-app.get('/secrets', (req, res) => {
+app.get('/users/:id', authenticateUser)
+app.get('/users/:id', (req, res) => {
   res.json({ secret: 'This is a top secret message' })
 })
 
