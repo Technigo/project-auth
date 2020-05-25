@@ -6,6 +6,7 @@ export const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -13,16 +14,22 @@ export const SignUp = () => {
       method: 'POST',
       body: JSON.stringify({ name, email, password }),
       headers: { 'content-Type': 'application/json' },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        throw new Error('Unable to sign-in');
-      }
-    });
-    // .then((res) => res.json())
-    // .then((json) => console.log(json))
-    // .catch((err) => console.log('error:', err));
+    })
+      //.then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Unable to sign up');
+        }
+      })
+
+      // .then((json) => console.log(json))
+      // .catch((err) => status(403).json('error:', err));
+      // will show this error message if name or password is not unique
+      .catch((err) => {
+        setErrorMessage('error: Could not create user', err);
+      });
   };
 
   return (
@@ -57,6 +64,11 @@ export const SignUp = () => {
           SIGN UP
         </button>
       </form>
+      {errorMessage && (
+        <div>
+          <h1>{errorMessage}</h1>
+        </div>
+      )}
     </div>
   );
 };
