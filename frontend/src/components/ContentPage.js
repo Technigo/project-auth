@@ -1,28 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 
 export const ContentPage = ({ id }) => {
-  const [message, setMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const accessToken = localStorage.getItem("accessToken");
+  const [message, setMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
+  const accessToken = localStorage.getItem("accessToken")
 
   useEffect(() => {
-    setErrorMessage("");
+    setErrorMessage('')
     fetch(`http://localhost:8080/users/${id}`, {
       method: "GET",
-      headers: { Authorization: accessToken },
+      headers: { "Authorization": accessToken }
     })
-      .then((res) => {
-        console.log("Testar inloggning", res.ok);
+      .then(res => {
         if (!res.ok) {
-          throw new Error("Access denied");
+          throw new Error('Access denied')
         }
-        return res.json();
+        return res.json()
       })
-      .then((json) => setMessage(json.message))
-      .catch((err) => {
-        setErrorMessage(err.message);
-      });
-  }, [accessToken, id]);
+      .then(json => setMessage(json.message))
+      .catch(err => {
+        setErrorMessage(err.message)
+      })
+  }, [accessToken, id])
 
-  return <div>hello</div>;
-};
+
+  return (
+    <div>
+      hello
+    </div>
+  )
+}

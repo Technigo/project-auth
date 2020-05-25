@@ -23,11 +23,11 @@ export const SignUp = ({ setSignedIn }) => {
       .then((res) => res.json())
       .then((json) => {
         if (json.accessToken) {
-          //Save accessToken to localStorage
-          setSignedIn(true);
           localStorage.setItem("accessToken", json.accessToken);
           localStorage.setItem("userID", json.id);
           localStorage.setItem("signedIn", true);
+          //Save accessToken to localStorage
+          setSignedIn(true);
         } else if (!json.signUpSuccessful) {
           setSignUpFailed(true);
         }
@@ -71,8 +71,10 @@ export const SignUp = ({ setSignedIn }) => {
         setInputValue={setInputValue}
         minLength="6"
       />
-      <button>submit</button>
-      {signUpFailed && <p>SignUp failed</p>}
+      <button>Create account</button>
+
+      {signUpFailed && <span>Registration failed</span>}
+
     </form>
   );
 };

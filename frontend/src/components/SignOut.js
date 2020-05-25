@@ -5,7 +5,6 @@ export const SignOut = ({ setSignedIn }) => {
     localStorage.clear();
     setSignedIn(false);
     localStorage.setItem("signedIn", false);
-    console.log("Nu har du tryckt logga ut");
   };
 
   return <button onClick={handleOnClick}>Sign out</button>;
