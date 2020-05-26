@@ -3,7 +3,6 @@ import { Profile } from './Profile'
 
 
 const SIGNUP_URL = 'http://localhost:8080/users';
-
 const LOGIN_URL = 'http://localhost:8080/sessions';
 
 
@@ -18,8 +17,7 @@ export const LoginForm = () => {
 
   const handleSubmit = (event, url) => {
     event.preventDefault();
-    // setName("Olle")
-    // setPassword("olle")
+
     console.log("submit")
     console.log(url)
 
@@ -33,8 +31,8 @@ export const LoginForm = () => {
       .catch((err) => console.log("error:", err));
   };
 
-
-  // handleSubmit()
+  // and return error messages "Something went wrong"
+  // Heruku och Netlify
 
   if (loggedInUser === null) {
     return (
