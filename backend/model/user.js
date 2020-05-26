@@ -4,7 +4,8 @@ import crypto from 'crypto'
 export const User = mongoose.model('User', {
   name: {
     type: String,
-    unique: true
+    unique: true,
+    minlength: 3
   },
   email: {
     type: String,
@@ -12,7 +13,9 @@ export const User = mongoose.model('User', {
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minlength: 3,
+    maxlength: 12
   },
   accessToken: {
     type: String,
