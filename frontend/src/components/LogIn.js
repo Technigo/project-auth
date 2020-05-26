@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { user } from '../reducers/user';
 import { Redirect } from 'react-router-dom';
 const LOGIN_URL = "http://localhost:8080/sessions";
@@ -9,6 +9,7 @@ export const LogIn = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [logIn, setLogIn] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const handleLoginSuccess = (loginResponse, name) => {
     // For debugging only
@@ -31,14 +32,21 @@ export const LogIn = () => {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    setLogIn(true)
-
+    
     fetch(LOGIN_URL, {
       method: "POST",
       body: JSON.stringify({ password, email }),
       headers: { "Content-Type": "application/json" },
     })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        setErrorMessage(true)
+      } else {
+        setErrorMessage(false)
+        setLogIn(true)
+        return (res.json())
+      }
+    })
     .then((json) => handleLoginSuccess(json))
     .catch((err) => handleLoginFailed(err));
   };
@@ -69,6 +77,7 @@ export const LogIn = () => {
             <button type="submit">Log in</button>
           </label>
         </form>
+        {errorMessage === true ? <p>Could not log in, try again</p> : null}
       </div>
     )
   } else {

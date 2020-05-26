@@ -5,8 +5,8 @@ Att göra:
     X Logga ut knapp
  - Felmeddelanden 
     - Inte inloggad
-    - Kan inte logga in
-    - Kan inte skapa användare
+    X Kan inte logga in
+    X Kan inte skapa användare
  - Styling
  - Backend 
     X Lägga till error 403
