@@ -55,12 +55,12 @@ export const LoginForm = () => {
 
   const handleLoginSuccess = (loginResponse) => {
     // For debugging only
+    console.log('You have successfully logged in')
     const statusMessage = JSON.stringify(loginResponse);
     dispatch(user.actions.setLoginResponse({ statusMessage }));
 
     // Save the login info
-    dispatch(
-      user.actions.setLoginResponse({ accessToken: loginResponse.accessToken, userId: loginResponse.userId })
+    dispatch(user.actions.setLoginResponse({ accessToken: loginResponse.accessToken, userId: loginResponse.userId })
     );
     // dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
   };
@@ -76,16 +76,20 @@ export const LoginForm = () => {
   // To sign up a user.
   const handleSignup = (event) => {
     event.preventDefault();
-
+    console.log('Trying to sign up ...')
     fetch(SIGNUP_URL, {
       method: 'POST',
       body: JSON.stringify({ name, email, password }),
       headers: { 'Content-Type': 'application/json' },
     })
+      .then(console.log('fetched signing in...'))
       .then((res) => res.json())
-      .then((json) => handleLoginSuccess(json))
-      .catch((err) => handleLoginFailed(err));
-  };
+      .then((loginResponse) => {
+        dispatch(user.actions.setLoginResponse({ accessToken: loginResponse.accessToken, userId: loginResponse.userId }))
+      })
+    // .then((json) => handleLoginSuccess(json))
+    // .catch((err) => handleLoginFailed(err));
+  }
 
   // To log in a user.
   const handleLogin = (event) => {
@@ -97,6 +101,7 @@ export const LoginForm = () => {
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => res.json())
+      .then(console.log('Logging in...'))
       .then((json) => handleLoginSuccess(json))
       .catch((err) => handleLoginFailed(err));
   };
@@ -106,7 +111,7 @@ export const LoginForm = () => {
     return (
       <div>
         <Profile />
-        <Form>
+        <Form onSubmit={(event) => handleSignup(event)}>
           <Headline title="sign up" />
           <InfoDiv>
             <Input
@@ -116,13 +121,19 @@ export const LoginForm = () => {
               onChange={(event) => setName(event.target.value)}
             />
             <Input
+              placeholder="email"
+              required
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <Input
               placeholder="password"
               required
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
-          <Button type="submit" onClick={handleSignup} title="Sign up"/>
-          <Button type="submit" onClick={handleLogin} title="Log in"/>
+            {/* <Button onClick={handleSignup} title="Sign up" /> */}
+            <Button type="submit" title="Sign up" />
           </InfoDiv>
         </Form>
       </div>

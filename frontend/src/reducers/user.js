@@ -19,7 +19,6 @@ export const user = createSlice({
       state.login.accessToken = accessToken
       state.login.userId = userId
       state.login.statusMessage = statusMessage;
-
     },
     /* setAccessToken: (state, action) => {
       const { accessToken } = action.payload;

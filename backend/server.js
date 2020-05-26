@@ -80,7 +80,7 @@ app.get('/users/:id', (req, res) => {
 
 app.post('/sessions', async (req, res) => {
   try {
-    const { name, password } = req.body
+    const { name, email, password } = req.body
     const user = await User.findOne({ name })
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(201).json({ userId: user._id, accessToken: user.accessToken, message: 'You are logged in' })

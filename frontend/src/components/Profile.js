@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { user } from '../reducers/user';
 import styled from 'styled-components';
 import { Headline } from '../lib/headline';
@@ -77,7 +77,7 @@ export const Profile = () => {
 
   return (
     <ProfileInfo>
-      <Headline title="profile"/>
+      <Headline title="profile" />
       <InfoDiv>
         <h2>Status :</h2>
         <h4>Response :</h4>
@@ -86,8 +86,8 @@ export const Profile = () => {
         <p> {`${userId}`}</p>
         <h4>accessToken :</h4>
         <p> {`${accessToken}`}</p>
-        <Button type="submit" onClick={login} title="Test Login"/>
-        <Button type="submit" onClick={login} title="Test Logout"/>
+        <Button type="submit" onClick={login} title="Test Login" />
+        <Button type="submit" onClick={logout} title="Test Logout" />
       </InfoDiv>
     </ProfileInfo>
   );
