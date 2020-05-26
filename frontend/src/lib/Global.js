@@ -11,11 +11,8 @@ export const GlobalStyle = createGlobalStyle`
     background-color: #0c1333;
     background-image: linear-gradient(0deg, #0c1333 0%, #3a436e 100%);
     
-
-
     @media (max-width: 400px) {
   }
-    
   }
 
   code {

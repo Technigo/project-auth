@@ -40,8 +40,9 @@ export const SignUp = () => {
           setPassword('')
           history.push('/login')
         })
-      .catch(err => console.log("error:", err))
-  }
+      .catch(err => 
+        console.log("error:", err))
+    }
 
   return (
     <FormContainer>
@@ -61,8 +62,7 @@ export const SignUp = () => {
         value={password} onChange={event => setPassword(event.target.value)}  /> 
       </StyledLabel>
 
-
-      <LinkButton title='Submit' onClick={handleSignup} />
+      <LinkButton title='Submit' onSubmit={handleSignup} />
     </InputContent>
     </FormContainer>
   )
