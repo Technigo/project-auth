@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
-  Switch,
   Route
 } from 'react-router-dom'
-import { Signup } from 'Components/Signup'
-import { Login } from './Components/Login'
-import { LogOut } from './Components/LogOut'
+import { Signup } from 'Pages/Signup'
+import { Login } from './Pages/Login'
 import { AuthorizedUser } from './Pages/AuthorizedUser'
 
 export const App = () => {
@@ -20,13 +18,15 @@ export const App = () => {
 
       <Route exact path="/">
         < Login loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+      </Route>
+
+      <Route exact path="/register">
         < Signup />
-        < LogOut loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
       </Route>
    
 
       <Route exact path="/authorizeduser">
-        < AuthorizedUser authorization={authorization} setAuthorization={setAuthorization}/>
+        < AuthorizedUser authorization={authorization} setAuthorization={setAuthorization} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
       </Route>
       
     </Router>

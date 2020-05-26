@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
+import { Link} from 'react-router-dom'
 import { useHistory } from "react-router-dom"
 
 export const Login = ({ loggedIn, setLoggedIn }) => {
   const history = useHistory()
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
-
-  // var accessToken = localStorage.getItem('accessToken')
-  // var userId = localStorage.getItem('userId')
+  const [error, setError] = useState(false)
    
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -31,24 +30,34 @@ export const Login = ({ loggedIn, setLoggedIn }) => {
       }
       return res.json()
     })
-    .then(({ userId, accessToken }) => {
+    .then(({ userId, accessToken, userName }) => {
       if (accessToken && userId) {
         window.localStorage.setItem('accessToken', accessToken)
         window.localStorage.setItem('userId', userId)
+        window.localStorage.setItem('userName', userName)
         setLoggedIn(true)
-        history.push(`/AuthorizedUser`)
+        setError(false)
+        history.push('/AuthorizedUser')
       }
     })
     } catch (err) {
+      setError(true)
       console.log(err)
     }
   }
 
   return (
-    <>
+    <section className="login-register">
+
+    <div className="header-description">
+      <h2>
+        Sign in
+      </h2>
+    </div>
+
     <form>
       <label for="username">
-        Username
+        Username:
       </label>
 
       <input
@@ -59,7 +68,7 @@ export const Login = ({ loggedIn, setLoggedIn }) => {
       </input>
 
       <label for="password">
-        Password
+        Password:
       </label>
 
       <input
@@ -69,10 +78,25 @@ export const Login = ({ loggedIn, setLoggedIn }) => {
         id="password">
       </input>
 
+      {error && 
+      <p>
+        Username and/or password does not match!
+      </p>}
+
       <button type="submit" onClick={(event) => handleSubmit(event)}> Sign in </button>
       
     </form>
+
+    <div className="register-account-link">
+      <p> 
+        New user? 
+        <Link to="/register"> 
+          Register new account 
+        </Link> 
+      </p>
+    </div>
+  
     
-    </>
+    </section>
     )
 }

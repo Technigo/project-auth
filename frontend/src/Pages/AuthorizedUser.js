@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { LogOut } from '../Components/LogOut'
 
-export const AuthorizedUser = ({ authorization, setAuthorization}) => {
+export const AuthorizedUser = ({ authorization, setAuthorization, loggedIn, setLoggedIn}) => {
 
   const userId = localStorage.getItem('userId')
+  const userName = localStorage.getItem('userName')
   const accessToken = localStorage.getItem('accessToken')
 
-  useEffect( async () => {
+  useEffect(() => {
     try {
-      await fetch(`http://localhost:8080/users/${userId}`, {
+      fetch(`http://localhost:8080/users/${userId}`, {
         method: 'POST',
         headers: {
           "Authorization": accessToken
@@ -15,7 +17,7 @@ export const AuthorizedUser = ({ authorization, setAuthorization}) => {
       })
       .then(res => {
         if (!res.ok) {
-          throw new Error('not authorized')
+          console.log("not authorized")
         } 
         return res.json()
       })
@@ -32,8 +34,13 @@ export const AuthorizedUser = ({ authorization, setAuthorization}) => {
   return (
     <>
     {authorization &&
-      <div>
-        Logged in
+      <div className="logged-in-page">
+        <h2>
+          Welcome {userName}!
+        </h2>
+
+        < LogOut loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+        
       </div>
     }
 

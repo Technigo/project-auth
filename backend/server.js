@@ -24,7 +24,7 @@ const authenticateUser = async ( req, res, next ) => {
       req.user = user
       next()
     } else {
-      res.status(401).json({ authorized: false })
+      res.status(403).json({ authorized: false })
     }
   } catch (err) {
     res.status(403).json({ message: "Access token missing or incorrect", errors: err})
@@ -34,11 +34,25 @@ const authenticateUser = async ( req, res, next ) => {
 app.post('/users', async (req, res) => {
   try {
     const { name, password } = req.body
+
+    if (password.length < 6) {
+      throw { code: 12000 } 
+    }
+
     const user = new User({name, password: bcrypt.hashSync(password)})
     const saved = await user.save()
     res.status(201).json({userId: saved._id, accessToken: saved.accessToken})
   } catch (err) {
-    res.status(404).json({ message: "Could not create user", errors: err })
+    switch (err.code) {
+      case 11000: 
+        res.status(404).json({ message: "Username already exists!", errors: err })
+      break;
+      case 12000:
+        res.status(404).json({ message: "Password too short!", errors: err})
+      break;
+      default: res.status(404).json({ message: "Could not create user", errors: err })
+    }
+   
   }
 })
 
@@ -53,7 +67,7 @@ app.post('/sessions', async (req, res) => {
     const user = await User.findOne({ name: name })
     
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
-      res.status(202).json({userId: user._id, accessToken: user.accessToken})
+      res.status(202).json({userId: user._id, userName: user.name, accessToken: user.accessToken})
     } else {
       res.status(404).json({ notFound: true })
     }

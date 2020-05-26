@@ -7,7 +7,94 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #afb7ed;
+}
+
+.login-register {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 50%;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.48);
+}
+
+.header-description {
+  text-align: center;
+  font-family: arial;
+  font-weight: 500;
+  letter-spacing: 1px;
+  background-color: ghostwhite;
+  border-bottom: 0.5px solid #d5d4d4;
+}
+
+form {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-evenly;
+  height: -webkit-fill-available;
+  max-height: 100%;
+  padding: 20px 60px;
+  background-color: ghostwhite;
+}
+
+label {
+  font-weight: 600;
+}
+
+form input {
+  height: 25px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #a8a8c3;
+}
+
+button {
+  align-self: center;
+  border: none;
+  font-size: 17px;
+  margin: 10px 0;
+  padding: 4px;
+  border-radius: 5px;
+  width: 85%;
+  background-color: #FF6900;
+}
+
+.register-account-link {
+  text-align: center;
+  background-color: #dee2ff;
+  margin: 0;
+  padding: 20px;
+}
+
+a {
+  margin-left: 3px;
+  text-decoration: none;
+  color: cornflowerblue;
+}
+
+a:hover {
+  border-bottom: 1px solid coral;
+}
+
+.logged-in-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  height: 50vh;
+  border-radius: 5px;
+  background-color: #dee2ff;
+  box-shadow: 0 0 black;
+}
+
+.logged-in-page button {
+  width: 30%;
 }

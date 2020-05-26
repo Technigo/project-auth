@@ -9,7 +9,6 @@ export const User = mongoose.model('User', {
   },
   password: {
     type: String,
-    minlength: 6,
     required: true
   },
   accessToken: {

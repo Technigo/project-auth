@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useHistory } from "react-router-dom"
 
-export const LogOut = ({ loggedIn, setLoggedIn }) => {
-
+export const LogOut = ({ setLoggedIn }) => {
+  const history = useHistory()
   const handleLogOut = (event) => {
-    event.preventDefault()
     localStorage.clear();
     setLoggedIn(false)
+    history.push('/')
   }
-  
+
   return (
     <>
-      <button type="submit" onClick={(event) => handleLogOut(event)}> Log out </button>
-      {loggedIn && <p>inloggad</p>}
+      <button onClick={() => handleLogOut()}> Log out </button>
     </>
   )
 }
