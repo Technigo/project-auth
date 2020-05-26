@@ -63,10 +63,18 @@ app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
-    const saved = await user.save();
-    res.status(201).json({ userId: saved._id, accessToken: saved.accessToken });
+    const newUser = await user.save();
+    res
+      .status(201)
+      .json({
+        message: 'User created.',
+        userId: newUser._id,
+        accessToken: newUser.accessToken,
+      });
   } catch (err) {
-    res.status(400).json({ message: 'Could not create user', errors: err });
+    res
+      .status(400)
+      .json({ message: 'Could not create user.', errors: err.errors });
   }
 });
 
