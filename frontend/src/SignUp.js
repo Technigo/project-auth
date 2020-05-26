@@ -42,27 +42,27 @@ export const SignUp = () => {
           <label>
             username
             <input
-              required
               value={name}
               onChange={(event) => setName(event.target.value)}
+              required
             />
           </label>
           <label>
             email
             <input
               type='email'
-              required
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              required
             />
           </label>
           <label>
             password
             <input
-              required
               type='password'
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              required
             />
           </label>
           <button type='submit' onClick={handleSubmit}>

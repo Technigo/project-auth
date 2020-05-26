@@ -13,11 +13,11 @@ mongoose.set('useCreateIndex', true);
 const User = mongoose.model('User', {
   name: {
     type: String,
-    uniqe: true,
+    unique: true,
   },
   email: {
     type: String,
-    uniqe: true,
+    unique: true,
   },
   password: {
     type: String,
