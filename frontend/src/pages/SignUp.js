@@ -3,8 +3,9 @@ import { useHistory } from 'react-router'
 import { Container } from '../components/Container'
 import { Form} from '../components/Form'
 import { H1 } from '../components/TextStyles'
+import styled from 'styled-components'
 
-const URL_SIGNUP = 'http://localhost:8080/users'
+const URL_SIGNUP = 'http://localhost:8081/users'
 //const URL_SIGNUP = 'https://week20-auth-app.herokuapp.com/'
 
 export const SignUp = () => {
@@ -12,6 +13,7 @@ export const SignUp = () => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const [accessToken, setAccessToken] = useState()
+  const [errorMessage, serErrorMessage] = useState()
   const history = useHistory()
 
   const handleSubmit = event => {
@@ -33,27 +35,49 @@ export const SignUp = () => {
   return (
     <Container>
     <Form onSubmit={handleSubmit}>
-      <H1>Sign Up!</H1>
-      <input
+      <H1>Sign Up, oh brave one!</H1>
+      <Input
         type='text'
         value={name}
         placeholder='name'
         onChange={event => setName(event.target.value)}
-        requiered
+        required
       />
-      <input
+      <Input
         type='email'
         value={email}
         placeholder='email'
         onChange={event => setEmail(event.target.value)}
-        requiered />
-      <input
+        required />
+      <Input
         type='password'
         value={password}
         placeholder='password'
-        onChange={event => setPassword(event.target.value)} reuiered />
-      <button onClick={handleSubmit}>Submit</button>
+        onChange={event => setPassword(event.target.value)} 
+        required />
+      <Button onClick={handleSubmit}>Submit</Button>
     </Form>
     </Container>
   )
   }
+  export const Button = styled.button`
+text-decoration: none;
+border: solid 1px black;
+border-radius: 25px;
+color: black;
+padding: 15px;
+margin-top: 20px;
+font-size: 25px;
+font-wight: bold;
+cursor: pointer;
+background-color: blue;
+`
+export const Input = styled.input `
+padding: 5px;
+border-radius; 5 px;
+margin-bottom: 10px;
+cursor: pointer;
+background-color: white;
+font-size: 30px;
+color: black;
+`
