@@ -1,6 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { user } from '../reducers/user';
+import styled from 'styled-components';
+import { Headline } from '../lib/headline';
+import { Button } from '../lib/button';
 import { useDispatch, useSelector } from 'react-redux';
+
+const ProfileInfo = styled.div`
+  width: 60%;
+  margin: 1em auto;
+  --background: white;
+  --border: rgba(0, 0, 0, 0.125);
+  --borderDark: rgba(0, 0, 0, 0.25);
+  --borderDarker: rgba(0, 0, 0, 0.5);
+  --bgColorH: 0;
+  --bgColorS: 0%;
+  --bgColorL: 98%;
+  --fgColorH: 210;
+  --fgColorS: 50%;
+  --fgColorL: 38%;
+  --shadeDark: 0.3;
+  --shadeLight: 0.7;
+  --shadeNormal: 0.5;
+  --borderRadius: 0.125rem;
+  --highlight: #306090;
+  background: white;
+  box-shadow: 0 1rem 1rem -0.75rem var(--border);
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px 6px;
+`
+
+const InfoDiv = styled.div`
+  margin: 2em;
+  display: flex;
+  flex-direction: column;
+  width: 20em;
+`
 
 const URL = 'http://localhost:8080/users';
 export const Profile = () => {
@@ -41,18 +76,20 @@ export const Profile = () => {
   };
 
   return (
-    <div>
-      <h1>Profile</h1>
-      <h2>Status :</h2>
-      <h4>Response :</h4>
-      <p>{`${statusMessage}`}</p>
-      <h4>userId :</h4>
-      <p> {`${userId}`}</p>
-      <h4>accessToken :</h4>
-      <p> {`${accessToken}`}</p>
-      <input type="submit" onClick={login} value="Test Login" />
-      <input type="submit" onClick={logout} value="Test Logout" />
-    </div>
+    <ProfileInfo>
+      <Headline title="profile"/>
+      <InfoDiv>
+        <h2>Status :</h2>
+        <h4>Response :</h4>
+        <p>{`${statusMessage}`}</p>
+        <h4>userId :</h4>
+        <p> {`${userId}`}</p>
+        <h4>accessToken :</h4>
+        <p> {`${accessToken}`}</p>
+        <Button type="submit" onClick={login} title="Test Login"/>
+        <Button type="submit" onClick={login} title="Test Logout"/>
+      </InfoDiv>
+    </ProfileInfo>
   );
 };
 export default Profile;
