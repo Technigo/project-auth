@@ -55,3 +55,44 @@ button {
 .signup-btn {
   margin-top: 2rem;
 }
+
+form {
+  label {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  input {
+    display: block;
+    border-radius: 20px;
+    border: 4px solid $colorPrimary;
+    padding: .5rem 1rem;
+  }
+}
+
+.password-emoji {
+  display: none;
+}
+
+.signup-form > * {
+  &:nth-child(4) {
+    position: relative;
+
+    .password-emoji {
+      display: inline;
+      position: absolute;
+      right: -20px;
+      width: 2rem;
+      height: 2rem;
+      border: 4px solid $colorPrimary;
+      border-radius: 50%;
+      text-align: center;
+      
+      div {
+        font-size: 3rem;
+        transform: scale(.5);
+        margin-top: -20px;
+        margin-left: -7px;
+      }
+    }
+  }
+}

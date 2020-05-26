@@ -103,7 +103,7 @@ app.post("/sessions", async (req, res) => {
 
 app.get("/users/:id", authenticateUser);
 app.get("/users/:id", (req, res) => {
-  res.json({ secret: "This is a top secret message" });
+  res.json({ message: "This is a top secret message" });
 });
 
 // Start the server

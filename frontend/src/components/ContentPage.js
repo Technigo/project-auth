@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 export const ContentPage = ({ id }) => {
   const [message, setMessage] = useState("")
-  const [errorMessage, setErrorMessage] = useState("")
   const accessToken = localStorage.getItem("accessToken")
 
   useEffect(() => {
-    setErrorMessage('')
     fetch(`http://localhost:8080/users/${id}`, {
       method: "GET",
       headers: { "Authorization": accessToken }
@@ -19,16 +17,13 @@ export const ContentPage = ({ id }) => {
       })
       .then(json => setMessage(json.message))
       .catch(err => {
-        setErrorMessage(err.message)
+        console.log(err.message)
       })
   }, [accessToken, id])
 
-  console.log(message, errorMessage)
-
-
   return (
     <div>
-      hello
+      {message}
     </div>
   )
 }

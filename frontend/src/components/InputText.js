@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const InputText = ({ label, type, value, name, setInputValue, minLength }) => {
+export const InputText = ({ label, type, value, name, setInputValue, minLength, passwordCheck }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -11,8 +11,10 @@ export const InputText = ({ label, type, value, name, setInputValue, minLength }
   };
 
   return (
-    <div>
+    <>
       <label>{label}
+
+        <div className="password-emoji"><div>{passwordCheck ? passwordCheck : ""}</div></div>
         <input
           type={type}
           name={name}
@@ -22,7 +24,7 @@ export const InputText = ({ label, type, value, name, setInputValue, minLength }
           min-length={minLength}
         />
       </label>
-    </div>
+    </>
   );
 };
 
