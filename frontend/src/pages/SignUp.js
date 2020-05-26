@@ -4,8 +4,8 @@ import { Container } from '../components/Container'
 import { Form} from '../components/Form'
 import { H1 } from '../components/TextStyles'
 
-const URL_AUTH = 'http://localhost:8080/users'
-//const URL_AUTH = 'https://week20-auth-app.herokuapp.com/'
+const URL_SIGNUP = 'http://localhost:8080/users'
+//const URL_SIGNUP = 'https://week20-auth-app.herokuapp.com/'
 
 export const SignUp = () => {
   const [name, setName] = useState()
@@ -17,11 +17,11 @@ export const SignUp = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    fetch(URL_AUTH,
+    fetch(URL_SIGNUP,
       {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ name, email, password })
+        body: JSON.stringify({ name, email, password }),
+        headers: { 'Content-Type': 'application/json' }
       }
     ).then((res) => res.json())
     .then((userData) => {
