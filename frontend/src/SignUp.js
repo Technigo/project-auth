@@ -50,6 +50,7 @@ export const SignUp = () => {
           <label>
             email
             <input
+              type='email'
               required
               value={email}
               onChange={(event) => setEmail(event.target.value)}
