@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { LinkButton } from './Button'
+import { InputField } from './Input'
 
 const fetch_URL = 'https://auth-narnia.herokuapp.com/signup'
 
@@ -36,23 +38,22 @@ export const SignUp = () => {
   return (
     <form>
       <label> Name:
-        <input type="text" required
-          value={name} onChange={event => setName(event.target.value)} />
+        <InputField placeholder='Allan Busbrallan' type='text'
+        value={name} onChange={event => setName(event.target.value)}/>
       </label>
 
       <label> Email:
-        <input type="email" required
-          value={email} onChange={event => setEmail(event.target.value)} />
+        <InputField placeholder='hey@hey.com' type='email' 
+        value={email} onChange={event => setEmail(event.target.value)} /> 
       </label>
 
       <label> Password:
-        <input type="password" required
-          value={password} onChange={event => setPassword(event.target.value)} />
+      <InputField placeholder='*****' type='password' 
+        value={password} onChange={event => setPassword(event.target.value)}  /> 
       </label>
 
-      <button type="submit" onClick={handleSignup}>
-        Submit
-      </button>
+
+      <LinkButton title='Submit' onClick={handleSignup} />
     </form>
   )
 }

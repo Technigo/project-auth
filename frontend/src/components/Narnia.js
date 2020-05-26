@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { users } from '../reducers/user'
+import { LinkButton } from './Button'
 
 import { Giphy } from './Giphy'
 
@@ -39,13 +40,13 @@ export const Narnia = () => {
     <div>
     <Giphy />
     <Link to='/login'>
-      <button
+      {/* <button
         type="button"
         onClick={handleLogOut}>
         Log out!
-      </button>
+      </button> */}
+      <LinkButton onClick={handleLogOut} title='Log Out'/>
       </Link>
-      {/* <img src={process.env.PUBLIC_URL + '/lion.jpg'} alt="Lion" /> */}
     </div>
   )
 }
