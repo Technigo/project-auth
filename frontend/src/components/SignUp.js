@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { user } from '../reducers/user';
 const SIGNUP_URL = "http://localhost:8080/users";
 
@@ -18,7 +18,7 @@ export const SignUp = () => {
     
     console.log('Success Success')
     // Save the login info
-    dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }));
+    /* dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken })); */
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
   };
 
