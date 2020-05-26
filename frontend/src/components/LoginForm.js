@@ -1,19 +1,30 @@
 import React, { useState } from 'react'
 import { Profile } from './Profile'
 
+import { useDispatch, useSelector } from 'react-redux';
+import { user } from '../reducers/user';
 
 const SIGNUP_URL = 'http://localhost:8080/users';
 const LOGIN_URL = 'http://localhost:8080/sessions';
 
 
 export const LoginForm = () => {
+  const dispatch = useDispatch();
+  const accessToken = useSelector((store) => store.user.login.accessToken); //kolla upp
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
   const [URL, setURL] = useState(LOGIN_URL);
 
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);  //OLD
+
+  const handleLoginSuccess = (json) => {
+    setLoggedInUser(json) //REMOVE
+    dispatch(
+      user.actions.setAccessToken({ accessToken: json.accessToken })
+    );
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -24,7 +35,7 @@ export const LoginForm = () => {
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
-      .then((json) => setLoggedInUser(json))
+      .then((json) => handleLoginSuccess(json)) //setLoggedInUser(json))  run dispatch
       .catch((err) => console.log("error:", err));
   };
 
@@ -32,7 +43,7 @@ export const LoginForm = () => {
   // Redux
   // Heruku och Netlify
 
-  if (loggedInUser === null) {
+  if (!accessToken) {
     return (
       <div>
         <form onSubmit={handleSubmit}>
@@ -63,10 +74,8 @@ export const LoginForm = () => {
 
       </div>
     );
-  } else if (loggedInUser.accessToken) {
-    return <Profile loggedInUser={loggedInUser} URL={SIGNUP_URL} />;
   } else {
-    return <p>Try again</p>
+    return <Profile loggedInUser={loggedInUser} URL={SIGNUP_URL} />
   }
 
 }
