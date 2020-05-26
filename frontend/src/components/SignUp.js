@@ -75,7 +75,7 @@ export const SignUp = ({ setSignedIn }) => {
 
   return (
     <form onSubmit={handleFormSubmit} className="signup-form">
-      <h2>Sign Up</h2>
+      <h1>Sign Up</h1>
       <InputText
         value={inputValue.name}
         name="name"

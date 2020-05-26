@@ -39,7 +39,7 @@ export const SignIn = ({ setSignedIn }) => {
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <h2>Sign In</h2>
+      <h1>Sign In</h1>
       <InputText
         value={inputValue.email}
         name="email"

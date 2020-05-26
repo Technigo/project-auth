@@ -1,0 +1,52 @@
+/* –––– Form styles –––– */
+
+form {
+  label {
+    display: block;
+    font-size: .85rem;
+
+    & + label {
+      margin-top: 1rem;
+    }
+  }
+
+  input {
+    display: block;
+    min-width: 220px;
+    border-radius: 20px;
+    border: 3px solid $colorPrimary;
+    padding: .6rem 1rem;
+  }
+
+  button {
+    margin-top: 2rem;
+  }
+}
+
+.password-emoji { // Hide emoji-container on all inputs by default
+  display: none;
+}
+
+.signup-form > * {
+  &:nth-child(4) { // Select password-field in signup-form
+    position: relative;
+
+    .password-emoji {
+      display: inline;
+      position: absolute;
+      right: -34px;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 3px solid $colorPrimary;
+      border-radius: 50%;
+      text-align: center;
+      
+      div {
+        font-size: 3rem;
+        transform: scale(.5);
+        margin-top: -15px;
+        margin-left: -5px;
+      }
+    }
+  }
+}

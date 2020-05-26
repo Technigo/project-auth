@@ -17,12 +17,12 @@ export const Home = () => {
           {!showSignUp ? // Show Sign in
             <>
               <SignIn setSignedIn={setSignedIn} />
-              <button onClick={() => setShowSignUp(true)} className="signup-btn" >Sign up</button>
+              <button onClick={() => setShowSignUp(true)} className="sign-in-up-btn" >Sign up</button>
             </>
             : // Show Sign up
             <>
               <SignUp setSignedIn={setSignedIn} />
-              <button onClick={() => setShowSignUp(false)} className="signup-btn" >Sign in</button>
+              <button onClick={() => setShowSignUp(false)} className="sign-in-up-btn" >Sign in</button>
             </>
           }
         </>
