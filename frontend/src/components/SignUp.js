@@ -8,6 +8,7 @@ export const SignUp = ({ setSignedIn }) => {
     password: "",
   });
   const [signUpFailed, setSignUpFailed] = useState(false);
+  let score = 0;
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -25,9 +26,8 @@ export const SignUp = ({ setSignedIn }) => {
         if (json.accessToken) {
           localStorage.setItem("accessToken", json.accessToken);
           localStorage.setItem("userID", json.id);
-          localStorage.setItem("signedIn", true);
-          //Save accessToken to localStorage
-          setSignedIn(true);
+          localStorage.setItem("signedIn", JSON.stringify(true));
+          setSignedIn(JSON.parse(localStorage.getItem("signedIn")));
         } else if (!json.signUpSuccessful) {
           setSignUpFailed(true);
         }
@@ -41,6 +41,38 @@ export const SignUp = ({ setSignedIn }) => {
     });
   };
 
+  const scorePassword = (pass) => {
+    let counter = 0;
+    const regexCap = /[A-Z]/g;
+    const regexNum = /[0-9]/g;
+    const regexChar = /[$&+,!:;=?@#_]/g;
+
+    if (pass.length > 4) {
+      counter++;
+    }
+
+    if (pass.search(regexCap) > -1) {
+      counter++;
+    }
+
+    if (pass.search(regexNum) > -1) {
+      counter++;
+    }
+
+    if (pass.search(regexChar) > -1) {
+      counter++;
+    }
+
+    return counter;
+  };
+
+  const checkPassStrength = (pass) => {
+    score = scorePassword(pass);
+    const scoreArr = ["", "Bad 💩", "Okay 😐", "Good 😊", "Strong 💪"];
+
+    return score > scoreArr ? scoreArr[scoreArr.length - 1] : scoreArr[score];
+  };
+
   return (
     <form onSubmit={handleFormSubmit}>
       <h2>Sign Up</h2>
@@ -49,7 +81,6 @@ export const SignUp = ({ setSignedIn }) => {
         name="name"
         label="Name"
         type="text"
-        placeholder="Name"
         setInputValue={setInputValue}
         minLength="1"
       />
@@ -58,7 +89,6 @@ export const SignUp = ({ setSignedIn }) => {
         name="email"
         label="Email"
         type="email"
-        placeholder="Email"
         setInputValue={setInputValue}
         minLength="3"
       />
@@ -67,10 +97,10 @@ export const SignUp = ({ setSignedIn }) => {
         name="password"
         label="Password"
         type="password"
-        placeholder="Password"
         setInputValue={setInputValue}
         minLength="6"
       />
+      {checkPassStrength(inputValue.password)}
       <button>Create account</button>
 
       {signUpFailed && <span>Registration failed</span>}

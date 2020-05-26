@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const InputText = ({ label, type, placeholder, value, name, setInputValue, minLength }) => {
+export const InputText = ({ label, type, value, name, setInputValue, minLength }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,7 +18,6 @@ export const InputText = ({ label, type, placeholder, value, name, setInputValue
           name={name}
           value={value}
           onChange={handleChange}
-          placeholder={placeholder}
           required={true}
           min-length={minLength}
         />

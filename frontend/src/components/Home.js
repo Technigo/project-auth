@@ -5,7 +5,9 @@ import { ContentPage } from "./ContentPage.js";
 import { SignOut } from "./SignOut";
 
 export const Home = () => {
-  const [signedIn, setSignedIn] = useState(false);
+  const [signedIn, setSignedIn] = useState(
+    JSON.parse(localStorage.getItem("signedIn"))
+  );
   const [showSignUp, setShowSignUp] = useState(false)
 
   return (
@@ -18,7 +20,10 @@ export const Home = () => {
               <button onClick={() => setShowSignUp(true)} className="signup-btn" >Sign up</button>
             </>
             : // Show Sign up
-            <SignUp setSignedIn={setSignedIn} />
+            <>
+              <SignUp setSignedIn={setSignedIn} />
+              <button onClick={() => setShowSignUp(false)} className="signup-btn" >Sign in</button>
+            </>
           }
         </>
       )}

@@ -23,9 +23,8 @@ export const SignIn = ({ setSignedIn }) => {
         if (json.accessToken) {
           localStorage.setItem("accessToken", json.accessToken);
           localStorage.setItem("userID", json.id);
-          localStorage.setItem("signedIn", true);
-          //Save accessToken to localStorage
-          setSignedIn(true);
+          localStorage.setItem("signedIn", JSON.stringify(true));
+          setSignedIn(JSON.parse(localStorage.getItem("signedIn")));
         } else if (!json.signUpSuccessful) {
           setLoginFailed(true);
         }
@@ -46,7 +45,6 @@ export const SignIn = ({ setSignedIn }) => {
         name="email"
         label="Email"
         type="email"
-        placeholder="Email"
         setInputValue={setInputValue}
         minLength="3"
       />
@@ -55,7 +53,6 @@ export const SignIn = ({ setSignedIn }) => {
         name="password"
         label="Password"
         type="password"
-        placeholder="Password"
         setInputValue={setInputValue}
         minLength="6"
       />

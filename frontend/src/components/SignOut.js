@@ -3,9 +3,9 @@ import React from "react";
 export const SignOut = ({ setSignedIn, setShowSignUp }) => {
   const handleOnClick = () => {
     localStorage.clear();
-    setSignedIn(false);
     setShowSignUp(false);
-    localStorage.setItem("signedIn", false);
+    localStorage.setItem("signedIn", JSON.stringify(false));
+    setSignedIn(JSON.parse(localStorage.getItem("signedIn")));
   };
 
   return <button onClick={handleOnClick}>Sign out</button>;

@@ -23,6 +23,8 @@ export const ContentPage = ({ id }) => {
       })
   }, [accessToken, id])
 
+  console.log(message, errorMessage)
+
 
   return (
     <div>
