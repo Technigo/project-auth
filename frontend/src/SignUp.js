@@ -19,18 +19,18 @@ export const SignUp = () => {
     })
       //.then((res) => res.json())
       .then((res) => {
-        if (!res.ok) {
-          throw new Error('Unable to sign up.');
+        if (res.ok) {
+          setShowSummary(true);
+          return res.json();
+        } else {
+          throw new Error('Unable to sign up');
         }
-        res.json();
-        setShowSummary(true);
-        // if (res.ok) {
-        //   setShowSummary(true);
-        //   return res.json();
-        // } else {
-        //   throw new Error('Unable to sign up');
-        // }
       })
+
+      // if (!res.ok) {
+      //   throw new Error('Unable to sign up.');
+      // }
+      // res.json();
 
       // .then((json) => console.log(json))
       // .catch((err) => status(403).json('error:', err));
