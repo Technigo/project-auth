@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const URL = 'http://localhost:8080/users';
+const URL = 'https://project-authorize.herokuapp.com/';
 
 export const SignUp = () => {
   const [name, setName] = useState('');
