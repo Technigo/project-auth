@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from "react-router-dom"
 import styled from 'styled-components'
 import { Button } from './Button'
 
@@ -24,13 +25,38 @@ const Text = styled.p`
 
 
 export const MemberPage = () => {
-  const [userInfo, setUserInfo] = useState()
-  const url = 'https://anna-project-auth.herokuapp.com/secrets'
+  const url = 'http://localhost:8080/secrets'
+  const [message, setMessage] = useState("")
+  const [error, setError] = useState("")
+  const history = useHistory()
 
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken')
+    history.push('/')
+  }
+
+
+  // Nedan kod är typ samma som Fridas och Emmas samt och Kajsa H:s och Christinas, 
+  // men på vår sida kommer man åt sen hemliga sidan även om man inte är inloggad.
+  
   useEffect(() => {
-    fetch(url)
-    //Här ska det vara .then och grejer
+    const accessToken = localStorage.getItem('accessToken')
+
+    fetch(url, {
+      method: 'GET',
+      headers: { 'Authorization': accessToken }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Access denied')
+        }
+        res.json().then(json => setMessage(json.secret))
+      })
+      .catch(err => {
+        setError(err.message)
+      })
   })
+
   return (
     <Section>
       <Header> Welcome down the rabbit hole</Header>
@@ -44,7 +70,7 @@ export const MemberPage = () => {
         would be worth the trouble of getting up and picking the daisies, when suddenly a
         White Rabbit with pink eyes ran close by her...
       </Text>
-      < Button title='Sign out' />
+      < Button onClick={handleLogout} title='Sign out' />
     </Section>
   )
 }

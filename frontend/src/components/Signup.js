@@ -51,7 +51,7 @@ export const Signup = () => {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error('Could not register new user.')
+          throw new Error('Could not register new user. Please fill in a unique name and email.')
         }
         res.json().then(data => {
           if (data.notFound !== true) {
