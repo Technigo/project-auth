@@ -19,7 +19,11 @@ const Container = styled.button`
   padding: 10px;
   border-radius: 6px;
   margin-top: 10px;
-`;
+
+  &:hover {
+    background: #916e21;
+  }
+`
 
 const TextLabel = styled.p`
   align-items: center;
@@ -29,4 +33,4 @@ const TextLabel = styled.p`
   font-weight: 500;
   letter-spacing: 0.1em;
   margin: 0;
-`;
+`

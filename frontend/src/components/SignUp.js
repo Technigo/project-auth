@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { LinkButton } from './Button'
 import { InputField } from './Input'
+import swal from 'sweetalert'
+import styled from 'styled-components/macro'
 
 const fetch_URL = 'https://auth-narnia.herokuapp.com/signup'
 
@@ -21,12 +23,18 @@ export const SignUp = () => {
     })
       .then(res => {
         if (!res.ok) {
-          console.log('error:')
+          swal({
+            text: 'Something went wrong',
+            icon: "error",
+            button: {
+              text: 'Try again'
+            },
+          })
         } else {
           return res.json()
         }
       })
-    .then(() => {
+      .then(() => {
           setName('')
           setEmail('')
           setPassword('')
@@ -36,24 +44,51 @@ export const SignUp = () => {
   }
 
   return (
-    <form>
-      <label> Name:
+    <FormContainer>
+      <InputContent>
+      <StyledLabel> Name:
         <InputField placeholder='Allan Busbrallan' type='text'
         value={name} onChange={event => setName(event.target.value)}/>
-      </label>
+      </StyledLabel>
 
-      <label> Email:
+      <StyledLabel> Email:
         <InputField placeholder='hey@hey.com' type='email' 
         value={email} onChange={event => setEmail(event.target.value)} /> 
-      </label>
+      </StyledLabel>
 
-      <label> Password:
+      <StyledLabel> Password:
       <InputField placeholder='*****' type='password' 
         value={password} onChange={event => setPassword(event.target.value)}  /> 
-      </label>
+      </StyledLabel>
 
 
       <LinkButton title='Submit' onClick={handleSignup} />
-    </form>
+    </InputContent>
+    </FormContainer>
   )
 }
+
+const FormContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  width: 60%;
+  height: 500px;
+`
+
+const InputContent = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+const StyledLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  font-size: 12px;
+`

@@ -42,17 +42,38 @@ const ContentContainer = styled.div`
 `
 
 const Welcome = styled.h1`
-font-family: 'Carter One', cursive;
+  font-family: 'Carter One', cursive;
   text-align: center;
   color: #fff;
   font-size: 100px;
   width: 80%;
+
+  @media (max-width: 950px) {
+    font-size: 70px;
+  }
+
+  @media (max-width: 660px) {
+    line-height: 80px;
+  }
+
+  @media (max-width: 375px) {
+    font-size: 50px;
+  }
 `
 const ButtonContainer = styled.div`
   display: flex,
   flex-direction: column;
   align-self: flex-end;
   margin: 4em 16em;
+
+  @media (max-width: 950px) {
+    margin: 2em 8em;
+  }
+
+  @media (max-width: 660px) {
+    align-self: center;
+    margin: 1em;
+  }
 `
 
 const Redirect = styled(Link)`

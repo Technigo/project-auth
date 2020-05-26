@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux'
 import { users } from '../reducers/user'
 import { LinkButton } from './Button'
 import { InputField } from './Input'
+import swal from 'sweetalert'
+import styled from 'styled-components/macro'
 
 const fetch_URL = 'https://auth-narnia.herokuapp.com/login'
 
@@ -23,8 +25,13 @@ export const Login = () => {
     })
       .then(res => {
         if (!res.ok) {
-          console.log('error')
-          // throw new Error('Email or password is incorrect')
+          swal({
+            text: 'Something went wrong',
+            icon: "error",
+            button: {
+              text: 'Try again'
+            },
+          })
         } else {
           return res.json()
         }
@@ -35,7 +42,6 @@ export const Login = () => {
         if (accessToken) {
           dispatch(users.actions.logIn())
           dispatch(users.actions.access(accessToken))
-          // dispatch(users.actions.id(userId))
           history.push('/narnia')
         }
       })
@@ -43,18 +49,45 @@ export const Login = () => {
   }
 
   return (
-    <form onSubmit={handleLogin}>
-      <label> Email:
+    <FormContainer>
+      <InputContent onSubmit={handleLogin}>
+        <StyledLabel> Email:
         <InputField placeholder="hey@hey.com" type="email"
-          value={email} onChange={event => setEmail(event.target.value)} />
-      </label>
+            value={email} onChange={event => setEmail(event.target.value)} />
+        </StyledLabel>
 
-      <label> Password:
+        <StyledLabel> Password:
         <InputField placeholder="*****" type="password"
-          value={password} onChange={event => setPassword(event.target.value)} />
-      </label>
+            value={password} onChange={event => setPassword(event.target.value)} />
+        </StyledLabel>
 
-      <LinkButton type="submit" title='Login' />
-    </form>
+        <LinkButton type="submit" title='Login' />
+      </InputContent>
+    </FormContainer>
   )
 }
+
+const FormContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  width: 60%;
+  height: 500px;
+`
+
+const InputContent = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+const StyledLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  font-size: 12px;
+`

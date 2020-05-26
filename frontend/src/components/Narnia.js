@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { users } from '../reducers/user'
 import { LinkButton } from './Button'
+import styled from 'styled-components/macro'
 
 import { Giphy } from './Giphy'
 
@@ -37,16 +38,23 @@ export const Narnia = () => {
 
 
   return (
-    <div>
-    <Giphy />
-    <Link to='/login'>
-      {/* <button
-        type="button"
-        onClick={handleLogOut}>
-        Log out!
-      </button> */}
-      <LinkButton onClick={handleLogOut} title='Log Out'/>
-      </Link>
-    </div>
+    <StyledSection>
+      <Giphy />
+      <Redirect to='/login'>
+        <LinkButton onClick={handleLogOut} title='Log Out' />
+      </Redirect>
+    </StyledSection>
   )
 }
+
+const Redirect = styled(Link)`
+  text-decoration: none;
+`
+
+const StyledSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 700px;
+`
