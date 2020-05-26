@@ -23,13 +23,13 @@ export const SignUp = () => {
     })
       .then(res => {
         if (!res.ok) {
-          swal({
-            text: 'Something went wrong',
-            icon: "error",
-            button: {
-              text: 'Try again'
-            },
-          })
+          console.log('ERROR')
+          // swal({
+          //   text: 'Something went wrong',
+          //   icon: "error",
+          //   button: {
+          //     text: 'Try again'
+          //   },
         } else {
           return res.json()
         }
