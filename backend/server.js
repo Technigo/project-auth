@@ -49,12 +49,10 @@ const authenticateUser = async (req, res, next) => {
       req.user = user
       next()
     } else {
-      res
-        .status(401)
-        .json({ loggedOut: true, message: 'Please try logging in again' })
+      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' })
     }
   } catch (err) {
-    res.status(403).json({ message: 'Error' })
+    res.status(403).json({ message: 'Access token is missing or wrong', errors: err })
   }
 
 }
@@ -71,7 +69,7 @@ app.post('/users', async (req, res) => {
     const saved = await user.save()
     res.status(201).json({ userId: saved._id, accessToken: saved.accessToken })
   } catch (err) {
-    res.status(400).json({ message: 'Could   not create user', errors: err.errors })
+    res.status(400).json({ message: 'Could not create user', errors: err.errors })
   }
 })
 
