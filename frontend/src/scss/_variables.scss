@@ -1,0 +1,35 @@
+$colorPrimary: #187351;
+$colorSecondary: #eac643;
+$colorDark: #383e4e;
+$colorLight: #eaeaea;
+
+
+@mixin phone-only {
+  @media (max-width: 575px) {
+    @content;
+  }
+}
+
+@mixin xsmall {
+  @media (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}

@@ -1,0 +1,57 @@
+/* –––– General styles –––– */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root, .wrapper {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: $colorDark;
+  font-size: 16px;
+  font-family: 'Avenir', 'Helvetica', 'sans-serif';
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+
+button {
+  border: 0;
+  padding: .6rem 1rem;
+  background-color: $colorLight;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  max-width: 600px;
+  margin: auto;
+  padding-top: 3rem;
+}
+
+.signup-btn {
+  margin-top: 2rem;
+}

@@ -9,13 +9,13 @@ export const Home = () => {
   const [showSignUp, setShowSignUp] = useState(false)
 
   return (
-    <>
+    <div className="wrapper">
       {!signedIn && ( // Signed out
         <>
           {!showSignUp ? // Show Sign in
             <>
               <SignIn setSignedIn={setSignedIn} />
-              <button onClick={() => setShowSignUp(true)}>Sign up</button>
+              <button onClick={() => setShowSignUp(true)} className="signup-btn" >Sign up</button>
             </>
             : // Show Sign up
             <SignUp setSignedIn={setSignedIn} />
@@ -28,6 +28,6 @@ export const Home = () => {
           <SignOut setSignedIn={setSignedIn} setShowSignUp={setShowSignUp} />
         </>
       )}
-    </>
+    </div>
   );
 };
