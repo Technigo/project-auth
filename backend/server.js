@@ -49,12 +49,10 @@ const authenticateUser = async (req, res, next) => {
       req.user = user
       next()
     } else {
-      res
-        .status(401)
-        .json({ loggedOut: true, message: 'Please try logging in again' })
+      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' })
     }
   } catch (err) {
-    res.status(403).json({ message: 'Error' })
+    res.status(403).json({ message: 'Access token is missing or wrong', errors: err })
   }
 
 }
@@ -85,7 +83,7 @@ app.post('/sessions', async (req, res) => {
     const { name, password } = req.body
     const user = await User.findOne({ name })
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(201).json({ userId: user._id, accessToken: user.accessToken })
+      res.status(201).json({ userId: user._id, accessToken: user.accessToken, message: 'You are logged in' })
     } else {
       res.status(404).json({ notFound: true })
     }
