@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt-nodejs"
 
 import User from './models/users'
 
@@ -34,16 +34,12 @@ const authenticator = async (req, res, next) => {
       req.user = user
       next()
     } else {
-      res.status(401).json({
-        loggedOut: true,
-        message: "Try again.."
-      })
+      res.status(401)
+        .json({ loggedOut: true, message: "Try logging in again" })
     }
   } catch (err) {
-    res.status(403).json({
-      message: "access token missing or wrong",
-      errors: err.errors
-    })
+    res.status(403)
+      .json({ message: "Access token missing or wrong", errors: err.errors })
   }
 }
 
@@ -56,74 +52,45 @@ app.get('/', (req, res) => {
 })
 
 
+///// Create User /////
 
-
-
-
-
-//make a user -- google creating a signup flow for gmail
 app.post("/users", async (req, res) => {
   try {
-    const {
-      name,
-      password
-    } = req.body
-    const user = new User({
-      name,
-      password: bcrypt.hashSync(password)
-    })
+    const { name, password } = req.body
+    const user = new User({ name, password: bcrypt.hashSync(password) }) // stores password encrypted
     const saved = await user.save()
-    res.status(201).json(saved)
+    res.status(201).json({ userId: saved._id, accessToken: saved.accessToken });
+    // res.status(201).json(saved) // don't return password
   } catch (err) {
-    res.status(400).json({
-      message: "could not save user",
-      errors: err.errors
-    })
+    res.status(400).json({ message: "could not save user", errors: err })
   }
 })
-// log in
+
+
+///// Login /////
+
 app.post("/sessions", async (req, res) => {
   try {
-    const {
-      name,
-      password
-    } = req.body
-    const user = await User.findOne({
-      name
-    })
+    const { name, password } = req.body
+    const user = await User.findOne({ name })
+
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(201).json({
-        userId: user._id,
-        accessToken: user.accessToken
-      })
+      res.status(201).json({ userId: user._id, accessToken: user.accessToken }) //response to frontend
     } else {
-      res.json({
-        notFound: true
-      })
+      res.status(404).json({ notFound: true })
     }
   } catch (err) {
-    res.status(400).json({
-      message: "could not log in user",
-      error: err.errors
-    })
+    res.status(400).json({ message: "Could not log in", error: err.errors })
   }
 })
-// secure endpoint after log in
+
+
+///// Secure endpoint after log in /////
+
 app.get("/users/:id", authenticator)
 app.get("/users/:id", (req, res) => {
-  try {
-    res.status(201).json(req.user)
-  } catch (err) {
-    res.status(400).json({
-      message: "could not save user",
-      errors: err.errors
-    })
-  }
+  res.status(201).json({ name: req.user.name, userId: req.user._id }); //response to frontend
 })
-
-
-
-
 
 
 
