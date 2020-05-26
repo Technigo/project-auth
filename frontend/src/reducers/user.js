@@ -5,6 +5,8 @@ const initialState = {
     accessToken: null,
     userId: 0,
     statusMessage: "",
+    userName: ""
+    // userInfo: { user: [] }
   },
 };
 
@@ -22,6 +24,12 @@ export const user = createSlice({
       console.log(`User Id: ${userId}`);
       state.login.userId = userId;
     },
+
+    //provar detta
+    // setUserInfo: (state, action) => {
+    //   const { userInfo } = action.payload;
+    //   state.login.userInfo = userInfo;
+    // },
     setStatusMessage: (state, action) => {
       const { statusMessage } = action.payload;
       console.log(`Status Message: ${statusMessage}`);

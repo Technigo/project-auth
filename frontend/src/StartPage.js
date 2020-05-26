@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { LogIn } from "./components/LogIn"
 import { SignUp } from "./components/SignUp"
-import styled from "styled-components"
+import styled from "styled-components/macro"
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { user } from "./reducers/user";
@@ -12,12 +12,31 @@ const reducer = combineReducers({ user: user.reducer });
 
 const store = configureStore({ reducer });
 
-const StyledContainer = styled.header`
-background-color: #e92272;
-border: #0000 solid 2px;
 
-height: 800px;
+
+const StyledContainer = styled.div`
+background-color: none;
+border: #0000 solid 2px;
+padding: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
 width: 100%;
+`
+
+const LoginContainer = styled.div`
+background-color: #FDE7EA;
+padding: 20px;
+margin-bottom: 20px;
+width: 45%;
+`
+
+const SignUpContainer = styled.div`
+background-color: #FDE7EA;
+padding: 20px;
+margin-bottom: 20px;
+width: 45%;
 `
 
 export const StartPage = () => {
@@ -40,9 +59,14 @@ export const StartPage = () => {
 
   return (
     <Provider store={store}>
+
       <StyledContainer>
-        <LogIn />
-        <SignUp />
+        <LoginContainer>
+          <LogIn />
+        </LoginContainer>
+        <SignUpContainer>
+          <SignUp />
+        </SignUpContainer>
       </StyledContainer>
     </Provider>
   )
