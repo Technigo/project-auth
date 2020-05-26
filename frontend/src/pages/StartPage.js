@@ -5,8 +5,15 @@ import { LogIn } from '../components/LogIn';
 export const StartPage = () => {
   return (
     <div> 
-      <SignUp />
-      <LogIn />
+      
+      <div>
+        <SignUp />
+      </div>
+
+      <div>
+        <LogIn />
+      </div>
+
     </div> 
   );
 };

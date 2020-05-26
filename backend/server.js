@@ -37,12 +37,16 @@ const User = mongoose.model('User', {
 // use try/catch + status message??
 
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header("Authorization") });
-  if (user) {
-    req.user = user;
-    next();
-  } else {
-    res.status(401).json({ loggedOut: true });
+  try {
+    const user = await User.findOne({ accessToken: req.header("Authorization") });
+    if (user) {
+      req.user = user;
+      next();
+    } else {
+      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' });
+    }
+  } catch (err) {
+    res.status(403).json({ message: 'Access token is missing or wrong', errors: err })
   }
 };
 
@@ -74,7 +78,7 @@ app.post('/users', async (req, res) => {
     const {name, email, password} = req.body;
     const user = new User({name, email, password: bcrypt.hashSync(password)});
     user.save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
+    res.status(201).json({ userId: user._id, accessToken: user.accessToken });
   } catch (err) {
     res.status(400).json({ message: 'Could not create user', errors: err.errors });
   }
@@ -83,14 +87,10 @@ app.post('/users', async (req, res) => {
 // supersecret endpoint - the protected endpoint
 // restrict access - - using authenticateUser:
 // GET - http://localhost:8080/secrets
-// app.get('/secrets', authenticateUser);
-app.get('/secrets', authenticateUser, async (req, res) => {
+app.get('/secrets', authenticateUser);
+app.get('/secrets', async (req, res) => {
   // can do anything here, but we just put in a message
-  try {
-    res.status(200).json({ secret: "All ok - secret test here!" });
-  } catch (err) {
-    res.status(403).json({ message: 'Not authorized', errors: err.errors });
-  }
+  res.status(201).json({ name: req.user.name });
 });
 
 
@@ -100,7 +100,7 @@ app.get('/secrets', authenticateUser, async (req, res) => {
 app.post('/sessions', async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken });
+    res.json({ userId: user._id, accessToken: user.accessToken, name: user.name });
   } else {
     res.status(401).json({ notFound: true, error: 'Login failed' });
   }

@@ -6,11 +6,11 @@ const LOGIN_URL = "http://localhost:8080/sessions";
 
 export const LogIn = () => {
   const dispatch = useDispatch();
-  const accessToken = useSelector((store) => store.user.login.accessToken);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [logIn, setLogIn] = useState(false);
 
-  const handleLoginSuccess = (loginResponse) => {
+  const handleLoginSuccess = (loginResponse, name) => {
     // For debugging only
     const statusMessage = JSON.stringify(loginResponse);
     dispatch(user.actions.setStatusMessage({ statusMessage }));
@@ -18,6 +18,7 @@ export const LogIn = () => {
     // Save the login info
     dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }));
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
+    dispatch(user.actions.setUserName({ name: loginResponse.name }));
   };
 
   const handleLoginFailed = (loginError) => {
@@ -28,8 +29,9 @@ export const LogIn = () => {
     dispatch(user.actions.logout());
   };
 
-  const handleSubmit = (event) => {
+  const handleLogin = (event) => {
     event.preventDefault();
+    setLogIn(true)
 
     fetch(LOGIN_URL, {
       method: "POST",
@@ -41,10 +43,10 @@ export const LogIn = () => {
     .catch((err) => handleLoginFailed(err));
   };
 
-  if (!accessToken ) {
+  if (logIn === false) {
     return (
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <label>
             <input
               type="email"

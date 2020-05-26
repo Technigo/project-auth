@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { user } from '../reducers/user';
 const SIGNUP_URL = "http://localhost:8080/users";
 
 export const SignUp = () => {
   const dispatch = useDispatch();
+  const accessToken = useSelector((store) => store.user.login.accessToken);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -27,7 +28,7 @@ export const SignUp = () => {
     dispatch(user.actions.logout());
   };
 
-  const handleSubmit = (event) => {
+  const handleSignup = (event) => {
     event.preventDefault();
 
     fetch(SIGNUP_URL, {
@@ -40,42 +41,46 @@ export const SignUp = () => {
     .catch((err) => handleLoginFailed(err));
   };
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <input
-            type="text"
-            placeholder="User name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            required
-            minLength="2"
-          />
-        </label>
-        <label>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
-        </label>
-        <label>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-            minLength="4"
-          />
-        </label>
-        <label>
-          <button type="submit">Sign up</button>
-        </label>
-      </form>
-    </div>
-  );
+  if (!accessToken) {
+    return (
+      <div>
+        <form onSubmit={handleSignup}>
+          <label>
+            <input
+              type="text"
+              placeholder="User name"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              required
+              minLength="2"
+            />
+          </label>
+          <label>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+            />
+          </label>
+          <label>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+              minLength="4"
+            />
+          </label>
+          <label>
+            <button type="submit">Sign up</button>
+          </label>
+        </form>
+      </div>
+    );
+  } else {
+   return <h2>Registration completed, please sign in</h2>
+  }
 };

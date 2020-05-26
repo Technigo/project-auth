@@ -4,6 +4,7 @@ const initialState = {
   login: {
     accessToken: null,
     userId: 0,
+    name: null,
     statusMessage: "",
   },
 };
@@ -21,6 +22,11 @@ export const user = createSlice({
       const { userId } = action.payload;
       console.log(`User Id: ${userId}`);
       state.login.userId = userId;
+    },
+    setUserName: (state, action) => {
+      const { name } = action.payload;
+      console.log(`User Name: ${name}`);
+      state.login.name = name;
     },
     setStatusMessage: (state, action) => {
       const { statusMessage } = action.payload;
