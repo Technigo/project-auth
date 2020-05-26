@@ -15,11 +15,8 @@ export const LoginForm = () => {
 
   const [loggedInUser, setLoggedInUser] = useState(null);
 
-  const handleSubmit = (event, url) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-
-    console.log("submit")
-    console.log(url)
 
     fetch(URL, {
       method: "POST",
@@ -31,7 +28,8 @@ export const LoginForm = () => {
       .catch((err) => console.log("error:", err));
   };
 
-  // and return error messages "Something went wrong"
+  // And return error messages "Something went wrong"
+  // Redux
   // Heruku och Netlify
 
   if (loggedInUser === null) {
@@ -65,8 +63,10 @@ export const LoginForm = () => {
 
       </div>
     );
+  } else if (loggedInUser.accessToken) {
+    return <Profile loggedInUser={loggedInUser} URL={SIGNUP_URL} />;
   } else {
-    return <Profile loggedInUser={loggedInUser} />;
+    return <p>Try again</p>
   }
 
 }

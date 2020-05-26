@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 const URL = 'http://localhost:8080/users';
 
 
-export const Profile = ({ loggedInUser }) => {
+export const Profile = ({ loggedInUser, URL }) => {
   console.log(loggedInUser)
 
   const [userId, setUserId] = useState(0);
