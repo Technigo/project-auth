@@ -1,13 +1,22 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+An API with authentication & registration flow + a frontend with forms to register, sign in, and view some content once you're logged in.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+## Description
 
-## The problem
+The backend is built with Node.js, using Express & MongoDB. The frontend is a React app consisting of smaller components, styled with SASS.
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+## Tech
 
-## View it live
+- Mongo DB
+- Mongoose
+- Node.js
+- Express
+- React
+- Javascript ES6
+- SASS
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+## Deployed
+
+- Frontend: https://authentication-login.netlify.app/
+- Backend: https://project-auth-login.herokuapp.com/
