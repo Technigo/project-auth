@@ -24,14 +24,14 @@ export const SignUp = () => {
       .then(res => {
         if (!res.ok) {
           console.log('ERROR')
-          swal({
-            text: 'Something went wrong',
-            icon: "error",
-            button: {
-              text: 'Try again'
-            },
-          })
-          throw new Error ({ message: 'Could not create account.'})
+          // swal({
+          //   text: 'Something went wrong',
+          //   icon: "error",
+          //   button: {
+          //     text: 'Try again'
+          //   },
+          // })
+          // throw new Error ({ message: 'Could not create account.'})
         } else {
           return res.json()
         }
