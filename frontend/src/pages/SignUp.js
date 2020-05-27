@@ -6,7 +6,7 @@ import { user } from '../reducers/user';
 import { Headline } from '../lib/headline';
 import { Button } from '../lib/button';
 import { Form, InfoDiv, Input, Register } from '../lib/form'
-const SIGNUP_URL = 'http://localhost:8080/users';
+const SIGNUP_URL = 'https://authentication-jj.herokuapp.com/users';
 
 export const SignUp = () => {
   const dispatch = useDispatch();
