@@ -21,6 +21,7 @@ export const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState(null);  //REPLACE
 
   const handleLoginSuccess = (json) => {
+    console.log("handle login")
     setLoggedInUser(json) //REMOVE
     dispatch(
       user.actions.setAccessToken({ accessToken: json.accessToken })
@@ -35,11 +36,15 @@ export const LoginForm = () => {
       body: JSON.stringify({ name, password }),
       headers: { "Content-Type": "application/json" },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        }
+      })
       .then((json) => handleLoginSuccess(json)) //setLoggedInUser(json))  run dispatch
       .catch((err) => {
         console.log("error:", err)
-        setErrorMessage(`Failed try again ${err}`) // Same for login and sign up
+        setErrorMessage("Failed try again") // Same for login and sign up
       });
   };
 
@@ -72,7 +77,7 @@ export const LoginForm = () => {
             Sign up
           </button>
         </form>
-        <p>Error message: {errorMessage}</p>
+        <p>{errorMessage}</p>
       </div>
     );
   } else {
