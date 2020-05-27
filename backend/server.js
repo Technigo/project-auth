@@ -42,14 +42,6 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
-app.use((req, res, next) => {
-  if (mongoose.connection.readyState === 1) {
-    next()
-  } else {
-    res.status(503).json({ error: 'Service unavailable' })
-  }
-})
-
 const authenticateUser = async (req, res, next) => {
 
   try {
@@ -82,7 +74,7 @@ app.post('/users', async (req, res) => {
     const saved = await user.save();
     res.status(201).json({id: saved._id, accessToken: saved.accessToken});
   } catch (err) {
-    res.status(400).json({message:'Could not create user', errors: err.errors})
+    res.status(400).json({message:'Could not create user', errors: err })
   }
 })
 
