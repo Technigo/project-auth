@@ -47,9 +47,9 @@ export const Login = () => {
   })
   const history = useHistory()
   const [error, setError] = useState('')
-  const url = 'http://localhost:8080/sessions'
+  const url = 'https://anna-project-auth.herokuapp.com/sessions'
 
-  // posts email and password to the api
+  // Posts email and password to the api
   const handleLogin = event => {
     event.preventDefault()
     fetch(url, {
@@ -65,6 +65,7 @@ export const Login = () => {
           if (data.notFound !== true) {
             localStorage.setItem('accessToken', data.accessToken)
             history.push('/MemberPage')
+             
           }
         })
       })

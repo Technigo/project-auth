@@ -67,7 +67,6 @@ app.post('/users', async (req, res) => {
     //Does not store plain text password
     const user = new User({ name, email, password: bcrypt.hashSync(password) })
     const newUser = await user.save()
-    //user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
   } catch (err) {
     res.status(400).json({ message: 'Could not create user.', errors: err.errors })

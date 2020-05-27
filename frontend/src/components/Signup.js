@@ -39,9 +39,9 @@ export const Signup = () => {
   })
   const [error, setError] = useState('')
   const history = useHistory()
-  const url = 'http://localhost:8080/users'
+  const url = 'https://anna-project-auth.herokuapp.com/users'
 
-  // creates new user
+  // Creates new user
   const handleSignup = event => {
     event.preventDefault()
     fetch(url, {
