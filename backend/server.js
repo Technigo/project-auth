@@ -6,7 +6,7 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
 const User = mongoose.model('User', {
@@ -29,7 +29,6 @@ const User = mongoose.model('User', {
   }
 
 })
-
 
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
@@ -114,8 +113,6 @@ app.post('/sessions', async (req, res) => {
   }
 
 });
-
-
 
 
 // Start the server
