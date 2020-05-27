@@ -4,23 +4,24 @@ import { Article } from '../lib/FormStyle'
 import { From } from '../lib/FormStyle'
 import { Input } from '../lib/FormStyle'
 
-// const SIGNUP_URL = 'http://localhost:8080/users';
 
 
 export const SignUpform = () => {
+  
+  
   const [signUpUser, setsignUpUser] = useState({
       name: '',
       email: '',
       password: ''
   })
 
-  const [error, SetError] = useState('')
+  const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   
   const handleSubmit = event => {
     event.preventDefault()
     
-    fetch(url,
+    fetch("https://project-auth-ebba-elin.herokuapp.com/users",
       {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -28,7 +29,7 @@ export const SignUpform = () => {
       }
     ).then(res => {
       if (!res.ok) {
-        Error("Error")
+        error("Error")
       }
       res.json()
     })
