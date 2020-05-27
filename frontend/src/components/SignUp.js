@@ -68,16 +68,17 @@ export const SignUp = ({ setSignedIn }) => {
 
   const checkPassStrength = (pass) => {
     score = scorePassword(pass);
-    const scoreArr = ["☕️", " 💩", " 😐", " 😊", "💪"];
+    const scoreArr = ["🔑", " 💩", " 😐", " 😊", "💪"];
 
     return score > scoreArr ? scoreArr[scoreArr.length - 1] : scoreArr[score];
   };
 
   return (
     <form onSubmit={handleFormSubmit} className="signup-form">
+
       <h1>Sign Up</h1>
+
       <InputText
-        value={inputValue.name}
         name="name"
         label="Name"
         type="text"
@@ -85,7 +86,6 @@ export const SignUp = ({ setSignedIn }) => {
         minLength="1"
       />
       <InputText
-        value={inputValue.email}
         name="email"
         label="Email"
         type="email"
@@ -93,7 +93,6 @@ export const SignUp = ({ setSignedIn }) => {
         minLength="3"
       />
       <InputText
-        value={inputValue.password}
         name="password"
         label="Password"
         type="password"
@@ -102,9 +101,9 @@ export const SignUp = ({ setSignedIn }) => {
         passwordCheck={checkPassStrength(inputValue.password)}
       />
 
-      <button>Create account</button>
+      {signUpFailed && <span className="error-msg">Registration failed</span>}
 
-      {signUpFailed && <span>Registration failed</span>}
+      <button>Create account</button>
 
     </form>
   );

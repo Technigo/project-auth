@@ -18,7 +18,6 @@ export const InputText = ({ label, type, value, name, setInputValue, minLength, 
         <input
           type={type}
           name={name}
-          value={value}
           onChange={handleChange}
           required={true}
           min-length={minLength}

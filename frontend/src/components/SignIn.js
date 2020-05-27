@@ -39,9 +39,10 @@ export const SignIn = ({ setSignedIn }) => {
 
   return (
     <form onSubmit={handleFormSubmit}>
+
       <h1>Sign In</h1>
+
       <InputText
-        value={inputValue.email}
         name="email"
         label="Email"
         type="email"
@@ -49,16 +50,16 @@ export const SignIn = ({ setSignedIn }) => {
         minLength="3"
       />
       <InputText
-        value={inputValue.password}
         name="password"
         label="Password"
         type="password"
         setInputValue={setInputValue}
         minLength="6"
       />
-      <button>Sign in</button>
 
-      {loginFailed && <span>Login failed</span>}
+      {loginFailed && <span className="error-msg">Login failed</span>}
+
+      <button>Sign in</button>
 
     </form>
   );
