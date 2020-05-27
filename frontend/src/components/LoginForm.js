@@ -10,7 +10,7 @@ const SESSION_URL = 'http://localhost:8080/sessions';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  const accessToken = useSelector((store) => store.user.login.accessToken); //kolla upp
+  const accessToken = useSelector((store) => store.user.login.accessToken);
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -18,6 +18,7 @@ export const LoginForm = () => {
   const [URL, setURL] = useState(USERS_URL);
 
   const [loggedInUser, setLoggedInUser] = useState(null);  //OLD
+  const [errorMessage, setErrorMessage] = useState(null);  //REPLACE
 
   const handleLoginSuccess = (json) => {
     setLoggedInUser(json) //REMOVE
@@ -36,7 +37,10 @@ export const LoginForm = () => {
     })
       .then((res) => res.json())
       .then((json) => handleLoginSuccess(json)) //setLoggedInUser(json))  run dispatch
-      .catch((err) => console.log("error:", err));
+      .catch((err) => {
+        console.log("error:", err)
+        setErrorMessage(`Failed try again ${err}`) // Same for login and sign up
+      });
   };
 
   if (!accessToken) {
@@ -68,7 +72,7 @@ export const LoginForm = () => {
             Sign up
           </button>
         </form>
-        <p>Error message</p>
+        <p>Error message: {errorMessage}</p>
       </div>
     );
   } else {
