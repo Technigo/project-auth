@@ -46,7 +46,7 @@ const authenticator = async (req, res, next) => {
 
 
 
-///// Routes /////
+// Start defining your routes here
 app.get('/', (req, res) => {
   res.send('Hello world')
 })
