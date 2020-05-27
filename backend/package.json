@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.8.7",
+    "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
     "babel-node": "0.0.1-security",
     "bcrypt-nodejs": "0.0.3",
@@ -19,7 +20,6 @@
     "mongoose": "^5.8.10"
   },
   "devDependencies": {
-    "@babel/node": "^7.8.7",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-import": "^0.13.0",
