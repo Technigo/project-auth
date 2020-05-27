@@ -91,8 +91,8 @@ app.get('/users/:id', (req, res) => {
 app.post('/sessions', async (req, res) => {
 
   try {
-    const { name, email, password } = req.body;
-    const user = await User.findOne({ name, email});
+    const { email, password } = req.body;
+    const user = await User.findOne({email});
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(201).json({ id: user._id, accessToken: user.accessToken });

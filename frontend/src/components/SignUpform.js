@@ -16,12 +16,12 @@ export const SignUpform = () => {
   })
 
   const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
+  const [ success, setSuccess ] = useState('')
   
   const handleSubmit = event => {
     event.preventDefault()
     
-    fetch("https://project-auth-ebba-elin.herokuapp.com/users",
+    fetch("http://localhost:8080/users",
       {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -45,8 +45,6 @@ export const SignUpform = () => {
         })
       })
   }
-
-  // onChange={event => setPlace(event.target.value)}
 
     return (
 

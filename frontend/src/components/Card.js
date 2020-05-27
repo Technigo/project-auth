@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { SignUpform } from './SignUpform'
-import { SignInfrom } from './SignInform'
+import { SignInform } from './SignInform'
 
 export const Card = () => {
 
@@ -12,7 +12,7 @@ export const Card = () => {
 
        
            <SignUpform />
-           <SignInfrom /> 
+           <SignInform  /> 
 
           
 
