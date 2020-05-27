@@ -68,8 +68,7 @@ export const SignUp = () => {
     email: '',
     password: ''
   })
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
+  const [message, setMessage] = useState('')
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -77,22 +76,14 @@ export const SignUp = () => {
     fetch(url,
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(signUpValues)
       }
-    ).then(res => {
-      if (!res.ok) {
-        throw new Error("Unable to sign up.")
-      }
-      res.json()
-    })
-      .catch((err) => {
-        setError(err.message)
-      })
+    )
+      .then(res => res.json())
+      .then(json => setMessage(json.message))
+      .catch(err => console.log(err))
       .then(() => {
-        setSuccess(`Registry done for ${signUpValues.name}.`)
         setSignUpValues({
           name: '',
           email: '',
@@ -140,8 +131,7 @@ export const SignUp = () => {
               />
             </Link>
           </div>
-          {success && <Message>{success}</Message>}
-          {error && <Message>{error}</Message>}
+          {message && <Message>{message}</Message>}
         </Form>
         <Credit href='https://www.freepik.com/free-photos-vectors/business'>Image by rawpixel at freepick</Credit>
       </Content>
