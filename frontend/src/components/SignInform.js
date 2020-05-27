@@ -4,6 +4,8 @@ import { Article } from '../lib/FormStyle'
 import { From } from '../lib/FormStyle'
 import { Input } from '../lib/FormStyle'
 
+// const LOGIN_URL = 'http://localhost:8080/sessions';
+
 export const SignInfrom = () => {
 
     return (
@@ -38,3 +40,5 @@ export const SignInfrom = () => {
     )
 
 }
+
+
