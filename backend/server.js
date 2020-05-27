@@ -19,7 +19,6 @@ const User = mongoose.model('User', {
   email: {
     type: String,
     unique: true,
-    required: true,
   },
   password: {
     type: String,
@@ -66,27 +65,11 @@ app.post('/users', async (req, res) => {
     const { name, email, password } = req.body;
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
     const newUser = await user.save();
-    res
-      .status(201)
-      .json({
-        message: 'User created.',
-        userId: newUser._id,
-        accessToken: newUser.accessToken,
-      });
-  } catch (err) {
-    res
-      .status(400)
-      .json({ message: 'Could not create user.', errors: err.errors });
-  }
-});
-      });
-  } catch (err) {
-    res
-      .status(400)
-      .json({ message: 'Could not create user.', errors: err.errors });
-  }
-});
-      });
+    res.status(201).json({
+      message: 'User created.',
+      userId: newUser._id,
+      accessToken: newUser.accessToken,
+    });
   } catch (err) {
     res
       .status(400)
@@ -97,7 +80,8 @@ app.post('/users', async (req, res) => {
 // SECURE ENDPOINT, CHECK IF USER IS AUTHORIZED
 app.get('/users/:id', authenticateUser);
 app.get('/users/:id', (req, res) => {
-  res.send('This is a super secret message.');
+  const loginMessage = `This is a super secret message for  ${req.user.name}`;
+  res.status(201).json({ loginMessage });
 });
 
 // LOG IN
