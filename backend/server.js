@@ -1,4 +1,4 @@
-import express from 'express'
+gitimport express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
@@ -46,7 +46,7 @@ const authenticator = async (req, res, next) => {
 
 
 
-// Start defining your routes here
+///// Routes /////
 app.get('/', (req, res) => {
   res.send('Hello world')
 })
