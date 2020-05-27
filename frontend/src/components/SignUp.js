@@ -24,24 +24,36 @@ export const SignUp = () => {
       .then(res => {
         if (!res.ok) {
           console.log('ERROR')
-          // swal({
-          //   text: 'Something went wrong',
-          //   icon: "error",
-          //   button: {
-          //     text: 'Try again'
-          //   },
+          swal({
+            text: 'Something went wrong',
+            icon: "error",
+            button: {
+              text: 'Try again'
+            },
+          })
+          throw new Error ({ message: 'Could not create account.'})
         } else {
           return res.json()
         }
       })
-      .then(() => {
+      .then(({ name }) => {
           setName('')
           setEmail('')
           setPassword('')
-          history.push('/login')
+          if (name) { 
+            history.push('/login')
+          }          
         })
-      .catch(err => 
-        console.log("error:", err))
+      .catch(err => {
+        console.log("error:", err)
+        // swal({
+        //     text: 'Something went wrong',
+        //     icon: "error",
+        //     button: {
+        //       text: 'Try again'
+        //     }
+        // })
+      })
     }
 
   return (
@@ -62,7 +74,7 @@ export const SignUp = () => {
         value={password} onChange={event => setPassword(event.target.value)}  /> 
       </StyledLabel>
 
-      <LinkButton title='Submit' onSubmit={handleSignup} />
+      <LinkButton title='Submit' type="submit" onClick={handleSignup} />
     </InputContent>
     </FormContainer>
   )

@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export const LinkButton = ({ title, onSubmit }) => {
+export const LinkButton = ({ title, onSubmit, onClick }) => {
   return (
-    <Container onSubmit={onSubmit}>
+    <Container onSubmit={onSubmit} onClick={onClick}>
       <TextLabel>
         {title}
       </TextLabel>
