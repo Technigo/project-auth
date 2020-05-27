@@ -10,7 +10,7 @@ export const SignIn = ({ setSignedIn }) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    fetch(`http://localhost:8080/sessions`, {
+    fetch(`https://project-auth-login.herokuapp.com/sessions`, {
       method: "POST",
       body: JSON.stringify({
         email: inputValue.email,
@@ -30,7 +30,6 @@ export const SignIn = ({ setSignedIn }) => {
         }
       });
 
-    //Empty inputValue object.
     setInputValue({
       email: "",
       password: "",

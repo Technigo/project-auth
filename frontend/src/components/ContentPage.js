@@ -5,7 +5,7 @@ export const ContentPage = ({ id }) => {
   const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    fetch(`http://localhost:8080/users/${id}`, {
+    fetch(`https://project-auth-login.herokuapp.com/users/${id}`, {
       method: "GET",
       headers: { Authorization: accessToken },
     })

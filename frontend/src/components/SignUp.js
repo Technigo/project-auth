@@ -12,7 +12,7 @@ export const SignUp = ({ setSignedIn }) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    fetch(`http://localhost:8080/users`, {
+    fetch(`https://project-auth-login.herokuapp.com/users`, {
       method: "POST",
       body: JSON.stringify({
         name: inputValue.name,

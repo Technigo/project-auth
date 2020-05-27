@@ -14,7 +14,7 @@ export const Home = () => {
     <div className="wrapper">
       {!signedIn && ( // Signed out
         <>
-          {!showSignUp ? ( // Show Sign in
+          {!showSignUp ? (
             <>
               <SignIn setSignedIn={setSignedIn} />
               <button
@@ -24,7 +24,6 @@ export const Home = () => {
               </button>
             </>
           ) : (
-            // Show Sign up
             <>
               <SignUp setSignedIn={setSignedIn} />
               <button
