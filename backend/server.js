@@ -56,9 +56,9 @@ app.use(bodyParser.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  const listEndpoints = require('express-list-endpoints')
+  res.send(listEndpoints(app))
 })
-
 
 // Create user - sign up
 app.post('/users', async (req, res) => {

@@ -1,13 +1,30 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This was a pair programming project at the Technigo bootcamp. It is an API with authentication and registration, and a frontend with forms to register, sign in, and view some content once the user is logged in.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We started out building the backend with a Mongoose user model and endpoints to register a new user, to log in and a secret endpoint that could only be accessed by a logged in user. If the user tries to access the secret page without being logged in an error message is displayed.
+
+## Learning objectives
+
+- How to build a registration flow
+- How to handle authentication, both in the frontend and in the backend
+- How to build a frontend and backend at the same time
+
+## Tech
+
+- Node.js
+- Express
+- Mongo DB
+- Mongoose
+- API
+- React
+- JSX
+- Javascript ES6
+- Styled Components
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+- Backend: https://anna-project-auth.herokuapp.com/
+- Frontend: https://secret-page.netlify.app/ 
