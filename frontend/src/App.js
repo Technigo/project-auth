@@ -28,7 +28,6 @@ const loadFromLocalStorage = () => {
 }
 
 const persistedState = loadFromLocalStorage()
-// const URL = "http://localhost:8080/users";
 
 const reducer = combineReducers({ user: user.reducer });
 

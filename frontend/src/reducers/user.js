@@ -52,7 +52,7 @@ export const user = createSlice({
 
 //Thunks
 export const login = (name, password) => {
-  const LOGIN_URL = 'http://localhost:8080/sessions'
+  const LOGIN_URL = 'https://authentication-jj.herokuapp.com/sessions'
   // const history = useHistory()
   return (dispatch) => {
     fetch(LOGIN_URL, {
@@ -96,7 +96,7 @@ export const logout = () => {
 
 
 export const getSecretMessage = () => {
-  const USERS_URL = 'http://localhost:8080/users';
+  const USERS_URL = 'https://authentication-jj.herokuapp.com/users';
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken
     const userId = getState().user.login.userId
