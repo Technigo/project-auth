@@ -65,10 +65,12 @@ export const SignUp = () => {
   // To sign up a user.
   const handleSignup = (event) => {
     event.preventDefault();
+    // dispatch(handleSignup(email, password, firstName, lastName)); ???????
 
+    const user = { email, password, firstName, lastName, address, city, zipCode }
     fetch(SIGNUP_URL, {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify(user),
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => {
@@ -90,38 +92,41 @@ export const SignUp = () => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
+  if (!accessToken) {
+    return (
+      <>
+        <Form>
+          <Header>Skapa användare</Header>
+          <Label>Förnamn </Label>
+          <Input type="Text" placeholder="Förnamn" value={firstName} onChange={(event) => setFirstName(event.target.value)} />
 
-  return (
+          <Label>Efternamn</Label>
+          <Input type="Text" placeholder="Efternamn" value={lastName} onChange={(event) => setLastName(event.target.value)} />
 
-    <>
-      <Form>
-        <Header>Skapa användare</Header>
-        <Label>Förnamn </Label>
-        <Input type="Text" placeholder="Förnamn" value={firstName} onChange={(event) => setFirstName(event.target.value)} />
+          <Label>Adress</Label>
+          <Input type="Text" placeholder="Din gata" value={address} onChange={(event) => setAddress(event.target.value)} />
 
-        <Label>Efternamn</Label>
-        <Input type="Text" placeholder="Efternamn" value={lastName} onChange={(event) => setLastName(event.target.value)} />
+          <Label>Postnummer</Label>
+          <Input type="Number" placeholder="123 45" value={zipCode} onChange={(event) => setZipCode(event.target.value)} />
 
-        <Label>Adress</Label>
-        <Input type="Text" placeholder="Din gata" value={address} onChange={(event) => setAddress(event.target.value)} />
+          <Label>Ort</Label>
+          <Input type="Text" placeholder="Malmö" value={city} onChange={(event) => setCity(event.target.value)} />
 
-        <Label>Postnummer</Label>
-        <Input type="Number" placeholder="123 45" value={zipCode} onChange={(event) => setZipCode(event.target.value)} />
+          <Label>Email</Label>
+          <Input type="text" required placeholder="dittnamn@gmail.com" value={email} onChange={(event) => setEmail(event.target.value)} />
 
-        <Label>Ort</Label>
-        <Input type="Text" placeholder="Malmö" value={city} onChange={(event) => setCity(event.target.value)} />
+          <Label>Password</Label>
+          <Input type="password" required placeholder="********" vale={password} onChange={(event) => setPassword(event.target.value)} />
 
-        <Label>Email</Label>
-        <Input type="text" required placeholder="dittnamn@gmail.com" value={email} onChange={(event) => setEmail(event.target.value)} />
+          <StyledButton type="submit" onClick={handleSignup}>Registrera dig</StyledButton>
+        </Form>
+      </>
 
-        <Label>Password</Label>
-        <Input type="password" required placeholder="********" vale={password} onChange={(event) => setPassword(event.target.value)} />
-
-        <StyledButton type="submit" onClick={handleSignup}>Registrera dig</StyledButton>
-      </Form>
-    </>
-  )
+    )
+  } else {
+    return (
+      <>
+      </>
+    )
+  }
 }
-
-//rensa sidan när man har registrerat sig. hur fixa? 
-//varför syns inte all info i databasen? 

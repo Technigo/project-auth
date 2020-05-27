@@ -17,20 +17,25 @@ export const user = createSlice({
       const { accessToken } = action.payload;
       state.login.accessToken = accessToken;
     },
+
     setUserId: (state, action) => {
       const { userId } = action.payload;
       state.login.userId = userId;
     },
 
-    setSecretMessage: (state, action) => {
-      const { secretMessage } = action.payload;
-      state.login.secretMessage = secretMessage;
-    },
-
-
     setFirstName: (state, action) => {
       const { firstName } = action.payload;
       state.login.firstName = firstName;
+    },
+
+    setLastName: (state, action) => {
+      const { lastName } = action.payload;
+      state.login.lastName = lastName;
+    },
+
+    setSecretMessage: (state, action) => {
+      const { secretMessage } = action.payload;
+      state.login.secretMessage = secretMessage;
     },
 
     setErrorMessage: (state, action) => {
@@ -79,6 +84,7 @@ export const getSecretMessage = () => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
     const firstName = getState().user.login.firstName;
+    const lastName = getState().user.login.lastName;
     // Include userId in the path
     fetch(`${USERS_URL}/${userId}/users`, {
       method: 'GET',
@@ -94,13 +100,12 @@ export const getSecretMessage = () => {
       // SUCCESS: Do something with the information we got back
       .then((json) => {
         dispatch(
-          user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) })
+          user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) }),
+          // user.actions.setFirstName({ firstName: JSON.stringify(json) })
         );
       })
       .catch((err) => {
         // const errorMessage = err;
-        // dispatch(user.actions.setErrorMessage({ errorMessage }));
-
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       }); //401
   };

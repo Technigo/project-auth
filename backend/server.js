@@ -87,6 +87,7 @@ app.post('/users', async (req, res) => {
     const { firstName, lastName, email, password, address, zipCode, city, phoneNumber } = req.body;
     const user = new User({ firstName, lastName, email, address, zipCode, city, phoneNumber, password: bcrypt.hashSync(password) });
     const saved = await user.save();
+    delete saved.password
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (err) {
     res.status(400).json({ message: 'Could not create user', errors: err.errors });
