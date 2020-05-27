@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { user } from '../reducers/user';
 import './loginform.css'
 
-const USERS_URL = 'http://localhost:8080/users';
-const SESSION_URL = 'http://localhost:8080/sessions';
+const USERS_URL = 'https://technigo-authorize.herokuapp.com/users';
+const SESSION_URL = 'https://technigo-authorize.herokuapp.com/sessions';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
