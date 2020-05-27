@@ -96,7 +96,7 @@ app.post('/users', async (req, res) => {
 //autenticate user 
 app.get('/users/:id', authenticateUser)
 app.get('/users/:id', (req, res) => {
-  res.status(201).json({ name: req.user.name, userId: req.user._id })
+  res.status(201).json({ email: req.user.email, userId: req.user._id })
 })
 
 //sign in 
