@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { useSelector } from 'react-redux';
 import { user } from '../reducers/user';
-
-const URL = 'http://localhost:8080/users';
-
+import './profile.css'
 
 export const Profile = ({ loggedInUser, URL }) => {
 
@@ -13,8 +11,6 @@ export const Profile = ({ loggedInUser, URL }) => {
   const accessToken = useSelector((store) => store.user.login.accessToken); //kolla upp
 
   const [userInfo, setUserInfo] = useState({});
-
-
 
   useEffect(() => {
     console.log(loggedInUser);
@@ -32,16 +28,15 @@ export const Profile = ({ loggedInUser, URL }) => {
   }, [accessToken]);
 
 
-
   return (
-    <div>
-      Logged in with token:<br />
-      {loggedInUser.accessToken}<br />
-      {accessToken}<br />
+    <div className="profilepage">
+      <h2>User are logged in with token</h2>
+      <p>{loggedInUser.accessToken}</p>
+      <p>{accessToken}</p>
 
-      Profile page:<br />
-      {userInfo.name}<br />
-      {userInfo.userId}<br />
+      <h2>Profile page fetched</h2>
+      <p>{userInfo.name}</p>
+      <p>{userInfo.userId}</p>
     </div>
   )
 }

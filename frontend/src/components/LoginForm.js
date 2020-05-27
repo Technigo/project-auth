@@ -3,10 +3,10 @@ import { Profile } from './Profile'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { user } from '../reducers/user';
+import './loginform.css'
 
-const SIGNUP_URL = 'http://localhost:8080/users';
-const LOGIN_URL = 'http://localhost:8080/sessions';
-
+const USERS_URL = 'http://localhost:8080/users';
+const SESSION_URL = 'http://localhost:8080/sessions';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export const LoginForm = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
-  const [URL, setURL] = useState(LOGIN_URL);
+  const [URL, setURL] = useState(USERS_URL);
 
   const [loggedInUser, setLoggedInUser] = useState(null);  //OLD
 
@@ -39,16 +39,13 @@ export const LoginForm = () => {
       .catch((err) => console.log("error:", err));
   };
 
-  // And return error messages "Something went wrong"
-  // Redux
-  // Heruku och Netlify
-
   if (!accessToken) {
     return (
       <div>
+        <h1>Login or sign up</h1>
         <form onSubmit={handleSubmit}>
           <label>
-            Name
+            Name&nbsp;
             <input
               required
               value={name}
@@ -56,7 +53,7 @@ export const LoginForm = () => {
             />
           </label>
           <label>
-            Password
+            Password&nbsp;
             <input
               required
               type="password"
@@ -64,18 +61,17 @@ export const LoginForm = () => {
               onChange={(event) => setPassword(event.target.value)}
             />
           </label>
-          <button type="submit" onClick={() => setURL(LOGIN_URL)}>
+          <button type="submit" onClick={() => setURL(SESSION_URL)}>
             Login
           </button>
-          <button type="submit" onClick={() => setURL(SIGNUP_URL)}>
+          <button type="submit" onClick={() => setURL(USERS_URL)}>
             Sign up
           </button>
         </form>
-
+        <p>Error message</p>
       </div>
     );
   } else {
-    return <Profile loggedInUser={loggedInUser} URL={SIGNUP_URL} />
+    return <Profile loggedInUser={loggedInUser} URL={USERS_URL} />
   }
-
 }
