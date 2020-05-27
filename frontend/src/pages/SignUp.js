@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import Profile from './Profile';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom'
-import { user } from '../reducers/user';
+import { user, signup } from '../reducers/user';
 import { Headline } from '../lib/headline';
 import { Button } from '../lib/button';
 import { Form, InfoDiv, Input, Register } from '../lib/form'
-const SIGNUP_URL = 'https://authentication-jj.herokuapp.com/users';
+
 
 export const SignUp = () => {
   const dispatch = useDispatch();
@@ -20,27 +20,9 @@ export const SignUp = () => {
   // To sign up a user.
   const handleSignup = (event) => {
     event.preventDefault();
-    console.log('Trying to sign up ...')
-    fetch(SIGNUP_URL, {
-      method: 'POST',
-      body: JSON.stringify({ name, email, password }),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then(console.log('fetched signing in...'))
-      .then((res) => {
-        if (!res.ok) {
-          throw 'Could not creat account. Try a different username.'
-        }
-        return res.json()
-      })
-      .then((json) => {
-        dispatch(user.actions.setLoginResponse({ accessToken: json.accessToken, userId: json.userId }))
-        // history.push('/login')
-      })
-      .catch((err) => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }))
-      });
-  }
+    //dispatch thunk
+    dispatch(signup(name, email, password))
+  };
 
   if (!accessToken) {
     // If user is logged out, show login form

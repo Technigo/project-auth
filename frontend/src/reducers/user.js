@@ -51,6 +51,34 @@ export const user = createSlice({
 });
 
 //Thunks
+export const signup = (name, email, password) => {
+  const SIGNUP_URL = 'https://authentication-jj.herokuapp.com/users';
+  return (dispatch) => {
+    console.log('Trying to sign up ...')
+    fetch(SIGNUP_URL, {
+      method: 'POST',
+      body: JSON.stringify({ name, email, password }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(console.log('posted registration info to API...'))
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        }
+        throw 'Could not creat account. Try a different username.'
+      })
+      .then((json) => {
+        console.log(json)
+        dispatch(user.actions.setLoginResponse({ accessToken: json.accessToken, userId: json.userId }))
+        dispatch(user.actions.setUserName({ userName: json.name }))
+        // history.push('/secret')
+      })
+      .catch((err) => {
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }))
+      });
+  }
+}
+
 export const login = (name, password) => {
   const LOGIN_URL = 'https://authentication-jj.herokuapp.com/sessions'
   // const history = useHistory()
@@ -73,6 +101,7 @@ export const login = (name, password) => {
         dispatch(user.actions.setLoginResponse({ accessToken: json.accessToken, userId: json.userId })
         );
         dispatch(user.actions.setUserName({ userName: json.name }))
+
         // history.push('/secret'); // it is complaining about the use of history here.
         // dispatch(user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) }))
       })
@@ -91,6 +120,7 @@ export const logout = () => {
     dispatch(user.actions.setLoginResponse({ accessToken: null, userId: 0 }))
     dispatch(user.actions.setSecretMessage({ secretMessage: null }))
     dispatch(user.actions.setErrorMessage({ errorMessage: null }))
+    dispatch(user.actions.setUserName({ userName: null }))
   }
 }
 

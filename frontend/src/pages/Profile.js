@@ -44,8 +44,6 @@ const InfoDiv = styled.div`
 
 export const Profile = () => {
   const dispatch = useDispatch();
-  const accessToken = useSelector((store) => store.user.login.accessToken);
-  const userId = useSelector((store) => store.user.login.userId)
   const secretMessage = useSelector((store) => store.user.login.secretMessage);
   const errorMessage = useSelector((store) => store.user.login.errorMessage);
   const userName = useSelector((store) => store.user.login.userName);
