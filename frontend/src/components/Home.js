@@ -8,23 +8,31 @@ export const Home = () => {
   const [signedIn, setSignedIn] = useState(
     JSON.parse(localStorage.getItem("signedIn"))
   );
-  const [showSignUp, setShowSignUp] = useState(false)
+  const [showSignUp, setShowSignUp] = useState(false);
 
   return (
     <div className="wrapper">
       {!signedIn && ( // Signed out
         <>
-          {!showSignUp ? // Show Sign in
+          {!showSignUp ? (
             <>
               <SignIn setSignedIn={setSignedIn} />
-              <button onClick={() => setShowSignUp(true)} className="sign-in-up-btn" >Sign up</button>
+              <button
+                onClick={() => setShowSignUp(true)}
+                className="sign-in-up-btn">
+                Sign up
+              </button>
             </>
-            : // Show Sign up
+          ) : (
             <>
               <SignUp setSignedIn={setSignedIn} />
-              <button onClick={() => setShowSignUp(false)} className="sign-in-up-btn" >Sign in</button>
+              <button
+                onClick={() => setShowSignUp(false)}
+                className="sign-in-up-btn">
+                Sign in
+              </button>
             </>
-          }
+          )}
         </>
       )}
       {signedIn && ( // Signed in

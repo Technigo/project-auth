@@ -1,29 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
 export const ContentPage = ({ id }) => {
-  const [message, setMessage] = useState("")
-  const accessToken = localStorage.getItem("accessToken")
+  const [message, setMessage] = useState("");
+  const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    fetch(`http://localhost:8080/users/${id}`, {
+    fetch(`https://project-auth-login.herokuapp.com/users/${id}`, {
       method: "GET",
-      headers: { "Authorization": accessToken }
+      headers: { Authorization: accessToken },
     })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
-          throw new Error('Access denied')
+          throw new Error("Access denied");
         }
-        return res.json()
+        return res.json();
       })
-      .then(json => setMessage(json.message))
-      .catch(err => {
-        console.log(err.message)
-      })
-  }, [accessToken, id])
+      .then((json) => setMessage(json.message))
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [accessToken, id]);
 
-  return (
-    <div>
-      {message}
-    </div>
-  )
-}
+  return <div>{message}</div>;
+};

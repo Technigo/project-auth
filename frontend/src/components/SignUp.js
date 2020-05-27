@@ -12,7 +12,7 @@ export const SignUp = ({ setSignedIn }) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    fetch(`http://localhost:8080/users`, {
+    fetch(`https://project-auth-login.herokuapp.com/users`, {
       method: "POST",
       body: JSON.stringify({
         name: inputValue.name,
@@ -75,7 +75,6 @@ export const SignUp = ({ setSignedIn }) => {
 
   return (
     <form onSubmit={handleFormSubmit} className="signup-form">
-
       <h1>Sign Up</h1>
 
       <InputText
@@ -104,7 +103,6 @@ export const SignUp = ({ setSignedIn }) => {
       {signUpFailed && <span className="error-msg">Registration failed</span>}
 
       <button>Create account</button>
-
     </form>
   );
 };

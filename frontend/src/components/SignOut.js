@@ -8,5 +8,9 @@ export const SignOut = ({ setSignedIn, setShowSignUp }) => {
     setSignedIn(JSON.parse(localStorage.getItem("signedIn")));
   };
 
-  return <button onClick={handleOnClick} className="signout-btn">Sign out</button>;
+  return (
+    <button onClick={handleOnClick} className="signout-btn">
+      Sign out
+    </button>
+  );
 };

@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { InputText } from './InputText.js';
+import React, { useState } from "react";
+import { InputText } from "./InputText.js";
 
 export const SignUp = () => {
   const [inputValue, setInputValue] = useState({
-    name: '',
-    email: '',
-    password: ''
+    name: "",
+    email: "",
+    password: "",
   });
-  const [loginFailed, setLoginFailed] = useState(false)
+  const [loginFailed, setLoginFailed] = useState(false);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    fetch(`http://localhost:8080/users`, {
+    fetch(`https://project-auth-login.herokuapp.com/users`, {
       method: "POST",
       body: JSON.stringify({
         name: inputValue.name,
@@ -23,19 +23,12 @@ export const SignUp = () => {
       .then((res) => res.json())
       .then((json) => {
         if (json.accessToken) {
-          console.log("hello")
-          //Save accessToken to localStorage
-          localStorage.setItem('accessToken', json.accessToken);
+          localStorage.setItem("accessToken", json.accessToken);
         } else if (!json.signUpSuccessful) {
-          console.log("not hello")
-          setLoginFailed(true)
+          console.log("not hello");
+          setLoginFailed(true);
         }
-
-        //headers: { "Authotzzzzz": "accessToken" },
-        // GÖR DETTA I SAMBAND MED UTLOGGKLICK localStorage.removeItem('accessToken');
       });
-
-    //Empty inputValue object. 
   };
 
   return (
