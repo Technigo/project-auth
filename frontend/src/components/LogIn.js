@@ -3,9 +3,9 @@ import { Form } from '../shared/shared';
 import { Button } from '../shared/shared';
 
 export const LogIn = ({ currentUser, setCurrentUser, setLoggedIn }) => {
-	const [ userName, setUserName ] = useState('');
-	const [ userPassword, setUserPassword ] = useState('');
-	const [ message, setMessage ] = useState('');
+	const [userName, setUserName] = useState('');
+	const [userPassword, setUserPassword] = useState('');
+	const [message, setMessage] = useState('');
 	const handleLogin = async (event) => {
 		event.preventDefault();
 		let user = {
@@ -13,7 +13,7 @@ export const LogIn = ({ currentUser, setCurrentUser, setLoggedIn }) => {
 			password: userPassword
 		};
 		console.log(user);
-		let response = await fetch('http://localhost:8080/sessions', {
+		let response = await fetch('https://sara-louise.herokuapp.com/sessions', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json;charset=utf-8'

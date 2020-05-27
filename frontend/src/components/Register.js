@@ -3,10 +3,10 @@ import { Form } from '../shared/shared';
 import { Button } from '../shared/shared';
 
 export const Register = () => {
-	const [ userName, setUserName ] = useState('');
-	const [ userPassword, setUserPassword ] = useState('');
-	const [ userEmail, setUserEmail ] = useState('');
-	const [ message, setMessage ] = useState('');
+	const [userName, setUserName] = useState('');
+	const [userPassword, setUserPassword] = useState('');
+	const [userEmail, setUserEmail] = useState('');
+	const [message, setMessage] = useState('');
 
 	const handleRegister = async (event) => {
 		event.preventDefault();
@@ -16,7 +16,7 @@ export const Register = () => {
 			password: userPassword
 		};
 		console.log(user);
-		let response = await fetch('http://localhost:8080/users', {
+		let response = await fetch('https://sara-louise.herokuapp.com/users', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json;charset=utf-8'
