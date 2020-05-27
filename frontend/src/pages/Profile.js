@@ -1,9 +1,12 @@
 import React from 'react';
-import { user, logout, getSecretMessage } from '../reducers/user';
+import { user } from '../reducers/user';
+import { logout, getSecretMessage } from '../reducers/user'
 import styled from 'styled-components';
 import { Headline } from '../lib/headline';
-import { Button } from '../lib/button';
+import { TestButton } from '../lib/button';
+import { Register } from '../lib/form'
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, Link } from 'react-router-dom'
 
 const ProfileInfo = styled.div`
   width: 60%;
@@ -37,27 +40,26 @@ const InfoDiv = styled.div`
   width: 20em;
 `
 
-const URL = 'http://localhost:8080/users';
+
+
 export const Profile = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
-  const userId = useSelector((store) => store.user.login.userId);
+  const userId = useSelector((store) => store.user.login.userId)
   const secretMessage = useSelector((store) => store.user.login.secretMessage);
   const errorMessage = useSelector((store) => store.user.login.errorMessage);
+  const userName = useSelector((store) => store.user.login.userName);
+
 
   return (
     <ProfileInfo>
       <Headline title="profile" />
       <InfoDiv>
-        <h2>Status :</h2>
         {errorMessage && <h4>Error message : {`${errorMessage}`}</h4>}
         {secretMessage && <h4>Secret message : {`${secretMessage}`}</h4>}
-        <h4>userId :</h4>
-        <p> {`${userId}`}</p>
-        <h4>accessToken :</h4>
-        <p> {`${accessToken}`}</p>
-        <Button type="submit" onClick={(e) => dispatch(getSecretMessage())} title="Test Secret Endpoint" />
-        <Button type="submit" onClick={(e) => dispatch(logout())} title="Test Logout" />
+        <Register>Welcome {userName}!</Register>
+        <input type="submit" onClick={() => dispatch(getSecretMessage())} value="Test Secret Endpoint" />
+        <Link to="/login"><input type="submit" onClick={() => dispatch(logout())} value="Log Out" /></Link>
       </InfoDiv>
     </ProfileInfo>
   );

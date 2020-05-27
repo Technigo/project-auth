@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import Profile from './Profile';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, Link } from 'react-router-dom'
 import { user } from '../reducers/user';
 import { Headline } from '../lib/headline';
 import { Button } from '../lib/button';
-import { Form, InfoDiv, Input } from '../lib/form'
+import { Form, InfoDiv, Input, Register } from '../lib/form'
 const SIGNUP_URL = 'http://localhost:8080/users';
-const LOGIN_URL = 'http://localhost:8080/sessions';
-
-
-
 
 export const SignUp = () => {
   const dispatch = useDispatch();
@@ -38,7 +35,7 @@ export const SignUp = () => {
       })
       .then((json) => {
         dispatch(user.actions.setLoginResponse({ accessToken: json.accessToken, userId: json.userId }))
-        history.push('/')
+        // history.push('/login')
       })
       .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }))
@@ -49,7 +46,6 @@ export const SignUp = () => {
     // If user is logged out, show login form
     return (
       <div>
-        <Profile />
         <Form onSubmit={(event) => handleSignup(event)}>
           <Headline title="sign up" />
           <InfoDiv>
@@ -74,11 +70,13 @@ export const SignUp = () => {
               onChange={(event) => setPassword(event.target.value)}
             />
             <Button type="submit" title="Sign up" />
+            <Register>Already a member?<Link to="/login">Log in</Link></Register>
           </InfoDiv>
         </Form>
       </div>
     );
-  } else {
+  }
+  else {
     // If user is logged in, show profile
     return <Profile />;
   }

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Link, useHistory } from 'react-router-dom'
 
 const initialState = {
   login: {
@@ -6,6 +7,7 @@ const initialState = {
     userId: 0,
     errorMessage: null,
     secretMessage: null,
+    userName: null,
   },
 };
 
@@ -40,12 +42,18 @@ export const user = createSlice({
       console.log(`Error Message: ${errorMessage}`);
       state.login.errorMessage = errorMessage;
     },
+    setUserName: (state, action) => {
+      const { userName } = action.payload;
+      console.log(`User name: ${userName}`);
+      state.login.userName = userName;
+    },
   },
 });
 
 //Thunks
 export const login = (name, password) => {
   const LOGIN_URL = 'http://localhost:8080/sessions'
+  // const history = useHistory()
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: 'POST',
@@ -60,19 +68,26 @@ export const login = (name, password) => {
         throw 'Unable to log in. Please check your username and password'
       })
       .then((json) => {
-        // Save the login info
+        console.log(json)
+        // Save the login info 
         dispatch(user.actions.setLoginResponse({ accessToken: json.accessToken, userId: json.userId })
         );
+        dispatch(user.actions.setUserName({ userName: json.name }))
+        // history.push('/secret'); // it is complaining about the use of history here.
+        // dispatch(user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) }))
       })
+      // SUCCESS: Do something with the information we got back
+
       .catch((err) => {
-        // dispatch(user.actions.logout()) //not sure if this is needed here
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }))
+        dispatch(logout()) //not sure if this is needed here
+        // dispatch(user.actions.setErrorMessage({ errorMessage: err }))
       });
   }
 }
 
 export const logout = () => {
   return (dispatch) => {
+    console.log('trying to log out ...')
     dispatch(user.actions.setLoginResponse({ accessToken: null, userId: 0 }))
     dispatch(user.actions.setSecretMessage({ secretMessage: null }))
     dispatch(user.actions.setErrorMessage({ errorMessage: null }))

@@ -42,9 +42,9 @@ export const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route path='/' exact ><LogIn /></Route>
-          <Route path='/register' exact ><SignUp /></Route>
-          <Route path='/users/:id/secret' exact ><Profile /></Route>
+          <Route path='/login' exact ><LogIn /></Route>
+          <Route path='/' exact ><SignUp /></Route>
+          <Route path='/secret' exact ><Profile /></Route>
         </Switch>
       </BrowserRouter>
     </Provider>

@@ -75,16 +75,16 @@ app.post('/users', async (req, res) => {
 
 app.get('/users/:id/secret', authenticateUser)
 app.get('/users/:id/secret', (req, res) => {
-  const secretMessage = `This is super secret message for ${req.user.name}`
-  res.status(201).json({ name: req.user.name, userId: req.user._id })
+  const secretMessage = `This is profile page for ${req.user.name}`
+  res.status(201).json({ secretMessage });
 })
 
 app.post('/sessions', async (req, res) => {
   try {
-    const { name, email, password } = req.body
+    const { name, password } = req.body
     const user = await User.findOne({ name })
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(201).json({ userId: user._id, accessToken: user.accessToken, message: 'You are logged in' })
+      res.status(201).json({ name: user.name, userId: user._id, accessToken: user.accessToken, message: 'You are logged in' })
     } else {
       res.status(404).json({ notFound: true })
     }

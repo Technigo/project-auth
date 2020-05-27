@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { user, login } from '../reducers/user';
 import { Headline } from '../lib/headline';
 import { Button } from '../lib/button';
-import { Form, InfoDiv, Input } from '../lib/form'
+import { Form, InfoDiv, Input, Register } from '../lib/form'
+import { useHistory, Link } from 'react-router-dom'
 
 export const LogIn = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,6 @@ export const LogIn = () => {
     // If user is logged out, show login form
     return (
       <div>
-        <Profile />
         <Form onSubmit={(event) => handleLogin(event)}>
           <Headline title="Log in" />
           <InfoDiv>
@@ -41,7 +41,7 @@ export const LogIn = () => {
               onChange={(event) => setPassword(event.target.value)}
             />
             <Button type="submit" title="Log in" />
-            {/* <Register>Not a member? <Link style={{ color: "black" }} to="/register">Sign up</Link></Register> */}
+            <Register>Not a member?<Link to="/">Sign up</Link></Register>
           </InfoDiv>
         </Form>
       </div>

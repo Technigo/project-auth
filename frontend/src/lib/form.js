@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
+export const Register = styled.p`
+  color: black;
+`
 export const Form = styled.form`
   width: 60%;
   margin: 1em auto;
