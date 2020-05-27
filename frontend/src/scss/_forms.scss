@@ -32,8 +32,9 @@ form {
     position: relative;
 
     .password-emoji {
-      display: inline;
+      display: block;
       position: absolute;
+      top: 0;
       right: -34px;
       width: 2.5rem;
       height: 2.5rem;
