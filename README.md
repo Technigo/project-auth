@@ -1,6 +1,6 @@
 # Project Auth
 
-An API with authentication & registration flow + a frontend with forms to register, sign in, and view some content once you're logged in.
+*Pair programming project.* An API with authentication & registration flow + a frontend with forms to register, sign in, and view some content once you're logged in.
 
 ## Description
 
