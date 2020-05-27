@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { user, login } from './reducers/user';
+import { Profile } from 'Profile.js';
 
 const URL = 'https://project-authorize.herokuapp.com/users';
 
 export const SignUp = () => {
+  const dispatch = useDispatch();
+  const accessToken = useSelector((store) => store.user.login.accessToken);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showSummary, setShowSummary] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSignup = (event) => {
     event.preventDefault();
 
     fetch(URL, {
@@ -17,7 +22,6 @@ export const SignUp = () => {
       body: JSON.stringify({ name, email, password }),
       headers: { 'content-Type': 'application/json' },
     })
-      //.then((res) => res.json())
       .then((res) => {
         if (res.ok) {
           setShowSummary(true);
@@ -27,56 +31,65 @@ export const SignUp = () => {
         }
       })
 
-      // if (!res.ok) {
-      //   throw new Error('Unable to sign up.');
-      // }
-      // res.json();
+      .then((json) => {
+        dispatch(
+          user.actions.setAccessToken({
+            accessToken: json.accessToken,
+          })
+        );
+        dispatch(user.actions.setUserId({ userId: json.userId }));
+      })
 
-      // .then((json) => console.log(json))
-      // .catch((err) => status(403).json('error:', err));
-      // will show this error message if name or password is not unique
       .catch((err) => {
-        setErrorMessage('error: Username/email is already registered.', err);
+        setErrorMessage('error:Username/email is already registered.', err);
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 
-  return (
-    <div>
-      {!showSummary && (
-        <form onSubmit={handleSubmit}>
-          <label>
-            username
-            <input
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              required
-            />
-          </label>
-          <label>
-            email
-            <input
-              type='email'
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-            />
-          </label>
-          <label>
-            password
-            <input
-              type='password'
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
-          </label>
-          <button type='submit' onClick={handleSubmit}>
-            SIGN UP
-          </button>
-        </form>
-      )}
-      {showSummary && <p>You are now signed up {name}</p>}
-      {errorMessage && <h1>{errorMessage}</h1>}
-    </div>
-  );
+  const handleLogin = (event) => {
+    event.preventDefault();
+    dispatchEvent(login(name, email, password));
+  };
+
+  if (!accessToken) {
+    return (
+      <div>
+        {!showSummary && (
+          <form>
+            <label>
+              username
+              <input
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                required
+              />
+            </label>
+            <label>
+              email
+              <input
+                type='email'
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+              />
+            </label>
+            <label>
+              password
+              <input type='password' value={password} required />
+            </label>
+            <button type='submit' onClick={handleSignup}>
+              SIGN UP
+            </button>
+            <button type='submit' onClick={handleLogin}>
+              LOG IN
+            </button>
+          </form>
+        )}
+        {showSummary && <p>You are now signed up {name}</p>}
+        {errorMessage && <h1>{errorMessage}</h1>}
+      </div>
+    );
+  } else {
+    return <Profile />;
+  }
 };

@@ -14,10 +14,12 @@ const User = mongoose.model('User', {
   name: {
     type: String,
     unique: true,
+    required: true,
   },
   email: {
     type: String,
     unique: true,
+    required: true,
   },
   password: {
     type: String,
@@ -70,6 +72,20 @@ app.post('/users', async (req, res) => {
         message: 'User created.',
         userId: newUser._id,
         accessToken: newUser.accessToken,
+      });
+  } catch (err) {
+    res
+      .status(400)
+      .json({ message: 'Could not create user.', errors: err.errors });
+  }
+});
+      });
+  } catch (err) {
+    res
+      .status(400)
+      .json({ message: 'Could not create user.', errors: err.errors });
+  }
+});
       });
   } catch (err) {
     res
