@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import styled from "styled-components/macro"
 import { Profile } from "./Profile"
 import { useDispatch, useSelector } from 'react-redux';
-import { user } from "../reducers/user";
+import { user, login } from "../reducers/user";
 
 const LOGIN_URL = "https://signinprojecttechnigo.herokuapp.com/sessions"
 
@@ -55,42 +55,15 @@ export const LogIn = () => {
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
 
-  const handleLoginSuccess = (loginResponse) => {
-    // For debugging only
-    const statusMessage = JSON.stringify(loginResponse);
-    dispatch(user.actions.setStatusMessage({ statusMessage }));
-
-    // Save the login info
-    dispatch(
-      user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
-    );
-    dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
-
-    //   //testar
-    //   dispatch(user.actions.setUserInfo({ userInfo: loginResponse.userInfo }));
-  };
-
-  const handleLoginFailed = (loginError) => {
-    const statusMessage = JSON.stringify(loginError);
-    dispatch(user.actions.setStatusMessage({ statusMessage }));
-
-    // Clear login values
-    dispatch(user.actions.logout());
-  };
-
+  // To sign in a user.
   const handleLogin = (event) => {
     event.preventDefault();
-
-    fetch(LOGIN_URL, {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((res) => res.json())
-      .then((json) => handleLoginSuccess(json))
-      .catch((err) => handleLoginFailed(err));
+    dispatch(login(email, password, firstName));
   };
+
+
   if (!accessToken) {
     return (
       <>

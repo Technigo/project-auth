@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components/macro"
-import { user } from "../reducers/user"
+import { user, logout, getSecretMessage } from "../reducers/user"
 import { useDispatch, useSelector } from 'react-redux'
 
 
@@ -24,18 +24,19 @@ margin: 20px;
 export const Profile = ({ accsessToken }) => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
-  // const userInfo = useSelector((store) => store.user.login.userInfo);
+  const userId = useSelector((store) => store.user.login.userId);
+  const firstName = useSelector((store) => store.user.login.firstName);
+  const secretMessage = useSelector((store) => store.user.login.secretMessage);
+  const errorMessage = useSelector((store) => store.user.login.errorMessage);
 
-
-  const logout = () => {
-    dispatch(user.actions.logout());
-  };
 
   return (
     <ProfileWrapper>
       <h1>Inloggad</h1>
-      {/* <h2>{`${userInfo}`}</h2> */}
-      <Button type="submit" onClick={logout} value="Logga ut">Logga ut</Button>
+      {errorMessage && <h4>Error Message : {`${errorMessage}`}</h4>}
+      {secretMessage && <h4>Secret Message : {`${secretMessage}`}</h4>}
+      <h4> Välkommen att beställa blommor {`${accessToken}`}</h4>
+      <Button type="submit" onClick={(e) => dispatch(logout())} value="Logga ut">Logga ut</Button>
     </ProfileWrapper>
   )
 }

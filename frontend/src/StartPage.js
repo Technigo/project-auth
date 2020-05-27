@@ -13,7 +13,6 @@ const reducer = combineReducers({ user: user.reducer });
 const store = configureStore({ reducer });
 
 
-
 const StyledContainer = styled.div`
 background-color: none;
 border: #0000 solid 2px;

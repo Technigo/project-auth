@@ -14,15 +14,6 @@ export const App = () => {
           <Route path="/" exact>
             <StartPage />
           </Route>
-          {/* <Route path="/users">
-            <SignUp />
-          </Route>
-          <Route path="/sessions">
-            <LogIn onAuthenticate={setAccessToken} />
-          </Route>
-          <Route path="/profile">
-            <Profile accessToken={accessToken} />
-          </Route> */}
         </Switch>
       </BrowserRouter>
     </>

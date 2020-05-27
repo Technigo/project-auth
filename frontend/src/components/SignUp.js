@@ -61,25 +61,6 @@ export const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLoginSuccess = (loginResponse) => {
-    // For debugging only
-    const statusMessage = JSON.stringify(loginResponse);
-    dispatch(user.actions.setStatusMessage({ statusMessage }));
-
-    // Save the login info
-    dispatch(
-      user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
-    );
-    dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
-  };
-
-  const handleLoginFailed = (loginError) => {
-    const statusMessage = JSON.stringify(loginError);
-    dispatch(user.actions.setStatusMessage({ statusMessage }));
-
-    // Clear login values
-    dispatch(user.actions.logout());
-  };
 
   // To sign up a user.
   const handleSignup = (event) => {
@@ -90,9 +71,24 @@ export const SignUp = () => {
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
     })
-      .then((res) => res.json())
-      .then((json) => handleLoginSuccess(json))
-      .catch((err) => handleLoginFailed(err));
+      .then((res) => {
+        if (!res.ok) {
+          throw 'Could not create account.  Try a different username.';
+        }
+        return res.json();
+      })
+      .then((json) => {
+        // Save the login info
+        dispatch(
+          user.actions.setAccessToken({
+            accessToken: json.accessToken,
+          })
+        );
+        dispatch(user.actions.setUserId({ userId: json.userId }));
+      })
+      .catch((err) => {
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+      });
   };
 
   return (
@@ -126,3 +122,6 @@ export const SignUp = () => {
     </>
   )
 }
+
+//rensa sidan när man har registrerat sig. hur fixa? 
+//varför syns inte all info i databasen? 
