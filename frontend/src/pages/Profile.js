@@ -1,5 +1,5 @@
 import React from 'react';
-import { user } from '../reducers/user';
+import { user, logout, getSecretMessage } from '../reducers/user';
 import styled from 'styled-components';
 import { Headline } from '../lib/headline';
 import { Button } from '../lib/button';
@@ -42,52 +42,22 @@ export const Profile = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const userId = useSelector((store) => store.user.login.userId);
-  const statusMessage = useSelector((store) => store.user.login.statusMessage);
-
-  const loginSuccess = (loginResponse) => {
-    const statusMessage = `Authenticated Endpoint: ${JSON.stringify(
-      loginResponse
-    )}`;
-    dispatch(user.actions.setStatusMessage({ statusMessage }));
-  };
-
-  const loginFailed = (loginError) => {
-    const statusMessage = `Authenticated Endpoint Failed: ${JSON.stringify(
-      loginError
-    )}`;
-    dispatch(user.actions.setStatusMessage({ statusMessage }));
-  };
-
-  const logout = () => {
-    dispatch(user.actions.logout());
-  };
-
-  const login = () => {
-    // Include userId in the path
-    fetch(`${URL}/${userId}`, {
-      method: 'GET',
-      // Include the accessToken to get the protected endpoint
-      headers: { Authorization: accessToken },
-    })
-      .then((res) => res.json())
-      // SUCCESS: Do something with the information we got back
-      .then((json) => loginSuccess(json))
-      .catch((err) => loginFailed(err)); //401
-  };
+  const secretMessage = useSelector((store) => store.user.login.secretMessage);
+  const errorMessage = useSelector((store) => store.user.login.errorMessage);
 
   return (
     <ProfileInfo>
       <Headline title="profile" />
       <InfoDiv>
         <h2>Status :</h2>
-        <h4>Response :</h4>
-        <p>{`${statusMessage}`}</p>
+        {errorMessage && <h4>Error message : {`${errorMessage}`}</h4>}
+        {secretMessage && <h4>Secret message : {`${secretMessage}`}</h4>}
         <h4>userId :</h4>
         <p> {`${userId}`}</p>
         <h4>accessToken :</h4>
         <p> {`${accessToken}`}</p>
-        <Button type="submit" onClick={login} title="Test Login" />
-        <Button type="submit" onClick={logout} title="Test Logout" />
+        <Button type="submit" onClick={(e) => dispatch(getSecretMessage())} title="Test Secret Endpoint" />
+        <Button type="submit" onClick={(e) => dispatch(logout())} title="Test Logout" />
       </InfoDiv>
     </ProfileInfo>
   );

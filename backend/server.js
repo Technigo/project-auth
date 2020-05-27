@@ -73,8 +73,9 @@ app.post('/users', async (req, res) => {
   }
 })
 
-app.get('/users/:id', authenticateUser)
-app.get('/users/:id', (req, res) => {
+app.get('/users/:id/secret', authenticateUser)
+app.get('/users/:id/secret', (req, res) => {
+  const secretMessage = `This is super secret message for ${req.user.name}`
   res.status(201).json({ name: req.user.name, userId: req.user._id })
 })
 

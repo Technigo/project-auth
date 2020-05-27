@@ -1,33 +1,52 @@
 import React from "react";
-import LoginForm from "./components/LoginForm";
+import SignUp from "./pages/SignUp";
+import LogIn from './pages/LogIn'
+import Profile from './pages/Profile'
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { user } from "./reducers/user";
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
+const saveToLocalStorage = (state) => {
+  try {
+    const serializedState = JSON.stringify(state)
+    localStorage.setItem('state', serializedState)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const loadFromLocalStorage = () => {
+  try {
+    const serializedState = localStorage.getItem('state')
+    if (serializedState === null) return undefined
+    return JSON.parse(serializedState)
+  } catch (error) {
+    console.log(error)
+    return undefined
+  }
+}
+
+const persistedState = loadFromLocalStorage()
 // const URL = "http://localhost:8080/users";
 
 const reducer = combineReducers({ user: user.reducer });
 
-const store = configureStore({ reducer });
+const store = configureStore({ reducer, persistedState });
+
+store.subscribe(() => saveToLocalStorage(store.getState()))
 
 export const App = () => {
 
-  // To sign up a user.
-  /* const handleSubmit = (event) => {
-    event.preventDefault();
-
-    fetch(URL, {
-      method: "POST",
-      body: JSON.stringify({ name, email, password }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => console.log(json))
-      .catch((err) => console.log("error:", err));
-  }; */
   return (
     <Provider store={store}>
-      <LoginForm />
+      <BrowserRouter>
+        <Switch>
+          <Route path='/' exact ><LogIn /></Route>
+          <Route path='/register' exact ><SignUp /></Route>
+          <Route path='/users/:id/secret' exact ><Profile /></Route>
+        </Switch>
+      </BrowserRouter>
     </Provider>
   );
 };
