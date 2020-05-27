@@ -39,7 +39,6 @@ export const SignIn = ({ setSignedIn }) => {
 
   return (
     <form onSubmit={handleFormSubmit}>
-
       <h1>Sign In</h1>
 
       <InputText
@@ -60,7 +59,6 @@ export const SignIn = ({ setSignedIn }) => {
       {loginFailed && <span className="error-msg">Login failed</span>}
 
       <button>Sign in</button>
-
     </form>
   );
 };
