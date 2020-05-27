@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 app.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body
-    const user = new User({ name, email, password: bcrypt.hashSync(password) })
+    const user = await new User({ name, email, password: bcrypt.hashSync(password) })
     user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
   } catch (err) {
