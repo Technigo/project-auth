@@ -36,23 +36,17 @@ export const SignUp = () => {
           return res.json()
         }
       })
-      .then(({ name }) => {
+      .then(() => {
           setName('')
           setEmail('')
           setPassword('')
-          if (name) { 
-            history.push('/login')
-          }          
+          history.push('/login')
+          // if (name) { 
+          //   history.push('/login')
+          // }          
         })
       .catch(err => {
         console.log("error:", err)
-        // swal({
-        //     text: 'Something went wrong',
-        //     icon: "error",
-        //     button: {
-        //       text: 'Try again'
-        //     }
-        // })
       })
     }
 
