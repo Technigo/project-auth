@@ -16,7 +16,7 @@ export const Login = ({ loggedIn, setLoggedIn }) => {
     setPassword("")
 
     try {
-      await fetch('http://localhost:8080/sessions', {
+      await fetch('https://malins-login-db.herokuapp.com/sessions', {
         method: 'POST',
         headers: {
           "content-type": "application/json" 

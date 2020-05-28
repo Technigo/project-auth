@@ -6,7 +6,6 @@ export const User = mongoose.model('User', {
     type: String,
     required: true,
     unique: true,
-    collation: { locale: 'en_US', strength: 2 }
   },
   email: {
     type: String,

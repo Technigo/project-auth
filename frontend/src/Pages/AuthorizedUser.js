@@ -9,7 +9,7 @@ export const AuthorizedUser = ({ authorization, setAuthorization, loggedIn, setL
 
   useEffect(() => {
     try {
-      fetch(`http://localhost:8080/users/${userId}`, {
+      fetch(`https://malins-login-db.herokuapp.com/users/${userId}`, {
         method: 'POST',
         headers: {
           "Authorization": accessToken

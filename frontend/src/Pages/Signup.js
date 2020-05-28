@@ -24,7 +24,7 @@ export const Signup = () => {
       setError(true)
     } else {
     
-    await fetch('http://localhost:8080/users', {
+    await fetch('https://malins-login-db.herokuapp.com/users', {
       method: 'POST',
       headers: {
         "content-type": "application/json" 
