@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { user } from '../reducers/user';
 import { Redirect } from 'react-router-dom';
+import styled from 'styled-components/macro';
+
 const LOGIN_URL = "http://localhost:8080/sessions";
 
 export const LogIn = () => {
@@ -15,7 +17,6 @@ export const LogIn = () => {
     // For debugging only
     const statusMessage = JSON.stringify(loginResponse);
     dispatch(user.actions.setStatusMessage({ statusMessage }));
-
     // Save the login info
     dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }));
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
@@ -25,7 +26,6 @@ export const LogIn = () => {
   const handleLoginFailed = (loginError) => {
     const statusMessage = JSON.stringify(loginError);
     dispatch(user.actions.setStatusMessage({ statusMessage }));
-
     // Clear login values
     dispatch(user.actions.logout());
   };
@@ -54,9 +54,9 @@ export const LogIn = () => {
   if (logIn === false) {
     return (
       <div>
-        <form onSubmit={handleLogin}>
+        <Form onSubmit={handleLogin}>
           <label>
-            <input
+            <Input
               type="email"
               placeholder="Email"
               value={email}
@@ -65,7 +65,7 @@ export const LogIn = () => {
             />
           </label>
           <label>
-            <input
+            <Input
               type="password"
               placeholder="Password"
               value={password}
@@ -76,7 +76,7 @@ export const LogIn = () => {
           <label>
             <button type="submit">Log in</button>
           </label>
-        </form>
+        </Form>
         {errorMessage === true ? <p>Could not log in, try again</p> : null}
       </div>
     )
@@ -84,3 +84,35 @@ export const LogIn = () => {
     return <Redirect to='/secrets' />
   }
 };
+
+
+const Form = styled.form`
+  margin: 15px 0;
+  width: 95%;
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: RGBA(248,177,149,1);
+  border-radius: 6px;
+  @media (min-width: 668px) {
+    width: 80%;
+    padding: 20px 40px;
+  }
+  @media (min-width: 800px) {
+    width: 80%;
+  }
+  @media (min-width: 992px) {
+    width: 80%;
+  }
+`;
+
+const Input = styled.input`
+  width: 90%;
+  padding: 5px;
+  margin: 5px;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+`;

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { user } from '../reducers/user';
+import styled from 'styled-components/macro';
+
 const SIGNUP_URL = "http://localhost:8080/users";
 
 export const SignUp = () => {
@@ -54,9 +56,9 @@ export const SignUp = () => {
   if (signUp === false) {
     return (
       <div>
-        <form onSubmit={handleSignup}>
+        <Form onSubmit={handleSignup}>
           <label>
-            <input
+            <Input
               type="text"
               placeholder="User name"
               value={name}
@@ -66,7 +68,7 @@ export const SignUp = () => {
             />
           </label>
           <label>
-            <input
+            <Input
               type="email"
               placeholder="Email"
               value={email}
@@ -75,7 +77,7 @@ export const SignUp = () => {
             />
           </label>
           <label>
-            <input
+            <Input
               type="password"
               placeholder="Password"
               value={password}
@@ -87,7 +89,7 @@ export const SignUp = () => {
           <label>
             <button type="submit">Sign up</button>
           </label>
-        </form>
+        </Form>
         {errorMessage === true ? <p>Could not create user</p> : null}
       </div>
     );
@@ -95,3 +97,34 @@ export const SignUp = () => {
    return <h2>Registration completed, please log in</h2>
   }
 };
+
+const Form = styled.form`
+  margin: 15px 0;
+  width: 95%;
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: RGBA(255,101,80,0.8);
+  border-radius: 6px;
+  @media (min-width: 668px) {
+    width: 80%;
+    padding: 20px 40px;
+  }
+  @media (min-width: 800px) {
+    width: 80%;
+  }
+  @media (min-width: 992px) {
+    width: 80%;
+  }
+`;
+
+const Input = styled.input`
+  width: 90%;
+  padding: 5px;
+  margin: 5px;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+`;

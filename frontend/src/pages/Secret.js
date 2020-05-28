@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+import React from 'react';
 import { user } from '../reducers/user';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import { Link, Redirect } from 'react-router-dom';
+import styled from 'styled-components/macro';
+
 
 export const Secret = () => {
   const URL = 'http://localhost:8080/secrets';
@@ -54,16 +58,55 @@ export const Secret = () => {
   /* if (error === false) {
     console.log('hejhej') */
     return (
-      <div>
-        <h1>{`Hi ${name}!`}</h1>
-         <h1>{statusMessage}</h1>
-        <Link to='/'>
-          <input type="submit" onClick={logout} value="Logout" />
-        </Link>
-      </div>
+      <Container>
+        <Wrapper>
+          <TextMessage>{`Hi ${name}!`}</TextMessage>
+          <TextMessage>{statusMessage}</TextMessage>
+          <Link to='/'>
+            <input type="submit" onClick={logout} value="Logout" />
+          </Link>
+        </Wrapper>
+      </Container>
     )
   /* } else {
     console.log('fel')
     return <Redirect to='/' />
   } */
 };
+const Container = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #355C7D;
+  height: 500px;
+  color:  white;
+`;
+
+const Wrapper = styled.div`
+  margin: 15px 0;
+  width: 95%;
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: RGBA(248,177,149,1);
+  border-radius: 6px;
+  @media (min-width: 668px) {
+    width: 80%;
+    padding: 20px 40px;
+  }
+  @media (min-width: 800px) {
+    width: 60%;
+  }
+  @media (min-width: 992px) {
+    width: 50%;
+  }
+`;
+
+const TextMessage = styled.p`
+  margin: 15px 0 8px 0;
+  font-size: 20px;
+  font-weight: bold;
+  color:  black;
+`;
