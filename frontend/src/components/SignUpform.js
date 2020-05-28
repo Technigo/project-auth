@@ -17,10 +17,10 @@ export const SignUpform = () => {
 
   const [error, setError] = useState('')
 
+  // not so good :/ 
   const handleRestart = () => {
     window.location.reload(false);
   }
-
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -33,7 +33,7 @@ export const SignUpform = () => {
       }
     ).then(res => {
       if (!res.ok) {
-        throw new Error('Unable to sign up, please try again')
+        window.alert('Unable to sign up, please try again')
       }
       res.json()
     })
@@ -84,7 +84,7 @@ export const SignUpform = () => {
           </Input>
 
           <Input type="submit" value="Sign up" onClick={handleRestart}></Input>
-          {error && <p>{error}</p>}
+
 
           </From>
      
