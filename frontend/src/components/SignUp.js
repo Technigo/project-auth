@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { user } from '../reducers/user';
+import { logout } from '../reducers/user';
 import styled from 'styled-components/macro';
 
 const SIGNUP_URL = "http://localhost:8080/users";
@@ -13,23 +13,8 @@ export const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState(false);
   const [signUp, setSignUp] = useState(false);
 
-  const handleSignupSuccess = (loginResponse) => {
-    // For debugging only
-    const statusMessage = JSON.stringify(loginResponse);
-    dispatch(user.actions.setStatusMessage({ statusMessage }));
-    
-    console.log('Success Success')
-    // Save the login info
-    /* dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken })); */
-    dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
-  };
-
-  const handleSignupFailed = (loginError) => {
-    const statusMessage = JSON.stringify(loginError);
-    dispatch(user.actions.setStatusMessage({ statusMessage }));
-    console.log('error error')
-    // Clear login values
-    dispatch(user.actions.logout());
+  const handleSignupFailed = () => {
+    dispatch(logout());
   };
 
   const handleSignup = (event) => {
@@ -49,7 +34,11 @@ export const SignUp = () => {
         return (res.json())
       }
     })
-    .then((json) => handleSignupSuccess(json))
+    .then(() => {
+      setName('')
+      setEmail('')
+      setPassword('')
+    })
     .catch((err) => handleSignupFailed(err));
   };
 

@@ -12,23 +12,6 @@ export const Secret = () => {
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const secretMessage = useSelector((store) => store.user.login.secretMessage);
   const errorMessage = useSelector((store) => store.user.login.errorMessage);
-  /* const [error, setError] = useState(false) */
-
- /*  const loginSuccess = (loginResponse) => {
-    const statusMessage = `Authenticated Endpoint: ${JSON.stringify(
-      loginResponse
-    )}`;
-    dispatch(user.actions.setStatusMessage({ statusMessage }));
-    console.log('yay')
-  };
-
-  const loginFailed = (loginError) => {
-    const statusMessage = `Authenticated Endpoint Failed: ${JSON.stringify(
-      loginError
-    )}`;
-    dispatch(user.actions.setStatusMessage({ statusMessage }));
-    console.log('nay')
-  }; */
 
   const getSecret = () => {
     fetch(URL, {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { user } from '../reducers/user';
+import { user, logout } from '../reducers/user';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
@@ -13,21 +13,14 @@ export const LogIn = () => {
   const [logIn, setLogIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
 
-  const handleLoginSuccess = (loginResponse, name) => {
-    // For debugging only
-    /* const statusMessage = JSON.stringify(loginResponse);
-    dispatch(user.actions.setStatusMessage({ statusMessage })); */
-    // Save the login info
+  const handleLoginSuccess = (loginResponse) => {
     dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }));
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
     dispatch(user.actions.setUserName({ name: loginResponse.name }));
   };
 
-  const handleLoginFailed = (loginError) => {
-    /* const statusMessage = JSON.stringify(loginError);
-    dispatch(user.actions.setStatusMessage({ statusMessage }));
-    // Clear login values */
-    dispatch(user.actions.logout());
+  const handleLoginFailed = () => {
+    dispatch(logout());
   };
 
   const handleLogin = (event) => {
