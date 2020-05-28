@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export const InputField = ({ placeholder, type, value, onChange }) => {
+export const InputField = ({ placeholder, type, value, onChange, minLength }) => {
   return (
     <Input placeholder={placeholder} type={type} 
-    value={value} onChange={onChange} required/>
+    value={value} onChange={onChange} minLength={minLength} required/>
   )
 }
 

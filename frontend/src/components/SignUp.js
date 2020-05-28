@@ -31,7 +31,7 @@ export const SignUp = () => {
           //     text: 'Try again'
           //   },
           // })
-          // throw new Error ({ message: 'Could not create account.'})
+          throw new Error ({ message: 'Could not create account.'})
         } else {
           return res.json()
         }
@@ -54,7 +54,7 @@ export const SignUp = () => {
     <FormContainer>
       <InputContent>
       <StyledLabel> Name:
-        <InputField placeholder='Allan Busbrallan' type='text'
+        <InputField placeholder='Allan Busbrallan' type='text' minLength='3'
         value={name} onChange={event => setName(event.target.value)}/>
       </StyledLabel>
 
