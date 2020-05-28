@@ -6,6 +6,7 @@ const initialState = {
     userId: 0,
     errorMessage: null,
     loginMessage: null,
+    loggedoutMessage: null,
   },
 };
 
@@ -33,6 +34,11 @@ export const user = createSlice({
       console.log(`Secret Message: ${loginMessage}`);
       state.login.loginMessage = loginMessage;
     },
+    setLoggedoutMessage: (state, action) => {
+      const { loggedoutMessage } = action.payload;
+      console.log(`You are logged out: ${loggedoutMessage}`);
+      state.login.loggedoutMessage = loggedoutMessage;
+    },
   },
 });
 
@@ -57,9 +63,10 @@ export const login = (name, password) => {
             accessToken: json.accessToken,
           })
         );
-        dispatch(user.actions.setUserId({ userId: json.userID }));
+        dispatch(user.actions.setUserId({ userId: json.userId }));
       })
       .catch((err) => {
+        dispatch(user.actions.logout());
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
@@ -89,5 +96,15 @@ export const getLoginMessage = () => {
       .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
+  };
+};
+
+export const logout = () => {
+  return (dispatch) => {
+    dispatch(user.actions.setLoginMessage({ LogInMessage: null }));
+    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+    dispatch(user.actions.setAccessToken({ accessToken: null }));
+    dispatch(user.actions.setUserId({ userId: 0 }));
+    dispatch(user.actions.setLoggedoutMessage({ loggedoutMessage: true }));
   };
 };

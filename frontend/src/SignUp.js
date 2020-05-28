@@ -9,6 +9,9 @@ const URL = 'http://localhost:8080/users';
 export const SignUp = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
+  const loggedoutMessage = useSelector(
+    (store) => store.user.login.loggedoutMessage
+  );
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -84,7 +87,7 @@ export const SignUp = () => {
                 onChange={(event) => setPassword(event.target.value)}
               />
             </label>
-            <button type='submit' onClick={e => dispatch(handleSignup(e))}>
+            <button type='submit' onClick={(e) => dispatch(handleSignup(e))}>
               SIGN UP
             </button>
             <button type='submit' onClick={handleLogin}>
@@ -94,11 +97,10 @@ export const SignUp = () => {
         )}
         {showSummary && <p>You are now signed up {name}</p>}
         {errorMessage && <h1>{errorMessage}</h1>}
+        {loggedoutMessage && <h4>you are now logged out!</h4>}
       </div>
     );
   } else {
-    return (
-      <Profile />
-    )
+    return <Profile />;
   }
 };
