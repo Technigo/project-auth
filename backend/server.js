@@ -21,7 +21,7 @@ const authenticateUser = async ( req, res, next ) => {
   try {
     const user = await User.findOne({
       accessToken: req.header('Authorization')
-    })
+    }).collation({ locale: "en_US", strength: 1 })
     if (user) {
       req.user = user
       next()
@@ -73,7 +73,7 @@ app.post('/users/:id', async (req, res) => {
 app.post('/sessions', async (req, res) => {
   try {
     const { name, password } = req.body
-    const user = await User.findOne({ name: name })
+    const user = await User.findOne({ name: name }).collation({ locale: "en_US", strength: 1 })
     
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(202).json({userId: user._id, userName: user.name, accessToken: user.accessToken})
