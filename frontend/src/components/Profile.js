@@ -7,6 +7,10 @@ import { useDispatch, useSelector } from 'react-redux'
 const URL = "https://signinprojecttechnigo.herokuapp.com/users/"
 
 const ProfileWrapper = styled.div`
+background-color: #FDE7EA;
+padding: 20px;
+margin-bottom: 20px;
+width: 45%;
 `
 
 const Button = styled.button`

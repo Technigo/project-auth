@@ -56,7 +56,6 @@ margin-bottom: 20px;
 width: 45%;`
 
 
-
 export const SignUp = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
@@ -73,10 +72,10 @@ export const SignUp = () => {
   const handleSignup = (event) => {
     event.preventDefault();
 
-    const user = { email, password, firstName, lastName, address, city, zipCode }
+    const userSignedUp = { email, password, firstName, lastName, address, city, zipCode }
     fetch(SIGNUP_URL, {
       method: 'POST',
-      body: JSON.stringify(user),
+      body: JSON.stringify(userSignedUp),
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => {
