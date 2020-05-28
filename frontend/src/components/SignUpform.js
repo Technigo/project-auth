@@ -17,6 +17,10 @@ export const SignUpform = () => {
 
   const [error, setError] = useState('')
 
+  const handleRestart = () => {
+    window.location.reload(false);
+  }
+
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -79,7 +83,7 @@ export const SignUpform = () => {
           >
           </Input>
 
-          <Input type="submit" value="Sign up"></Input>
+          <Input type="submit" value="Sign up" onClick={handleRestart}></Input>
           {error && <p>{error}</p>}
 
           </From>
