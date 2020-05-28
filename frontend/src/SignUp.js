@@ -17,34 +17,35 @@ export const SignUp = () => {
 
   const handleSignup = (event) => {
     event.preventDefault();
-
-    fetch(URL, {
-      method: 'POST',
-      body: JSON.stringify({ name, email, password }),
-      headers: { 'content-Type': 'application/json' },
-    })
-      .then((res) => {
-        if (res.ok) {
-          setShowSummary(true);
-          return res.json();
-        } else {
-          throw new Error('Unable to sign up');
-        }
+    return (dispatch) => {
+      fetch(URL, {
+        method: 'POST',
+        body: JSON.stringify({ name, email, password }),
+        headers: { 'content-Type': 'application/json' },
       })
+        .then((res) => {
+          if (res.ok) {
+            setShowSummary(true);
+            return res.json();
+          } else {
+            throw new Error('Unable to sign up');
+          }
+        })
 
-      .then((json) => {
-        dispatch(
-          user.actions.setAccessToken({
-            accessToken: json.accessToken,
-          })
-        );
-        dispatch(user.actions.setUserId({ userId: json.userId }));
-      })
+        .then((json) => {
+          dispatch(
+            user.actions.setAccessToken({
+              accessToken: json.accessToken,
+            })
+          );
+          dispatch(user.actions.setUserId({ userId: json.userId }));
+        })
 
-      .catch((err) => {
-        setErrorMessage('error:Username/email is already registered.', err);
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
-      });
+        .catch((err) => {
+          setErrorMessage('error:Username/email is already registered.', err);
+          dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        });
+    };
   };
 
   const handleLogin = (event) => {
