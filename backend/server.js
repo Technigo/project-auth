@@ -21,7 +21,7 @@ const authenticateUser = async ( req, res, next ) => {
   try {
     const user = await User.findOne({
       accessToken: req.header('Authorization')
-    }).collation({ locale: "en_US", strength: 1 })
+    })
     if (user) {
       req.user = user
       next()
