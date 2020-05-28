@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { SecretMessage } from './SecretMessage'
 
@@ -13,7 +14,7 @@ const [signInUser, setsignInUser] = useState({
   email: '',
   password: ''
 })
-
+const history = useHistory()
 const [error, setError] = useState('')
 const [ success, setSuccess ] = useState('')
 
@@ -34,6 +35,7 @@ fetch("https://project-auth-ebba-elin.herokuapp.com/sessions",
   res.json().then(data => {
     if (data.notFound !== true) {
       localStorage.setItem('accessToken', data.accessToken)
+      history.push('/SecretMessage')
     }
   })
 })
@@ -42,14 +44,11 @@ fetch("https://project-auth-ebba-elin.herokuapp.com/sessions",
 })
 .then(() => {
   setsignInUser({
-    id: signInUser._id, accessToken: signInUser.accessToken,
     email: '',
     password: ''
   })
 })
 }
-
-if (!signInUser.accessToken) {
 
 return (
 
@@ -86,11 +85,6 @@ return (
     </Article>
 
 )
-} else {
-
-  return <SecretMessage />;
-}
-
 }
 
 

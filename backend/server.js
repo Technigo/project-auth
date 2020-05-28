@@ -86,7 +86,7 @@ app.post('/users', async (req, res) => {
 
 app.get('/secretmessage', authenticateUser);
 app.get('/secretmessage', (req, res) => {
-  res.status(201).json({ name: req.user.name, id: req.user._id });
+  res.status(201).json({ message: 'Hello' });
 })
 
 
