@@ -1,13 +1,28 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+Login authentication project using both backend and frontend. A user could sign in or sign in to see a welcome page. 
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+# Learning objectives
+How to build a registration flow
+How to handle authentication, both in the frontend and in the backend
+How to build a frontend and backend at the same time
 
-## The problem
-
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+# Tech used
+Node.js
+Express
+Mongo DB
+Mongoose
+React
+Redux
+JSX
+Javascript ES6
+Styled Components
+Bcrypt
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Here is the frontend: 
+https://angry-hermann-04dbef.netlify.app
+
+Here you can find the backend: 
+https://signinprojecttechnigo.herokuapp.com/
