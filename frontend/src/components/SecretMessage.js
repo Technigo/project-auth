@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 
 
 export const SecretMessage = () => {
-  const url = "https://project-auth-ebba-elin.herokuapp.com/users"
+  const url = "https://project-auth-ebba-elin.herokuapp.com/secretmessage"
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const history = useHistory()
@@ -16,6 +16,7 @@ export const SecretMessage = () => {
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken')
 
+
     fetch(url, {
       method: 'GET',
       headers: { 'Authorization': accessToken }
@@ -24,20 +25,26 @@ export const SecretMessage = () => {
         if (!res.ok) {
           throw new Error('Access denied')
         }
-        res.json().then(json => setMessage(json.secret))
+        res.json()
       })
       .catch(err => {
         setError(err.message)
       })
   })
 
+  if (localStorage.getItem('accessToken')) {
+
   return (
 
       <section>
           <div>
-            {message}
+            hej
            </div>
+
+           <Input onClick={handleSignOut} type="submit" value="Sign out"></Input>
     
     </section>
   )
+}
+
 }

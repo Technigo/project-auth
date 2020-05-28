@@ -84,14 +84,11 @@ app.post('/users', async (req, res) => {
   }
 })
 
+app.get('/secretmessage', authenticateUser);
 app.get('/secretmessage', (req, res) => {
-  res.json({messege: 'HEY!'})
-})
-
-app.get('/users/:id', authenticateUser);
-app.get('/users/:id', (req, res) => {
   res.status(201).json({ name: req.user.name, id: req.user._id });
 })
+
 
 app.post('/sessions', async (req, res) => {
 
