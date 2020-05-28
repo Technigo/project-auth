@@ -21,7 +21,7 @@ export const SignUpform = () => {
   const handleSubmit = event => {
     event.preventDefault()
     
-    fetch("http://localhost:8080/users",
+    fetch("https://project-auth-ebba-elin.herokuapp.com/users",
       {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
