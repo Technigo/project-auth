@@ -27,7 +27,7 @@ fetch("https://project-auth-ebba-elin.herokuapp.com/sessions",
   }
 ).then(res => {
   if (!res.ok) {
-    throw new Error('Unable to sign in.')
+    throw new Error('Unable to sign in, please try again')
   }
   res.json().then(data => {
     if (data.notFound !== true) {

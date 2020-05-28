@@ -29,7 +29,7 @@ export const SignUpform = () => {
       }
     ).then(res => {
       if (!res.ok) {
-        error("Error")
+        throw new Error('Unable to sign up, please try again')
       }
       res.json()
     })
@@ -80,6 +80,7 @@ export const SignUpform = () => {
           </Input>
 
           <Input type="submit" value="Sign up"></Input>
+          {error && <p>{error}</p>}
 
           </From>
      
