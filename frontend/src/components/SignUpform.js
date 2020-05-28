@@ -33,7 +33,7 @@ export const SignUpform = () => {
       }
     ).then(res => {
       if (!res.ok) {
-        window.alert('Unable to sign up, please try again')
+        throw new Error('Unable to sign up, please try again')
       }
       res.json()
     })
@@ -84,7 +84,7 @@ export const SignUpform = () => {
           </Input>
 
           <Input type="submit" value="Sign up" onClick={handleRestart}></Input>
-
+          {error &&  alert(`${error}`)}
 
           </From>
      
