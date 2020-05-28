@@ -89,7 +89,7 @@ app.post('/users', async (req, res) => {
 // GET - http://localhost:8080/secrets
 app.get('/secrets', authenticateUser);
 app.get('/secrets', async (req, res) => {
-  const secretMessage = `This is a super secret message for User: ${req.user.name}`;
+  const secretMessage = `This is a super secret message for ${req.user.name}`;
   // can do anything here, but we just put in a message
 
   // res.status(201).json({ name: req.user.name });

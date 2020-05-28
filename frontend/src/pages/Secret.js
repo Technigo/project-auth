@@ -1,21 +1,20 @@
-// import React, { useState } from 'react';
 import React from 'react';
-import { user } from '../reducers/user';
+import { user, logout } from '../reducers/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
+const URL = 'http://localhost:8080/secrets';
 
 export const Secret = () => {
-  const URL = 'http://localhost:8080/secrets';
   const dispatch = useDispatch();
   const name = useSelector((store) => store.user.login.name);
   const accessToken = useSelector((store) => store.user.login.accessToken);
-  const statusMessage = useSelector((store) => store.user.login.statusMessage);
+  const secretMessage = useSelector((store) => store.user.login.secretMessage);
+  const errorMessage = useSelector((store) => store.user.login.errorMessage);
   /* const [error, setError] = useState(false) */
 
-  const loginSuccess = (loginResponse) => {
+ /*  const loginSuccess = (loginResponse) => {
     const statusMessage = `Authenticated Endpoint: ${JSON.stringify(
       loginResponse
     )}`;
@@ -29,50 +28,54 @@ export const Secret = () => {
     )}`;
     dispatch(user.actions.setStatusMessage({ statusMessage }));
     console.log('nay')
-  };
+  }; */
 
-  const logout = () => {
-    dispatch(user.actions.logout());
-  };
-
-  const login = () => {
+  const getSecret = () => {
     fetch(URL, {
       method: 'GET',
       headers: { Authorization: accessToken },
     })
-      /* .then((res) => {
-        if (!res.ok) {
-          setError(true)
-        } else {
-          setError(false)
-          return res.json()
-        }
-      }) */
-      .then(res => res.json())
-      .then((json) => loginSuccess(json))
-      .catch((err) => loginFailed(err));
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } 
+        throw 'Could not get information. Make sure you are logged in and try again';
+      })
+      .then((json) => {
+        dispatch(
+          user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) })
+        )
+      })
+      .catch((err) => {
+        dispatch(
+          user.actions.setErrorMessage({ errorMessage: err})
+        )
+      })
   };
 
-  login()
-
-  /* if (error === false) {
-    console.log('hejhej') */
     return (
       <Container>
         <Wrapper>
           <TextMessage>{`Hi ${name}!`}</TextMessage>
-          <TextMessage>{statusMessage}</TextMessage>
+          <TextMessage>{secretMessage}</TextMessage>
+          <TextMessage>{errorMessage}</TextMessage>
+          <input 
+            type="submit" 
+            onClick={(e) => getSecret()} 
+            value="Reveal secret!" 
+          />
           <Link to='/'>
-            <input type="submit" onClick={logout} value="Logout" />
+            <input 
+              type="submit" 
+              onClick={(e) => dispatch(logout())} 
+              value="Logout" 
+            />
           </Link>
         </Wrapper>
       </Container>
     )
-  /* } else {
-    console.log('fel')
-    return <Redirect to='/' />
-  } */
 };
+
 const Container = styled.main`
   display: flex;
   flex-direction: column;

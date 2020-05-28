@@ -5,7 +5,8 @@ const initialState = {
     accessToken: null,
     userId: 0,
     name: null,
-    statusMessage: "",
+    secretMessage: null,
+    errorMessage: null,
   },
 };
 
@@ -28,10 +29,15 @@ export const user = createSlice({
       console.log(`User Name: ${name}`);
       state.login.name = name;
     },
-    setStatusMessage: (state, action) => {
-      const { statusMessage } = action.payload;
-      console.log(`Status Message: ${statusMessage}`);
-      state.login.statusMessage = statusMessage;
+    setSecretMessage: (state, action) => {
+      const { secretMessage } = action.payload;
+      console.log(`Secret Message: ${secretMessage}`);
+      state.login.secretMessage = secretMessage;
+    },
+    setErrorMessage: (state, action) => {
+      const { errorMessage } = action.payload;
+      console.log(`Error Message: ${errorMessage}`);
+      state.login.errorMessage = errorMessage;
     },
     logout: (state, action) => {
       console.log("Logging out");
@@ -40,3 +46,12 @@ export const user = createSlice({
     },
   },
 });
+
+export const logout = () => {
+  return (dispatch) => {
+    dispatch(user.actions.setSecretMessage({ secretMessage: null }));
+    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+    dispatch(user.actions.setAccessToken({ accessToken: null }));
+    dispatch(user.actions.setUserId({ userId: 0 }));
+  };
+};

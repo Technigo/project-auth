@@ -42,6 +42,7 @@ Authenticated Endpoint: {"secretMessage":"This is a super secret message for Use
 1. Vid login av User i Frontend skickas väldigt många console.log - (syns ej i Postman)
   - Secret.js . Fetch?? kallas tre gånger - se console.log
   - user.js - reducer status message 4 gånger
+  funkar✅
 
 
 2. /secrets med felaktig Token
@@ -49,7 +50,7 @@ Authenticated Endpoint: {"secretMessage":"This is a super secret message for Use
 - Borde få:
 res.status(403).json({ message: 'Access token is missing or wrong'
 ##### Fast det är ändå lite ok - får ju ett error ändå..
-
+  funkar✅
 
 
 ## Oklar status:

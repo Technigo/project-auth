@@ -15,8 +15,8 @@ export const LogIn = () => {
 
   const handleLoginSuccess = (loginResponse, name) => {
     // For debugging only
-    const statusMessage = JSON.stringify(loginResponse);
-    dispatch(user.actions.setStatusMessage({ statusMessage }));
+    /* const statusMessage = JSON.stringify(loginResponse);
+    dispatch(user.actions.setStatusMessage({ statusMessage })); */
     // Save the login info
     dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }));
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
@@ -24,9 +24,9 @@ export const LogIn = () => {
   };
 
   const handleLoginFailed = (loginError) => {
-    const statusMessage = JSON.stringify(loginError);
+    /* const statusMessage = JSON.stringify(loginError);
     dispatch(user.actions.setStatusMessage({ statusMessage }));
-    // Clear login values
+    // Clear login values */
     dispatch(user.actions.logout());
   };
 
