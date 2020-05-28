@@ -1,13 +1,13 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This week's assignment was to build an API with authentication to implement a registration flow. And create a frontend with forms to register, sign in, and view some content once you're logged in.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+I started by creating one piece of the registration at a time. First I got the registration to work, then the log in and the last piece was to get the authentication to work properly. The issues I had this week was to get all the error codes to work properly, when creating a duplicate the error codes were the same for both the email and the username. I solved it by adding a const in which I search for the incoming email and name and if there is one already registered I threw a custom error code to separate between the two.
+
+Another, but smaller issue was that one could create a user named Malin and malin because the search in the database was for an exact match. By adding an collation to ignore case and diacritics at the login and registration I solved this issue. 
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+https://malins-login-site.netlify.app
