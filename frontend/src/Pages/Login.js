@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { Link} from 'react-router-dom'
 import { useHistory } from "react-router-dom"
+import { ErrorMessage } from 'Components/ErrorMessage'
+import { LinkSection } from 'Components/LinkSection'
+import { AccountHeader } from 'Components/AccountHeader'
 
 export const Login = ({ loggedIn, setLoggedIn }) => {
   const history = useHistory()
@@ -49,13 +51,9 @@ export const Login = ({ loggedIn, setLoggedIn }) => {
   return (
     <section className="login-register">
 
-    <div className="header-description">
-      <h2>
-        Sign in
-      </h2>
-    </div>
+    < AccountHeader title="Sign in to account"/>
 
-    <form>
+    <form onSubmit={(event) => handleSubmit(event)}>
       <label for="username">
         Username:
       </label>
@@ -64,7 +62,8 @@ export const Login = ({ loggedIn, setLoggedIn }) => {
         value={name}
         onChange={(event) => setName(event.target.value)}
         type="text"
-        id="username">
+        id="username"
+        required>
       </input>
 
       <label for="password">
@@ -75,28 +74,21 @@ export const Login = ({ loggedIn, setLoggedIn }) => {
         value={password}
         onChange={(event) => setPassword(event.target.value)}
         type="password"
-        id="password">
+        id="password"
+        required>
       </input>
 
       {error && 
-      <p>
-        Username and/or password does not match!
-      </p>}
+        < ErrorMessage errorMessage={"Username and/or password is incorrect!"}  />
+      }
 
-      <button type="submit" onClick={(event) => handleSubmit(event)}> Sign in </button>
+      <button type="submit"> Sign in </button>
       
     </form>
 
-    <div className="register-account-link">
-      <p> 
-        New user? 
-        <Link to="/register"> 
-          Register new account 
-        </Link> 
-      </p>
-    </div>
-  
-    
+    < LinkSection title="New user? " link="/register" linkTitle="Register new account"/>
+ 
     </section>
+
     )
 }

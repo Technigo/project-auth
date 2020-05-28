@@ -5,6 +5,8 @@ import mongoose from 'mongoose'
 import bcrypt from 'bcrypt-nodejs'
 import { User } from './Models'
 
+require('dotenv').config()
+
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
@@ -33,22 +35,24 @@ const authenticateUser = async ( req, res, next ) => {
 
 app.post('/users', async (req, res) => {
   try {
-    const { name, password } = req.body
-
-    if (password.length < 6) {
-      throw { code: 12000 } 
+    const { name, email, password } = req.body
+    const duplicateEmail = await User.findOne({ email: email})
+    
+    if (duplicateEmail) {
+      throw {code: 12000}
     }
 
-    const user = new User({name, password: bcrypt.hashSync(password)})
+    const user = new User({name, email, password: bcrypt.hashSync(password)})
     const saved = await user.save()
+
     res.status(201).json({userId: saved._id, accessToken: saved.accessToken})
   } catch (err) {
     switch (err.code) {
       case 11000: 
-        res.status(404).json({ message: "Username already exists!", errors: err })
+        res.status(404).json({ message: "User already exists!", errors: err })
       break;
       case 12000:
-        res.status(404).json({ message: "Password too short!", errors: err})
+        res.status(404).json({ message: "Email already registered!", errors: err})
       break;
       default: res.status(404).json({ message: "Could not create user", errors: err })
     }
@@ -66,7 +70,7 @@ app.post('/sessions', async (req, res) => {
     const { name, password } = req.body
     const user = await User.findOne({ name: name })
     
-    if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    if (user && bcrypt.compareSync(password, user.password)) {
       res.status(202).json({userId: user._id, userName: user.name, accessToken: user.accessToken})
     } else {
       res.status(404).json({ notFound: true })
@@ -75,6 +79,13 @@ app.post('/sessions', async (req, res) => {
     res.status(404).json({  notFound: true })
   }
 })
+
+if (process.env.RESET_DB === "true") {
+  const seedDatabase = async () => {
+    await User.deleteMany({})
+  }
+  seedDatabase()
+}
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
