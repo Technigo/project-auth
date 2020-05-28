@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Link, useHistory } from 'react-router-dom'
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   login: {
@@ -9,29 +8,18 @@ const initialState = {
     secretMessage: null,
     userName: null,
   },
-};
+}
 
 export const user = createSlice({
-  name: "user",
+  name: 'user',
   initialState: initialState,
   reducers: {
-    //setLoginResponse that contains both accesstoken and userid 
     setLoginResponse: (state, action) => {
       const { accessToken, userId } = action.payload
       console.log(`Access Token: ${accessToken}, User Id: ${userId}`)
       state.login.accessToken = accessToken
       state.login.userId = userId
     },
-    /* setAccessToken: (state, action) => {
-      const { accessToken } = action.payload;
-      console.log(`Access Token: ${accessToken}`);
-      state.login.accessToken = accessToken;
-    },
-    setUserId: (state, action) => {
-      const { userId } = action.payload;
-      console.log(`User Id: ${userId}`);
-      state.login.userId = userId;
-    }, */
     setSecretMessage: (state, action) => {
       const { secretMessage } = action.payload;
       console.log(`Secret Message: ${secretMessage}`);
@@ -48,11 +36,11 @@ export const user = createSlice({
       state.login.userName = userName;
     },
   },
-});
+})
 
 //Thunks
 export const signup = (name, email, password) => {
-  const SIGNUP_URL = 'https://authentication-jj.herokuapp.com/users';
+  const SIGNUP_URL = 'https://authentication-jj.herokuapp.com/users'
   return (dispatch) => {
     console.log('Trying to sign up ...')
     fetch(SIGNUP_URL, {
@@ -71,17 +59,16 @@ export const signup = (name, email, password) => {
         console.log(json)
         dispatch(user.actions.setLoginResponse({ accessToken: json.accessToken, userId: json.userId }))
         dispatch(user.actions.setUserName({ userName: json.name }))
-        // history.push('/secret')
+        dispatch(user.actions.setErrorMessage({ errorMessage: null }))
       })
       .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }))
-      });
+      })
   }
 }
 
 export const login = (name, password) => {
   const LOGIN_URL = 'https://authentication-jj.herokuapp.com/sessions'
-  // const history = useHistory()
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: 'POST',
@@ -98,19 +85,14 @@ export const login = (name, password) => {
       .then((json) => {
         console.log(json)
         // Save the login info 
-        dispatch(user.actions.setLoginResponse({ accessToken: json.accessToken, userId: json.userId })
-        );
+        dispatch(user.actions.setLoginResponse({ accessToken: json.accessToken, userId: json.userId }))
         dispatch(user.actions.setUserName({ userName: json.name }))
-
-        // history.push('/secret'); // it is complaining about the use of history here.
-        // dispatch(user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) }))
+        dispatch(user.actions.setErrorMessage({ errorMessage: null }))
       })
-      // SUCCESS: Do something with the information we got back
-
       .catch((err) => {
-        dispatch(logout()) //not sure if this is needed here
-        // dispatch(user.actions.setErrorMessage({ errorMessage: err }))
-      });
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }))
+        dispatch(logout())
+      })
   }
 }
 
@@ -119,14 +101,13 @@ export const logout = () => {
     console.log('trying to log out ...')
     dispatch(user.actions.setLoginResponse({ accessToken: null, userId: 0 }))
     dispatch(user.actions.setSecretMessage({ secretMessage: null }))
-    dispatch(user.actions.setErrorMessage({ errorMessage: null }))
     dispatch(user.actions.setUserName({ userName: null }))
   }
 }
 
 
 export const getSecretMessage = () => {
-  const USERS_URL = 'https://authentication-jj.herokuapp.com/users';
+  const USERS_URL = 'https://authentication-jj.herokuapp.com/users'
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken
     const userId = getState().user.login.userId
@@ -147,8 +128,6 @@ export const getSecretMessage = () => {
       })
       .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }))
-      }); //401
+      })
   }
-  // Include userId in the path
-
-};
+}

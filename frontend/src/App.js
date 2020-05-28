@@ -1,10 +1,10 @@
-import React from "react";
-import SignUp from "./pages/SignUp";
+import React from 'react'
+import SignUp from './pages/SignUp'
 import LogIn from './pages/LogIn'
 import Profile from './pages/Profile'
-import { Provider } from "react-redux";
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { user } from "./reducers/user";
+import { Provider } from "react-redux"
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { user } from './reducers/user'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 const saveToLocalStorage = (state) => {
@@ -29,9 +29,9 @@ const loadFromLocalStorage = () => {
 
 const persistedState = loadFromLocalStorage()
 
-const reducer = combineReducers({ user: user.reducer });
+const reducer = combineReducers({ user: user.reducer })
 
-const store = configureStore({ reducer, persistedState });
+const store = configureStore({ reducer, persistedState })
 
 store.subscribe(() => saveToLocalStorage(store.getState()))
 
@@ -47,5 +47,5 @@ export const App = () => {
         </Switch>
       </BrowserRouter>
     </Provider>
-  );
-};
+  )
+}
