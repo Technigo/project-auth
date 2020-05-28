@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { user } from '../reducers/user';
 import './loginform.css'
 
-const USERS_URL = 'https://technigo-authorize.herokuapp.com/users';
-const SESSION_URL = 'https://technigo-authorize.herokuapp.com/sessions';
+const BASE_URL = "https://technigo-authorize.herokuapp.com"
+const USERS_URL = `${BASE_URL}/users`;
+const SESSION_URL = `${BASE_URL}/sessions`;
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -17,12 +18,11 @@ export const LoginForm = () => {
 
   const [URL, setURL] = useState(USERS_URL);
 
-  const [loggedInUser, setLoggedInUser] = useState(null);  //OLD
-  const [errorMessage, setErrorMessage] = useState(null);  //REPLACE
+  const [loggedInUser, setLoggedInUser] = useState(null);  //OLD useState
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleLoginSuccess = (json) => {
-    console.log("handle login")
-    setLoggedInUser(json) //REMOVE
+    setLoggedInUser(json) //OLD useState
     dispatch(
       user.actions.setAccessToken({ accessToken: json.accessToken })
     );
@@ -41,10 +41,10 @@ export const LoginForm = () => {
           return res.json()
         }
       })
-      .then((json) => handleLoginSuccess(json)) //setLoggedInUser(json))  run dispatch
+      .then((json) => handleLoginSuccess(json)) //setLoggedInUser(json)) -> run dispatch
       .catch((err) => {
         console.log("error:", err)
-        setErrorMessage("Failed try again") // Same for login and sign up
+        setErrorMessage("Failed try again") // Now, same for login and sign up
       });
   };
 
