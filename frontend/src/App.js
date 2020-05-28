@@ -1,15 +1,15 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import styled from 'styled-components'
-import { Welcome } from './pages/Welcome'
-import { SignUp } from './pages/SignUp'
-import { Login } from './pages/Login'
-import { Secret } from './pages/Secret'
+import { Welcome } from 'pages/Welcome'
+import { SignUp } from 'pages/SignUp'
+import { Login } from 'pages/Login'
+import { Secret } from 'pages/Secret'
+import { PageSetup } from 'components/PageSetup'
 
 
 export const App = () => {
   return (
-    <OverallPage>
+    <PageSetup>
       <BrowserRouter>
         <Switch>
           <Route path='/'exact>
@@ -26,14 +26,7 @@ export const App = () => {
           </Route>
         </Switch>
       </BrowserRouter>
-    </OverallPage>
+    </PageSetup>
   )
 }
 
-const OverallPage = styled.section`
-  display: flex;
-  width: 100%
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 20px;
-`

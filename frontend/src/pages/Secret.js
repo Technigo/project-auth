@@ -6,6 +6,9 @@ import { H1, P } from 'components/TextStyles'
 
 const nasaApi = 'https://api.nasa.gov/planetary/apod?api_key=08iR4WWfCjNzN30nufKyaR5LGHFjgXgynks7MDcF'
 
+
+const URL_SECRET = 'http://localhost:8080/secret'
+
 export const Secret = () => {
   const [nasa, setNasa] = useState([])
 

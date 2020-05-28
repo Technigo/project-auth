@@ -1,19 +1,18 @@
 import React, {useState} from 'react'
 import { useHistory } from 'react-router'
 import { Container } from '../components/Container'
-import { Form} from '../components/Form'
+import { Form, Button, Input} from '../components/Form'
 import { H1 } from '../components/TextStyles'
-import styled from 'styled-components'
 
-const URL_SIGNUP = 'http://localhost:8081/users'
+const URL_SIGNUP = 'http://localhost:8080/users'
 //const URL_SIGNUP = 'https://week20-auth-app.herokuapp.com/'
 
 export const SignUp = () => {
   const [name, setName] = useState()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
-  const [accessToken, setAccessToken] = useState()
-  const [signedUp, setSignedUp] = useState(false)
+  // const [accessToken, setAccessToken] = useState()
+  // const [signedUp, setSignedUp] = useState(false)
   const [failedSignUp, setFailedSignUp] = useState(false)
   const history = useHistory()
 
@@ -69,24 +68,3 @@ export const SignUp = () => {
     </Container>
   )
   }
-  export const Button = styled.button`
-text-decoration: none;
-border: solid 1px black;
-border-radius: 25px;
-color: black;
-padding: 15px;
-margin-top: 20px;
-font-size: 25px;
-font-wight: bold;
-cursor: pointer;
-background-color: blue;
-`
-export const Input = styled.input `
-padding: 5px;
-border-radius; 5 px;
-margin-bottom: 10px;
-cursor: pointer;
-background-color: white;
-font-size: 30px;
-color: black;
-`
