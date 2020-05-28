@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { SecretMessage } from './SecretMessage'
-
 // lib
 import { Article } from '../lib/FormStyle'
 import { From } from '../lib/FormStyle'
@@ -76,7 +74,7 @@ return (
       </Input>
 
       <Input type="submit" value="Sign in"></Input>
-
+      {error && <p>{error}</p>}
       </From>
  
     

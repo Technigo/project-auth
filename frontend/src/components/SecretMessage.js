@@ -23,7 +23,7 @@ export const SecretMessage = () => {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error('Access denied')
+          throw error('Access denied')
         }
         res.json()
       })

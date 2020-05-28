@@ -16,8 +16,8 @@ export const SignUpform = () => {
   })
 
   const [error, setError] = useState('')
-  const [ success, setSuccess ] = useState('')
-  
+
+
   const handleSubmit = event => {
     event.preventDefault()
     
@@ -37,7 +37,6 @@ export const SignUpform = () => {
         setError(err.message)
       })
       .then(() => {
-        setSuccess(`${signUpUser.name}, you are now registered`)
         setsignUpUser({
           name: '',
           email: '',
