@@ -24,19 +24,6 @@ justify-content: center;
 width: 100%;
 `
 
-const LoginContainer = styled.div`
-background-color: #FDE7EA;
-padding: 20px;
-margin-bottom: 20px;
-width: 45%;
-`
-
-const SignUpContainer = styled.div`
-background-color: #FDE7EA;
-padding: 20px;
-margin-bottom: 20px;
-width: 45%;
-`
 
 export const StartPage = () => {
   const [email, setEmail] = useState("");
@@ -58,14 +45,9 @@ export const StartPage = () => {
 
   return (
     <Provider store={store}>
-
       <StyledContainer>
-        <LoginContainer>
-          <LogIn />
-        </LoginContainer>
-        <SignUpContainer>
-          <SignUp />
-        </SignUpContainer>
+        <LogIn />
+        <SignUp />
       </StyledContainer>
     </Provider>
   )

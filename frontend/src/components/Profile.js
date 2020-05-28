@@ -1,10 +1,9 @@
 import React, { useState } from "react"
 import styled from "styled-components/macro"
-import { user, userId, logout, getSecretMessage } from "../reducers/user"
+import { user, userId, logout, setErrorMessage } from "../reducers/user"
 import { useDispatch, useSelector } from 'react-redux'
 
 
-// const URL = `https://signinprojecttechnigo.herokuapp.com/users/${userId}`
 const URL = "https://signinprojecttechnigo.herokuapp.com/users/"
 
 const ProfileWrapper = styled.div`
@@ -25,17 +24,15 @@ export const Profile = ({ accsessToken }) => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const userId = useSelector((store) => store.user.login.userId);
-  const firstName = useSelector((store) => store.user.login.firstName);
   const secretMessage = useSelector((store) => store.user.login.secretMessage);
   const errorMessage = useSelector((store) => store.user.login.errorMessage);
 
-
   return (
     <ProfileWrapper>
-      <h1>Inloggad</h1>
       {errorMessage && <h4>Error Message : {`${errorMessage}`}</h4>}
       {secretMessage && <h4>Secret Message : {`${secretMessage}`}</h4>}
-      <h4> Välkommen att beställa blommor {`${firstName}`}</h4>
+      <h1>Inloggad</h1>
+      <h4> Välkommen att beställa blommor </h4>
       <Button type="submit" onClick={(e) => dispatch(logout())} value="Logga ut">Logga ut</Button>
     </ProfileWrapper>
   )

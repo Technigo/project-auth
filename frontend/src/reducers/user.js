@@ -72,7 +72,7 @@ export const login = (email, password) => {
         dispatch(user.actions.setUserId({ userId: json.userId }));
       })
       .catch((err) => {
-        dispatch(user.actions.logout());
+        dispatch(logout());
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
@@ -105,7 +105,7 @@ export const getSecretMessage = () => {
         );
       })
       .catch((err) => {
-        // const errorMessage = err;
+
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       }); //401
   };
@@ -115,6 +115,7 @@ export const logout = () => {
   return (dispatch) => {
     dispatch(user.actions.setSecretMessage({ secretMessage: null }));
     dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+    //ska vi ta bort denna alltså?
     dispatch(user.actions.setAccessToken({ accessToken: null }));
     dispatch(user.actions.setUserId({ userId: 0 }));
   };

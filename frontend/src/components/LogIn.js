@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import styled from "styled-components/macro"
 import { Profile } from "./Profile"
 import { useDispatch, useSelector } from 'react-redux';
-import { user, login } from "../reducers/user";
+import { user, login, logout } from "../reducers/user";
 
 const LOGIN_URL = "https://signinprojecttechnigo.herokuapp.com/sessions"
 
@@ -50,31 +50,40 @@ border: none;
 margin: 20px;
 `
 
+const LoginContainer = styled.div`
+background-color: #FDE7EA;
+padding: 20px;
+margin-bottom: 20px;
+width: 45%;
+`
+
 export const LogIn = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
+
 
   // To sign in a user.
   const handleLogin = (event) => {
     event.preventDefault();
-    dispatch(login(email, password, firstName));
+    dispatch(login(email, password));
   };
 
 
   if (!accessToken) {
     return (
       <>
-        <Form>
-          <Header>Logga in</Header>
-          <Label>Email</Label>
-          <Input type="text" required placeholder="dittnamn@gmail.com" value={email} onChange={(event) => setEmail(event.target.value)} />
-          <Label>Password</Label>
-          <Input type="password" required placeholder="********" value={password} onChange={(event) => setPassword(event.target.value)} />
-          <Button type="submit" onClick={handleLogin}>Logga in</Button>
-        </Form>
+        <LoginContainer>
+          <Form>
+            <Header>Logga in</Header>
+            <Label>Email</Label>
+            <Input type="text" required placeholder="dittnamn@gmail.com" value={email} onChange={(event) => setEmail(event.target.value)} />
+            <Label>Password</Label>
+            <Input type="password" required placeholder="********" value={password} onChange={(event) => setPassword(event.target.value)} />
+            <Button type="submit" onClick={handleLogin}>Logga in</Button>
+          </Form>
+        </LoginContainer>
       </>
     )
   } else {
