@@ -84,9 +84,9 @@ app.post('/users', async (req, res) => {
   }
 })
 
-// app.get('/secret', (req, res) => {
-//   res.json({secret: 'Hello world'})
-// })
+app.get('/secretmessage', (req, res) => {
+  res.json({messege: 'HEY!'})
+})
 
 app.get('/users/:id', authenticateUser);
 app.get('/users/:id', (req, res) => {

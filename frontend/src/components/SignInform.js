@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-
-import { Profile } from './Profile'
-
+import { useHistory } from 'react-router-dom'
 import { Article } from '../lib/FormStyle'
 import { From } from '../lib/FormStyle'
 import { Input } from '../lib/FormStyle'
@@ -13,13 +11,14 @@ const [signInUser, setsignInUser] = useState({
   password: ''
 })
 
+const history = useHistory()
 const [error, setError] = useState('')
 const [ success, setSuccess ] = useState('')
 
 const handleSubmit = event => {
 event.preventDefault()
 
-fetch("http://localhost:8080/sessions",
+fetch("https://project-auth-ebba-elin.herokuapp.com/sessions",
   {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -27,26 +26,26 @@ fetch("http://localhost:8080/sessions",
   }
 ).then(res => {
   if (!res.ok) {
-    error("Error")
+    throw new Error('Unable to sign in.')
   }
-  res.json()
-
+  res.json().then(data => {
+    if (data.notFound !== true) {
+      localStorage.setItem('accessToken', data.accessToken)
+      history.push('/secretmessage')
+    }
+  })
 })
-  .catch((err) => {
-    setError(err.message)
+.catch((err) => {
+  setError(err.message)
+})
+.then(() => {
+  setsignInUser({
+    email: '',
+    password: ''
   })
-  .then(() => {
-    setSuccess();
-    setsignInUser({
-      id: signInUser._id, accessToken: signInUser.accessToken,
-      email: '',
-      password: ''
-    })
-  })
+})
 }
 
-
-if (!signInUser.accessToken) {
 
 return (
 
@@ -80,15 +79,7 @@ return (
  
 
     </Article>
-
-
-
-)} else  {
-
-  return <Profile />
-
-}
-
+)
 } 
 
 

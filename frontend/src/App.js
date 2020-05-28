@@ -1,15 +1,22 @@
 import React from 'react'
-import { Card } from './components/Card'
+
+// components
+import { SignUpform } from './components/SignUpform'
+import { SignInform } from './components/SignInform'
+
+// lib
+import { Card } from './lib/Card'
 
 
 
 export const App = () => {
   return (
-    <div>
+    <Card>
 
-      <Card />
+           <SignUpform />
+           <SignInform  /> 
 
-    </div>
+    </Card>
   )
 }
 

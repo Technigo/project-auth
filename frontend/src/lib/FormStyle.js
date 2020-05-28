@@ -24,8 +24,5 @@ export const Input = styled.input`
 
    margin: 10px;
 
-   
-    
-
 
 `
