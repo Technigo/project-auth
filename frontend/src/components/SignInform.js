@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+
+import { SecretMessage } from './SecretMessage'
+
+// lib
 import { Article } from '../lib/FormStyle'
 import { From } from '../lib/FormStyle'
 import { Input } from '../lib/FormStyle'
@@ -11,12 +14,12 @@ const [signInUser, setsignInUser] = useState({
   password: ''
 })
 
-const history = useHistory()
 const [error, setError] = useState('')
 const [ success, setSuccess ] = useState('')
 
 const handleSubmit = event => {
 event.preventDefault()
+
 
 fetch("https://project-auth-ebba-elin.herokuapp.com/sessions",
   {
@@ -31,7 +34,6 @@ fetch("https://project-auth-ebba-elin.herokuapp.com/sessions",
   res.json().then(data => {
     if (data.notFound !== true) {
       localStorage.setItem('accessToken', data.accessToken)
-      history.push('/secretmessage')
     }
   })
 })
@@ -40,12 +42,14 @@ fetch("https://project-auth-ebba-elin.herokuapp.com/sessions",
 })
 .then(() => {
   setsignInUser({
+    id: signInUser._id, accessToken: signInUser.accessToken,
     email: '',
     password: ''
   })
 })
 }
 
+if (!signInUser.accessToken) {
 
 return (
 
@@ -73,16 +77,21 @@ return (
       >
       </Input>
 
-      <Input type="submit" value="Sign up"></Input>
+      <Input type="submit" value="Sign in"></Input>
 
       </From>
  
+    
 
     </Article>
+
 )
-} 
+} else {
 
+  return <SecretMessage />;
+}
 
+}
 
 
 
