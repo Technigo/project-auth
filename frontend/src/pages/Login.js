@@ -17,6 +17,7 @@ export const Login = props => {
   const [password, setPassword] = useState()
   const [errorMessage, setErrorMessage] = useState()
   const [accessToken, setAccessToken] = useState()
+  const [failedLogin, setFailedLogin] = useState(false)
 
   const handleLogIn = event => {
     event.preventDefault()
@@ -29,7 +30,8 @@ export const Login = props => {
       })
         .then((res) => {
           if (!res.ok) {
-            throw 'Could not log in, please try again.'
+            throw 'Could not log in, please try again.',
+            setFailedLogin(true)
           }
           return res.json()
         })
@@ -44,7 +46,8 @@ export const Login = props => {
   return (
     <Container>
       <Form onSubmit={handleLogIn}>
-        <H1>Log in fellow seeker!</H1>
+        {!failedLogin && <H1>Log in fellow seeker!</H1>}
+        {failedLogin && <H1>Fellow seeker, try again! Something was amiss...</H1>}
         <label>
           <Input
             type='text'

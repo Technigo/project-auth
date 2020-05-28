@@ -28,7 +28,8 @@ export const SignUp = () => {
       })
       .then((res) => {
         if (!res.ok) {
-          throw 'Could not create account, please try again with different username.'
+          throw 'Could not create account, please try again with different username.',
+          setFailedSignUp(true)
         }
         return res.json()
       })
@@ -42,7 +43,8 @@ export const SignUp = () => {
   return (
     <Container>
     <Form onSubmit={handleSubmit}>
-      <H1>Sign Up, oh brave one!</H1>
+      {!failedSignUp && <H1>Sign Up, oh brave one!</H1>}
+      {failedSignUp && <H1>Oh brave one, try again! Use another name or email!</H1>}
       <Input
         type='text'
         value={name}
