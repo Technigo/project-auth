@@ -34,7 +34,7 @@ fetch("https://project-auth-ebba-elin.herokuapp.com/sessions",
   res.json().then(data => {
     if (data.notFound !== true) {
       localStorage.setItem('accessToken', data.accessToken),
-      history.push('/secretmessage')
+      history.push('/SecretMessage')
     }
   })
 })
