@@ -26,5 +26,5 @@ export const Secret = () => {
 
 const Image = styled.img`
   width: 100%;
-  haight: auto;
+  height: auto;
   `

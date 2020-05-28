@@ -36,7 +36,7 @@ app.use(bodyParser.json())
 
 const authenticateUser = async (req , res, next) => {
   try {
-    const user = User.findOne({
+    const user = await User.findOne({
       accessToken: req.header('Authorization'),
     })
     if (user) {
@@ -71,7 +71,7 @@ app.post('/users', async (req, res) => {
 })  
 
 app.get('/secret', authenticateUser)
-app.get('/secret', async (req, res) => {
+app.get('/secret', (req, res) => {
   res.status(200).json({ secret: 'This is a super secret secret' })
 })
 

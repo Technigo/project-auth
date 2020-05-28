@@ -13,7 +13,8 @@ export const SignUp = () => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const [accessToken, setAccessToken] = useState()
-  const [errorMessage, serErrorMessage] = useState()
+  const [signedUp, setSignedUp] = useState(false)
+  const [failedSignUp, setFailedSignUp] = useState(false)
   const history = useHistory()
 
   const handleSubmit = event => {
@@ -24,13 +25,19 @@ export const SignUp = () => {
         method: 'POST',
         body: JSON.stringify({ name, email, password }),
         headers: { 'Content-Type': 'application/json' }
-      }
-    ).then((res) => res.json())
-    .then((userData) => {
-      console.log(userData)
-      history.push('/secret')
-    })
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw 'Could not create account, please try again with different username.'
+        }
+        return res.json()
+      })
+      .then((json) => {
+       console.log(json)
+       history.push('/secret')
+  })
   }
+    
 
   return (
     <Container>
