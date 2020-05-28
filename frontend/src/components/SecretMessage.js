@@ -41,7 +41,7 @@ export const SecretMessage = () => {
             hej
            </div>
 
-           <Input onClick={handleSignOut} type="submit" value="Sign out"></Input>
+           <input onClick={handleSignOut} type="submit" value="Sign out"></input>
     
     </section>
   )
