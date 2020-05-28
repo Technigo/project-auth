@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { user, login } from './reducers/user';
 import { Profile } from 'Profile.js';
 
-//const URL = 'https://localhost:8080/users';
-const URL = 'https://project-authorize.herokuapp.com/users';
+const URL = 'http://localhost:8080/users';
+// const URL = 'https://project-authorize.herokuapp.com/users';
 
 export const SignUp = () => {
   const dispatch = useDispatch();
@@ -84,7 +84,7 @@ export const SignUp = () => {
                 onChange={(event) => setPassword(event.target.value)}
               />
             </label>
-            <button type='submit' onClick={handleSignup}>
+            <button type='submit' onClick={e => dispatch(handleSignup(e))}>
               SIGN UP
             </button>
             <button type='submit' onClick={handleLogin}>
@@ -94,8 +94,11 @@ export const SignUp = () => {
         )}
         {showSummary && <p>You are now signed up {name}</p>}
         {errorMessage && <h1>{errorMessage}</h1>}
-        <Profile />
       </div>
     );
+  } else {
+    return (
+      <Profile />
+    )
   }
 };
