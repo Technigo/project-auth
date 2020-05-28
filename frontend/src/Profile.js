@@ -13,7 +13,6 @@ export const Profile = () => {
     <div>
       {errorMessage && <h4>Error Message : {`${errorMessage}`}</h4>}
       {loginMessage && <h4>Secret Message : {`${loginMessage}`}</h4>}
-      <p>profilepage</p>
       <p>Lots of secret stuff here</p>
       <button type='submit' onClick={(e) => dispatch(logout())}>
         LOG OUT

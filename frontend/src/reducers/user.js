@@ -43,8 +43,8 @@ export const user = createSlice({
 });
 
 export const login = (name, password) => {
-  const LOGIN_URL = 'http://localhost:8080/sessions';
-  // const LOGIN_URL = 'https://project-authorize.herokuapp.com/sessions';
+  //const LOGIN_URL = 'http://localhost:8080/sessions';
+  const LOGIN_URL = 'https://project-authorize.herokuapp.com/sessions';
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: 'POST',
@@ -73,8 +73,8 @@ export const login = (name, password) => {
 };
 
 export const getLoginMessage = () => {
-  const USERS_URL = 'http://localhost:8080/users';
-  // const USERS_URL = 'https://project-authorize.herokuapp.com/users';
+  // const USERS_URL = 'http://localhost:8080/users';
+  const USERS_URL = 'https://project-authorize.herokuapp.com/users';
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
