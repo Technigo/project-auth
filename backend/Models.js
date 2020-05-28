@@ -5,7 +5,8 @@ export const User = mongoose.model('User', {
   name: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    collation: { locale: 'en_US', strength: 2 }
   },
   email: {
     type: String,

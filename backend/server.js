@@ -36,10 +36,15 @@ const authenticateUser = async ( req, res, next ) => {
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body
-    const duplicateEmail = await User.findOne({ email: email})
+    const duplicateEmail = await User.findOne({ email: email}).collation({ locale: "en_US", strength: 1 })
+    const duplicateUser = await User.findOne({ name: name}).collation({ locale: "en_US", strength: 1 })
     
     if (duplicateEmail) {
       throw {code: 12000}
+    }
+
+    if (duplicateUser) {
+      throw {code: 11000}
     }
 
     const user = new User({name, email, password: bcrypt.hashSync(password)})
