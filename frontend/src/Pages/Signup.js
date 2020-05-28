@@ -12,12 +12,13 @@ export const Signup = () => {
   const [confirmedPassword, setConfirmedPassword] = useState()
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
- 
+  
   const handleSubmit = async (event) => {
     event.preventDefault()
     setError(false)
     setErrorMessage("")
-
+    
+    
     if (password !== confirmedPassword) {
       setErrorMessage("Passwords do not match")
       setError(true)
@@ -59,7 +60,7 @@ export const Signup = () => {
 
       <form onSubmit={(event) => handleSubmit(event)}>
         <label for="username">
-          Username:
+          Username: {errorMessage.includes("User", "user") && < ErrorMessage errorMessage={errorMessage}/>}
         </label>
 
         <input
@@ -71,7 +72,7 @@ export const Signup = () => {
         </input>
 
         <label for="email">
-          E-mail:
+          E-mail: {errorMessage.includes("Email", "email") && < ErrorMessage errorMessage={errorMessage}/>}
         </label>
 
         <input
@@ -83,7 +84,7 @@ export const Signup = () => {
         </input>
 
         <label for="password">
-          Password:
+          Password: {errorMessage.includes("Passwords", "passwords") && < ErrorMessage errorMessage={errorMessage}/> }
         </label>
 
         <input
@@ -106,10 +107,6 @@ export const Signup = () => {
           id="confirmed-password"
           required>
         </input>
-
-        {error &&
-          < ErrorMessage errorMessage={errorMessage}  />       
-        }
 
           <button type="submit"> 
             Create user  

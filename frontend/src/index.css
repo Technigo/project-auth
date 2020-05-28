@@ -44,6 +44,11 @@ form {
   background-color: ghostwhite;
 }
 
+.error-message {
+  font-size: 14px;
+  color: red;
+}
+
 label {
   font-weight: 600;
 }
