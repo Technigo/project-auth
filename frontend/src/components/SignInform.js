@@ -16,7 +16,6 @@ const [signInUser, setsignInUser] = useState({
 })
 const history = useHistory()
 const [error, setError] = useState('')
-const [ success, setSuccess ] = useState('')
 
 const handleSubmit = event => {
 event.preventDefault()
@@ -34,8 +33,8 @@ fetch("https://project-auth-ebba-elin.herokuapp.com/sessions",
   }
   res.json().then(data => {
     if (data.notFound !== true) {
-      localStorage.setItem('accessToken', data.accessToken)
-      history.push('/SecretMessage')
+      localStorage.setItem('accessToken', data.accessToken),
+      history.push('/secretmessage')
     }
   })
 })
