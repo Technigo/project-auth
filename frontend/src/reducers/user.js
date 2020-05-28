@@ -106,28 +106,28 @@ export const logout = () => {
 }
 
 
-export const getSecretMessage = () => {
-  const USERS_URL = 'https://authentication-jj.herokuapp.com/users'
-  return (dispatch, getState) => {
-    const accessToken = getState().user.login.accessToken
-    const userId = getState().user.login.userId
-    fetch(`${USERS_URL}/${userId}/secret`, {
-      method: 'GET',
-      // Include the accessToken to get the protected endpoint
-      headers: { Authorization: accessToken },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-        }
-        throw 'Could not get information. Make sure you are logged in and try again.'
-      })
-      // SUCCESS: Do something with the information we got back
-      .then((json) => {
-        dispatch(user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) }))
-      })
-      .catch((err) => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }))
-      })
-  }
-}
+// export const getSecretMessage = () => {
+//   const USERS_URL = 'https://authentication-jj.herokuapp.com/users'
+//   return (dispatch, getState) => {
+//     const accessToken = getState().user.login.accessToken
+//     const userId = getState().user.login.userId
+//     fetch(`${USERS_URL}/${userId}/secret`, {
+//       method: 'GET',
+//       // Include the accessToken to get the protected endpoint
+//       headers: { Authorization: accessToken },
+//     })
+//       .then((res) => {
+//         if (res.ok) {
+//           return res.json()
+//         }
+//         throw 'Could not get information. Make sure you are logged in and try again.'
+//       })
+//       // SUCCESS: Do something with the information we got back
+//       .then((json) => {
+//         dispatch(user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) }))
+//       })
+//       .catch((err) => {
+//         dispatch(user.actions.setErrorMessage({ errorMessage: err }))
+//       })
+//   }
+// }

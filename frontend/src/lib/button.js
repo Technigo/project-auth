@@ -17,8 +17,9 @@ const ButtonInput = styled.button`
     color: white;
   }
 `
-const InputButton = styled.input`
+export const InputButton = styled.input`
   margin-top: 0;
+  padding: 0.5em 1.5em;
   color: #4f4f4f;
   text-align: center;
   font-size: 1.2em;
@@ -33,6 +34,10 @@ const InputButton = styled.input`
   } 
 `
 
+export const ProfileImg = styled.img`
+  border-radius: 6px;
+`
+
 export const Button = ({ title }) => {
   return (
     <ButtonInput>
@@ -41,12 +46,10 @@ export const Button = ({ title }) => {
   )
 }
 
-export const TestButton = ({ title }) => {
-  return (
-    <>
-      <InputButton>
-        {title}
-      </InputButton>
-    </>
-  )
-}
+// export const TestButton = ({ title }) => {
+//   return (
+//     <InputButton>
+//       {title}
+//     </InputButton>
+//   )
+// }
