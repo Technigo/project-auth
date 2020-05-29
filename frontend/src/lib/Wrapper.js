@@ -4,8 +4,9 @@ export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 100px;
-    justify-content: center;
+    align-items: center;
     @media (min-width: 768px) {
+        align-items: center;
         flex-direction: row;
       
 }
