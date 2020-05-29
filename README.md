@@ -1,13 +1,9 @@
-# Project Auth
+This project is about authentication, allowing user sign up and log in.
 
-Replace this readme with your own information about your project.
+A user can sign up with a unique username and email, its details will be stored in the database and the frontend will then fetch the information and authenticate the user before he/she is allowed to see information only for logged in users.
+We used Node.js, Express and MongoDb for the backend and React and Redux for the frontend.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+We did this project through pair programming and used the live share in VSCode.
 
-## The problem
-
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
-
-## View it live
-
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Link to frontend: https://hopeful-hugle-60d31d.netlify.app/
+Link to API: https://project-authorize.herokuapp.com/
