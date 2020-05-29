@@ -10,4 +10,4 @@ This project is about building an API with authentication to implement a registr
 ## View it live
 
 Backend: https://auth-project-technigo.herokuapp.com/
-Frontend: https://reverent-wilson-5ba684.netlify.app/
+Frontend: https://upbeat-swirles-48de47.netlify.app/
