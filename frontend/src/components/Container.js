@@ -5,9 +5,10 @@ export const Container = styled.section `
   display: flex;
   jystify-content: center;
   align-items: center;
-  width: 80%;
+  width: 60%;
   flex-direction: column;
   padding: 20px;
   font-size: 30px;
-  background-color: whitesmoke;
+  background-color: rgba(0,0,0,0.4);
+  margin-top: 100px;
 `
