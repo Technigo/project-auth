@@ -48,9 +48,7 @@ Authenticated Endpoint: {"secretMessage":"This is a super secret message for Use
 2. /secrets med felaktig Token
 - får 401 Unauthorized + "message": "Please try logging in again"
 - Borde få:
-res.status(403).json({ message: 'Access token is missing or wrong'
-##### Fast det är ändå lite ok - får ju ett error ändå..
-  funkar✅
+res.status(403).json({ message: 'Access token is missing or wrong' funkar✅
 
 
 ## Oklar status:
