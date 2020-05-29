@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 
 // lib
 import { Article } from '../lib/FormStyle'
-import { From } from '../lib/FormStyle'
+import { Form } from '../lib/FormStyle'
 import { Input } from '../lib/FormStyle'
 
 export const SignInform = () => {

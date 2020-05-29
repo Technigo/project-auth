@@ -1,7 +1,7 @@
 import React, { useState  } from 'react'
 
 import { Article } from '../lib/FormStyle'
-import { From } from '../lib/FormStyle'
+import { Form } from '../lib/FormStyle'
 import { Input } from '../lib/FormStyle'
 
 
