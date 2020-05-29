@@ -9,6 +9,7 @@ export const Article = styled.div`
     flexwrap: wrap;
     border: solid 2px black;
     margin: 10px;
+    justify-content: space-evenly;
     @media (min-width: 768px) {
         width: 400px;
         height: 300px; 
@@ -17,7 +18,6 @@ export const Article = styled.div`
 export const From = styled.form`
     margin: 10px;
     width: 200px
- 
 `
 
 
