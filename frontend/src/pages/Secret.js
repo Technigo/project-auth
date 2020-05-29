@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
-const URL = 'http://localhost:8080/secrets';
+const URL = 'https://project-w20-auth-api.herokuapp.com/secrets';
 
 export const Secret = () => {
   const dispatch = useDispatch();

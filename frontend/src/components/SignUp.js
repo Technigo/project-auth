@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../reducers/user';
 import styled from 'styled-components/macro';
 
-const SIGNUP_URL = "http://localhost:8080/users";
+const SIGNUP_URL = "https://project-w20-auth-api.herokuapp.com/users";
 
 export const SignUp = () => {
   const dispatch = useDispatch();

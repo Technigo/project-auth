@@ -4,7 +4,7 @@ import { user, logout } from '../reducers/user';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
-const LOGIN_URL = "http://localhost:8080/sessions";
+const LOGIN_URL = "https://project-w20-auth-api.herokuapp.com/sessions";
 
 export const LogIn = () => {
   const dispatch = useDispatch();
