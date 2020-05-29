@@ -48,7 +48,7 @@ export const SignUpform = () => {
 
         <Article>
 
-          <From onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
          
           <h1>Sign up here</h1>
 
@@ -81,7 +81,7 @@ export const SignUpform = () => {
           <Input type="submit" value="Sign up" onClick={handleSubmit}></Input>
           {error && <p>{error}</p>}
 
-          </From>
+          </Form>
      
 
         </Article>

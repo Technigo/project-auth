@@ -51,7 +51,7 @@ return (
 
     <Article>
 
-      <From onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
      
       <h1>Sign in</h1>
 
@@ -75,7 +75,7 @@ return (
 
       <Input type="submit" value="Sign in"></Input>
       {error && <p>{error}</p>}
-      </From>
+      </Form>
  
     
 

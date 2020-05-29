@@ -15,7 +15,7 @@ export const Article = styled.div`
         height: 300px; 
 `
 
-export const From = styled.form`
+export const Form = styled.form`
     margin: 10px;
     width: 200px
 `
