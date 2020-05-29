@@ -13,9 +13,8 @@ export const Secret = () => {
       dispatch(user.actions.saveAccesToken({accessToken: null}))
     )
   }
-
   useEffect(() => {
-    fetch("http://localhost:8080/secrets", {
+    fetch("https://camilla-and-viktorias-secret.herokuapp.com/secrets", {
       headers: {
         Authorization: accessToken
       }
