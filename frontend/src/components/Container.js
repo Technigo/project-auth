@@ -10,5 +10,5 @@ export const Container = styled.section `
   padding: 20px;
   font-size: 30px;
   background-color: rgba(0,0,0,0.4);
-  margin-top: 100px;
+  margin-top: 100px;  
 `

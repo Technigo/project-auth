@@ -1,5 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router'
+import { Button } from 'components/Form'
 
 
 export const LogOut = () => {
@@ -9,7 +10,7 @@ export const LogOut = () => {
     localStorage.clear()
     history.push('/')
   }
-  return <button onClick={()=> handleLogOut()}>Log out</button>
+  return <Button onClick={()=> handleLogOut()}>Log out</Button>
   
 }
 

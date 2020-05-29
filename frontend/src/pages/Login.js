@@ -7,8 +7,8 @@ import { H1 } from 'components/TextStyles'
 //import { Input } from 'components/Input'
 //import { Button } from '../components/Form/Button'
 
-const URL_SIGNUP = 'http://localhost:8080/sessions'
-//const URL_SIGNUP = 'https://week20-auth-app.herokuapp.com/'
+const URL_LOGGIN = 'https://week20-auth-app.herokuapp.com/sessions'
+//const URL_LOGGN = 'http://localhost:8080/sessions'
 
 export const Login = props => {
   const history = useHistory()
@@ -21,7 +21,7 @@ export const Login = props => {
   const handleLogIn = event => {
     event.preventDefault()
 
-    fetch(URL_SIGNUP,
+    fetch(URL_LOGGIN,
       {
         method: 'POST',
         body: JSON.stringify({ name, password }),

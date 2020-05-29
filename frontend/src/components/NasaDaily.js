@@ -27,4 +27,5 @@ export const NasaDaily = () => {
 const Image = styled.img`
   width: 100%;
   height: auto;
+  z-index: 5;
   `

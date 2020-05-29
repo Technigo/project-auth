@@ -4,7 +4,8 @@ import { LogOut } from 'components/LogOut'
 import { Container } from 'components/Container'
 import { H1 } from 'components/TextStyles'
 
-const URL_SECRET = 'http://localhost:8080/secret'
+const URL_SECRET = 'https://week20-auth-app.herokuapp.com/secret'
+// const URL_SECRET = 'http://localhost:8080/secret'
 
 export const Secret = () => {
   const accessToken = localStorage.getItem('accessToken')
