@@ -3,8 +3,8 @@ import styled from 'styled-components/macro'
 
 export const Card = styled.div`
 
-    width: 800px;
-    height: 400px;
+    width: 900px;
+    height: 600px;
     background-color: white;
     display: flex;
     flexdirection: row;
