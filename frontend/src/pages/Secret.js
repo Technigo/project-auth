@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { NasaDaily } from 'components/NasaDaily'
+import { LogOut } from 'components/LogOut'
 import { Container } from 'components/Container'
 import { H1 } from 'components/TextStyles'
-
-
 
 const URL_SECRET = 'http://localhost:8080/secret'
 
@@ -23,6 +22,7 @@ export const Secret = () => {
   return (
     <Container>
       <H1>Very welcome seeker {message}!</H1>
+      <LogOut />
       <NasaDaily />
     </Container>
   )
