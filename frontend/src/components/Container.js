@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.section `
   border: solid 2px black;
+  border-radius: 25px;
   display: flex;
   jystify-content: center;
   align-items: center;

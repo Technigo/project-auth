@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { H1, P } from 'components/TextStyles'
+import { H2, P } from 'components/TextStyles'
 
 
 const nasaApi = 'https://api.nasa.gov/planetary/apod?api_key=08iR4WWfCjNzN30nufKyaR5LGHFjgXgynks7MDcF'
@@ -17,7 +17,7 @@ export const NasaDaily = () => {
 
   return (
     <div>
-      <H1>{nasa.title}</H1>
+      <H2>{nasa.title}</H2>
       <Image src={nasa.url} />
       <P>{nasa.explanation}</P>
     </div>

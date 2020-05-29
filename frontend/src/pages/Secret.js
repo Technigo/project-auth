@@ -23,8 +23,8 @@ export const Secret = () => {
   return (
     <Container>
       <H1>Very welcome seeker {message}!</H1>
-      <LogOut />
       <NasaDaily />
+      <LogOut />
     </Container>
   )
 }

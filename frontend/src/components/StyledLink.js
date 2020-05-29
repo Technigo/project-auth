@@ -5,7 +5,8 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   border: solid 1px black;
   border-radius: 25px;
-  color: black;
+  color: white;
+  background-color: rgba(0,0,0,0.4);
   padding: 15px;
   font-size: 30px;
   font-weight: bold;
