@@ -34,10 +34,13 @@ export const Login = props => {
           }
           return res.json()
         })
-        .then((json) => {
-          console.log(json)
-          history.push('/secret')
-        })
+      .then(({ accessToken }) => {
+        if (accessToken) {
+          localStorage.setItem('accessToken', accessToken)
+        }
+      }).then(() => {
+        history.push('/secret')
+      })
   }
 
 

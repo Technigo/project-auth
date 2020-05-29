@@ -16,28 +16,30 @@ export const SignUp = () => {
   const [failedSignUp, setFailedSignUp] = useState(false)
   const history = useHistory()
 
-  const handleSubmit = event => {
+  const handleSubmit = event => {//a+
     event.preventDefault()
 
-    fetch(URL_SIGNUP,
+    fetch(URL_SIGNUP, 
       {
         method: 'POST',
         body: JSON.stringify({ name, email, password }),
         headers: { 'Content-Type': 'application/json' }
-      })
-      .then((res) => {
-        if (!res.ok) {
+      }) 
+      .then(res => { 
+        if (!res.ok) { 
           throw 'Could not create account, please try again with different username.',
           setFailedSignUp(true)
-        }
+        } 
         return res.json()
+      }) 
+      .then(({accessToken}) => { 
+        if (accessToken) { 
+          localStorage.setItem('accessToken', accessToken)
+        }
+      }).then(() => {
+        history.push('/secret')
       })
-      .then((json) => {
-       console.log(json)
-       history.push('/secret')
-  })
   }
-    
 
   return (
     <Container>

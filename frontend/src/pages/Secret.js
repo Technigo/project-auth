@@ -1,33 +1,29 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import { NasaDaily } from 'components/NasaDaily'
 import { Container } from 'components/Container'
-import { H1, P } from 'components/TextStyles'
+import { H1 } from 'components/TextStyles'
 
-
-const nasaApi = 'https://api.nasa.gov/planetary/apod?api_key=08iR4WWfCjNzN30nufKyaR5LGHFjgXgynks7MDcF'
 
 
 const URL_SECRET = 'http://localhost:8080/secret'
 
 export const Secret = () => {
-  const [nasa, setNasa] = useState([])
+  const accessToken = localStorage.getItem('accessToken')
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
-    fetch(nasaApi)
-      .then((res) => res.json())
-      .then((json) => setNasa(json))
+    fetch(URL_SECRET, {
+      method: 'GET',
+      headers: { 'Authorization': accessToken }
+    })
+      .then(res => res.json())
+      .then(json => setMessage(json.name))
   }, [])
-
+ 
   return (
     <Container>
-      <H1>{nasa.title}</H1>
-      <Image src={nasa.url} />
-      <P>{nasa.explanation}</P>
+      <H1>Very welcome seeker {message}!</H1>
+      <NasaDaily />
     </Container>
   )
 }
-
-const Image = styled.img`
-  width: 100%;
-  height: auto;
-  `

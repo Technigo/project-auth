@@ -72,7 +72,7 @@ app.post('/users', async (req, res) => {
 
 app.get('/secret', authenticateUser)
 app.get('/secret', (req, res) => {
-  res.status(200).json({ secret: 'This is a super secret secret' })
+  res.status(200).json({ name: req.user.name })
 })
 
 app.post('/sessions', async (req, res) => {
