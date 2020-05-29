@@ -6,7 +6,7 @@ export const Container = styled.section `
   display: flex;
   jystify-content: center;
   align-items: center;
-  width: 60%;
+  width: 80%;
   flex-direction: column;
   padding: 20px;
   font-size: 30px;

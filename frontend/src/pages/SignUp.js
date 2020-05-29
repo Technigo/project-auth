@@ -1,22 +1,19 @@
 import React, {useState} from 'react'
 import { useHistory } from 'react-router'
-import { Container } from '../components/Container'
-import { Form, Button, Input} from '../components/Form'
-import { H1 } from '../components/TextStyles'
+import { Container } from 'components/Container'
+import { Form, Button, Input} from 'components/Form'
+import { H1 } from 'components/TextStyles'
 
-//const URL_SIGNUP = 'http://localhost:8080/users'
 const URL_SIGNUP = 'https://week20-auth-app.herokuapp.com/users'
 
 export const SignUp = () => {
   const [name, setName] = useState()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
-  // const [accessToken, setAccessToken] = useState()
-  // const [signedUp, setSignedUp] = useState(false)
   const [failedSignUp, setFailedSignUp] = useState(false)
   const history = useHistory()
 
-  const handleSubmit = event => {//a+
+  const handleSubmit = event => {
     event.preventDefault()
 
     fetch(URL_SIGNUP, 

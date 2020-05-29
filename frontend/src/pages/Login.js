@@ -4,18 +4,13 @@ import { useHistory } from 'react-router'
 import { Form, Input, Button } from 'components/Form'
 import { Container } from 'components/Container'
 import { H1 } from 'components/TextStyles'
-//import { Input } from 'components/Input'
-//import { Button } from '../components/Form/Button'
 
 const URL_LOGGIN = 'https://week20-auth-app.herokuapp.com/sessions'
-//const URL_LOGGN = 'http://localhost:8080/sessions'
 
 export const Login = props => {
   const history = useHistory()
   const [name, setName] = useState()
   const [password, setPassword] = useState()
-  const [errorMessage, setErrorMessage] = useState()
-  // const [accessToken, setAccessToken] = useState()
   const [failedLogin, setFailedLogin] = useState(false)
 
   const handleLogIn = event => {
@@ -43,7 +38,6 @@ export const Login = props => {
       })
   }
 
-
   return (
     <Container>
       <Form onSubmit={handleLogIn}>
@@ -53,17 +47,17 @@ export const Login = props => {
             type='text'
             value={name}
             placeholder='name'
-            onChange={event => setName(event.target.value)}
             required
+            onChange={event => setName(event.target.value)}
           />
           <Input
             type='password'
             value={password}
-            placeholder="password"
+            placeholder='password'
             required
             onChange={event => setPassword(event.target.value)} />
         <Button
-          type="submit"
+          type='submit'
           onClick={handleLogIn}>
           Submit
         </Button>
