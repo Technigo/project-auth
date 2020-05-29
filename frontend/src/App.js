@@ -8,6 +8,7 @@ import {  SecretMessage } from './components/SecretMessage'
 
 // lib
 import { Card } from './lib/Card'
+import { Wrapper } from './lib/Wrapper'
 
 
 
@@ -17,6 +18,7 @@ export const App = () => {
     <BrowserRouter>
     <Switch>
     <Card>
+    <Wrapper>
 
     <Route path="/" exact>
            <SignUpform />
@@ -27,6 +29,7 @@ export const App = () => {
           <SecretMessage />
     </Route>
 
+    </Wrapper>
     </Card>
     </Switch>
     </BrowserRouter>
