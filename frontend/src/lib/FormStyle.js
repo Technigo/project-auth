@@ -9,7 +9,7 @@ export const Article = styled.div`
     flexwrap: wrap;
     border: solid 2px black;
     margin: 10px;
-    justify-content: space-evenly;
+    background-color: #CBD4EA;
     @media (min-width: 768px) {
         width: 400px;
         height: 300px; 
