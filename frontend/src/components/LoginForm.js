@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { user } from '../reducers/user';
 import './loginform.css'
 
-const BASE_URL = "https://technigo-authorize.herokuapp.com"
+const BASE_URL = "http://localhost:8080"
 const USERS_URL = `${BASE_URL}/users`;
 const SESSION_URL = `${BASE_URL}/sessions`;
 
