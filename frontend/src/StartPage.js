@@ -14,14 +14,14 @@ const store = configureStore({ reducer });
 
 
 const StyledContainer = styled.div`
-background-color: none;
-border: #0000 solid 2px;
-padding: 20px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-width: 100%;
+  background-color: none;
+  border: #0000 solid 2px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 `
 
 
