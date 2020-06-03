@@ -1,9 +1,10 @@
 import React, { useState } from "react"
 import styled from "styled-components/macro"
-import { user, userId, logout, setErrorMessage } from "../reducers/user"
+import { user, userId, logout } from "../reducers/user"
 import { useDispatch, useSelector } from 'react-redux'
 
-//Ska denna vara sessions istället? 
+//vilken ska det vara här, userId funkar inte
+// const URL = `https://signinprojecttechnigo.herokuapp.com/users/${userId}`
 const URL = "https://signinprojecttechnigo.herokuapp.com/users/"
 
 const ProfileWrapper = styled.div`
