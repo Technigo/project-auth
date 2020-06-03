@@ -100,8 +100,7 @@ export const getSecretMessage = () => {
       // SUCCESS: Do something with the information we got back
       .then((json) => {
         dispatch(
-          user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) }),
-        );
+          user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) }));
       })
       .catch((err) => {
 
