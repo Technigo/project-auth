@@ -42,10 +42,6 @@ const User = mongoose.model('User', {
   city: {
     type: String,
     required: false
-  },
-  phoneNumber: {
-    type: Number,
-    required: false
   }
 })
 
@@ -87,7 +83,6 @@ app.post('/users', async (req, res) => {
     const { firstName, lastName, email, password, address, zipCode, city, phoneNumber } = req.body;
     const user = new User({ firstName, lastName, email, address, zipCode, city, phoneNumber, password: bcrypt.hashSync(password) });
     const saved = await user.save();
-    delete saved.password
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (err) {
     res.status(400).json({ message: 'Could not create user', errors: err.errors });
@@ -97,9 +92,9 @@ app.post('/users', async (req, res) => {
 //autenticate user 
 app.get('/users/:id', authenticateUser)
 app.get('/users/:id', (req, res) => {
-  res.status(201).json({ email: req.user.email, userId: req.user._id, message: "This is a top secret message" })
-  // res.json({ message: "This is a top secret message" }); Här ska vi använda detta istället verkar det som
+  res.status(201).json({ secretMessage: "Välkommen att beställa" })
 })
+
 
 //sign in 
 app.post('/sessions', async (req, res) => {
