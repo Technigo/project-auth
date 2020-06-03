@@ -19,8 +19,8 @@ const Header = styled.h1`
 `
 
 const Text = styled.p`
- font-size: 26px;
- width: 100%;
+  font-size: 26px;
+  width: 100%;
 `
 
 export const MemberPage = () => {
@@ -76,7 +76,7 @@ export const MemberPage = () => {
   } else {
     return (
       <Section>
-        <h2>{error} </h2>
+        <h2>{error}</h2>
         <Button title='Back to Login' onClick={backToLogin} />
       </Section>
 

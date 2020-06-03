@@ -62,7 +62,7 @@ export const Login = () => {
           throw new Error('Could not find your user.')
         }
         res.json().then(data => {
-          if (data.notFound !== true) {
+          if (data.accessToken) {
             localStorage.setItem('accessToken', data.accessToken)
             history.push('/MemberPage')
              

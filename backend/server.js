@@ -16,10 +16,12 @@ const User = mongoose.model('User', {
   },
   email: {
     type: String,
-    unique: true
+    unique: true,
+    required: true
   },
   password: {
     type: String,
+    minlength: 6,
     required: true
   },
   accessToken: {
@@ -28,7 +30,6 @@ const User = mongoose.model('User', {
   }
 })
 
-//Ev. andra error-koder nedan
 const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ accessToken: req.header('Authorization') })
@@ -66,7 +67,7 @@ app.post('/users', async (req, res) => {
     const { name, email, password } = req.body
     //Does not store plain text password
     const user = new User({ name, email, password: bcrypt.hashSync(password) })
-    const newUser = await user.save()
+    await user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
   } catch (err) {
     res.status(400).json({ message: 'Could not create user.', errors: err.errors })
@@ -82,14 +83,15 @@ app.get('/secrets', (req, res) => {
 // Login existing user
 app.post('/sessions', async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email })
-    if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    const { email, password } = req.body
+    const user = await User.findOne({ email })
+    if (user && bcrypt.compareSync(password, user.password)) {
       res.json({ userId: user._id, accessToken: user.accessToken })
     } else {
-      res.status(404).json({ notFound: true })
+      res.status(404).json({ message: 'Could not login in.'})
     }
   } catch (err) {
-    res.status(404).json({ notFound: true })
+    res.status(404).json({ message: 'Could not login.', errors: err.errors })
   }
 })
 
