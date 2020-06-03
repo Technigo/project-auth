@@ -97,7 +97,8 @@ app.post('/users', async (req, res) => {
 //autenticate user 
 app.get('/users/:id', authenticateUser)
 app.get('/users/:id', (req, res) => {
-  res.status(201).json({ email: req.user.email, userId: req.user._id })
+  res.status(201).json({ email: req.user.email, userId: req.user._id, message: "This is a top secret message" })
+  // res.json({ message: "This is a top secret message" }); Här ska vi använda detta istället verkar det som
 })
 
 //sign in 

@@ -86,7 +86,7 @@ export const getSecretMessage = () => {
     const firstName = getState().user.login.firstName;
     const lastName = getState().user.login.lastName;
     // Include userId in the path
-    fetch(`${USERS_URL}/${userId}/users`, {
+    fetch(`${USERS_URL}/${userId}`, {
       method: 'GET',
       // Include the accessToken to get the protected endpoint
       headers: { Authorization: accessToken },
@@ -101,7 +101,6 @@ export const getSecretMessage = () => {
       .then((json) => {
         dispatch(
           user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) }),
-          // user.actions.setFirstName({ firstName: JSON.stringify(json) })
         );
       })
       .catch((err) => {
@@ -115,7 +114,6 @@ export const logout = () => {
   return (dispatch) => {
     dispatch(user.actions.setSecretMessage({ secretMessage: null }));
     dispatch(user.actions.setErrorMessage({ errorMessage: null }));
-    //ska vi ta bort denna alltså?
     dispatch(user.actions.setAccessToken({ accessToken: null }));
     dispatch(user.actions.setUserId({ userId: 0 }));
   };
