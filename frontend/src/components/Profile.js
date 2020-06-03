@@ -31,7 +31,7 @@ export const Profile = ({ accsessToken }) => {
   return (
     <ProfileWrapper>
       <h1>Inloggad</h1>
-      {secretMessage && <h4>Secret Message : {`${secretMessage}`}</h4>}
+      {secretMessage && <h4> {`${secretMessage}`}</h4>}
       {console.log({ secretMessage })}
       <Button type="submit" onClick={(e) => dispatch(logout())} value="Logga ut">Logga ut</Button>
     </ProfileWrapper>
