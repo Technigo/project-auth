@@ -4,11 +4,13 @@ import crypto from 'crypto'
 export const User = mongoose.model('User', {
   name: {
     type: String,
-    unique: true
+    unique: true,
+    minlength: 3
   },
   email: {
     type: String,
-    unique: true
+    unique: true,
+    required: true
   },
   password: {
     type: String,

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { LinkButton } from './Button'
 import { InputField } from './Input'
-import swal from 'sweetalert'
 import styled from 'styled-components/macro'
 
 const fetch_URL = 'https://auth-narnia.herokuapp.com/signup'
@@ -23,14 +22,6 @@ export const SignUp = () => {
     })
       .then(res => {
         if (!res.ok) {
-          console.log('ERROR')
-          // swal({
-          //   text: 'Something went wrong',
-          //   icon: "error",
-          //   button: {
-          //     text: 'Try again'
-          //   },
-          // })
           throw new Error ({ message: 'Could not create account.'})
         } else {
           return res.json()
@@ -40,10 +31,7 @@ export const SignUp = () => {
           setName('')
           setEmail('')
           setPassword('')
-          history.push('/login')
-          // if (name) { 
-          //   history.push('/login')
-          // }          
+          history.push('/login')       
         })
       .catch(err => {
         console.log("error:", err)

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import styled from "styled-components/macro"
 
 const apiKey = process.env.REACT_APP_API_KEY
-console.log(`apiKey: ${apiKey}`)
 const giphyURL = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=corgi&rating=G`
 
 export const Giphy = () => {

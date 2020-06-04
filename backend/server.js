@@ -38,9 +38,9 @@ app.get('/', (req, res) => {
 app.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body
-    const user = await new User({ name, email, password: bcrypt.hashSync(password) })
-    user.save()
-    res.status(201).json({ id: user._id, accessToken: user.accessToken })
+    const user = new User({ name, email, password: bcrypt.hashSync(password) })
+    const savedUser = await user.save()
+    res.status(201).json({ id: savedUser._id, accessToken: savedUser.accessToken })
   } catch (err) {
     res.status(400).json({ message: 'Could not create user!', errors: err.errors })
   }
