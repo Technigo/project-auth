@@ -1,5 +1,20 @@
 # Project Auth
 
+Vad den handlar om först
+Vad jag har använt för att bygga den i en punktlista
+Backend
+frontend
+vad jag använt
+
+hur man startar och bygger den
+Tekniker 
+punktlista
+
+Vad jag är stolt över
+
+Nästa steg
+Implementera
+
 An build API with authentication to implement a registration flow, and a frontend with forms to register, sign in, and view some content once you're logged in.
 
 Made of two parts; a backend API, and a React frontend. A `User` model is creted using mongoose, with properties for the registered user, and to store a user's access token.
