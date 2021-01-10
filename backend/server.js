@@ -24,6 +24,20 @@ app.get("/", (req, res) => {
   res.send(endpoints(app));
 });
 
+//registration endpoint
+app.post("/user", (req, res) => {
+  //CODE FOR REGISTRATING A NEW USER
+});
+
+app.get("/user", (req, res) => {
+  //CODE FOR USER SIGN IN
+});
+
+//endpoint for authenticated logged in user
+app.get("/user/:id", (req, res) => {
+  //Authenticated content here
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
