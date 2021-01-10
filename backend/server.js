@@ -26,8 +26,6 @@ const User = mongoose.model('User', {
   }
 });
 
-
-
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
 //
@@ -49,31 +47,31 @@ const authenticateUser = async (req, res, next) => {
       req.user = user;
       next();
     } else {
-      res.status(401).json({ loggedOut: true, message: 'Log in failed. Please try to log in again'})
+      res.status(401).json({ loggedOut: true, message: 'Log in failed. Please try to log in again'});
     }
   } catch (err) {
-    res.status(403).json({ message: ' Acces token is missing or wrong', errors: err })
+    res.status(403).json({ message: ' Acces token is missing or wrong', errors: err });
   }
-}
+};
 
-
-// Start defining your routes here
+// Registration endpoint (creates user)
 app.post('/users', async (req, res) => {
   try {
     const { username, password } = req.body
     const user = await new User({ username, password: bcrypt.hashSync(password) }).save();
     res.status(201).json({ userId: user._id, accessToken: user.accessToken });
   } catch (err) {
-    res.status(400).json({ message: 'Could not create user', errors: err })
+    res.status(400).json({ message: 'Could not create user', errors: err });
   }
-})
+});
 
-//Secure endpoint. Should :id be here or not?
+//Secure endpoint, protected by authenticateUser. Should :id be here or not?
+//Looks up the user based on the access token stored in the header
 app.get('/users/secret', authenticateUser);
 app.get('/users/secret', (req, res) => {
   const secretMessage = 'This is a secret message!'
   res.status(201).json({ secretMessage });
-})
+});
 
 //Login user
 app.post('/sessions', async (req, res) => {
@@ -81,7 +79,7 @@ app.post('/sessions', async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(201).json({ userId: user._id, accessToken: user.accessToken })
+      res.status(201).json({ userId: user._id, accessToken: user.accessToken });
     } else {
       res.status(404).json({ notFound: true });
     }
