@@ -3,9 +3,11 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
-import bcrypt from "bcrypt-nodejs";
+import bcrypt from 'bcrypt'
+//import bcrypt from "bcrypt-nodejs";
 import endpoints from "express-list-endpoints";
 
+const SALT = bcrypt.genSaltSync(10);
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
@@ -13,6 +15,7 @@ mongoose.Promise = Promise;
 const User = mongoose.model("User", {
   name: {
     type: String,
+    minlength: 2,
     required: true,
     unique: true,
   },
@@ -22,6 +25,7 @@ const User = mongoose.model("User", {
   },
   password: {
     type: String,
+    minlength: 5,
     required: true,
   },
   accessToken: {
@@ -60,7 +64,7 @@ app.get("/", (req, res) => {
 app.post("/users", async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const user = new User({ name, email, password: bcrypt.hashSync(password) });
+    const user = new User({ name, email, password: bcrypt.hashSync(password, SALT) });
     // const savedUser = await user.save();
     await user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
@@ -84,10 +88,6 @@ app.post("/sessions", async (req, res) => {
   } else {
     res.status(400).json({ message: "Could not create user", notFound: true });
   }
-});
-
-app.get("/user", (req, res) => {
-  //CODE FOR USER SIGN IN
 });
 
 //endpoint for authenticated logged in user
