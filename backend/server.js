@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
+import bcrypt from "bcrypt-nodejs";
 import endpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
@@ -13,6 +14,10 @@ const User = mongoose.model("User", {
   name: {
     type: String,
     required: true,
+    unique: true,
+  },
+  email: {
+    type: String,
     unique: true,
   },
   password: {
@@ -54,14 +59,15 @@ app.get("/", (req, res) => {
 //registration endpoint
 app.post("/users", async (req, res) => {
   try {
-    const { name, password } = req.body;
-    const user = new User({ name, password: bcrypt.hashSync(password) });
-    const savedUser = await user.save();
-    res
-      .status(201)
-      .json({ userId: savedUser._id, accessToken: savedUser.accessToken });
+    const { name, email, password } = req.body;
+    const user = new User({ name, email, password: bcrypt.hashSync(password) });
+    // const savedUser = await user.save();
+    user.save();
+    res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (err) {
-    res.status(400).json({ message: "Could not create user", error: err });
+    res
+      .status(400)
+      .json({ message: "Could not create user", error: err.errors });
   }
   //CODE FOR REGISTRATING A NEW USER
 });
