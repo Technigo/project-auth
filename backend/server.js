@@ -20,6 +20,18 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+const authenticateUser = async (req, res, next) => {
+  const user = await User.findOne({ accessToken: req.header("Authorization") });
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    res
+      .status(403)
+      .json({ loggedOut: true, message: "You are not authorized" });
+  }
+};
+
 const User = mongoose.model("User", {
   name: {
     type: String,
@@ -59,6 +71,29 @@ app.post("/users", async (req, res) => {
       message: "Could not save user",
     });
   }
+});
+
+app.post("/sessions", async (req, res, next) => {
+  try {
+    const { name, password } = req.body;
+    const user = await User.findOne({ name: name });
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(200).json({ userId: user._id, accessToken: user.accessToken });
+      //next?
+    } else {
+      res.status(400).json("Username or password not found");
+    }
+  } catch (err) {
+    res.status(404).json({
+      error: err.error,
+      message: "Username or password not found",
+    });
+  }
+});
+
+app.get("/authentication", authenticateUser);
+app.get("/authentication", (req, res) => {
+  res.json("Congrats you are authorized!!");
 });
 
 // Start the server
