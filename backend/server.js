@@ -10,10 +10,10 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
 const User = mongoose.model('User', {
-    email: {
+  email: {
     type: String,
     unique: true,
-    minlength: [6, 'Username is too short']
+    minlength: [6, 'e-mail is too short']
   },
   password: {
     type: String,
@@ -62,10 +62,11 @@ const authenticateUser = async (req, res, next) => {
 // Registration endpoint (creates user)
 app.post('/users', async (req, res) => {
   try {
-    const { username, password } = req.body
+    const { email, name, password } = req.body
     const salt = bcrypt.genSaltSync();
     const user = await new User({ 
-      username, 
+      email,
+      name, 
       password: bcrypt.hashSync(password, salt)
     }).save();
     res.status(201).json({ userId: user._id, accessToken: user.accessToken }); //send user id and access token back to the user
