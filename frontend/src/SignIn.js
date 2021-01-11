@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Register = () => {
+export const SignIn = () => {
   return (
     <form>
       <label>
@@ -16,7 +16,7 @@ export const Register = () => {
       </label>
 
     <button className='register-button' type='submit'>
-      Register
+      Sign in
     </button>
     </form>
   )
