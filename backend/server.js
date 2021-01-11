@@ -95,11 +95,6 @@ app.post('/sessions', async (req, res) => {
   };
 });
 
-
-app.get('/secrets', (req, res) => {
-  res.json ({secret:'this is a super secret message'});
-});
-
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
