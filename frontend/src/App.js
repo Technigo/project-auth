@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import LoginForm from "./components/LoginForm";
-import Profile from "./components/Profile";
-import SignUpForm from "./components/SignUpForm"; 
+import React /*, { useState } */ from 'react';
+
+import { SignUpForm } from './components/SignUpForm.js'; 
+import { LoginForm } from './components/LoginForm.js'; 
+// import Profile from "./components/Profile.js";
 
 export const App = () => {
   return (
     <div>
       <SignUpForm />
-      <LoginForm /> 
+      <LoginForm />
     </div>
   )
 }
