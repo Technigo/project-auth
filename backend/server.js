@@ -42,7 +42,7 @@ app.post('/users', async (res, req) => {
       name,
       password
     }).save();
-    res.status(200).json({name})
+    res.status(200).json({ name: user.name });
 
   } catch (err) {
     res.status(400).json({ message: 'Could not create user', errors: err });
