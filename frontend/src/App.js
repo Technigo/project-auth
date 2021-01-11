@@ -25,8 +25,8 @@ export const App = () => {
         <Wrapper>
           <h1>Sign up or log in here!</h1>
           <InnerWrapper>
-            <Form input='Log in' heading='Already a user?' />
-            <Form input='Sign up' heading='Sign up here!' />
+            <Form input='Log in' heading='Log in here:' />
+            <Form input='Sign up' heading='Sign up here:' />
           </InnerWrapper>
         </Wrapper>
       ) : (
