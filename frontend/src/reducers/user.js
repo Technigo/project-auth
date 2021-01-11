@@ -2,8 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   login: {
-    accessToken: null,
+    // accessToken: null,
     userId: 0,
+    name: null,
     secretMessage: null,
     errorMessage: null,
   },
@@ -21,7 +22,12 @@ export const user = createSlice({
     setUserId: (state, action) => {
       const { userId } = action.payload
       console.log(`User Id: ${userId}`)
-      state.login.userId = userId;
+      state.login.userId = userId
+    },
+    setUserName: (state, action) => {
+      const { userName } = action.payload
+      console.log(`User name: ${userName}`)
+      state.login.name = userName
     },
     setSecretMessage: (state, action) => {
       const { secretMessage } = action.payload
@@ -62,6 +68,7 @@ export const signUp = (name, email, password) => {
           })
         );
         dispatch(user.actions.setUserId({ userId: json.userId }))
+        dispatch(user.actions.setUserName({ userName: json.name }))
       })
       .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }))
@@ -69,7 +76,7 @@ export const signUp = (name, email, password) => {
   }
 }
 
-//_______Sign up
+//_______Login
 export const login = (name, email, password) => {
   const LOGIN_URL = 'http://localhost:8080/login'
   return (dispatch) => {
@@ -79,7 +86,7 @@ export const login = (name, email, password) => {
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => {
-        //Sucess
+        //Success
         if (res.ok /* if 200, 201, 204 */) {
           return res.json();
         }
@@ -95,6 +102,7 @@ export const login = (name, email, password) => {
           })
         );
         dispatch(user.actions.setUserId({ userId: json.userId }))
+        dispatch(user.actions.setUserName({ userName: json.userName }))
       })
       .catch((err) => {
         dispatch(logout());
@@ -124,6 +132,7 @@ export const getSecretMessage = () => {
       // SUCCESS: Do something with the information we got back
       .then((json) => {
         dispatch(
+          // can we remove secretMessage:?
           user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) })
         );
       })
@@ -140,5 +149,6 @@ export const logout = () => {
     dispatch(user.actions.setErrorMessage({ errorMessage: null }))
     dispatch(user.actions.setAccessToken({ accessToken: null }))
     dispatch(user.actions.setUserId({ userId: 0 }))
+    dispatch(user.actions.setUserName({ name: null }))
   };
 };

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import { login, signUp } from '../reducers/user'
 import { Button } from './Button'
+import { Profile } from './Profile'
 
 
 export const Login = () => {
@@ -51,7 +52,11 @@ export const Login = () => {
             required
             value={email}
             //pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
-            pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+            //pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+            //https://www.npmjs.com/package/validator
+            //https://codesandbox.io/s/pedantic-taussig-bqg3j?file=/src/App.js:745-757
+            //https://www.telerik.com/blogs/up-and-running-with-react-form-validation
+            pattern="[0-9]"
             onChange={(event) => setEmail(event.target.value)} />
         </label>
 
@@ -75,6 +80,8 @@ export const Login = () => {
           text='Log in' 
           disabled={!name || !password || !email}
           />
+        
+        <Profile/>
 
       </form>
     </div>
