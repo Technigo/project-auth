@@ -35,26 +35,26 @@ app.get('/', (req, res) => {
 })
 
 // Endpoint to register
-app.post('/users', async (res, req) => {
+app.post('/users', async (req, res) => {
   try {
     const { name, password } = req.body;
     const user = await new User({
       name,
       password
     }).save();
-    res.status(200).json({ name: user.name });
+    res.status(200).json(user);
 
   } catch (err) {
     res.status(400).json({ message: 'Could not create user', errors: err });
   }
 })
 // Endpoint login
-app.post('/sessions', async (res, req) => {
+app.post('/sessions', async (req, res) => {
   try {
     const { name, password } = req.body;
     const user = await User.findOne({ name });
 
-    res.status(200).json({name})
+    res.status(200).json({user})
   } catch (err) {
 
   }
