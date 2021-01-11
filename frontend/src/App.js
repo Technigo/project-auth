@@ -1,9 +1,11 @@
 import React from 'react'
 
+import { Login } from './Login'
+
 export const App = () => {
   return (
-    <div>
-      Find me in src/app.js!
-    </div>
+    <main>
+      <Login />
+    </main>
   )
 }
