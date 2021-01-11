@@ -7,6 +7,17 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
+const User = mongoose.model('User', {
+  name: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
+})
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
 //
@@ -22,6 +33,33 @@ app.use(bodyParser.json())
 app.get('/', (req, res) => {
   res.send('Hello world')
 })
+
+// Endpoint to register
+app.post('/users', async (res, req) => {
+  try {
+    const { name, password } = req.body;
+    const user = await new User({
+      name,
+      password
+    }).save();
+    res.status(200).json({userId: user._id})
+
+  } catch (err) {
+    res.status(400).json({ message: 'Could not create user', errors: err });
+  }
+})
+// Endpoint login
+app.post('/sessions', async (res, req) => {
+  try {
+    const { name, password } = req.body;
+    const user = await User.findOne({ name });
+
+    res.status(200).json({name})
+  } catch (err) {
+
+  }
+})
+// Authenticated endpoint
 
 // Start the server
 app.listen(port, () => {
