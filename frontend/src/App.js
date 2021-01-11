@@ -8,7 +8,7 @@ export const App = () => {
       <input id='name' type='text'></input>
       <label htmlFor='password'>Input password:</label>
       <input id='password' type='password'></input>
-      <button>Create User</button>
+      <button>Register User</button>
     </div>
   )
 }

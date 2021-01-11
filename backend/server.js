@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
-// Endpoint to register
+// Endpoint to register user
 app.post('/users', async (req, res) => {
   try {
     const { name, password } = req.body;
@@ -54,7 +54,7 @@ app.post('/sessions', async (req, res) => {
     const { name, password } = req.body;
     const user = await User.findOne({ name });
 
-    res.status(200).json({user})
+    res.status(200).json({userId: user._id})
   } catch (err) {
     res.status(404).json({ error: err });
   }
