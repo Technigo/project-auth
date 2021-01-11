@@ -1,9 +1,15 @@
 import React from 'react'
 
+import { LogInForm } from './components/LogInForm'
+import { Profile } from './components/Profile'
+
+
+
 export const App = () => {
   return (
     <div>
-      Find me in src/app.js!
+      <LogInForm />
+      <Profile />
     </div>
   )
 }
