@@ -3,22 +3,27 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
-import bcrypt from 'bcrypt-nodejs';
+import bcrypt from 'bcrypt';
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
 const User = mongoose.model('User', {
-  username: {
+    email: {
     type: String,
     unique: true,
-    minlength: [3, 'Username is too short']
+    minlength: [6, 'Username is too short']
   },
   password: {
     type: String,
     required: true,
     minlength: [5, 'Password must be at least 5 characters']
+  },
+  name: {
+    type: String,
+    required: false,
+    minlength: [2, 'Name is too short']
   },
   accessToken: {
     type: String,
@@ -58,8 +63,12 @@ const authenticateUser = async (req, res, next) => {
 app.post('/users', async (req, res) => {
   try {
     const { username, password } = req.body
-    const user = await new User({ username, password: bcrypt.hashSync(password) }).save();
-    res.status(201).json({ userId: user._id, accessToken: user.accessToken });
+    const salt = bcrypt.genSaltSync();
+    const user = await new User({ 
+      username, 
+      password: bcrypt.hashSync(password, salt)
+    }).save();
+    res.status(201).json({ userId: user._id, accessToken: user.accessToken }); //send user id and access token back to the user
   } catch (err) {
     res.status(400).json({ message: 'Could not create user', errors: err });
   }
