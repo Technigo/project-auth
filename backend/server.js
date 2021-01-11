@@ -1,17 +1,20 @@
-import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
-import mongoose from "mongoose";
-import crypto from "crypto";
-import bcrypt from "bcrypt-nodejs";
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import crypto from 'crypto';
+import bcrypt from 'bcrypt-nodejs';
+import endpoints from 'express-list-endpoints'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
+const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI';
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-const User = mongoose.model("User", {
+const User = mongoose.model('User', {
   name: {
     type: String,
+    minlength: 5,
+    maxlength: 20,
     unique: true,
     required: true,
   },
@@ -21,21 +24,26 @@ const User = mongoose.model("User", {
   },
   password: {
     type: String,
+    minlength: 6,
     required: true,
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString("hex"),
+    default: () => crypto.randomBytes(128).toString('hex'),
   },
 });
 
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header("Authorization") });
+  try {
+      const user = await User.findOne({ accessToken: req.header('Authorization') });
   if (user) {
     req.user = user;
     next();
   } else {
-    res.status(401).json({ loggedOut: true });
+    res.status(401).json({ loggedOut: true, message: 'Please log in again' });
+  }
+} catch(err){
+  res.status(403).json({message: 'Invalide access token or missing', errors: err})
   }
 };
 
@@ -51,32 +59,27 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
-
-app.get("/secrets", authenticateUser);
-app.get("/secrets", (req, res) => {
-  res.json({ secret: "This is a secret message" });
+app.get('/', (req, res) => {
+  res.send(endpoints(app));
 });
 
 // Sign-up
-app.post("/users", async (req, res) => {
+app.post('/users', async (req, res) => {
   try {
     const { name, password } = req.body;
-    const SALT = bcrypt.genSaltSync();
+    const SALT = bcrypt.genSaltSync(10);
     const user = await new User({
       name,
       password: bcrypt.hashSync(password, SALT),
     }).save();
     res.status(200).json({ userId: user._id });
   } catch (err) {
-    res.status(400).json({ message: "Could not create user", errors: err });
+    res.status(400).json({ message: 'Could not create user', errors: err });
   }
 });
 
 //Login
-app.post("/sessions", async (req, res) => {
+app.post('/sessions', async (req, res) => {
   try {
     const { name, password } = req.body;
     const user = await User.findOne({ name });
@@ -84,18 +87,19 @@ app.post("/sessions", async (req, res) => {
       res.status(200).json({ userId: user._id, accessToken: user.accessToken });
       //compare passwords
     } else {
-      throw "User not found";
+      res.status(404).json({notFound: true, message: "Incorrect username and/or password"});
     }
   } catch (err) {
-    res.status(404).json({ error: "user not found" });
+    res.status(404).json({notFound: true, message: "Incorrect username and/or password"});
   }
 });
 // Secure endpoint, user needs to be logged in to access this.
-app.get("/users/:id", authenticateUser);
+app.get('/users/:id/secrets', authenticateUser);
 
 //get user specific info
-app.get("/users/:id", (req, res) => {
-  res.status(501).send();
+app.get('/users/:id/secrets', (req, res) => {
+  const secret = `{Hello, ${req.user.name}, this secret message is for you.}`
+  res.status(201).json({secret})
 });
 // Start the server
 app.listen(port, () => {
