@@ -42,7 +42,7 @@ app.post('/users', async (req, res) => {
       name,
       password
     }).save();
-    res.status(200).json(user);
+    res.status(200).json({ userId: user._id });
 
   } catch (err) {
     res.status(400).json({ message: 'Could not create user', errors: err });
@@ -56,7 +56,7 @@ app.post('/sessions', async (req, res) => {
 
     res.status(200).json({user})
   } catch (err) {
-
+    res.status(404).json({ error: err });
   }
 })
 // Authenticated endpoint
