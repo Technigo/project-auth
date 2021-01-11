@@ -41,8 +41,7 @@ export const Form = ({ input, heading }) => {
                 <Label> Password:
                     <Input type='text' />
                 </Label>
-                <Button input={input} //Currently this console.logs when rendering, not onClick.
-                    onClick={input === 'Log in' ? console.log('Log in') : console.log('Sign in')} />
+                <Button input={input}/>
             </StyledForm>
         </Wrapper>
     )
