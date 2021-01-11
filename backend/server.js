@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from 'bcrypt'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -26,7 +26,8 @@ const User = mongoose.model('User', {
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString('hex')
+    default: () => crypto.randomBytes(128).toString('hex'),
+    unique: true
   }
 })
 
@@ -62,8 +63,15 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body
-    const user = new User({name, email, password: bcrypt.hashSync(password)})
-    user.save()
+//SALT makes rainbow table attacks much harder
+//Everytime the users endpoint is called,
+//we create a salt & use that salt in the hash function
+    const salt = bcrypt.genSaltSync(10)
+    const user = await new User({
+      name, 
+      email, 
+      password: bcrypt.hashSync(password, salt)
+      }).save()
     res.status(201).json({id: user._id, accessToken: user.accessToken})
   } catch (err) {
     res.status(400).json({message: 'Could not create user', errors: err.errors})
