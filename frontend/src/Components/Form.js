@@ -14,12 +14,12 @@ height: 300px;
 `
 
 const Label = styled.label`
-font-size: 18px;
+font-size: 16px;
 margin: 10px;
 `
 
 const Input = styled.input`
-margin: 10px;
+margin: 10px 10px 10px 0;
 `
 
 export const Wrapper = styled.div`
@@ -30,17 +30,17 @@ flex-direction: column;
 margin: 20px;
 `
 
-export const Form = ({ input, heading }) => {
+export const Form = ({ input, heading, labelHeading, labelText }) => {
     return (
         <Wrapper>
             <h1>{heading}</h1>
             <StyledForm>
-                <Label> Username:
+                <Label> {labelHeading}
                 <Input type='text' />
                 </Label>
-                <Label> Password:
+                <Label> {labelText}
                     <Input type='text' />
-                </Label>
+                </Label> 
                 <Button input={input}/>
             </StyledForm>
         </Wrapper>

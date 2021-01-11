@@ -25,12 +25,18 @@ export const App = () => {
         <Wrapper>
           <h1>Sign up or log in here!</h1>
           <InnerWrapper>
-            <Form input='Log in' heading='Log in here:' />
-            <Form input='Sign up' heading='Sign up here:' />
+            <Form input='Log in'
+              heading='Log in here:'
+              labelHeading='Select a username:'
+              labelText='Enter a password:' />
+            <Form input='Sign up'
+              heading='Sign up here:'
+              labelHeading='Enter username:'
+              labelText='Enter password:' />
           </InnerWrapper>
         </Wrapper>
       ) : (
-          <LogIn username='Holabandola'/>
+          <LogIn username='Holabandola' />
         )}
     </>
   )
