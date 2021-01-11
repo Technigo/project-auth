@@ -2,11 +2,38 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
+import crypto from "crypto";
 import endpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
+
+const User = mongoose.model("User", {
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  accessToken: {
+    type: String,
+    default: () => crypto.randomBytes(128).toString("hex"),
+  },
+});
+
+const authenticateUser = async (req, res, next) => {
+  const user = await User.findOne({ accessToken: req.header("Authorization") });
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    res.status(401).json({ loggedOut: true });
+  }
+};
 
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
@@ -25,8 +52,32 @@ app.get("/", (req, res) => {
 });
 
 //registration endpoint
-app.post("/user", (req, res) => {
+app.post("/users", async (req, res) => {
+  try {
+    const { name, password } = req.body;
+    const user = new User({ name, password: bcrypt.hashSync(password) });
+    const savedUser = await user.save();
+    res
+      .status(201)
+      .json({ userId: savedUser._id, accessToken: savedUser.accessToken });
+  } catch (err) {
+    res.status(400).json({ message: "Could not create user", error: err });
+  }
   //CODE FOR REGISTRATING A NEW USER
+});
+
+app.get("/secrets", authenticateUser);
+app.get("/secrets", (req, res) => {
+  res.json({ secret: "Super secret message" });
+});
+
+app.post("/sessions", async (req, res) => {
+  const user = await User.findOne({ name: req.body.name });
+  if (user && bcrypt.compareSynd(req.body.password, user.password)) {
+    res.status(201).json({ userId: user._id, accessToke: user.accessToken });
+  } else {
+    res.status(400).json({ message: "Could not create user", notFound: true });
+  }
 });
 
 app.get("/user", (req, res) => {
