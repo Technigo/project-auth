@@ -1,13 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	color: #ffffff;
+	font-family: "Montserrat", sans-serif;
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	background-image: url(/images/alice.jpg);
+	background-repeat: no-repeat;
+	width: 100vw;
+	height: 100vh;
+	background-size: cover;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
 }
+
+.root {
+	width: 100%;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+/* FORM */
+
+section {
+	display: flex;
+	justify-content: center;
+}
+
+.form {
+	margin-top: 70px;
+	margin-bottom: -61px;
+	height: 400px;
+	width: 290px;
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	background: rgb(44 43 43 / 80%);
+	box-shadow: 20px 20px 30px gray;
+	border-radius: 3%;
+}
+
+/* INPUT FIELDS */
+.input {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+input {
+	border-radius: 3px;
+	background-color: white;
+	width: 100%;
+	height: 40px;
+	padding: 2px;
+	margin: 10px;
+	border: none;
+}
+input::placeholder {
+	font-family: "Montserrat", sans-serif;
+}
+
+/* SECRET */
+
+.image-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.secret-message-image {
+	width: 60%;
+	margin-top: 80px;
+	box-shadow: 20px 20px 30px gray;
+}
+
+/* BUTTON */
+
+.button-container {
+	display: flex;
+	justify-content: center;
+}
+
+.button,
+.button-sign-out {
+	font-family: "Montserrat", sans-serif;
+	font-size: 16px;
+	text-align: center;
+	padding: 5px;
+	margin: 10px;
+	width: 100%;
+	height: 40px;
+	border-radius: 5px;
+	font-weight: 700;
+	color: #333;
+	background-color: #dcc697;
+	cursor: pointer;
+}
+
+.button:hover,
+.button-toggle:hover,
+.button-sign-out:hover {
+	cursor: pointer;
+	background-color: #f9e6a9;
+}
+
+.button-toggle {
+	font-family: "Montserrat", sans-serif;
+	align-self: center;
+	color: #ffffff;
+	padding: 4px;
+	margin: 20px 20px 20px 29px;
+	font-size: 16px;
+	text-decoration: underline;
+	text-align: right;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.button-sign-out {
+	width: 200px;
+	font-size: 20px;
+}
+
+/* MESSAGES */
+
+.error-message {
+	padding: 0;
+	margin: 0;
+	font-style: italic;
+	color: #dcc697;
+}
+
+.sign-up-success {
+	padding: 0;
+	margin: 0;
+	font-style: italic;
+	font-weight: 700;
+	color: #dcc697;
+}
+
+/* MEDIA QUERIES */
+
+/* @media (max-width: 768px) {
+	h2 {
+    width: 280px;	
+  }
+  p {
+    width: 280px;
+  }
+
+  form {
+    width: 290px;
+  }
+} */

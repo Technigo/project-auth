@@ -3,16 +3,18 @@ import React, { useState } from "react";
 import { SignUp } from "./components/SignUp";
 import { SignIn } from "./components/SignIn";
 import { Secret } from "./components/Secret";
-import { signUpUrl, signInUrl, getSecretUrl } from "./paths/api-paths";
+import { signUpUrl, signInUrl } from "./paths/api-paths";
 import { ToggleButton } from "./components/ToggleButton";
+import { SignOutButton } from "./components/SignOutButton";
+import { ErrorMessage } from "./components/ErrorMessage";
 
 export const App = () => {
-	const [mode, setMode] = useState("signUp");
-	const [token, setToken] = useState();
+	const [mode, setMode] = useState("signIn");
+	const tokenFromStorage = () => window.localStorage.getItem("tokenAuth") || "";
+	const [token, setToken] = useState(tokenFromStorage);
+	const [userId, setUserId] = useState();
 	const [signUpOk, setSignUpOk] = useState();
-	//Spara token i localstorage
-	// const tokenFromStorage = () => Number(window.localStorage.getItem("tokenAuth")) || 0;
-	//const [ token2, setToken2 ] = useState(tokenFromStorage);
+	const [signInOk, setSignInOk] = useState();
 
 	const handleChangeMode = (modeFromButton) => {
 		console.log("Changing mode in App");
@@ -44,8 +46,13 @@ export const App = () => {
 			.then((data) => {
 				console.log(data);
 				setToken(data.accessToken);
+				window.localStorage.setItem("tokenAuth", data.accessToken);
+				setUserId(data.userId);
 			})
-			.catch((error) => console.log(error));
+			.catch((error) => {
+				console.log(error);
+				setSignInOk(false);
+			});
 	};
 
 	const signUpUser = (user) => {
@@ -68,7 +75,7 @@ export const App = () => {
 				console.log(res.status);
 				if (res.status === 201) {
 					return res.json();
-				} else throw new Error(res.status);
+				} else throw new Error(res);
 			})
 			.then((data) => {
 				console.log(data);
@@ -82,9 +89,15 @@ export const App = () => {
 
 	return (
 		<main>
-			{!token && mode === "signIn" && <SignIn signIn={signInUser} />}
-			{!token && mode === "signUp" && <SignUp signUp={signUpUser} />}
+			{!token && mode === "signIn" && (
+				<SignIn signInStatus={signInOk} signIn={signInUser} />
+			)}
+			{!token && mode === "signUp" && (
+				<SignUp signUpStatus={signUpOk} signUp={signUpUser} />
+			)}
 			{!token && <ToggleButton mode={mode} setModeinApp={handleChangeMode} />}
+
+			{token && <SignOutButton signOut={setToken} />}
 			{token && <Secret token={token} />}
 		</main>
 	);
@@ -92,9 +105,11 @@ export const App = () => {
 
 /*
 Kvar att göra
-1. Secret - anrop med token. 
-2. Logga ut-knapp i secret-komponenten
-3. Spara token i localstorage 
-4. Felmeddelanden
-5. Styling
+1. Secret - anrop med token. Spara token i localstorage -> klart
+2. Logga ut-knapp i secret-komponenten -> klart
+4. Felmeddelanden -> klart
+5. Styling-> klart
+
+6. städa koden
+7. deploya backend, databas och siten på netlify
 */

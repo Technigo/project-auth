@@ -4,9 +4,10 @@ import cors from "cors";
 //nya importer
 import mongoose from "mongoose";
 import crypto from "crypto";
-import bcrypt from "bcrypt-nodejs";
+//import bcrypt from "bcrypt-nodejs";
+import bcrypt from "bcrypt";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authorization";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth11jan";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -25,6 +26,7 @@ const User = mongoose.model("User", {
 	accessToken: {
 		type: String,
 		default: () => crypto.randomBytes(128).toString("hex"),
+		unique: true,
 	},
 });
 
@@ -56,11 +58,13 @@ app.get("/", (req, res) => {
 });
 
 //endpoint with authentication. To protect the endpoint.
+/*
 app.get("/secrets", authenticateUser);
 //new endpoint
 app.get("/secrets", (req, res) => {
 	res.json({ secret: "This is a secret" });
 });
+*/
 
 //registration endpoint1
 /*
@@ -85,6 +89,21 @@ app.post("/users", async (req, res) => {
 //Registration endpoint
 
 app.post("/users", async (req, res) => {
+	try {
+		const { username, password } = req.body;
+		const salt = bcrypt.genSaltSync(); //* everytime user is called  // Rainbow table attack -
+		const user = await new User({
+			username: username,
+			password: bcrypt.hashSync(password, salt), //*
+		}).save();
+
+		res.status(201).json({ userId: user._id, accessToken: user.accessToken });
+	} catch (err) {
+		res.status(400).json({ message: "could not create user", errors: err });
+	}
+});
+/*
+app.post("/users", async (req, res) => {
 	const { username, password } = req.body;
 	const user = new User({
 		username: username,
@@ -104,24 +123,44 @@ app.post("/users", async (req, res) => {
 		}
 	});
 });
-
+*/
 //Login endpoint
 app.post("/session", async (req, res) => {
-	const user = await User.findOne({ username: req.body.username });
-
-	//Check if the user exists and if the password is correct.
-	if (user && bcrypt.compareSync(req.body.password, user.password)) {
-		res.status(200).json({
-			userFound: true,
-			userId: user._id,
-			accessToken: user.accessToken,
-		});
-	} else {
-		res.status(400).json({ userFound: false });
+	try {
+		const user = await User.findOne({ username: req.body.username });
+		if (user && bcrypt.compareSync(req.body.password, user.password)) {
+			res.status(200).json({
+				userFound: true,
+				userId: user._id,
+				accessToken: user.accessToken,
+			});
+		} else {
+			res.status(400);
+			res.json({
+				userFound: false,
+				message: "Login failed, please try again.",
+			});
+		}
+	} catch (err) {
+		res
+			.status(400)
+			.json({ message: "Login failed, please try again.", errors: err });
 	}
 });
 
 // Start the server
 app.listen(port, () => {
 	console.log(`Server running on http://localhost:${port}`);
+});
+
+// SECURE ENDPOINT WHICH USER NEED TO LOGIN TO ACCESS
+app.get("/secret", authenticateUser);
+app.get("/secret", (req, res) => {
+	const secretMessage = {
+		imageUrl: `https://i.pinimg.com/originals/52/c6/ef/52c6ef702fa46b05607bb468244338be.jpg`,
+	};
+
+	// Compile information that is access protected
+	// And send it back to the client to use for that specific user
+	res.status(201).json({ secretMessage });
 });

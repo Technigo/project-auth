@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 export const ToggleButton = ({ mode, setModeinApp }) => {
 	const handleClick = () => {
@@ -12,8 +12,12 @@ export const ToggleButton = ({ mode, setModeinApp }) => {
 	};
 
 	return (
-		<button onClick={() => handleClick()} type="button">
-			Button
+		<button
+			onClick={() => handleClick()}
+			type="button"
+			className="button-toggle"
+		>
+			{mode === "signUp" ? "Sign in" : "Sign up"}
 		</button>
 	);
 };

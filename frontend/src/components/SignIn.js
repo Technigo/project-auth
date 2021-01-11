@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-export const SignIn = ({ signIn }) => {
+import { ErrorMessage } from "./ErrorMessage";
+
+export const SignIn = ({ signIn, signInStatus }) => {
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -16,7 +18,8 @@ export const SignIn = ({ signIn }) => {
 	//flytta onclick till onsubmit på formuläret.
 	return (
 		<section>
-			<form onSubmit={(event) => handleSignIn(event)} className="sign-in-form">
+			<form onSubmit={(event) => handleSignIn(event)} className="form">
+				<h2>Sign in here</h2>
 				<input
 					type="email"
 					id="userName"
@@ -34,7 +37,14 @@ export const SignIn = ({ signIn }) => {
 					onChange={(event) => setPassword(event.target.value)}
 					value={password}
 				></input>
-				<button type="submit">Sign in</button>
+				<button className="button" type="submit">
+					Sign in
+				</button>
+				<output>
+					{signInStatus === false && (
+						<ErrorMessage message={"Sign in failed."} />
+					)}
+				</output>
 			</form>
 		</section>
 	);
