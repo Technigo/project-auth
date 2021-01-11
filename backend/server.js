@@ -4,10 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from 'bcrypt'
-//import bcrypt from "bcrypt-nodejs";
 import endpoints from "express-list-endpoints";
 
-const SALT = bcrypt.genSaltSync(10);
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
@@ -61,11 +59,16 @@ app.get("/", (req, res) => {
 });
 
 //registration endpoint
+//This endpoint registers a new user. It consists of a deconstructed body
+//using name, email and password. We added a variable called salt
+//to ensure that the password is hashed properly
+//and reduces the possibility for rainbow tables (backward hashing to figure out password)
+//we should never store the password in plain text or return the password to the client.
 app.post("/users", async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const user = new User({ name, email, password: bcrypt.hashSync(password, SALT) });
-    // const savedUser = await user.save();
+    const salt = bcrypt.genSaltSync(10);
+    const user = new User({ name, email, password: bcrypt.hashSync(password, salt) });
     await user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (err) {
@@ -73,7 +76,6 @@ app.post("/users", async (req, res) => {
       .status(400)
       .json({ message: "Could not create user", error: err });
   }
-  //CODE FOR REGISTRATING A NEW USER
 });
 
 app.get("/secrets", authenticateUser);
@@ -82,12 +84,19 @@ app.get("/secrets", (req, res) => {
 });
 
 app.post("/sessions", async (req, res) => {
-  const user = await User.findOne({ name: req.body.name });
-  if (user && bcrypt.compareSynd(req.body.password, user.password)) {
-    res.status(201).json({ userId: user._id, accessToke: user.accessToken });
-  } else {
-    res.status(400).json({ message: "Could not create user", notFound: true });
+  try{
+    const { name, password } = req.body;
+    const user = await User.findOne({ name });
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(201).json({ Login: 'success', userId: user._id, accessToke: user.accessToken });
+    } else {
+      throw "User not found";
+    }
+  }catch(err){
+    res.status(404).json({error: err});
   }
+  /* const user = await User.findOne({ name: req.body.name });
+   */
 });
 
 //endpoint for authenticated logged in user
