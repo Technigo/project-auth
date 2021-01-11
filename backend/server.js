@@ -95,8 +95,6 @@ app.post("/sessions", async (req, res) => {
   }catch(err){
     res.status(404).json({error: err});
   }
-  /* const user = await User.findOne({ name: req.body.name });
-   */
 });
 
 //endpoint for authenticated logged in user
