@@ -16,7 +16,7 @@ const reducer = combineReducers({ user: user.reducer });
 const store = configureStore({ reducer });
 
 export const App = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(""); //Should we use these three useStates? Van removed them.
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
