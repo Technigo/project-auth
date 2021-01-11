@@ -13,6 +13,7 @@ const User = mongoose.model('User', {
   email: {
     type: String,
     unique: true,
+    required: true,
     minlength: [6, 'e-mail is too short']
   },
   password: {
@@ -86,15 +87,15 @@ app.get('/users/secret', (req, res) => {
 //Login user
 app.post('/sessions', async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(201).json({ userId: user._id, accessToken: user.accessToken });
     } else {
-      res.status(404).json({ notFound: true });
+      throw "Login failed. User not found.";
     }
   } catch (err) {
-    res.status(404).json({ notFound: true });
+    res.status(404).json({ message: 'Login failed. User not found.', errors: err });
   }
 });
 
