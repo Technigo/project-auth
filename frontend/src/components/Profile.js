@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+/* Cred, måste ligga i typ en footer eller nånstans på profilsidan sen: 
+Animation by Mohamed Achraf El Ghayani on Lottiefiles
+https://lottiefiles.com/38825-robot-hello# 
+*/
+
+
 import Lottie from 'react-lottie';
 import animationData from '../lotties/38825-robot-hello.json';
 
