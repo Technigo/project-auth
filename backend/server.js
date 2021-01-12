@@ -62,7 +62,7 @@ app.post('/users', async (req, res) => {
     const { name, password } = req.body
     const salt = bcrypt.genSaltSync(10)
     const user = await new User({ name, password: bcrypt.hashSync(password, salt) }).save()
-    res.status(201).json({ userId: user._id, accessToken: user.accessToken })
+    res.status(201).json({ message: 'User created', userId: user._id, accessToken: user.accessToken })
   } catch (err) {
     res.status(400).json({ message: 'Could not create user', errors: err })
   }
@@ -84,11 +84,10 @@ app.post('/sessions', async (req, res) => {
 })
 
 // Endpoint that shows a page to the user when logged in
-// update endpoints to /users/:id/settings
-app.get('/secrets', authenticateUser)
-app.get('/secrets', (req, res) => {
-  const secretMessage = `This is a secret message for ${req.user.name}`
-  res.status(201).json({ secretMessage })
+app.get('/welcome', authenticateUser)
+app.get('/welcome', (req, res) => {
+  const welcomeMessage = `This is a welcome message for ${req.user.name}`
+  res.status(201).json({ welcomeMessage })
 })
 
 // Start the server
