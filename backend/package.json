@@ -16,8 +16,11 @@
     "@babel/core": "^7.12.10",
     "@babel/node": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
+<<<<<<< HEAD
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+=======
+>>>>>>> dcaccc4c9369bf4bf4bfcda7c4dc313a897e2169
     "nodemon": "^2.0.7"
   },
   "devDependencies": {
