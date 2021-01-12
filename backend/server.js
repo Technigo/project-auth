@@ -43,7 +43,7 @@ const authenticateUser = async (req, res, next) => {
     res.status(401).json({ loggedOut: true, message: 'Please log in again' });
   }
 } catch(err){
-  res.status(403).json({message: 'Invalide access token or missing', errors: err})
+  res.status(403).json({message: 'Invalid access token or missing', errors: err})
   }
 };
 
