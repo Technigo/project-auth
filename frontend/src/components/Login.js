@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import {useDispatch} from "react-redux"
 import {user} from "../reducers/user"
 import {SubmitButton} from "./SubmitButton"
+import {InputField} from "./InputField"
 //import {UserProfile} from "./UserProfile"
 
 import styled from "styled-components"
@@ -89,8 +90,4 @@ const Label = styled.label`
 	align-self: center;
 	color: #fbcdc4;
 	font-size: 15px;
-`
-const InputField = styled.label`
-	font-family: 'Xanh Mono', monospace;
-	width: 20%; 
 `
