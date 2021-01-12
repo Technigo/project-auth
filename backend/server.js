@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
-import bcrypt from 'bcrypt'
+import bcrypt from "bcrypt";
 import endpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
@@ -11,7 +11,7 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
 const User = mongoose.model("User", {
-  name: {
+  username: {
     type: String,
     minlength: 2,
     required: true,
@@ -66,40 +66,41 @@ app.get("/", (req, res) => {
 //we should never store the password in plain text or return the password to the client.
 app.post("/users", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
     const salt = bcrypt.genSaltSync(10);
-    const user = new User({ name, email, password: bcrypt.hashSync(password, salt) });
+    const user = new User({
+      username,
+      email,
+      password: bcrypt.hashSync(password, salt),
+    });
     await user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (err) {
-    res
-      .status(400)
-      .json({ message: "Could not create user", error: err });
+    res.status(400).json({ message: "Could not create user", error: err });
   }
 });
 
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
-  res.json({ secret: "Super secret message" });
+  res.status(200).json({ secret: "Super secret message" });
 });
 
 app.post("/sessions", async (req, res) => {
-  try{
-    const { name, password } = req.body;
-    const user = await User.findOne({ name });
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(201).json({ Login: 'success', userId: user._id, accessToke: user.accessToken });
+      res.status(201).json({
+        Login: "success",
+        userId: user._id,
+        accessToken: user.accessToken,
+      });
     } else {
       throw "User not found";
     }
-  }catch(err){
-    res.status(404).json({error: err});
+  } catch (err) {
+    res.status(404).json({ error: err });
   }
-});
-
-//endpoint for authenticated logged in user
-app.get("/user/:id", (req, res) => {
-  //Authenticated content here
 });
 
 // Start the server
