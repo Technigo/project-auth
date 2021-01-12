@@ -26,7 +26,8 @@ const User = mongoose.model('User', {
   },
   accessToken:{
     type:String,
-    default: () => crypto.randomBytes(128).toString('hex')
+    default: () => crypto.randomBytes(128).toString('hex'),
+    unique:true
   }
 });
 
@@ -91,16 +92,21 @@ app.get('/secrets', (req,res) => {
 });
 
 ////sign in endpoint
-app.post('/sessions', async(req,res) =>{
-  const user = await User.findOne({email:req.body.email});
-  //if user exists and the password sent in the JSON body matches the one we have stored in the database
-  //the first argument is the clear password from request and the second is the hashed one
-  if(user && bcrypt.compareSync(req.body.password, user.password)){
-    res.json({userId:user._id, accessToken:user.accessToken});
+app.post('/sessions', async(req,res) => {
+  try{
+    const { email, password } = req.body;
+    const user = await User.findOne({email});
+    //if user exists and the password sent in the JSON body matches the one we have stored in the database
+    //the first argument is the clear password from request and the second is the hashed one
+    if(user && bcrypt.compareSync(password, user.password)){
+    res.status(200).json({userId: user._id, accessToken: user.accessToken});
   } else {
-    res.json({notFound:true});
+      throw 'User not found';
+    //res.json({notFound:true});
+  }} catch(err){
+      res.status(404).json({error: 'User not found'});
   }
-})
+});
 
 //get user specific information
 app.get('/user/:id', async (req,res) => {
