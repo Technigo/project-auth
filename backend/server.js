@@ -92,6 +92,7 @@ app.post('/sessions', async (req, res) => {
     res.json({notFound: true})
   }
 })
+//TEst Ingela
 
 // Start the server
 app.listen(port, () => {
