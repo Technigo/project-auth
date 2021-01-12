@@ -3,9 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { user } from '../reducers/user';
 
-const URL = 'http://localhost:8080/users';
+import styled from 'styled-components';
 
-export const SignUp = () => {
+const SIGNUP_URL = 'http://localhost:8080/users';
+const LOGIN_URL = 'http://localhost:8080/sessions';
+
+export const Form = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const [name, setName] = useState("");
@@ -23,10 +26,11 @@ export const SignUp = () => {
     dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
   };
 
-  const handleSubmit = event => {
+  // To sign up a user
+  const handleSignup = event => {
     event.preventDefault()
 
-    fetch(URL, {
+    fetch(SIGNUP_URL, {
       method: 'POST',
       body: JSON.stringify({ name, password, email }),
       headers: { 'Content-Type': 'application/json' }
@@ -38,14 +42,39 @@ export const SignUp = () => {
         }
         return res.json();
       })
-    .then((json) => handleLoginSuccess(json))
-    .catch((err) => handleLoginFailed(err));
+      .then((json) => handleLoginSuccess(json))
+      .catch((err) => handleLoginFailed(err));
   }
 
+  // To log in a user
+  const handleLogin = event => {
+    event.preventDefault();
+
+    fetch(LOGIN_URL, {
+      method: 'POST',
+      body: JSON.stringify({ name, password, email }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw 'Failes to log in';
+        }
+        return res.json();
+      })
+      .then((json) => handleLoginSuccess(json))
+      .catch((err) => handleLoginFailed(err));
+  };
+
+  // Is accessToken exist
+  if (accessToken) {
+    return <>Successful signup / login</>;
+  }
+
+  // If user is logged out, show the login form
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <h1>Sign up</h1>
+      <FormWrapper>
+        <h1>Sign up / Login:</h1>
         <label>
           Name:
         <input
@@ -70,9 +99,23 @@ export const SignUp = () => {
             value={password}
             onChange={event => setPassword(event.target.value)} />
         </label>
-        <button type="submit" onClick={handleSubmit}>Sign up!</button>
-      </form>
+        <SignupButton type="submit" onClick={handleSignup}>Sign up!</SignupButton>
+        <LoginButton type="submit" onClick={handleLogin}>Login!</LoginButton>
+      </FormWrapper>
     </div>
-  )
-}                                              
-                                                                                  
+  );
+};
+
+const FormWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+`;
+
+const SignupButton = styled.button`
+  width: 100px;
+  margin: 6px;
+  padding: 4px;
+`;
+
+const LoginButton = styled(SignupButton)``;

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   login: {
-    userId: null,
+    accessToken: null,
     userId: 0,
     statusMessage: ""
   }
@@ -15,7 +15,7 @@ export const user = createSlice({
   reducers: {
     setAccessToken: (state, action) => {
       const { accessToken } = action.payload
-      state.login.accessToken = accessToken ;
+      state.login.accessToken = accessToken;
     },
 
     setUserId: (state, action) => {
