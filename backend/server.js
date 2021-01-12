@@ -14,15 +14,15 @@ const User = mongoose.model('User', {
     type: String,
     required: true,
   },
-  // password: {
-  //   type: String,
-  //   required: true,
-  // },
-  // accessToken: {
-  //   type: String,
-  //   default: () => crypto.randomBytes(128).toString('hex'),
-  //   unique: true,
-  // },
+  password: {
+    type: String,
+    required: true,
+   },
+   accessToken: {
+     type: String,
+     default: () => crypto.randomBytes(128).toString('hex'),
+     unique: true,
+   },
 });
 
 // Defines the port the app will run on. Defaults to 8080, but can be 
@@ -44,16 +44,12 @@ app.get('/', (req, res) => {
 //registration endpoint
 app.post('/users', async (req, res) => {
   try {
-    // const {name, password} = req.body
-    const {name} = req.body
-    
-    // const user = new User({name, password: bcrypt.hashSync(password)})
-    const user = await new User({name}).save()
+    const {name, password} = req.body
+    const user = await new User({name, password: bcrypt.hashSync(password)}).save()
     res.status(200).json(user);
   } catch (err) {
     res.status(400).json({message: 'Could not create user', errors: err.errors})
   }
-
 }
 
 )
