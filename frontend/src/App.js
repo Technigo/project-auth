@@ -1,14 +1,23 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
+
+import LoginForm from './components/LoginForm';
+import CreateUser from './components/CreateUser';
+
+const Container = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #F9E9FA;
+`;
 
 export const App = () => {
   return (
-    <div>
-      <p>Login</p>
-      <label htmlFor='name'>Input name:</label>
-      <input id='name' type='text'></input>
-      <label htmlFor='password'>Input password:</label>
-      <input id='password' type='password'></input>
-      <button>Register User</button>
-    </div>
+    <Container>
+      <CreateUser />
+      <LoginForm />
+    </Container>
   )
 }
