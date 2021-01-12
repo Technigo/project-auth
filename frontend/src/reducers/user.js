@@ -33,3 +33,12 @@ export const user = createSlice({
     }, 
   }
 })
+
+export const logout = () => {
+  return (dispatch) => {
+    dispatch(user.actions.setSecretMessage({ secretMessage: null }));
+    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+    dispatch(user.actions.setAccessToken({ accessToken: null }));
+    dispatch(user.actions.setUserId({ userId: 0 }));
+  };
+};

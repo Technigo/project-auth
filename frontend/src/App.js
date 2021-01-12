@@ -3,8 +3,7 @@ import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
 import {LoginForm} from './components/LoginForm'
-import { Status } from './components/Status'
-import { Profile } from './components/Profile'
+import {SignUp} from './components/SignUp'
 import { user } from './reducers/user'
 
 const URL = 'http://localhost:8080/users'
@@ -32,9 +31,10 @@ export const App = () => {
 
   return (
   <Provider store={store}>
-    {/* <Status />
-    <Profile /> */}
-    <LoginForm />
+    <div className ='auth-container'>
+      <SignUp />
+      <LoginForm />
+    </div>
   </Provider>
 
   )

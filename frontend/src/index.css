@@ -5,9 +5,67 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color:rgb(247, 228, 207);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%
+}
+
+.form-style {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 20px 50px 20px;
+  color: white;
+}
+
+.form-style input, button{
+  margin: 0 0 20px 0;
+  font-size: 15px;
+}
+
+.form-style input {
+  padding: 8px
+}
+
+.form-style button {
+  color: #222e31;
+  font-size: 15px;
+  font-weight: 600;
+  border: #fff;
+  border-radius: 40px; /* Button gets rounded corners */
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 9px;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.login-form {
+  background-color:rgba(144,190,109, 1);
+  height: 50%
+}
+
+.signup-form {
+  background-color: #69727F;
+}
+
+.content-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-items: center;
+  width: auto;
 }

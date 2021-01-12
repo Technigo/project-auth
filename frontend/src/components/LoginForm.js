@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {user} from '../reducers/user'
 
-const SIGNUP_URL = 'http://localhost:8080/users'
+const SIGNIN_URL = 'http://localhost:8080/users'
 const LOGIN_URL = 'http://localhost:8080/sessions'
 
 export const LoginForm = () => {
@@ -25,7 +25,7 @@ export const LoginForm = () => {
   const handleSignup = (event) => {
     event.preventDefault();
 
-    fetch(SIGNUP_URL, {
+    fetch(SIGNIN_URL, {
       method: 'POST',
       body: JSON.stringify({ name, password }),
       headers: { 'Content-Type': 'application/json' },
@@ -63,31 +63,30 @@ export const LoginForm = () => {
   }
   // If user is logged out, show login form
   return (
-    <section class='login-form'>
-      <form>
-        <h1>Sign Up/Login:</h1>
-        <label>
-          name
+    <section>
+      <form className='login-form form-style'>
+        <h1>Login</h1>
+        <div className='content-container'>
+          <label>Name</label>
           <input
+            type='text'
+            placeholder='Enter username...'
             required
             value={name}
             onChange={(event) => setName(event.target.value)}
           />
-        </label>
-        <label>
-          password
+          <label>Password</label>
           <input
+            type='password'
+            placeholder='Enter Password...'
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-        </label>
-        <button type="submit" onClick={handleSignup}>
-          Sign-Up
-        </button>
-        <button type='submit' onClick={handleLogin}>
-          Login
-        </button>
+          <button type='submit' onClick={handleLogin}>
+            Login
+          </button>
+        </div>
       </form>
     </section>
   )
