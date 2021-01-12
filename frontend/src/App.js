@@ -17,7 +17,7 @@ export const App = () => {
   // const LOGIN_URL = 'http://localhost:8081/sessions'
   // const WELCOME_URL = 'http://localhost:8081/welcome'
 
-  const postUser = event => {
+  const signupUser = event => {
     event.preventDefault()
     fetch(SIGNUP_URL, {
       method: 'POST',
@@ -52,7 +52,7 @@ export const App = () => {
       {signup && !login && !welcome && // sign up page
         <>
           <p>Hi! Please sign up.</p>
-          <form onSubmit={postUser}>
+          <form onSubmit={signupUser}>
             <label>Name
               <input
                 value={name}
