@@ -10,10 +10,9 @@ import bcrypt from "bcrypt";
 - checked - Sign up - New user endpoint 
 - checked - Log in - sessions authenticate returning user
 - checked - Authenticate/Secrets endpoint (get request) which only returns content if the Authorization header with the users token is returned.
-- checked - The authenticated endpoint should return a 401 or 403 (see 401 vs. 403 on SO) with an error message if you try to access it without
- an Authentication access token or with an invalid token.
-- Your passwords in the database should be encrypted with bcrypt.
-- Your API should validate the user input when creating a new user, and return error messages which could be shown by the frontend.
+- checked - The authenticated endpoint should return a 401 or 403 (see 401 vs. 403 on SO) with an error message if you try to access it withoutan Authentication access token or with an invalid token.
+- checked - Your passwords in the database should be encrypted with bcrypt.
+- !!! semi checked- Your API should validate the user input when creating a new user, and return error messages which could be shown by the frontend.
 - Check to see if server is up and running, if not then throw error.
 */
 
@@ -32,6 +31,7 @@ const User = mongoose.model("User", {
   email: {
     type: String,
     unique: true,
+    //How validate that there is an @ in the email here
   },
   password: {
     type: String,
@@ -67,6 +67,15 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(bodyParser.json());
+
+// Checking if database is up and running
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState === 1) {
+    next();
+  } else {
+    res.status(503).json({ error: "Service unavailable" });
+  }
+});
 
 // Start defining your routes here
 app.get("/", (req, res) => {
