@@ -9,27 +9,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
-    "@babel/core": "^7.8.3",
-    "@babel/node": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-list-endpoints": "^5.0.0",
     "mongoose": "^5.11.11",
-    "nodemon": "^2.0.2"
-=======
     "@babel/core": "^7.12.10",
     "@babel/node": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mongoose": "^5.11.11",
     "nodemon": "^2.0.7"
->>>>>>> bb9365afd2e70d03b421d5e0d3bd76609b015ecb
   },
   "devDependencies": {
     "@babel/helper-compilation-targets": "^7.12.5",
