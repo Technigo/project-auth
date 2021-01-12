@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from "styled-components/macro";
 
 import { login, signUp, user } from '../reducers/user'
-import { Button } from './Button'
+import { Button} from './Button'
 import { Profile } from './Profile'
-import { Card } from './Card'
+import { Container, Wrapper, Form, Label, InputWrapper, ButtonWrapper, Title, Input } from '../lib/Card'
 
 
 export const Login = () => {
@@ -39,6 +38,8 @@ export const Login = () => {
     setPassword('')
   }
 
+  const signBtn = true
+
   // const handleSubmit = event => {
   //   event.preventDefault()
   //   setSubmit(true)
@@ -51,26 +52,30 @@ export const Login = () => {
   // }
 
   return (
-    <LoginForm 
-      title="another card" 
-      subTitle="another subtitle"
-    >
+    <Container>
+      <Wrapper>
       {!isLoggedIn ? (
-        <form>
-          <h1>Sign in</h1>
-          <label>
-            Name
-          <input
+        <Form>
+          <Title>Log in/Sign up</Title>
+          <InputWrapper>
+            <Label htmlFor="name">
+              Name
+            </Label>
+            <Input
               type="text"
+              id="name"
               required
               minLength="2"
               value={name}
-              onChange={(event) => setName(event.target.value)} />
-          </label>
+              onChange={(event) => setName(event.target.value)} 
+            />
+          </InputWrapper>
 
-          <label htmlFor="email">
-            Email
-          <input
+          <InputWrapper>
+            <Label htmlFor="email">
+              Email
+            </Label>
+            <Input
               type="email"
               id="email"
               required
@@ -80,40 +85,46 @@ export const Login = () => {
               //https://www.npmjs.com/package/validator
               //https://codesandbox.io/s/pedantic-taussig-bqg3j?file=/src/App.js:745-757
               //https://www.telerik.com/blogs/up-and-running-with-react-form-validation
-              onChange={(event) => setEmail(event.target.value)} />
-          </label>
-
-          <label>
+              onChange={(event) => setEmail(event.target.value)} 
+            />
+          </InputWrapper>
+          
+          <InputWrapper>
+          <Label htmlFor="password">
             Password
-          <input
+            </Label>
+          <Input
               type="text"
+              id="password"
               required
               value={password}
-              onChange={(event) => setPassword(event.target.value)} />
-          </label>
+              onChange={(event) => setPassword(event.target.value)} 
+            />
+          </InputWrapper>
+          <ButtonWrapper>
           <Button
+            signBtn={signBtn} 
             type='submit'
             onClick={handleSignUp}
-            text='Sign-up'
+            text='Sign up'
             disabled={!name || !password || !email}
           />
           <Button
+            signBtn={signBtn} 
             type='submit'
             onClick={handleLogin}
             text='Log in'
             disabled={!name || !password || !email}
           />
-        </form>
+        </ButtonWrapper>
+        </Form>
       ) : (
           <Profile />
         )}
-    </LoginForm>
+      </Wrapper>
+    </Container>
   )
 }
-
-const LoginForm = styled.div`
-  width: 300px;
-`;
 
 //- A registration form.
 // Your frontend should have a registration form which POSTs to the API to create a new user
