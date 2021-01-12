@@ -4,10 +4,26 @@ const Start = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleOnClick = (event) => {
+  const handleSignUp = (event) => {
     event.preventDefault();
 
     fetch("http://localhost:8080/users", {
+      method: "POST",
+      body: JSON.stringify({ name: username, password: password }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        setUsername("");
+        setPassword("");
+      });
+  };
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+
+    fetch("http://localhost:8080/sessions", {
       method: "POST",
       body: JSON.stringify({ name: username, password: password }),
       headers: { "Content-Type": "application/json" },
@@ -42,8 +58,11 @@ const Start = () => {
             placeholder="Password"
           />
         </label>
-        <button type="submit" onClick={handleOnClick}>
+        <button type="submit" onClick={handleSignUp}>
           Sign up
+        </button>
+        <button type="submit" onClick={handleLogin}>
+          Log in
         </button>
       </form>
     </>
