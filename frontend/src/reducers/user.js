@@ -7,7 +7,6 @@ const initialState = {
     name: null,
     secretMessage: null,
     errorMessage: null,
-    isLoggedIn: false
   },
 };
 
@@ -40,9 +39,9 @@ export const user = createSlice({
       console.log(`Error Message: ${errorMessage}`)
       state.login.errorMessage = errorMessage
     },
-    setLoggedIn: state => {
-      state.isLoggedIn = true;
-    },
+    // setLoggedIn: state => {
+    //   state.isLoggedIn = true;
+    // },
 
   },
 });
@@ -60,8 +59,17 @@ export const signUp = (name, email, password) => {
       .then((res) => {
         //Failed
         if (!res.ok) {
-          throw 'Could not create account. Try a different username.'
+          throw 'Could not create account.'
         }
+        // if (!res.ok) {
+        //   if (!name.unique) {
+        //     throw 'user already exist'
+        //   } else if (!email.ok) {
+        //     throw 'password does not match requirements'
+        //   } else {
+        //     throw 'something went wrong'
+        //   }
+        // }
         //Success
         return res.json()
       })

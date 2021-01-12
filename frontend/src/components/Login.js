@@ -2,20 +2,21 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { login, signUp, user } from '../reducers/user'
-import { Button} from './Button'
+import { Button } from './Button'
 import { Profile } from './Profile'
-import { Container, Wrapper, Form, Label, InputWrapper, ButtonWrapper, Title, Input } from '../lib/Card'
+import { Container, Wrapper, Form, Label, InputWrapper, ButtonWrapper, Title, Input, SubTitle } from '../lib/Card'
 
 
 export const Login = () => {
-
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   // const [submit, setSubmit] = useState(false)
   // console.log(submit)
 
-  const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
+  const errorMessage = useSelector((store) => store.user.login.errorMessage)
+  const accessToken = useSelector((store) => store.user.login.accessToken);
+  console.log(accessToken)
 
 
   const dispatch = useDispatch()
@@ -23,7 +24,7 @@ export const Login = () => {
   const handleLogin = (event) => {
     event.preventDefault()
     dispatch(login(name, email, password))
-    dispatch(user.actions.setLoggedIn())
+    // dispatch(user.actions.setLoggedIn())
     setName('')
     setEmail('')
     setPassword('')
@@ -32,7 +33,7 @@ export const Login = () => {
   const handleSignUp = (event) => {
     event.preventDefault()
     dispatch(signUp(name, email, password))
-    dispatch(user.actions.setLoggedIn())
+    //dispatch(user.actions.setLoggedIn())
     setName('')
     setEmail('')
     setPassword('')
@@ -54,73 +55,70 @@ export const Login = () => {
   return (
     <Container>
       <Wrapper>
-      {!isLoggedIn ? (
-        <Form>
-          <Title>Log in/Sign up</Title>
-          <InputWrapper>
-            <Label htmlFor="name">
-              Name
+        {accessToken === null ? (
+          <Form>
+            <Title>Log in/Sign up</Title>
+            <InputWrapper>
+              <Label htmlFor="name">
+                Name*
             </Label>
-            <Input
-              type="text"
-              id="name"
-              required
-              minLength="2"
-              value={name}
-              onChange={(event) => setName(event.target.value)} 
-            />
-          </InputWrapper>
+              <Input
+                type="text"
+                id="name"
+                required
+                minLength="2"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+              />
+            </InputWrapper>
 
-          <InputWrapper>
-            <Label htmlFor="email">
-              Email
+            <InputWrapper>
+              <Label htmlFor="email">
+                Email*
             </Label>
-            <Input
-              type="email"
-              id="email"
-              required
-              value={email}
-              //pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
-              //pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
-              //https://www.npmjs.com/package/validator
-              //https://codesandbox.io/s/pedantic-taussig-bqg3j?file=/src/App.js:745-757
-              //https://www.telerik.com/blogs/up-and-running-with-react-form-validation
-              onChange={(event) => setEmail(event.target.value)} 
-            />
-          </InputWrapper>
-          
-          <InputWrapper>
-          <Label htmlFor="password">
-            Password
+              <Input
+                type="email"
+                id="email"
+                required
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </InputWrapper>
+
+            <InputWrapper>
+              <Label htmlFor="password">
+                Password*
             </Label>
-          <Input
-              type="text"
-              id="password"
-              required
-              value={password}
-              onChange={(event) => setPassword(event.target.value)} 
-            />
-          </InputWrapper>
-          <ButtonWrapper>
-          <Button
-            signBtn={signBtn} 
-            type='submit'
-            onClick={handleSignUp}
-            text='Sign up'
-            disabled={!name || !password || !email}
-          />
-          <Button
-            signBtn={signBtn} 
-            type='submit'
-            onClick={handleLogin}
-            text='Log in'
-            disabled={!name || !password || !email}
-          />
-        </ButtonWrapper>
-        </Form>
-      ) : (
-          <Profile />
-        )}
+              <Input
+                type="text"
+                id="password"
+                required
+                minLength="8"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </InputWrapper>
+            <ButtonWrapper>
+              <Button
+                signBtn={signBtn}
+                type='submit'
+                onClick={handleSignUp}
+                text='Sign up'
+                disabled={!name || !password || !email}
+              />
+              <Button
+                signBtn={signBtn}
+                type='submit'
+                onClick={handleLogin}
+                text='Log in'
+                disabled={!name || !password || !email}
+              />
+            </ButtonWrapper>
+            {errorMessage && <SubTitle>{errorMessage}</SubTitle>}
+          </Form>
+        ) : (
+            <Profile />
+          )}
       </Wrapper>
     </Container>
   )

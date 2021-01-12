@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getSecretMessage, logout } from '../reducers/user'
 
 import { Button } from './Button'
+import { Wrapper, Title, ButtonWrapper, SubTitle } from '../lib/Card'
 
 export const Profile = () => {
   const userName = useSelector(store => store.user.login.name)
@@ -27,20 +28,23 @@ export const Profile = () => {
   const dispatch = useDispatch()
 
   return (
-    <div>
-      <h1>Welcome {userName}</h1>
-      <p>Name: {userName}</p> 
-      {secretMessage && <p>{secretMessage}</p>}
-      <Button
-      type='submit'
-      onClick={()=> dispatch(getSecretMessage())}
-      text='Reveal your secret message'
-      />
-      <Button
-      type='submit'
-      onClick={()=> dispatch(logout())}
-      text='Log out'
-      />
-    </div>
+    // <Container>
+    <Wrapper>
+      <Title>Welcome {userName}</Title>
+      {secretMessage && <SubTitle>{secretMessage}</SubTitle>}
+      <ButtonWrapper>
+        <Button
+          type='submit'
+          onClick={() => dispatch(getSecretMessage())}
+          text='Reveal your secret message'
+        />
+        <Button
+          type='submit'
+          onClick={() => dispatch(logout())}
+          text='Log out'
+        />
+      </ButtonWrapper>
+    </Wrapper>
+    // </Container>
   )
 }

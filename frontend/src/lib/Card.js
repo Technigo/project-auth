@@ -53,20 +53,24 @@ export const Title = styled.h1`
   font-size: 28px;
   text-align: center;
 `
+export const SubTitle = styled(Title)`
+  font-size: 18px;
+  margin-bottom: 20px;
+`
 
 // export const CustomButton = styled.button`
 //   width: 300px;
 //   border-radius: 3px;
 //   background: transparent; 
 //   border: 2px solid green;
-  
+
 //   ${({ startBtn }) => startBtn && `
 //     width: 10em;
 //     padding: 0.2em;
 //     &:hover {
 //       animation: grow 2s ease-in-out;
 //       color: #fff;
-  
+
 //       @keyframes grow {
 //         50% {
 //           transform: scale(1.1);

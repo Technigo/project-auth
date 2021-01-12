@@ -14,15 +14,16 @@ export const CustomButton = styled.button`
     color: red;
     &:hover {
     color: #fff;
-`}`
+  `}
+`
 
 export const Button = ({ button, onClick, disabled, value, text }) => {
   return (
     <CustomButton
-    type={button}
-    onClick={onClick}
-    disabled={disabled}
-    value={value}
+      type={button}
+      onClick={onClick}
+      disabled={disabled}
+      value={value}
     >
       {text}
     </CustomButton>
