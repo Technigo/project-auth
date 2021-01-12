@@ -7,10 +7,11 @@ import bcrypt from "bcrypt";
 
 //To achieve:
 /* 
-- Sign in - New user endpoint
-- Log in - sessions authenticate returning user
-- Authenticate/Secrets endpoint (get request) which only returns content if the Authorization header with the users token is returned.
-- The authenticated endpoint should return a 401 or 403 (see 401 vs. 403 on SO) with an error message if you try to access it without an Authentication access token or with an invalid token.
+- checked - Sign up - New user endpoint 
+- checked - Log in - sessions authenticate returning user
+- checked - Authenticate/Secrets endpoint (get request) which only returns content if the Authorization header with the users token is returned.
+- checked - The authenticated endpoint should return a 401 or 403 (see 401 vs. 403 on SO) with an error message if you try to access it without
+ an Authentication access token or with an invalid token.
 - Your passwords in the database should be encrypted with bcrypt.
 - Your API should validate the user input when creating a new user, and return error messages which could be shown by the frontend.
 - Check to see if server is up and running, if not then throw error.
@@ -52,7 +53,7 @@ const authenticateUser = async (req, res, next) => {
     req.user = user;
     next();
   } else {
-    res.status(401).json({ loggedOut: true });
+    res.status(401).json({ loggedOut: true, message: "invalid loggin" });
   }
 };
 
@@ -82,6 +83,7 @@ app.get("/", (req, res) => {
 // that the user can use to access our secrets endpoint.
 // 5. If failure: return error message.
 
+// Sign up - New user endpoint
 app.post("/users", async (req, res) => {
   try {
     const salt = bcrypt.genSaltSync();
@@ -92,7 +94,11 @@ app.post("/users", async (req, res) => {
       password: bcrypt.hashSync(password, salt),
     });
     await user.save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
+    res.status(201).json({
+      id: user._id,
+      accessToken: user.accessToken,
+      message: "user was created",
+    });
   } catch (err) {
     res
       .status(400)
@@ -103,18 +109,27 @@ app.post("/users", async (req, res) => {
 // Use authenticateUser function to protect our secret endpoint.
 // Try in postman - loggedOut: true
 
-app.get("/secrets", authenticateUser);
-app.get("/secrets", (req, res) => {
-  res.json({ secret: "This is a secret message" });
+//Authenticate endpoint
+app.get("/users/:id", authenticateUser);
+app.get("/users/:id", (req, res) => {
+  res.status(501).send("This could be the users login view");
 });
 
 // Log-in endpoint. Find user.
 app.post("/sessions", async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken });
-  } else {
-    res.json({ notFound: true });
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user && bcrypt.compareSync(req.body.password, user.password)) {
+      res.status(201).json({
+        userId: user._id,
+        accessToken: user.accessToken,
+        message: "User logged in",
+      });
+    } else {
+      throw "User not found";
+    }
+  } catch (err) {
+    res.status(404).json({ error: "User not found" });
   }
 });
 
@@ -122,4 +137,3 @@ app.post("/sessions", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
-
