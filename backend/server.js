@@ -3,13 +3,9 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
-// import bcrypt from 'bcrypt-js'
-// eventuellt byta ut bcrypt paketet 
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from 'bcrypt';
 import { isEmail, isStrongPassword } from 'validator';
 
-// to do
-// create message variables
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
@@ -99,7 +95,8 @@ app.get('/', (req, res) => {
 app.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body
-    const user = new User({ name, email, password: bcrypt.hashSync(password) })
+    const salt = bcrypt.genSaltSync()
+    const user = new User({ name, email, password: bcrypt.hashSync(password, salt) })
     const saved = await user.save()
     res.status(201).json({ userId: saved._id, accessToken: saved.accessToken })
   } catch (err) {
