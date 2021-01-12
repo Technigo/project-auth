@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt-nodejs'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -29,7 +29,7 @@ const User = mongoose.model('User', {
 // overridden when starting the server. For example:
 //
 //   PORT=9000 npm start
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8090
 const app = express()
 
 // Add middlewares to enable cors and json body parsing
@@ -38,6 +38,7 @@ app.use(bodyParser.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
+  console.log('test')
   res.send('Hello world')
 })
 
@@ -45,6 +46,7 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const {name, password} = req.body
+    console.log('test')
     const user = await new User({name, password: bcrypt.hashSync(password)})
     user.save()
     res.status(200).json(user);
