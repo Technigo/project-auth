@@ -12,11 +12,11 @@ mongoose.Promise = Promise
 const User = mongoose.model('User', {
   name: {
     type: String,
-    required: true,
+    //required: true,
   },
   password: {
     type: String,
-    required: true,
+    //required: true,
    },
    accessToken: {
      type: String,
