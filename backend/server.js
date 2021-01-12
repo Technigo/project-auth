@@ -50,6 +50,16 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
+// Middleware
+// Error message if server is down
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState === 1) {
+    next()
+  } else {
+    res.status(503).send({ error: 'service unavailable' })
+  }
+})
+
 // middlewear authenticate User
 const authenticateUser = async (req, res, next) => {
   try {
@@ -79,7 +89,7 @@ app.get('/', (req, res) => {
 
 // create user
 // this is working
-app.post('/users', async (req, res) => {
+app.post('/signup', async (req, res) => {
   try {
     const {name, email, password} = req.body
     const user = new User({ name, email, password: bcrypt.hashSync(password) })
@@ -97,11 +107,25 @@ app.post('/users', async (req, res) => {
 // this is working
 app.get('/users/:id/secret', authenticateUser);
 app.get('/users/:id/secret', (req, res) => {
-  const secretMessage = `'fun' message here ${req.user.name}`
+  const secretMessage = `${req.user.name}, this was totally worth all your effort - right?`
   res.status(201).json({ secretMessage })
 })
 
 // log in user endpoint (POST)
+// this is working
+app.post('/login', async (req, res) => {
+  try {
+  const { name, email, password } = req.body;
+  const user = await User.findOne({ name, email })
+  if (user && bcrypt.compareSync(password, user.password)) {
+    res.status(201).json({ userId: user._id, userName: user.name, accessToken: user.accessToken })
+  } else {
+    res.status(404).json({ notFound: true })
+  }
+} catch (err) {
+  res.status(404).json({ notFound: true })
+}
+})
 
 // Start the server
 app.listen(port, () => {
