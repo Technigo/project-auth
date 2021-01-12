@@ -2,9 +2,23 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 export const FormSignup = () => {
+	const SIGNUP_URL =  'http://localhost:8080/users'
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
+
+	const handleSignup = (event) => {
+		event.preventDefault();
+
+		fetch(SIGNUP_URL, { 
+			method: 'POST',
+			body: JSON.stringify({ name: userName, password, email }),
+			headers: { 'Content-Type': 'application/json' },
+		})
+			.then(res => res.json())
+			.then(json => console.log(json))
+			.catch(err => console.log('error:', err ))
+		}
 
 	return (
 		<div>
@@ -35,7 +49,7 @@ export const FormSignup = () => {
 					value={email}
 					onChange={(event) => setEmail(event.target.value)}></Input>
 			</label>
-			<Button type="submit">Confirm signup</Button>
+			<Button onClick={handleSignup}>Confirm signup</Button>
 		</div>
 	);
 };
