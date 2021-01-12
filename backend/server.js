@@ -61,13 +61,12 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-
 // Start defining your routes here
 app.get('/', (req, res) => {
   res.send(listEndpoints(app));
 })
 
-// SIGN UP - create user
+// ? SIGN UP - create user
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -82,14 +81,13 @@ app.post('/users', async (req, res) => {
   }
 });
 
-//? secure endpoint, user needs to be logged access this
+//? secure endpoint, user needs to be logged in to access this
 app.get('/users/:id', authenticateUser);
 app.get('/users/:id', (req, res) => {
   res.status(201).json({ name: req.user.name, userId: req.user._id });
+});
 
-})
-
-// Login user and compare password match user
+// ? LOGIN user and check password match user
 app.post('/sessions', async (req, res) => {
   try {
     const { name, password } = req.body;
