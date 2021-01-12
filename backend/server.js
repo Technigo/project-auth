@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import crypto from 'crypto';
-import bcrypt from 'bcrypt-nodejs';
+import bcrypt from 'bcrypt';
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -12,19 +12,21 @@ mongoose.Promise = Promise
 const User = mongoose.model('User', {
   name: {
     type: String,
-    unique: true
+    required: true
   },
   email: {
     type: String,
-    unique: true
+    required: true
   },
   password: {
     type: String,
+    required: true,
     unique: true
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString('hex')
+    default: () => crypto.randomBytes(128).toString('hex'),
+    
   },
 });
 
@@ -79,7 +81,7 @@ app.post('/sessions', async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
-      res.json({ userId: user._id, accessToken: user.accessToken });
+      res.status(200).json({ userId: user._id, accessToken: user.accessToken });
     } else {
       res.json({ notFound: true });
     }
