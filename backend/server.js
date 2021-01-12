@@ -3,9 +3,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import crypto from 'crypto';
-import bcrypt from "bcrypt-nodejs";
+import bcrypt from 'bcrypt';
 
-const SALT = bcrypt.genSaltSync(10);
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
@@ -14,11 +13,13 @@ mongoose.Promise = Promise;
 const User = mongoose.model('User', {
   name: {
     type: String,
+    minLength:3,
     unique: true,
     required: true,
   },
   password: {
     type: String,
+    minLength: 5, 
     required: true,
   },
   accessToken: {
@@ -29,22 +30,16 @@ const User = mongoose.model('User', {
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({
-      accessToken: req.header('Authorization'),
-    });
+    const user = await User.findOne({ accessToken: req.header('Authorization')});
 
     if (user) {
       req.user = user;
       next();
     } else {
-      res
-        .status(401)
-        .json({ loggedOut: true, message: 'Please try logging in again' });
+      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' });
     };
   } catch (err) {
-    res
-      .status(403)
-      .json({ message: 'Access token is missing or wrong', errors: err });
+    res.status(403).json({ message: 'Access token is missing or wrong', errors: err });
   };
 };
 
@@ -57,7 +52,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Start defining your routes here
+// ROUTES
 app.get('/', (req, res) => {
   res.send('Hello world');
 });
@@ -66,6 +61,7 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => { 
   try { 
     const { name, password } = req.body;
+    const SALT = bcrypt.genSaltSync(10);
     const user = new User({ name, password: bcrypt.hashSync(password, SALT)});
     user.save();
     res.status(201).json({id: user._id, accessToken: user.accessToken});
@@ -77,7 +73,7 @@ app.post('/users', async (req, res) => {
 // SECURE ENDPOINT
 app.get('/users/:id', authenticateUser);
 app.get('/users/:id', (req, res) => {
-  res.status(501).send();
+  res.status(201).json({ message: "shh super secret message" });
 });
 
 // LOGIN ENDPOINT 
@@ -88,10 +84,10 @@ app.post('/sessions', async (req, res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(201).json({ userId: user._id, accessToken: user.accessToken });
     } else {
-      res.status(404).json({ notFound: true });
+      res.status(404).json({ notFound: true, message: "Check if username and/or password is correct" });
     };
   } catch (err) {
-    res.status(404).json({ notFound: true });
+    res.status(404).json({ notFound: true, message: "Check if username and/or password is correct" });
   };
 });
 

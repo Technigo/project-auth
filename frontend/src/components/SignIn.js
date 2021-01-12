@@ -26,7 +26,7 @@ export const SignIn = () => {
     dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
   };
 
-  // RESGISTRATION FUNCTION
+  // REGISTRATION FUNCTION
   const handleSignup = (event) => {
     event.preventDefault();
 
@@ -45,7 +45,7 @@ export const SignIn = () => {
       .catch((err) => handleLoginFailed(err));
   };
 
-  // Login function
+  // LOGIN FUNCTION
   const handleLogin = (event) => {
     event.preventDefault();
 
@@ -65,9 +65,7 @@ export const SignIn = () => {
   };
 
   if(accessToken) {
-    return <>
-    <h2>{`Hello ${name} you are logged in!`}</h2>
-    </>
+    return <h2>{`Hello ${name} you are logged in!`}</h2>
   };
 
   return (
