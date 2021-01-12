@@ -1,87 +1,96 @@
 import React, {useState} from "react"
-import {useDispach, useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
 import {user} from "../reducers/user"
-import {UserProfile} from "./UserProfile"
-const SIGNUP = "https://project-auth-liza-kat.herokuapp.com/users"
+import {SubmitButton} from "./SubmitButton"
+//import {UserProfile} from "./UserProfile"
+
+import styled from "styled-components"
+import swal from "sweetalert"
+
+//const SIGNUP = "https://project-auth-liza-kat.herokuapp.com/users"
 const LOGIN = "https://project-auth-liza-kat.herokuapp.com/sessions"
 
 export const Login = () => {
-	const dispatch = useDispach()
-	const accessToken = useSelector((store) => store.user.login.accessToken)
-	const [name, setName] = useState("")
+	const dispatch = useDispatch()
+	//const accessToken = useSelector((store) => store.user.login.accessToken)
+	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 
-	const handleLogin = (loginResponse) => {
-		dispatch(
-			user.actions.setAccessToken({accessToken: loginResponse.accessToken})
-		)
-	}
-	dispatch(user.actions.setUserId({userId: loginResponse.userId}))
-	dispatch(user.actions.setStatusMessage({setStatusMessage: 'Success! You are now logged in.'}))
-
-	const handleLoginFailed = (loginError) => {}
-
-	//Sign-up as a user
-	const handleSignup = (signupResponse) => {
-		signupResponse.preventDefault()
-
-		fetch(SIGNUP, {
-			method: "POST",
-			body: JSON.stringify({name, password}),
-			headers: {"Content-Type": "application/json"}
-		})
-		.then((res) => res.json())
-		.then((json) => handleLogin(json))
-		.catch((err) => handleLoginFailed(err))
-	}
-	//Sign-up a user
-	const handleLogin = (signupResponse) => {
-		signupResponse.preventDefault()
+	//Login a user
+	const handleLogin = (event) => {
+		event.preventDefault()
 
 		fetch(LOGIN, {
 			method: "POST",
-			body: JSON.stringify({name, password}),
+			body: JSON.stringify({email, password}),
 			headers: {"Content-Type": "application/json"}
 		})
-		.then((res) => res.json())
-		.then((json) => handleLogin(json))
-		.catch((err) => handleLoginFailed(err))
-	}
+		.then(res => {
+			if (!res.ok) {
+			  swal({
+				text: 'Unexpected error',
+				icon: "error",
+				button: {
+				text: 'Please enter your login information again'
+				},
+			  })
+			} else {
+			  return res.json()
+			}
+		  })
+		  .then(({ accessToken }) => {
+			setEmail('')
+			setPassword('')
+			if (accessToken) {
+			  dispatch(user.actions.logIn())
+			  dispatch(user.actions.access(accessToken))
+			}
+		  })
+		  .catch(err => console.log("error:", err))
+	  }
+return (
+    <Form>
+      <Input onSubmit={handleLogin}>
+        <Label> Email
+        <InputField placeholder="email" type="email"
+            value={email} onChange={event => setEmail(event.target.value)} />
+        </Label>
 
-//Show log in form if user is logged out
-if(!accessToken) {
-	return(
-		<div>
-			<UserProfile/>
-			<form>
-				<h1>Sign up</h1>
-				<label>
-					Name
-					<input
-						required
-						value={name}
-						onChange={(event)=>setName(event.target.value)}
-					/>
-				</label>
-				<label>
-					Password
-					<input
-						required
-						value={password}
-						onChange={(event)=>setPassword(event.target.value)}
-					/>
-				</label>
-				<button type="submit" onClick={handleSignup}>
-						Sign up
-				</button>
-				<button type="submit" onClick={handleLogin}>
-						Login
-				</button>
-			</form>
-		</div>
-	)
-} else {
-	return <UserProfile/>
-	}
+        <Label> Password:
+        <InputField placeholder="password" type="password"
+            value={password} onChange={event => setPassword(event.target.value)} />
+        </Label>
+
+        <SubmitButton type="submit" title='Login' />
+      </Input>
+    </Form>
+  )
 }
-export default Login
+//STYLED COMPONENTS
+const Form = styled.section`
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	justify-content: center;
+	width: 60%;
+	height: 500px;
+`
+const Input = styled.section`
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	justify-content: center;
+	width: 100%;
+`
+const Label = styled.label`
+	font-family: 'Xanh Mono', monospace;
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	color: #fbcdc4;
+	font-size: 15px;
+`
+const InputField = styled.label`
+	font-family: 'Xanh Mono', monospace;
+	width: 20%; 
+`
