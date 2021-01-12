@@ -6,6 +6,7 @@ import crypto from 'crypto'
 // import bcrypt from 'bcrypt-js'
 // eventuellt byta ut bcrypt paketet 
 import bcrypt from 'bcrypt-nodejs'
+import { isEmail, isStrongPassword } from 'validator';
 
 // to do
 // create message variables
@@ -19,17 +20,23 @@ const User = mongoose.model("user", {
   name: {
     type: String,
     unique: true,
-    required: true
+    required: true,
+    trim: true,
+    minlength: 2,
+    maxlength: 80,
   },
   password: {
     type: String,
-    required: true,
-    minlength: 8, // this is not working - postman accepts shorter passwords
+    required: [true, 'a password is required'],
+    minlength: 5,
+    // validate: [ isStrongPassword , 'this is not strong']
   },
   email: {
     type: String,
+    trim: true,
     unique: true,
-    required: true
+    required: true,
+    validate: [isEmail, 'invalid email']
   },
   accessToken: {
     type: String,
@@ -91,15 +98,17 @@ app.get('/', (req, res) => {
 // this is working
 app.post('/signup', async (req, res) => {
   try {
-    const {name, email, password} = req.body
+    const { name, email, password } = req.body
     const user = new User({ name, email, password: bcrypt.hashSync(password) })
     const saved = await user.save()
     res.status(201).json({ userId: saved._id, accessToken: saved.accessToken })
   } catch (err) {
-    res.status(400).json({ message: 'Could not create user', errors: {
-      message: err.message,
-      error: err, 
-    }, })
+    res.status(400).json({
+      message: 'Could not create user', errors: {
+        message: err.message,
+        error: err,
+      },
+    })
   }
 })
 
@@ -115,16 +124,16 @@ app.get('/users/:id/secret', (req, res) => {
 // this is working
 app.post('/login', async (req, res) => {
   try {
-  const { name, email, password } = req.body;
-  const user = await User.findOne({ name, email })
-  if (user && bcrypt.compareSync(password, user.password)) {
-    res.status(201).json({ userId: user._id, userName: user.name, accessToken: user.accessToken })
-  } else {
+    const { name, email, password } = req.body;
+    const user = await User.findOne({ name, email })
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(201).json({ userId: user._id, userName: user.name, accessToken: user.accessToken })
+    } else {
+      res.status(404).json({ notFound: true })
+    }
+  } catch (err) {
     res.status(404).json({ notFound: true })
   }
-} catch (err) {
-  res.status(404).json({ notFound: true })
-}
 })
 
 // Start the server
