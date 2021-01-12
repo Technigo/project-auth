@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 
-const BASE_URL = "http://localhost:8080/"
-const SIGNUP_URL = `${BASE_URL}users`
-
-const SignUp = () => {
+const SignUp = ({ SIGNUP_URL }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,17 +23,27 @@ const SignUp = () => {
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label>
         Email:
-         <input
-          type="email" value={email} name="email" onChange={event => setEmail(event.target.value)} />
+        <input
+          required
+          minLength="5"
+          type="email"
+          value={email}
+          name="email"
+          onChange={event => setEmail(event.target.value)} />
       </label>
       <label>
         Password:
-         <input type="text" value={password} onChange={event => setPassword(event.target.value)} />
+        <input
+          required
+          minLength="5"
+          type="text"
+          value={password}
+          onChange={event => setPassword(event.target.value)} />
       </label>
-      <button type="submit" onClick={handleSubmit}>Sign up</button>
+      <button type="submit">Sign up</button>
     </form>
   )
 };
