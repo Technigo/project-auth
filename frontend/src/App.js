@@ -16,8 +16,8 @@ const Container = styled.div`
 export const App = () => {
   return (
     <Container>
-      <CreateUser />
       <LoginForm />
+      <CreateUser />
     </Container>
   )
 }

@@ -3,20 +3,22 @@ import styled from 'styled-components'
 
 import Button from './Button'
 import InputField from './InputField'
+import img from '../assets/purple.jpg';
 
 const LoginContainer = styled.div`
-  border-radius: 0 20px 20px 0;
   width: 35%;
+  border-radius: 20px 0 0 20px;
+  background-image: url(${img});
+  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: white;
-  box-shadow: 5px 5px 5px grey;
+  box-shadow: -5px 5px 5px grey;
 `;
 
 const Title = styled.h1`
   align-self: flex-start;
-  color: purple;
+  color: white;
   font-size: 36px;
   padding: 20px 0;
 `;
