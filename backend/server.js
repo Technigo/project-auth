@@ -3,16 +3,24 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from 'bcrypt'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
+const SALT = bcrypt.genSaltSync(10)
+
 const User = mongoose.model('User', {
   name: {
     type: String,
-    unique: true
+    unique: true,
+    required: true
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true
   },
   password: {
     type: String,
@@ -25,12 +33,16 @@ const User = mongoose.model('User', {
 })
 
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({accessToken: req.header('Authorization')})
-  if(user){
-    req.user = user
-    next()
-  } else {
-    res.status(401).json({loggedOut: true})
+  try {
+    const user = await User.findOne({accessToken: req.header('Authorization')})
+    if(user){
+      req.user = user
+      next()
+    } else {
+      res.status(401).json({loggedOut: true})
+    }
+  } catch {
+    res.status(400).json({message:'Could not find User!', errors: err.errors})
   }
 }
 
@@ -53,7 +65,7 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const {name, email, password} = req.body
-    const user = new User({name, email, password: bcrypt.hashSync(password)})
+    const user = new User({name, email, password: bcrypt.hashSync(password, SALT)})
     user.save()
     res.status(201).json({id: user._id, accessToken: user.accessToken})
   } catch(err) {
@@ -61,8 +73,8 @@ app.post('/users', async (req, res) => {
   }
 })
 
-app.get('/secrets', authenticateUser)
-app.get('/secrets', (req,res) => {
+app.get('/users/:id', authenticateUser)
+app.get('/users/:id', (req,res) => {
   res.json({secret: 'This is a super secret message.'})
 })
 
