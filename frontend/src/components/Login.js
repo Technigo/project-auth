@@ -8,7 +8,6 @@ import {InputField} from "./InputField"
 import styled from "styled-components"
 import swal from "sweetalert"
 
-//const SIGNUP = "https://project-auth-liza-kat.herokuapp.com/users"
 const LOGIN = "https://project-auth-liza-kat.herokuapp.com/sessions"
 
 export const Login = () => {

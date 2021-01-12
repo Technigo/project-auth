@@ -15,6 +15,6 @@ export const InputField = ({ placeholder, type, value, onChange, minLength }) =>
 
 const Input = styled.label`
 	font-family: 'Xanh Mono', monospace;
-	width: 20%; 
+	width: 60%; 
 	background-color: #be1f01;
 `
