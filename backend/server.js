@@ -4,14 +4,11 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt';
-import { isEmail, isStrongPassword } from 'validator';
-
+import { isEmail, isStrongPassword } from 'validator'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
-
-
 
 // Schema
 const userSchema = new mongoose.Schema({
@@ -113,7 +110,7 @@ app.get('/', (req, res) => {
 app.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body
-    const user = await new User({ name, email, password }).save();
+    const user = await new User({ name, email, password }).save()
     res.status(201).json({ userId: user._id, accessToken: user.accessToken })
   } catch (err) {
     res.status(400).json({
@@ -127,7 +124,7 @@ app.post('/signup', async (req, res) => {
 
 // Secure endpoint, user needs to be logged in to access this.
 // this is working
-app.get('/users/:id/secret', authenticateUser);
+app.get('/users/:id/secret', authenticateUser)
 app.get('/users/:id/secret', (req, res) => {
   const secretMessage = `${req.user.name}, this was totally worth all your effort - right?`
   res.status(201).json({ secretMessage })
@@ -137,7 +134,7 @@ app.get('/users/:id/secret', (req, res) => {
 // this is working
 app.post('/login', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password } = req.body
     const user = await User.findOne({ name, email })
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(201).json({ userId: user._id, userName: user.name, accessToken: user.accessToken })

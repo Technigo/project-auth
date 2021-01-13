@@ -1,13 +1,20 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+This project has an API with authentication (with validations) to implement a registration flow, and a frontend with a form registration which POST to the API. The front-end has form validation, a sign in, to view a secret message content once you're logged in, and a log out.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+The project has
+* Registration endpoint, to create a new user
+* Sign-in endpoint, to authenticate a returning user.
+* An authenticated endpoint which only returns content if the `Authorization` header with the user's token was correct.
+* A 'sign out' button that removes the saved access token and redirects the user to the login form.
 
-## The problem
+## Tech
+* mongoose
+* express
+* React
+* material-ui
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+
