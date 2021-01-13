@@ -45,7 +45,7 @@ export const login = (email, password) => {
       headers: { 'Content-Type': 'application/json' },
     })
     .then((res) => {
-      if (res.ok /* if 200, 201, 204 */) {
+      if (res.ok ) {
         return res.json();
       }
       throw 'Unable to sign in.';
