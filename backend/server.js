@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from 'bcrypt'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -16,7 +16,8 @@ const User = mongoose.model('User', {
   },
   email:{
     type: String,
-    unique: true
+    unique: true,
+    required: true
   },
   password:{
     type: String,
@@ -29,20 +30,16 @@ const User = mongoose.model('User', {
 });
 
 //Create a middleware
-
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({accessToken: req.header('Authorization')});
+  const user = await User.findOne({ accessToken: req.header('Authorization') });
   if (user) {
     req.user = user;
     next();
   } else {
-    res.status(401).json({loggedOut: true});
+    res.status(401).json({ loggedOut: true });
   }
 };
 
-// Defines the port the app will run on. Defaults to 8080, but can be 
-// overridden when starting the server. For example:
-//
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080
 const app = express()
@@ -56,29 +53,33 @@ app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
+// Sign-up endpoint
 app.post('/users', async (req, res) => {
   try {
-    const {name, email, password} = req.body;
-    const user = new User({name, email, password: bcrypt.hashSync(password)})
-    user.save()
-    res.status(201).json({id: user._id, accessToken: user.accessToken})
+    const { name, email, password } = req.body;
+    const SALT = bcrypt.genSaltSync(10);
+    const user = new User({ name, email, password: bcrypt.hashSync(password, SALT) })
+    const saved = await user.save()
+    res.status(201).json({ id: saved._id, accessToken: saved.accessToken })
   } catch (err) {
-    res.status(400).json({message: 'Could not create user', error:err,error});
+    res.status(400).json({ message: 'Could not create user', error:err.error });
   }
 });
 
+// Authenticated endpoint 
 app.get('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
-  res.json({secret: 'Secret message'});
+  res.json({ secret: 'Secret message' });
 });
 
+// Sign-in endpoint
 app.post('/sessions', async (req, res) => {
-  const user = await User.findOne({email: req.body.email})
+  const user = await User.findOne({ email: req.body.email })
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({userId: user._id, accessToken: user.accessToken})
+    res.status(201).json({ userId: user._id, accessToken: user.accessToken })
   } else {
-    res.json({notFound: true})
-  }
+    res.json({ notFound: true })
+  } 
 });
 
 // Start the server
