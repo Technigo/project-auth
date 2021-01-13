@@ -28,11 +28,6 @@ const User = mongoose.model("User", {
     unique: true,
     required: true,
   },
-  email: {
-    type: String,
-    unique: true,
-    //How validate that there is an @ in the email here
-  },
   password: {
     type: String,
     required: true,
@@ -53,7 +48,7 @@ const authenticateUser = async (req, res, next) => {
     req.user = user;
     next();
   } else {
-    res.status(401).json({ loggedOut: true, message: "invalid loggin" });
+    res.status(401).json({ loggedOut: true, statusMessage: "invalid loggin" });
   }
 };
 
@@ -95,23 +90,23 @@ app.get("/", (req, res) => {
 // Sign up - New user endpoint
 app.post("/users", async (req, res) => {
   try {
+    const { name, password } = req.body;
     const salt = bcrypt.genSaltSync();
-    const { name, email, password } = req.body;
     const user = new User({
       name,
-      email,
       password: bcrypt.hashSync(password, salt),
     });
     await user.save();
     res.status(201).json({
       id: user._id,
       accessToken: user.accessToken,
-      message: "user was created",
+      statusMessage: "user was created",
     });
   } catch (err) {
+    console.log(err);
     res
       .status(400)
-      .json({ message: "Could not create user", errors: err.errors });
+      .json({ statusMessage: "Could not create user", errors: err.errors });
   }
 });
 
@@ -127,12 +122,12 @@ app.get("/users/:id", (req, res) => {
 // Log-in endpoint. Find user.
 app.post("/sessions", async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ name: req.body.name });
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       res.status(201).json({
         userId: user._id,
         accessToken: user.accessToken,
-        message: "User logged in",
+        statusMessage: "User logged in",
       });
     } else {
       throw "User not found";
