@@ -20,10 +20,6 @@ export const SignupForm = () => {
       .catch((err) => console.log("error:", err ))
   }
 
-  const handleLogin = () => {
-    console.log('hej')
-  }
-
   // FORMULÄR FÖR SIGN IN & SIGN UP 
 return (
     <section className="form">
