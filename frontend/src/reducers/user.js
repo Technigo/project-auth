@@ -28,10 +28,11 @@ export const user = createSlice({
       const { statusMessage } = action.payload;
       state.login.statusMessage = statusMessage;
     },
+
     setErrorMessage: (state, action) => {
       const { errorMessage } = action.payload;
       state.login.errorMessage = errorMessage;
-  },
+    },
   }
 });
 
@@ -44,21 +45,21 @@ export const login = (email, password) => {
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
     })
-    .then((res) => {
-      if (res.ok ) {
-        return res.json();
-      }
-      throw 'Unable to sign in.';
-    })
-    .then((json) => {
-      // Save the login info
-      dispatch( user.actions.setAccessToken({ accessToken: json.accessToken }));
-      dispatch(user.actions.setUserId({ userId: json.userId }));
-      dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful login' }));
-    })
-    .catch((err) => {
-      // dispatch(user.actions.logout());
-      dispatch(user.actions.setErrorMessage({ errorMessage: err }));
-    });
-};
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw 'Unable to sign in.';
+      })
+      .then((json) => {
+        // Save the login info
+        dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
+        dispatch(user.actions.setUserId({ userId: json.userId }));
+        dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful login' }));
+      })
+      .catch((err) => {
+        // dispatch(user.actions.logout());
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+      });
+  };
 };

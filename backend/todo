@@ -4,7 +4,9 @@ TO DO LIST - Sara & Gabriella
 [x] Log in - ruta
 [ ] Ändra så secrets syns direkt efter man tryckt på Log in - Sara
 [ ] Log out button 
-[ ] Eventuellt thunks
+[ ] Lägg till error message om man skriver fel lösenord eller inte kan logga in pga. ej registrad
+[ ] Lägg till error message om Sign up misslyckas
+[x] Eventuellt thunks
 [ ] Styling
 [ ] Read me
 [ ] Deploya API't
