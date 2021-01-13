@@ -1,30 +1,48 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
-import { login, signUp, user } from '../reducers/user'
-import { Button } from './Button'
+import TextField from '@material-ui/core/TextField'
+import IconButton from '@material-ui/core/IconButton'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import Visibility from '@material-ui/icons/Visibility'
+import VisibilityOff from '@material-ui/icons/VisibilityOff'
+import { login, signUp } from '../reducers/user'
+import { CustomButton } from './CustomButton'
 import { Profile } from './Profile'
-import { Container, Wrapper, Form, Label, InputWrapper, ButtonWrapper, Title, Input, SubTitle } from '../lib/Card'
-
+import {
+  Container,
+  Wrapper,
+  Form,
+  ButtonWrapper,
+  Title,
+  SubTitle
+} from '../lib/Card'
 
 export const Login = () => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  // const [submit, setSubmit] = useState(false)
-  // console.log(submit)
 
   const errorMessage = useSelector((store) => store.user.login.errorMessage)
-  const accessToken = useSelector((store) => store.user.login.accessToken);
-  console.log(accessToken)
-
-
+  const accessToken = useSelector((store) => store.user.login.accessToken)
   const dispatch = useDispatch()
+
+  // Form validation
+  const minimumNameLength = { minLength: 2, maxLength: 20 }
+  const minimumPasswordLength = { minLength: 5 }
+  const validEmail = { pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"} //cannot start with @
+  // has to include the pattern of xxxx@xxx.se
+
+  // useEffect(() => {
+  //   if (userName) {
+  //     dispatch(setUserName());
+  //   }
+  // }, [dispatch, userName]);
 
   const handleLogin = (event) => {
     event.preventDefault()
     dispatch(login(name, email, password))
-    // dispatch(user.actions.setLoggedIn())
     setName('')
     setEmail('')
     setPassword('')
@@ -33,81 +51,76 @@ export const Login = () => {
   const handleSignUp = (event) => {
     event.preventDefault()
     dispatch(signUp(name, email, password))
-    //dispatch(user.actions.setLoggedIn())
     setName('')
     setEmail('')
     setPassword('')
   }
 
-  const signBtn = true
-
-  // const handleSubmit = event => {
-  //   event.preventDefault()
-  //   setSubmit(true)
-  // }
-
-  // const handleSubmit = () => {
-  //   console.log('before')
-  //   dispatch(user.actions.setLoggedIn())
-  //   console.log('after')
-  // }
+  const handleClickShowPassword = () => {
+    setPassword({ ...password, showPassword: !password.showPassword });
+  };
 
   return (
     <Container>
       <Wrapper>
-        {accessToken === null ? (
+        {!accessToken ? (
           <Form>
             <Title>Log in/Sign up</Title>
-            <InputWrapper>
-              <Label htmlFor="name">
-                Name*
-            </Label>
-              <Input
-                type="text"
-                id="name"
-                required
-                minLength="2"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-              />
-            </InputWrapper>
-
-            <InputWrapper>
-              <Label htmlFor="email">
-                Email*
-            </Label>
-              <Input
-                type="email"
-                id="email"
-                required
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              />
-            </InputWrapper>
-
-            <InputWrapper>
-              <Label htmlFor="password">
-                Password*
-            </Label>
-              <Input
-                type="text"
-                id="password"
-                required
-                minLength="8"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
-            </InputWrapper>
+            <TextField
+              required id="standard-required"  //adds *
+              label="Name"
+              inputProps={minimumNameLength}
+              value={name}
+              error={name === "" ? false : name === 1 ? true : false } //does not work
+              onChange={(event) => setName(event.target.value)}
+              helperText={name === "" ? 'Min. 2 char' : ' '}
+            />
+            <div>
+            <InputLabel htmlFor="standard-adornment-password">Password*</InputLabel>
+            <Input
+              required={true}
+              id="standard-adornment-password"
+              type={password.showPassword ? 'text' : 'password'}
+              value={password.password}
+              fullWidth={true}
+              onChange={(event) => setPassword(event.target.value)}
+              inputProps={minimumPasswordLength}
+              // formHelperText={password === "" ? 'Min. 2 char' : ' '}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                  >
+                    {password.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            </div>
+            
+            <TextField
+              required id="standard-default"  //adds *
+              label="Email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              inputProps={validEmail}
+            /> 
+  
             <ButtonWrapper>
-              <Button
-                signBtn={signBtn}
+              <CustomButton
+                variant="contained"
+                color="default"
+                size="large"
                 type='submit'
                 onClick={handleSignUp}
                 text='Sign up'
                 disabled={!name || !password || !email}
               />
-              <Button
-                signBtn={signBtn}
+              <CustomButton
+                variant="contained"
+                color="primary"
+                size="large"
                 type='submit'
                 onClick={handleLogin}
                 text='Log in'
@@ -124,6 +137,3 @@ export const Login = () => {
   )
 }
 
-//- A registration form.
-// Your frontend should have a registration form which POSTs to the API to create a new user
-//- A sign-in form.
