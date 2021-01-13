@@ -28,10 +28,10 @@ export const user = createSlice({
             console.log(`Error Message: ${errorMessage}`)
             state.login.errorMessage = errorMessage
         }, 
-        logout: (state, action) => {
-            console.log("Logging out")
-            state.login.userId = 0
-            state.login.acessToken = null
+        //logOutUser: (state, action) => {
+        //  console.log("Logging out")
+        //   state.login.userId = 0
+        //   state.login.acessToken = null
         },
         setSecretMessage: (state, action) => {
           const { secretMessage } = action.payload;
@@ -41,12 +41,12 @@ export const user = createSlice({
 })
 
 // Thunks
-export const login = (name, email, password) => {
+export const login = (name, password) => {
     const LOGIN_URL = 'http://localhost:8080/sessions'
     return (dispatch) => {
       fetch(LOGIN_URL, {
         method: 'POST',
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, password }),
         headers: { 'Content-Type': 'application/json' },
       })
         .then((res) => {
@@ -101,4 +101,6 @@ export const login = (name, email, password) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       }); //401
   };
+
+  export const logout =
 };

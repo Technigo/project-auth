@@ -10,7 +10,6 @@ export const LogInForm = () => {
     const dispatch = useDispatch()
     const accessToken = useSelector((store) => store.user.login.accessToken)
     const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     
@@ -20,7 +19,7 @@ export const LogInForm = () => {
     
     fetch(SIGNUP_URL, {
         method: 'POST',
-        body: JSON.stringify({name, email, password}),
+        body: JSON.stringify({name, password}),
         headers: {'Content-Type': 'application/json'},
     })
     .then((res) => {
@@ -42,7 +41,7 @@ export const LogInForm = () => {
     //SIGNING IN - THUNK IS IN THE REDUCER
     const handleLogin = (event) => {
         event.preventDefault()
-        dispatch(login(name, email, password))
+        dispatch(login(name, password))
     }
  
     if(accessToken) {
@@ -58,14 +57,6 @@ export const LogInForm = () => {
                     required
                     value={name}
                     onChange={event => setName(event.target.value)}
-                />
-            </label>
-            <label>E-mail
-                <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}
                 />
             </label>
             <label>Password
