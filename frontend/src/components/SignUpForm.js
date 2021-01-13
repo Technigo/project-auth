@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { Heading, FormContainer, UserForm, FormLabel, FormInput, Button } from 'styling/styling';
+import { Profile } from './Profile.js';
 
 const SIGNUP_URL = 'http://localhost:8080/users';
 
 export const SignUpForm = () => {
+    const dispatch = useDispatch();
+    const accessToken = useSelector((store) => store.user.login.accessToken);
+
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
 
@@ -11,7 +16,7 @@ export const SignUpForm = () => {
     const handleLoginFailed = (loginError) => {};
 
     const handleSignup = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
     
         fetch(SIGNUP_URL, {
           method: 'POST',
@@ -29,6 +34,8 @@ export const SignUpForm = () => {
           .then((json) => handleLoginSuccess(json))
           .catch((err) => handleLoginFailed(err));
       };
+
+    if (!accessToken) {
 
     return (
         <FormContainer>
@@ -61,5 +68,9 @@ export const SignUpForm = () => {
                     onClick={handleSignup}>SUBMIT</Button>
             </UserForm>
         </FormContainer>
-    )
+    );
+} else {
+    return <Profile />;
 }
+}; 
+export default SignUpForm;

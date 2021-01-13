@@ -33,7 +33,7 @@ export const App = () => {
   return (
     <Provider store={store}>
       <SignUpForm />
-      {/* <LoginForm /> */}
+      <LoginForm />
       {/* <Profile /> */}
     </Provider>
   )
