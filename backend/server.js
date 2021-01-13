@@ -87,7 +87,11 @@ app.post('/users', async (req, res) => {
       name,
       password,
     }).save();
-    res.status(200).json({ userId: user._id, accessToken : user.accessToken });
+    res.status(200).json({
+      userId: user._id,
+      accessToken: user.accessToken,
+      name: user.name,
+    });
 
   } catch (err) {
     res.status(400).json({ message: 'Could not create user', errors: err });

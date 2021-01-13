@@ -37,6 +37,10 @@ const CreateUser = () => {
 
   const dispatch = useDispatch();
 
+  const handleSignUpSuccess = (user) => {
+    console.log(user.name);
+  }
+
   const handleSignup = (event) => {
     event.preventDefault();
 
@@ -46,9 +50,7 @@ const CreateUser = () => {
       headers: {'Content-type': 'application/json'},
     })
       .then(res => res.json())
-      .then(data => {
-        console.log(data)
-      })
+      .then(data => handleSignUpSuccess(data))
     
     setName('');
     setPassword('');
