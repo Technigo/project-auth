@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import {user} from './reducers/user'
+
 export const SignIn = () => {
   const dispatch = useDispatch()
   const accessToken = useSelector((store) => store.user.login.accessToken)

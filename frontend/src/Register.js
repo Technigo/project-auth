@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import {user} from './reducers/user'
+
 
 export const Register = () => {
   const dispatch = useDispatch()
@@ -43,7 +45,7 @@ export const Register = () => {
         }
         return res.json()
       })
-      .then((json) => handleSignupSucess(json))
+      .then((json) => handleSignupSuccess(json))
       .catch((err) => handleSignupFailed(err))
   }
 
