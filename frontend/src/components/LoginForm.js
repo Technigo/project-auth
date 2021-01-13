@@ -37,7 +37,7 @@ const LoginForm = () => {
         <Title>LOGIN</Title>
         <InputField title='Username' htmlFor='name' id='name' type='text' />
         <InputField title='Password' htmlFor='password' id='password' type='password' />
-        <Button title='Sign In'/>
+        <Button title='Sign In' />
       </Login>
     </LoginContainer>
 

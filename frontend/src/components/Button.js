@@ -22,9 +22,9 @@ const PurpleButton = styled.button`
   }
 `;
 
-const Button = ({title}) => {
+const Button = ({title, onClickFunc}) => {
   return (
-    <PurpleButton>
+    <PurpleButton onClick={onClickFunc}>
       {title}
     </PurpleButton>
   )
