@@ -1,14 +1,13 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { user } from "./reducers/user";
 
 import Signup from "./components/SignUp";
 import Login from "./components/Login";
-import DetailsButton from "./components/DetailsButton"
-// import UserDetails from "./components/UserDetails"
+import UserDetails from "./components/UserDetails";
 
 const BASE_URL = "http://localhost:8080/";
 const SIGNUP_URL = `${BASE_URL}users`;
@@ -24,17 +23,15 @@ export const App = () => {
       <Provider store={store}>
         <Switch>
           <Route path="/" exact>
-            <Login LOGIN_URL={LOGIN_URL} />
-            <Signup SIGNUP_URL={SIGNUP_URL} />
-          </Route>
-          <Route path="/login" exact>
-            <Login LOGIN_URL={LOGIN_URL} />
+            <Login LOGIN_URL={LOGIN_URL} SIGNUP_URL={SIGNUP_URL} />
           </Route>
           <Route path="/signup" exact>
             <Signup SIGNUP_URL={SIGNUP_URL} />
           </Route>
+          <Route path="/userdetails" exact>
+            <UserDetails />
+          </Route>
         </Switch>
-        <DetailsButton SIGNUP_URL={SIGNUP_URL} />
       </Provider>
     </BrowserRouter>
   )

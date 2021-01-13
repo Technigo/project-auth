@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from 'react-router-dom';
+
 import { user } from "../reducers/user";
 
-const Login = ({ LOGIN_URL }) => {
+import StartPage from "./StartPage";
+
+const Login = ({ LOGIN_URL, SIGNUP_URL }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const accessToken = useSelector((store) => store.user.login.accessToken);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [response, setResponse] = useState(true);
 
   const handleCredentials = (credentials) => {
     dispatch(user.actions.setAccessToken({ accessToken: credentials.accessToken }));
@@ -23,14 +31,14 @@ const Login = ({ LOGIN_URL }) => {
     })
       .then((res) => {
         if (!res.ok) {
-          // eslint-disable-next-line
-          throw "Signup failed";
+          setResponse(false);
         }
         return res.json();
       })
       .then((json) => {
         console.log(json);
         handleCredentials(json);
+        history.push("/");
         setEmail("");
         setPassword("");
       })
@@ -38,32 +46,39 @@ const Login = ({ LOGIN_URL }) => {
   };
 
   return (
-    <section>
-      <h1>Welcome to Max and Sandrine's app!</h1>
-      <p>Already a member? Please enter your credentials below.</p>
-      <form onSubmit={handleLogin}>
-        <label>
-          Email:
-          <input
-            required
-            minLength="5"
-            type="email"
-            value={email}
-            name="email"
-            onChange={event => setEmail(event.target.value)} />
-        </label>
-        <label>
-          Password:
-          <input
-            required
-            minLength="5"
-            type="text"
-            value={password}
-            onChange={event => setPassword(event.target.value)} />
-        </label>
-        <button type="submit">Login</button>
-      </form>
-    </section>
+    <>
+      {accessToken && <StartPage SIGNUP_URL={SIGNUP_URL} />}
+      {!accessToken && (
+        <section>
+          <h1>Welcome to Max and Sandrine's app!</h1>
+          <form onSubmit={handleLogin}>
+            <p>Please enter your credentials below.</p>
+            <label>
+              Email:
+              <input
+                required
+                minLength="5"
+                type="email"
+                value={email}
+                name="email"
+                onChange={event => setEmail(event.target.value)} />
+            </label>
+            <label>
+              Password:
+              <input
+                required
+                minLength="5"
+                type="text"
+                value={password}
+                onChange={event => setPassword(event.target.value)} />
+            </label>
+            <button type="submit">Login</button>
+            {!response && <p>Incorrect credentials, please try again.</p>}
+            <p>Not a member yet? Please sign up <Link to={"/signup"}>here</Link>.</p>
+          </form>
+        </section>
+      )}
+    </>
   )
 };
 

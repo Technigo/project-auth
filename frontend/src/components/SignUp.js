@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link, useHistory } from 'react-router-dom';
+
 import { user } from "../reducers/user";
 
 const SignUp = ({ SIGNUP_URL }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [response, setResponse] = useState(true);
 
   const handleCredentials = (credentials) => {
     dispatch(user.actions.setAccessToken({ accessToken: credentials.accessToken }));
@@ -24,13 +28,15 @@ const SignUp = ({ SIGNUP_URL }) => {
       .then((res) => {
         if (!res.ok) {
           // eslint-disable-next-line
-          throw "Signup failed";
+          // throw "Signup failed";
+          setResponse(false);
         }
         return res.json();
       })
       .then((json) => {
         console.log(json);
         handleCredentials(json);
+        history.push("/");
         setEmail("");
         setPassword("");
       })
@@ -39,8 +45,9 @@ const SignUp = ({ SIGNUP_URL }) => {
 
   return (
     <section>
-      <p>Not a member yet? Please sign up below.</p>
+      <h1>Welcome to Max and Sandrine's app!</h1>
       <form onSubmit={handleSignup}>
+        <p>Please sign up below.</p>
         <label>
           Email:
           <input
@@ -61,6 +68,8 @@ const SignUp = ({ SIGNUP_URL }) => {
             onChange={event => setPassword(event.target.value)} />
         </label>
         <button type="submit">Sign up</button>
+        {!response && <p>Incorrect credentials, please try again.</p>}
+        <p>Already a member? Please login <Link to={"/"}>here</Link>.</p>
       </form>
     </section>
   )
