@@ -3,7 +3,6 @@ import { Provider } from 'react-redux'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 import { LogInForm } from './components/LogInForm'
-import { Profile } from './components/Profile'
 import { user } from './reducers/user'
 
 
@@ -15,7 +14,6 @@ export const App = () => {
     <div>
       <Provider store={store}>
         <LogInForm />
-        <Profile />
       </Provider>
       </div>
   )

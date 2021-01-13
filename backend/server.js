@@ -40,8 +40,6 @@ const authenticateUser = async (req, res, next) => {
     res.status(401).json({loggedOut: true})
   }
 }
-
-
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
 //
@@ -58,8 +56,7 @@ app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
-//Sign up
-//In Postman when you post the same user you don't get an error or bad request 
+//Endpoint for when you sign up
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body
@@ -78,12 +75,13 @@ app.post('/users', async (req, res) => {
   }
 })
 
+//This will only be shown if you are logged in (and have an accessToken)
 app.get('/secrets', authenticateUser) 
 app.get('/secrets', (req, res) => {
   res.json({secret: 'This is a super secret message'})
 })
 
-//Sessions
+//Endpoint for logging in
 app.post('/sessions', async (req, res) => {
   const user = await User.findOne({email: req.body.email})
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
@@ -92,7 +90,6 @@ app.post('/sessions', async (req, res) => {
     res.json({notFound: true})
   }
 })
-
 
 // Start the server
 app.listen(port, () => {
