@@ -9,9 +9,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-const SALT = bcrypt.genSaltSync(10)
-
-const User = mongoose.model('User', {
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
@@ -28,9 +26,23 @@ const User = mongoose.model('User', {
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString('hex')
+    default: () => crypto.randomBytes(128).toString('hex'),
+    unique: true, 
   }
 })
+
+userSchema.pre('save', async function (next) {
+  const user = this
+  if(!user.isModified('password')) {
+    return next()
+  }
+
+  const salt = bcrypt.genSaltSync()
+  user.password = bcrypt.hashSync(user.password, salt)
+  next()
+})
+
+const User = mongoose.model('User', userSchema)
 
 const authenticateUser = async (req, res, next) => {
   try {
@@ -80,15 +92,36 @@ app.get('/secrets', async (req, res) => {
 })
 
 app.post('/sessions', async(req, res) => {
-  const user = await User.findOne({email: req.body.email})
-  if (user && bcrypt.compareSync(req.body.password, user.password)){
-    res.json({userId: user._id, accessToken: user.accessToken})
-  } else {
-    res.json({notFound: true})
+  try {
+    const { name, password } = req.body
+    const user = await User.findOne({ name })
+    if (user && bcrypt.compareSync(password, user.password)) {
+      user.accessToken = crypto.randomBytes(128).toString('hex')
+      
+      const updatedUser = await user.save()
+      res.status(200).json({
+        userId: updatedUser._id,
+        accessToken: updatedUser.accessToken,
+      })
+    } else {
+      throw 'User not found'
+    }
+  } catch (err) {
+    res.status(404).json({ error: 'User not found' })
   }
 })
 
-// Start the server
+app.post('/users/logout', authenticateUser)
+app.post('/users/logout', async (req, res) => {
+  try {
+    req.user.accessToken = null
+    await req.user.save()
+    res.status(200).json({ loggedOut: true })
+  } catch (err) {
+    res.status(400).json({ error: 'Could not logout' })
+  }
+})
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
 })
