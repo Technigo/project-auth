@@ -2,8 +2,9 @@ TO DO LIST - Sara & Gabriella
 
 [x] Sign up 
 [x] Log in - ruta
-[ ] Fetcha /secrets och få fram API.et om man är inloggad
-[ ] Show error messages
+[ ] Ändra så secrets syns direkt efter man tryckt på Log in - Sara
+[ ] Log out button 
+[ ] Eventuellt thunks
 [ ] Styling
 [ ] Read me
 [ ] Deploya API't

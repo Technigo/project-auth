@@ -26,7 +26,7 @@ export const Form = (showSecret) => {
 
   const handleLoginFailed = (loginError) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
+    dispatch(user.actions.setStatusMessage({ statusMessage: 'Failed to login' }));
   };
 
   // To sign up a user
