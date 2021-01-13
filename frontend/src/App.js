@@ -5,15 +5,14 @@ export const App = () => {
   const [signup, setSignup] = useState(false);
   const [login, setLogin] = useState(false);
   const [welcome, setWelcome] = useState(false);
+  const [welcomeMessage, setWelcomeMessage] = useState();
 
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [userId, setUserId] = useState(""); // use for authenticated endpoint?
-  const [accessToken, setAccessToken] = useState(""); // use for authenticated endpoint? enough with thise one?
 
   const SIGNUP_URL = "http://localhost:8081/users";
   const LOGIN_URL = "http://localhost:8081/sessions";
-  const WELCOME_URL = "http://localhost:8081/welcome"; // use for authenticated endpoint
+  const WELCOME_URL = "http://localhost:8081/welcome";
 
   const signupUser = (event) => {
     event.preventDefault();
@@ -29,11 +28,7 @@ export const App = () => {
           return res.json();
         }
       })
-
       .then((json) => {
-        console.log(json.accessToken);
-        // setUserId(json.userId);
-        // setAccessToken(json.accessToken);
         welcomeUser(json.accessToken);
       })
       .catch((err) => alert(err))
@@ -58,9 +53,6 @@ export const App = () => {
         }
       })
       .then((json) => {
-        console.log(json);
-        // setUserId(json.userId);
-        // setAccessToken(json.accessToken);
         welcomeUser(json.accessToken);
       })
       .catch((err) => alert(err))
@@ -71,24 +63,24 @@ export const App = () => {
   };
 
   const welcomeUser = (accessToken) => {
-    console.log(accessToken)
     fetch(WELCOME_URL, {
       method: "GET",
-      headers: { "Authorization": accessToken },
-    }).then((res) => {
-      if (!res.ok) {
-        throw new Error("Could not authenticate user");
-      } else {
-        return res.json();
-      }
+      headers: { Authorization: accessToken },
     })
-    .then((json) => {
-      console.log(json)
-      setSignup(false);
-      setLogin(false);
-      setWelcome(true);
-    })
-    .catch((err) => alert(err))
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Could not authenticate user");
+        } else {
+          return res.json();
+        }
+      })
+      .then((json) => {
+        setSignup(false);
+        setLogin(false);
+        setWelcome(true);
+        setWelcomeMessage(json.welcomeMessage);
+      })
+      .catch((err) => alert(err));
   };
 
   return (
@@ -164,10 +156,10 @@ export const App = () => {
         !signup &&
         !login && ( // welcome page
           <>
-            <Intro>Hi!</Intro>
+            <Intro>{welcomeMessage}</Intro>
             <LogoutButton
               onClick={() => {
-                setWelcome(false) && setLogin(true) && setAccessToken("");
+                setWelcome(false) && setLogin(true);
               }}
             >
               Log out

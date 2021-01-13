@@ -11,12 +11,12 @@ mongoose.Promise = Promise
 mongoose.set('useCreateIndex', true)
 
 const User = mongoose.model('User', {
-  name: { // use min and maxlength?
+  name: { 
     type: String,
     unique: true,
     required: true
   },
-  password: { // use min and maxlength, maybe have a couple of numbers?
+  password: { 
     type: String,
     required: true
   },
