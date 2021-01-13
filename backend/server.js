@@ -11,20 +11,22 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
-// Model
-const User = mongoose.model("user", {
+
+
+// Schema
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
     required: true,
     trim: true,
-    minlength: 2,
-    maxlength: 80,
+    minLength: 2,
+    maxLength: 20,
   },
   password: {
     type: String,
     required: [true, 'a password is required'],
-    minlength: 5,
+    minLength: 5,
     // validate: [ isStrongPassword , 'this is not strong']
   },
   email: {
@@ -40,6 +42,21 @@ const User = mongoose.model("user", {
     // this is the unique identifier when the user logs in
   }
 })
+
+userSchema.pre('save', async function (next) {
+  const user = this
+  // isModified: "Returns true if any of the given paths is modified, else false. If no arguments, returns true if any path in this document is modified."
+  // https://mongoosejs.com/docs/api.html#document_Document-isModified
+  if (!user.isModified('password')) {
+    return next()
+  }
+  const salt = bcrypt.genSaltSync(10)
+  // Hash the password – this happens after the validation.
+  user.password = bcrypt.hashSync(user.password, salt)
+  next()
+})
+
+const User = mongoose.model('User', userSchema)
 
 
 // Defines the port the app will run on. Defaults to 8080, but can be 
@@ -85,9 +102,10 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-// Start defining your routes here
+// GET list of endpoints
+const listEndpoints = require('express-list-endpoints')
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  res.send(listEndpoints(app))
 })
 
 // create user
@@ -95,10 +113,8 @@ app.get('/', (req, res) => {
 app.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body
-    const salt = bcrypt.genSaltSync()
-    const user = new User({ name, email, password: bcrypt.hashSync(password, salt) })
-    const saved = await user.save()
-    res.status(201).json({ userId: saved._id, accessToken: saved.accessToken })
+    const user = await new User({ name, email, password }).save();
+    res.status(201).json({ userId: user._id, accessToken: user.accessToken })
   } catch (err) {
     res.status(400).json({
       message: 'Could not create user', errors: {
