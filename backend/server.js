@@ -13,7 +13,7 @@ mongoose.connect(mongoUrl, {
 });
 mongoose.Promise = Promise;
 
-const User = mongoose.model('User', {
+const userSchema = new mongoose.Schema ({
   name: {
     type: String,
     required: true,
@@ -34,7 +34,39 @@ const User = mongoose.model('User', {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
   }
-});
+})
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+  
+  if (!user.isModified('password')) {
+    return next();
+  }
+
+  const salt = bcrypt.genSaltSync();
+  console.log(`PRE-password before hash: ${user.password}`)
+  user.password = bcrypt.hashSync(user.password, salt);
+  console.log(`PRE-password after hash: ${user.password}`)
+  next();
+})
+
+const authenticateUser = async (req, res, next) => {
+  try {
+    const accessToken = req.header('Authorization');
+    const user = await User.findOne({ accessToken });
+    if (!user) {
+      throw 'User not found';
+    }
+    req.user = user;
+    next();
+  } catch (err) {
+    const errorMessage = 'Please try loggin in again'
+    console.log(errorMessage)
+    res.status(401).json({ error: errorMessage })
+  }
+};
+
+const User = mongoose.model('User', userSchema );
 
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080;
@@ -87,39 +119,17 @@ app.use((req, res, next) => {
   }
 });
 
-const authenticateUser = async (req, res, next) => {
-  try {
-    const user = await User.findOne({
-      accessToken: req.header('Authorization')
-    });
-    if (user) {
-      req.user = user;
-      next();
-    } else {
-      res
-        .status(401)
-        .json({ loggedOut: true, message: 'Please try logging in again' });
-    }
-  } catch (err) {
-    res.status(404).json({
-      notFound: true,
-      message: 'Oops! Something goes wrong. Try again later!'
-    });
-  }
-};
-
 // Signup a user
 app.post('/signup', async (req, res) => {
-  const { name, email, password } = req.body;
-  const salt = bcrypt.genSaltSync();
-  const user = new User({
-    name,
-    email,
-    password: password.length > 0 ? bcrypt.hashSync(password, salt) : null
-  });
   try {
-    const saved = await user.save();
-    res.status(201).json({ userId: saved._id, accessToken: saved.accessToken });
+    const { name, email, password } = req.body;
+    const user = new User({
+      name,
+      email,
+      password
+    }).save();
+    res.status(201)
+    .json({ userId: user._id, accessToken: user.accessToken })
   } catch (err) {
     res
       .status(400)
@@ -129,14 +139,15 @@ app.post('/signup', async (req, res) => {
 
 // Login user
 app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
   try {
+    const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(201).json({ userId: user._id, accessToken: user.accessToken });
     } else {
       res.status(404).json({
         notFound: true,
+        //Test and checkagain the error message
         message: 'Username and/or password is not correct'
       });
     }
@@ -150,9 +161,25 @@ app.post('/login', async (req, res) => {
 
 // Secure endpoint, user needs to be logged in to access this
 app.get('/users/:id/secret', authenticateUser);
-app.get('/users/:id/secret', (req, res) => {
-  const secretMessage = `This is a super secret message for  ${req.user.name}`;
-  res.status(201).json({ secretMessage });
+app.get('/users/:id/secret', async (req, res) => {
+  try {
+  const user = await User.findOne({ _id: req.params.id });
+  const publicProfileMessage = `This is publie profile message for ${user.name}`
+  const privateProfileMessage = `This is PRIVATE profile message for ${user.name}`
+  if (req.user._id.$oid === user._id.$oid) {
+    res.status(200).json({ profileMessage: privateProfileMessage});
+  } else {
+    res.status(403).json({
+      profileMessage: publicProfileMessage, 
+      error: `You are not allow to access the private message of ${user.name}`
+    })
+  }
+} catch (err) {
+  res.status(404).json({
+    notFound: true,
+    message: "Make sure userId is correct"
+  })
+}
 });
 
 // Start the server

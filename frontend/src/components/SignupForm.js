@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { signup } from '../reducers/user';
+import { Wrapper, Form } from 'lib'
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -18,11 +19,10 @@ const SignupForm = () => {
   };
 
   return (
-    <div>
-      <form>
-        <h1>Sign up</h1>
+    <Wrapper>
+      <Form>
         <label>
-          name
+          Name
           <input
             required
             value={name}
@@ -30,7 +30,7 @@ const SignupForm = () => {
           />
         </label>
         <label>
-          email
+          Email
           <input
             required
             value={email}
@@ -38,7 +38,7 @@ const SignupForm = () => {
           />
         </label>
         <label>
-          password
+          Password
           <input
             required
             value={password}
@@ -48,12 +48,12 @@ const SignupForm = () => {
         <button type="submit" onClick={handleSignup}>
           Sign-Up
         </button>
-      </form>
+      </Form>
       <Link to="/login">
         <button>Already a member?</button>
       </Link>
       {errorMessage && <h4>Error Message : {`${errorMessage}`}</h4>}
-    </div>
+    </Wrapper>
   );
 };
 export default SignupForm;
