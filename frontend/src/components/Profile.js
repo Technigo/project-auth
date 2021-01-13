@@ -19,5 +19,7 @@ export const Profile = () => {
         onClick={(e) => dispatch(getSecretMessage())}
         value="Secret Endpoint"
       />
+      <button type="submit" onClick={(e) => dispatch(logO())}>Log out</button>
     </div>
 )}
+

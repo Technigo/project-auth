@@ -15,11 +15,6 @@ const User = mongoose.model('User', {
     unique: true,
     required: true
   },
-  email: {
-    type: String,
-    unique: true,
-    required: true
-  },
   password: {
     type: String,
     required: true
@@ -59,14 +54,13 @@ app.get('/', (req, res) => {
 //Endpoint for when you sign up
 app.post('/users', async (req, res) => {
   try {
-    const { name, email, password } = req.body
+    const { name, password } = req.body
 //SALT makes rainbow table attacks much harder
 //Everytime the users endpoint is called,
 //we create a salt & use that salt in the hash function
     const salt = bcrypt.genSaltSync(10)
     const user = await new User({
       name, 
-      email, 
       password: bcrypt.hashSync(password, salt)
       }).save()
     res.status(201).json({id: user._id, accessToken: user.accessToken})
@@ -83,7 +77,7 @@ app.get('/secrets', (req, res) => {
 
 //Endpoint for logging in
 app.post('/sessions', async (req, res) => {
-  const user = await User.findOne({email: req.body.email})
+  const user = await User.findOne({name: req.body.name})
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     res.json({userId: user._id, accessToken: user.accessToken})
   } else {
