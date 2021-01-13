@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Provider } from "react-redux";
 
 import { SignUpForm } from './components/SignUpForm.js'; 
 import { LoginForm } from './components/LoginForm.js'; 
-import { Profile } from './components/Profile.js';
 
 import { user } from "./reducers/user";
 
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-
-const URL = "http://localhost:8080/users";
 
 const reducer = combineReducers({ user: user.reducer });
 const store = configureStore({ reducer });
