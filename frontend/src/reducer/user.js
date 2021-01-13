@@ -24,6 +24,11 @@ export const user = createSlice({
             console.log(`User id: ${userId}`);
             store.login.userId = userId;
         },
+        setUserName: (store, action) => {
+            const userName = action.payload;
+            console.log(`User name: ${userName}`);
+            store.login.userName = userName;
+        },
         logout: (store, action) => {
             console.log("logging out");
             store.login.userId = 0;

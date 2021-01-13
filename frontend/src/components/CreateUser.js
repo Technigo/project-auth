@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Button from './Button';
 import InputField from './InputField';
+import { user } from '../reducer/user';
 
 const SIGNUP_URL = 'https://auth-project-api.herokuapp.com/users';
 
@@ -36,9 +37,11 @@ const CreateUser = () => {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
+  const userName = useSelector((store) => store.user.login.userName);
 
-  const handleSignUpSuccess = (user) => {
-    console.log(user.name);
+  const handleSignUpSuccess = (data) => {
+    console.log(data.name);
+    dispatch(user.actions.setUserName(data.name));
   }
 
   const handleSignup = (event) => {
@@ -57,28 +60,32 @@ const CreateUser = () => {
   }
   return (
     <CreateUserContainer>
-      <Register>
-        <Title>Create account</Title>
-        <InputField
-          title='Username'
-          htmlFor='name'
-          id='name'
-          type='text'
-          value={name}
-          onChange={setName}
-        />
-        <InputField
-          title='Password'
-          htmlFor='password'
-          id='password'
-          type='password'
-          value={password}
-          onChange={setPassword}
-        />
-        <Button
-          title='Sign Up'
-          onClickFunc={handleSignup} />
-      </Register>
+      {userName && <p>{userName}</p>}
+      {!userName && (
+        <Register>
+          <Title>Create account</Title>
+          <InputField
+            title='Username'
+            htmlFor='name'
+            id='name'
+            type='text'
+            value={name}
+            onChange={setName}
+          />
+          <InputField
+            title='Password'
+            htmlFor='password'
+            id='password'
+            type='password'
+            value={password}
+            onChange={setPassword}
+          />
+          <Button
+            title='Sign Up'
+            onClickFunc={handleSignup} />
+        </Register>
+      )}
+
     </CreateUserContainer>
   )
 }
