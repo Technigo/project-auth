@@ -36,28 +36,29 @@ userSchema.pre('save', async function (next) {
   if (!user.isModified('password')) {
     return next(); 
   }
+  
   const salt = bcrypt.genSaltSync();
   user.password = bcrypt.hashSync(user.password, salt);
 
   next(); // Values are written to the database
 })
 
-// const authenticateUser = async (req, res, next) => {
-//   try {
-//     const accessToken = req.header('Authorization'); //Another part of the request as body
-//     const user = await User.findOne({ accessToken });
+const authenticateUser = async (req, res, next) => {
+  try {
+    const accessToken = req.header('Authorization'); //Another part of the request as body
+    const user = await User.findOne({ accessToken });
 
-//     if (!user) {
-//       throw 'User not found!';
-//     }
-//     req.user = user; // have access to req.user in endpoint
-//     next();
-//   } catch (err) {
-//     const errorMessage = 'Please try logging in again';
-//     console.log(errorMessage);
-//     res.status(401).json({error: errorMessage})
-//   }
-// }
+    if (!user) {
+      throw 'User not found!';
+    }
+    req.user = user; // have access to req.user in endpoint
+    next();
+  } catch (err) {
+    const errorMessage = 'Please try logging in again';
+    console.log(errorMessage);
+    res.status(401).json({error: errorMessage})
+  }
+}
 
 const User = mongoose.model('User', userSchema);
 
@@ -111,22 +112,20 @@ app.post('/sessions', async (req, res) => {
 })
 
 // Authenticated endpoint to GET user specific information
-// app.get('/users/:id/secret', authenticateUser);
-// app.get('/users/:id/secret', async (req, res) => {
-//   console.log(`${req.user.name} authenticated!`)
-//   const user = await User.findOne({ _id: req.params.id });
-//   const secretMessage = `This is a secret message for ${user.name}`;
-//   const publicMessage = `This is a public message for ${user.name}`;
-
-//   // Decide private or public
-//   if (req.user._id === user._id) { // .$oid för att komma in i objektet?
-//     //Private
-//     res.status(200).json({ secretMessage });
-//   } else {
-//     //Public information or Forbidden (403) if the users dont match
-//     res.status(200).json({ publicMessage });
-//   }
-// })
+app.get('/users/:id/secret', authenticateUser);
+app.get('/users/:id/secret', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    if (userId != req.user._id) {
+      console.log("User dont have access to this secret")
+      throw 'Access denied'
+    };
+    const secretMessage = `This is a secret message for ${req.user.name}`;
+    res.status(200).json({ secretMessage })
+  } catch (err) {
+    res.status(403).json({ error: 'Access Denied' });
+  }
+});
 
 
 // Start the server

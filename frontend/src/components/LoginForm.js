@@ -1,47 +1,56 @@
-import React from 'react'
-import styled from 'styled-components'
-
+import React, {useState} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import {LoginContainer, Title, Login} from '../lib/LoginFormStyle'
 import Button from './Button'
 import InputField from './InputField'
-import img from '../assets/purple.jpg';
+import { user } from '../reducer/user';
 
-const LoginContainer = styled.div`
-  width: 35%;
-  border-radius: 20px 0 0 20px;
-  background-image: url(${img});
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: -5px 5px 5px grey;
-`;
+const LOGIN_URL = 'https://auth-project-api.herokuapp.com/sessions'
 
-const Title = styled.h1`
-  align-self: flex-start;
-  color: white;
-  font-size: 36px;
-  padding: 20px 0;
-`;
+export const LoginForm = () => {
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
-const Login = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items:center;
-  width: 300px;
-`;
+  const dispatch = useDispatch();
 
-const LoginForm = () => {
-  return (
-    <LoginContainer>
-      <Login>
-        <Title>LOGIN</Title>
-        <InputField title='Username' htmlFor='name' id='name' type='text' />
-        <InputField title='Password' htmlFor='password' id='password' type='password' />
-        <Button title='Sign In' />
-      </Login>
-    </LoginContainer>
+  const handleLogin = (event) => {
+    console.log('yes')  
+    event.preventDefault();
 
-  )
+    fetch(LOGIN_URL, {
+      method: 'POST',
+      body: JSON.stringify({ name, password }),
+      headers: {'Content-type': 'application/json'},
+    })
+      .then(res => res.json())
+      .then(data => {
+        dispatch(user.actions.setAccessToken(data.accessToken));
+        console.log(data.accessToken)
+        dispatch(user.actions.setUserId(data.userId));
+        console.log(data.userId)
+      })
+  }
+
+    return (
+      <LoginContainer>
+        <Login>
+          <Title>LOGIN</Title>
+          <InputField
+            title='Username'
+            htmlFor='name'
+            id='name'
+            type='text'
+            onChange={setName}
+          />
+          <InputField
+            title='Password'
+            htmlFor='password'
+            id='password'
+            type='password'
+            onChange={setPassword}
+          />
+          <Button title='Sign In' onClickFunc={handleLogin} />
+        </Login>
+      </LoginContainer>
+    )
 }
-
-export default LoginForm;

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import Button from './Button';
@@ -34,6 +35,8 @@ const CreateUser = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+
   const handleSignup = (event) => {
     event.preventDefault();
 
@@ -49,7 +52,6 @@ const CreateUser = () => {
     
     setName('');
     setPassword('');
-
   }
   return (
     <CreateUserContainer>
