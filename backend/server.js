@@ -2,6 +2,8 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -38,9 +40,10 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const { name, password } = req.body;
+    const salt = bcrypt.genSaltSync();
     const user = await new User({
       name,
-      password
+      password: bcrypt.hashSync(password, salt),
     }).save();
     res.status(200).json({ userId: user._id });
 
@@ -59,7 +62,8 @@ app.post('/sessions', async (req, res) => {
     res.status(404).json({ error: err });
   }
 })
-// Authenticated endpoint
+
+// Authenticated endpointasda
 
 // Start the server
 app.listen(port, () => {
