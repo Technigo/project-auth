@@ -85,7 +85,7 @@ app.get('/secrets', async (req, res) => {
   res.status(201).json({ secretMessage });
 })
 
-app.post('/sessions', async(req, res) => {
+app.post('/sessions', async (req, res) => {
   try {
     const { name, password } = req.body
     const user = await User.findOne({ name })
