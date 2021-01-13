@@ -25,6 +25,16 @@ const User = mongoose.model('User', {
    },
 });
 
+const authenticateUser = async (req, res, next) => {
+  const user = await User.findOne({accessToken: req.header('Authorization')})
+  if(user) {
+    req.user = user
+    next()
+  } else {
+    res.status(401).json({loggedOut: true})
+  }
+}
+
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
 //
@@ -74,6 +84,13 @@ try {
   res.status(404).json({ error: 'User not found' });
 }
 })
+
+app.get('/secrets', authenticateUser)
+app.get('/secrets', (req, res) => {
+  res.json({secret: 'you are authenticated'})
+}
+
+)
 
 // Start the server
 app.listen(port, () => {
