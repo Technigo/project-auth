@@ -14,10 +14,10 @@ const User = mongoose.model('User', {
     type: String,
     unique: true
   },
-  email: {
-    type: String,
-    unique: true
-  },
+  // email: {
+  //   type: String,
+  //   unique: true
+  // },
   password: {
     type: String,
     required: true
@@ -56,22 +56,23 @@ app.get('/', (req, res) => {
 
 app.post('/users', async (req,res) =>{
   try{
-    const {name, email, password} = req.body;
+    const {name, password} = req.body;
     //Do not store plaintext passwords!
-    const user = new User({name, email, password: bcrypt.hashSync(password)});
+    const user = new User({name, password: bcrypt.hashSync(password)});
     user.save();
     res.status(201).json({id:user._id, accessToken:user.accessToken});
   }catch(err){
     res.status(400).json({message: 'Could not create user', errors: err.errors});
   }
 })
+
 app.get('/secrets', authenticateUser); 
 app.get('/secrets', (req, res) => {
   res.json({secret: 'This is a secret message'});
 })
 
 app.post('/sessions', async(req, res) => {
-  const user = await User.findOne({email: req.body.email});
+  const user = await User.findOne({name: req.body.name});
   if(user && bcrypt.compareSync(req.body.password , user.password)) {
     res.json({userId: user._id, accessToken: user.accessToken});
   }else {

@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 
-const URL = 'https://project-auth-cla-ellen.herokuapp.com/sessions'
+const URL = 'https://project-auth-cla-ellen.herokuapp.com/users'
+//const URL = 'http://localhost:8080/users'
 
-export const LoginForm = () => {
+export const SignupForm = () => {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleLogin = (event) => {
+  const handleSignup = (event) => {
     event.preventDefault()
 
     fetch(URL, {
@@ -19,11 +20,15 @@ export const LoginForm = () => {
       .catch((err) => console.log("error:", err ))
   }
 
-  // FORMULÄR FÖR SIGN IN 
+  const handleLogin = () => {
+    console.log('hej')
+  }
+
+  // FORMULÄR FÖR SIGN IN & SIGN UP 
 return (
     <section className="form">
         <form>
-            <h1>Login!</h1>
+            <h1>Sign Up!</h1>
             <label>
                 Name 
                 <input
@@ -40,9 +45,9 @@ return (
                 onChange={(event) => setPassword(event.target.value)}
                 />
             </label> 
-            <button type="submit" onClick={handleLogin}>
-                Login
-            </button> 
+            <button type="submit" onClick={handleSignup}>
+                Sign-up
+            </button>
         </form>
     </section>
 
