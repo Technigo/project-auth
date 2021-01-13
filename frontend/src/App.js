@@ -73,13 +73,15 @@ export const App = () => {
   };
 
   return (
-      <Container>
+    <Container>
       {!signup &&
         !login &&
         !welcome && ( // startpage
           <>
             <Intro>Please join us by creating an account or log in.</Intro>
-            <SignupButton onClick={() => setSignup(true)}>Create account</SignupButton>
+            <SignupButton onClick={() => setSignup(true)}>
+              Create account
+            </SignupButton>
             <LoginButton onClick={() => setLogin(true)}>Log in</LoginButton>
           </>
         )}
@@ -154,7 +156,7 @@ export const App = () => {
           </>
         )}
     </Container>
-  ); 
+  );
 };
 
 // Styling Startpage
@@ -171,7 +173,7 @@ const SignupButton = styled.button`
   border: none;
   border-radius: 25px;
   padding: 20px;
-  background: #E3E2FF;
+  background: #e3e2ff;
   font-size: 24px;
   font-weight: bold;
   text-transform: uppercase;
@@ -195,13 +197,13 @@ const Intro = styled.p`
   font-size: 32px;
   font-weight: bold;
   text-align: center;
-  color: #1F4E3F;
-`
+  color: #1f4e3f;
+`;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const Label = styled.label`
   display: flex;
@@ -209,7 +211,7 @@ const Label = styled.label`
   margin: 10px;
   font-size: 20px;
   font-weight: bold;
-`
+`;
 
 // Styling Signup-page
 
@@ -218,20 +220,20 @@ const SignupInput = styled.input`
   border-radius: 10px;
   padding: 15px;
   margin: 5px;
-  background: #E3E2FF;
-`
+  background: #e3e2ff;
+`;
 
 const FinalSignupButton = styled.button`
   margin-top: 60px;
   padding: 15px;
   border: none;
   border-radius: 15px;
-  background: #E3E2FF;
+  background: #e3e2ff;
   font-weight: bold;
   font-size: 18px;
   text-transform: uppercase;
-  color: #1F4E3F;
-`
+  color: #1f4e3f;
+`;
 
 // Styling Login-page
 
@@ -241,7 +243,7 @@ const LoginInput = styled.input`
   border: none;
   border-radius: 10px;
   background: #1a7763;
-`
+`;
 
 const FinalLoginButton = styled.button`
   margin-top: 60px;
@@ -252,7 +254,7 @@ const FinalLoginButton = styled.button`
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
-`
+`;
 
 // Styling Welcome-page
 
@@ -265,4 +267,4 @@ const LogoutButton = styled.button`
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
-`
+`;
