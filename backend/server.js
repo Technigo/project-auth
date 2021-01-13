@@ -16,17 +16,16 @@ const User = mongoose.model('User', {
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   password: {
     type: String,
     required: true,
-    unique: true
   },
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex'),
-    
   },
 });
 
@@ -44,13 +43,15 @@ const authenticateUser = async (req, res, next) => {
 const port = process.env.PORT || 8080;
 const app = express();
 
-// Add middlewares to enable cors and json body parsing
+// Middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(bodyParser.json());
 
-// Start defining your routes here
+////////// Our routes start here //////////
+// To list all available endpoints on the starting page
+const listEndpoints = require('express-list-endpoints');
 app.get('/', (req, res) => {
-  res.send('Hello world');
+  res.send(listEndpoints(app));
 });
 
 // Endpoint for register new user
@@ -83,7 +84,7 @@ app.post('/sessions', async (req, res) => {
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       res.status(200).json({ userId: user._id, accessToken: user.accessToken });
     } else {
-      res.json({ notFound: true });
+      res.status(400).json({ notFound: true });
     }
   } catch (err) {
     res.status(404).json({ error: 'User not found' });
@@ -91,7 +92,7 @@ app.post('/sessions', async (req, res) => {
 });
 
 app.get('/users/:id', async (req, res) => {
-   res.status(501).send();
+  res.status(501).send();
 });
 
 // Start the server
