@@ -7,9 +7,9 @@ const SignUp = ({ SIGNUP_URL }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleCredentials = (json) => {
-    dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
-    dispatch(user.actions.setUserId({ userId: json.userId }));
+  const handleCredentials = (credentials) => {
+    dispatch(user.actions.setAccessToken({ accessToken: credentials.accessToken }));
+    dispatch(user.actions.setUserId({ userId: credentials.userId }));
   };
 
   const handleSignup = (event) => {
