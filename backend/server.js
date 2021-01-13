@@ -9,21 +9,55 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-const User = mongoose.model("User", { 
-  name: {
-    type: String,
-    unique: true,
-  }, 
-  password: { 
-    type: String,
-    required: true,
-  },
-  accessToken: {
-    type: String,
-    default: () => crypto.randomBytes(128).toString('hex'),
-    unique: true,
-  },
+const userSchema = new mongoose.Schema({
+    name: {
+      type: String,
+      unique: true,
+    }, 
+    password: { 
+      type: String,
+      required: true,
+    },
+    accessToken: {
+      type: String,
+      default: () => crypto.randomBytes(128).toString('hex'),
+      unique: true,
+    },
 });
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+
+  if (!user.isModified('password')) {
+    return next();
+  }
+
+  const salt = bcrypt.genSaltSync(); // the number between () is for how much variation you want in the password 8
+    console.log(`PRE SALT PASSWORD ${user.password}`)
+  user.password = bcrypt.hashSync(user.password, salt)
+    console.log(`PAST SALT PASSWORD ${user.password}`)
+
+  //Continue with save
+  next();
+});
+
+const authenticateUser = async (req, res, next) => {
+  try {
+    const accessToken = req.header('Authorization');
+    const user = await User.findOne({ accessToken });
+      if (!user) {
+        throw 'User not found';
+      }
+    req.user = user; 
+  } catch (err) {
+    const errorMesasage = "Please try to login again";
+  console.log('AuthenticateUser function')
+  res.status(401).json({ error: errorMesasage });
+  }
+  next();
+};
+
+const User = mongoose.model('User', userSchema);
 
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080;
@@ -33,9 +67,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const authenticateUser = async (req, res, next) => {
-  next();
-};
+                // const authenticateUser = async (req, res, next) => {
+                //   next();
+                // };
 
 // Start defining your routes here
 app.get('/', (req, res) => {
@@ -48,10 +82,9 @@ app.post("/users", async (req, res) => {
     const { name, password } = req.body;
       console.log(`Name: ${name}`);
       console.log(`Password: ${password}`);
-    const SALT = bcrypt.genSaltSync(); // the number between () is for how much variation you want in the password 8
     const user = await new User({
       name,
-      password: bcrypt.hashSync(password, SALT),
+      password,
     }).save();
     res.status(200).json({ userId: user._id, accessToken: user.accessToken });
   } catch (err) {
@@ -76,11 +109,35 @@ app.post("/sessions", async (req, res) => {
   }
 });
 
-// Secure endpoint, user needs to be logged in to access this 
-app.get("/users/:id", authenticateUser); // Do we need to keep this? 
-app.get("/users/:id", (req, res) => {
-  res.status(501).send();
+app.get('/secret', authenticateUser);
+app.get('/secret', async (req, res) => {
+  const secretMessage = `This is a secret message for ${req.user.name}`;
+  res.status(200).json({ secretMessage });
 });
+
+// Secure endpoint, user needs to be logged in to access this 
+
+// app.get('/users/:id/profile', authenticateUser); 
+// app.get('/users/:id/profile', async (req, res) => {
+//     console.log('GET /user/:id/profile handler');
+//     console.log(`${req.user.name} authenticated`);
+
+//   const user = await User.findOne({ _id: req.params.id });
+//   const privateProfileMessage = `Hi ${user.name}! Welcome to our site`;
+//   const publicProfileMessage = `This is a public message.`;
+
+//     console.log(`Authenticated user._id: ${req.user._id}`)
+//     console.log(`Requested user._id: ${user._id}`)
+
+//   // Decide private or public here
+//   if (req.user._id.$oid == user._id.$oid) {
+//     //Private information
+//     res.status(200).json({ profileMessage: privateProfileMessage });
+//   } else {
+//     //Public information
+//     res.status(200).json({ profileMessage: publicProfileMessage });
+//   }
+//});
 
 // Start the server
 app.listen(port, () => {
