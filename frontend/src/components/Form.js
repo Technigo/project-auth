@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { user } from '../reducers/user';
+import { user, login } from '../reducers/user';
 import { Button } from './Button';
 import { Content } from './Content';
 import styled from 'styled-components';
 
 const SIGNUP_URL = 'http://localhost:8080/users';
-const LOGIN_URL = 'http://localhost:8080/sessions';
+// const LOGIN_URL = 'http://localhost:8080/sessions';
 
 export const Form = (showSecret) => {
   const dispatch = useDispatch();
@@ -18,11 +18,11 @@ export const Form = (showSecret) => {
   const [section, setSection] = useState("LogIn")
   const error = useSelector((store) => store.user.statusMessage);
 
-  const handleLoginSuccess = (loginResponse) => {
-    dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }));
-    dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful login' }));
-  }
+  // const handleLoginSuccess = (loginResponse) => {
+  //   dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }));
+  //   dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
+  //   dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful login' }));
+  // }
 
   const handleLoginFailed = (loginError) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
@@ -38,111 +38,128 @@ export const Form = (showSecret) => {
       body: JSON.stringify({ name, password, email }),
       headers: { 'Content-Type': 'application/json' }
     })
-
       .then((res) => {
         if (!res.ok) {
-          throw 'Failed to sign up';
+          throw new Error('Unable to log in, please check your username and password.');
+        } else {
+          return res.json();
         }
-        return res.json();
       })
-      .then((json) => handleLoginSuccess(json))
-      .catch((err) => handleLoginFailed(err));
-  }
-
-  // To log in a user
-  const handleLogin = event => {
-    event.preventDefault();
-
-    fetch(LOGIN_URL, {
-      method: 'POST',
-      body: JSON.stringify({ name, password, email }),
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw 'Failed to log in';
-        }
-        return res.json();
+      .then((json) => {
+        dispatch(user.actions.setUserId({ userId: json.userId }));
+        dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
       })
-      .then((json) =>
-        handleLoginSuccess(json))
-      .catch((err) => handleLoginFailed(err));
+      .catch((error) => {
+        dispatch(user.actions.setErrorMessage({ errorMessage: error.toString() }));
+      });
   };
 
-  // Is accessToken exist
-  if (accessToken) {
-    return <Content />
-  }
 
-  // If user is logged out, show the signup / login form
-  return (
-    <div>
-      {section === "LogIn" && (
-        <>
-          <h2>Log in:</h2>
-          <FormWrapper onSubmit={handleLogin}>
-            <label>
-              Email:
-            <input
-                required
-                type="email"
-                value={email}
-                onChange={event => setEmail(event.target.value)} />
-            </label>
-            <label>
-              Password:
-            <input
-                required
-                type="password"
-                value={password}
-                onChange={event => setPassword(event.target.value)} />
-            </label>
-            <LoginButton type="submit" onClick={handleLogin}>Login!</LoginButton>
-          </FormWrapper>
-          <h4>Not having an account?</h4>
-          <Button title="Sign up" function={setSection} value="SignUp">Go to Sign Up</Button>
-        </>
-      )}
+//     .then((res) => {
+//       if (!res.ok) {
+//         throw 'Failed to sign up';
+//       }
+//       return res.json();
+//     })
+//     .then((json) => handleLoginSuccess(json))
+//     .catch((err) => handleLoginFailed(err));
+// }
 
-      {section === "SignUp" && (
-        <>
-          <FormWrapper onSubmit={handleSignup}>
-            <h1>Sign up:</h1>
-            <label>
-              Name:
-        <input
-                required
-                type="text"
-                value={name}
-                onChange={event => setName(event.target.value)} />
-            </label>
-            <label>
-              Email:
-        <input
-                required
-                type="email"
-                value={email}
-                onChange={event => setEmail(event.target.value)} />
-            </label>
-            <label>
-              Password:
-        <input
-                required
-                // Hur lägger vi in ex. minlength 5 som i backend?
-                minlength="5"
-                type="password"
-                value={password}
-                onChange={event => setPassword(event.target.value)} />
-            </label>
-            <SignupButton type="submit" onClick={handleSignup}>Sign up!</SignupButton>
-          </FormWrapper>
-          {error && <h4>{`${error}`}</h4>}
-          <h4>Already a user?</h4>
-          <Button title="Log in" function={setSection} value="LogIn">Go to Login</Button>
-        </>
-      )}
-    </div>
-  );
+// To log in a user
+const handleLogin = event => {
+  event.preventDefault();
+  dispatch(login(email, password));
+};
+//   fetch(LOGIN_URL, {
+//     method: 'POST',
+//     body: JSON.stringify({ name, password, email }),
+//     headers: { 'Content-Type': 'application/json' }
+//   })
+//     .then((res) => {
+//       if (!res.ok) {
+//         throw 'Failed to log in';
+//       }
+//       return res.json();
+//     })
+//     .then((json) =>
+//       handleLoginSuccess(json))
+//     .catch((err) => handleLoginFailed(err));
+// };
+
+// Is accessToken exist
+if (accessToken) {
+  return <Content />
+}
+
+// If user is logged out, show the signup / login form
+return (
+  <div>
+    {section === "LogIn" && (
+      <>
+        <h2>Log in:</h2>
+        <FormWrapper onSubmit={handleLogin}>
+          <label>
+            Email:
+          <input
+              required
+              type="email"
+              value={email}
+              onChange={event => setEmail(event.target.value)} />
+          </label>
+          <label>
+            Password:
+          <input
+              required
+              type="password"
+              value={password}
+              onChange={event => setPassword(event.target.value)} />
+          </label>
+          <LoginButton type="submit" onClick={handleLogin}>Login!</LoginButton>
+        </FormWrapper>
+        <h4>Not having an account?</h4>
+        <Button title="Sign up" function={setSection} value="SignUp">Go to Sign Up</Button>
+      </>
+    )}
+
+    {section === "SignUp" && (
+      <>
+        <FormWrapper onSubmit={handleSignup}>
+          <h1>Sign up:</h1>
+          <label>
+            Name:
+      <input
+              required
+              type="text"
+              value={name}
+              onChange={event => setName(event.target.value)} />
+          </label>
+          <label>
+            Email:
+      <input
+              required
+              type="email"
+              value={email}
+              onChange={event => setEmail(event.target.value)} />
+          </label>
+          <label>
+            Password:
+      <input
+              required
+              // Hur lägger vi in ex. minlength 5 som i backend?
+              minlength="5"
+              type="password"
+              value={password}
+              onChange={event => setPassword(event.target.value)} />
+          </label>
+          <SignupButton type="submit" onClick={handleSignup}>Sign up!</SignupButton>
+        </FormWrapper>
+        {error && <h4>{`${error}`}</h4>}
+        <h4>Already a user?</h4>
+        <Button title="Log in" function={setSection} value="LogIn">Go to Login</Button>
+      </>
+    )}
+  </div>
+);
 };
 
 const FormWrapper = styled.form`
