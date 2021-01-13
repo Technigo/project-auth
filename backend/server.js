@@ -18,6 +18,11 @@ const User = mongoose.model('User', {
   password: {
     type: String,
     required: true
+  },
+  accessToken: {
+    type: String,
+    default: () => crypto.randomBytes(128).toString('hex'),
+    unique: true,
   }
 })
 // Defines the port the app will run on. Defaults to 8080, but can be 
@@ -45,7 +50,7 @@ app.post('/users', async (req, res) => {
       name,
       password: bcrypt.hashSync(password, salt),
     }).save();
-    res.status(200).json({ userId: user._id });
+    res.status(200).json({ userId: user._id, accessToken : user.accessToken });
 
   } catch (err) {
     res.status(400).json({ message: 'Could not create user', errors: err });
