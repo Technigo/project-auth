@@ -50,10 +50,11 @@ const CreateUser = () => {
     fetch(SIGNUP_URL, {
       method: 'POST',
       body: JSON.stringify({ name, password }),
-      headers: {'Content-type': 'application/json'},
+      headers: { 'Content-type': 'application/json' },
     })
       .then(res => res.json())
       .then(data => handleSignUpSuccess(data))
+      .catch((err) => console.log(err));
     
     setName('');
     setPassword('');
