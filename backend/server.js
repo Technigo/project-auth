@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 
+const listEndpoints = require("express-list-endpoints");
+
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
@@ -27,7 +29,7 @@ const authenticateUser = async (req, res, next) => {
     next();
   } else {
     res
-      .status(403)
+      .status(401)
       .json({ loggedOut: true, message: "You are not authorized" });
   }
 };
@@ -52,7 +54,7 @@ const User = mongoose.model("User", {
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.send(listEndpoints(app));
 });
 
 app.post("/users", async (req, res) => {
@@ -63,11 +65,15 @@ app.post("/users", async (req, res) => {
       name,
       password: bcrypt.hashSync(password, salt),
     }).save();
-    res.status(200).json({ userId: user._id, accessToken: user.accessToken });
+    res.status(200).json({
+      userId: user._id,
+      accessToken: user.accessToken,
+      message: "Signed up",
+    });
   } catch (error) {
     res.status(400).json({
       success: false,
-      error: error.error,
+      error: error,
       message: "Could not save user",
     });
   }
@@ -78,14 +84,18 @@ app.post("/sessions", async (req, res, next) => {
     const { name, password } = req.body;
     const user = await User.findOne({ name: name });
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(200).json({ userId: user._id, accessToken: user.accessToken });
+      res.status(200).json({
+        userId: user._id,
+        accessToken: user.accessToken,
+        message: "Logged in",
+      });
       //next?
     } else {
       res.status(400).json("Username or password not found");
     }
   } catch (err) {
     res.status(404).json({
-      error: err.error,
+      error: err,
       message: "Username or password not found",
     });
   }
