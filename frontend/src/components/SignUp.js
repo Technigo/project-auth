@@ -38,28 +38,31 @@ const SignUp = ({ SIGNUP_URL }) => {
   };
 
   return (
-    <form onSubmit={handleSignup}>
-      <label>
-        Email:
-        <input
-          required
-          minLength="5"
-          type="email"
-          value={email}
-          name="email"
-          onChange={event => setEmail(event.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input
-          required
-          minLength="5"
-          type="text"
-          value={password}
-          onChange={event => setPassword(event.target.value)} />
-      </label>
-      <button type="submit">Sign up</button>
-    </form>
+    <section>
+      <p>Not a member yet? Please sign up below.</p>
+      <form onSubmit={handleSignup}>
+        <label>
+          Email:
+          <input
+            required
+            minLength="5"
+            type="email"
+            value={email}
+            name="email"
+            onChange={event => setEmail(event.target.value)} />
+        </label>
+        <label>
+          Password:
+          <input
+            required
+            minLength="5"
+            type="text"
+            value={password}
+            onChange={event => setPassword(event.target.value)} />
+        </label>
+        <button type="submit">Sign up</button>
+      </form>
+    </section>
   )
 };
 
