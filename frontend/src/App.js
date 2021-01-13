@@ -13,7 +13,7 @@ export const App = () => {
 
   const SIGNUP_URL = "http://localhost:8081/users";
   const LOGIN_URL = "http://localhost:8081/sessions";
-  // const WELCOME_URL = 'http://localhost:8081/welcome' // use for authenticated endpoint
+  const WELCOME_URL = "http://localhost:8081/welcome"; // use for authenticated endpoint
 
   const signupUser = (event) => {
     event.preventDefault();
@@ -31,11 +31,10 @@ export const App = () => {
       })
 
       .then((json) => {
-        console.log(json);
-        setUserId(json.userId);
-        setAccessToken(json.accessToken);
-        setSignup(false);
-        setWelcome(true);
+        console.log(json.accessToken);
+        // setUserId(json.userId);
+        // setAccessToken(json.accessToken);
+        welcomeUser(json.accessToken);
       })
       .catch((err) => alert(err))
       .finally(() => {
@@ -60,16 +59,36 @@ export const App = () => {
       })
       .then((json) => {
         console.log(json);
-        setUserId(json.userId);
-        setAccessToken(json.accessToken);
-        setLogin(false);
-        setWelcome(true);
+        // setUserId(json.userId);
+        // setAccessToken(json.accessToken);
+        welcomeUser(json.accessToken);
       })
       .catch((err) => alert(err))
       .finally(() => {
         setName("");
         setPassword("");
       });
+  };
+
+  const welcomeUser = (accessToken) => {
+    console.log(accessToken)
+    fetch(WELCOME_URL, {
+      method: "GET",
+      headers: { "Authorization": accessToken },
+    }).then((res) => {
+      if (!res.ok) {
+        throw new Error("Could not authenticate user");
+      } else {
+        return res.json();
+      }
+    })
+    .then((json) => {
+      console.log(json)
+      setSignup(false);
+      setLogin(false);
+      setWelcome(true);
+    })
+    .catch((err) => alert(err))
   };
 
   return (
@@ -159,6 +178,29 @@ export const App = () => {
   );
 };
 
+// General styling
+
+const Intro = styled.p`
+  margin-bottom: 80px;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  color: #1f4e3f;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Label = styled.label`
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
 // Styling Startpage
 const Container = styled.section`
   display: flex;
@@ -188,29 +230,6 @@ const LoginButton = styled.button`
   font-size: 24px;
   font-weight: bold;
   text-transform: uppercase;
-`;
-
-// General styling
-
-const Intro = styled.p`
-  margin-bottom: 80px;
-  font-size: 32px;
-  font-weight: bold;
-  text-align: center;
-  color: #1f4e3f;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Label = styled.label`
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  font-size: 20px;
-  font-weight: bold;
 `;
 
 // Styling Signup-page
