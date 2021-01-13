@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import {user} from './reducers/user'
-
+import { user } from './reducers/user'
 
 export const Register = () => {
   const dispatch = useDispatch()
+
   const accessToken = useSelector((store) => store.user.login.accessToken)
+  const statusMessage = useSelector((store) => store.user.login.statusMessage)
+
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
 
@@ -23,11 +25,13 @@ export const Register = () => {
   }
 
   const handleSignupFailed = (signupError) => {
+    console.log("handleSignupFailed")
+
     dispatch(
       user.actions.setAccessToken({ accessToken: null })
     )
     dispatch(
-      user.actions.setStatusMessage({ statusMessage: 'Signup error' })
+      user.actions.setStatusMessage({ statusMessage: signupError })
     )
   }
 
@@ -41,6 +45,7 @@ export const Register = () => {
     })
       .then((res) => {
         if (!res.ok) {
+          console.log("Signup failed")
           throw 'Signup failed'
         }
         return res.json()
@@ -57,19 +62,19 @@ export const Register = () => {
     <form>
       <label>
         Username:
-        <input className='name'
-          type='text' />
+        <input className='name' required value={name} onChange={(event) => setName(event.target.value)} />
       </label>
 
       <label>
         Password:
-        <input className='password'
-          type='text' />
+        <input className='password' required value={password} onChange={(event) => setPassword(event.target.value)} />
       </label>
 
-      <button className='register-button' type='submit'>
+      <button className='register-button' type='submit' onClick={handleSignup}>
         Register
     </button>
+
+      <p>{statusMessage}</p>
     </form>
   )
 }
