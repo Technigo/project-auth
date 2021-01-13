@@ -7,6 +7,7 @@ import { FormButton, MainContainer } from 'styling/GlobalStyles';
 import styled from 'styled-components';
 
 const SECRET_URL = 'http://localhost:8080/secrets';
+const LOGOUT_URL = 'http://localhost:8080/logout';
 
 export const Secret = () => {
   const dispatch = useDispatch();
@@ -21,8 +22,21 @@ export const Secret = () => {
     dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
   };
 
-  const logout = () => {
-    dispatch(user.actions.logout);
+  const logoutSuccess = () => {
+    dispatch(
+      user.actions.setStatusMessage({
+        statusMessage: 'Logout Succeded',
+      })
+    );
+    dispatch(user.actions.setAccessToken({ accessToken: null }));
+  };
+
+  const logoutFailed = () => {
+    dispatch(
+      user.actions.setStatusMessage({
+        statusMessage: logoutError,
+      })
+    );
   };
 
   const showSecret = () => {
@@ -39,6 +53,10 @@ export const Secret = () => {
       })
       .then((json) => loginSucess(json))
       .catch((err) => loginFailed(err));
+  };
+
+  const logout = () => {
+
   };
 
   return (

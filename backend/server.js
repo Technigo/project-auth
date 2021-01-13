@@ -48,6 +48,7 @@ userSchema.pre("save", async function (next) {
 
 const User = mongoose.model('User', userSchema);
 
+// To being able to do authentication check
 const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ accessToken: req.header('Authorization') });
@@ -62,7 +63,6 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-//   PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -114,17 +114,6 @@ app.post('/sessions', async (req, res) => {
     res.status(404).json({ error: 'User not found' });
   }
 });
-
-// // Get user specific information
-// app.get('/users/:id/secret', authenticateUser);
-// app.get('/users/:id/secret', async (req, res) => {
-//   console.log(`${req.user.name} authenticated!`)
-//   const user = await User.findOne({ _id: reg.params.id });
-//   const secretMessage = `Hi ${user.name}! This is a secret message.`;
-//   res.status(200).json(secretMessage);
-
-//   // Have private and public secret message?? 
-// });
 
 // Start the server
 app.listen(port, () => {

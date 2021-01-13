@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { user, login } from '../reducers/user';
 import { Button } from './Button';
 import { Secret } from './Secret';
+
 import styled from 'styled-components';
 
 import { FormButton, MainContainer } from 'styling/GlobalStyles';
@@ -187,7 +188,7 @@ const InputField = styled.input`
   border-bottom: 1px solid #749694;
   margin: 8px;
   padding: 10px 6px;
-
+  /* Styling of placeholder text */
   ::-webkit-input-placeholder {
     color: #749694;
   }
