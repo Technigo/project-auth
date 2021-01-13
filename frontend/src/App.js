@@ -26,7 +26,6 @@ export const App = () => {
           <Route path="/" exact>
             <Login LOGIN_URL={LOGIN_URL} />
             <Signup SIGNUP_URL={SIGNUP_URL} />
-            <DetailsButton SIGNUP_URL={SIGNUP_URL} />
           </Route>
           <Route path="/login" exact>
             <Login LOGIN_URL={LOGIN_URL} />
@@ -34,10 +33,8 @@ export const App = () => {
           <Route path="/signup" exact>
             <Signup SIGNUP_URL={SIGNUP_URL} />
           </Route>
-          {/* <Route path="users/:id" exact>
-            <UserDetails SIGNUP_URL={SIGNUP_URL} />
-          </Route> */}
         </Switch>
+        <DetailsButton SIGNUP_URL={SIGNUP_URL} />
       </Provider>
     </BrowserRouter>
   )
