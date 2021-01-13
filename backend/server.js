@@ -3,9 +3,9 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from 'bcrypt'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI2"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
@@ -55,7 +55,7 @@ app.post('/users', async (req, res) => {
   // }
   try {
     const { name, password } = req.body
-    const salt = bcrypt.genSaltSync(10)
+    const salt = bcrypt.genSaltSync()
     const user = await new User({
       name,
       password: bcrypt.hashSync(password, salt),
