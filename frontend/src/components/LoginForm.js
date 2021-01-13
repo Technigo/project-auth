@@ -3,7 +3,6 @@ import { Heading, FormContainer, UserForm, FormLabel, FormInput, Button } from '
 import { user } from '../reducers/user';
 
 import { useDispatch, useSelector } from 'react-redux';
-const SIGNUP_URL = 'http://localhost:8080/users';
 const LOGIN_URL = 'http://localhost:8080/sessions';
 
 export const LoginForm = () => {

@@ -15,26 +15,26 @@ const reducer = combineReducers({ user: user.reducer });
 const store = configureStore({ reducer });
 
 export const App = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  // const [name, setName] = useState("");
+  // const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
 
-    fetch(URL, {
-      method: "POST",
-      body: JSON.stringify({ name, password }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => console.log(json))
-      .catch((err) => console.log("error:", err));
-  };
+  //   fetch(URL, {
+  //     method: "POST",
+  //     body: JSON.stringify({ name, password }),
+  //     headers: { "Content-Type": "application/json" },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((json) => console.log(json))
+  //     .catch((err) => console.log("error:", err));
+  // };
   return (
     <Provider store={store}>
       <SignUpForm />
-      <LoginForm />
-      <Profile />
+      {/* <LoginForm /> */}
+      {/* <Profile /> */}
     </Provider>
   )
 }
