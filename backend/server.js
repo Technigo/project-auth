@@ -46,26 +46,20 @@ const User = mongoose.model('User', userSchema)
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({accessToken: req.header('Authorization')})
-    if(user){
-      req.user = user
-      next()
-    } else {
-      res.status(401).json({loggedOut: true})
-    }
-  } catch {
-    res.status(400).json({message:'Could not find User!', errors: err.errors})
+    const accessToken = req.header('Authorization')
+    const user = await User.findOne({ accessToken })
+    req.user = user
+  } catch (err) {
+    const errorMessage = 'please try again'
+    res.status(401).json({error: errorMessage})
   }
+  next()
 }
 
-// Defines the port the app will run on. Defaults to 8080, but can be 
-// overridden when starting the server. For example:
-//
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080
 const app = express()
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(bodyParser.json())
 
@@ -77,7 +71,7 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const {name, email, password} = req.body
-    const user = new User({name, email, password: bcrypt.hashSync(password, SALT)})
+    const user = new User({name, email, password,})
     user.save()
     res.status(201).json({id: user._id, accessToken: user.accessToken})
   } catch(err) {
