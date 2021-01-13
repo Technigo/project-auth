@@ -25,9 +25,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// const Wrapper = styled.div`
-//   align-items: center;
-//   display: flex;
-//   flex-direction: column;
-// `
