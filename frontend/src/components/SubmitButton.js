@@ -18,15 +18,15 @@ const MainContainer = styled.button`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	width: 40%;
+	width: 20%;
 	background-color: #8a383e;
 	border: none;
-	padding: 2px;
-	margin: 3px;
+	margin: 8px auto;
 
 	&:hover {
-		background: #bb5c12;
+		background: #ac8b96;
 		cursor: pointer;
+		transition: ease-in-out .3s;
 	  }
 `
 const TextField = styled.p`
