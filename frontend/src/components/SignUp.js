@@ -1,10 +1,18 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { user } from "../reducers/user";
 
 const SignUp = ({ SIGNUP_URL }) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleCredentials = (json) => {
+    dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
+    dispatch(user.actions.setUserId({ userId: json.userId }));
+  };
+
+  const handleSignup = (event) => {
     event.preventDefault();
     console.log({ email, password });
     console.log(SIGNUP_URL);
@@ -13,9 +21,16 @@ const SignUp = ({ SIGNUP_URL }) => {
       body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          // eslint-disable-next-line
+          throw "Signup failed";
+        }
+        return res.json();
+      })
       .then((json) => {
         console.log(json);
+        handleCredentials(json);
         setEmail("");
         setPassword("");
       })
@@ -23,7 +38,7 @@ const SignUp = ({ SIGNUP_URL }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSignup}>
       <label>
         Email:
         <input
