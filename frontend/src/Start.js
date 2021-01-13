@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { user } from "user";
+import Profile from "Profile";
 
 const Start = () => {
   const [username, setUsername] = useState("");
@@ -19,7 +20,11 @@ const Start = () => {
     );
   };
 
-  const handleLoginFail = () => {};
+  const handleLoginFail = (loginError) => {
+    dispatch(user.actions.setAccessToken({ accesToken: null }));
+    dispatch(user.actions.setUserId({ userId: 0 }));
+    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
+  };
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -57,40 +62,46 @@ const Start = () => {
         setUsername("");
         setPassword("");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        handleLoginFail(error);
+        console.log(error);
+      });
   };
-
-  return (
-    <>
-      <h1>hi</h1>
-      <form>
-        <label>
-          <p>Username:</p>
-          <input
-            type="text"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-            placeholder="Username"
-          />
-        </label>
-        <label>
-          <p>Password:</p>
-          <input
-            type="text"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            placeholder="Password"
-          />
-        </label>
-        <button type="submit" onClick={handleSignUp}>
-          Sign up
-        </button>
-        <button type="submit" onClick={handleLogin}>
-          Log in
-        </button>
-      </form>
-    </>
-  );
+  if (!accessToken) {
+    return (
+      <>
+        <h1>hi</h1>
+        <form>
+          <label>
+            <p>Username:</p>
+            <input
+              type="text"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+              placeholder="Username"
+            />
+          </label>
+          <label>
+            <p>Password:</p>
+            <input
+              type="text"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Password"
+            />
+          </label>
+          <button type="submit" onClick={handleSignUp}>
+            Sign up
+          </button>
+          <button type="submit" onClick={handleLogin}>
+            Log in
+          </button>
+        </form>
+      </>
+    );
+  } else {
+    return <Profile />;
+  }
 };
 
 export default Start;
