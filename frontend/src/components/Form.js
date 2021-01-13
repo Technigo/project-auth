@@ -9,13 +9,13 @@ import styled from 'styled-components';
 const SIGNUP_URL = 'http://localhost:8080/users';
 const LOGIN_URL = 'http://localhost:8080/sessions';
 
-export const Form = () => {
+export const Form = (showSecret) => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [section, setSection] = useState("SignUp")
+  const [section, setSection] = useState("LogIn")
   const error = useSelector((store) => store.user.statusMessage);
 
   const handleLoginSuccess = (loginResponse) => {
@@ -64,7 +64,8 @@ export const Form = () => {
         }
         return res.json();
       })
-      .then((json) => handleLoginSuccess(json))
+      .then((json) =>
+        handleLoginSuccess(json))
       .catch((err) => handleLoginFailed(err));
   };
 
@@ -76,6 +77,33 @@ export const Form = () => {
   // If user is logged out, show the signup / login form
   return (
     <div>
+      {section === "LogIn" && (
+        <>
+          <h2>Log in:</h2>
+          <FormWrapper onSubmit={handleLogin}>
+            <label>
+              Email:
+            <input
+                required
+                type="email"
+                value={email}
+                onChange={event => setEmail(event.target.value)} />
+            </label>
+            <label>
+              Password:
+            <input
+                required
+                type="password"
+                value={password}
+                onChange={event => setPassword(event.target.value)} />
+            </label>
+            <LoginButton type="submit" onClick={handleLogin}>Login!</LoginButton>
+          </FormWrapper>
+          <h4>Not having an account?</h4>
+          <Button title="Sign up" function={setSection} value="SignUp">Go to Sign Up</Button>
+        </>
+      )}
+
       {section === "SignUp" && (
         <>
           <FormWrapper onSubmit={handleSignup}>
@@ -100,6 +128,8 @@ export const Form = () => {
               Password:
         <input
                 required
+                // Hur lägger vi in ex. minlength 5 som i backend?
+                minlength="5"
                 type="password"
                 value={password}
                 onChange={event => setPassword(event.target.value)} />
@@ -108,33 +138,7 @@ export const Form = () => {
           </FormWrapper>
           {error && <h4>{`${error}`}</h4>}
           <h4>Already a user?</h4>
-          <Button title="Log in" function={setSection} value="logIn">Go to Login</Button>
-        </>
-      )}
-
-      {section === "logIn" && (
-        <>
-          <h4>Not having an account?</h4>
-          <Button title="Sign up" function={setSection} value="SignUp">Go to Sign Up</Button>
-          <FormWrapper onSubmit={handleLogin}>
-            <label>
-              Email:
-            <input
-                required
-                type="email"
-                value={email}
-                onChange={event => setEmail(event.target.value)} />
-            </label>
-            <label>
-              Password:
-            <input
-                required
-                type="password"
-                value={password}
-                onChange={event => setPassword(event.target.value)} />
-            </label>
-            <LoginButton type="submit" onClick={handleLogin}>Login!</LoginButton>
-          </FormWrapper>
+          <Button title="Log in" function={setSection} value="LogIn">Go to Login</Button>
         </>
       )}
     </div>

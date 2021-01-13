@@ -9,7 +9,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise
 
-const User = mongoose.model('User', {
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -21,6 +21,7 @@ const User = mongoose.model('User', {
   },
   password: {
     type: String,
+    minlength: 5,
     required: true,
   },
   accessToken: {
@@ -29,13 +30,35 @@ const User = mongoose.model('User', {
   },
 });
 
+// Pre-save - to check the password validation before hashing the password
+userSchema.pre("save", async function (next) {
+  const user = this;
+
+  if (!user.isModified('password')) {
+    return next();
+  }
+
+  const salt = bcrypt.genSaltSync();
+  // Hash the password to hex 
+  user.password = bcrypt.hashSync(user.password, salt);
+
+  // Continue with the save
+  next();
+});
+
+const User = mongoose.model('User', userSchema);
+
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header('Authorization') });
-  if (user) {
+  try {
+    const user = await User.findOne({ accessToken: req.header('Authorization') });
     req.user = user;
+    if (!user) {
+      throw 'User not found';
+    }
     next();
-  } else {
-    res.status(401).json({ loggedOut: true });
+  } catch (err) {
+    const errorMessage = 'Please try to log in again.';
+    res.status(401).json({ error: errorMessage });
   }
 };
 
@@ -54,15 +77,14 @@ app.get('/', (req, res) => {
   res.send(listEndpoints(app));
 });
 
-// Endpoint for register new user
+// Endpoint for register new user SIGN UP
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const salt = bcrypt.genSaltSync()
     const user = await new User({
       name,
       email,
-      password: bcrypt.hashSync(password, salt)
+      password
     }).save();
     res.status(201).json({ userId: user._id, accessToken: user.accessToken });
   } catch (err) {
@@ -70,10 +92,12 @@ app.post('/users', async (req, res) => {
   }
 });
 
-// Endpoint to see that user is logged in, if yes the user access the data.. 
+// Endpoint to see that user is logged in, 
+// if yes the user access the secret message.. 
 app.get('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
-  res.json({ secret: 'This is a secret message' });
+  const secretMessage = `Hi ${req.user.name}! This is a secret message!`
+  res.status(200).json({ secretMessage });
 });
 
 // Endpoint for user to log in 
@@ -91,9 +115,16 @@ app.post('/sessions', async (req, res) => {
   }
 });
 
-app.get('/users/:id', async (req, res) => {
-  res.status(501).send();
-});
+// // Get user specific information
+// app.get('/users/:id/secret', authenticateUser);
+// app.get('/users/:id/secret', async (req, res) => {
+//   console.log(`${req.user.name} authenticated!`)
+//   const user = await User.findOne({ _id: reg.params.id });
+//   const secretMessage = `Hi ${user.name}! This is a secret message.`;
+//   res.status(200).json(secretMessage);
+
+//   // Have private and public secret message?? 
+// });
 
 // Start the server
 app.listen(port, () => {

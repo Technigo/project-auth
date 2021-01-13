@@ -5,7 +5,6 @@ const initialState = {
     accessToken: null,
     userId: 0,
     statusMessage: "",
-    secret: "",
   }
 };
 
@@ -28,11 +27,6 @@ export const user = createSlice({
       const { statusMessage } = action.payload;
       state.login.statusMessage = statusMessage;
     },
-
-    setSecret: (state, action) => {
-      const { secret } = action.payload;
-      state.login.secret = secret;
-    }
   }
 });
 
