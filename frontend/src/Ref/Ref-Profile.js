@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react'
-import {user} from '../reducers/user'
-import {useDispatch, useSelector} from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { user } from '../reducers/user'
+import { useDispatch, useSelector } from 'react-redux'
 
-const URL = 'http://localhost:8080/users'
+const URL = 'https://http://localhost:8080/users'
 
 export const Profile = () => {
   const dispatch = useDispatch()

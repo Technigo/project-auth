@@ -1,15 +1,19 @@
-import React, {useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {user} from '../reducers/user'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
-const SIGNIN_URL = 'http://localhost:8080/users'
-const LOGIN_URL = 'http://localhost:8080/sessions'
+import { user, logout } from '../reducers/user'
+
+// const SIGNIN_URL = 'http://localhost:8080/users'
+const LOGIN_URL = 'https://login-logout-authentication.herokuapp.com/sessions'
 
 export const LoginForm = () => {
   const dispatch = useDispatch()
-  const accessToken = useSelector((store) => store.user.login.accessToken)
+  // const accessToken = useSelector((store) => store.user.login.accessToken)
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState(false)
+  const [login, setLogin] = useState(false)
 
   const handleLoginSuccess = (loginResponse) => {
     dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken}))
@@ -17,28 +21,30 @@ export const LoginForm = () => {
     dispatch(user.actions.setStatusMessage({statusMessage: 'Login Success'}))
   }
 
-  const handleLoginFailed = (loginError) => {
-    dispatch(user.actions.setAccessToken({ accessToken: null }))
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }))
-  }
+  // const handleLoginFailed = (loginError) => {
+  //   dispatch(user.actions.setAccessToken({ accessToken: null }))
+  //   dispatch(user.actions.setSecretMessage({ secretMessage: loginError }))
+  // }
+   const handleLoginFailed = () => {
+    dispatch(logout());
+    };
+  // const handleSignup = (event) => {
+  //   event.preventDefault();
 
-  const handleSignup = (event) => {
-    event.preventDefault();
-
-    fetch(SIGNIN_URL, {
-      method: 'POST',
-      body: JSON.stringify({ name, password }),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw 'Signup Failed'
-        }
-        return res.json()
-      })
-      .then((json) => handleLoginSuccess(json))
-      .catch((err) => handleLoginFailed(err))
-  };
+  //   fetch(SIGNIN_URL, {
+  //     method: 'POST',
+  //     body: JSON.stringify({ name, password }),
+  //     headers: { 'Content-Type': 'application/json' },
+  //   })
+  //     .then((res) => {
+  //       if (!res.ok) {
+  //         throw 'Signup Failed'
+  //       }
+  //       return res.json()
+  //     })
+  //     .then((json) => handleLoginSuccess(json))
+  //     .catch((err) => handleLoginFailed(err))
+  // };
 
   // To sign up a user.
   const handleLogin = (event) => {
@@ -51,16 +57,18 @@ export const LoginForm = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw 'Login Failed'
+          setErrorMessage(true)
+        } else {
+          setErrorMessage(false)
+          setLogin(true)
+          return res.json()
         }
-        return res.json()
       })
       .then((json) => handleLoginSuccess(json))
       .catch((err) => handleLoginFailed(err))
   }
-  if (accessToken) {
-    return <></>;
-  }
+  
+  if (login === false) {
   // If user is logged out, show login form
   return (
     <section>
@@ -71,23 +79,30 @@ export const LoginForm = () => {
           <input
             type='text'
             placeholder='Enter username...'
-            required
             value={name}
             onChange={(event) => setName(event.target.value)}
+            minLength="2"
+            required
           />
           <label>Password</label>
           <input
             type='password'
             placeholder='Enter Password...'
-            required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
+            minLength="5"
+            required
           />
           <button type='submit' onClick={handleLogin}>
             Login
           </button>
         </div>
       </form>
+      {errorMessage === true ? <p>Could not login, try again</p> : null }
     </section>
   )
+  } else {
+    return <Redirect to='/secrets' />
+  }
 }
+

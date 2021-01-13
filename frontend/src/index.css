@@ -18,7 +18,8 @@ code {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%
+  width: 100%;
+  flex-grow: 1;
 }
 
 .form-style {
@@ -55,7 +56,8 @@ code {
 
 .login-form {
   background-color:rgba(144,190,109, 1);
-  height: 50%
+  height: 50%;
+  padding: 0px 20px 123px 20px;
 }
 
 .signup-form {

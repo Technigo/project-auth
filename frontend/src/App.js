@@ -1,41 +1,34 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import {LoginForm} from './components/LoginForm'
-import {SignUp} from './components/SignUp'
+import { LoginForm } from './components/LoginForm'
+import { SignUp } from './components/SignUp'
+import { Secret } from './components/Secrets'
 import { user } from './reducers/user'
 
-const URL = 'http://localhost:8080/users'
 
 const reducer = combineReducers({ user: user.reducer })
 const store = configureStore({ reducer })
 
 export const App = () => {
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
-
-  //To sign up a user 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-  
-  fetch(URL, {
-    method:'POST',
-    body: JSON.stringify({name, password}),
-    headers: { 'Content-Type': 'application/json'},
-  })
-  .then ((res) => res.json())
-  .then((json) => console.log(json))
-  .catch((err) => console.log('error:',err))
-}
 
   return (
   <Provider store={store}>
-    <div className ='auth-container'>
-      <SignUp />
-      <LoginForm />
-    </div>
+    <BrowserRouter>
+      <div className ='auth-container'>
+        <Switch>
+          <Route path='/' exact>
+            <SignUp />
+            <LoginForm />
+          </Route>
+          <Route path='/secrets' exact>
+            <Secret />
+          </Route>
+        </Switch>
+      </div>
+    </BrowserRouter>
   </Provider>
-
   )
 }

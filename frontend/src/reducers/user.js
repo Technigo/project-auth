@@ -4,7 +4,9 @@ const initialState= {
   login: {
     accessToken: null,
     userId: 0,
-    statusMessage:'',
+    secretMessage:null,
+    errorMessage:null, 
+    name: null, 
   }
 }
 
@@ -13,18 +15,26 @@ export const user = createSlice({
   initialState: initialState,
   reducers: {
     setAccessToken: ( state, action) => {
-      const {accessToken} = action.payload
+      const { accessToken } = action.payload
       console.log(`Access token: ${accessToken}`)
       state.login.accessToken = accessToken
     },
-    SetUserId: (state, action) => {
+    setUserId: (state, action) => {
       const { userId } = action.payload
       console.log(`User id: ${userId}`)
       state.login.userId = userId
     },
-    setStatusMessage: (state, action) => {
-      const { statusMessage } = action.payload
-      state.login.statusMessage = statusMessage
+    setUserName: (state,action) => {
+      const { name } = action.payload
+      state.login.name = name
+    },
+    setSecretMessage: (state, action) => {
+      const { secretMessage } = action.payload
+      state.login.secretMessage = secretMessage
+    },
+    setErrorMessage: (state, action) => {
+      const { errorMessage } = action.payload
+      state.login.errorMessage = errorMessage
     },
     logout: (state, action) => {
       console.log('logging out')
@@ -36,9 +46,8 @@ export const user = createSlice({
 
 export const logout = () => {
   return (dispatch) => {
-    dispatch(user.actions.setSecretMessage({ secretMessage: null }));
-    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
-    dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setUserId({ userId: 0 }));
-  };
-};
+    dispatch(user.actions.setSecretMessage({ secretMessage: null }))
+    dispatch(user.actions.setErrorMessage({ errorMessage: null }))
+    dispatch(user.actions.setAccessToken({ accessToken: null }))
+    dispatch(user.actions.setUserId({ userId: 0 }))
+}}
