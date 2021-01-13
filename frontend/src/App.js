@@ -8,14 +8,12 @@ export const App = () => {
 
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
-  const [userId, setUserId] = useState('')
-  const [accessToken, setAccessToken] = useState('')
-  // const [welcomeMessage, setWelcomeMessage] = useState("")
-  //  const [status, setStatus] = useState(null)
+  const [userId, setUserId] = useState('') // use for authenticated endpoint?
+  const [accessToken, setAccessToken] = useState('') // use for authenticated endpoint? enough with thise one?
 
   const SIGNUP_URL = 'http://localhost:8081/users'
   const LOGIN_URL = 'http://localhost:8081/sessions'
-  // const WELCOME_URL = 'http://localhost:8081/welcome'
+  // const WELCOME_URL = 'http://localhost:8081/welcome' // use for authenticated endpoint
 
   const signupUser = event => {
     event.preventDefault()
@@ -31,6 +29,7 @@ export const App = () => {
           return res.json()
         }
       })
+
       .then(json => {
         console.log(json)
         setUserId(json.userId)
@@ -113,16 +112,16 @@ export const App = () => {
               <input
                 value={name}
                 onChange={event => setName(event.target.value)}
-                minLength='5'
                 required
+                minLength='5'
               />
             </label>
             <label>Password
               <input
                 value={password}
                 onChange={event => setPassword(event.target.value)}
-                minLength='5'
                 required
+                minLength='5'
               />
             </label>
             <button type='submit'>Submit</button>
@@ -132,7 +131,7 @@ export const App = () => {
       {welcome && !signup && !login && // welcome page
         <>
           <p>Hi!</p>
-          <button onClick={() => { setWelcome(false) && setLogin(true) }}>Log out</button>
+          <button onClick={() => { setWelcome(false) && setLogin(true) && setAccessToken('') }}>Log out</button>
         </>
       }
     </div >
