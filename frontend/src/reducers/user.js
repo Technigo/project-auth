@@ -14,7 +14,6 @@ export const user = createSlice({
     reducers: {
         setAccessToken: (state, action) => {
             const { accessToken } = action.payload;
-            console.log(`Access Token: ${accessToken}`);
             state.login.accessToken = accessToken;
         },
         setUserId: (state, action) => {
@@ -24,6 +23,6 @@ export const user = createSlice({
           setStatusMessage: (state, action) => {
             const { statusMessage } = action.payload;
             state.login.statusMessage = statusMessage;
-          } 
+          }
     }
 })

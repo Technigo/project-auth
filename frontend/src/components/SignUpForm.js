@@ -1,30 +1,32 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { /*useDispatch,*/ useSelector } from "react-redux";
 import { Heading, FormContainer, UserForm, FormLabel, FormInput, Button } from 'styling/styling';
 import { Profile } from './Profile.js';
 
 const SIGNUP_URL = 'http://localhost:8080/users';
 
 export const SignUpForm = () => {
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
     const accessToken = useSelector((store) => store.user.login.accessToken);
 
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLoginSuccess = (loginResponse) => {};
-    const handleLoginFailed = (loginError) => {};
+    const handleLoginSuccess = (loginResponse) => {
+        console.log(loginResponse)
+    };
+    const handleLoginFailed = (loginError) => {
+        console.log(loginError)
+    };
 
     const handleSignup = (event) => {
-        // event.preventDefault();
+        event.preventDefault();
     
         fetch(SIGNUP_URL, {
           method: 'POST',
           body: JSON.stringify({ name, password }),
           headers: { 'Content-Type': 'application/json' },
         })
-
-// VI
           .then((res) => {
             if (!res.ok) {
               throw 'Signup failed';
@@ -73,4 +75,3 @@ export const SignUpForm = () => {
     return <Profile />;
 }
 }; 
-export default SignUpForm;

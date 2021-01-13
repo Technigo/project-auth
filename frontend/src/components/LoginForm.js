@@ -79,4 +79,3 @@ export const LoginForm = () => {
         </FormContainer>
     )
 }
-export default LoginForm;

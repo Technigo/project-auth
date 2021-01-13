@@ -6,7 +6,6 @@ Animation by Mohamed Achraf El Ghayani on Lottiefiles
 https://lottiefiles.com/38825-robot-hello# 
 */
 
-
 import Lottie from 'react-lottie';
 import animationData from '../lotties/38825-robot-hello.json';
 
@@ -23,7 +22,7 @@ export const Profile = () => {
 
   return (
         <ProfileBackground>
-          <ProfileText>Welcome 'name'! Your're logged in.</ProfileText>
+          <ProfileText>Welcome! Your're logged in.</ProfileText>
           <Lottie
             options={defaultOptions}
             height={250}
