@@ -7,25 +7,17 @@ import { user } from "../reducers/user";
 const DetailsButton = ( { SIGNUP_URL } ) => {
   const { id } = useParams()
   const [ validate, checkValidate ] = useState(false)
-  const userId = useSelector((store) => store.user.login.userId);
-  const accessToken = useSelector((store) => store.user.login.accessToken);
-  // const dispatch = useDispatch();
-  
-
+  const [ result, setResult] = useState({})
+  const accessToken = useSelector((store) => store.user.login.accessToken )
+  const userId = useSelector((store) => store.user.login.userId)
+ 
   const loginSuccess = (loginResponse) => {
     checkValidate(prev => !prev)
-    console.log(loginResponse, "success")
-    // dispatch(
-    //   user.actions.setStatusMessage({
-    //     statusMessage: loginResponse.secretMessage,
-    //   })
-    // );
+    setResult(loginResponse)    // dispatch(
   };
 
   const loginFailed = (loginError) => {
     console.log(loginError)
-    // dispatch(user.actions.setAccessToken({ accessToken: null }));
-    // dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
   };
 
   const handleClick = () => {
@@ -49,7 +41,7 @@ const DetailsButton = ( { SIGNUP_URL } ) => {
        //<Link to={`/users/${userId}`}>
         <button type="submit" onClick={handleClick}>User Details</button>
        //</Link>
-      } <div>{validate && `ID:${userId}, Token:${accessToken}`}</div>
+      } <div>{validate && `Email:${result.email},ID:${result.userId}, accessToken:${result.accessToken}`}</div>
     </div>
   )
 }
