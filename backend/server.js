@@ -99,6 +99,18 @@ app.post('/sessions', async (req, res) => {
   }
 });
 
+//Log out
+app.post('/users/logout', authenticateUser)
+app.post('/users/logout', async (req, res) => {
+  try {
+    req.user.accessToken = null;
+    await req.user.save();
+    res.status(200).json({ loggedOut: true });
+  } catch (err) {
+    res.status(400).json({ error: 'Could not log out'});
+  }
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
