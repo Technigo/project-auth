@@ -10,10 +10,10 @@ export const Register = () => {
 
   const handleSignupSuccess = (signupResponse) => {
     dispatch(
-      user.actions.setAccessToken({ accessToken = signupResponse.accessToken })
+      user.actions.setAccessToken({ accessToken: signupResponse.accessToken })
     )
     dispatch(
-      user.actions.setUserId({ userId = signupResponse.userId })
+      user.actions.setUserId({ userId: signupResponse.userId })
     )
     dispatch(
       user.actions.setStatusMessage({ statusMessage: 'Signup Success' })
@@ -47,6 +47,9 @@ export const Register = () => {
       .catch((err) => handleSignupFailed(err))
   }
 
+  if (accessToken) {
+    return <></>
+  }
 
   return (
     <form>
