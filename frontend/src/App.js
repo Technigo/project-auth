@@ -8,13 +8,13 @@ export const App = () => {
 
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
-  // const [userId, setUserId] = useState('')
-  // const [accessToken, setAccessToken] = useState('')
+  const [userId, setUserId] = useState('')
+  const [accessToken, setAccessToken] = useState('')
   // const [welcomeMessage, setWelcomeMessage] = useState("")
   //  const [status, setStatus] = useState(null)
 
   const SIGNUP_URL = 'http://localhost:8081/users'
-  // const LOGIN_URL = 'http://localhost:8081/sessions'
+  const LOGIN_URL = 'http://localhost:8081/sessions'
   // const WELCOME_URL = 'http://localhost:8081/welcome'
 
   const signupUser = event => {
@@ -24,21 +24,53 @@ export const App = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, password })
     })
-      .then(response => response.json)
-      .then(json => { // this will happen either if the user was successfully created or not at the moment
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Could not create user')
+        } else {
+          return res.json()
+        }
+      })
+      .then(json => {
         console.log(json)
-        setName('')
-        setPassword('')
+        setUserId(json.userId)
+        setAccessToken(json.accessToken)
         setSignup(false)
         setWelcome(true)
+      })
+      .catch(err => alert(err))
+      .finally(() => {
+        setName('')
+        setPassword('')
       })
   }
 
   const loginUser = event => {
     event.preventDefault()
-    // add fetch
-    setLogin(false)
-    setWelcome(true)
+    fetch(LOGIN_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, password })
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Could not log in user')
+        } else {
+          return res.json()
+        }
+      })
+      .then(json => {
+        console.log(json)
+        setUserId(json.userId)
+        setAccessToken(json.accessToken)
+        setLogin(false)
+        setWelcome(true)
+      })
+      .catch(err => alert(err))
+      .finally(() => {
+        setName('')
+        setPassword('')
+      })
   }
 
   return (
