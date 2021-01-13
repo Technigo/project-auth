@@ -37,7 +37,7 @@ userSchema.pre('save', async function (next) {
     return next(); 
   }
   const salt = bcrypt.genSaltSync();
-  user.password = bcrypt.hashSync(password, salt);
+  user.password = bcrypt.hashSync(user.password, salt);
 
   next(); // Values are written to the database
 })
