@@ -63,7 +63,6 @@ const Login = ({ LOGIN_URL }) => {
         </label>
         <button type="submit">Login</button>
       </form>
-      <p>Not a member yet? Please sign up below.</p>
     </section>
   )
 };
