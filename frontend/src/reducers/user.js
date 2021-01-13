@@ -28,14 +28,9 @@ export const user = createSlice({
             console.log(`Error Message: ${errorMessage}`)
             state.login.errorMessage = errorMessage
         }, 
-        //logOutUser: (state, action) => {
-        //  console.log("Logging out")
-        //   state.login.userId = 0
-        //   state.login.acessToken = null
-        },
         setSecretMessage: (state, action) => {
-          const { secretMessage } = action.payload;
-          state.secretMessage = secretMessage;
+          const { secretMessage } = action.payload
+          state.secretMessage = secretMessage
         }
     }
 })
@@ -84,23 +79,30 @@ export const login = (name, password) => {
       })
       .then((res) => {
         if (res.ok) {
-          return res.json();
+          return res.json()
         }
-        throw 'Could not get information. Make sure you are logged in and try again.';
+        throw 'Could not get information. Make sure you are logged in and try again.'
       })
       // SUCCESS: Do something with the information we got back
       .then((json) => {
         dispatch(
-          user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) })
-        );
+          user.actions.setSecretMessage({ secretMessage: json.secret })
+        )
       })
       .catch((err) => {
         // const errorMessage = err;
         // dispatch(user.actions.setErrorMessage({ errorMessage }));
 
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
-      }); //401
-  };
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }))
+      }) //401
+  }
+}
 
-  export const logout =
-};
+export const logout = () => {
+  return (dispatch) => {
+    dispatch(user.actions.setSecretMessage({ secretMessage: null }))
+    dispatch(user.actions.setErrorMessage({ errorMessage: null }))
+    dispatch(user.actions.setAccessToken({ accessToken: null }))
+    dispatch(user.actions.setUserId({ userId: 0 }))
+  }
+}
