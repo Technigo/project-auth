@@ -23,6 +23,10 @@ export const user = createSlice({
       console.log(`This is the userId: ${userId}`);
       state.login.userId = userId;
     },
+    logout: (state, action) => {
+      state.login.userId = 0;
+      state.login.accessToken = null;
+    }
   },
 });
 
