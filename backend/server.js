@@ -21,7 +21,7 @@ Questions:
 - Thunks?
 - A page to show the authenticated content from the API - is this userToken and userId? Or something else?
 - Vans code userProfile.js why has he written the url as template literal for the fetch.
-
+- How to get to the 401 in the authenticateUser to show if the accessToken isn't authorized when doing the get request for the secret endpoint 
 */
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
@@ -54,7 +54,10 @@ const User = mongoose.model("User", {
 // Call the next() function which allows the protected endpoint continue
 // execution.
 
-{/*const authenticateUser = async (req, res, next) => {
+//Our version
+{
+  /*
+const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({
       accessToken: req.header("Authorization"),
@@ -70,19 +73,20 @@ const User = mongoose.model("User", {
       .json({ loggedOut: true, statusMessage: "Please try logging in again" });
   }
 };
-*/}
+*/
+}
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const accessToken = req.header('Authorization');
+    const accessToken = req.header("Authorization");
     const user = await User.findOne({ accessToken });
     if (!user) {
-      throw 'User not found';
+      throw "User not found";
     }
     req.user = user;
     next();
   } catch (err) {
-    const errorMessage = 'Please try logging in again';
+    const errorMessage = "Please try logging in again";
     console.log(errorMessage);
     res.status(401).json({ error: errorMessage });
   }
@@ -157,31 +161,13 @@ app.post("/users", async (req, res) => {
   }
 });
 
-app.get('/secret', authenticateUser);
-app.get('/secret', async (req, res) => {
-  console.log(`User from authenticateUser: ${req.user}`);
-  const secretMessage = `We can modify this secret message for ${req.user.name}`;
-  res.status(200).json({ secretMessage });
-});
-
-// Use authenticateUser function to protect our secret endpoint.
-// Try in postman - loggedOut: true
-
-//Authenticate endpoint (motsvarar Van:s secret endpoint)
-app.get("/users/:id", authenticateUser);
-app.get("/users/:id", (req, res) => {
-  const secretMessage = `We can modify this secret message for ${req.user.name}`;
-  res.status(200).json({ secretMessage });
-  // res.status(501).send("This could be the users login view");
-});
-
 // Log-in endpoint. Find user.
 app.post("/sessions", async (req, res) => {
   try {
     const user = await User.findOne({ name: req.body.name });
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       res.status(201).json({
-        userId: user._id,
+        id: user._id,
         accessToken: user.accessToken,
         statusMessage: "User logged in",
       });
@@ -193,7 +179,49 @@ app.post("/sessions", async (req, res) => {
   }
 });
 
+//should show more detils for the user
+app.get("/secret", authenticateUser);
+app.get("/secret", async (req, res) => {
+  console.log(`User from authenticateUser: ${req.user}`);
+  const secretMessage = `We can modify this secret message for ${req.user.name}`;
+  res.status(200).json({ secretMessage });
+});
+
+//Authenticate endpoint (motsvarar Van:s sprofile id endpoint)
+// app.get("/users/:id", authenticateUser);
+// app.get("/users/:id", (req, res) => {
+//   const secretMessage = `We can modify this secret message for ${req.user.name}`;
+//   res.status(200).json({ secretMessage });
+//   // res.status(501).send("This could be the users login view");
+// });
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+// **************** Vans code ***********************
+// app.get('/users/:id/profile', authenticateUser);
+// app.get('/users/:id/profile', async (req, res) => {
+//   const user = await User.findOne({ _id: req.params.id });
+//   const publicProfileMessage = `This is a public profile message for ${user.name}`;
+//   const privateProfileMessage = `This is a private profile message for ${user.name}`;
+
+//   console.log(`Authenticated req.user._id: '${req.user._id.$oid}'`);
+//   console.log(`Requested     user._id    : '${user._id}'`);
+//   console.log(`Equal   : ${req.user_id == user._id}`);
+
+//   // Decide private or public here
+//   if (req.user._id.$oid === user._id.$oid) {
+//     // Private
+//     res.status(200).json({ profileMessage: privateProfileMessage });
+//   } else {
+//     // Public information or Forbidden (403) because the users don't match
+//     res.status(200).json({ profileMessage: publicProfileMessage });
+//   }
+// });
+
+// // Start the server
+// app.listen(port, () => {
+//   console.log(`Server running on http://localhost:${port}`);
+// });
