@@ -1,14 +1,11 @@
 import React, { useState } from "react";
+import styled from 'styled-components';
 import { useDispatch, useSelector } from "react-redux";
 
 import { user } from "../reducers/user";
 
 const SIGNUP_URL = "https://project-signup.herokuapp.com/users";
-// https://project-signup.herokuapp.com/users
-//change to Heroku-url
 const LOGIN_URL = "https://project-signup.herokuapp.com/sessions";
-// https://project-signup.herokuapp.com/sessions
-//change to Heroku-url
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -36,8 +33,8 @@ export const Login = () => {
   // Handle sign up
   const handleSignup = (event) => {
     event.preventDefault();
-    // setName("");
-    // setPassword("");
+    setName("");
+    setPassword("");
     // send data to backend, for saving in DB
     fetch(SIGNUP_URL, {
       method: "POST",
@@ -57,8 +54,8 @@ export const Login = () => {
   // Handle log in
   const handleLogin = (event) => {
     event.preventDefault();
-    // setName("");
-    // setPassword("");
+    setName("");
+    setPassword("");
 
     fetch(LOGIN_URL, {
       method: "POST",

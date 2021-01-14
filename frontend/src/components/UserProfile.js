@@ -1,10 +1,11 @@
 import React from "react";
+import styled from 'styled-components';
+
 
 import { user } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 
 const SECRET_URL = "https://project-signup.herokuapp.com/secret";
-// https://project-signup.herokuapp.com/secret
 
 export const UserProfile = () => {
   const dispatch = useDispatch();
