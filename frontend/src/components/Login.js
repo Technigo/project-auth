@@ -4,15 +4,15 @@ import {user} from "../reducers/user"
 import {SubmitButton} from "./SubmitButton"
 import {InputField} from "./InputField"
 //import {UserProfile} from "./UserProfile"
-
 import styled from "styled-components"
 import swal from "sweetalert"
+//import { useHistory } from "react-router-dom"
 
 const LOGIN = "https://project-auth-liza-kat.herokuapp.com/sessions"
 
 export const Login = () => {
 	const dispatch = useDispatch()
-	//const accessToken = useSelector((store) => store.user.login.accessToken)
+	//const history = useHistory()
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 
@@ -43,7 +43,7 @@ export const Login = () => {
 			setPassword('')
 			if (accessToken) {
 			  dispatch(user.actions.logIn())
-			  dispatch(user.actions.access(accessToken))
+			  dispatch(user.actions.setAccessToken(accessToken))
 			}
 		  })
 		  .catch(err => console.log("error:", err))

@@ -29,10 +29,10 @@ export const Home = () => {
         <TextFinal>Created by Kat and Liza</TextFinal>
       </Content>
       <ButtonContainer>
-        <Redirect to="/login">
+        <Redirect to="/sessions">
           <SubmitButton title="Login" />
         </Redirect>
-        <Redirect to="/signup">
+        <Redirect to="/users">
           <SubmitButton title="Sign Up" />
         </Redirect>
       </ButtonContainer>

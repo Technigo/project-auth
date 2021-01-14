@@ -1,36 +1,30 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  login: {
-    accessToken: null,
-    userId: 0,
-    statusMessage: "",
-  },
-};
+  loggedIn: false,
+  userId: '',
+  accessToken: ''
+}
 
 export const user = createSlice({
-  name: "user",
-  initialState: initialState,
+  name: 'userList',
+  initialState,
   reducers: {
+    
+    logIn: (state) => {
+      state.loggedIn = true
+    },
+
+    logOut: () => {
+      return initialState
+    },
+
     setAccessToken: (state, action) => {
-      const { accessToken } = action.payload;
-      console.log(`Access Token: ${accessToken}`);
-      state.login.accessToken = accessToken;
+      state.accessToken = action.payload
     },
-    setUserId: (state, action) => {
-      const { userId } = action.payload;
-      console.log(`User Id: ${userId}`);
-      state.login.userId = userId;
-    },
-    setStatusMessage: (state, action) => {
-      const { statusMessage } = action.payload;
-      console.log(`Status Message: ${statusMessage}`);
-      state.login.statusMessage = statusMessage;
-    },
-    logout: (state, action) => {
-      console.log("Logging out");
-      state.login.userId = 0;
-      state.login.accessToken = null;
-    },
+    
+    id: (state, action) => {
+      state.userId = action.payload
+    }
   },
-});
+})
