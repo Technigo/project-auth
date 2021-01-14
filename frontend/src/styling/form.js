@@ -59,6 +59,19 @@ box-sizing: border-box;
   margin: 10px;
 `
 
+export const NoteTextInput = styled.input`
+  width: 400px;
+  height: 600px;
+  padding: 20px;
+
+`
+
+export const ProfileSection = styled.section`
+  width: 100%;
+  display: flex;
+justify-content: center;
+box-sizing: border-box;
+`
 
 
 

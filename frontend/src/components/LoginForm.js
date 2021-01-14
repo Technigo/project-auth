@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Profile from './Profile'
 import { useDispatch, useSelector } from 'react-redux'
 import { user } from '../reducers/user'
 import picture from '../picture/picture.svg'
@@ -10,6 +9,7 @@ const LOGIN_URL = 'http://localhost:8080/sessions'
 
 export const LoginForm = () => {
   const dispatch = useDispatch()
+  const statusMessage = useSelector((store) => store.user.login.statusMessage)
   const accessToken = useSelector((store) => store.user.login.accessToken)
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
@@ -57,7 +57,7 @@ export const LoginForm = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw 'Signup Failed'
+          throw 'Login Failed'
         }
         return res.json()
       })
@@ -86,10 +86,12 @@ export const LoginForm = () => {
           <LoginInput
             type="password"
             required
+            minlength="5"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
         </InputLabel>
+        {`${statusMessage}`}
         <Button 
           type='submit' 
           onClick={handleSignup}
@@ -100,7 +102,7 @@ export const LoginForm = () => {
           Login
         </Button>
         </Form>
-        <SignUpImage src={picture} alt="Logo" />
+        <SignUpImage src={picture} alt="Taking note" />
     </LoginSection>
   )
 }
