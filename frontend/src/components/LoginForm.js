@@ -66,57 +66,11 @@ export const LoginForm = () => {
       .catch((err) => handleLoginFailed(err));
   };
 
-  const handleNote = (event) => {
-    event.preventDefault();
-
-    fetch(NOTES_URL, {
-      method: "POST",
-      body: JSON.stringify({ description }),
-      headers: { "Content-Type": "application/json", "Authorization": accessToken },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw "Signup Failed";
-        }
-        return res.json();
-      })
-      .then((json) => handleLoginSuccess(json))
-      .catch((err) => handleLoginFailed(err));
-  };
 
   if (accessToken) {
-  
-      fetch(NOTES_URL, {
-        method: "GET",
-        headers: { "Content-Type": "application/json", "Authorization": accessToken },
-      })
-        .then((res) => {
-          if (!res.ok) {
-            throw "Signup Failed";
-          }
-          return res.json();
-        })
-        .then((json) => setNotes(json))
-        .catch((err) => handleLoginFailed(err));
-
     return (
       <>
         <div>Yey! Logged in</div>
-        <InputLabel>
-          Add a new note
-          <LoginInput
-            required
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-          />
-        </InputLabel>
-        <Button type="submit" onClick={handleNote}>
-          Add note
-        </Button>
-        <div>Here are your notes</div>
-        {
-          notes.map(note => <div>{note.description}</div>)
-        }
       </>
     );
   }
