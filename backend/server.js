@@ -42,7 +42,6 @@ userSchema.pre('save', async function (next) {
   if (!user.isModified('password')) {
     return next();
   }
-
   const salt = bcrypt.genSaltSync();
   console.log(`PRE-password before hash: ${user.password}`)
   user.password = bcrypt.hashSync(user.password, salt);
@@ -128,6 +127,7 @@ app.post('/signup', async (req, res) => {
       email,
       password
     }).save();
+    console.log('user', user)
     res.status(201)
     .json({ userId: user._id, accessToken: user.accessToken })
   } catch (err) {
@@ -163,22 +163,14 @@ app.post('/login', async (req, res) => {
 app.get('/users/:id/secret', authenticateUser);
 app.get('/users/:id/secret', async (req, res) => {
   try {
-  const user = await User.findOne({ _id: req.params.id });
-  const publicProfileMessage = `This is publie profile message for ${user.name}`
-  const privateProfileMessage = `This is PRIVATE profile message for ${user.name}`
-  if (req.user._id.$oid === user._id.$oid) {
-    res.status(200).json({ profileMessage: privateProfileMessage});
-  } else {
-    res.status(403).json({
-      profileMessage: publicProfileMessage, 
-      error: `You are not allow to access the private message of ${user.name}`
-    })
-  }
-} catch (err) {
-  res.status(404).json({
+    const user = await User.findOne({ _id: req.params.id });
+    const secretMessage = `This is a super secret message for  ${req.user.name}`;
+      res.status(201).json({ secretMessage });
+  } catch (err) {
+    res.status(404).json({
     notFound: true,
-    message: "Make sure userId is correct"
-  })
+    message: 'Oops! Something goes wrong. Try again later!'
+  });
 }
 });
 
