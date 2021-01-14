@@ -43,7 +43,7 @@ export const user = createSlice({
 //____________THUNKS____________//
 //_______Sign up
 export const signUp = (name, email, password) => {
-  const SIGNUP_URL = "http://localhost:8080/signup"
+  const SIGNUP_URL = "http://the-secret.herokuapp.com/signup"
   return (dispatch) => {
     fetch(SIGNUP_URL, {
       method: 'POST',
@@ -86,7 +86,7 @@ export const signUp = (name, email, password) => {
 
 //_______Login
 export const login = (name, email, password) => {
-  const LOGIN_URL = 'http://localhost:8080/login'
+  const LOGIN_URL = 'http://the-secret.herokuapp.com/login'
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: 'POST',
@@ -119,7 +119,7 @@ export const login = (name, email, password) => {
 
 //_______Secret message
 export const getSecretMessage = () => {
-  const USERS_URL = 'http://localhost:8080/users'
+  const USERS_URL = 'http://the-secret.herokuapp.com/users'
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken
     const userId = getState().user.login.userId
