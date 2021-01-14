@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { user, login } from '../reducers/user';
@@ -30,7 +30,7 @@ export const Form = (showSecret) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw ('Unable to Sign up, please check your e-mail and password.');
+          throw 'Unable to Sign up, please check your e-mail and password.';
         } else {
           return res.json();
         }
@@ -38,12 +38,16 @@ export const Form = (showSecret) => {
       .then((json) => {
         dispatch(user.actions.setUserId({ userId: json.userId }));
         dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
-        dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful signup' }));
+        dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful Sign Up' }));
       })
       .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
+
+  // useEffect(() => {
+  //   dispatch(user.actions.setErrorMessage({ errorMessage: null }))
+  // }), [dispatch]
 
   // To log in a user
   const handleLogin = event => {
@@ -117,7 +121,7 @@ export const Form = (showSecret) => {
                 value={password}
                 onChange={event => setPassword(event.target.value)} />
             </label>
-            <FormButton type="submit" onClick={handleSignup} function={setSection} value="Welcome">Sign up!</FormButton>
+            <FormButton type="submit" onClick={handleSignup}>Sign up!</FormButton>
           </FormWrapper>
           <AccountWrapper>
             {error && <h4>{`${error}`}</h4>}
@@ -127,12 +131,12 @@ export const Form = (showSecret) => {
         </>
       )}
 
-      {section === "Welome" && (
+      {/* {section === "Welcome" && (
         <>
           <h1>Welcome ${name}</h1>
           <Button title="Log in" function={setSection} value="LogIn">Go to Login</Button>
         </>
-      )}
+      )} */}
     </MainContainer>
   );
 };
@@ -178,11 +182,3 @@ const AccountText = styled.p`
   font-size: 12px;
   padding: 4px;
 `;
-
-const SignupButton = styled.button`
-  width: 100px;
-  margin: 6px;
-  padding: 4px;
-`;
-
-const LoginButton = styled(SignupButton)``;

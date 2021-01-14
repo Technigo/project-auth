@@ -9,7 +9,7 @@ We started with the Backend where we created a `User` model using mongoose with 
 We created the following enpoint for our API:
 - Registration endpoint, to register a new user
 - Sign In enpoint, to authenticate a returning user.
-- An authenticated endpoint which only return "secret" conten if the `Authorization` header with the user's token is correct.
+- An authenticated endpoint which only return "secret" content if the `Authorization` header with the user's token is correct.
 - Log Out enpoint, for logging out the user.
 
 In the Frontend we built up registration and log in form that `POST` to the API. When user is logged in we make a `GET` request to see the "secret". 

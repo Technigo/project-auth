@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   login: {
     accessToken: null,
-    userId: 0,
+    userId: null,
     statusMessage: "",
     errorMessage: null,
   }
@@ -33,6 +33,11 @@ export const user = createSlice({
       const { errorMessage } = action.payload;
       state.login.errorMessage = errorMessage;
     },
+
+    // setSecretMessage: (state, action) => {
+    //   const { secretMessage } = ac
+    // },
+
     logout: (state, action) => {
       state.login.userId = 0;
       state.login.accessToken = null;
@@ -40,9 +45,10 @@ export const user = createSlice({
   }
 });
 
+const LOGIN_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/sessions';
+
 // Thunks
 export const login = (email, password) => {
-  const LOGIN_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/sessions';
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: 'POST',
@@ -57,13 +63,15 @@ export const login = (email, password) => {
       })
       .then((json) => {
         // Save the login info
-        dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
         dispatch(user.actions.setUserId({ userId: json.userId }));
+        dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
         dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful Log In!' }));
       })
       .catch((err) => {
         // dispatch(user.actions.logout());
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        // dispatch(user.actions.setAccessToken({ accessToken: null }));
+        dispatch(user.actions.setStatusMessage({ statusMessage: 'Failed to login' }));
+        // dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 };

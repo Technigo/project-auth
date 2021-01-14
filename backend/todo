@@ -6,8 +6,8 @@ TO DO LIST - Sara & Gabriella
 [x] Lägg till error message om Sign up misslyckas
 [x] Eventuellt thunks
 [x] Styling
-[ ] Read me'n
+[x] Read me'n
 [x] Deploya API't   Sara
 [x] Deploya FrontEnd till Netlify  Sara
 [ ] Ändra så secrets syns direkt efter man tryckt på Log in - Sara
-[ ] Log out button 
+[x] Log out button 
