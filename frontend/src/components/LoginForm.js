@@ -26,7 +26,7 @@ export const LoginForm = () => {
 
     // Login the user
     const handleLogin = (event) => {
-        // event.preventDefault();
+        event.preventDefault();
     
         fetch(LOGIN_URL, {
           method: 'POST',
