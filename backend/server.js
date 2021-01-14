@@ -52,6 +52,15 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // Start defining your routes here
+
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState === 1) {
+    next();
+  } else {
+    res.status(503).json({ error: "Service unavailable" })
+  }
+})
+
 app.get('/', (req, res) => {
   res.send('Hello world')
 })
@@ -83,16 +92,16 @@ app.post('/sessions', async (req, res) => {
   }
 });
 
-app.post('/users/logout', authenticateUser)
-app.post('/users/logout', async (req, res) => {
-  try {
-    req.user.accessToken = null
-    await req.user.save()
-    res.status(200).json({ loggedOut: true })
-  } catch (err) {
-    res.status(400).json({ error: 'Could not logout' })
-  }
-})
+// app.post('/users/logout', authenticateUser)
+// app.post('/users/logout', async (req, res) => {
+//   try {
+//     req.user.accessToken = null
+//     await req.user.save()
+//     res.status(200).json({ loggedOut: true })
+//   } catch (err) {
+//     res.status(400).json({ error: 'Could not logout' })
+//   }
+// })
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
