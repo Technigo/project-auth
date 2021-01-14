@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom'
 
 import { user, logout } from '../reducers/user'
 
-// const SIGNIN_URL = 'http://localhost:8080/users'
-const LOGIN_URL = 'https://login-logout-authentication.herokuapp.com/sessions'
+// const SIGNIN_URL = 'https://login-logout-authentication.herokuapp.com/users'
+const LOGIN_URL = 'http://localhost:8080/sessions'
 
 export const LoginForm = () => {
   const dispatch = useDispatch()
@@ -17,8 +17,9 @@ export const LoginForm = () => {
 
   const handleLoginSuccess = (loginResponse) => {
     dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken}))
-    dispatch(user.actions.setUserId({ userID: loginResponse.userId}))
-    dispatch(user.actions.setStatusMessage({statusMessage: 'Login Success'}))
+    dispatch(user.actions.setUserId({ userId: loginResponse.userId}))
+    dispatch(user.actions.setUserName({ name: loginResponse.name }));
+  //dispatch(user.actions.setStatusMessage({statusMessage: 'Login Success'}))
   }
 
   // const handleLoginFailed = (loginError) => {

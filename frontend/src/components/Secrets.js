@@ -3,7 +3,7 @@ import { user, logout } from '../reducers/user'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-const URL = 'https://login-logout-authentication.herokuapp.com/secrets'
+const URL = 'http://localhost:8080/secrets'
 
 export const Secret = () => {
   const dispatch = useDispatch()
@@ -21,7 +21,7 @@ export const Secret = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw 'Could not get information. Make sure you are logged in and try again'
+          throw errorMessage('Could not get information. Make sure you are logged in and try again')
         }
         return res.json()
       })
