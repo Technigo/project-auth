@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { user, login } from '../reducers/user'
 import { Profile } from '../components/Profile'
 
-const SIGNUP_URL = 'http://localhost:8080/users'
+const SIGNUP_URL = 'https://auth-api-technigo.herokuapp.com/users'
 
 export const LogInForm = () => {
     const dispatch = useDispatch()

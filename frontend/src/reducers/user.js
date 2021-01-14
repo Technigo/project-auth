@@ -37,7 +37,7 @@ export const user = createSlice({
 
 // Thunks
 export const login = (name, password) => {
-    const LOGIN_URL = 'http://localhost:8080/sessions'
+    const LOGIN_URL = 'https://auth-api-technigo.herokuapp.com/sessions'
     return (dispatch) => {
       fetch(LOGIN_URL, {
         method: 'POST',
@@ -69,7 +69,7 @@ export const login = (name, password) => {
   }
 
   export const getSecretMessage = () => {
-    const SECRET_URL = 'http://localhost:8080/secrets'
+    const SECRET_URL = 'https://auth-api-technigo.herokuapp.com/secrets'
     return (dispatch, getState) => {
       const accessToken = getState().user.login.accessToken
       fetch(SECRET_URL, {
