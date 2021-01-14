@@ -75,24 +75,13 @@ app.get('/secrets', async (req, res) => {
 })
 
 app.post('/sessions', async (req, res) => {
-  try {
-    const { name, password } = req.body
-    const user = await User.findOne({ name })
-    if (user && bcrypt.compareSync(password, user.password)) {
-      user.accessToken = crypto.randomBytes(128).toString('hex')
-      
-      const updatedUser = await user.save()
-      res.status(200).json({
-        userId: updatedUser._id,
-        accessToken: updatedUser.accessToken,
-      })
-    } else {
-      throw 'User not found'
-    }
-  } catch (err) {
-    res.status(404).json({ error: 'User not found' })
+  const user = await User.findOne({ email: req.body.email });
+  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    res.json({ userId: user._id, accessToken: user.accessToken, name: user.name });
+  } else {
+    res.status(401).json({ notFound: true, error: 'Login failed' });
   }
-})
+});
 
 app.post('/users/logout', authenticateUser)
 app.post('/users/logout', async (req, res) => {
