@@ -1,6 +1,5 @@
-
+/* eslint-disable */
 import { createSlice } from '@reduxjs/toolkit'
-
 
 const initialState = {
   login: {
@@ -12,7 +11,7 @@ const initialState = {
 
 export const user = createSlice({
   name: 'user',
-  initialState: initialState,
+  initialState,
   reducers: {
     setAccessToken: (state, action) => {
       const { accessToken } = action.payload
