@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 import { Login } from "./components/Login";
+import { UserProfile } from "./components/UserProfile";
 import { user } from "./reducers/user";
 /* 
 Structure:
@@ -13,7 +14,7 @@ Thunks?
 
 - components:
 - Login/singup (login btn/log outbtn)
-- Profile
+- Profile ()
 - Status (Login sucess/logged out?)
 
 
@@ -34,6 +35,7 @@ export const App = () => {
   return (
     <Provider store={store}>
       <Login />
+      <UserProfile />
     </Provider>
   );
 };
