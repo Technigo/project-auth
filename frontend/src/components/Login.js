@@ -34,7 +34,7 @@ export const Login = () => {
       .then(res => res.json())
       .then(json => {
         handleSecrets(json.accessToken)
-        setStatus(json.message) // not working
+        setStatus(json.message)
       })
       .catch(err => console.log('error:', err))
   }
@@ -95,9 +95,8 @@ export const Login = () => {
 
     {secrets ? (
       <section className="profile">
-        <h2>My profile</h2>
         <p>{secrets}</p>
-        <button>
+        <button onClick={() => setSecrets(false)}>
           Log out
         </button>
       </section>

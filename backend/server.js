@@ -23,18 +23,18 @@ const User = mongoose.model('User', {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
   }
-});
+})
 
 //Create a middleware
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header('Authorization') });
+  const user = await User.findOne({ accessToken: req.header('Authorization') })
   if (user) {
-    req.user = user;
-    next();
+    req.user = user
+    next()
   } else {
-    res.status(401).json({ loggedOut: true });
+    res.status(401).json({ loggedOut: true })
   }
-};
+}
 
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080
@@ -52,21 +52,21 @@ app.get('/', (req, res) => {
 // Sign-up endpoint
 app.post('/users', async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const SALT = bcrypt.genSaltSync(10);
+    const { email, password } = req.body
+    const SALT = bcrypt.genSaltSync(10)
     const user = new User({ email, password: bcrypt.hashSync(password, SALT) })
     const saved = await user.save()
     res.status(201).json({ id: saved._id, accessToken: saved.accessToken })
   } catch (err) {
-    res.status(400).json({ message: 'Could not create user / User already exist', error:err.error });
+    res.status(400).json({ message: 'Could not create user / User already exist', error:err.error })
   }
-});
+})
 
 // Authenticated endpoint 
-app.get('/secrets', authenticateUser);
+app.get('/secrets', authenticateUser)
 app.get('/secrets', (req, res) => {
-  res.json({ secret: 'Secret message' });
-});
+  res.json({ secret: 'Success! You are logged in.' })
+})
 
 // Sign-in endpoint
 app.post('/sessions', async (req, res) => {
@@ -80,7 +80,7 @@ app.post('/sessions', async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: 'Wrong email or password', error:err.error })
   }
-});
+})
 
 // Start the server
 app.listen(port, () => {
