@@ -9,7 +9,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI2"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-const User = mongoose.model('User', {
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -17,13 +17,35 @@ const User = mongoose.model('User', {
   password: {
     type: String,
     required: true,
+    minLength: 5
    },
    accessToken: {
      type: String,
      default: () => crypto.randomBytes(128).toString('hex'),
      unique: true,
    },
-});
+})
+
+//user registration validation
+userSchema.pre('save', async function (next) {
+  const user = this
+
+  if (!user.isModified('password')) {
+    return next();
+  }
+
+  const salt = bcrypt.genSaltSync();
+  console.log(`PRE- password before hash: ${user.password}`);
+  user.password = bcrypt.hashSync(user.password, salt);
+  console.log(`PRE- password after  hash: ${user.password}`);
+
+  // Continue with the save
+  next();
+}
+
+)
+
+const User = mongoose.model('User', userSchema);
 
 const Note = mongoose.model('Note', {
   description: {
@@ -67,10 +89,9 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const { name, password } = req.body
-    const salt = bcrypt.genSaltSync()
     const user = await new User({
       name,
-      password: bcrypt.hashSync(password, salt),
+      password
     }).save()
     res.status(201).json({ userId: user._id, accessToken: user.accessToken })
   } catch (err) {
