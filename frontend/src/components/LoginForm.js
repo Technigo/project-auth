@@ -94,7 +94,7 @@ export const LoginForm = () => {
             minLength="5"
             required
           />
-          <button type='submit' onClick={handleLogin}>
+          <button className='input-button' type='submit' onClick={handleLogin}>
             Login
           </button>
         </div>

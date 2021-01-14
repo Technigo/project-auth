@@ -40,7 +40,7 @@ code {
   padding: 8px
 }
 
-.form-style button {
+.input-button {
   color: #222e31;
   font-size: 15px;
   font-weight: 600;
@@ -70,4 +70,17 @@ code {
   flex-direction: column;
   justify-items: center;
   width: auto;
+}
+
+.secret-container {
+  background-color:rgba(144,190,109, 1);
+  margin: 0 0 20px 0;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px
+
+
 }

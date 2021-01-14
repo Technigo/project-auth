@@ -35,26 +35,23 @@ export const Secret = () => {
           user.actions.setErrorMessage({ errorMessage: err})
         )
       })
-  }
-  // if (!accessToken) {
-  //   return (
-  //   <p>ACCESS DENIED!!</p>
-  //   )
-  // }
+ }
 
   return (
-    <section class='profile'>
-      <h2>`Welcome ${name}!`</h2>
-      <p>{secretMessage}</p>
-      <p>{errorMessage}</p>
-        <input type='submit'
+    <section className='auth-container'>
+      <div className='secret-container'>
+        <h2>{`Welcome ${name}!`}</h2>
+        <p>{secretMessage}</p>
+        <p>{errorMessage}</p>
+        <input className='input-button' type='submit'
           onClick={(e) => getSecret()}
           value='Secret' />
         <Link to='/'>
-          <input type='submit'
+          <input className='input-button' type='submit'
             onClick={(e) => dispatch(logout())} 
             value='Logout' />
-       </Link>
+        </Link>
+       </div>
     </section>
   )
 }

@@ -22,7 +22,7 @@ export const SignUp = () => {
     fetch(SIGNUP_URL, {
       method: "POST",
       body: JSON.stringify({ name, password, email }),
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     })
     .then((res) => {
       if (!res.ok) {
@@ -73,7 +73,7 @@ export const SignUp = () => {
               required
               minLength="4"
             />
-            <button type="submit">Sign up</button>
+            <button className='input-button' type="submit">Sign up</button>
           </div>
         </form>
         {errorMessage === true ? <p>Could not create user</p> : null}
