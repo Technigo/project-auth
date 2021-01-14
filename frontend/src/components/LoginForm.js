@@ -64,7 +64,7 @@ export const LoginForm = () => {
                 <FormLabel>
                 PASSWORD
                 <FormInput  
-                    type="text"
+                    type="password"
                     placeholder="Enter your password"
                     required
                     value={password}

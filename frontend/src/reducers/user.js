@@ -23,6 +23,10 @@ export const user = createSlice({
           setStatusMessage: (state, action) => {
             const { statusMessage } = action.payload;
             state.login.statusMessage = statusMessage;
+          },
+          setErrorMessage: (state, action) => {
+            const { errorMessage } = action.payload;
+            state.login.errorMessage = errorMessage;
           }
     }
 })

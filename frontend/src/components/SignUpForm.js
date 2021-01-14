@@ -13,11 +13,11 @@ export const SignUpForm = () => {
     const [password, setPassword] = useState('');
 
     const handleLoginSuccess = (loginResponse) => {
-        console.log(loginResponse);
+        //console.log(loginResponse);
     };
 
     const handleLoginFailed = (loginError) => {
-        console.log(loginError);
+        //console.log(loginError);
     };
 
     const handleSignup = (event) => {
@@ -47,7 +47,7 @@ export const SignUpForm = () => {
                     <FormLabel>
                     USERNAME
                     <FormInput
-                        type="text"
+                        type="password"
                         placeholder="Choose a username"
                         required
                         value={name}
