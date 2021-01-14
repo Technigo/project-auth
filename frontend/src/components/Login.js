@@ -13,6 +13,19 @@ export const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const handleLoginSuccess = (loginResponse) => {
+    dispatch(
+      user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
+    );
+    dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
+    dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }));
+  };
+
+  const handleLoginFail = (loginError) => {
+    dispatch(user.actions.setAccessToken({ accessToken: null }))
+    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }))
+  }
+
   const handleLogin = (event) => {
     event.preventDefault()
 
