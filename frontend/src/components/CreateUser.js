@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import Button from './Button';
+import Button from '../lib/Button';
 import InputField from './InputField';
 import { user } from '../reducer/user';
 

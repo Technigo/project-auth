@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {LoginContainer, Title, Login} from '../lib/LoginFormStyle'
-import Button from './Button'
+import Button from '../lib/Button'
 import InputField from './InputField'
 import { user } from '../reducer/user';
 
