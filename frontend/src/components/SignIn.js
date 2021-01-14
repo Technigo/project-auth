@@ -37,7 +37,7 @@ export const SignIn = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw "Signup Failed";
+          throw new Error("Signup Failed");
         }
         return response.json();
       })
@@ -56,7 +56,7 @@ export const SignIn = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw "Login Failed";
+          throw new Error("Login Failed");
         }
         return response.json();
       })
