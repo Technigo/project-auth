@@ -50,25 +50,31 @@ export const LogInForm = () => {
         )}
 
     return (
-        <form>
+        <form className="login-signup">
             <h1>Login/Sign up</h1>
-            <label>Name
-                <input 
-                    required
-                    value={name}
-                    onChange={event => setName(event.target.value)}
-                />
-            </label>
-            <label>Password
-                <input 
-                    required
-                    value={password}
-                    type="password"
-                    onChange={event => setPassword(event.target.value)}
-                />
-            </label>
-            <button type="submit" onClick={handleLogin}>LOGIN</button>
-            <button type="submit" onClick={handleSignUp}>SIGN UP</button>            
+            <div className="text-fields">
+                <label>Name
+                    <input 
+                        required
+                        value={name}
+                        onChange={event => setName(event.target.value)}
+                        placeholder="Name"
+                    />
+                </label>
+                <label>Password
+                    <input 
+                        required
+                        value={password}
+                        type="password"
+                        placeholder="Password"
+                        onChange={event => setPassword(event.target.value)}
+                    />
+                </label> 
+            </div>
+            <div className="buttons">
+                <button type="submit" onClick={handleLogin}>LOGIN</button>
+                <button type="submit" onClick={handleSignUp}>SIGN UP</button> 
+            </div>            
         </form>
     )
 }
