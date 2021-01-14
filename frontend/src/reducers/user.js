@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   login: {
@@ -27,6 +27,7 @@ export const user = createSlice({
     logout: (state, action) => {
       state.login.userId = 0;
       state.login.accessToken = null;
+      state.login.statusMessage = "";
     },
   },
 });

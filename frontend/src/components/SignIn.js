@@ -64,8 +64,18 @@ export const SignIn = () => {
       .catch((err) => handleLoginFailed(err));
   };
 
+  const handleLogout = (loggingout) => { 
+    dispatch(user.actions.logout({ logout: loggingout }));
+    window.location.reload()
+  };
+
   if(accessToken) {
-    return <h2>{`Hello ${name} you are logged in!`}</h2>
+    return <>
+    <h2>{`Hello ${name} you are logged in! shhh this is a secret area just for you`}</h2>
+    <button className="logout-button" type="submit" onClick={handleLogout}>
+      Logout
+    </button>
+    </>
   };
 
   return (
@@ -83,6 +93,7 @@ export const SignIn = () => {
         <label>
           Password
           <input
+            type="password"
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
