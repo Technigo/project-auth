@@ -14,11 +14,13 @@ const User = mongoose.model('User', {
   name: { 
     type: String,
     unique: true,
-    required: true
+    required: true,
+    minlength: 5
   },
   password: { 
     type: String,
-    required: true
+    required: true,
+    minlength: 5
   },
   accessToken: {
     type: String,
@@ -86,7 +88,7 @@ app.post('/sessions', async (req, res) => {
 // Endpoint that shows a page to the user when logged in
 app.get('/welcome', authenticateUser)
 app.get('/welcome', (req, res) => {
-  const welcomeMessage = `This is a welcome message for ${req.user.name}`
+  const welcomeMessage = `Hi ${req.user.name}! Nice to have you here.`
   res.status(201).json({ welcomeMessage })
 })
 

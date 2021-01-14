@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 export const App = () => {
-  const [signup, setSignup] = useState(false);
-  const [login, setLogin] = useState(false);
-  const [welcome, setWelcome] = useState(false);
+  const [signupPage, setSignupPage] = useState(false);
+  const [loginPage, setLoginPage] = useState(false);
+  const [welcomePage, setWelcomePage] = useState(false);
   const [welcomeMessage, setWelcomeMessage] = useState();
-
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,7 +22,9 @@ export const App = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Could not create user");
+          throw new Error(
+            "Could not create account. Please try another username."
+          );
         } else {
           return res.json();
         }
@@ -47,7 +48,7 @@ export const App = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Could not log in user");
+          throw new Error("Could not log in. Please try again!");
         } else {
           return res.json();
         }
@@ -69,15 +70,15 @@ export const App = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Could not authenticate user");
+          throw new Error("Could not find your account.");
         } else {
           return res.json();
         }
       })
       .then((json) => {
-        setSignup(false);
-        setLogin(false);
-        setWelcome(true);
+        setSignupPage(false);
+        setLoginPage(false);
+        setWelcomePage(true);
         setWelcomeMessage(json.welcomeMessage);
       })
       .catch((err) => alert(err));
@@ -85,20 +86,20 @@ export const App = () => {
 
   return (
     <Container>
-      {!signup &&
-        !login &&
-        !welcome && ( // startpage
+      {!signupPage && // startpage, doesn't show any other page
+        !loginPage &&
+        !welcomePage && (
           <>
             <Intro>Please join us by creating an account or log in.</Intro>
-            <SignupButton onClick={() => setSignup(true)}>
+            <SignupButton onClick={() => setSignupPage(true)}>
               Create account
             </SignupButton>
-            <LoginButton onClick={() => setLogin(true)}>Log in</LoginButton>
+            <LoginButton onClick={() => setLoginPage(true)}>Log in</LoginButton>
           </>
         )}
-      {signup &&
-        !login &&
-        !welcome && ( // sign up page
+      {signupPage && // shows the sign up page
+        !loginPage &&
+        !welcomePage && (
           <>
             <Intro>You're soon a part of us.</Intro>
             <Form onSubmit={signupUser}>
@@ -107,8 +108,7 @@ export const App = () => {
                 <SignupInput
                   value={name}
                   onChange={(event) => setName(event.target.value)}
-                  required
-                  minLength="5"
+                  placeholder="Minimum 5 letters"
                 />
               </Label>
               <Label>
@@ -116,17 +116,16 @@ export const App = () => {
                 <SignupInput
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  required
-                  minLength="5"
+                  placeholder="Minimum 5 letters"
                 />
               </Label>
               <FinalSignupButton type="submit">Sign up</FinalSignupButton>
             </Form>
           </>
         )}
-      {login &&
-        !signup &&
-        !welcome && ( // log in page
+      {loginPage && // shows the log in page
+        !signupPage &&
+        !welcomePage && (
           <>
             <Intro>Log in to your account</Intro>
             <Form onSubmit={loginUser}>
@@ -135,8 +134,6 @@ export const App = () => {
                 <LoginInput
                   value={name}
                   onChange={(event) => setName(event.target.value)}
-                  required
-                  minLength="5"
                 />
               </Label>
               <Label>
@@ -144,22 +141,20 @@ export const App = () => {
                 <LoginInput
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  required
-                  minLength="5"
                 />
               </Label>
               <FinalLoginButton type="submit">Log in</FinalLoginButton>
             </Form>
           </>
         )}
-      {welcome &&
-        !signup &&
-        !login && ( // welcome page
+      {welcomePage && // shows the welcome page
+        !signupPage &&
+        !loginPage && (
           <>
             <Intro>{welcomeMessage}</Intro>
             <LogoutButton
               onClick={() => {
-                setWelcome(false) && setLogin(true);
+                setWelcomePage(false) && setLoginPage(true);
               }}
             >
               Log out
@@ -172,12 +167,21 @@ export const App = () => {
 
 // General styling
 
+const Container = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding: 100px 0;
+  background: #105c63;
+`;
+
 const Intro = styled.p`
   margin-bottom: 80px;
   font-size: 32px;
   font-weight: bold;
   text-align: center;
-  color: #1f4e3f;
+  color: #188c96;
 `;
 
 const Form = styled.form`
@@ -191,26 +195,23 @@ const Label = styled.label`
   margin: 10px;
   font-size: 20px;
   font-weight: bold;
+  color: black;
 `;
 
-// Styling Startpage
-const Container = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  padding: 100px 0;
-  background: #608578;
-`;
+// Styling Start-page
 
 const SignupButton = styled.button`
   border: none;
   border-radius: 25px;
   padding: 20px;
-  background: #e3e2ff;
+  background: #b5bcff;
   font-size: 24px;
   font-weight: bold;
   text-transform: uppercase;
+
+  &:hover {
+    background: #3c4a6b;
+  }
 `;
 
 const LoginButton = styled.button`
@@ -218,20 +219,24 @@ const LoginButton = styled.button`
   padding: 20px;
   border: none;
   border-radius: 25px;
-  background: #1a7763;
+  background: #188c96;
   font-size: 24px;
   font-weight: bold;
   text-transform: uppercase;
+
+  &:hover {
+    background: #3c4a6b;
+  }
 `;
 
 // Styling Signup-page
 
 const SignupInput = styled.input`
+  margin: 15px 5px 5px 5px;
+  padding: 15px;
   border: none;
   border-radius: 10px;
-  padding: 15px;
-  margin: 5px;
-  background: #e3e2ff;
+  background: #b5bcff;
 `;
 
 const FinalSignupButton = styled.button`
@@ -239,21 +244,24 @@ const FinalSignupButton = styled.button`
   padding: 15px;
   border: none;
   border-radius: 15px;
-  background: #e3e2ff;
+  background: #b5bcff;
   font-weight: bold;
   font-size: 18px;
   text-transform: uppercase;
-  color: #1f4e3f;
+
+  &:hover {
+    background: #3c4a6b;
+  }
 `;
 
 // Styling Login-page
 
 const LoginInput = styled.input`
-  margin: 5px;
+  margin: 15px 5px 5px 5px;
   padding: 15px;
   border: none;
   border-radius: 10px;
-  background: #1a7763;
+  background: #188c96;
 `;
 
 const FinalLoginButton = styled.button`
@@ -261,10 +269,14 @@ const FinalLoginButton = styled.button`
   padding: 15px;
   border: none;
   border-radius: 15px;
-  background: #1a7763;
+  background: #188c96;
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
+
+  &:hover {
+    background: #3c4a6b;
+  }
 `;
 
 // Styling Welcome-page
@@ -278,4 +290,8 @@ const LogoutButton = styled.button`
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
+
+  &:hover {
+    background: #3c4a6b;
+  }
 `;
