@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from 'bcrypt'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -12,7 +12,8 @@ mongoose.Promise = Promise
 const User = mongoose.model('User', {
   name: {
     type: String,
-    unique: true
+    unique: true,
+    required: true
   },
   // email: {
   //   type: String,
@@ -24,7 +25,8 @@ const User = mongoose.model('User', {
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString('hex')
+    default: () => crypto.randomBytes(128).toString('hex'),
+    unique: true
   },
 });
 
@@ -54,15 +56,24 @@ app.get('/', (req, res) => {
   res.send('Hello Claudia')
 })
 
+//salt adds som variation to the hash function, per user
 app.post('/users', async (req,res) =>{
   try{
     const {name, password} = req.body;
     //Do not store plaintext passwords!
-    const user = new User({name, password: bcrypt.hashSync(password)});
-    user.save();
-    res.status(201).json({id:user._id, accessToken:user.accessToken});
+    const salt = bcrypt.genSaltSync(10)
+    const user = await new User({
+      name, 
+      password: bcrypt.hashSync(password, salt)
+    }).save();
+    res.status(201).json({
+      id:user._id,
+      accessToken:user.accessToken
+    });
   }catch(err){
-    res.status(400).json({message: 'Could not create user', errors: err.errors});
+    res.status(400).json({
+      message: 'Could not create user', errors: err.errors
+    });
   }
 })
 
@@ -72,12 +83,17 @@ app.get('/secrets', (req, res) => {
 })
 
 app.post('/sessions', async(req, res) => {
-  const user = await User.findOne({name: req.body.name});
-  if(user && bcrypt.compareSync(req.body.password , user.password)) {
-    res.json({userId: user._id, accessToken: user.accessToken});
-  }else {
+  try{
+    const user = await User.findOne({name: req.body.name});
+    if(user && bcrypt.compareSync(req.body.password , user.password)) {
+      res.status(201).json({userId: user._id, accessToken: user.accessToken});
+    }else {
+      throw "User not found"
+    }
+  } catch (error) {
     res.json({notFound: true });
-  }
+  } 
+  
 })
 
 // Start the server
