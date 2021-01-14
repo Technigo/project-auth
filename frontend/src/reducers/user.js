@@ -42,7 +42,7 @@ export const user = createSlice({
 
 // Thunks
 export const login = (email, password) => {
-  const LOGIN_URL = 'http://localhost:8080/sessions';
+  const LOGIN_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/sessions';
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: 'POST',

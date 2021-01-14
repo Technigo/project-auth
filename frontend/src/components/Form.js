@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 import { FormButton, MainContainer } from 'styling/GlobalStyles';
 
-const SIGNUP_URL = 'http://localhost:8080/users';
+const SIGNUP_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/users';
 
 export const Form = (showSecret) => {
   const dispatch = useDispatch();

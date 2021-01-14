@@ -6,8 +6,8 @@ import { FormButton, MainContainer } from 'styling/GlobalStyles';
 
 import styled from 'styled-components';
 
-const SECRET_URL = 'http://localhost:8080/secrets';
-const LOGOUT_URL = 'http://localhost:8080/logout';
+const SECRET_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/secrets';
+const LOGOUT_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/logout';
 
 export const Secret = () => {
   const dispatch = useDispatch();
