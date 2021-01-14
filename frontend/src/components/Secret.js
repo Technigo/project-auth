@@ -30,7 +30,8 @@ export const Secret = () => {
         statusMessage: 'Log Out Succeded',
       })
     );
-    dispatch(user.actions.setAccessToken({ accessToken: null }));
+    dispatch(user.actions.setAccessToken({ accessToken: null }))
+    window.location.reload();
   };
 
   const logoutFailed = () => {
