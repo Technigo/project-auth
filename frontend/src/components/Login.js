@@ -71,6 +71,7 @@ export const Login = () => {
         {!accessToken ? (
           <Form onSubmit={(event) => event.preventDefault()}>
             <Title>Log in/Sign up</Title>
+            <SubTitle>to reveal your secret message...</SubTitle>
             <TextField
               required id="standard-required"  //adds *
               label="Name"
@@ -78,7 +79,7 @@ export const Login = () => {
               value={name}
               error={name === "" ? false : name === 1 ? true : false } //does not work
               onChange={(event) => setName(event.target.value)}
-              helperText={name === "" ? 'Min. 2 char' : ' '}
+              helperText={name === "" ? 'min. 2 char' : ' '}
             />
             <div>
             <InputLabel htmlFor="standard-adornment-password">Password*</InputLabel>
