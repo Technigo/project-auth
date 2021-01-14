@@ -3,14 +3,11 @@ import React from "react";
 import { user } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 
-const URL = "http://localhost:8080/users";
 const SECRET_URL = "http://localhost:8080/secret";
 
 export const UserProfile = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
-  const userId = useSelector((store) => store.user.login.userId);
-  const statusMessage = useSelector((store) => store.user.login.statusMessage);
 
   const loginSuccess = (loginResponse) => {
     dispatch(

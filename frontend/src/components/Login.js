@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { user } from "../reducers/user";
-import { UserProfile } from "./UserProfile";
 
 const SIGNUP_URL = "http://localhost:8080/users";
 //change to Heroku-url
