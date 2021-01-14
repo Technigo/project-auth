@@ -10,7 +10,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-const User = mongoose.model("User", {
+const userSchema = mongoose.Schema({
   username: {
     type: String,
     minlength: 2,
@@ -29,8 +29,20 @@ const User = mongoose.model("User", {
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
+    unique: true,
   },
 });
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+  if(!user.isModified('password')) {
+    return next();
+  }
+
+  const salt = bcrypt.genSaltSync();
+  user.password = bcrypt.hashSync(user.password, salt);
+  next();
+})
 
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({ accessToken: req.header("Authorization") });
@@ -41,6 +53,8 @@ const authenticateUser = async (req, res, next) => {
     res.status(401).json({ loggedOut: true });
   }
 };
+
+const User = mongoose.model('User', userSchema);
 
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
@@ -67,18 +81,27 @@ app.get("/", (req, res) => {
 app.post("/users", async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    const salt = bcrypt.genSaltSync(10);
-    const user = new User({
+    const user = await new User({
       username,
       email,
-      password: bcrypt.hashSync(password, salt),
-    });
-    await user.save();
+      password,
+    }).save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (err) {
     res.status(400).json({ message: "Could not create user", error: err });
   }
 });
+
+//Perhaps this could be used to display online users later on?
+app.get("/users", async (req, res) => {
+  try {
+    const users = await User.find()
+        //Add code that sorts on online users
+    res.status(200).json(users)
+  } catch(err) {
+    res.status(400).json({ error: err})
+  }
+})
 
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
