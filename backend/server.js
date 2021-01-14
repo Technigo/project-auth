@@ -6,7 +6,11 @@ import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI';
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
 mongoose.Promise = Promise;
 
 // Error variables
@@ -14,7 +18,7 @@ const SERVICE_UNAVAILABLE = 'Service unavailable';
 const LOGIN_FAILED = 'Please try logging in again';
 const POST_FAILED = 'Could not create user';
 const USER_NOT_FOUND = 'User not found';
-const LOGOUT_FAILED = 'Could not log out';
+const LOGOUT_FAILED = 'Could not logout';
 const ACCESS_DENIED = 'Access denied';
 
 // Schema
@@ -50,26 +54,8 @@ userSchema.pre('save', async function (next) {
 
   const salt = bcrypt.genSaltSync();
   user.password = bcrypt.hashSync(user.password, salt);
-
   next();
 });
-
-// Middleware to authenticate user
-const authenticateUser = async (req, res, next) => {
-  try {
-    const user = await User.findOne({
-      accessToken: req.header('Authorization'),
-    });
-
-    if (!user) {
-      throw USER_NOT_FOUND;
-    }
-    req.user = user;
-    next();
-  } catch (err) {
-    res.status(401).json({ message: LOGIN_FAILED, errors: err.errors });
-  }
-};
 
 // Model
 const User = mongoose.model('User', userSchema);
@@ -91,6 +77,23 @@ app.use((req, res, next) => {
   }
 });
 
+// Middleware to authenticate user
+const authenticateUser = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      accessToken: req.header('Authorization'),
+    });
+
+    if (!user) {
+      throw USER_NOT_FOUND;
+    }
+    req.user = user;
+    next();
+  } catch (err) {
+    res.status(401).json({ message: LOGIN_FAILED, errors: err.errors });
+  }
+};
+
 // GET - list of all endpoints
 const listEndpoints = require('express-list-endpoints');
 app.get('/endpoints', (req, res) => {
@@ -106,9 +109,13 @@ app.post('/users', async (req, res) => {
       name,
       password,
     }).save();
+    console.log(user);
     res.status(200).json({ userId: user._id, accessToken: user.accessToken }); //send user id and access token back to the user
   } catch (err) {
-    res.status(400).json({ message: POST_FAILED, errors: err.errors });
+    res.status(400).json({
+      message: POST_FAILED,
+      errors: { message: err.message, error: err },
+    });
   }
 });
 
