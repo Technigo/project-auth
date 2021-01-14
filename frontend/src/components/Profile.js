@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
 /* Cred, måste ligga i typ en footer eller nånstans på profilsidan sen: 
 Animation by Mohamed Achraf El Ghayani on Lottiefiles
 https://lottiefiles.com/38825-robot-hello# 
@@ -23,7 +24,7 @@ export const Profile = () => {
 
   return (
         <ProfileBackground>
-          <ProfileText>Welcome 'name'! Your're logged in.</ProfileText>
+          <ProfileText>Welcome! Your're logged in.</ProfileText>
           <Lottie
             options={defaultOptions}
             height={250}

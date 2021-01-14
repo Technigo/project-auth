@@ -23,8 +23,6 @@ export const SignUpForm = () => {
           body: JSON.stringify({ name, password }),
           headers: { 'Content-Type': 'application/json' },
         })
-
-// VI
           .then((res) => {
             if (!res.ok) {
               throw 'Signup failed';
@@ -40,6 +38,7 @@ export const SignUpForm = () => {
     return (
         <FormContainer>
             <UserForm>
+
                 <Heading> SIGN UP </Heading>
                 
                 <FormLabel>
