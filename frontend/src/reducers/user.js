@@ -6,7 +6,8 @@ const initialState = {
     userId: localStorage.userId || 0,
     secretMessage: null,
     errorMessage: null
-  }
+  },
+
 };
 
 export const user = createSlice({

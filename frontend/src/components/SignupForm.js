@@ -19,7 +19,7 @@ const SignupForm = () => {
 
   const nameIsValid = () => {
     if(!name){
-      setNameError("Please type in your name")
+      setNameError("Name can not be blank")
       return false;
     } else if (name.length < 2) {
       setNameError("Name should be longer than 2 letters")
@@ -83,9 +83,11 @@ const SignupForm = () => {
             onChange={(event) => setName(event.target.value)}
           />
         </label>
+        <div style={{ fontSize: 12, color: "red" }}>
         {showValidations && nameError &&
           <p>{nameError}</p>
         }
+        </div>
         <label>
           Email
           <input
@@ -96,9 +98,11 @@ const SignupForm = () => {
             onChange={(event) => setEmail(event.target.value)}
           />
         </label>
+        <div style={{ fontSize: 12, color: "red" }}>
         {showValidations && emailError &&
           <p>{emailError}</p>
         }
+        </div>
         <label>
           Password
           <input
@@ -108,9 +112,11 @@ const SignupForm = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
         </label>
+        <div style={{ fontSize: 12, color: "red" }}>
         {showValidations && passwordError &&
           <p>{passwordError}</p>
         }
+        </div>
         <button type="submit" onClick={handleSignup}>
           Sign-Up
         </button>
