@@ -9,52 +9,40 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-const userSchema = new mongoose.Schema({
+const User = mongoose.model('User', {
   name: {
-    type: String,
+    type: String, 
     unique: true,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex'),
-    unique: true, 
-  }
-})
-
-userSchema.pre('save', async function (next) {
-  const user = this
-  if(!user.isModified('password')) {
-    return next()
-  }
-
-  const salt = bcrypt.genSaltSync()
-  user.password = bcrypt.hashSync(user.password, salt)
-  next()
-})
-
-const User = mongoose.model('User', userSchema)
+  },
+});
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const accessToken = req.header('Authorization')
-    const user = await User.findOne({ accessToken })
-    req.user = user
+    const user = await User.findOne({ accessToken: req.header("Authorization") });
+    if (user) {
+      req.user = user;
+      next();
+    } else {
+      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' });
+    }
   } catch (err) {
-    const errorMessage = 'please try again'
-    res.status(401).json({error: errorMessage})
+    res.status(403).json({ message: 'Access token is missing or wrong', errors: err })
   }
-  next()
-}
+};
 
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080
@@ -71,18 +59,19 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const {name, email, password} = req.body
-    const user = new User({name, email, password,})
-    user.save()
-    res.status(201).json({userId: user._id, accessToken: user.accessToken})
-  } catch(err) {
-    res.status(400).json({message:'Could not create user', errors: err.errors})
+    const SALT = bcrypt.genSaltSync(10)
+    const user = new User({name, email, password: bcrypt.hashSync(password, SALT)})
+    await user.save()
+    res.status(201).json({ userId: user._id, accessToken: user.accessToken })
+  } catch (err) {
+    res.status(400).json({ message: 'Could not create user', errors: err.errors })
   }
 })
 
 app.get('/secrets', authenticateUser);
 app.get('/secrets', async (req, res) => {
-  const secretMessage = `This is a super secret message for ${req.user.name}`;
-  res.status(201).json({ secretMessage });
+  const secretMessage = `This is a super secret message for ${req.user.name}`
+  res.status(201).json({ secretMessage })
 })
 
 app.post('/sessions', async (req, res) => {
