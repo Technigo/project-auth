@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom'
 import { user, logout } from '../reducers/user'
 
 // const SIGNIN_URL = 'https://login-logout-authentication.herokuapp.com/users'
-const LOGIN_URL = 'http://localhost:8080/sessions'
+const LOGIN_URL = 'https://login-logout-authentication.herokuapp.com/sessions'
 
 export const LoginForm = () => {
   const dispatch = useDispatch()
