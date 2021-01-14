@@ -19,5 +19,11 @@ export const user = createSlice({
       const { userId } = action.payload;
       state.login.userId = userId;
     },
+    deleteAccessToken: (state, action) => {
+      state.login.accessToken = "";
+    },
+    deleteUserId: (state, action) => {
+      state.login.userId = "";
+    },
   }
 });

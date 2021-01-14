@@ -26,6 +26,8 @@ const SignUp = ({ SIGNUP_URL }) => {
       .then((res) => {
         if (!res.ok) {
           setResponse(false);
+          setEmail("");
+          setPassword("");
           // eslint-disable-next-line
           throw "Signup failed";
         }
