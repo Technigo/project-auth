@@ -22,7 +22,6 @@ const MainContainer = styled.button`
 	background-color: #8a383e;
 	border: none;
 	margin: 8px auto;
-
 	&:hover {
 		background: #ac8b96;
 		cursor: pointer;
@@ -32,9 +31,9 @@ const MainContainer = styled.button`
 const TextField = styled.p`
 	font-family: 'Xanh Mono', monospace;
 	display: flex;
-  padding: 3px;
-  flex-direction: column;
-  justify-content: center;
+ 	padding: 3px;
+  	flex-direction: column;
+  	justify-content: center;
 	align-items: center;
 	font-size: 18px;
 	color: #a8c5cd;

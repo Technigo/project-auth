@@ -51,8 +51,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
-  margin-bottom: 30px;
-  margin: 300px auto;
+  margin: 200px auto;
   align-items: center;
   justify-content: center;
   padding: 5px;

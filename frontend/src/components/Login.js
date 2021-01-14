@@ -3,10 +3,11 @@ import { InputField } from "./InputField.js";
 import { SubmitButton } from "./SubmitButton.js";
 
 import styled from 'styled-components'
+import { rgba } from 'polished'
 
 const LOGIN = "https://project-auth-liza-kat.herokuapp.com/sessions"
 
-export const Login = ({ setSignedIn }) => {
+export const Login = ({ setLoggedIn }) => {
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
@@ -29,7 +30,7 @@ export const Login = ({ setSignedIn }) => {
           localStorage.setItem("accessToken", json.accessToken);
           localStorage.setItem("userID", json.id);
           localStorage.setItem("signedIn", JSON.stringify(true));
-          setSignedIn(JSON.parse(localStorage.getItem("signedIn")));
+          setLoggedIn(JSON.parse(localStorage.getItem("signedIn")));
         } else if (!json.signUpSuccessful) {
           setLoginFailed(true);
         }
@@ -65,9 +66,9 @@ export const Login = ({ setSignedIn }) => {
       />
 
       {loginFailed && <span><Text>Login failed. Email and/or password incorrect. Don't have an account? Sign-up instead!</Text></span>}
-<SubmitButton>
-	<Button>Sign in</Button>
-</SubmitButton>
+<SubmitButton
+	title="Log in"
+/>
     </Form>
 	</Image>
   );
@@ -79,45 +80,30 @@ const Image = styled.main`
   height: 100%;
   background-size: cover;
 `;
-const Button = styled.button`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-width: 20%;
-background-color: #8a383e;
-border: none;
-margin: 8px auto;
-
-&:hover {
-	background: #ac8b96;
-	cursor: pointer;
-	transition: ease-in-out .3s;
-  }
-`
 const Form = styled.form`
-display: flex;
-  flex-direction: column;
-  width: 50%;
-  margin-bottom: 30px;
-  margin: 400px auto;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-  border-radius: 5px;
-	background-color: #a9c6ce;
-`
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+	margin-bottom: 30px;
+	margin: 200px auto;
+	align-items: center;
+	justify-content: center;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: ${rgba('#a1bdc8', 0.5)};
+	`;
 const Text = styled.text`
-display: flex;
-padding: 3px;
-flex-direction: column;
-color: #44333a;
-font-weight: bold;
-font-size: 30px;
-font-family: "Xanh Mono", monospace;
-align-items: center;
-justify-content: center;
-text-align: center;
-text-transform: uppercase;
-margin-top: 100px;
-`
+	display: flex;
+	padding: 10px;
+	font-size: 30px;
+	flex-direction: column;
+	color: #a73e42;
+	font-weight: bold;
+	font-family: "Xanh Mono", monospace;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	text-transform: uppercase;
+	margin-top: 30px;
+	letter-spacing: 2px;
+`;
