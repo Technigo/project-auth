@@ -32,17 +32,17 @@ const User = mongoose.model('User', {
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({ accessToken: req.header("Authorization") })
+    const user = await User.findOne({ accessToken: req.header("Authorization") });
     if (user) {
-      req.user = user
-      next()
+      req.user = user;
+      next();
     } else {
-      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' })
+      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' });
     }
   } catch (err) {
     res.status(403).json({ message: 'Access token is missing or wrong', errors: err })
   }
-}
+};
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080
 const app = express()
@@ -85,11 +85,11 @@ app.get('/secrets', async (req, res) => {
 app.post('/sessions', async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken, name: user.name })
+    res.json({ userId: user._id, accessToken: user.accessToken, name: user.name });
   } else {
-    res.status(401).json({ notFound: true, error: 'Login failed' })
+    res.status(401).json({ notFound: true, error: 'Login failed' });
   }
-})
+});
 
 // app.post('/users/logout', authenticateUser)
 // app.post('/users/logout', async (req, res) => {
