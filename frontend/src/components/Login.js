@@ -2,22 +2,25 @@ import React, { useState } from 'react'
 
 const SIGNUP_URL = 'http://localhost:8080/users'
 const LOGIN_URL = 'http://localhost:8080/sessions'
+const SECRETS_URL ='http://localhost:8080/secrets'
 
 export const Login = () => {
   const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
   const [password, setPassword] = useState('')
+  const [secrets, setSecrets] = useState('')
+  const [profile, setProfile] = useState(false)
+  const [status, setStatus] = useState('')
 
   const handleSignup = (event) => {
     event.preventDefault()
 
     fetch(SIGNUP_URL, {
       method: 'POST',
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' }
     })
       .then(res => res.json())
-      .then(json => console.log(json))
+      .then(json => setStatus(json.message))
       .catch(err => console.log('error:', err))
   }
 
@@ -26,24 +29,36 @@ export const Login = () => {
 
     fetch(LOGIN_URL, {
       method: 'POST',
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' }
     })
       .then(res => res.json())
-      .then(json => console.log(json))
+      .then(json => {
+        handleSecrets(json.accessToken)
+        setStatus(json.message) // not working
+      })
       .catch(err => console.log('error:', err))
   }
 
+  const handleSecrets = (accessToken) => {
+    fetch(SECRETS_URL, {
+      method: 'GET',
+      headers: { Authorization: accessToken }
+    })
+      .then(res => res.json())
+      .then(json => {
+        setSecrets(json.secret)
+        setProfile(true)
+      })
+      .catch(err => {console.log('error:', err)
+    })
+  }
+
   return (
+    <>
     <section className="login">
       <h1>Log in / Sign up</h1>
       <form>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={event => setName(event.target.value)}
-        />
         <input
           required
           type="email"
@@ -60,11 +75,12 @@ export const Login = () => {
         />
         <div className="wrapper-btn">
           <button
-          type="submit"
-          onClick={handleLogin}
+            type="submit"
+            onClick={handleLogin}
           >
             Log in
           </button>
+
           <button
             type="submit"
             onClick={handleSignup}
@@ -74,5 +90,21 @@ export const Login = () => {
         </div>
       </form>
     </section>
+
+    <section className="status">
+      <p>{status}</p>
+    </section>
+
+    {profile ? (
+      <section className="profile">
+        <h2>My profile</h2>
+        <p>{secrets}</p>
+        <button>
+          Log out
+        </button>
+      </section>
+    ) : (<></>)
+    }
+   </>
   )
 }

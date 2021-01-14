@@ -10,10 +10,6 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
 const User = mongoose.model('User', {
-  name:{
-    type: String,
-    unique: true
-  },
   email:{
     type: String,
     unique: true,
@@ -56,13 +52,13 @@ app.get('/', (req, res) => {
 // Sign-up endpoint
 app.post('/users', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { email, password } = req.body;
     const SALT = bcrypt.genSaltSync(10);
-    const user = new User({ name, email, password: bcrypt.hashSync(password, SALT) })
+    const user = new User({ email, password: bcrypt.hashSync(password, SALT) })
     const saved = await user.save()
     res.status(201).json({ id: saved._id, accessToken: saved.accessToken })
   } catch (err) {
-    res.status(400).json({ message: 'Could not create user', error:err.error });
+    res.status(400).json({ message: 'Could not create user / User already exist', error:err.error });
   }
 });
 
@@ -74,12 +70,16 @@ app.get('/secrets', (req, res) => {
 
 // Sign-in endpoint
 app.post('/sessions', async (req, res) => {
-  const user = await User.findOne({ email: req.body.email })
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.status(201).json({ userId: user._id, accessToken: user.accessToken })
-  } else {
-    res.json({ notFound: true })
-  } 
+  try {
+    const user = await User.findOne({ email: req.body.email })
+    if (user && bcrypt.compareSync(req.body.password, user.password)) {
+      res.status(201).json({ userId: user._id, accessToken: user.accessToken })
+    } else {
+      res.status(400).json({ message: 'Wrong email or password', error:err.error })
+    } 
+  } catch (err) {
+    res.status(400).json({ message: 'Wrong email or password', error:err.error })
+  }
 });
 
 // Start the server

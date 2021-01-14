@@ -80,19 +80,34 @@ button:focus {
 }
 
 .status p {
-  color: #FF0000;
-  font-size: 18px;
+  color: #ff00ff;
+  font-size: 13px;
 }
 
 /* PROFILE SECTION */
 
-.profile h2 {
-  margin-top: 5px;
+.profile {
+  display: flex;
+  flex-direction: column;
+  min-width: 230px;
+  padding: 30px;
+  background-color: #ff00ff;
 }
 
-.profile {
-  margin-top: 20px;
-  min-width: 230px;
-  padding: 20px;
-  background-color: #ff00ff;
+.profile h2 {
+  margin: 0 0 10px 0;
+}
+
+.profile p {
+  margin: 10px 0 10px 0;
+}
+
+.profile button {
+  align-self: center;
+  margin-top: 10px;
+}
+
+.profile button:focus {
+  outline: 2px solid #ffffff;
+  color: #ffffff;
 }
