@@ -22,22 +22,22 @@ export const Secret = () => {
     dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
   };
 
-  const logoutSuccess = () => {
-    dispatch(
-      user.actions.setStatusMessage({
-        statusMessage: 'Logout Succeded',
-      })
-    );
-    dispatch(user.actions.setAccessToken({ accessToken: null }));
-  };
+  // const logoutSuccess = () => {
+  //   dispatch(
+  //     user.actions.setStatusMessage({
+  //       statusMessage: 'Logout Succeded',
+  //     })
+  //   );
+  //   dispatch(user.actions.setAccessToken({ accessToken: null }));
+  // };
 
-  const logoutFailed = () => {
-    dispatch(
-      user.actions.setStatusMessage({
-        statusMessage: logoutError,
-      })
-    );
-  };
+  // const logoutFailed = () => {
+  //   dispatch(
+  //     user.actions.setStatusMessage({
+  //       statusMessage: logoutError,
+  //     })
+  //   );
+  // };
 
   const showSecret = () => {
     fetch(SECRET_URL, {
@@ -55,9 +55,9 @@ export const Secret = () => {
       .catch((err) => loginFailed(err));
   };
 
-  const logout = () => {
+  // const logout = () => {
 
-  };
+  // };
 
   return (
     <SecretContainer>
@@ -65,7 +65,7 @@ export const Secret = () => {
         Click me to reveal the secret!
       </SecretButton>
       <Gift role="img" aria-label="emoji"> 🎁 </Gift>
-      <LogOutButton onClick={logout}>Log Out</LogOutButton>
+      <LogOutButton>Log Out</LogOutButton>
     </SecretContainer>
   );
 };

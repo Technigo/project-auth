@@ -33,10 +33,10 @@ export const user = createSlice({
       const { errorMessage } = action.payload;
       state.login.errorMessage = errorMessage;
     },
-    logout: (state, action) => {
-      state.login.userId = 0;
-      state.login.accessToken = null;
-    },
+    // logout: (state, action) => {
+    //   state.login.userId = 0;
+    //   state.login.accessToken = null;
+    // },
   }
 });
 
