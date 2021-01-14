@@ -50,7 +50,7 @@ export const login = (name, password) => {
           }
   
           // Not OK
-          throw 'Unable to sign in. Please check your username and password are correct'
+          throw new Error('Unable to sign in. Please check your username and password are correct')
         })
         .then((json) => {
           // Save the login info
@@ -81,7 +81,7 @@ export const login = (name, password) => {
         if (res.ok) {
           return res.json()
         }
-        throw 'Could not get information. Make sure you are logged in and try again.'
+        throw new Error('Could not get information. Make sure you are logged in and try again.')
       })
       // SUCCESS: Do something with the information we got back
       .then((json) => {

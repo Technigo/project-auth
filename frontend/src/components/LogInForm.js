@@ -24,7 +24,7 @@ export const LogInForm = () => {
     })
     .then((res) => {
         if (!res.ok) {
-          throw 'Could not create account.  Try a different username.'
+          throw new Error('Could not create account.  Try a different username.')
         }
         return res.json()
     })
