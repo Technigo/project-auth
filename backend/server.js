@@ -13,10 +13,12 @@ const userSchema = new mongoose.Schema({
     name: {
       type: String,
       unique: true,
+      minLength: 5
     }, 
     password: { 
       type: String,
       required: true,
+      minLength: 5
     },
     accessToken: {
       type: String,
@@ -50,9 +52,9 @@ const authenticateUser = async (req, res, next) => {
       }
     req.user = user; 
   } catch (err) {
-    const errorMesasage = "Please try to login again";
+    const errorMessage = "Login failed, please try again!";
   console.log('AuthenticateUser function')
-  res.status(401).json({ error: errorMesasage });
+  res.status(401).json({ error: errorMessage });
   }
   next();
 };

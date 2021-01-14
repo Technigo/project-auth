@@ -1,15 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
-
-
-/* Cred, måste ligga i typ en footer eller nånstans på profilsidan sen: 
-Animation by Mohamed Achraf El Ghayani on Lottiefiles
-https://lottiefiles.com/38825-robot-hello# 
-*/
-
 
 import Lottie from 'react-lottie';
 import animationData from '../lotties/38825-robot-hello.json';
+// Animation by Mohamed Achraf El Ghayani on Lottiefiles: https://lottiefiles.com/38825-robot-hello#
+import {ProfileText, CredText } from 'styling/styling';
 
 export const Profile = () => {
 
@@ -23,32 +17,14 @@ export const Profile = () => {
   };
 
   return (
-        <ProfileBackground>
-          <ProfileText>Welcome! Your're logged in.</ProfileText>
-          <Lottie
-            options={defaultOptions}
-            height={250}
-            width={200} 
-          />
-        </ProfileBackground>
-      )
-    }
-
-/* Styling for profile */
-const ProfileBackground = styled.div`
- background: #fefefe;
- height: 100vh;
- background-position: center;
- background-repeat: no-repeat;
- background-size: cover;
- display: flex;
- flex-direction: column;
- align-items: center;
- justify-content: center;
-`;
-
-const ProfileText = styled.p`
- color: #000;
- font-size: 22px;
- margin-bottom: 20px;
-`;
+    <>
+      <ProfileText>Welcome! Your're logged in.</ProfileText>
+        <Lottie
+          options={defaultOptions}
+          height={300}
+          width={250} 
+        />
+        <CredText>Animation by Mohamed Achraf El Ghayani on Lottiefiles</CredText>
+    </>
+  )
+}

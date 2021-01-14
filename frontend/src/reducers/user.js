@@ -5,6 +5,7 @@ const initialState = {
         accessToken: null,
         userId: 0,
         statusMessage: "",
+        errorMessage: "",
     },
 };
 
@@ -14,7 +15,6 @@ export const user = createSlice({
     reducers: {
         setAccessToken: (state, action) => {
             const { accessToken } = action.payload;
-            console.log(`Access Token: ${accessToken}`);
             state.login.accessToken = accessToken;
         },
         setUserId: (state, action) => {
@@ -24,6 +24,10 @@ export const user = createSlice({
           setStatusMessage: (state, action) => {
             const { statusMessage } = action.payload;
             state.login.statusMessage = statusMessage;
-          } 
+          },
+          setErrorMessage: (state, action) => {
+            const { errorMessage } = action.payload;
+            state.login.errorMessage = errorMessage;
+          }
     }
 })
