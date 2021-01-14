@@ -27,5 +27,8 @@ export const user = createSlice({
       console.log(`Status Message: ${statusMessage}`);
       state.login.statusMessage = statusMessage;
     },
+    logout: (state, action) => {
+      state.login.accessToken = null;
+    }
   },
 });

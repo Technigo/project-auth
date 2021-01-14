@@ -18,10 +18,11 @@ export const Login = () => {
 
   // Sending the response from both the users and login urls to the redux store
   const handleLoginSuccess = (loginResponse) => {
+    console.log(loginResponse.id)
     dispatch(
       user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
     );
-    dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
+    dispatch(user.actions.setUserId({ userId: loginResponse.id }));
     dispatch(
       user.actions.setStatusMessage({ statusMessage: "Login success!" })
     );
@@ -35,6 +36,8 @@ export const Login = () => {
   // Handle sign up
   const handleSignup = (event) => {
     event.preventDefault();
+    setName('');
+    setPassword('');
     // send data to backend, for saving in DB
     fetch(SIGNUP_URL, {
       method: "POST",
@@ -43,10 +46,9 @@ export const Login = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw "Signup failed";
+          throw "Signup failed. Please enter a valid name and password.";
         }
-        return;
-        res.json();
+        return res.json();
       })
       .then((json) => handleLoginSuccess(json))
       .catch((err) => handleLoginFailed(err));
@@ -55,6 +57,8 @@ export const Login = () => {
   // Handle log in
   const handleLogin = (event) => {
     event.preventDefault();
+    setName('');
+    setPassword('');
 
     fetch(LOGIN_URL, {
       method: "POST",
@@ -63,10 +67,9 @@ export const Login = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw "Login failed";
+          throw "Login failed. Please try again.";
         }
-        return;
-        res.json();
+        return res.json();
       })
       .then((json) => handleLoginSuccess(json))
       .catch((err) => handleLoginFailed(err));
@@ -74,9 +77,7 @@ export const Login = () => {
 
   if (accessToken) {
     return (
-      <>
-        <UserProfile />
-      </>
+      <></>
     )
   };
 
@@ -95,6 +96,7 @@ export const Login = () => {
         <label>
           password:
           <input
+            type="password"
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}

@@ -4,6 +4,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 import { Login } from "./components/Login";
 import { UserProfile } from "./components/UserProfile";
+import { Status } from "./components/Status";
 import { user } from "./reducers/user";
 /* 
 Structure:
@@ -19,13 +20,13 @@ Thunks?
 
 
 To acheieve:
-- Registration form - POST to api to create new user
-- Sign in form - For registration and sign in form have two buttons that have two actions that are connect to two different post requests
-- Page to show authenticated content from API
-- Sign out button that removes he saved access token and redirects the user to the login form. 
+- Page to show authenticated content from API? What content, name + welcome message and pic?
+- checked - Registration form - POST to api to create new user
+- checked - Sign in form - For registration and sign in form have two buttons that have two actions that are connect to two different post requests
+- checked - Sign out button that removes the saved access token and redirects the user to the login form. 
 - Styling - make look nice and responsive.
 - Deploy - heroku and netlify.
-- Redux. 
+-  checked -Redux. 
 */
 
 const reducer = combineReducers({ user: user.reducer });
@@ -36,6 +37,7 @@ export const App = () => {
     <Provider store={store}>
       <Login />
       <UserProfile />
+      <Status />
     </Provider>
   );
 };
