@@ -12,7 +12,7 @@ export const SignUp = () => {
   const createUser = (user) => {
     dispatch(
       manageUser({
-        url: 'http://localhost:8080/users',
+        url: 'https://auth-by-karin-petra.herokuapp.com/users',
         user: user,
       })
     );

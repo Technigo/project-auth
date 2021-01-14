@@ -10,7 +10,12 @@ export const LogIn = () => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    dispatch(manageUser({ url: 'http://localhost:8080/sessions', user: user }));
+    dispatch(
+      manageUser({
+        url: 'https://auth-by-karin-petra.herokuapp.com/sessions',
+        user: user,
+      })
+    );
     setUser({ email: '', password: '' });
   };
 
