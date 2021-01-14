@@ -117,8 +117,13 @@ app.post("/sessions", async (req, res, next) => {
 });
 
 app.get("/authentication", authenticateUser);
-app.get("/authentication", (req, res) => {
-  res.json("Congrats you are authorized!!");
+app.get("/authentication", async (req, res) => {
+  const user = await User.findOne({ accessToken: req.header("Authorization") });
+
+  res.status(200).json({
+    name: user.name,
+    message: `Congrats ${user.name} you are authorized!!`,
+  });
 });
 
 // Start the server
