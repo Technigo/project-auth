@@ -19,11 +19,6 @@ export const Form = (showSecret) => {
   const [section, setSection] = useState("LogIn")
   const error = useSelector((store) => store.user.statusMessage);
 
-  const handleLoginFailed = (loginError) => {
-    dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: 'Failed to login' }));
-  };
-
   // To sign up a user
   const handleSignup = event => {
     event.preventDefault()
@@ -35,7 +30,7 @@ export const Form = (showSecret) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error('Unable to log in, please check your username and password.');
+          throw ('Unable to Sign up, please check your e-mail and password.');
         } else {
           return res.json();
         }
@@ -45,8 +40,8 @@ export const Form = (showSecret) => {
         dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
         dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful signup' }));
       })
-      .catch((error) => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: error.toString() }));
+      .catch((err) => {
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 
@@ -122,13 +117,20 @@ export const Form = (showSecret) => {
                 value={password}
                 onChange={event => setPassword(event.target.value)} />
             </label>
-            <FormButton type="submit" onClick={handleSignup}>Sign up!</FormButton>
+            <FormButton type="submit" onClick={handleSignup} function={setSection} value="Welcome">Sign up!</FormButton>
           </FormWrapper>
           <AccountWrapper>
             {error && <h4>{`${error}`}</h4>}
             <AccountText>Already a user?</AccountText>
             <Button title="Log in" function={setSection} value="LogIn">Go to Login</Button>
           </AccountWrapper>
+        </>
+      )}
+
+      {section === "Welome" && (
+        <>
+          <h1>Welcome ${name}</h1>
+          <Button title="Log in" function={setSection} value="LogIn">Go to Login</Button>
         </>
       )}
     </MainContainer>

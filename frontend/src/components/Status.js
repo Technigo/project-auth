@@ -5,12 +5,18 @@ import styled from 'styled-components';
 
 export const Status = () => {
   const statusMessage = useSelector((store) => store.user.login.statusMessage);
+  const errorMessage = useSelector((store) => store.user.login.errorMessage);
 
   return (
     <>
       {statusMessage && (
         <StatusWrapper>
           <p>{`${statusMessage}`}</p>
+        </StatusWrapper>
+      )}
+      {errorMessage && (
+        <StatusWrapper>
+          <p>{`${errorMessage}`}</p>
         </StatusWrapper>
       )}
     </>

@@ -13,6 +13,7 @@ export const Secret = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const statusMessage = useSelector((store) => store.user.login.statusMessage);
+  const errorMessage = useSelector((store) => store.user.login.errorMessage);
 
   const loginSucess = (loginResponse) => {
     dispatch(user.actions.setStatusMessage({ statusMessage: loginResponse.secretMessage }));

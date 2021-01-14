@@ -33,10 +33,10 @@ export const user = createSlice({
       const { errorMessage } = action.payload;
       state.login.errorMessage = errorMessage;
     },
-    // logout: (state, action) => {
-    //   state.login.userId = 0;
-    //   state.login.accessToken = null;
-    // },
+    logout: (state, action) => {
+      state.login.userId = 0;
+      state.login.accessToken = null;
+    },
   }
 });
 
@@ -53,13 +53,13 @@ export const login = (email, password) => {
         if (res.ok) {
           return res.json();
         }
-        throw 'Unable to sign in.';
+        throw 'Unable to Log In.';
       })
       .then((json) => {
         // Save the login info
         dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
         dispatch(user.actions.setUserId({ userId: json.userId }));
-        dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful login' }));
+        dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful Log In!' }));
       })
       .catch((err) => {
         // dispatch(user.actions.logout());
