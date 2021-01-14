@@ -8,9 +8,6 @@ export const SignIn = () => {
   const dispatch = useDispatch()
   const accessToken = useSelector((store) => store.user.login.accessToken)
 
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
-
   const handleLoginSuccess = (loginResponse) => {
     dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }))
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }))
@@ -23,7 +20,7 @@ export const SignIn = () => {
     dispatch(user.actions.setStatusMessage({ statusMessage: loginError }))
   }
 
-  const handleLogin = (event) => {
+  const handleLogin = (event, name, password) => {
     event.preventDefault()
 
     fetch('http://localhost:8080/sessions', {
@@ -42,6 +39,6 @@ export const SignIn = () => {
   }
 
   return (
-    <PrettyForm formTitle={'Sign In'}/>
+    <PrettyForm formTitle={'Sign In'} onClick={handleLogin}/>
   )
 }

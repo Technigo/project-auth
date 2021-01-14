@@ -9,9 +9,6 @@ export const Register = () => {
   const accessToken = useSelector((store) => store.user.login.accessToken)
   const statusMessage = useSelector((store) => store.user.login.statusMessage)
 
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
-
   const handleSignupSuccess = (signupResponse) => {
     dispatch(
       user.actions.setAccessToken({ accessToken: signupResponse.accessToken })
@@ -35,7 +32,7 @@ export const Register = () => {
     )
   }
 
-  const handleSignup = (event) => {
+  const handleSignup = (event, name, password) => {
     event.preventDefault()
 
     fetch('http://localhost:8080/users', {
@@ -55,6 +52,6 @@ export const Register = () => {
   }
 
   return (
-    <PrettyForm formTitle={'Register'} />
+    <PrettyForm formTitle={'Register'} onClick={handleSignup}/>
   )
 }

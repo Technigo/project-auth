@@ -51,20 +51,18 @@ const Title = styled.p`
   padding: 10px;
 
 `
-export const PrettyForm = ({formTitle}) => {
+export const PrettyForm = ({formTitle, onClick}) => {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
-  const [title, setTitle] = useState(formTitle)
   
   return (
     <FormContainer>
       <Form>
-        <Title>{title}</Title>
-        <Input required value={ name } placeholder='Name'/>
-        <Input type='password' required value={ password } placeholder='Password'/>
-
-        <Button type='submit' >
-          {title}
+        <Title>{formTitle}</Title>
+        <Input required value={ name } placeholder='Name' onChange={(event) => setName(event.target.value)}/>
+        <Input type='password' required value={ password } placeholder='Password' onChange={(event) => setPassword(event.target.value)}/>
+        <Button type='submit' onClick={(event) => onClick(event, name, password)}>
+          {formTitle}
         </Button>
       </Form>
     </FormContainer>

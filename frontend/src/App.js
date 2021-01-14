@@ -16,6 +16,7 @@ export const App = () => {
       <Provider store={store}>
         <Register />
         <SignIn />
+        <p>TODO: Already a user?</p>
         <LoginStatus />
       </Provider>
   )
