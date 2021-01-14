@@ -27,14 +27,13 @@ const SignUp = ({ SIGNUP_URL }) => {
     })
       .then((res) => {
         if (!res.ok) {
-          // eslint-disable-next-line
-          // throw "Signup failed";
           setResponse(false);
+          // eslint-disable-next-line
+          throw "Signup failed";
         }
         return res.json();
       })
       .then((json) => {
-        console.log(json);
         handleCredentials(json);
         history.push("/");
         setEmail("");
@@ -68,7 +67,7 @@ const SignUp = ({ SIGNUP_URL }) => {
             onChange={event => setPassword(event.target.value)} />
         </label>
         <button type="submit">Sign up</button>
-        {!response && <p>Incorrect credentials, please try again.</p>}
+        {!response && <p>Invalid credentials, please try again.</p>}
         <p>Already a member? Please login <Link to={"/"}>here</Link>.</p>
       </form>
     </section>
