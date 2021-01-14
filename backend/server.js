@@ -16,13 +16,11 @@ import bcrypt from "bcrypt";
 - Check to see if server is up and running, if not then throw error.
 
 Questions:
-- Authenticate user: second error message - when will this be shown?
-- Line 31 Login.js handleloginfailed - what is the error message reffering to, line 161 sessions?
-- Thunks?
-- A page to show the authenticated content from the API - is this userToken and userId? Or something else?
-- Vans code userProfile.js why has he written the url as template literal for the fetch.
-- How to get to the 401 in the authenticateUser to show if the accessToken isn't authorized when doing the get request for the secret endpoint.
 - Site deploy - error regarding throw.
+- Authenticate user: second error message - when will this be shown? How to get to the 401 in the authenticateUser to show if the accessToken isn't authorized when doing the get request for the secret endpoint.
+- Line 31 Login.js handleloginfailed - what is the error message reffering to, line 161 sessions?
+- What should we show on the UserProfile page? In brief say's: A page to show the authenticated content from the API.
+- Vans code userProfile.js why has he written the url as template literal for the fetch.
 */
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
