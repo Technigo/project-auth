@@ -8,7 +8,6 @@ export const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [secrets, setSecrets] = useState('')
-  const [profile, setProfile] = useState(false)
   const [status, setStatus] = useState('')
 
   const handleSignup = (event) => {
@@ -48,7 +47,6 @@ export const Login = () => {
       .then(res => res.json())
       .then(json => {
         setSecrets(json.secret)
-        setProfile(true)
       })
       .catch(err => {console.log('error:', err)
     })
@@ -95,7 +93,7 @@ export const Login = () => {
       <p>{status}</p>
     </section>
 
-    {profile ? (
+    {secrets ? (
       <section className="profile">
         <h2>My profile</h2>
         <p>{secrets}</p>
