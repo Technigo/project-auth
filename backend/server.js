@@ -56,8 +56,19 @@ app.get('/', (req, res) => {
   res.send('Hello Claudia')
 })
 
-//salt adds som variation to the hash function, per user
 app.post('/users', async (req,res) =>{
+  try{
+    const {name, password} = req.body;
+    //Do not store plaintext passwords!
+    const user = new User({name, password: bcrypt.hashSync(password)});
+    user.save();
+    res.status(201).json({id:user._id, accessToken:user.accessToken});
+  }catch(err){
+    res.status(400).json({message: 'Could not create user', errors: err.errors});
+  }
+})
+//salt adds som variation to the hash function, per user
+/*app.post('/users', async (req,res) =>{
   try{
     const {name, password} = req.body;
     //Do not store plaintext passwords!
@@ -76,7 +87,7 @@ app.post('/users', async (req,res) =>{
     });
   }
 })
-
+*/
 app.get('/secrets', authenticateUser); 
 app.get('/secrets', (req, res) => {
   res.json({secret: 'This is a secret message'});
