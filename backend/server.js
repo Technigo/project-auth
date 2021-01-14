@@ -14,6 +14,14 @@ import bcrypt from "bcrypt";
 - checked - Your passwords in the database should be encrypted with bcrypt.
 - !!! semi checked- Your API should validate the user input when creating a new user, and return error messages which could be shown by the frontend.
 - Check to see if server is up and running, if not then throw error.
+
+Questions:
+- Authenticate user: second error message - when will this be shown?
+- Line 31 Login.js handleloginfailed - what is the error message reffering to, line 161 sessions?
+- Thunks?
+- A page to show the authenticated content from the API - is this userToken and userId? Or something else?
+- Vans code userProfile.js why has he written the url as template literal for the fetch.
+
 */
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
@@ -31,9 +39,12 @@ const User = mongoose.model("User", {
   password: {
     type: String,
     required: true,
+    unique: true,
+    minLength: 5,
   },
   accessToken: {
     type: String,
+    unique: true,
     default: () => crypto.randomBytes(128).toString("hex"),
   },
 });
@@ -42,15 +53,51 @@ const User = mongoose.model("User", {
 // stored in the header (test via Postman).
 // Call the next() function which allows the protected endpoint continue
 // execution.
-const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header("Authorization") });
-  if (user) {
+
+{/*const authenticateUser = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      accessToken: req.header("Authorization"),
+    });
+    if (!user) {
+      throw "User not found";
+    }
     req.user = user;
     next();
-  } else {
-    res.status(401).json({ loggedOut: true, statusMessage: "invalid loggin" });
+  } catch {
+    res
+      .status(401)
+      .json({ loggedOut: true, statusMessage: "Please try logging in again" });
   }
 };
+*/}
+
+const authenticateUser = async (req, res, next) => {
+  try {
+    const accessToken = req.header('Authorization');
+    const user = await User.findOne({ accessToken });
+    if (!user) {
+      throw 'User not found';
+    }
+    req.user = user;
+    next();
+  } catch (err) {
+    const errorMessage = 'Please try logging in again';
+    console.log(errorMessage);
+    res.status(401).json({ error: errorMessage });
+  }
+};
+
+// OLD VERSION:
+// const authenticateUser = async (req, res, next) => {
+//   const user = await User.findOne({ accessToken: req.header("Authorization") });
+//   if (user) {
+//     req.user = user;
+//     next();
+//   } else {
+//     res.status(401).json({ loggedOut: true, statusMessage: "invalid loggin" });
+//   }
+// };
 
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
@@ -100,7 +147,7 @@ app.post("/users", async (req, res) => {
     res.status(201).json({
       id: user._id,
       accessToken: user.accessToken,
-      statusMessage: "user was created",
+      statusMessage: "User was created",
     });
   } catch (err) {
     console.log(err);
@@ -110,13 +157,22 @@ app.post("/users", async (req, res) => {
   }
 });
 
+app.get('/secret', authenticateUser);
+app.get('/secret', async (req, res) => {
+  console.log(`User from authenticateUser: ${req.user}`);
+  const secretMessage = `We can modify this secret message for ${req.user.name}`;
+  res.status(200).json({ secretMessage });
+});
+
 // Use authenticateUser function to protect our secret endpoint.
 // Try in postman - loggedOut: true
 
-//Authenticate endpoint
+//Authenticate endpoint (motsvarar Van:s secret endpoint)
 app.get("/users/:id", authenticateUser);
 app.get("/users/:id", (req, res) => {
-  res.status(501).send("This could be the users login view");
+  const secretMessage = `We can modify this secret message for ${req.user.name}`;
+  res.status(200).json({ secretMessage });
+  // res.status(501).send("This could be the users login view");
 });
 
 // Log-in endpoint. Find user.
