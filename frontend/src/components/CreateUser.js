@@ -1,36 +1,14 @@
 import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
 
-import Button from '../lib/Button';
-import InputField from './InputField';
 import { user } from '../reducer/user';
 
+import Button from '../lib/Button';
+import InputField from '../lib/InputField';
+import { CreateUserContainer, Register, Title } from '../lib/CreateUserStyle';
+
+
 const SIGNUP_URL = 'https://auth-project-api.herokuapp.com/users';
-
-const CreateUserContainer = styled.div`
-  border-radius: 0 20px 20px 0;
-  width: 35%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: white;
-  box-shadow: 5px 5px 5px grey;
-`;
-
-const Register = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items:center;
-  width: 300px;
-`;
-
-const Title = styled.h1`
-  align-self: flex-start;
-  color: purple;
-  font-size: 36px;
-  padding: 20px 0;
-`;
 
 const CreateUser = () => {
   const [name, setName] = useState("");

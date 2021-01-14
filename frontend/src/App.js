@@ -4,6 +4,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { user } from './reducer/user';
+import { Container } from './lib/Container';
 import { LoginForm } from './components/LoginForm';
 import CreateUser from './components/CreateUser';
 import { UserPage } from './components/UserPage';
@@ -21,7 +22,10 @@ export const App = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
+            <Container>
               <LoginForm />
+              <CreateUser />
+            </Container>
           </Route>
           <Route path="/:id/user">
             <UserPage />

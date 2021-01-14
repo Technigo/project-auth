@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom'
 
 import {LoginContainer, Title, Login} from '../lib/LoginFormStyle'
 import Button from '../lib/Button'
-import InputField from './InputField'
+import InputField from '../lib/InputField'
 import { user } from '../reducer/user'
 
 const LOGIN_URL = 'https://auth-project-api.herokuapp.com/sessions'
