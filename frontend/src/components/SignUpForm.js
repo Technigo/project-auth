@@ -17,7 +17,7 @@ export const SignUpForm = () => {
     };
 
     const handleLoginFailed = (loginError) => {
-        //console.log(loginError);
+        //console.log(loginResponse);
     };
 
     const handleSignup = (event) => {
@@ -36,6 +36,7 @@ export const SignUpForm = () => {
         })
         .then((json) => handleLoginSuccess(json))
         .catch((err) => handleLoginFailed(err))
+        // ny dispatch med error här??
     }
     
     if (!accessToken)  {
@@ -47,7 +48,7 @@ export const SignUpForm = () => {
                     <FormLabel>
                     USERNAME
                     <FormInput
-                        type="password"
+                        type="text"
                         placeholder="Choose a username"
                         required
                         value={name}
@@ -58,7 +59,7 @@ export const SignUpForm = () => {
                     <FormLabel>
                     PASSWORD
                     <FormInput  
-                        type="text"
+                        type="password"
                         placeholder="Choose a password"
                         required
                         value={password}

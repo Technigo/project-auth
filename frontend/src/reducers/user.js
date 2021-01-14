@@ -5,6 +5,7 @@ const initialState = {
         accessToken: null,
         userId: 0,
         statusMessage: "",
+        errorMessage: "",
     },
 };
 
