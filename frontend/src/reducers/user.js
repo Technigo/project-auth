@@ -62,7 +62,7 @@ export const login = (name, password) => {
           dispatch(user.actions.setUserId({ userId: json.userId }))
         })
         .catch((err) => {
-          dispatch(user.actions.logout())
+          //dispatch(user.actions.logout())
           dispatch(user.actions.setErrorMessage({ errorMessage: err }))
         })
     }

@@ -9,7 +9,9 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-const User = mongoose.model('User', {
+//We are using schema and a hook called pre to enable minlength validation on password
+
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
@@ -17,7 +19,8 @@ const User = mongoose.model('User', {
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minLength: 5
   },
   accessToken: {
     type: String,
@@ -25,6 +28,29 @@ const User = mongoose.model('User', {
     unique: true
   }
 })
+
+//We want to save the password after the validation and after hashing it
+//Only proceed if the password is modified
+userSchema.pre('save', async function (next) {
+  const user = this;
+
+  if (!user.isModified('password')) {
+    return next();
+  }
+
+//SALT makes rainbow table attacks much harder
+//Everytime the users endpoint is called,
+//we create a salt & use that salt in the hash function
+
+  const salt = bcrypt.genSaltSync(10);
+  user.password = bcrypt.hashSync(user.password, salt);
+
+// Continue with the save
+  next()
+})
+
+//This is a middleware to prevent unauthenticated users, i.e users
+//without the correct accessToken from entering the autheticated endpoint secrets
 
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({accessToken: req.header('Authorization')})
@@ -35,6 +61,9 @@ const authenticateUser = async (req, res, next) => {
     res.status(401).json({loggedOut: true})
   }
 }
+
+const User = mongoose.model('User', userSchema);
+
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
 //
@@ -55,13 +84,9 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const { name, password } = req.body
-//SALT makes rainbow table attacks much harder
-//Everytime the users endpoint is called,
-//we create a salt & use that salt in the hash function
-    const salt = bcrypt.genSaltSync(10)
     const user = await new User({
       name,  
-      password: bcrypt.hashSync(password, salt)
+      password,
       }).save()
     res.status(201).json({id: user._id, accessToken: user.accessToken})
   } catch (err) {
@@ -72,7 +97,7 @@ app.post('/users', async (req, res) => {
 //This will only be shown if you are logged in (and have an accessToken)
 app.get('/secrets', authenticateUser) 
 app.get('/secrets', (req, res) => {
-  res.json({secret: 'This is a super secret message'})
+  res.json({secret: 'Pssst...2021 is gonna be an awesome year!'})
 })
 
 //Endpoint for logging in
