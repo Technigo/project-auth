@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Heading, Text, UserForm, FormLabel, FormInput, Button } from 'styling/styling';
 import { Profile } from './Profile.js';
 
-const SIGNUP_URL = 'http://localhost:8080/users';
+const SIGNUP_URL = 'https://agnes-emma-login.herokuapp.com/users';
 
 export const SignUpForm = () => {
     const accessToken = useSelector((store) => store.user.login.accessToken);

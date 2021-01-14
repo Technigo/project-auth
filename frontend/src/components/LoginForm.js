@@ -3,7 +3,7 @@ import { Heading, Text, UserForm, FormLabel, FormInput, Button } from 'styling/s
 import { user } from '../reducers/user';
 
 import { useDispatch, useSelector } from 'react-redux';
-const LOGIN_URL = 'http://localhost:8080/sessions';
+const LOGIN_URL = 'https://agnes-emma-login.herokuapp.com/sessions';
 
 export const LoginForm = () => {
     const dispatch = useDispatch();
