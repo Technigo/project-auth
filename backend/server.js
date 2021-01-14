@@ -109,7 +109,6 @@ app.post('/users', async (req, res) => {
       name,
       password,
     }).save();
-    console.log(user);
     res.status(200).json({ userId: user._id, accessToken: user.accessToken }); //send user id and access token back to the user
   } catch (err) {
     res.status(400).json({
@@ -131,6 +130,7 @@ app.post('/sessions', async (req, res) => {
       res.status(200).json({
         userId: updatedUser._id,
         accessToken: updatedUser.accessToken,
+        name: updatedUser.name,
       });
     } else {
       throw USER_NOT_FOUND;
@@ -170,7 +170,7 @@ app.get('/users/:id/secret', async (req, res) => {
       throw ACCESS_DENIED;
     }
     const secretMessage = `This is a secret message for ${req.user.name}`;
-    res.status(200).json({ secretMessage });
+    res.status(200).json(secretMessage);
   } catch (err) {
     res.status(403).json({ error: ACCESS_DENIED });
   }
