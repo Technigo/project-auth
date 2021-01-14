@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import Button from './Button';
 import InputField from './InputField';
+import { user } from '../reducer/user';
+
+const SIGNUP_URL = 'https://auth-project-api.herokuapp.com/users';
 
 const CreateUserContainer = styled.div`
   border-radius: 0 20px 20px 0;
@@ -14,7 +18,7 @@ const CreateUserContainer = styled.div`
   box-shadow: 5px 5px 5px grey;
 `;
 
-const Login = styled.form`
+const Register = styled.form`
   display: flex;
   flex-direction: column;
   align-items:center;
@@ -29,14 +33,60 @@ const Title = styled.h1`
 `;
 
 const CreateUser = () => {
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+  const userName = useSelector((store) => store.user.login.userName);
+
+  const handleSignUpSuccess = (data) => {
+    console.log(data.name);
+    dispatch(user.actions.setUserName(data.name));
+  }
+
+  const handleSignup = (event) => {
+    event.preventDefault();
+
+    fetch(SIGNUP_URL, {
+      method: 'POST',
+      body: JSON.stringify({ name, password }),
+      headers: { 'Content-type': 'application/json' },
+    })
+      .then(res => res.json())
+      .then(data => handleSignUpSuccess(data))
+      .catch((err) => console.log(err));
+    
+    setName('');
+    setPassword('');
+  }
   return (
     <CreateUserContainer>
-      <Login>
-        <Title>Create account</Title>
-        <InputField title='Username' htmlFor='name' id='name' type='text' />
-        <InputField title='Password' htmlFor='password' id='password' type='password' />
-        <Button title='Sign Up'/>
-      </Login>
+      {userName && <p>{userName}</p>}
+      {!userName && (
+        <Register>
+          <Title>Create account</Title>
+          <InputField
+            title='Username'
+            htmlFor='name'
+            id='name'
+            type='text'
+            value={name}
+            onChange={setName}
+          />
+          <InputField
+            title='Password'
+            htmlFor='password'
+            id='password'
+            type='password'
+            value={password}
+            onChange={setPassword}
+          />
+          <Button
+            title='Sign Up'
+            onClickFunc={handleSignup} />
+        </Register>
+      )}
+
     </CreateUserContainer>
   )
 }

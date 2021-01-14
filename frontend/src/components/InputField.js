@@ -21,11 +21,11 @@ const Input = styled.input`
 `;
 
 
-const InputField = ({title, htmlFor, id, type}) => {
+const InputField = ({title, htmlFor, id, type, onChange, value}) => {
   return (
     <InputContainer>
       <Label htmlFor={htmlFor}>{title}</Label>
-      <Input id={id} type={type}></Input>
+      <Input value={value} id={id} type={type} onChange={event => onChange(event.target.value)}></Input>
     </InputContainer>
   )
 }

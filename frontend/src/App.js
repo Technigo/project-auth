@@ -1,7 +1,10 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import styled from 'styled-components';
 
-import LoginForm from './components/LoginForm';
+import { user } from './reducer/user';
+import { LoginForm } from './components/LoginForm';
 import CreateUser from './components/CreateUser';
 
 const Container = styled.div`
@@ -13,11 +16,19 @@ const Container = styled.div`
   background: #F9E9FA;
 `;
 
+const reducer = combineReducers({ 
+  user: user.reducer,
+ });
+
+const store = configureStore({ reducer });
+
 export const App = () => {
   return (
-    <Container>
-      <LoginForm />
-      <CreateUser />
-    </Container>
+    <Provider store={store}>
+      <Container>
+        <LoginForm />
+        <CreateUser />
+      </Container>
+    </Provider>
   )
 }
