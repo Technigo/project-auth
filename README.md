@@ -16,5 +16,4 @@ The project has
 
 
 ## View it live
-
-
+The front-end is deployed <a href="https://sharp-williams-edfe22.netlify.app">here.</a> and the API is deployed here <a href="https://the-secret.herokuapp.com">here.</a>
