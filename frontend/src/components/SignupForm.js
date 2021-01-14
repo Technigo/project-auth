@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 const URL = 'https://project-auth-cla-ellen.herokuapp.com/users'
-//const URL = 'http://localhost:8080/users'
 
 export const SignupForm = () => {
   const [name, setName] = useState('')
