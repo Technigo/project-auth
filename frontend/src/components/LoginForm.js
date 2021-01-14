@@ -76,10 +76,10 @@ export const LoginForm = () => {
       <form className='login-form form-style'>
         <h1>Login</h1>
         <div className='content-container'>
-          <label>Name</label>
+          <label>Email</label>
           <input
             type='text'
-            placeholder='Enter username...'
+            placeholder='Enter email...'
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             minLength="2"

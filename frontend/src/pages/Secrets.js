@@ -43,13 +43,15 @@ export const Secret = () => {
         <h2>{`Welcome ${name}!`}</h2>
         <p>{secretMessage}</p>
         <p>{errorMessage}</p>
-        <input className='input-button' type='submit'
+        <button className='input-button' type='submit'
           onClick={(e) => getSecret()}
-          value='Secret' />
+          >Reveal Secret !
+        </button>
         <Link to='/'>
-          <input className='input-button' type='submit'
+          <button className='input-button' type='submit'
             onClick={(e) => dispatch(logout())} 
-            value='Logout' />
+            >Logout !
+          </button>
         </Link>
        </div>
     </section>

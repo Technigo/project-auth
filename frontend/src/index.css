@@ -45,7 +45,7 @@ code {
   font-size: 15px;
   font-weight: 600;
   border: #fff;
-  border-radius: 40px; /* Button gets rounded corners */
+  border-radius: 40px;
   text-transform: uppercase;
   text-decoration: none;
   padding: 9px;
@@ -80,7 +80,20 @@ code {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding: 100px
+  padding: 100px;
+  width: auto
+}
 
-
+.input-button button {
+  color: #222e31;
+  font-size: 15px;
+  font-weight: 600;
+  border: #fff;
+  border-radius: 40px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 9px;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 20px;
 }
