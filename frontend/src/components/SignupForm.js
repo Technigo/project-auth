@@ -84,9 +84,7 @@ const SignupForm = () => {
           />
         </label>
         <div style={{ fontSize: 12, color: "red" }}>
-        {showValidations && nameError &&
-          <p>{nameError}</p>
-        }
+        {showValidations && nameError}
         </div>
         <label>
           Email
@@ -99,9 +97,7 @@ const SignupForm = () => {
           />
         </label>
         <div style={{ fontSize: 12, color: "red" }}>
-        {showValidations && emailError &&
-          <p>{emailError}</p>
-        }
+        {showValidations && emailError}
         </div>
         <label>
           Password
@@ -113,9 +109,7 @@ const SignupForm = () => {
           />
         </label>
         <div style={{ fontSize: 12, color: "red" }}>
-        {showValidations && passwordError &&
-          <p>{passwordError}</p>
-        }
+        {showValidations && passwordError}
         </div>
         <button type="submit" onClick={handleSignup}>
           Sign-Up
