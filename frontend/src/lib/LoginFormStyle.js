@@ -2,6 +2,15 @@ import React from 'react';
 import styled from 'styled-components'
 import img from '../assets/purple.jpg'
 
+export const Container = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #F9E9FA;
+`;
+
 export const LoginContainer = styled.div`
 width: 35%;
 border-radius: 20px 0 0 20px;

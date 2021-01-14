@@ -1,18 +1,22 @@
 import React, {useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useParams, useHistory } from 'react-router-dom'
 
 import {LoginContainer, Title, Login} from '../lib/LoginFormStyle'
 import Button from '../lib/Button'
 import InputField from './InputField'
-import { user } from '../reducer/user';
+import { user } from '../reducer/user'
 
 const LOGIN_URL = 'https://auth-project-api.herokuapp.com/sessions'
 
 export const LoginForm = () => {
+  const { id } = useParams();
+
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleLogin = (event) => {
     console.log('yes')  
@@ -28,8 +32,9 @@ export const LoginForm = () => {
         dispatch(user.actions.setAccessToken(data.accessToken));
         console.log(data.accessToken)
         dispatch(user.actions.setUserId(data.userId));
-        console.log(data.userId)
+        console.log(data.userId);
       })
+      history.push("/:id/user");
   }
 
     return (

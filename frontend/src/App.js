@@ -6,15 +6,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { user } from './reducer/user';
 import { LoginForm } from './components/LoginForm';
 import CreateUser from './components/CreateUser';
+import { UserPage } from './components/UserPage';
 
-const Container = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background: #F9E9FA;
-`;
 
 const reducer = combineReducers({ 
   user: user.reducer,
@@ -28,10 +21,7 @@ export const App = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Container>
               <LoginForm />
-              <CreateUser />
-            </Container>
           </Route>
           <Route path="/:id/user">
             <UserPage />
