@@ -10,7 +10,7 @@ const initialState = {
 
 export const user = createSlice ({
     name:"user",
-    initialState: intitalState,
+    initialState: initialState,
     reducers: {
         setAccessToken: (state, action) => {
             const { accessToken } = action.payload;

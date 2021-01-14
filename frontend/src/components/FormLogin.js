@@ -5,13 +5,26 @@ import styled from 'styled-components';
 
 export const FormLogin = () => {
 	const dispatch = useDispatch();
-	const accessToken = useSelectors((store)=> store.user.login.accessToken);
+	const accessToken = useSelector((store)=> store.user.login.accessToken);
 	const LOGIN_URL =  'http://localhost:8080/sessions'
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
 
+	const handleLoginSuccess = (loginResponse) => {
+		const statusMessage = JSON.stringify(loginResponse);
+	//?for debugging
+		dispatch(user.actions.setStatusMessage({ statusMessage }));
+	
+		//?save login info
+		dispatch(
+			user.actions.setUserId({ userId: loginResponse.userId }));
+	};
+
+	const handleLoginFailed = (loginError) => {};
+
 	const submitLogin = (e) => {
 		e.preventDefault();
+		
 
 		fetch(LOGIN_URL, {
 			method:'POST',
@@ -19,16 +32,14 @@ export const FormLogin = () => {
 			headers:{'Content-Type': 'application/json'},
 
 		})
-		.then((res) => {})
-
-
-
-
-
+		.then((res) => res.json())
+		.then((json) => handleLoginSuccess(json))
+		.then((err) => handleLoginFailed(err));
 	};
+	if(!accessToken)
 
 	return (
-		<div>
+		<Form>
 			<label>
 				Username
 				<Input
@@ -46,13 +57,14 @@ export const FormLogin = () => {
 					name="password"
 					value={password}
 					onChange={(event) => setPassword(event.target.value)}
-					required></Input>
+					required>
+				</Input>
 			</label>
 
 			<Button onClick={submitLogin}>
 				Login
 			</Button>
-		</div>
+		</Form>
 	);
 };
 
@@ -63,3 +75,7 @@ const Input = styled.input`
 const Button = styled.button`
 	margin: 5px;
 `;
+
+//input should be contained in a form
+const Form = styled.form`
+`
