@@ -4,6 +4,7 @@ import {configureStore, combineReducers} from '@reduxjs/toolkit'
 
 import { Register } from './Register'
 import { SignIn } from './SignIn'
+import { LoginStatus } from './components/LoginStatus'
 import {user} from './reducers/user'
 
 const reducer = combineReducers({user: user.reducer})
@@ -14,6 +15,7 @@ export const App = () => {
       <Provider store={store}>
         <Register />
         <SignIn />
+        <LoginStatus />
       </Provider>
   )
 }

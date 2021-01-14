@@ -5,7 +5,6 @@ import { user } from './reducers/user'
 
 export const Register = () => {
   const dispatch = useDispatch()
-
   const accessToken = useSelector((store) => store.user.login.accessToken)
   const statusMessage = useSelector((store) => store.user.login.statusMessage)
 
@@ -54,10 +53,6 @@ export const Register = () => {
       .catch((err) => handleSignupFailed(err))
   }
 
-  if (accessToken) {
-    return <></>
-  }
-
   return (
     <form>
       <label>
@@ -67,14 +62,12 @@ export const Register = () => {
 
       <label>
         Password:
-        <input className='password' required value={password} onChange={(event) => setPassword(event.target.value)} />
+        <input className='password' type= 'password' required value={password} onChange={(event) => setPassword(event.target.value)} />
       </label>
 
       <button className='register-button' type='submit' onClick={handleSignup}>
         Register
     </button>
-
-      <p>{statusMessage}</p>
     </form>
   )
 }
