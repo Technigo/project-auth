@@ -16,12 +16,10 @@ export const user = createSlice({
   reducers: {
     setAccessToken: ( state, action) => {
       const { accessToken } = action.payload
-      console.log(`Access token: ${accessToken}`)
       state.login.accessToken = accessToken
     },
     setUserId: (state, action) => {
       const { userId } = action.payload
-      console.log(`User id: ${userId}`)
       state.login.userId = userId
     },
     setUserName: (state,action) => {
@@ -35,12 +33,7 @@ export const user = createSlice({
     setErrorMessage: (state, action) => {
       const { errorMessage } = action.payload
       state.login.errorMessage = errorMessage
-    },
-    // logout: (state, action) => {
-    //   console.log('logging out')
-    //   state.login.userId = 0
-    //   state.login.accessToken = null
-    // }, 
+    }
   }
 })
 
