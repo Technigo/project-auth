@@ -1,30 +1,25 @@
-import React, { useState } from 'react'
-import { Provider } from 'react-redux'
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import React from 'react';
+import { Provider } from 'react-redux';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-import { LoginForm } from './components/LoginForm'
-import { Profile } from './components/Profile'
+import { user } from './reducers/user';
+import { LoginForm } from './components/LoginForm';
+import { Profile } from './components/Profile';
 //import { SignUpForm } from './components/SignUpForm'
-import { user } from './reducers/user'
 
 //FETCH (THUNK?)
-
-const URL = "http://localhost:8080/users"
 const reducer = combineReducers({ user: user.reducer });
 const store = configureStore({ reducer });
 
 export const App = () => {
-  const [email, setEmail] = useState(""); //Should we use these three useStates? Van removed them.
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  //
 
   //Sign up
 
   return (
     <Provider store={store}>
-      
       <LoginForm />
       <Profile />
     </Provider>
-  )
-}
+  );
+};
