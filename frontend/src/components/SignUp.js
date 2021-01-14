@@ -18,8 +18,6 @@ const SignUp = ({ SIGNUP_URL }) => {
 
   const handleSignup = (event) => {
     event.preventDefault();
-    console.log({ email, password });
-    console.log(SIGNUP_URL);
     fetch(SIGNUP_URL, {
       method: "POST",
       body: JSON.stringify({ email, password }),

@@ -22,8 +22,6 @@ const Login = ({ LOGIN_URL, SIGNUP_URL }) => {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    console.log({ email, password });
-    console.log(LOGIN_URL);
     fetch(LOGIN_URL, {
       method: "POST",
       body: JSON.stringify({ email, password }),
@@ -36,7 +34,6 @@ const Login = ({ LOGIN_URL, SIGNUP_URL }) => {
         return res.json();
       })
       .then((json) => {
-        console.log(json);
         handleCredentials(json);
         history.push("/");
         setEmail("");
