@@ -17,6 +17,7 @@
     "react-animated-bg": "^1.1.2",
     "react-animated-text": "^0.1.4",
     "react-dom": "^16.14.0",
+    "react-native-input-style": "^1.0.2",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.4",
@@ -42,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.12.12"
   }
 }
