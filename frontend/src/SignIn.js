@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { user } from './reducers/user'
+import { PrettyForm } from './lib/PrettyForm'
 
 export const SignIn = () => {
   const dispatch = useDispatch()
@@ -41,20 +42,6 @@ export const SignIn = () => {
   }
 
   return (
-    <form>
-      <label>
-        Username:
-        <input className='name' required value={name} onChange={(event) => setName(event.target.value)}/>
-      </label>
-
-      <label>
-        Password:
-        <input className='password' type= 'password' required value={password} onChange={(event) => setPassword(event.target.value)}/>
-      </label>
-
-      <button className='sign-in-button' type='submit' onClick={handleLogin}>
-        Sign in
-    </button>
-    </form>
+    <PrettyForm formTitle={'Sign In'}/>
   )
 }

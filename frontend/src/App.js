@@ -6,6 +6,7 @@ import { Register } from './Register'
 import { SignIn } from './SignIn'
 import { LoginStatus } from './components/LoginStatus'
 import {user} from './reducers/user'
+import {PrettyForm} from './lib/PrettyForm'
 
 const reducer = combineReducers({user: user.reducer})
 const store = configureStore({reducer})
