@@ -6,18 +6,16 @@ import styled from 'styled-components'
 //import { Status } from './components/Status'
 //import { Profile } from './components/Profile'
 import { LoginForm } from './components/LoginForm'
-import { SignupForm } from './components/SignupForm'
 import { user } from './reducers/user'
 
 const reducer = combineReducers({ user: user.reducer })
 const store = configureStore({ reducer })
 
 export const App = () => {
-  // <Status /> <Profile />
+  // <Status /> <Profile /> //<SignupForm />
   return (
     <MainContainer>
       <Provider store={store}>
-        <SignupForm />
         <LoginForm />
       </Provider>
     </MainContainer>

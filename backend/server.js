@@ -30,15 +30,34 @@ const User = mongoose.model('User', {
   },
 });
 
+
+//KOMMENTERADE UT NU FÖR TEST 
+// const authenticateUser = async (req, res, next) => {
+//   const user = await User.findOne({accessToken:req.header('Authorization')});
+//   if (user){
+//     req.user = user;
+//     next();
+//   }else {
+//     res.status(401).json({loggedOut:true});
+//   };
+// }
+
+
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({accessToken:req.header('Authorization')});
-  if (user){
+  try {
+    const accessToken = req.header('Authorization');
+    const user = await User.findOne({ accessToken });
+    if (!user) {
+      throw 'Login error ';
+    }
     req.user = user;
     next();
-  }else {
-    res.status(401).json({loggedOut:true});
-  };
-}
+  } catch (err) {
+    const errorMessage = 'Try another username/password';
+    console.log(errorMessage);
+    res.status(401).json({ error: errorMessage });
+  }
+};
 
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
@@ -56,17 +75,6 @@ app.get('/', (req, res) => {
   res.send('Hello Claudia')
 })
 
-/*app.post('/users', async (req,res) =>{
-  try{
-    const {name, password} = req.body;
-    //Do not store plaintext passwords!
-    const user = new User({name, password: bcrypt.hashSync(password)});
-    await user.save();
-    res.status(201).json({id:user._id, accessToken:user.accessToken});
-  }catch(err){
-    res.status(400).json({message: 'Could not create user', errors: err.errors});
-  }
-}) */
 //salt adds som variation to the hash function, per user
 app.post('/users', async (req,res) =>{
   try{
@@ -90,7 +98,7 @@ app.post('/users', async (req,res) =>{
 
 app.get('/secrets', authenticateUser); 
 app.get('/secrets', (req, res) => {
-  res.json({secret: 'This is a secret message'});
+  res.json({secret: `This is a secret message for ${userId}`});
 })
 
 app.post('/sessions', async(req, res) => {

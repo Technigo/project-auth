@@ -27,8 +27,8 @@ export const user = createSlice ({
       console.log(`Status Message : ${statusMessage}`)
       state.login.statusMessage = statusMessage
     },
-    logout: (state, action) => {
-      console.log("logging out")
+    setLogout: (state, action) => {
+      console.log(state.login.userId)
       state.login.userId = 0
       state.login.accessToken = null
     },
