@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   user: {
     accessToken: '',
+    name: '',
   },
   isLoggedIn: false,
 };
@@ -12,11 +13,8 @@ export const users = createSlice({
   initialState,
   reducers: {
     logIn: (state, action) => {
-      if (state.isLoggedIn) {
-        console.log('error');
-      } else {
-        state.user.accessToken = action.payload.accessToken;
-      }
+      state.user.accessToken = action.payload.accessToken;
+      state.user.name = action.payload.name;
     },
     logOut: (state, action) => {
       state.user.accessToken = '';
@@ -44,12 +42,20 @@ export const manageUser = ({ url, user }) => {
         password: user.password,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok === false) {
+          return res.json();
+        } else {
+          dispatch(users.actions.toggleLoggedInOut());
+          return res.json();
+        }
+      })
       .then((json) => {
-        dispatch(users.actions.logIn(json));
-
-        // Vi behöver få in en kontroll om lösenordet är fel här
-        dispatch(users.actions.toggleLoggedInOut());
+        if (json.message) {
+          console.error(json.message);
+        } else {
+          dispatch(users.actions.logIn(json));
+        }
       });
   };
 };
