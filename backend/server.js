@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
+const mongoUrl = process.env.MONGO_URL || "mongodb+srv://clakje:qTycua8bhA5rjWr@cluster0.dia4y.mongodb.net/claudiaellenAUTH?retryWrites=true&w=majority"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
@@ -56,19 +56,19 @@ app.get('/', (req, res) => {
   res.send('Hello Claudia')
 })
 
-app.post('/users', async (req,res) =>{
+/*app.post('/users', async (req,res) =>{
   try{
     const {name, password} = req.body;
     //Do not store plaintext passwords!
     const user = new User({name, password: bcrypt.hashSync(password)});
-    user.save();
+    await user.save();
     res.status(201).json({id:user._id, accessToken:user.accessToken});
   }catch(err){
     res.status(400).json({message: 'Could not create user', errors: err.errors});
   }
-})
+}) */
 //salt adds som variation to the hash function, per user
-/*app.post('/users', async (req,res) =>{
+app.post('/users', async (req,res) =>{
   try{
     const {name, password} = req.body;
     //Do not store plaintext passwords!
@@ -87,7 +87,7 @@ app.post('/users', async (req,res) =>{
     });
   }
 })
-*/
+
 app.get('/secrets', authenticateUser); 
 app.get('/secrets', (req, res) => {
   res.json({secret: 'This is a secret message'});
