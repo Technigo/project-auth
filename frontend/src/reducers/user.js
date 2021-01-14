@@ -6,6 +6,7 @@ const initialState = {
     userId: null,
     statusMessage: "",
     errorMessage: null,
+    // secretMessage: null
   }
 };
 
@@ -35,12 +36,14 @@ export const user = createSlice({
     },
 
     // setSecretMessage: (state, action) => {
-    //   const { secretMessage } = ac
+    //   const { secretMessage } = action.payload;
+    //   state.login.secretMessage = secretMessage;
     // },
 
     logout: (state, action) => {
       state.login.userId = 0;
       state.login.accessToken = null;
+      state.login.secretMessage = null;
     },
   }
 });
