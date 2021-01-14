@@ -13,13 +13,13 @@ export const SignUpForm = () => {
     const [password, setPassword] = useState('');
 
     const handleLoginSuccess = (loginResponse) => {
-        //console.log(loginResponse);
+        console.log(loginResponse);
     };
 
     const handleLoginFailed = (loginError) => {
-        //console.log(loginResponse);
+        console.log(loginError)
     };
-
+    
     const handleSignup = (event) => {
         event.preventDefault();
         
@@ -30,13 +30,12 @@ export const SignUpForm = () => {
         })
         .then((res) => {
             if (!res.ok) {
-                throw 'Signup failed.';
+                throw 'Signup failed.'
             }
             return res.json()
         })
         .then((json) => handleLoginSuccess(json))
         .catch((err) => handleLoginFailed(err))
-        // ny dispatch med error här??
     }
     
     if (!accessToken)  {
