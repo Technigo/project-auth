@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-const SIGNUP_URL = 'http://localhost:8080/users'
-const LOGIN_URL = 'http://localhost:8080/sessions'
-const SECRETS_URL ='http://localhost:8080/secrets'
+const SIGNUP_URL = 'https://project-auth-technigo.herokuapp.com/users' 
+const LOGIN_URL = 'https://project-auth-technigo.herokuapp.com/sessions'
+const SECRETS_URL ='https://project-auth-technigo.herokuapp.com/secrets'
 
 export const Login = () => {
   const [email, setEmail] = useState('')
