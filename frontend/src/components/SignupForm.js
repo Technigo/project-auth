@@ -33,12 +33,28 @@ const SignupForm = () => {
   }
 
   const passwordIsValid = () => {
-    if(!password){
+    if(!password) {
       setPasswordError("Please type in your password")
       return false
+    } else if (password.length < 5) {
+      setPasswordError("Password needs to be longer than 5 characters")
+      return false
     }
+    setPasswordError(null)
+    return true
   }
-  const emailIsValid = () => true;
+  
+  const emailIsValid = () => {
+    if(!email) {
+      setEmailError("Email can not be blank")
+      return false
+    } else if(!email.includes("@")) {
+      setEmailError("Invalid email")
+      return false
+    }
+    setEmailError(null)
+    return true
+  }
 
   useEffect(() => {
     const formIsValid = nameIsValid() && passwordIsValid() && emailIsValid();
@@ -48,7 +64,6 @@ const SignupForm = () => {
   // To sign up a user.
   const handleSignup = (event) => {
     event.preventDefault();
-    
     if (formIsValid) {
       dispatch(signup(name, email, password));
     } else {
@@ -77,9 +92,13 @@ const SignupForm = () => {
             required
             type="email"
             value={email}
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             onChange={(event) => setEmail(event.target.value)}
           />
         </label>
+        {showValidations && emailError &&
+          <p>{emailError}</p>
+        }
         <label>
           Password
           <input
@@ -89,6 +108,9 @@ const SignupForm = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
         </label>
+        {showValidations && passwordError &&
+          <p>{passwordError}</p>
+        }
         <button type="submit" onClick={handleSignup}>
           Sign-Up
         </button>
