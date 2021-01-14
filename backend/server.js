@@ -48,7 +48,7 @@ app.use(bodyParser.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  res.send('Welcome to Auth API!')
 })
 
 //Endpoint for when you sign up
@@ -81,7 +81,7 @@ app.post('/sessions', async (req, res) => {
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     res.json({userId: user._id, accessToken: user.accessToken})
   } else {
-    res.json({notFound: true})
+    res.status(401).json({notFound: true})
   }
 })
  
