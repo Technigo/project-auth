@@ -9,41 +9,51 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-
 // think about validations during user creation t.ex: email, password constraings
 // frontend: require almost all fields in order to submit form
-const User = mongoose.model('User', {
-  name: {
-    // where name is the username
-    type: String,
-    unique: true,
-    minlength: 2,
-    maxlength: 20,
-    required: true
-  },
-  email: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  accessToken: {
-    type: String,
-    unique: true,
-    default: () => crypto.randomBytes(128).toString('hex')
-  }
+const userSchema = new mongoose.Schema({
+    name: {
+      // where name is the username
+      type: String,
+      unique: true,
+      minlength: 2,
+      maxlength: 20,
+      required: true
+    },
+    email: {
+      type: String,
+      unique: true,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    accessToken: {
+      type: String,
+      unique: true,
+      default: () => crypto.randomBytes(128).toString('hex')
+    }
 })
 
-// Defines the port the app will run on. Defaults to 8080.
-//  currently running on 9000
-//   PORT=9000 npm start
+userSchema.pre('save', async function (next) {
+  const user = this
+  
+  // Hash only if password has been changed
+  if (!user.isModified('password')) {
+    return next()
+  }
+  const salt = bcrypt.genSaltSync()
+  console.log(`PRE- password before # ${user.password}`)
+  user.password = bcrypt.hashSync(user.password, salt)
+  console.log(`PRE- password after # ${user.password}`)
+  next()
+})
+
+const User = mongoose.model('User', userSchema)
 const port = process.env.PORT || 8081
 const app = express()
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(bodyParser.json())
 
@@ -53,18 +63,19 @@ const authenticateUser = async (req, res, next) => {
     const user = await User.findOne({
       accessToken: req.header('Authorization')
     })
-    if (user) {
-      req.user = user
-      next()
-    } else {
-      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' })
-    }
+    if (!user) {
+      throw 'User not found'
+    } 
+    req.user = user
+    next()
   } catch (err) {
-    res.status(403).json({ message: 'Access token is missing or wrong', errors: err.errors })
+    const errorMessage = 'Please try logging in again'
+    console.log(errorMessage)
+    res.status(401).json({ error: errorMessage})
   }
 }
 
-// Start defining your routes here
+// Routes
 app.get('/', (req, res) => {
   res.send('Henrike and Peggys working area. Under construction.')
 })
@@ -73,16 +84,15 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body
-    const salt = bcrypt.genSaltSync(10)
     // do we want to move this to be global?
     const user = await new User({
       name, 
       email,
-      password: bcrypt.hashSync(password, salt),
+      password
     }).save()
     res.status(201).json({ userID: user._id, accessToken: user.accessToken})
   } catch (err) {
-    res.status(400).json({ message: 'Could not create user', errors: err.errors })
+    res.status(400).json({ message: 'Could not create user', errors: err })
   }
 })
 
@@ -92,12 +102,32 @@ app.post('/sessions', async (req, res) => {
     const { email, password } = req.body
     const user = await User.findOne({ email })
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(201).json({ userId: user._id, accessToken: user.accessToken })
+      // User has provided correct credentials, let's generate a new token for this session
+      user.accessToken = crypto.randomBytes(128).toString('hex')
+      // Save new access token
+      const updatedUser = await user.save()
+      res.status(200).json({
+        userId: user._id, 
+        accessToken: updatedUser.accesToken
+      })
     } else {
-      res.status(404).json({ notFound: true })
+      throw 'User not found'
     }
   } catch (err) {
-    res.status(404).json({ notFound: true })
+    res.status(404).json({ error: 'User not found' })
+  }
+})
+
+// Logout
+app.post('/users/logout', authenticateUser)
+app.post('/users/logout', async (req, res) => {
+  try {
+    req.user.accessToken = null
+    await req.user.save()
+    // add a conditional that calls for status to show if user is logged in or out.
+    res.status(200).json({ loggedOut: true })
+  } catch (err) {
+    res.status(400).json({ error: 'Could not logout' })
   }
 })
 
