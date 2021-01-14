@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 
 import {LoginContainer, Title, Login} from '../lib/LoginFormStyle'
@@ -18,6 +18,18 @@ export const LoginForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const handleLoginSuccess = (loginResponse) => {
+    dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }));
+    console.log(loginResponse.accessToken)
+    dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
+    console.log(loginResponse.userId);
+    history.push("/:id/user");
+  };
+
+  const handleLoginFailed = (loginError) => {
+    dispatch(user.actions.setAccessToken({ accessToken: null }));
+  };
+
   const handleLogin = (event) => {
     console.log('yes')  
     event.preventDefault();
@@ -28,14 +40,9 @@ export const LoginForm = () => {
       headers: {'Content-type': 'application/json'},
     })
       .then(res => res.json())
-      .then(data => {
-        dispatch(user.actions.setAccessToken(data.accessToken));
-        console.log(data.accessToken)
-        dispatch(user.actions.setUserId(data.userId));
-        console.log(data.userId);
-      })
-      history.push("/:id/user");
-  }
+      .then(data => handleLoginSuccess(data))
+      .catch(err => handleLoginFailed(err)); 
+  };
 
     return (
       <LoginContainer>

@@ -7,7 +7,6 @@ const initialState = {
         accessToken: "",
         userId: "",
     }
-    
 }
 
 export const user = createSlice({
