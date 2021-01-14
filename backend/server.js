@@ -25,15 +25,7 @@ const User = mongoose.model('User', {
   }
 })
 
-const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header('Authorization') })
-  if (user) {
-    req.user = user
-    next()
-  } else {
-    res.status(401).json({ loggedOut: true })
-  }
-}
+
 
 const port = process.env.PORT || 8080
 const app = express()
@@ -51,27 +43,46 @@ app.post('/users', async (req, res) => {
     const { name, password } = req.body
     const SALT = bcrypt.genSaltSync(10);
     const user = new User({ name, password: bcrypt.hashSync(password, SALT) })
-    user.save()
+    await user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
   } catch (err) {
     console.log(err)
-    res.status(400).json({ message: 'Could not create user', errors: err.errors })
+    res.status(400).json({ message: 'Coud not create user', errors: err.errors })
   }
 })
 
 //Login
 app.post('/sessions', async (req, res) => {
   try {
-    const {name, password} = req.body
-    const user = await User.findOne({name})
-    if(user && bcrypt.compareSync(password, user.password)){
-      res.status(200).json({userId:user._id, accessToken: user.accessToken})
+    const { name, password } = req.body
+    const user = await User.findOne({ name })
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(200).json({ userId: user._id, accessToken: user.accessToken })
     } else {
-      throw 'User not found'
+      res.status(404).json({ error: 'User not found' })
     }
-  } catch(err) {
-    res.status(404).json({error:'User not found'})
+  } catch (err) {
+    res.status(404).json({ error: 'User not found' })
   }
+})
+
+const authenticateUser = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ accessToken: req.header('Authorization') })
+    if (user) {
+      req.user = user
+      next()
+    } else {
+      res.status(403).json({ message: 'Access token is missing or not valid' })
+    }
+  } catch (err) {
+    res.status(401).json({ message: 'Access token is missing or not valid', errors: err })
+  }
+}
+
+app.get('/secret', authenticateUser)
+app.get('/secret', async (req, res) => {
+  res.status(200).json({ secret: 'I am a secret from the server!' })
 })
 
 app.listen(port, () => {

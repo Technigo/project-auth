@@ -28,12 +28,10 @@ export const LoginStatus = () => {
         return res.json()
       })
       .then((json) => {
-        console.log(`We got the secret: ${json.secret}`)
         dispatch(user.actions.setSecret({ secret: json.secret }))
       })
       .catch((err) => {
         setSecretStatus(`Secret Status: ${err}`)
-        console.log(`Error when getting secret: ${err}`)
       })
   }
 
