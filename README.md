@@ -1,6 +1,6 @@
 # Project Auth
 
-This project has an API with authentication (with validations) to implement a registration flow, and a frontend with a form registration which POST to the API. The front-end has form validation, a sign in, to view a secret message content once you're logged in, and a log out.
+This project has an API with authentication and with validations to implement a registration flow, and a frontend with a form registration which POST to the API. The front-end has form validation, a sign in to view a secret message content once you're logged in, and a log out.
 
 The project has
 * Registration endpoint, to create a new user

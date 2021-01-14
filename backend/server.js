@@ -3,14 +3,14 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
-import bcrypt from 'bcrypt';
-import { isEmail, isStrongPassword } from 'validator'
+import bcrypt from 'bcrypt'
+import { isEmail } from 'validator'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
-// Schema
+//_________Schema
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -36,13 +36,13 @@ const userSchema = new mongoose.Schema({
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex")
-    // this is the unique identifier when the user logs in
   }
 })
 
 userSchema.pre('save', async function (next) {
   const user = this
-  // isModified: "Returns true if any of the given paths is modified, else false. If no arguments, returns true if any path in this document is modified."
+  // isModified: "Returns true if any of the given paths is modified, else false. 
+  // If no arguments, returns true if any path in this document is modified."
   // https://mongoosejs.com/docs/api.html#document_Document-isModified
   if (!user.isModified('password')) {
     return next()
@@ -53,22 +53,19 @@ userSchema.pre('save', async function (next) {
   next()
 })
 
+//_________Model
 const User = mongoose.model('User', userSchema)
 
 
-// Defines the port the app will run on. Defaults to 8080, but can be 
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
+//_________Defines port 
 const port = process.env.PORT || 8080
 const app = express()
 
-// Add middlewares to enable cors and json body parsing
+//_________Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(bodyParser.json())
 
-// Middleware
-// Error message if server is down
+//_________Error message if server is down
 app.use((req, res, next) => {
   if (mongoose.connection.readyState === 1) {
     next()
@@ -77,7 +74,7 @@ app.use((req, res, next) => {
   }
 })
 
-// middlewear authenticate User
+//_________middlewear to authenticate User
 const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({
@@ -99,19 +96,18 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-// GET list of endpoints
+//_________GET list of endpoints
 const listEndpoints = require('express-list-endpoints')
 app.get('/', (req, res) => {
   res.send(listEndpoints(app))
 })
 
-// create user
-// this is working
+//_________POST create user
 app.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body
     const user = await new User({ name, email, password }).save()
-    res.status(201).json({ userId: user._id, accessToken: user.accessToken })
+    res.status(201).json({ userId: user._id, userName: user.name, accessToken: user.accessToken })
   } catch (err) {
     res.status(400).json({
       message: 'Could not create user', errors: {
@@ -122,16 +118,16 @@ app.post('/signup', async (req, res) => {
   }
 })
 
-// Secure endpoint, user needs to be logged in to access this.
-// this is working
+//_________Secure endpoint, user needs to be logged in to access this.
 app.get('/users/:id/secret', authenticateUser)
+
+//_________POST secretMessage
 app.get('/users/:id/secret', (req, res) => {
   const secretMessage = `${req.user.name}, this was totally worth all your effort - right?`
-  res.status(201).json({ secretMessage })
+  res.status(201).json(secretMessage)
 })
 
-// log in user endpoint (POST)
-// this is working
+//_________POST Log in user endpoint (POST)
 app.post('/login', async (req, res) => {
   try {
     const { name, email, password } = req.body
@@ -146,7 +142,7 @@ app.post('/login', async (req, res) => {
   }
 })
 
-// Start the server
+//_________Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
 })

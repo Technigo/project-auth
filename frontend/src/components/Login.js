@@ -7,6 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
+
 import { login, signUp } from '../reducers/user'
 import { CustomButton } from './CustomButton'
 import { Profile } from './Profile'
@@ -17,7 +18,7 @@ import {
   ButtonWrapper,
   Title,
   SubTitle
-} from '../lib/Card'
+} from '../styles/Style'
 
 export const Login = () => {
   const [name, setName] = useState("")
@@ -26,19 +27,23 @@ export const Login = () => {
 
   const errorMessage = useSelector((store) => store.user.login.errorMessage)
   const accessToken = useSelector((store) => store.user.login.accessToken)
+  const userName = useSelector((store) => store.user.login.userName)
+
   const dispatch = useDispatch()
 
   // Form validation
   const minimumNameLength = { minLength: 2, maxLength: 20 }
   const minimumPasswordLength = { minLength: 5 }
-  const validEmail = { pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"} //cannot start with @
+  const validEmail = { pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"} 
+  //cannot start with @
   // has to include the pattern of xxxx@xxx.se
 
-  // useEffect(() => {
-  //   if (userName) {
-  //     dispatch(setUserName());
-  //   }
-  // }, [dispatch, userName]);
+  // To be able to see userName when signing up
+  useEffect(() => {
+    if (userName) {
+      dispatch(signUp())
+    }
+  }, [dispatch, userName])
 
   const handleLogin = (event) => {
     event.preventDefault()
@@ -57,8 +62,8 @@ export const Login = () => {
   }
 
   const handleClickShowPassword = () => {
-    setPassword({ ...password, showPassword: !password.showPassword });
-  };
+    setPassword({ ...password, showPassword: !password.showPassword })
+  }
 
   return (
     <Container>
@@ -85,7 +90,6 @@ export const Login = () => {
               fullWidth={true}
               onChange={(event) => setPassword(event.target.value)}
               inputProps={minimumPasswordLength}
-              // formHelperText={password === "" ? 'Min. 2 char' : ' '}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -105,6 +109,7 @@ export const Login = () => {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               inputProps={validEmail}
+              helperText={email === "" ? 'x@xxx.xx' : ' '}
             /> 
   
             <ButtonWrapper>

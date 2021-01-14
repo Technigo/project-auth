@@ -1,33 +1,40 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSecretMessage, logout } from '../reducers/user'
 
 import { CustomButton } from './CustomButton'
-import { Title, ButtonWrapper, SubTitle } from '../lib/Card'
+import { Title, ButtonWrapper, SubTitle } from '../styles/Style'
 
 export const Profile = () => {
-  //const [showMessage, setShowMessage] = (false)
-  const userName = useSelector(store => store.user.login.name)
-  //const userId = useSelector(store => store.user.login.userId)
+  //const [showMessage, setShowMessage] = useState(false)
+  const userName = useSelector(store => store.user.login.userName)
   const secretMessage = useSelector(store => store.user.login.secretMessage)
+  console.log(secretMessage)
   const dispatch = useDispatch()
 
-  //______FUNCTION TO TOGGLE SECRET MESSAGE
+  //______FÖRSVINNER INTE NÄR DEN ÄR TRUE, varför?
   // const toggleSecretMessage = () => {
-  //   setShowMessage(true)
+  //     dispatch(getSecretMessage())
+  //     //dispatch(user.actions.hideSecretMessage())
+  //     //setShowMessage(false)
+  //     dispatch(getSecretMessage(user.actions.setSecretMessage(null)))
+  //     setShowMessage(!showMessage)
   // }
+  
+  // console.log(showMessage)
+  
 
   return (
     <>
-      {/* UserName visas in när man sign up (endast login) fördröjning att uppdatera intitalState? */}
       <Title>{userName}, welcome</Title>
-      {secretMessage && <SubTitle>{secretMessage}</SubTitle>}
+      {secretMessage ? <SubTitle>{secretMessage}</SubTitle> : ""}
       <ButtonWrapper>
         <CustomButton
           variant="contained"
           type='submit'
           onClick={() => dispatch(getSecretMessage())}
-          text='Reveal secret'
+          //onClick={() => toggleSecretMessage()}
+          text={!secretMessage ? 'Reveal secret' : 'Hide secret'}
         />
         <CustomButton
           variant="contained"
@@ -39,53 +46,3 @@ export const Profile = () => {
     </>
   )
 }
-
-// //- A page to show the authenticated content from the API.
-// //- A 'sign out' button that removes the saved access token and redirects the user to the login form.
-
-// // and return error messages which could be shown by the frontend (displaying 
-// // the errors in a nice way in the frontend is a stretch goal
-// // - its fine to just show 'Something went wrong' on the frontend if you run out of time)
-
-// // who logged in
-// // button reveal secret message
-
-// // clean dispatches!
-
-// import React from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { getSecretMessage, logout } from '../reducers/user'
-
-// import { Button } from './Button'
-// import { Wrapper, Title, ButtonWrapper, SubTitle } from '../lib/Card'
-
-// export const Profile = () => {
-//   const userName = useSelector(store => store.user.login.name)
-//   console.log(userName)
-//   const userId = useSelector(store => store.user.login.userId)
-//   console.log(userId)
-//   const secretMessage = useSelector(store => store.user.login.secretMessage)
-
-//   const dispatch = useDispatch()
-
-//   return (
-//     // <Container>
-//     <Wrapper>
-//       <Title>Welcome {userName}</Title>
-//       {secretMessage && <SubTitle>{secretMessage}</SubTitle>}
-//       <ButtonWrapper>
-//         <Button
-//           type='submit'
-//           onClick={() => dispatch(getSecretMessage())}
-//           text='Reveal your secret message'
-//         />
-//         <Button
-//           type='submit'
-//           onClick={() => dispatch(logout())}
-//           text='Log out'
-//         />
-//       </ButtonWrapper>
-//     </Wrapper>
-//     // </Container>
-//   )
-// }
