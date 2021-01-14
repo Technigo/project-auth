@@ -17,7 +17,7 @@ export const SignUp = () => {
   }
 
   const handleSignup = (event) => {
-    event.PreventDefault()
+    event.preventDefault()
 
     fetch(SIGNUP_URL, {
       method: "POST",
