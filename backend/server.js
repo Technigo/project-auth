@@ -21,7 +21,8 @@ Questions:
 - Thunks?
 - A page to show the authenticated content from the API - is this userToken and userId? Or something else?
 - Vans code userProfile.js why has he written the url as template literal for the fetch.
-- How to get to the 401 in the authenticateUser to show if the accessToken isn't authorized when doing the get request for the secret endpoint 
+- How to get to the 401 in the authenticateUser to show if the accessToken isn't authorized when doing the get request for the secret endpoint.
+- Site deploy - error regarding throw.
 */
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";

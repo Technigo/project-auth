@@ -3,7 +3,8 @@ import React from "react";
 import { user } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 
-const SECRET_URL = "https://project-signup.herokuapp.com/secret";
+const SECRET_URL = "http://localhost/8080/secret";
+// https://project-signup.herokuapp.com/secret
 
 export const UserProfile = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export const UserProfile = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw "Could not access profile";
+          throw new Error("Could not access profile");
         }
         return res.json();
       })
@@ -55,8 +56,7 @@ export const UserProfile = () => {
       <p>{`${userId}`}</p>
       <h4>accesstoken</h4>
       <p>{`${accessToken}`}</p> */}
-      {/* <h4>Welcome `{${name}}`</h4> */}
-      <p>{`${accessToken}`}</p>
+      <h4>Welcome </h4>
       <input type="submit" onClick={testSecret} value="Test Secret" />
       <input type="submit" onClick={logout} value="Test Logout" />
     </section>

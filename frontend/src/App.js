@@ -3,9 +3,10 @@ import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 import { Login } from "./components/Login";
-import { UserProfile } from "./components/UserProfile";
 import { Status } from "./components/Status";
 import { user } from "./reducers/user";
+import { UserProfile } from "./components/UserProfile";
+
 /* 
 Structure:
 App

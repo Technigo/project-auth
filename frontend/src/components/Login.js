@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { user } from "../reducers/user";
 
-const SIGNUP_URL = "https://project-signup.herokuapp.com/users";
+const SIGNUP_URL = "http://localhost/8080/users";
+// https://project-signup.herokuapp.com/users
 //change to Heroku-url
-const LOGIN_URL = "https://project-signup.herokuapp.com/sessions";
+const LOGIN_URL = "http://localhost/8080/sessions";
+// https://project-signup.herokuapp.com/sessions
 //change to Heroku-url
 
 export const Login = () => {
@@ -17,7 +19,6 @@ export const Login = () => {
 
   // Sending the response from both the users and login urls to the redux store
   const handleLoginSuccess = (loginResponse) => {
-    console.log(loginResponse.id)
     dispatch(
       user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
     );
@@ -35,8 +36,8 @@ export const Login = () => {
   // Handle sign up
   const handleSignup = (event) => {
     event.preventDefault();
-    setName('');
-    setPassword('');
+    // setName("");
+    // setPassword("");
     // send data to backend, for saving in DB
     fetch(SIGNUP_URL, {
       method: "POST",
@@ -45,7 +46,7 @@ export const Login = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw "Signup failed. Please enter a valid name and password.";
+          throw new Error("Signup failed. Please enter a valid name and password.");
         }
         return res.json();
       })
@@ -56,8 +57,8 @@ export const Login = () => {
   // Handle log in
   const handleLogin = (event) => {
     event.preventDefault();
-    setName('');
-    setPassword('');
+    // setName("");
+    // setPassword("");
 
     fetch(LOGIN_URL, {
       method: "POST",
@@ -66,7 +67,7 @@ export const Login = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw "Login failed. Please try again.";
+          throw new Error("Login failed. Please try again.");
         }
         return res.json();
       })
@@ -75,9 +76,7 @@ export const Login = () => {
   };
 
   if (accessToken) {
-    return (
-      <></>
-    )
+    return <></>;
   };
 
   return (
@@ -95,7 +94,6 @@ export const Login = () => {
         <label>
           password:
           <input
-            type="password"
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
@@ -109,5 +107,5 @@ export const Login = () => {
         </button>
       </form>
     </div>
-  );
+  )
 };
