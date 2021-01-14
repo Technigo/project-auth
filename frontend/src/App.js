@@ -1,8 +1,18 @@
 import React from "react";
+import { Provider } from "react-redux";
+import { configureStore, combineReducers } from "@redux/toolkit";
 import styled from "styled-components/macro";
 
-import { Form } from "./Components/Form";
-import { LogIn } from "./Components/LogIn";
+import { user } from "reducers/user";
+import { Form } from "./components/Form";
+import { LogIn } from "./components/LogIn";
+import { Button } from "./components/Button";
+
+const reducer = combineReducers({
+  user: user.reducer,
+});
+
+const store = configureStore({ reducer });
 
 const InnerWrapper = styled.div`
   display: flex;
@@ -17,7 +27,7 @@ const Wrapper = styled.div`
 `;
 
 export const App = () => {
-  const username = true;
+  const username = false;
   const USER_URL = "http://localhost:8080/users";
 
   //const createUser = () => {
@@ -35,10 +45,10 @@ export const App = () => {
   //     .then(json => {
   //       //Use redux here for setting the accesstoken from res, so something with json.accessToken
   //     });
-  //};
+  // };
 
   return (
-    <>
+    <Provider store={store}>
       {username === false ? (
         <Wrapper>
           <h1>Sign up or log in here!</h1>
@@ -58,8 +68,11 @@ export const App = () => {
           </InnerWrapper>
         </Wrapper>
       ) : (
-        <LogIn username="Holabandola" />
+        <Wrapper>
+          <LogIn username="Holabandola" />
+          <Button input="Sign out" />
+        </Wrapper>
       )}
-    </>
+    </Provider>
   );
 };
