@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 
 const SIGNUP_URL = 'http://localhost:8080/users'
+const LOGIN_URL = 'http://localhost:8080/sessions'
 
 export const Login = () => {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = (event) => {
+  const handleSignup = (event) => {
     event.preventDefault()
 
     fetch(SIGNUP_URL, {
@@ -20,10 +21,23 @@ export const Login = () => {
       .catch(err => console.log('error:', err))
   }
 
+  const handleLogin = (event) => {
+    event.preventDefault()
+
+    fetch(LOGIN_URL, {
+      method: 'POST',
+      body: JSON.stringify({ name, email, password }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(res => res.json())
+      .then(json => console.log(json))
+      .catch(err => console.log('error:', err))
+  }
+
   return (
     <section className="login">
       <h1>Log in / Sign up</h1>
-      <form onSubmit={handleSubmit}>
+      <form>
         <input
           type="text"
           placeholder="Name"
@@ -46,13 +60,14 @@ export const Login = () => {
         />
         <div className="wrapper-btn">
           <button
+          type="submit"
+          onClick={handleLogin}
           >
             Log in
           </button>
-
           <button
             type="submit"
-            onSubmit={handleSubmit}
+            onClick={handleSignup}
           >
             Sign up
           </button>
