@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import { user } from './reducers/user';
+import { Home } from './pages/Home';
 import { LoginForm } from './components/LoginForm';
 import { Profile } from './components/Profile';
 //import { SignUpForm } from './components/SignUpForm'
@@ -18,8 +19,7 @@ export const App = () => {
 
   return (
     <Provider store={store}>
-      <LoginForm />
-      <Profile />
+      <Home />
     </Provider>
   );
 };
