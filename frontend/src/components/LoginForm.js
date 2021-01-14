@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heading, FormContainer, UserForm, FormLabel, FormInput, Button } from 'styling/styling';
+import { Heading, Text, UserForm, FormLabel, FormInput, Button } from 'styling/styling';
 import { user } from '../reducers/user';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -47,10 +47,9 @@ export const LoginForm = () => {
           return <></>;
       }
     return (
-        <FormContainer>
             <UserForm>
-                <Heading> LOG IN </Heading>
-                
+              <Text>Already a user?</Text>
+              <Heading> LOG IN </Heading>
                 <FormLabel>
                 USERNAME
                 <FormInput
@@ -76,6 +75,5 @@ export const LoginForm = () => {
                 type="submit"
                 onClick={handleLogin}>LOG IN</Button>
             </UserForm>
-        </FormContainer>
     )
 }
