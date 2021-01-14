@@ -39,11 +39,11 @@ export const Login = () => {
   // has to include the pattern of xxxx@xxx.se
 
   // To be able to see userName when signing up
-  useEffect(() => {
-    if (userName) {
-      dispatch(signUp())
-    }
-  }, [dispatch, userName])
+  // useEffect(() => {
+  //   if (userName) {
+  //     dispatch(signUp())
+  //   }
+  // }, [dispatch, userName])
 
   const handleLogin = (event) => {
     event.preventDefault()
@@ -69,7 +69,7 @@ export const Login = () => {
     <Container>
       <Wrapper>
         {!accessToken ? (
-          <Form>
+          <Form onSubmit={(event) => event.preventDefault()}>
             <Title>Log in/Sign up</Title>
             <TextField
               required id="standard-required"  //adds *
