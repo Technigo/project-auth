@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
@@ -27,7 +27,7 @@ export const Login = () => {
 
   const errorMessage = useSelector((store) => store.user.login.errorMessage)
   const accessToken = useSelector((store) => store.user.login.accessToken)
-  const userName = useSelector((store) => store.user.login.userName)
+  // const userName = useSelector((store) => store.user.login.userName)
 
   const dispatch = useDispatch()
 
