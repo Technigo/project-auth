@@ -34,7 +34,7 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-const User = mongoose.model("User", {
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -45,12 +45,27 @@ const User = mongoose.model("User", {
   password: {
     type: String,
     required: true,
+    minlength: 5,
   },
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
   },
 });
+
+userSchema.pre("save", async function (next) {
+  const user = this;
+  if (!user.isModified("password")) {
+    return next();
+  }
+  const salt = bcrypt.genSaltSync();
+  console.log(`Password before hash ${user.password}`);
+  user.password = bcrypt.hashSync(user.password, salt);
+  console.log(`Password after hash ${user.password}`);
+  next();
+});
+
+const User = mongoose.model("User", userSchema);
 
 // Start defining your routes here
 app.get("/", (req, res) => {
@@ -63,7 +78,7 @@ app.post("/users", async (req, res) => {
     const { name, password } = req.body;
     const user = await new User({
       name,
-      password: bcrypt.hashSync(password, salt),
+      password,
     }).save();
     res.status(200).json({
       userId: user._id,
