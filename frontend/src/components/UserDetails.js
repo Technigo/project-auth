@@ -7,7 +7,7 @@ const UserDetails = () => {
   return (
     <section>
       <h1>This is your profile page</h1>
-      <p>You are successfully logged in as member ${userId}</p>
+      <p>You are successfully logged in as member {userId}</p>
     </section>
   )
 };

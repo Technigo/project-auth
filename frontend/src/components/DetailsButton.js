@@ -21,7 +21,7 @@ const DetailsButton = ({ SIGNUP_URL }) => {
   };
 
   const handleClick = () => {
-    fetch(`${SIGNUP_URL}/${userId}`, {
+    fetch(`${SIGNUP_URL}/${userId}/profile`, {
       method: 'GET',
       headers: { Authorization: accessToken },
     })

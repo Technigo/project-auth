@@ -8,7 +8,7 @@ const StartPage = ({ SIGNUP_URL }) => {
   return (
     <section>
       <h1>Max and Sandrine's app</h1>
-      <p>You are successfully logged in as member ${userId}</p>
+      <p>You are successfully logged in as member {userId}</p>
       <DetailsButton SIGNUP_URL={SIGNUP_URL} />
     </section>
   )
