@@ -20,7 +20,10 @@ export const FormLogin = () => {
 			user.actions.setUserId({ userId: loginResponse.userId }));
 	};
 
-	const handleLoginFailed = (loginError) => {};
+	const handleLoginFailed = (loginError) => {
+		const statusMessage = JSON.stringify(loginError);
+		dispatch(user.actions.setStatusMessage({ statusMessage }));
+	};
 
 	const submitLogin = (e) => {
 		e.preventDefault();

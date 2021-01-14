@@ -15,7 +15,9 @@ const User = mongoose.model('User', {
   name: {
     type: String,
     unique: true,
-    required: true
+    required: true,
+    minLength: 3,
+    maxLength:20
   },
   email: {
     type: String,
@@ -24,6 +26,7 @@ const User = mongoose.model('User', {
   password: {
     type: String,
     required: true,
+    minLength: 5,
   }, 
   accessToken: {
     type: String,
@@ -31,6 +34,16 @@ const User = mongoose.model('User', {
 
   }
 })
+
+//! To do:
+// if (process.env.RESET_DATABASE) {
+//   console.log('Resetting database ...')
+
+//   const seedDatabase = async () => {
+
+//   }
+//   seedDatabase()
+// }
 
 
 const port = process.env.PORT || 8080
