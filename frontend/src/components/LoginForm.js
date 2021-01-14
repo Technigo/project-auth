@@ -69,9 +69,7 @@ export const LoginForm = () => {
 
   if (accessToken) {
     return (
-      <>
         <div>Yey! Logged in</div>
-      </>
     );
   }
   // If user is logged out, show login form
