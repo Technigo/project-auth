@@ -5,7 +5,6 @@ import styled from 'styled-components'
 const FormContainer = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #BCC7B6;
   box-sizing: border-box;
   margin: 0;
   padding: 40px;
@@ -49,7 +48,6 @@ const Button = styled.button`
 const Title = styled.p`
   text-align: center;
   padding: 10px;
-
 `
 export const PrettyForm = ({formTitle, onClick}) => {
   const [name, setName] = useState('')
