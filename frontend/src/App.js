@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Provider } from "react-redux";
-import { configureStore, combineReducers } from "@redux/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit"
 import styled from "styled-components/macro";
 
-import { user } from "reducers/user";
-import { Form } from "./components/Form";
-import { LogIn } from "./components/LogIn";
-import { Button } from "./components/Button";
+import { user } from "Reducers/user";
+import { Form } from "./Components/Form";
+import { LogIn } from "./Components/LogIn";
+import { Button } from "./Components/Button";
 
 const reducer = combineReducers({
   user: user.reducer,
@@ -27,29 +27,12 @@ const Wrapper = styled.div`
 `;
 
 export const App = () => {
-  const username = false;
-  const USER_URL = "http://localhost:8080/users";
-
-  //const createUser = () => {
-  //   fetch(USER_URL, {
-  //     method: "POST",
-  //     body: JSON.stringify({ username, email, password }),
-  //     headers: { "Content-type": "application/json" },
-  //   })
-  //     .then(res => {
-  //       if (res.ok) {
-  //         return res.json;
-  //       }
-  //       throw "Couldn't create user"; //display errormessage from backend here
-  //     })
-  //     .then(json => {
-  //       //Use redux here for setting the accesstoken from res, so something with json.accessToken
-  //     });
-  // };
+  //const {userLogged, setUserLogged} = useState(false);
+  const userLogged = false;
 
   return (
     <Provider store={store}>
-      {username === false ? (
+      {userLogged === false ? (
         <Wrapper>
           <h1>Sign up or log in here!</h1>
           <InnerWrapper>
@@ -59,20 +42,20 @@ export const App = () => {
               labelHeading="Select a username:"
               labelText="Enter a password:"
             />
-            <Form
+            {/* <Form
               input="Sign up"
               heading="Sign up here:"
               labelHeading="Enter username:"
               labelText="Enter password:"
-            />
+            /> */}
           </InnerWrapper>
         </Wrapper>
       ) : (
-        <Wrapper>
-          <LogIn username="Holabandola" />
-          <Button input="Sign out" />
-        </Wrapper>
-      )}
+          <Wrapper>
+            <LogIn username="Holabandola" />
+            <Button input="Sign out" />
+          </Wrapper>
+        )}
     </Provider>
   );
 };

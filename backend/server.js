@@ -17,10 +17,6 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
-  email: {
-    type: String,
-    unique: true,
-  },
   password: {
     type: String,
     minlength: 5,
@@ -74,7 +70,7 @@ app.get("/", (req, res) => {
 
 //registration endpoint
 //This endpoint registers a new user. It consists of a deconstructed body
-//using name, email and password. We added a variable called salt
+//using name and password. We added a variable called salt
 //to ensure that the password is hashed properly
 //and reduces the possibility for rainbow tables (backward hashing to figure out password)
 //we should never store the password in plain text or return the password to the client.
@@ -82,13 +78,14 @@ app.get("/", (req, res) => {
 //When trying to add a user with a non unique username, the errormessage is vague
 app.post("/users", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, password } = req.body;
     const user = await new User({
       username,
-      email,
-      password,
+      password
     }).save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
+    console.log("UserID:",user._id)
+    console.log("AccessToken:", user.accessToken)
+    res.status(201).json({ userId: user._id, accessToken: user.accessToken });
   } catch (err) {
     res.status(400).json({ message: "Could not create user", error: err });
   }

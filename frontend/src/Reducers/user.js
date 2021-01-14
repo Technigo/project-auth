@@ -26,16 +26,16 @@ export const user = createSlice({
     logout: (state, action) => {
       state.login.userId = 0;
       state.login.accessToken = null;
-    }
+    },
   },
 });
 
-export const login = (name, password) => {
+export const login = (username, password) => {
   const LOGIN_URL = "http://localhost:8080/sessions";
   return dispatch => {
     fetch(LOGIN_URL, {
       method: "POST",
-      body: JSON.stringify({ name, password }),
+      body: JSON.stringify({ username, password }),
       headers: { "Content-Type": "application/json" },
     })
       .then(res => {
