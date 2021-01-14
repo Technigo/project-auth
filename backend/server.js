@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import crypto from 'crypto';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt-nodejs';
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -73,7 +73,7 @@ app.post('/users', async (req, res) => {
 // SECURE ENDPOINT
 app.get('/users/:id', authenticateUser);
 app.get('/users/:id', (req, res) => {
-  res.status(201).json({ message: "shh super secret message" });
+  res.status(401).send();
 });
 
 // LOGIN ENDPOINT 
@@ -87,7 +87,7 @@ app.post('/sessions', async (req, res) => {
       res.status(404).json({ notFound: true, message: "Check if username and/or password is correct" });
     };
   } catch (err) {
-    res.status(404).json({ notFound: true, message: "Check if username and/or password is correct" });
+    res.status(404).json({ notFound: true, message: "Check if username and/or password is correct"});
   };
 });
 
