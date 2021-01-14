@@ -7,8 +7,11 @@ import Profile from "Profile";
 const Start = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState({});
+
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
+  const statusMessage = useSelector((store) => store.user.login.statusMessage);
 
   const handleLoginSuccess = (loginResponse) => {
     dispatch(
@@ -37,8 +40,15 @@ const Start = () => {
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
+        if (json.error) {
+          setErrorMessage(json);
+        }
         setUsername("");
         setPassword("");
+      })
+      .catch((error) => {
+        setErrorMessage("new error");
+        console.log(error);
       });
   };
 
@@ -84,7 +94,7 @@ const Start = () => {
           <label>
             <p>Password:</p>
             <input
-              type="text"
+              type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Password"
@@ -97,6 +107,8 @@ const Start = () => {
             Log in
           </button>
         </form>
+        <div>{errorMessage && <p>{errorMessage.message}</p>}</div>
+        <div>{statusMessage && <p>{statusMessage}</p>}</div>
       </>
     );
   } else {
