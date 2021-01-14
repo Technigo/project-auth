@@ -110,7 +110,7 @@ app.post("/sessions", async (req, res) => {
 });
 
 app.get('/secret', authenticateUser);
-app.get('/secret', async (req, res) => {
+app.get('/secret/', async (req, res) => {
   const secretMessage = `This is a secret message for ${req.user.name}`;
   res.status(200).json({ secretMessage });
 });
