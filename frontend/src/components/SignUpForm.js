@@ -3,7 +3,7 @@ import React from 'react';
 //import { SignUpForm } from './components/SignUpForm';
 
 export const SignUpForm = () => {
-  return <div></div>;
+  return <div>signup form</div>;
 };
 
 //return <SignUpForm />

@@ -15,31 +15,32 @@ const initialState = {
 
 export const user = createSlice({
   name: 'user',
-  initialState: initialState,
+  initialState,
   reducers: {
-    setName: (state, action) => {
+    setName: (store, action) => {
       const { name } = action.payload;
-      state.login.name = name;
+      store.login.name = name;
+      console.log(name);
     },
-    setEmail: (state, action) => {
+    setEmail: (store, action) => {
       const { email } = action.payload;
-      state.login.email = email;
+      store.login.email = email;
     },
-    setUserId: (state, action) => {
+    setUserId: (store, action) => {
       const { userId } = action.payload;
-      state.login.userId = userId;
+      store.login.userId = userId;
     },
-    setSecretMessage: (state, action) => {
+    setSecretMessage: (store, action) => {
       const { secretMessage } = action.payload;
-      state.login.secretMessage = secretMessage;
+      store.login.secretMessage = secretMessage;
     },
-    setErrorMessage: (state, action) => {
+    setErrorMessage: (store, action) => {
       const { errorMessage } = action.payload;
-      state.login.errorMessage = errorMessage;
+      store.login.errorMessage = errorMessage;
     },
-    setAccessToken: (state, action) => {
+    setAccessToken: (store, action) => {
       const { accessToken } = action.payload;
-      state.login.accessToken = accessToken;
+      store.login.accessToken = accessToken;
     },
   },
 });
@@ -114,9 +115,10 @@ export const signUp = (name, email, password) => {
 
 // Secret message
 export const getSecretMessage = () => {
-  return (dispatch, getState) => {
-    const accessToken = getState().user.login.accessToken;
-    const userId = getState().user.login.userId;
+  return (dispatch, getStore) => {
+    const accessToken = getStore().user.login.accessToken;
+    const userId = getStore().user.login.userId;
+
     fetch(`${USERS_URL}/${userId}/secret`, {
       method: 'GET',
       headers: { Authorization: accessToken },
@@ -130,9 +132,7 @@ export const getSecretMessage = () => {
         );
       })
       .then(json => {
-        dispatch(
-          user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) })
-        );
+        dispatch(user.actions.setSecretMessage({ secretMessage: json }));
       })
       .catch(err => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err.toString }));
