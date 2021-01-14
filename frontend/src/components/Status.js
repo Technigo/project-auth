@@ -10,7 +10,7 @@ export const Status = () => {
     <>
       {statusMessage && (
         <StatusWrapper>
-          <p>{`Response: ${statusMessage}`}</p>
+          <p>{`${statusMessage}`}</p>
         </StatusWrapper>
       )}
     </>
@@ -18,10 +18,12 @@ export const Status = () => {
 };
 
 const StatusWrapper = styled.div`
-  color: #fff;
+  background: #fff;
+  color: #00544F;
   font-weight: bold;
   font-size: 12px;
   padding: 6px;
   width: 200px;
   text-align: center;
+  border-radius: 8px;
 `;
