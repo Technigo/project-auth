@@ -17,27 +17,27 @@ export const LogInForm = () => {
     const handleSignUp = (event) => {
         event.preventDefault()
     
-    fetch(SIGNUP_URL, {
-        method: 'POST',
-        body: JSON.stringify({name, password}),
-        headers: {'Content-Type': 'application/json'},
-    })
-    .then((res) => {
-        if (!res.ok) {
-          throw new Error('Could not create account.  Try a different username.')
-        }
-        return res.json()
-    })
+        fetch(SIGNUP_URL, {
+            method: 'POST',
+            body: JSON.stringify({name, password}),
+            headers: {'Content-Type': 'application/json'},
+        })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error('Could not create account.  Try a different username.')
+            }
+            return res.json()
+        })
 
-    .then((json) => {
-        // Save the login info
-        dispatch(user.actions.setAccessToken({accessToken: json.accessToken}))
-        dispatch(user.actions.setUserId({ userId: json.userId }))
-      })
-      .catch((err) => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }))
-      })
-  }
+        .then((json) => {
+    // Save the login info
+            dispatch(user.actions.setAccessToken({accessToken: json.accessToken}))
+            dispatch(user.actions.setUserId({ userId: json.userId }))
+        })
+        .catch((err) => {
+            dispatch(user.actions.setErrorMessage({ errorMessage: err }))
+        })
+    }
     //SIGNING IN - THUNK IS IN THE REDUCER
     const handleLogin = (event) => {
         event.preventDefault()
@@ -47,7 +47,7 @@ export const LogInForm = () => {
     if(accessToken) {
         return (
             <Profile />
-        )}
+    )}
 
     return (
         <form className="login-signup">
@@ -68,6 +68,7 @@ export const LogInForm = () => {
                         type="password"
                         placeholder="Password"
                         onChange={event => setPassword(event.target.value)}
+                        minLength="5"
                     />
                 </label> 
             </div>

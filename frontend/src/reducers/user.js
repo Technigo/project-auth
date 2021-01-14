@@ -7,25 +7,22 @@ const initialState = {
         secretMessage: null,
         errorMessage: null,
     },
-}
+  }
 
 export const user = createSlice({
-    name: "user",
+    name: 'user',
     initialState: initialState,
     reducers: {
         setAccessToken: (state, action) => {
             const { accessToken } = action.payload
-            console.log(`accessToken ${accessToken}`)
             state.login.accessToken = accessToken
         },
         setUserId: (state, action) => {
             const { userId } = action.payload
-            console.log(`User Id: ${userId}`)
             state.login.userId = userId
         },
         setErrorMessage: (state, action) => {
             const { errorMessage } = action.payload
-            console.log(`Error Message: ${errorMessage}`)
             state.login.errorMessage = errorMessage
         }, 
         setSecretMessage: (state, action) => {
@@ -35,7 +32,7 @@ export const user = createSlice({
     }
 })
 
-// Thunks
+          // Thunks
 export const login = (name, password) => {
     const LOGIN_URL = 'https://auth-api-technigo.herokuapp.com/sessions'
     return (dispatch) => {
@@ -45,7 +42,7 @@ export const login = (name, password) => {
         headers: { 'Content-Type': 'application/json' },
       })
         .then((res) => {
-          if (res.ok /* if 200, 201, 204 */) {
+          if (res.ok) {
             return res.json()
           }
   
@@ -54,19 +51,14 @@ export const login = (name, password) => {
         })
         .then((json) => {
           // Save the login info
-          dispatch(
-            user.actions.setAccessToken({
-              accessToken: json.accessToken,
-            })
-          );
+          dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }))
           dispatch(user.actions.setUserId({ userId: json.userId }))
         })
         .catch((err) => {
-          //dispatch(user.actions.logout())
           dispatch(user.actions.setErrorMessage({ errorMessage: err }))
         })
-    }
-  }
+      }
+}
 
   export const getSecretMessage = () => {
     const SECRET_URL = 'https://auth-api-technigo.herokuapp.com/secrets'
@@ -85,18 +77,13 @@ export const login = (name, password) => {
       })
       // SUCCESS: Do something with the information we got back
       .then((json) => {
-        dispatch(
-          user.actions.setSecretMessage({ secretMessage: json.secret })
-        )
+        dispatch(user.actions.setSecretMessage({ secretMessage: json.secret }))
       })
       .catch((err) => {
-        // const errorMessage = err;
-        // dispatch(user.actions.setErrorMessage({ errorMessage }));
-
         dispatch(user.actions.setErrorMessage({ errorMessage: err }))
-      }) //401
+      }) 
+    }
   }
-}
 
 export const logout = () => {
   return (dispatch) => {

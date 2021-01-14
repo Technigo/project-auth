@@ -15,6 +15,6 @@ export const App = () => {
       <Provider store={store}>
         <LogInForm />
       </Provider>
-      </div>
+    </div>
   )
 }

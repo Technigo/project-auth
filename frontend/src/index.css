@@ -7,10 +7,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #f5f4f4;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
 .login-signup, .secret-message {
   color: #f5f4f4;
   text-align: center;
@@ -23,6 +25,7 @@ code {
   margin: 20px;
   border-radius: 60px; 
 }
+
 input {
   font-size: 17px;
   display: block;
@@ -32,10 +35,12 @@ input {
   margin-bottom: 20px;
   border: none;
 }
+
 .buttons {
   display: flex;
   flex-direction: column;
 }
+
 button {
   border-radius: 60px;
   padding: 10px 15px;
