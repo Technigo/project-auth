@@ -1,11 +1,31 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { user } from '../reducers/user'
 import styled from 'styled-components';
 
 export const FormLogin = () => {
+	const dispatch = useDispatch();
+	const accessToken = useSelectors((store)=> store.user.login.accessToken);
+	const LOGIN_URL =  'http://localhost:8080/sessions'
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
 
-	const submitLogin = () => {};
+	const submitLogin = (e) => {
+		e.preventDefault();
+
+		fetch(LOGIN_URL, {
+			method:'POST',
+			body: JSON.stringify({ name: userName, password}),
+			headers:{'Content-Type': 'application/json'},
+
+		})
+		.then((res) => {})
+
+
+
+
+
+	};
 
 	return (
 		<div>
@@ -29,7 +49,7 @@ export const FormLogin = () => {
 					required></Input>
 			</label>
 
-			<Button type="submit" onClick={submitLogin}>
+			<Button onClick={submitLogin}>
 				Login
 			</Button>
 		</div>

@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import  { Provider } from 'react-redux'
 
 import { FormLogin } from './components/FormLogin';
 import { FormSignup } from './components/FormSignup';
+import { combineReducers, configureStore} from '@reduxjs/toolkit'
+import { user } from './reducers/user';
 
 export const App = () => {
+	//Create reducer
+	const reducer = combineReducers({ user: user.reducer});
+	//Create store
+	const store = configureStore({reducer});
+
 	const [displaySignup, setDisplaySignup] = useState(false);
 	const [displayLogin, setDisplayLogin] = useState(true);
 
@@ -14,6 +22,7 @@ export const App = () => {
 	};
 
 	return (
+	< Provider store={store}>
 		<Container>
 			{displayLogin && (
 				<>
@@ -24,6 +33,7 @@ export const App = () => {
 
 			{displaySignup && <FormSignup />}
 		</Container>
+	</Provider>
 	);
 };
 

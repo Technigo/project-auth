@@ -33,8 +33,6 @@ const User = mongoose.model('User', {
 })
 
 
-
-
 const port = process.env.PORT || 8080
 const app = express()
 
@@ -49,7 +47,7 @@ const authenticateUser = async (req, res, next) => {
       accessToken: req.header('Authorization'),
     });
 
-    if (user) {
+    if (user) {$
       req.user = user;
       next();
     } else {
@@ -84,7 +82,9 @@ app.post('/users', async (req, res) => {
 //? secure endpoint, user needs to be logged in to access this
 app.get('/users/:id', authenticateUser);
 app.get('/users/:id', (req, res) => {
-  res.status(201).json({ name: req.user.name, userId: req.user._id });
+  const secretMessage = `This is a secret message for ${req.user.name}`;
+  res.status(200).json({ secretMessage });
+  // res.status(201).json({ name: req.user.name, userId: req.user._id });
 });
 
 // ? LOGIN user and check password match user
