@@ -9,15 +9,17 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-const User = mongoose.model("User", {
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    minlength: 5
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minlength: 5
   },
   accessToken: {
     type: String,
@@ -26,14 +28,26 @@ const User = mongoose.model("User", {
   }
 });
 
+userSchema.pre("save", async function (next) {
+  const user = tis;
+  if (!user.isModified("password")) {
+    return next();
+  }
+  const salt = bcrypt.genSaltSync();
+  user.password = bcrypt.hashSync(user.password, salt);
+  next();
+});
+
+const User = mongoose.model("User", userSchema);
+
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header('Authorization') });
-  if (user) {
-    req.user === user;
+  try {
+    const user = await User.findOne({ accessToken: req.header('Authorization') });
+    req.user = user;
     next();
-  } else {
+  } catch (err) {
     res.status(401).json({ loggedOut: true });
-  };
+  }
 };
 
 // Defines the port the app will run on. Defaults to 8080, but can be 
@@ -57,11 +71,7 @@ app.get("/", (req, res) => {
 app.post("/users", async (req, res) => {
   try {
     const { email, password } = req.body;
-    const salt = bcrypt.genSaltSync();
-    const user = await new User({
-      email,
-      password: bcrypt.hashSync(password, salt)
-    }).save();
+    const user = await new User({ email, password }).save();
     res.status(200).json({ userId: user._id, accessToken: user.accessToken });
   } catch (err) {
     res.status(400).json({ message: "Could not create user", errors: err });
@@ -70,8 +80,9 @@ app.post("/users", async (req, res) => {
 
 // Login
 app.post("/sessions", async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (user && bcrypt.compareSync(password, user.password)) {
     res.status(200).json({ userId: user._id, accessToken: user.accessToken });
   } else {
     res.status(404).json({ notFound: true });
@@ -79,14 +90,14 @@ app.post("/sessions", async (req, res) => {
 });
 
 // Authenticated endpoint
-app.get("/users/:userId", authenticateUser);
-app.get("/users/:userId", async (req, res) => {
-  try {
-    const user = await User.findOne({ _id: req.params.userId });
-    res.json({ userId: user._id, email: user.email, accessToken: user.accessToken });
-  } catch (err) {
-    res.status(400).json({ message: "User not found", errors: err });
-  }
+app.get("/users/:userId/profile", authenticateUser);
+app.get("/users/:userId/profile", async (req, res) => {
+  const userId = req.params.userId;
+  if (userId != req.user._id) {
+    res.status(403).json({ error: 'Access Denied' });
+  } else {
+    res.status(200).json({ userId: req.user._id, email: req.user.email, accessToken: req.user.accessToken })
+  };
 });
 
 // Start the server
