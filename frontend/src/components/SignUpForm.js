@@ -30,7 +30,7 @@ export const SignUpForm = () => {
         })
         .then((res) => {
             if (!res.ok) {
-              throw 'Signup failed';
+                throw 'Signup failed.';
             }
             return res.json()
         })
@@ -38,7 +38,7 @@ export const SignUpForm = () => {
         .catch((err) => handleLoginFailed(err))
     }
     
-    if (!accessToken) {
+    if (!accessToken)  {
         return (
                 <UserForm>
                     <Text>Don't have an account?</Text>
