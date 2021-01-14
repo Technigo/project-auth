@@ -78,6 +78,8 @@ app.get("/", (req, res) => {
 //to ensure that the password is hashed properly
 //and reduces the possibility for rainbow tables (backward hashing to figure out password)
 //we should never store the password in plain text or return the password to the client.
+
+//When trying to add a user with a non unique username, the errormessage is vague
 app.post("/users", async (req, res) => {
   try {
     const { username, email, password } = req.body;
