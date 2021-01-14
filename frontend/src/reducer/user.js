@@ -3,9 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     login: {
         userName: "",
-        password: "",
-        accessToken: "",
+        accessToken: null,
         userId: "",
+        statusMessage: "",
     }
 }
 
@@ -27,6 +27,10 @@ export const user = createSlice({
             const userName = action.payload;
             console.log(`User name: ${userName}`);
             store.login.userName = userName;
+        },
+        setStatusMessage: (store, action) => {
+            const { statusMessage } = action.payload;
+            store.login.statusMessage = statusMessage;
         },
         logout: (store, action) => {
             console.log("logging out");

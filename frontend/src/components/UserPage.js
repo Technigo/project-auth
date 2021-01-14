@@ -1,13 +1,29 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { user } from '../reducer/user';
+import { UserPageContainer, UserPageHeader, UserPageText } from '../lib/UserPageStyle'
 
 
 export const UserPage = ({ id }) => {
-    const users = useSelector((store) => store.user.login.find(item => item.userId === id));
+    const dispatch = useDispatch();
+    const myUser = useSelector(store => store.user.login.userName);
+    const statusMessage = useSelector(store => store.user.login.statusMessage);
+    const accessToken = useSelector(store => store.user.login.accessToken);
+    
+    const loginSuccess = (loginResponse) => {
+        dispatch(user.actions.setStatusMessage({
+            statusMessage: loginResponse.statusMessage
+        })
+      );
+    };
+    if (!accessToken) {
+        return <></>;
+    }
+
     return (
-        <section>
-            <h1>`Hello there, ${user.userName}`</h1>
-        </section>
+        <UserPageContainer>
+            <UserPageHeader>Hello there {myUser}!</UserPageHeader>
+            <UserPageText>{statusMessage}</UserPageText>
+        </UserPageContainer>
     )
 }

@@ -9,8 +9,8 @@ import { user } from '../reducer/user'
 
 const LOGIN_URL = 'https://auth-project-api.herokuapp.com/sessions'
 
-export const LoginForm = () => {
-  const { id } = useParams();
+export const LoginForm = ( ) => {
+  // const { id } = useParams();
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -23,11 +23,13 @@ export const LoginForm = () => {
     console.log(loginResponse.accessToken)
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
     console.log(loginResponse.userId);
-    history.push("/:id/user");
+    dispatch(user.actions.setStatusMessage({ statusMessage: 'You are logged in, welcome.' }));
+    history.push(`/${loginResponse.userId}/user`);
   };
 
   const handleLoginFailed = (loginError) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
+    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }))
   };
 
   const handleLogin = (event) => {
@@ -39,7 +41,12 @@ export const LoginForm = () => {
       body: JSON.stringify({ name, password }),
       headers: {'Content-type': 'application/json'},
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          throw 'Log-in failed, please try again';
+        }
+        return res.json();
+      })
       .then(data => handleLoginSuccess(data))
       .catch(err => handleLoginFailed(err)); 
   };
