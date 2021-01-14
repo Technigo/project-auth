@@ -24,7 +24,7 @@ Frontend:
 https://auth-api-technigo.netlify.app/
 
 Backend:
-auth-api-technigo.herokuapp.com
+https://auth-api-technigo.herokuapp.com/
 
 Endpoints:
 
