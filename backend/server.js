@@ -27,8 +27,8 @@ const userSchema = new mongoose.Schema ({
   },
   password: {
     type: String,
-    required: true
-    //minlength: 8 // Unnecessary since it get bcrypt and automatically longer then 8 characters. Add this check to frontend!
+    required: true,
+    minlength: 5
   },
   accessToken: {
     type: String,
@@ -122,7 +122,7 @@ app.use((req, res, next) => {
 app.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const user = new User({
+    const user = await new User({
       name,
       email,
       password

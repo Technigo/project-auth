@@ -9,9 +9,13 @@ const Home = () => {
 
   return (
     <Wrapper>
-      <h1>Home Page</h1>
+      {accessToken &&
+      <h1>This is your Home Page and you are logged in</h1>
+      
+      }
       {!accessToken && (
         <div>
+          <h2>Public Home Page</h2>
           <Link to="/signup">
             <button>Wanna signup?</button>
           </Link>
