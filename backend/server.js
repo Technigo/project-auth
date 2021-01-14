@@ -131,7 +131,20 @@ app.post('/users/logout', async (req, res) => {
   }
 })
 
-// Secure endpoint
+// Secure endpoint with content for all logged-in users
+app.get('/secrets', authenticateUser)
+app.get('/secrets', async (req, res) => {
+  try {
+    const userName = await req.user.name
+    // sending the username in the JSON response so that frontend can use it to show a personalized message
+    res.status(200).json({user: userName, message: 'Authentication complete'})
+  } catch (err) {
+    res.status(401).json({ error: 'Please log in or sign up to see this content'})
+  }
+})
+
+// Secure endpoint with user specific content 
+// to be implemented for red or black level
 app.get('/users/:id', authenticateUser)
 app.get('/users/:id', (req, res) => {
   res.status(501).send()
