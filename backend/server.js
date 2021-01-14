@@ -88,7 +88,7 @@ app.post('/sessions', async (req, res) => {
 // Endpoint that shows a page to the user when logged in
 app.get('/welcome', authenticateUser)
 app.get('/welcome', (req, res) => {
-  const welcomeMessage = `Hi ${req.user.name}! Nice to have you here.`
+  const welcomeMessage = `Hi ${req.user.name}! Nice to see you here.`
   res.status(201).json({ welcomeMessage })
 })
 

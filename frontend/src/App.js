@@ -286,7 +286,7 @@ const LogoutButton = styled.button`
   padding: 15px;
   border: none;
   border-radius: 15px;
-  background: #1a7763;
+  background: #188c96;
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
