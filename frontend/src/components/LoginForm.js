@@ -10,10 +10,10 @@ const LOGIN_URL = 'https://login-logout-authentication.herokuapp.com/sessions'
 export const LoginForm = () => {
   const dispatch = useDispatch()
   // const accessToken = useSelector((store) => store.user.login.accessToken)
-  const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState(false)
   const [login, setLogin] = useState(false)
+  const [email, setEmail] = useState('')
 
   const handleLoginSuccess = (loginResponse) => {
     dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken}))
@@ -53,7 +53,7 @@ export const LoginForm = () => {
 
     fetch(LOGIN_URL, {
       method: 'POST',
-      body: JSON.stringify({ name, password }),
+      body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => {
@@ -76,7 +76,7 @@ export const LoginForm = () => {
       <form className='login-form form-style'>
         <h1>Login</h1>
         <div className='content-container'>
-          <label>Email</label>
+          <label>Name</label>
           <input
             type='text'
             placeholder='Enter username...'
