@@ -54,7 +54,7 @@ app.use(bodyParser.json());
 
 // ROUTES
 app.get('/', (req, res) => {
-  res.send('Hello world');
+  res.send('Hello this is an authetication API 🗝 ');
 });
 
 // REGISTRATION ENDPOINT 
