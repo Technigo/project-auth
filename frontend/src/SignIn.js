@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 
 import { user } from './reducers/user'
 import { PrettyForm } from './lib/PrettyForm'
 
 export const SignIn = () => {
   const dispatch = useDispatch()
-  const accessToken = useSelector((store) => store.user.login.accessToken)
 
   const handleLoginSuccess = (loginResponse) => {
     dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }))

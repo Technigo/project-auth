@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 
 import { user } from './reducers/user'
 import { PrettyForm } from './lib/PrettyForm'
 
 export const Register = () => {
   const dispatch = useDispatch()
-  const accessToken = useSelector((store) => store.user.login.accessToken)
-  const statusMessage = useSelector((store) => store.user.login.statusMessage)
 
   const handleSignupSuccess = (signupResponse) => {
     dispatch(
@@ -22,8 +20,6 @@ export const Register = () => {
   }
 
   const handleSignupFailed = (signupError) => {
-    console.log("handleSignupFailed")
-
     dispatch(
       user.actions.setAccessToken({ accessToken: null })
     )

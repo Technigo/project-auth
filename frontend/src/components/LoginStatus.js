@@ -1,7 +1,44 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
+import styled from 'styled-components'
 import { user } from '../reducers/user'
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const StatusCard = styled.div`
+  background-color: white;
+  color: #454545;
+  text-align: left;
+  padding: 20px;
+  box-shadow: 6px 6px 25px 1px #696969;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+const Button = styled.button`
+  display:inline-block;
+  padding:0.35em 1.2em;
+  border:0.1em solid #454545;
+  margin:0 0.3em 0.3em 0;
+  border-radius:0.12em;
+  box-sizing: border-box;
+  text-decoration:none;
+  color:#454545;
+  text-align:center;
+  transition: all 0.2s;
+  font: inherit;
+  margin: 15px;
+  cursor: pointer;
+`
 
 export const LoginStatus = () => {
   const dispatch = useDispatch()
@@ -10,7 +47,9 @@ export const LoginStatus = () => {
   const accessToken = useSelector((store) => store.user.login.accessToken)
   const secret = useSelector((store) => store.user.login.secret)
 
-  const [secretStatus, setSecretStatus] = useState()
+  const logOut = () => {
+    dispatch(user.actions.setAccessToken({ accessToken: null }))
+  }
 
   const fetchSecret = () => {
     fetch('http://localhost:8080/secret', {
@@ -23,7 +62,7 @@ export const LoginStatus = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw `Getting secret failed: ${res.status}`
+          throw `Nope: ${res.status}`
         }
         return res.json()
       })
@@ -31,16 +70,18 @@ export const LoginStatus = () => {
         dispatch(user.actions.setSecret({ secret: json.secret }))
       })
       .catch((err) => {
-        setSecretStatus(`Secret Status: ${err}`)
+        dispatch(user.actions.setSecret({ secret: err }))
       })
   }
 
   return (
-    <>
-      <p>{statusMessage && statusMessage}</p>
-      <button onClick={fetchSecret}>Fetch secret</button>
-      <p>{secretStatus && secretStatus}</p>
-      <p>{secret && `Here's the secret: ${secret}`}</p>
-    </>
+    <Container>
+      <StatusCard>
+        <p>{statusMessage && statusMessage}</p>
+        {accessToken && <Button onClick={logOut}>Log out</Button>}
+        <Button onClick={fetchSecret}>Test Authentication</Button>
+        <p>{secret && secret}</p>
+      </StatusCard>
+    </Container>
   )
 }
