@@ -12,15 +12,21 @@ const LOGOUT_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/users/lo
 export const Secret = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
+  // const userId = useSelector((store) => store.user.login.userId);
   // const statusMessage = useSelector((store) => store.user.login.statusMessage);
   // const errorMessage = useSelector((store) => store.user.login.errorMessage);
   // const secretMessage = useSelector((store) => store.user.login.secretMessage);
 
   const loginSucess = (loginResponse) => {
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginResponse.secretMessage }));
+    dispatch(
+      user.actions.setStatusMessage({
+        statusMessage: loginResponse.secretMessage
+      })
+    );
   };
 
   const loginFailed = (loginError) => {
+    dispatch(user.actions.setAccessToken({ accessToken: null }));
     dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
   };
 
@@ -105,7 +111,7 @@ const SecretButton = styled(FormButton)`
   font-size: 14px;
 `;
 
-const Gift = styled.p`
+const Gift = styled.span`
   font-size: 60px;
   align-self: center;
   margin: 0;

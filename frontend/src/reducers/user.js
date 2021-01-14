@@ -3,17 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   login: {
     accessToken: null,
-    userId: null,
+    userId: 0,
     statusMessage: "",
     errorMessage: null,
-    // secretMessage: null
+    secretMessage: null
   }
 };
 
 export const user = createSlice({
   name: "user",
   initialState: initialState,
-
   reducers: {
     setAccessToken: (state, action) => {
       const { accessToken } = action.payload;
@@ -35,10 +34,10 @@ export const user = createSlice({
       state.login.errorMessage = errorMessage;
     },
 
-    // setSecretMessage: (state, action) => {
-    //   const { secretMessage } = action.payload;
-    //   state.login.secretMessage = secretMessage;
-    // },
+    setSecretMessage: (state, action) => {
+      const { secretMessage } = action.payload;
+      state.login.secretMessage = secretMessage;
+    },
 
     logout: (state, action) => {
       state.login.userId = 0;
@@ -71,10 +70,10 @@ export const login = (email, password) => {
         dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful Log In!' }));
       })
       .catch((err) => {
-        // dispatch(user.actions.logout());
-        // dispatch(user.actions.setAccessToken({ accessToken: null }));
+        dispatch(user.actions.logout());
+        dispatch(user.actions.setAccessToken({ accessToken: null }));
         dispatch(user.actions.setStatusMessage({ statusMessage: 'Failed to login' }));
-        // dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 };

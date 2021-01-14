@@ -130,13 +130,6 @@ export const Form = (showSecret) => {
           </AccountWrapper>
         </>
       )}
-
-      {/* {section === "Welcome" && (
-        <>
-          <h1>Welcome ${name}</h1>
-          <Button title="Log in" function={setSection} value="LogIn">Go to Login</Button>
-        </>
-      )} */}
     </MainContainer>
   );
 };
