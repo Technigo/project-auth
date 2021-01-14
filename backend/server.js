@@ -10,46 +10,73 @@ const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI';
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-const User = mongoose.model('User', {
-  name: {
-    type: String,
-    minlength: 5,
-    maxlength: 20,
-    unique: true,
-    required: true,
-  },
-  email: {
-    type: String,
-    unique: true,
-  },
-  password: {
-    type: String,
-    minlength: 6,
-    required: true,
-  },
-  accessToken: {
-    type: String,
-    default: () => crypto.randomBytes(128).toString('hex'),
-  },
-});
+
+const userSchema = new mongoose.Schema({
+    name: {
+      type: String,
+      minlength: 5,
+      maxlength: 20,
+      unique: true,
+      required: true,
+    },
+    email: {
+      type: String,
+      unique: true,
+    },
+    password: {
+      type: String,
+      minlength: 6,
+      required: true,
+    },
+    accessToken: {
+      type: String,
+      default: () => crypto.randomBytes(128).toString('hex'),
+    },
+})
+
+userSchema.pre("save", async function(next){
+  const user = this
+
+  if(!user.isModified('password')){
+    return next()
+  }
+
+  const SALT = bcrypt.genSaltSync(10);
+  user.password = bcrypt.hashSync(user.password, SALT)
+
+  next()
+})
 
 const authenticateUser = async (req, res, next) => {
-  try {
-      const user = await User.findOne({ accessToken: req.header('Authorization') });
-  if (user) {
-    req.user = user;
-    next();
-  } else {
-    res.status(401).json({ loggedOut: true, message: 'Please log in again' });
+  try{
+    const accessToken = req.header('Authorization')
+    const user = await User.findOne({accessToken})
+    if(!user){
+      throw 'User not found'
+    }
+    req.user = user
+    next()
+  }catch(err) {
+    const errorMessage = "Please try loigging in again"
+    res.status(401).json({error:errorMessage})
   }
-} catch(err){
-  res.status(403).json({message: 'Invalid access token or missing', errors: err})
-  }
-};
+}
 
-// Defines the port the app will run on. Defaults to 8080, but can be
-// overridden when starting the server. For example:
-//
+const User = mongoose.model('User', userSchema);
+
+// const authenticateUser = async (req, res, next) => {
+//   try {
+//       const user = await User.findOne({ accessToken: req.header('Authorization') });
+//   if (user) {
+//     req.user = user;
+//     next();
+//   } else {
+//     res.status(401).json({ loggedOut: true, message: 'Please log in again' });
+//   }
+// } catch(err){
+//   res.status(403).json({message: 'Invalide access token or missing', errors: err})
+//   }
+// };
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
@@ -67,10 +94,9 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const { name, password } = req.body;
-    const SALT = bcrypt.genSaltSync(10);
     const user = await new User({
       name,
-      password: bcrypt.hashSync(password, SALT),
+      password,
     }).save();
     res.status(200).json({ userId: user._id });
   } catch (err) {
@@ -94,13 +120,28 @@ app.post('/sessions', async (req, res) => {
   }
 });
 // Secure endpoint, user needs to be logged in to access this.
-app.get('/users/:id/secrets', authenticateUser);
 
+app.get('/users/:id/profile', authenticateUser);
+app.get('/secret', async (req, res) => {
+  const secretMessage = `This is a secret message for ${req.user.name}`
+  res.status(200).json({secretMessage})
+})
 //get user specific info
-app.get('/users/:id/secrets', (req, res) => {
-  const secret = `{Hello, ${req.user.name}, this secret message is for you.}`
-  res.status(201).json({secret})
+app.get('/users/:id/profile', authenticateUser);
+app.get('/users/:id/profile', async (req, res) => {
+  const user = await User.findOne({_id: req.params.id})
+  const secretMsgPrivate = `{Hello, ${user.name}, this secret message is for you.}`
+  const secretMsgPublic = `{Hello, ${user.name}, this public message is for you.}`
+
+  //Decide private or public
+  if(req.user._id === user._id){
+    res.status(200).json({secretMsgPrivate})
+  }else{
+    res.status(200).json({secretMsgPublic})
+
+  }
 });
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
