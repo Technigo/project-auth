@@ -4,8 +4,9 @@ import { user } from '../reducers/user'
 import picture from '../picture/picture.svg'
 import { Button, SignUpImage, LoginSection, Form, InputLabel, LoginInput } from '../styling/form'
 
-const SIGNUP_URL = 'http://localhost:8080/users'
-const LOGIN_URL = 'http://localhost:8080/sessions'
+const SIGNUP_URL = "http://localhost:8080/users";
+const LOGIN_URL = "http://localhost:8080/sessions";
+const NOTES_URL = "http://localhost:8080/notes";
 
 export const LoginForm = () => {
   const dispatch = useDispatch()
@@ -17,56 +18,107 @@ export const LoginForm = () => {
   const handleLoginSuccess = (loginResponse) => {
     dispatch(
       user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
-    )
-    dispatch(user.actions.setUserId({ userId: loginResponse.userId }))
-    dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }))
-  }
+    );
+    dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
+    dispatch(user.actions.setStatusMessage({ statusMessage: "Login Success" }));
+  };
 
   const handleLoginFailed = (loginError) => {
-    dispatch(user.actions.setAccessToken({ accessToken: null }))
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }))
-  }
+    dispatch(user.actions.setAccessToken({ accessToken: null }));
+    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
+  };
 
   // To sign up a user.
   const handleSignup = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     fetch(SIGNUP_URL, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({ name, password }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
         if (!res.ok) {
-          throw 'Signup Failed'
+          throw "Signup Failed";
         }
-        return res.json()
+        return res.json();
       })
       .then((json) => handleLoginSuccess(json))
-      .catch((err) => handleLoginFailed(err))
-  }
+      .catch((err) => handleLoginFailed(err));
+  };
 
   // To sign up a user.
   const handleLogin = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     fetch(LOGIN_URL, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({ name, password }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
         if (!res.ok) {
           throw 'Login Failed'
         }
-        return res.json()
+        return res.json();
       })
       .then((json) => handleLoginSuccess(json))
-      .catch((err) => handleLoginFailed(err))
-  }
+      .catch((err) => handleLoginFailed(err));
+  };
+
+  const handleNote = (event) => {
+    event.preventDefault();
+
+    fetch(NOTES_URL, {
+      method: "POST",
+      body: JSON.stringify({ description }),
+      headers: { "Content-Type": "application/json", "Authorization": accessToken },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw "Signup Failed";
+        }
+        return res.json();
+      })
+      .then((json) => handleLoginSuccess(json))
+      .catch((err) => handleLoginFailed(err));
+  };
 
   if (accessToken) {
-    return <div>Yey! Logged in</div>
+  
+      fetch(NOTES_URL, {
+        method: "GET",
+        headers: { "Content-Type": "application/json", "Authorization": accessToken },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw "Signup Failed";
+          }
+          return res.json();
+        })
+        .then((json) => setNotes(json))
+        .catch((err) => handleLoginFailed(err));
+
+    return (
+      <>
+        <div>Yey! Logged in</div>
+        <InputLabel>
+          Add a new note
+          <LoginInput
+            required
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+          />
+        </InputLabel>
+        <Button type="submit" onClick={handleNote}>
+          Add note
+        </Button>
+        <div>Here are your notes</div>
+        {
+          notes.map(note => <div>{note.description}</div>)
+        }
+      </>
+    );
   }
   // If user is logged out, show login form
   return (
@@ -97,13 +149,13 @@ export const LoginForm = () => {
           onClick={handleSignup}
         >
           Sign Up
-        </Button> 
-        <Button type='submit' onClick={handleLogin}>
+        </Button>
+        <Button type="submit" onClick={handleLogin}>
           Login
         </Button>
         </Form>
         <SignUpImage src={picture} alt="Taking note" />
     </LoginSection>
-  )
-}
-export default LoginForm
+  );
+};
+export default LoginForm;
