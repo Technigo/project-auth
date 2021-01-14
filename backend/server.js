@@ -25,6 +25,17 @@ const User = mongoose.model('User', {
    },
 });
 
+const Note = mongoose.model('Note', {
+  description: {
+    type: String,
+    required: true
+  },
+  user: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'User'
+  }
+})
+
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({accessToken: req.header('Authorization')})
   if(user) {
@@ -85,12 +96,39 @@ try {
 }
 })
 
+//authenticated endpoint
 app.get('/secrets', authenticateUser)
 app.get('/secrets', (req, res) => {
   res.json({secret: 'you are authenticated'})
 }
-
 )
+
+//authenticated endpoint to post notes
+app.post('/notes', authenticateUser)
+app.post('/notes', async (req, res) => {
+  try {
+    const description = req.body.description
+    const user = req.user
+    console.log(description)
+    console.log(user)
+    const note = await new Note({ description, user }).save()
+    res.json({description, user})
+  } catch (err) {
+    res.status(404).json({ error: 'User not found' });
+  }
+})
+
+//retrieve notes for a specific user
+app.get('/notes', authenticateUser)
+app.get('/notes', async (req, res) => {
+  try {
+    const notes = await Note.find({ user: req.user });
+    res.json(notes);
+  } catch (err) {
+    res.status(404).json({ error: 'User not found' });
+  }
+})
+
 
 // Start the server
 app.listen(port, () => {
