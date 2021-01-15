@@ -15,10 +15,6 @@ const User = mongoose.model('User', {
     unique: true,
     required: true
   },
-  // email: {
-  //   type: String,
-  //   unique: true
-  // },
   password: {
     type: String,
     required: true
@@ -29,19 +25,6 @@ const User = mongoose.model('User', {
     unique: true
   },
 });
-
-
-//KOMMENTERADE UT NU FÖR TEST 
-// const authenticateUser = async (req, res, next) => {
-//   const user = await User.findOne({accessToken:req.header('Authorization')});
-//   if (user){
-//     req.user = user;
-//     next();
-//   }else {
-//     res.status(401).json({loggedOut:true});
-//   };
-// }
-
 
 const authenticateUser = async (req, res, next) => {
   try {
@@ -86,7 +69,7 @@ app.post('/users', async (req,res) =>{
       password: bcrypt.hashSync(password, salt)
     }).save();
     res.status(201).json({
-      id:user._id,
+      userId:user._id,
       accessToken:user.accessToken
     });
   }catch(err){

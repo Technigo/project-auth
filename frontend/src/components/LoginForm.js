@@ -21,7 +21,7 @@ export const LoginForm = () => {
           dispatch(
             user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
           );
-          dispatch(user.actions.setUserId({ userId: loginResponse.id }));
+          dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
           dispatch(
             user.actions.setStatusMessage({ statusMessage: "Login success!" })
           );
