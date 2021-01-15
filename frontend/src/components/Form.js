@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { user, login, signup } from '../reducers/user';
+import { login, signup } from '../reducers/user';
 import { Button } from './Button';
 import { Secret } from './Secret';
 import styled from 'styled-components';
