@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit"
-import styled from "styled-components/macro";
-
 import { user } from "Reducers/user";
+
 import { Form } from "./Components/Form";
 import { LogIn } from "./Components/LogIn";
 import { Button } from "./Components/Button";
+import { H1, MainWrapper, InnerWrapper } from './styles/Styles'
 
 const reducer = combineReducers({
   user: user.reducer,
@@ -14,27 +14,14 @@ const reducer = combineReducers({
 
 const store = configureStore({ reducer });
 
-const InnerWrapper = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
-
 export const App = () => {
-  //const {userLogged, setUserLogged} = useState(false);
-  const userLogged = false;
+  const [userLogged, setUserLogged] = useState(false);
 
   return (
     <Provider store={store}>
-      {userLogged === false ? (
-        <Wrapper>
-          <h1>Sign up or log in here!</h1>
+      {userLogged === true ? (
+        <MainWrapper>
+          <H1>Sign up or log in here!</H1>
           <InnerWrapper>
             <Form
               input="Log in"
@@ -49,12 +36,11 @@ export const App = () => {
               labelText="Enter password:"
             /> */}
           </InnerWrapper>
-        </Wrapper>
+        </MainWrapper>
       ) : (
-          <Wrapper>
+          <MainWrapper>
             <LogIn username="Holabandola" />
-            <Button input="Sign out" />
-          </Wrapper>
+          </MainWrapper>
         )}
     </Provider>
   );
