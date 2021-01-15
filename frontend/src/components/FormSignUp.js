@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 export const FormSignup = () => {
-	const SIGNUP_URL = 'https://lmn-app.herokuapp.com/users';
+	const SIGNUP_URL = 'https://nadlillmar.herokuapp.com/users';
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
