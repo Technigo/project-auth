@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { user } from './reducers/user'
-import { PrettyForm } from './lib/PrettyForm'
+import { user } from '../reducers/user'
+import { PrettyForm } from '../lib/PrettyForm'
 
 export const Register = () => {
   const dispatch = useDispatch()

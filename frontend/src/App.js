@@ -3,8 +3,8 @@ import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import styled from 'styled-components'
 
-import { Register } from './Register'
-import { SignIn } from './SignIn'
+import { Register } from './components/Register'
+import { SignIn } from './components/SignIn'
 import { LoginStatus } from './components/LoginStatus'
 
 import { user } from './reducers/user'

@@ -82,7 +82,7 @@ const authenticateUser = async (req, res, next) => {
 
 app.get('/secret', authenticateUser)
 app.get('/secret', async (req, res) => {
-  res.status(200).json({ secret: 'I am a secret from the server!' })
+  res.status(200).json({ secret: 'https://media3.giphy.com/media/SRO0ZwmImic0/giphy.gif?cid=ecf05e47d7b580c703fcdedce1c5a746c42a2151c0283ace&rid=giphy.gif' })
 })
 
 app.listen(port, () => {
