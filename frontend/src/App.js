@@ -8,7 +8,7 @@ import { Container } from './lib/Container';
 import { LoginForm } from './components/LoginForm';
 import CreateUser from './components/CreateUser';
 import { UserPage } from './components/UserPage';
-
+import { UserStatus } from './components/UserStatus'
 
 const reducer = combineReducers({ 
   user: user.reducer,
@@ -23,7 +23,8 @@ export const App = () => {
         <Switch>
           <Route exact path="/">
             <Container>
-              <LoginForm />
+              <LoginForm>
+              </LoginForm>
               <CreateUser />
             </Container>
           </Route>

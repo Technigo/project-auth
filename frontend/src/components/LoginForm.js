@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 
+import { UserStatus } from './UserStatus'
 import { LoginContainer, Title, Login, LoginErrorMessage } from '../lib/LoginFormStyle'
 import { Button } from '../lib/Button'
 import InputField from '../lib/InputField'
@@ -12,7 +13,6 @@ const LOGIN_URL = 'https://auth-project-api.herokuapp.com/sessions'
 export const LoginForm = ( ) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -30,14 +30,10 @@ export const LoginForm = ( ) => {
 
   const handleLoginFailed = (loginError) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError.errorMessage }));
+    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
     setName('');
     setPassword('');
-    setErrorMessage();
    };
-
-  // 
-  // } 
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -49,18 +45,15 @@ export const LoginForm = ( ) => {
     })
       .then(res => {
         if (!res.ok) {
-          throw {errorMessage: 'Log-in failed, please try again'};
+          throw 'Log-in failed, please try again';
         }
         return res.json();
       })
       .then(data => handleLoginSuccess(data))
       .catch(err => {handleLoginFailed(err);
-        setErrorMessage();
       })
   };
  
-
-
     return (
       <LoginContainer>
         <Login>
@@ -86,7 +79,8 @@ export const LoginForm = ( ) => {
             onChange={setPassword}
           />
           <Button title='Sign In' onClickFunc={handleLogin} />
-          {errorMessage && <p>{errorMessage}</p>}
+          <UserStatus />
+
         </Login>
       </LoginContainer>
     )
