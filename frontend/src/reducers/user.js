@@ -25,10 +25,12 @@ export const user = createSlice({
     setEmail: (store, action) => {
       const { email } = action.payload;
       store.login.email = email;
+      console.log(email);
     },
     setUserId: (store, action) => {
       const { userId } = action.payload;
       store.login.userId = userId;
+      console.log(userId);
     },
     setSecretMessage: (store, action) => {
       const { secretMessage } = action.payload;
@@ -73,7 +75,6 @@ export const login = (email, password) => {
         dispatch(user.actions.setName({ name: json.name }));
       })
       .catch(err => {
-        dispatch(logout());
         dispatch(
           user.actions.setErrorMessage({ errorMessage: err.toString() })
         );
@@ -93,15 +94,16 @@ export const signUp = (name, email, password) => {
         if (!res.ok) {
           throw new Error('Could not create new user');
         }
-        return res.json;
+        return res.json();
       })
       .then(json => {
+        console.log(json);
         dispatch(
           user.actions.setAccessToken({
             accessToken: json.accessToken,
           })
         );
-        //dispatch(user.actions.setUserId({ userId: json.userId }));
+        dispatch(user.actions.setUserId({ userId: json.userId }));
         dispatch(user.actions.setName({ name: json.name }));
       })
       .catch(err => {
@@ -134,7 +136,9 @@ export const getSecretMessage = () => {
         dispatch(user.actions.setSecretMessage({ secretMessage: json }));
       })
       .catch(err => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: err.toString }));
+        dispatch(
+          user.actions.setErrorMessage({ errorMessage: err.toString() })
+        );
       });
   };
 };
@@ -153,25 +157,16 @@ export const logout = () => {
         }
         return res.json();
       })
-      dispatch(user.actions.setName({ name: '' }));
-      dispatch(user.actions.setEmail({ email: '' }));
-      dispatch(user.actions.setUserId({ userId: 0 }));
-      dispatch(user.actions.setSecretMessage({ secretMessage: '' }));
-      dispatch(user.actions.setErrorMessage({ errorMessage: '' }));
-      dispatch(user.actions.setAccessToken({ accessToken: null }));
+      .catch(err => {
+        dispatch(
+          user.actions.setErrorMessage({ errorMessage: err.toString() })
+        );
+      });
+    dispatch(user.actions.setName({ name: '' }));
+    dispatch(user.actions.setEmail({ email: '' }));
+    dispatch(user.actions.setUserId({ userId: 0 }));
+    dispatch(user.actions.setSecretMessage({ secretMessage: '' }));
+    dispatch(user.actions.setErrorMessage({ errorMessage: '' }));
+    dispatch(user.actions.setAccessToken({ accessToken: null }));
   };
 };
-// const logout = () => {
-  //   fetch(`${URL}/logout`, {
-  //     method: 'POST',
-  //     headers: { Authorization: accessToken },
-  //   })
-  //     .then(res => {
-  //       if (!res.ok) {
-  //         throw new Error('Failed to logout');
-  //       }
-  //       return res.json();
-  //     })
-  //     .then(json => logoutSuccess(json))
-  //     .catch(err => logoutFailed(err));
-  // };

@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { signUp } from 'reducers/user';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 
 export const SignUpForm = () => {
   const dispatch = useDispatch();
-
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [isLogin, setIsLogin] = useState(false);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -16,9 +14,7 @@ export const SignUpForm = () => {
     setName('');
     setEmail('');
     setPassword('');
-    console.log("in signup")
   };
-
 
   return (
     <form onSubmit={handleSubmit}>
@@ -27,6 +23,7 @@ export const SignUpForm = () => {
           required
           type="text"
           value={name}
+          minLength={2}
           placeholder="Type your name"
           onChange={event => setName(event.target.value)}
         ></input>
@@ -45,12 +42,14 @@ export const SignUpForm = () => {
           required
           type="password"
           value={password}
+          minLength={5}
           placeholder="password"
           onChange={event => setPassword(event.target.value)}
         ></input>
       </label>
-      <button type="submit" >Signup</button>
+      <button type="submit" disabled={!name || !email || !password}>
+        Signup
+      </button>
     </form>
   );
 };
-

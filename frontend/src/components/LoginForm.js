@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-//import { getSecretMessage } from '../reducers/user';
 import { login } from '../reducers/user';
-
 import { SignUpForm } from './SignUpForm';
 
 export const LoginForm = () => {
@@ -13,7 +11,6 @@ export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(true);
-  console.log(isLogin);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -53,14 +50,11 @@ export const LoginForm = () => {
               ></input>
             </label>
             <button type="submit">Login</button>
-            <a href="" onClick={handleSetLogin}>
-              Sign up
-            </a>
+            {errorMessage && <p>{errorMessage}</p>}
+            <button onClick={handleSetLogin}>Sign up</button>
           </form>
         </>
       )}
     </main>
   );
 };
-
-//return <SignUpForm />
