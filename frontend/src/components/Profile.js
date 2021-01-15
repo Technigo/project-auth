@@ -6,9 +6,9 @@ import animationData from '../lotties/38825-robot-hello.json';
 import {ProfileText, CredText } from 'styling/styling';
 
 export const Profile = () => {
-  const statusMessage = useSelector(store => store.user.statusMessage);
+  // const statusMessage = useSelector(store => store.user.statusMessage);
  // const name = useSelector(store => store.user.name);
-  const isLoggedIn = useSelector(store => store.user.login.statusMessage);
+  // const isLoggedIn = useSelector(store => store.user.login.statusMessage);
 
   const defaultOptions = {
     loop: true,
