@@ -11,8 +11,8 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.set('useCreateIndex', true)
 mongoose.Promise = Promise
 
-const User = mongoose.model('User', {
-  name: {
+const userSchema = new mongoose.Schema({
+name: {
     type: String,
     unique: true,
     required: true,
@@ -34,6 +34,20 @@ const User = mongoose.model('User', {
 
   }
 })
+
+userSchema.pre('save', async function(next) {
+  const user = this;
+
+  if (!user.isModified('password')) {
+    return next();
+  }
+
+  const salt = bcrypt.genSaltSync();
+  user.password = bcrypt.hashSync(user.password, salt);
+  next();
+})
+
+const User = mongoose.model('User', userSchema)
 
 //! To do:
 // if (process.env.RESET_DATABASE) {
@@ -81,9 +95,9 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const salt = bcrypt.genSaltSync(10);
     
-    const user = new User({ name, email, password: bcrypt.hashSync(password, salt) });
+    
+    const user = new User({ name, email, password});
     const newUser = await user.save();
 
     res.status(201).json({ userId: newUser._id, accessToken: newUser.accessToken });

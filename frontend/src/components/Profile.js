@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { user, logout } from '../reducers/user';
 
-const SECURE_URL =  'https://lmn-app.herokuapp.com//users'
+const SECURE_URL =  'https://lmn-app.herokuapp.com/users'
 
 export const Profile = () => {
     const dispatch = useDispatch();
