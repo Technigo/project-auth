@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import TextField from '@material-ui/core/TextField'
-import IconButton from '@material-ui/core/IconButton'
+// import IconButton from '@material-ui/core/IconButton'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
-import InputAdornment from '@material-ui/core/InputAdornment'
-import Visibility from '@material-ui/icons/Visibility'
-import VisibilityOff from '@material-ui/icons/VisibilityOff'
+// import InputAdornment from '@material-ui/core/InputAdornment'
+// import Visibility from '@material-ui/icons/Visibility'
+// import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 import { login, signUp } from '../reducers/user'
 import { CustomButton } from './CustomButton'
@@ -61,9 +61,9 @@ export const Login = () => {
     setPassword('')
   }
 
-  const handleClickShowPassword = () => {
-    setPassword({ ...password, showPassword: !password.showPassword })
-  }
+  // const handleClickShowPassword = () => {
+  //   setPassword({ ...password, showPassword: !password.showPassword })
+  // }
 
   return (
     <Container>
@@ -91,16 +91,16 @@ export const Login = () => {
               fullWidth={true}
               onChange={(event) => setPassword(event.target.value)}
               inputProps={minimumPasswordLength}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                  >
-                    {password.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
+              // endAdornment={
+              //   <InputAdornment position="end">
+              //     <IconButton
+              //       aria-label="toggle password visibility"
+              //       onClick={handleClickShowPassword}
+              //     >
+              //       {password.showPassword ? <Visibility /> : <VisibilityOff />}
+              //     </IconButton>
+              //   </InputAdornment>
+              // }
             />
             </div>
             
