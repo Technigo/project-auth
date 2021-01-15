@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 export const FormSignup = () => {
-	const SIGNUP_URL =  'https://lmn-app.herokuapp.com//users'
+	const SIGNUP_URL = 'https://lmn-app.herokuapp.com/users';
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
@@ -10,15 +10,15 @@ export const FormSignup = () => {
 	const handleSignup = (event) => {
 		event.preventDefault();
 
-		fetch(SIGNUP_URL, { 
+		fetch(SIGNUP_URL, {
 			method: 'POST',
 			body: JSON.stringify({ name: userName, password, email }),
 			headers: { 'Content-Type': 'application/json' },
 		})
-			.then(res => res.json())
-			.then(json => (json))
-			.catch(err => ('error:', err ))
-		}
+			.then((res) => res.json())
+			.then((json) => json)
+			.catch((err) => ('error:', err));
+	};
 
 	return (
 		<div>
