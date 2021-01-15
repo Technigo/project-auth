@@ -54,7 +54,6 @@ export const UserPage = ({ id }) => {
             <UserPageHeader>Hello there {myUser}!</UserPageHeader>
             <UserPageText>{statusMessage}</UserPageText>
             <Button title='Sign Out' onClickFunc={logout}></Button>
-
         </UserPageContainer>
     )
 }
