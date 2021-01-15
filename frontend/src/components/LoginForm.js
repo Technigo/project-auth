@@ -38,14 +38,10 @@ export const LoginForm = () => {
           headers: { 'Content-Type': 'application/json' },
         })
           .then((res) => {
-            if (res.ok) {
-              return res.json();
+            if (!res.ok) {
+              throw 'Login Failed';
             }
-            throw 'Unable to log in.'
-            // if (!res.ok) {
-            //   throw 'Login Failed';
-            // }
-            // return res.json();
+            return res.json();
           })
           .then((json) => handleLoginSuccess(json))
           .catch((err) => handleLoginFailed(err));
