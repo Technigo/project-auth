@@ -21,6 +21,7 @@ export const SignUpForm = () => {
     };
     
     const handleSignup = (event) => {
+    
         event.preventDefault();
         
         fetch(SIGNUP_URL, {
@@ -39,7 +40,9 @@ export const SignUpForm = () => {
     }
     
     if (!accessToken)  {
+
         return (
+
                 <UserForm>
                     <Text>Don't have an account?</Text>
                     <Heading> SIGN UP </Heading>

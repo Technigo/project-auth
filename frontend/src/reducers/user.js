@@ -6,6 +6,7 @@ const initialState = {
         userId: 0,
         statusMessage: "",
         errorMessage: null,
+        loggedIn: false,
     },
 };
 
@@ -20,14 +21,18 @@ export const user = createSlice({
         setUserId: (state, action) => {
             const { userId } = action.payload;
             state.login.userId = userId;
-          },
-          setStatusMessage: (state, action) => {
+        },
+        setStatusMessage: (state, action) => {
             const { statusMessage } = action.payload;
             state.login.statusMessage = statusMessage;
-          },
-          setErrorMessage: (state, action) => {
+        },
+        setErrorMessage: (state, action) => {
             const { errorMessage } = action.payload;
             state.login.errorMessage = errorMessage;
-          }
+        },
+        toggledLoggedState: (state, action) => {
+          state.login.loggedIn = action.payload;
+
+        }
     }
 })

@@ -7,6 +7,8 @@ import { Container } from './styling/styling';
 import { SignUpForm } from './components/SignUpForm.js'; 
 import { LoginForm } from './components/LoginForm.js'; 
 
+import { Status } from './components/Status.js';
+
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 const reducer = combineReducers({ user: user.reducer });
@@ -18,6 +20,7 @@ export const App = () => {
        <Container>
         <SignUpForm />
         <LoginForm />
+        <Status />
       </Container>
     </Provider>
   )

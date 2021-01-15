@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useSelector } from 'react';
 
 import Lottie from 'react-lottie';
 import animationData from '../lotties/38825-robot-hello.json';
@@ -6,6 +6,9 @@ import animationData from '../lotties/38825-robot-hello.json';
 import {ProfileText, CredText } from 'styling/styling';
 
 export const Profile = () => {
+  const statusMessage = useSelector(store => store.user.statusMessage);
+ // const name = useSelector(store => store.user.name);
+  const isLoggedIn = useSelector(store => store.user.login.statusMessage);
 
   const defaultOptions = {
     loop: true,

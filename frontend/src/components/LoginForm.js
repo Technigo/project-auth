@@ -11,17 +11,21 @@ export const LoginForm = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     
+    const isLoggedIn = useSelector(store => store.user.login.loggedIn);
+
     const handleLoginSuccess = (loginResponse) => {
         dispatch(
           user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
         );
         dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
         dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }));
+        dispatch(user.actions.toggledLoggedState(true)); // Friday lecture 
       };
     
-      const handleLoginFailed = (loginError) => {
+      const handleLoginFailed = (loginError, err) => {
         dispatch(user.actions.setAccessToken({ accessToken: null }));
         dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }))
       };
 
     // Login the user
@@ -34,10 +38,14 @@ export const LoginForm = () => {
           headers: { 'Content-Type': 'application/json' },
         })
           .then((res) => {
-            if (!res.ok) {
-              throw 'Login Failed';
+            if (res.ok) {
+              return res.json();
             }
-            return res.json();
+            throw 'Unable to log in.'
+            // if (!res.ok) {
+            //   throw 'Login Failed';
+            // }
+            // return res.json();
           })
           .then((json) => handleLoginSuccess(json))
           .catch((err) => handleLoginFailed(err));
