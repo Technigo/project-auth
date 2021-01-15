@@ -44,7 +44,12 @@ export const LoginForm = () => {
             return res.json();
           })
           .then((json) => handleLoginSuccess(json))
-          .catch((err) => handleLoginFailed(err));
+          .catch((err) => {
+            // handleLoginFailed(err));
+            dispatch(user.actions.setAccessToken({ accessToken: null }));
+            dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
+            dispatch(user.actions.setErrorMessage({ errorMessage: err }))
+          });
       };
 
       if (accessToken) {
