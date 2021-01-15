@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+import styled from 'styled-components/macro'
 
 import { user } from '../reducers/user'
 import { Button } from '../lib/Button'
@@ -11,6 +11,14 @@ import { Input } from '../lib/Input'
 const SIGNUP_URL = 'http://localhost:8081/users'
 const LOGIN_URL = 'http://localhost:8081/sessions'
 
+const FormStyle = styled.form`
+  display: flex;
+  flex-flow: column nowrap;
+`
+const Title = styled.h1`
+  font-size: 55px;
+  color: #85ad99;
+`
 // to either LOGIN or REGISTER as a new user
 // need error msg when login fails
 export const Form = () => {
@@ -87,66 +95,71 @@ export const Form = () => {
   if (!isNewUser) {
     return (
       <>
-        <form>
-          <h1>Login</h1>
-          <label>
-            email
-            <Input
-              required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)} />
-          </label>
-          <label>
-            password
-            <Input
-              required
-              value={password}
-              onChange={(event) => setPassword(event.target.value)} />
-          </label>
+        <FormStyle>
+          <Title>Login</Title>
+//      email type?
+        <Input
+           type="text"
+           value={email}
+           placeholder="email"
+           onChange={(event) => setEmail(event.target.value)}
+          required />
+
+        <Input
+          type="text"
+          value={password}
+          placeholder="password"
+          onChange={(event) => setPassword(event.target.value)}
+          required />
+          
           <Button
             type="submit"
-            onClick={handleLogin}>
+            background="green"
+            onClick={handleLogin} >
             Login
           </Button>
-        </form>
+        </FormStyle>
+  
         {loginFailed && <p>Wrong email or password. Please try again!</p>}
         <p>Not registered yet?</p>
-        <Button onClick={handleNewUser}>Sign up here</Button>
+                
+         <Button onClick={handleNewUser}>Sign up</Button>
       </>
     )
   }
 
   return (
-    <form>
-      <h1>Signup</h1>
-      <label>
-        email
+    <FormStyle>
+      <Title>Signup</Title>
+
         <Input
-          required
+          type="text"
           value={email}
-          onChange={(event) => setEmail(event.target.value)} />
-      </label>
-      <label>
-        username
+          placeholder="email"
+          onChange={(event) => setEmail(event.target.value)} 
+          required />
+
         <Input
-          required
+          type="text"
+          value={name}
+          placeholder="username"
+          onChange={(event) => setName(event.target.value)}
           minLength='2'
           maxLength='20'
-          value={name}
-          onChange={(event) => setName(event.target.value)} />
-      </label>
-      <label>
-        password
+          required />
+
         <Input
-          required
+          type="text"
           value={password}
-          onChange={(event) => setPassword(event.target.value)} />
-      </label>
+          placeholder="password"
+          onChange={(event) => setPassword(event.target.value)}
+          required />
+
       <Button
         type="submit"
         onClick={handleSignup}>
         Sign up
       </Button>
-    </form>
+    </FormStyle>
   )
 }
