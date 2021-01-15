@@ -23,6 +23,8 @@ export const LoginForm = ( ) => {
     console.log(loginResponse.accessToken)
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
     console.log(loginResponse.userId);
+    dispatch(user.actions.setUserName(loginResponse.userName));
+    console.log({ loginResponse })
     dispatch(user.actions.setStatusMessage({ statusMessage: 'You are logged in, welcome.' }));
     history.push(`/${loginResponse.userId}/user`);
   };

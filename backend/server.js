@@ -90,7 +90,7 @@ app.post('/users', async (req, res) => {
     res.status(200).json({
       userId: user._id,
       accessToken: user.accessToken,
-      name: user.name,
+      userName: user.name,
     });
 
   } catch (err) {
@@ -105,7 +105,8 @@ app.post('/sessions', async (req, res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
         userId: user._id,
-        accessToken: user.accessToken
+        accessToken: user.accessToken,
+        userName: user.name
       })
     } else {
       throw 'User not found';
