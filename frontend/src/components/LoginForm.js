@@ -20,12 +20,13 @@ export const LoginForm = () => {
         dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
         dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }));
         dispatch(user.actions.toggledLoggedState(true)); // Friday lecture 
+        dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful login' }));
       };
     
-      const handleLoginFailed = (loginError, err) => {
+      const handleLoginFailed = (err, loginError) => {
         dispatch(user.actions.setAccessToken({ accessToken: null }));
-        dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }))
+        dispatch(user.actions.setStatusMessage({ statusMessage: 'Failed to login' })); // previous loginError
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       };
 
     // Login the user
