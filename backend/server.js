@@ -9,11 +9,8 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-// think about validations during user creation t.ex: email, password constraings
-// frontend: require almost all fields in order to submit form
 const userSchema = new mongoose.Schema({
     name: {
-      // where name is the username
       type: String,
       unique: true,
       minlength: 2,
@@ -44,9 +41,7 @@ userSchema.pre('save', async function (next) {
     return next()
   }
   const salt = bcrypt.genSaltSync()
-  console.log(`PRE- password before # ${user.password}`)
   user.password = bcrypt.hashSync(user.password, salt)
-  console.log(`PRE- password after # ${user.password}`)
   next()
 })
 
@@ -70,7 +65,6 @@ const authenticateUser = async (req, res, next) => {
     next()
   } catch (err) {
     const errorMessage = 'Please try logging in again'
-    console.log(errorMessage)
     res.status(401).json({ error: errorMessage})
   }
 }
@@ -103,7 +97,8 @@ app.post('/sessions', async (req, res) => {
       const updatedUser = await user.save()
       res.status(200).json({
         userId: user._id, 
-        accessToken: updatedUser.accessToken
+        accessToken: updatedUser.accessToken, 
+        name: user.name
       })
     } else {
       throw 'User not found'
@@ -135,7 +130,7 @@ app.get('/secrets', async (req, res) => {
   try {
     const userName = await req.user.name
     // sending the username in the JSON response so that frontend can use it to show a personalized message
-    res.status(200).json({user: userName, message: 'Authentication complete'})
+    res.status(200).json({username: userName, message: 'Authentication complete'})
   } catch (err) {
     res.status(401).json({ error: 'Please log in or sign up to see this content'})
   }
@@ -143,10 +138,10 @@ app.get('/secrets', async (req, res) => {
 
 // Secure endpoint with user specific content 
 // to be implemented for red or black level
-app.get('/users/:id', authenticateUser)
-app.get('/users/:id', (req, res) => {
-  res.status(501).send()
-})
+// app.get('/users/:id', authenticateUser)
+// app.get('/users/:id', (req, res) => {
+//   res.status(501).send()
+// })
 
 // Start the server
 app.listen(port, () => {

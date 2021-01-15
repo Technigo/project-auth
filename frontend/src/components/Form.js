@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal */
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
@@ -7,8 +8,8 @@ import { Button } from '../lib/Button'
 import { Input } from '../lib/Input'
 import { Secrets } from './Secrets'
 
-const SIGNUP_URL = 'https://secrets-auth-app.herokuapp.com/users'
-const LOGIN_URL = 'https://secrets-auth-app.herokuapp.com/sessions'
+const SIGNUP_URL = 'http://secrets-auth-app.herokuapp.com/users'
+const LOGIN_URL = 'http://secrets-auth-app.herokuapp.com/sessions'
 
 const FormStyle = styled.form`
   display: flex;
@@ -19,8 +20,9 @@ const Title = styled.h1`
   color: #85ad99;
 `
 const Paragraph = styled.p`
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 400;
+  background: papayawhip;
 `
 
 // to either LOGIN or REGISTER as a new user
@@ -35,9 +37,7 @@ export const Form = () => {
   const [loginFailed, setLoginFailed] = useState(false)
 
   const handleLoginSuccess = (loginResponse) => {
-    dispatch(
-      user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
-    )
+    dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }))
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }))
     dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }))
     setEmail('')
@@ -64,7 +64,7 @@ export const Form = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error('Login failed')
+          throw 'Login failed'
         }
         return res.json()
       })
@@ -82,7 +82,7 @@ export const Form = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error('Signup failed')
+          throw 'Signup failed'
         }
         return res.json()
       })
@@ -124,7 +124,7 @@ export const Form = () => {
           <Button
             type="submit"
             onClick={handleNewUser}>
-            No account?  Sign up
+            Sign up
           </Button>
         </FormStyle>
       </>
@@ -157,12 +157,11 @@ export const Form = () => {
       <Input
         type="password"
         value={confirmedPassword}
-        placeholder="password (again)"
+        placeholder="retype password"
         onChange={(event) => setConfirmedPassword(event.target.value)}
         required />
       <Button
         type="submit"
-        background="lightgreen"
         disabled={password !== confirmedPassword || password.length === 0}>
         Sign up
       </Button>

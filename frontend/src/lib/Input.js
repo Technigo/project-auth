@@ -7,7 +7,6 @@ export const Input = styled.input`
   padding: 5px;
   border: none;
   border-radius: 3px;
-  ${'' /* background: snow; */}
   background: #c2d6cc;
   font-size: 16px;
   cursor: pointer;

@@ -1,16 +1,26 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components/macro'
 
 import { user } from '../reducers/user'
 import { Button } from '../lib/Button'
+import giphy from '../img/confetti.gif'
 
 // URL for the planned logout endpoint
 // const URL = 'http://localhost:8081/users'
 
+const Title = styled.h1`
+  font-size: 55px;
+  color: #85ad99;
+`
+const Paragraph = styled.p`
+  font-size: 14px;
+  font-weight: 400;
+`
+
 export const Secrets = () => {
   const dispatch = useDispatch()
   const accessToken = useSelector((store) => store.user.login.accessToken)
-  const userId = useSelector((store) => store.user.login.userId)
 
   // FUNCTIONS TO HANDLE LOGIN SUCCESS OR FAILURE WHEN USING THE LOGOUT ENDPOINT
   // const logoutSuccess = () => {
@@ -48,13 +58,20 @@ export const Secrets = () => {
     return <></>
   }
   return (
-    <section>
-      <h2>Congrats you've reached the super secret page!</h2>
-      <h4>userId:</h4>
-      <p> {`${userId}`}</p>
-      <Button onClick={logout}>
+    <>
+      <Title>
+        Oh, hello!
+      </Title>
+      <Paragraph>
+        Hooray! You&#39;ve reached the password protected page!
+      </Paragraph>
+      <img
+        alt="confetti giphy"
+        src={`${giphy}`} />
+      <Button
+        onClick={logout}>
         Logout
       </Button>
-    </section>
+    </>
   )
 }

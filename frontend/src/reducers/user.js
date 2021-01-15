@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
@@ -28,6 +28,8 @@ export const user = createSlice({
     logout: (state, action) => {
       state.login.userId = 0
       state.login.accessToken = null
+      state.login.name = ''
+      state.login.statusMessage = 'Welcome'
     }
   }
 })

@@ -7,14 +7,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
   background: #85ad99;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
   align-items: center;
-  align-content: center;
 }
 
 code {

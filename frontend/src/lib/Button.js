@@ -1,7 +1,6 @@
 import styled from 'styled-components/macro'
 
 export const Button = styled.button`
-  ${'' /* width: 265px; */}
   margin: 8px 0;
   padding: 8px;
   font-size: 16px;
