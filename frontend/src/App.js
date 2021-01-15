@@ -4,6 +4,7 @@ import  { Provider } from 'react-redux'
 
 import { FormLogin } from './components/FormLogin';
 import { FormSignup } from './components/FormSignup';
+ 
 import { combineReducers, configureStore} from '@reduxjs/toolkit'
 import { user } from './reducers/user';
 
@@ -15,6 +16,7 @@ export const App = () => {
 
 	const [displaySignup, setDisplaySignup] = useState(false);
 	const [displayLogin, setDisplayLogin] = useState(true);
+	
 
 	const signupOnClick = () => {
 		setDisplayLogin(false);
@@ -31,7 +33,8 @@ export const App = () => {
 				</>
 			)}
 
-			{displaySignup && <FormSignup />}
+				{displaySignup && <FormSignup />}
+				
 		</Container>
 	</Provider>
 	);

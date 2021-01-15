@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { user } from '../reducers/user'
 import styled from 'styled-components';
 
+import { Profile } from './Profile.js';
+
 export const FormLogin = () => {
 	const dispatch = useDispatch();
 	const accessToken = useSelector((store)=> store.user.login.accessToken);
 	const LOGIN_URL =  'http://localhost:8080/sessions'
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
+	const [displayLoggedIn, setDisplayLoggedIn] = useState(false);
 
 	const handleLoginSuccess = (loginResponse) => {
 		const statusMessage = JSON.stringify(loginResponse);
@@ -18,6 +21,8 @@ export const FormLogin = () => {
 		//?save login info
 		dispatch(
 			user.actions.setUserId({ userId: loginResponse.userId }));
+
+			setDisplayLoggedIn(true);
 	};
 
 	const handleLoginFailed = (loginError) => {
@@ -39,12 +44,15 @@ export const FormLogin = () => {
 		.then((json) => handleLoginSuccess(json))
 		.then((err) => handleLoginFailed(err));
 	};
-	if(!accessToken)
+
+	//! Move to App.js?
+	// if(!accessToken)
 
 	return (
+		<Container>
 		<Form>
 			<label>
-				Username
+			Username
 				<Input
 					type="text"
 					name="username"
@@ -68,8 +76,18 @@ export const FormLogin = () => {
 				Login
 			</Button>
 		</Form>
+
+		{displayLoggedIn && <Profile /> }
+		</Container>
 	);
 };
+
+const Container = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 250px;
+`;
 
 const Input = styled.input`
 	margin: 10px;

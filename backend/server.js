@@ -60,7 +60,7 @@ const authenticateUser = async (req, res, next) => {
       accessToken: req.header('Authorization'),
     });
 
-    if (user) {$
+    if (user) {
       req.user = user;
       next();
     } else {
@@ -106,9 +106,9 @@ app.post('/sessions', async (req, res) => {
     const { name, password } = req.body;
     const user = await User.findOne({ name });
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(201).json({ userId: user._id, accessToken: user.accessToken });
+      res.status(200).json({ userId: user._id, accessToken: user.accessToken });
     } else {
-      res.json({ notFound: true });
+      res.status(401).json({ message: 'Unvalid username or password', notFound: true });
     }
   } catch (err) {
     res.status(400).json({ message: 'Could not log in', errors: err });

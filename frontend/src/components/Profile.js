@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 
 import { user, logout } from '../reducers/user';
 
@@ -18,5 +19,14 @@ export const Profile = () => {
 
     const LoginFailed = (loginError) => {};
     
-    const logout = () => {};
+    const handleLogout = () => {
+        dispatch(user.actions.logout)
+    };
+
+    return (
+    <div>You are logged in! <Button onClick={handleLogout}>Logout</Button></div>)
 }
+
+const Button = styled.button`
+	margin: 5px;
+`;
