@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
@@ -25,12 +26,12 @@ const Paragraph = styled.p`
 `
 
 // to either LOGIN or REGISTER as a new user
-// need error msg when login fails
 export const Form = () => {
   const dispatch = useDispatch()
   const accessToken = useSelector((store) => store.user.login.accessToken)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmedPassword, setConfirmedPassword] = useState('')
   const [name, setName] = useState('')
   const [isNewUser, setIsNewUser] = useState(false)
   const [loginFailed, setLoginFailed] = useState(false)
@@ -42,6 +43,12 @@ export const Form = () => {
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }))
     dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }))
     console.log(accessToken)
+    setEmail('')
+    setName('')
+    setPassword('')
+    setConfirmedPassword('')
+    setIsNewUser(false)
+    setLoginFailed(false)
   }
 
   const handleLoginFail = (loginError) => {
@@ -156,8 +163,6 @@ export const Form = () => {
         maxLength="20"
         required />
 
-      {/* need to verify that the two password fields match.
-      may need to specify some length - min/max. */}
       <Input
         type="password"
         value={password}
@@ -167,16 +172,22 @@ export const Form = () => {
 
       <Input
         type="password"
-        value={password}
+        value={confirmedPassword}
         placeholder="password (again)"
-        onChange={(event) => setPassword(event.target.value)}
+        onChange={(event) => setConfirmedPassword(event.target.value)}
         required />
 
       <Button
         type="submit"
-        background="lightgreen">
+        background="lightgreen"
+        disabled={password !== confirmedPassword || password.length === 0}>
         Sign up
       </Button>
+
+      {loginFailed
+        && <Paragraph>
+            Could not create this user. Please try again with another name or email!
+        </Paragraph>}
     </FormStyle>
   )
 }

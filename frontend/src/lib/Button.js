@@ -19,4 +19,8 @@ export const Button = styled.button`
     cursor: pointer;
     transition-duration: 0.3s;
   } 
+
+  &:disabled {
+    background: grey
+  }
 `

@@ -5,7 +5,7 @@ const initialState = {
   login: {
     accessToken: null,
     userId: 0,
-    statusMessage: ''
+    statusMessage: 'Welcome'
   }
 }
 
