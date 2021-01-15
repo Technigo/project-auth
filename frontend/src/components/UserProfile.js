@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
+import { Status } from "./Status";
 import { user } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 
-const SECRET_URL = "http://localhost:8080/secret";
+const SECRET_URL = "http://project-signup.herokuapp.com/secret";
+//"http://localhost:8080/secret"
 
 export const UserProfile = () => {
+  const [secretPage, setSecretPage] = useState(false);
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
 
@@ -29,7 +32,8 @@ export const UserProfile = () => {
   const testSecret = (event) => {
     // Included userId in the path?
     event.preventDefault();
-    fetch(`${SECRET_URL}`, {
+    setSecretPage(true);
+    fetch(SECRET_URL, {
       method: "GET",
       // Include the accessToken to get the protected endpoint
       headers: { Authorization: accessToken },
@@ -51,19 +55,21 @@ export const UserProfile = () => {
 
   return (
     <section>
-      <form>
-        <h1>Welcome</h1>
-        <div className="button-container">
-          <button type="submit" onClick={testSecret} value="Test Secret">
-            Secret info
-          </button>
-          <button type="submit" onClick={logout}>Logout</button>
-        </div>
-      </form>
-
-      {/* //Vans exemple */}
-
-      {/* <input type="submit" onClick={logout} value="Test Logout" /> */}
+      {!secretPage ? (
+        <section>
+          <h1>Welcome</h1>
+          <div className="button-container">
+            <button type="submit" onClick={testSecret} value="Test Secret">
+              Secret info
+            </button>
+            <button type="submit" onClick={logout}>
+              Logout
+            </button>
+          </div>
+        </section>
+      ) : (
+        <Status />
+      )}
     </section>
   );
 };

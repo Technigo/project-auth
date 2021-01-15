@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { user } from "../reducers/user";
-// import { Container } from "../styled-components/LoginStyling";
 
-const SIGNUP_URL = "http://localhost:8080/users";
-const LOGIN_URL = "http://localhost:8080/sessions";
+const SIGNUP_URL = "http://project-signup.herokuapp.com/users";
+//"http://localhost:8080/users"
+//"http://localhost:8080/sessions"
+const LOGIN_URL = "http://project-signup.herokuapp.com/sessions";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ export const Login = () => {
     event.preventDefault();
     setName("");
     setPassword("");
+
     // send data to backend, for saving in DB
     fetch(SIGNUP_URL, {
       method: "POST",
@@ -85,12 +87,13 @@ export const Login = () => {
         <label> Name: </label>
         <input
           required
+          minLength="5"
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
         <label>Password:</label>
         <input
-          // type="password"
+          type="password"
           placeholder="Min length 5 characters"
           required
           minLength="5"

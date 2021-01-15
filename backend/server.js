@@ -152,7 +152,7 @@ app.post("/sessions", async (req, res) => {
 app.get("/secret", authenticateUser);
 app.get("/secret", async (req, res) => {
   console.log(`User from authenticateUser: ${req.user}`);
-  const secretMessage = `We can modify this secret message for ${req.user.name}`;
+  const secretMessage = `Welcome ${req.user.name}! This is for your eyes only.. `;
   res.status(200).json({ secretMessage });
 });
 

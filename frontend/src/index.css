@@ -25,12 +25,15 @@ main {
   margin-top: 40px;
 }
 
+section {
+  width: 400px;
+}
+
 form {
   display: flex;
   flex-direction: column;
   align-items: space-between;
   justify-content: flex-start;
-  width: 400px;
   padding: 30px;
 }
 
@@ -59,11 +62,11 @@ input::placeholder {
 }
 
 input:valid {
-  background-color: rgb(177, 238, 193);
+  border-bottom: 3px solid rgb(177, 238, 193);
 }
 
 input:invalid {
-  background-color: rgb(255, 224, 220);
+  border-bottom: 3px solid #f77676;
 }
 
 .button-container {
@@ -92,3 +95,5 @@ button {
   color: white;
   font-size: 18px;
 }
+
+
