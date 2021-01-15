@@ -9,7 +9,9 @@ export const getSecretMessage = () => {
     //`${URL}/${userId}/secret`
     fetch(URL, {
       method: 'GET',
-      headers: {Authorization: accessToken},
+      headers: {
+        Authorization: accessToken,
+      },
     })
       .then((res) => {
         if (!res.ok) {
