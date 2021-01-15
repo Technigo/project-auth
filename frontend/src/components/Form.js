@@ -1,16 +1,24 @@
 /* eslint-disable */
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+import styled from 'styled-components/macro'
 
 import { user } from '../reducers/user'
 import { Button } from '../lib/Button'
-import { Input } from '../lib/Button'
+import { Input } from '../lib/Input'
 // import Secrets from './Secrets'
 
 const SIGNUP_URL = 'http://localhost:8081/users'
 const LOGIN_URL = 'http://localhost:8081/sessions'
 
+const FormStyle = styled.form`
+  display: flex;
+  flex-flow: column nowrap;
+`
+const Title = styled.h1`
+  font-size: 55px;
+  color: #85ad99;
+`
 // to either LOGIN or REGISTER as a new user
 // need error msg when login fails
 export const Form = () => {
@@ -56,28 +64,32 @@ export const Form = () => {
 
   return (
     // conditionally render 
-      <form>
-        <h1>Login</h1>
-        <label>
-          email
-          <input
-            required
+      <FormStyle>
+        <Title>Login</Title>
+        
+          <Input
+            type="text"
             value={email}
-            onChange={(event) => setEmail(event.target.value)} />
-        </label>
-        <label>
-          password
-          <input
-            required
+            placeholder="email"
+            onChange={(event) => setEmail(event.target.value)}
+            required />
+        
+          <Input
+            type="text"
             value={password}
-            onChange={(event) => setPassword(event.target.value)} />
-        </label>
-        <button
+            placeholder="password"
+            onChange={(event) => setPassword(event.target.value)}
+            required />
+        
+        <Button
           type="submit"
-          onClick={handleLogin}>
-          Login
-        </button>
-        <p>Not registered yet? Sign up here!</p>  {/* make this a link */}
-      </form>
+          background="green"
+          onClick={handleLogin} >
+            login
+        </Button>
+        
+        <p>Not registered yet? Sign up here!</p>  
+        {/* make this a link */}
+      </FormStyle>
   )
 }
