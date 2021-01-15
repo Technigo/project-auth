@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { user } from '../reducers/user'
 import { Button } from '../lib/Button'
-import { Input } from '../lib/Button'
+import { Input } from '../lib/Input'
 // import { Secrets } from './Secrets'
 
 const SIGNUP_URL = 'http://localhost:8081/users'
@@ -20,6 +20,7 @@ export const Form = () => {
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [isNewUser, setIsNewUser] = useState(false)
+  const [loginFailed, setLoginFailed] = useState(false)
 
   const handleLoginSuccess = (loginResponse) => {
     dispatch(
@@ -32,6 +33,7 @@ export const Form = () => {
   const handleLoginFail = (loginError) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }))
     dispatch(user.actions.setStatusMessage({ statusMessage: loginError }))
+    setLoginFailed(true)
   }
 
   const handleLogin = (event) => {
@@ -48,8 +50,8 @@ export const Form = () => {
         }
         return res.json()
       })
-      .then((json) => handleLoginSuccess(json)) // to be implemented
-      .catch((err) => handleLoginFail(err)) // to be implemented
+      .then((json) => handleLoginSuccess(json))
+      .catch((err) => handleLoginFail(err))
   }
 
   const handleSignup = (event) => {
@@ -74,6 +76,8 @@ export const Form = () => {
   const handleNewUser = (event) => {
     event.preventDefault()
     setIsNewUser(true)
+    setEmail('')
+    setPassword('')
   }
 
   if (accessToken) {
@@ -82,32 +86,32 @@ export const Form = () => {
 
   if (!isNewUser) {
     return (
-      // conditionally render 
       <>
         <form>
           <h1>Login</h1>
           <label>
             email
-            <input
+            <Input
               required
               value={email}
               onChange={(event) => setEmail(event.target.value)} />
           </label>
           <label>
             password
-            <input
+            <Input
               required
               value={password}
               onChange={(event) => setPassword(event.target.value)} />
           </label>
-          <button
+          <Button
             type="submit"
             onClick={handleLogin}>
             Login
-          </button>
+          </Button>
         </form>
+        {loginFailed && <p>Wrong email or password. Please try again!</p>}
         <p>Not registered yet?</p>
-        <Button onClick={handleNewUser}>Sign up here</Button>  {/* make this a link */}
+        <Button onClick={handleNewUser}>Sign up here</Button>
       </>
     )
   }
@@ -117,30 +121,32 @@ export const Form = () => {
       <h1>Signup</h1>
       <label>
         email
-        <input
+        <Input
           required
           value={email}
           onChange={(event) => setEmail(event.target.value)} />
       </label>
       <label>
         username
-        <input
+        <Input
           required
+          minLength='2'
+          maxLength='20'
           value={name}
           onChange={(event) => setName(event.target.value)} />
       </label>
       <label>
         password
-        <input
+        <Input
           required
           value={password}
           onChange={(event) => setPassword(event.target.value)} />
       </label>
-      <button
+      <Button
         type="submit"
         onClick={handleSignup}>
         Sign up
-      </button>
+      </Button>
     </form>
   )
 }
