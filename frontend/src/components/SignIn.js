@@ -29,12 +29,12 @@ export const SignIn = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw 'Login Failed'
+          throw new Error('Login Failed')
         }
         return res.json()
       })
       .then((json) => handleLoginSuccess(json))
-      .catch((err) => handleLoginFailed(err))
+      .catch((err) => handleLoginFailed(err.message))
   }
 
   return (

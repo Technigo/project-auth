@@ -62,7 +62,7 @@ export const LoginStatus = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw "https://64.media.tumblr.com/tumblr_lt7bswjhFd1r4ghkoo1_250.gifv"
+          throw new Error ("https://64.media.tumblr.com/tumblr_lt7bswjhFd1r4ghkoo1_250.gifv")
         }
         return res.json()
       })
@@ -70,7 +70,7 @@ export const LoginStatus = () => {
         dispatch(user.actions.setSecret({ secret: json.secret }))
       })
       .catch((err) => {
-        dispatch(user.actions.setSecret({ secret: err }))
+        dispatch(user.actions.setSecret({ secret: err.message }))
       })
   }
 
@@ -80,12 +80,8 @@ export const LoginStatus = () => {
         <p>{statusMessage && statusMessage}</p>
         {accessToken && <Button onClick={logOut}>Log out</Button>}
         <Button onClick={fetchSecret}>Test Authentication</Button>
-        <p>{secret && <img src={secret} width="100%" height="100%" frameBorder="0"></img>}</p>
+        <p>{secret && <img alt='gif of cat' src={secret} width="100%" height="100%" frameBorder="0"></img>}</p>
       </StatusCard>
     </Container>
   )
 }
-
-{/* <div style="width:100%;height:0;padding-bottom:86%;position:relative;">
-          <iframe src="https://giphy.com/embed/nR4L10XlJcSeQ" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-          </div><p><a href="https://giphy.com/gifs/no-cat-nR4L10XlJcSeQ">via GIPHY</a></p> */}

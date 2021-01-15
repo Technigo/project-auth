@@ -39,12 +39,12 @@ export const Register = () => {
       .then((res) => {
         if (!res.ok) {
           console.log("Signup failed")
-          throw 'Signup failed'
+          throw new Error('Signup failed')
         }
         return res.json()
       })
       .then((json) => handleSignupSuccess(json))
-      .catch((err) => handleSignupFailed(err))
+      .catch((err) => handleSignupFailed(err.message))
   }
 
   return (
