@@ -8,7 +8,7 @@ import { Profile } from './Profile.js';
 export const FormLogin = () => {
 	const dispatch = useDispatch();
 	const accessToken = useSelector((store)=> store.user.login.accessToken);
-	const LOGIN_URL =  'http://localhost:8080/sessions'
+	const LOGIN_URL =  'https://lmn-app.herokuapp.com//sessions'
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
 	const [displayLoggedIn, setDisplayLoggedIn] = useState(false);
@@ -21,6 +21,8 @@ export const FormLogin = () => {
 		//?save login info
 		dispatch(
 			user.actions.setUserId({ userId: loginResponse.userId }));
+
+			dispatch(user.actions.setAccessToken({accessToken}))
 
 			setDisplayLoggedIn(true);
 	};
