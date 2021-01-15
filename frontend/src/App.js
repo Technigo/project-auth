@@ -5,7 +5,6 @@ import { user } from "Reducers/user";
 
 import { Form } from "./Components/Form";
 import { LogIn } from "./Components/LogIn";
-import { Button } from "./Components/Button";
 import { H1, MainWrapper, InnerWrapper } from './styles/Styles'
 
 const reducer = combineReducers({
