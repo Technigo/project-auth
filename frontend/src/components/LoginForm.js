@@ -24,6 +24,8 @@ export const LoginForm = () => {
     dispatch(
       user.actions.setStatusMessage({ statusMessage: 'Login success!' })
     )
+    setName('')
+    setPassword('')
   }
       
   const handleLoginFailed = (loginError) => {

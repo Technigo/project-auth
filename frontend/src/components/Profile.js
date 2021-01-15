@@ -76,4 +76,6 @@ const CustomButton = styled.button`
   color: white;
   cursor: pointer;
   margin-bottom: 10px;
+  padding: 3px;
+  width: 80%;
 `
