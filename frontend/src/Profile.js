@@ -11,6 +11,7 @@ const Profile = () => {
   const handleLogOut = () => {
     dispatch(user.actions.logOut());
   };
+  console.log(accessToken);
 
   fetch("http://localhost:8080/authentication", {
     method: "GET",
