@@ -1,26 +1,27 @@
 import React, { useState } from "react";
-import { InputField } from "./InputField.js";
-import { SubmitButton } from "./SubmitButton.js";
+import { SubmitButton } from "./SubmitButton";
+import { InputField } from "./InputField";
+//import {UserProfile} from "./UserProfile"
 
 import styled from "styled-components";
 import { rgba } from "polished";
 
-const LOGIN = "https://project-auth-liza-kat.herokuapp.com/sessions";
+const LOGIN = "http://localhost:8080/sessions";
 
-export const Login = ({ setLoggedIn }) => {
-  const [inputValue, setInputValue] = useState({
-    email: "",
-    password: "",
-  });
-  const [loginFailed, setLoginFailed] = useState(false);
+export const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [logInFailed, setLogInFailed] = useState(false);
+  const [logInSuccess, setLogInSuccess] = useState(false);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
     fetch(LOGIN, {
       method: "POST",
       body: JSON.stringify({
-        email: inputValue.email,
-        password: inputValue.password,
+        email: email,
+        password: password,
       }),
       headers: { "Content-Type": "application/json" },
     })
@@ -29,46 +30,50 @@ export const Login = ({ setLoggedIn }) => {
         if (json.accessToken) {
           localStorage.setItem("accessToken", json.accessToken);
           localStorage.setItem("userID", json.id);
-          localStorage.setItem("signedIn", JSON.stringify(true));
-          setLoggedIn(JSON.parse(localStorage.getItem("signedIn")));
-        } else if (!json.signUpSuccessful) {
-          setLoginFailed(true);
+          localStorage.setItem("signedUp", JSON.stringify(true));
+          setLogInSuccess(true);
         }
+      })
+      .catch(() => {
+        setLogInFailed(true);
+      })
+      .finally(() => {
+        setEmail("");
+        setPassword("");
       });
-
-    setInputValue({
-      email: "",
-      password: "",
-    });
   };
-
   return (
     <Image>
       <Form onSubmit={handleFormSubmit}>
-        <Text>Login</Text>
-
+        <Text>Log in</Text>
         <InputField
           name="email"
           label="Email"
           type="email"
+          value={email}
           placeholder="email"
-          setInputValue={setInputValue}
+          onChange={(event) => setEmail(event.target.value)}
           minLength="3"
         />
         <InputField
           name="password"
           label="Password"
           type="password"
+          value={password}
           placeholder="password"
-          setInputValue={setInputValue}
+          onChange={(event) => setPassword(event.target.value)}
           minLength="6"
         />
 
-        {loginFailed && (
+        {logInSuccess && (
+          <span>
+            <Text>Welcome, user!</Text>
+          </span>
+        )}
+        {logInFailed && (
           <span>
             <Text>
-              Login failed. Email and/or password incorrect. Don't have an
-              account? Sign-up instead!
+              Failed to log in. Email and/or password incorrect. Please try again.
             </Text>
           </span>
         )}
@@ -78,12 +83,12 @@ export const Login = ({ setLoggedIn }) => {
   );
 };
 const Image = styled.main`
-background-image: url("${process.env.PUBLIC_URL + "/flower.jpg"}");
-position: fixed;
-width: 100%;
-height: 100%;
-background-size: cover;
-`;
+	background-image: url("${process.env.PUBLIC_URL + "/flower.jpg"}");
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+  `;
 const Form = styled.form`
   display: flex;
   flex-direction: column;

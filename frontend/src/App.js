@@ -28,7 +28,7 @@ export const App = () => {
             <Login />
           </Route>
         </Switch>
-      </BrowserRouter>
+      </BrowserRouter> 
     </Provider>
   );
 };

@@ -6,14 +6,15 @@ import { InputField } from "./InputField";
 import styled from "styled-components";
 import { rgba } from "polished";
 
-const SIGNUP = "https://project-auth-liza-kat.herokuapp.com/users";
+const SIGNUP = "http://localhost:8080/users";
 
-export const SignUp = ({ setSignedUp }) => {
+export const SignUp = () => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   const [signUpFailed, setSignUpFailed] = useState(false);
+  const [signUpSuccess, setSignUpSuccess] = useState(false);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -31,24 +32,23 @@ export const SignUp = ({ setSignedUp }) => {
         if (json.accessToken) {
           localStorage.setItem("accessToken", json.accessToken);
           localStorage.setItem("userID", json.id);
-          localStorage.setItem("signedUp", JSON.stringify(true));
-          setSignedUp(JSON.parse(localStorage.getItem("signedUp")));
-        } else if (!json.signUpSuccessful) {
-          setSignUpFailed(true);
-        }
-      });
-
-    // setInputValue({
-    //   name: "",
-    //   email: "",
-    //   password: "",
-    // });
+		  localStorage.setItem("signedUp", JSON.stringify(true));
+		  setSignUpSuccess(true)
+		}
+	  })
+	  .catch(() => {
+		  setSignUpFailed(true)
+	  })
+	  .finally(() => {
+		  setName("")
+		  setEmail("")
+		  setPassword("")
+	  });
   };
   return (
     <Image>
       <Form onSubmit={handleFormSubmit}>
         <Text>Sign up</Text>
-
         <InputField
           name="name"
           label="Name"
@@ -77,6 +77,13 @@ export const SignUp = ({ setSignedUp }) => {
           minLength="6"
         />
 
+		{signUpSuccess && (
+          <span>
+            <Text>
+              You're all signed-up!
+            </Text>
+          </span>
+        )}
         {signUpFailed && (
           <span>
             <Text>
