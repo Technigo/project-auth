@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
@@ -8,9 +7,8 @@ import { Button } from '../lib/Button'
 import { Input } from '../lib/Input'
 import { Secrets } from './Secrets'
 
-// do these need to be edited for deployment?
-const SIGNUP_URL = 'http://localhost:8081/users'
-const LOGIN_URL = 'http://localhost:8081/sessions'
+const SIGNUP_URL = 'https://secrets-auth-app.herokuapp.com/users'
+const LOGIN_URL = 'https://secrets-auth-app.herokuapp.com/sessions'
 
 const FormStyle = styled.form`
   display: flex;
@@ -42,7 +40,6 @@ export const Form = () => {
     )
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }))
     dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }))
-    console.log(accessToken)
     setEmail('')
     setName('')
     setPassword('')
@@ -77,7 +74,6 @@ export const Form = () => {
 
   const handleSignup = (event) => {
     event.preventDefault()
-    console.log('signup')
 
     fetch(SIGNUP_URL, {
       method: 'POST',
@@ -100,17 +96,14 @@ export const Form = () => {
     setEmail('')
     setPassword('')
   }
-
   if (accessToken) {
     return <Secrets />
   }
-
   if (!isNewUser) {
     return (
       <>
         <FormStyle onSubmit={handleLogin}>
           <Title>Login</Title>
-          {/* email type? */}
           <Input
             type="email"
             value={email}
@@ -127,14 +120,11 @@ export const Form = () => {
             type="submit">
             Login
           </Button>
-
-          {loginFailed && <Paragraph>Wrong email or password. Please try again!</Paragraph>}
-          <Paragraph>No account?</Paragraph>
-
+          {loginFailed && <Paragraph>Wrong email or password. Please try again.</Paragraph>}
           <Button
             type="submit"
             onClick={handleNewUser}>
-            Sign up
+            No account?  Sign up
           </Button>
         </FormStyle>
       </>
@@ -144,14 +134,12 @@ export const Form = () => {
   return (
     <FormStyle onSubmit={handleSignup}>
       <Title>Signup</Title>
-
       <Input
         type="email"
         value={email}
         placeholder="email"
         onChange={(event) => setEmail(event.target.value)}
         required />
-
       <Input
         type="text"
         value={name}
@@ -160,32 +148,25 @@ export const Form = () => {
         minLength="2"
         maxLength="20"
         required />
-
       <Input
         type="password"
         value={password}
         placeholder="password"
         onChange={(event) => setPassword(event.target.value)}
         required />
-
       <Input
         type="password"
         value={confirmedPassword}
         placeholder="password (again)"
         onChange={(event) => setConfirmedPassword(event.target.value)}
         required />
-
       <Button
         type="submit"
         background="lightgreen"
         disabled={password !== confirmedPassword || password.length === 0}>
         Sign up
       </Button>
-
-      {loginFailed
-        && <Paragraph>
-            Could not create this user. Please try again with another name or email!
-        </Paragraph>}
+      {loginFailed && <Paragraph>Could not create user. Please try again.</Paragraph>}
     </FormStyle>
   )
 }

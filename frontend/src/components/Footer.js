@@ -7,6 +7,7 @@ const FooterStyle = styled.div`
   color: #999999;
   display: flex;
   align-items: flex-end;
+
   &:a {
     text-decoration: none;
     cursor: pointer;

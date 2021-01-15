@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Status } from './Status'
 import { user } from '../reducers/user'
 import { Button } from '../lib/Button'
 
@@ -12,7 +11,7 @@ export const Secrets = () => {
   const dispatch = useDispatch()
   const accessToken = useSelector((store) => store.user.login.accessToken)
   const userId = useSelector((store) => store.user.login.userId)
-  
+
   // FUNCTIONS TO HANDLE LOGIN SUCCESS OR FAILURE WHEN USING THE LOGOUT ENDPOINT
   // const logoutSuccess = () => {
   //   dispatch(user.actions.setStatusMessage({ statusMessage: 'Logged out' }))
@@ -45,15 +44,12 @@ export const Secrets = () => {
     dispatch(user.actions.setAccessToken({ accessToken: null }))
     dispatch(user.actions.setUserId({ userId: 0 }))
   }
-
   if (!accessToken) {
     return <></>
   }
-
   return (
     <section>
-      <h2>SECRETS!</h2>
-      <Status />
+      <h2>Congrats you've reached the super secret page!</h2>
       <h4>userId:</h4>
       <p> {`${userId}`}</p>
       <Button onClick={logout}>
