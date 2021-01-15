@@ -62,7 +62,7 @@ const SignUp = ({ SIGNUP_URL }) => {
           <input
             required
             minLength="5"
-            type="text"
+            type="password"
             value={password}
             onChange={event => setPassword(event.target.value)} />
         </label>

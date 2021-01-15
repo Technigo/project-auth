@@ -32,6 +32,10 @@ export const App = () => {
           <Route path="/userdetails" exact>
             <UserDetails />
           </Route>
+          <Route path="/404">
+            <UserDetails />
+          </Route>
+          <Redirect to="/404"></Redirect>
         </Switch>
       </Provider>
     </BrowserRouter>
