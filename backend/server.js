@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
+const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI'
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
@@ -32,17 +32,17 @@ const User = mongoose.model('User', {
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({ accessToken: req.header("Authorization") });
+    const user = await User.findOne({ accessToken: req.header('Authorization') })
     if (user) {
-      req.user = user;
-      next();
+      req.user = user
+      next()
     } else {
-      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' });
+      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' })
     }
   } catch (err) {
     res.status(403).json({ message: 'Access token is missing or wrong', errors: err })
   }
-};
+}
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080
 const app = express()
@@ -54,7 +54,7 @@ app.use(bodyParser.json())
 
 app.use((req, res, next) => {
   if (mongoose.connection.readyState === 1) {
-    next();
+    next()
   } else {
     res.status(503).json({ error: "Service unavailable" })
   }
@@ -76,31 +76,20 @@ app.post('/users', async (req, res) => {
   }
 })
 
-app.get('/secrets', authenticateUser);
+app.get('/secrets', authenticateUser)
 app.get('/secrets', async (req, res) => {
   const secretMessage = `This is a super secret message for ${req.user.name}`
   res.status(201).json({ secretMessage })
 })
 
 app.post('/sessions', async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({ email: req.body.email })
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken, name: user.name });
+    res.json({ userId: user._id, accessToken: user.accessToken, name: user.name })
   } else {
-    res.status(401).json({ notFound: true, error: 'Login failed' });
+    res.status(401).json({ notFound: true, error: 'Login failed' })
   }
-});
-
-// app.post('/users/logout', authenticateUser)
-// app.post('/users/logout', async (req, res) => {
-//   try {
-//     req.user.accessToken = null
-//     await req.user.save()
-//     res.status(200).json({ loggedOut: true })
-//   } catch (err) {
-//     res.status(400).json({ error: 'Could not logout' })
-//   }
-// })
+})
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)

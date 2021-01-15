@@ -4,12 +4,10 @@ import { Redirect } from 'react-router-dom'
 
 import { user, logout } from '../reducers/user'
 
-// const SIGNIN_URL = 'https://login-logout-authentication.herokuapp.com/users'
 const LOGIN_URL = 'https://login-logout-authentication.herokuapp.com/sessions'
 
 export const LoginForm = () => {
   const dispatch = useDispatch()
-  // const accessToken = useSelector((store) => store.user.login.accessToken)
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState(false)
   const [login, setLogin] = useState(false)
@@ -18,36 +16,13 @@ export const LoginForm = () => {
   const handleLoginSuccess = (loginResponse) => {
     dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken}))
     dispatch(user.actions.setUserId({ userId: loginResponse.userId}))
-    dispatch(user.actions.setUserName({ name: loginResponse.name }));
-  //dispatch(user.actions.setStatusMessage({statusMessage: 'Login Success'}))
+    dispatch(user.actions.setUserName({ name: loginResponse.name }))
   }
 
-  // const handleLoginFailed = (loginError) => {
-  //   dispatch(user.actions.setAccessToken({ accessToken: null }))
-  //   dispatch(user.actions.setSecretMessage({ secretMessage: loginError }))
-  // }
    const handleLoginFailed = () => {
-    dispatch(logout());
-    };
-  // const handleSignup = (event) => {
-  //   event.preventDefault();
+    dispatch(logout())
+    }
 
-  //   fetch(SIGNIN_URL, {
-  //     method: 'POST',
-  //     body: JSON.stringify({ name, password }),
-  //     headers: { 'Content-Type': 'application/json' },
-  //   })
-  //     .then((res) => {
-  //       if (!res.ok) {
-  //         throw 'Signup Failed'
-  //       }
-  //       return res.json()
-  //     })
-  //     .then((json) => handleLoginSuccess(json))
-  //     .catch((err) => handleLoginFailed(err))
-  // };
-
-  // To sign up a user.
   const handleLogin = (event) => {
     event.preventDefault()
 
@@ -70,7 +45,6 @@ export const LoginForm = () => {
   }
   
   if (login === false) {
-  // If user is logged out, show login form
   return (
     <section>
       <form className='login-form form-style'>
@@ -82,7 +56,7 @@ export const LoginForm = () => {
             placeholder='Enter email...'
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            minLength="2"
+            minLength='2'
             required
           />
           <label>Password</label>
@@ -91,7 +65,7 @@ export const LoginForm = () => {
             placeholder='Enter Password...'
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            minLength="5"
+            minLength='5'
             required
           />
           <button className='input-button' type='submit' onClick={handleLogin}>

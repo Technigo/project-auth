@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
-import {useDispatch} from 'react-redux'
-import {logout} from '../reducers/user'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { logout } from '../reducers/user'
 
 const SIGNUP_URL = 'https://login-logout-authentication.herokuapp.com/users'
 
@@ -49,29 +49,29 @@ export const SignUp = () => {
           <div className='content-container'>
             <label>Name</label>
             <input
-              type="text"
-              placeholder="User name"
+              type='text'
+              placeholder='User name'
               value={name}
               onChange={(event) => setName(event.target.value)}
               required
-              minLength="2"
+              minLength='2'
             />
             <label>Email</label>
             <input
-              type="email"
-              placeholder="Email"
+              type='email'
+              placeholder='Email'
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
             />
             <label>Password</label>
             <input
-              type="password"
-              placeholder="Password"
+              type='password'
+              placeholder='Password'
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
-              minLength="4"
+              minLength='4'
             />
             <button className='input-button' type="submit">Sign up</button>
           </div>

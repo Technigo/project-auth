@@ -9,12 +9,10 @@ export const Secret = () => {
   const dispatch = useDispatch()
   const name = useSelector((store) => store.user.login.name)
   const accessToken = useSelector((store) => store.user.login.accessToken)
-  // const userId = useSelector((store) => store.user.login.userId)
   const secretMessage = useSelector((store) => store.user.login.secretMessage)
   const errorMessage = useSelector((store) => store.user.login.errorMessage)
 
   const getSecret = () => {
-    // Include userId in the path
     fetch(URL, {
       method: 'GET',
       headers: { Authorization: accessToken },

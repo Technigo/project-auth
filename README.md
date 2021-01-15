@@ -12,17 +12,17 @@ After Logging in you have two choices either to view a secret message or you hav
 
 # Tech ⚡️
 
-MongoDB
-Mongoose
-Node.js
-Express
-Heroku
-React
-React Router
-Redux - Toolkit + Hooks
-JS
+- MongoDB
+- Mongoose
+- Node.js
+- Express
+- Heroku
+- React
+- React Router
+- Redux - Toolkit + Hooks
+- JS
 
 # View it live 🔴
 
-FrontEnd : wk20-api-auth.netlify.app
-BackEnd : https://login-logout-authentication.herokuapp.com/
+- FrontEnd : wk20-api-auth.netlify.app
+- BackEnd : https://login-logout-authentication.herokuapp.com/
