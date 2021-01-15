@@ -26,3 +26,7 @@ flex-direction: column;
 align-items:center;
 width: 300px;
 `;
+
+export const LoginErrorMessage = styled.p`
+    color: white;
+`

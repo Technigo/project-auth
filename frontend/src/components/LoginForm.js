@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 
-import {LoginContainer, Title, Login} from '../lib/LoginFormStyle'
+import { LoginContainer, Title, Login, LoginErrorMessage } from '../lib/LoginFormStyle'
 import { Button } from '../lib/Button'
 import InputField from '../lib/InputField'
 import { user } from '../reducer/user'
@@ -10,10 +10,9 @@ import { user } from '../reducer/user'
 const LOGIN_URL = 'https://auth-project-api.herokuapp.com/sessions'
 
 export const LoginForm = ( ) => {
-  // const { id } = useParams();
-
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -31,8 +30,14 @@ export const LoginForm = ( ) => {
 
   const handleLoginFailed = (loginError) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }))
-  };
+    dispatch(user.actions.setStatusMessage({ statusMessage: loginError.errorMessage }));
+    setName('');
+    setPassword('');
+    setErrorMessage();
+   };
+
+  // 
+  // } 
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -44,33 +49,44 @@ export const LoginForm = ( ) => {
     })
       .then(res => {
         if (!res.ok) {
-          throw 'Log-in failed, please try again';
+          throw {errorMessage: 'Log-in failed, please try again'};
         }
         return res.json();
       })
       .then(data => handleLoginSuccess(data))
-      .catch(err => handleLoginFailed(err)); 
+      .catch(err => {handleLoginFailed(err);
+        setErrorMessage();
+      })
   };
+ 
+
 
     return (
       <LoginContainer>
         <Login>
           <Title>LOGIN</Title>
           <InputField
+            required
             title='Username'
             htmlFor='name'
             id='name'
+            value={name}
+            aria-label='Write your username here'
             type='text'
             onChange={setName}
           />
           <InputField
+            required
             title='Password'
             htmlFor='password'
             id='password'
+            value={password}
+            aria-label='Write your password here'
             type='password'
             onChange={setPassword}
           />
           <Button title='Sign In' onClickFunc={handleLogin} />
+          {errorMessage && <p>{errorMessage}</p>}
         </Login>
       </LoginContainer>
     )
