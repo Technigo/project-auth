@@ -30,7 +30,7 @@ Backend:
 
 
 Frontend:
-- - A registration form which POSTs to the API to create a new user
+- A registration form which POSTs to the API to create a new user
 - A sign-in form.
 - A page to show the authenticated content from the API.
 - A 'sign out' button that removes the saved access token and redirects the user to the login form.
