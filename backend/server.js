@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
+import { isEmail } from 'validator';
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI';
 mongoose.connect(mongoUrl, {
@@ -26,12 +27,15 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    trim: true,
     minlength: [2, 'Name is too short'],
   },
   email: {
     type: String,
     unique: true,
     required: true,
+    trim: true,
+    validate: [isEmail, 'Invalid email'],
   },
   password: {
     type: String,
@@ -109,7 +113,12 @@ app.post('/users', async (req, res) => {
       name,
       password,
     }).save();
-    res.status(200).json({ userId: user._id, accessToken: user.accessToken }); //send user id and access token back to the user
+    res.status(200).json({
+      userId: user._id,
+      accessToken: user.accessToken,
+      name: user.name,
+      email: user.email,
+    });
   } catch (err) {
     res.status(400).json({
       message: POST_FAILED,
@@ -166,7 +175,6 @@ app.get('/users/:id/secret', async (req, res) => {
   try {
     const userId = req.params.id;
     if (userId != req.user._id) {
-      console.log('Wrong user');
       throw ACCESS_DENIED;
     }
     const secretMessage = `This is a secret message for ${req.user.name}`;
