@@ -12,6 +12,14 @@ The frontend is built in React Redux where we use a mix of local and global stat
 - POST endpoint to login (for existing users)
 - GET restricted endpoint only accessible with a valid access token.
 
+## Tech ⚡️
+- MongoDB
+- Mongoose
+- Node.js
+- Express
+- Heroku 
+- Redux
+
 ## View it live 🔴
 - [Authentication Backend](https://authentication-sandra-sofia.herokuapp.com/)
 - [Authentication Frontend](https://auth-sandra-sofia.netlify.app/)
