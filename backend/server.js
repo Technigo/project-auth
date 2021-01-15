@@ -9,7 +9,7 @@ const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI'
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-const User = mongoose.model('User', {
+const User = mongoose.model.User({
   name: {
     type: String,
     minlength:3,
@@ -51,14 +51,17 @@ app.get('/', (req, res) => {
   res.send('Welcome!')
 })
 
+//sign in
 app.post('/users', async (req, res) => { 
   try { 
     const { name, password } = req.body
-    const SALT = bcrypt.genSaltSync(10)
-    const user = await new User({ name, password: bcrypt.hashSync(password, SALT)}).save()
-    res.status(201).json({id: user._id, accessToken: user.accessToken})
+    const user = await new User({
+      name,
+      password,
+    }).save();
+    res.status(200).json({ userId: user._id, accessToken: user.accessToken });
   } catch (err) {
-    res.status(400).json({message: "Could not create user", errors:err.errors})
+    res.status(400).json({ statusMessage: 'Could not create user', errors: err });
   }
 })
 
@@ -67,6 +70,7 @@ app.get('/users/:id', (req, res) => {
   res.status(401).send()
 })
 
+//login
 app.post('/sessions', async (req, res) => {
   try {
     const { name, password } = req.body
