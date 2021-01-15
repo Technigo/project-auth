@@ -3,8 +3,6 @@ import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import styled from 'styled-components'
 
-//import { Status } from './components/Status'
-//import { Profile } from './components/Profile'
 import { LoginForm } from './components/LoginForm'
 import { user } from './reducers/user'
 
@@ -12,7 +10,6 @@ const reducer = combineReducers({ user: user.reducer })
 const store = configureStore({ reducer })
 
 export const App = () => {
-  // <Status /> <Profile /> //<SignupForm />
   return (
     <MainContainer>
       <Provider store={store}>
