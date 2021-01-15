@@ -31,11 +31,6 @@ export const Notes = () => {
       .catch(error => console.error(error));
     }
 
-  // Fetches notes
-  useEffect(() => {
-    handleNoteList();
-  }, []);
-
   const handleNoteList = () => {
     fetch(NOTE_URL, {
       method: 'GET',
@@ -50,6 +45,9 @@ export const Notes = () => {
       .then(data => setNoteList(data))
       .catch(error => console.error(error));
   }
+
+  //get notes
+  handleNoteList();
 
   return (
     <ProfileSection>

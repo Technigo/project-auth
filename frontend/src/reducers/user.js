@@ -30,7 +30,6 @@ export const user = createSlice({
       state.login.loggedIn = action.payload
     },
     logout: (state, action) => {
-      console.log('Logging out')
       state.login.userId = 0
       state.login.accessToken = null
     },
