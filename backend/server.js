@@ -58,7 +58,9 @@ const authenticateUser = async (req, res, next) => {
     req.user = user;
     next();
   } catch (err) {
-    res.status(401).json({ error: 'Please try again' });
+    res
+      .status(401)
+      .json({ error: 'ERROR: Something went wrong. Please try again' });
     console.log(err);
   }
 };
@@ -94,7 +96,12 @@ app.post('/users', async (req, res) => {
       .status(200)
       .json({ id: user._id, accessToken: user.accessToken, name: user.name });
   } catch (err) {
-    res.status(400).json({ message: 'Could not create user', errors: err });
+    res
+      .status(400)
+      .json({
+        message: `ERROR: Could not create user. Make sure you've entered all the fields correctly.`,
+        errors: err,
+      });
     console.log({ error: err });
   }
 });

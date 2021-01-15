@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { LogOut } from './LogOut';
 
-export const Content = ({ name, at }) => {
+export const Content = ({ name }) => {
   const [secretMessage, setSecretMessage] = useState('');
   const [secretVisible, setSecretVisible] = useState(false);
   const accessToken = useSelector((store) => store.users.user.accessToken);

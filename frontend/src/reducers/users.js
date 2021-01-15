@@ -6,6 +6,7 @@ const initialState = {
     name: '',
   },
   isLoggedIn: false,
+  errorMessage: '',
 };
 
 export const users = createSlice({
@@ -20,11 +21,11 @@ export const users = createSlice({
       state.user.accessToken = '';
       state.isLoggedIn = false;
     },
-
-    // Petra: La till en funktion som togglar isloggedin-state,
-    // så att vi bara aktiverar det när login är successfull!
     toggleLoggedInOut: (state, action) => {
       state.isLoggedIn = !state.isLoggedIn;
+    },
+    setError: (state, action) => {
+      state.errorMessage = action.payload;
     },
   },
 });
@@ -43,7 +44,7 @@ export const manageUser = ({ url, user }) => {
       }),
     })
       .then((res) => {
-        if (res.ok === false) {
+        if (!res.ok) {
           return res.json();
         } else {
           dispatch(users.actions.toggleLoggedInOut());
@@ -53,8 +54,10 @@ export const manageUser = ({ url, user }) => {
       .then((json) => {
         if (json.message) {
           console.error(json.message);
+          dispatch(users.actions.setError(json.message));
         } else {
           dispatch(users.actions.logIn(json));
+          dispatch(users.actions.setError(''));
         }
       });
   };

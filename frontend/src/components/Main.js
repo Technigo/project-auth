@@ -4,18 +4,22 @@ import { useSelector } from 'react-redux';
 
 import { SignUp } from './SignUp';
 import { LogIn } from './LogIn';
+import { ErrorMessage } from './ErrorMessage';
 import { Content } from './Content';
 
 export const Main = () => {
   const [notNewUser, setNotNewUser] = useState(false);
   const isLoggedIn = useSelector((store) => store.users.isLoggedIn);
   const name = useSelector((store) => store.users.user.name);
-  const accessToken = useSelector((store) => store.users.user.accessToken);
+  const errorMessage = useSelector((store) => store.users.user.errorMessage);
+  console.log({ 'from main': errorMessage });
 
   return (
     <Wrapper>
       {!isLoggedIn && !notNewUser && <SignUp />}
       {notNewUser && <LogIn />}
+
+      <ErrorMessage errorMessage={errorMessage} />
       {!isLoggedIn && (
         <>
           <Text>{notNewUser ? 'Not a user?' : 'Already a user?'}</Text>
@@ -24,7 +28,7 @@ export const Main = () => {
           </Button>
         </>
       )}
-      {isLoggedIn && <Content name={name} at={accessToken} />}
+      {isLoggedIn && <Content name={name} />}
     </Wrapper>
   );
 };
