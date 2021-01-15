@@ -7,7 +7,6 @@ import { Button } from '../lib/Button'
 import { Input } from '../lib/Input'
 import { Secrets } from './Secrets'
 
-
 // do these need to be edited for deployment?
 const SIGNUP_URL = 'http://localhost:8081/users'
 const LOGIN_URL = 'http://localhost:8081/sessions'
@@ -32,6 +31,7 @@ export const Form = () => {
   const accessToken = useSelector((store) => store.user.login.accessToken)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmedPassword, setConfirmedPassword] = useState('')
   const [name, setName] = useState('')
   const [isNewUser, setIsNewUser] = useState(false)
   const [loginFailed, setLoginFailed] = useState(false)
@@ -157,8 +157,7 @@ export const Form = () => {
         maxLength="20"
         required />
 
-      {/* need to verify that the two password fields match.
-      may need to specify some length - min/max. */}
+      {/* may need to specify some length - min/max. */}
       <Input
         type="password"
         value={password}
@@ -168,14 +167,15 @@ export const Form = () => {
 
       <Input
         type="password"
-        value={password}
+        value={confirmedPassword}
         placeholder="password (again)"
-        onChange={(event) => setPassword(event.target.value)}
+        onChange={(event) => setConfirmedPassword(event.target.value)}
         required />
 
       <Button
         type="submit"
-        background="lightgreen">
+        background="lightgreen"
+        disabled={password !== confirmedPassword || password.length === 0}>
         Sign up
       </Button>
     </FormStyle>

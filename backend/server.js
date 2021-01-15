@@ -90,7 +90,7 @@ app.post('/users', async (req, res) => {
       email,
       password
     }).save()
-    res.status(201).json({ userID: user._id, accessToken: user.accessToken})
+    res.status(201).json({ userId: user._id, accessToken: user.accessToken})
   } catch (err) {
     res.status(400).json({ message: 'Could not create user', errors: err })
   }
