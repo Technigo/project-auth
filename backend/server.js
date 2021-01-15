@@ -4,13 +4,19 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth11jan";
+dotenv.config();
+
+const mongoUrl =
+	process.env.MONGO_URL ||
+	`mongodb+srv://${process.env.DB_USER}:${process.env.DB_KEY}@cluster0.qxpka.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+
 mongoose.Promise = Promise;
 
-// Mongoose model for creating a user object
-const User = mongoose.model("User", {
+// Schema
+const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		unique: true,
@@ -18,8 +24,8 @@ const User = mongoose.model("User", {
 	},
 	password: {
 		type: String,
-		required: [true, "A password is required."],
-		minLength: 5,
+		required: true,
+		minlength: 5,
 	},
 	accessToken: {
 		type: String,
@@ -27,6 +33,25 @@ const User = mongoose.model("User", {
 		unique: true,
 	},
 });
+
+userSchema.pre("validate", async function (next) {
+	const user = this;
+
+	if (!user.isModified("password")) {
+		return next();
+	}
+
+	const salt = bcrypt.genSaltSync();
+	console.log(`PRE- password before hash: ${user.password}`);
+	user.password = bcrypt.hashSync(user.password, salt);
+	console.log(`PRE- password after  hash: ${user.password}`);
+
+	// Continue with the save
+	next();
+});
+
+//mongoose model for creating a user object
+const User = mongoose.model("User", userSchema);
 
 // Middleware, authenticate user. Checks access tokens in header of the request.
 const authenticateUser = async (req, res, next) => {
@@ -49,17 +74,15 @@ app.use(bodyParser.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-	res.send("Hello world");
+	res.send("This is the secret endpoint API");
 });
 
-// Registration endpoint
 app.post("/users", async (req, res) => {
 	try {
 		const { username, password } = req.body;
-		const salt = bcrypt.genSaltSync(); //* everytime user is called  // Rainbow table attack -
 		const user = await new User({
-			username: username,
-			password: bcrypt.hashSync(password, salt), //*
+			username,
+			password,
 		}).save();
 
 		res.status(201).json({ userId: user._id, accessToken: user.accessToken });
@@ -79,8 +102,6 @@ app.post("/session", async (req, res) => {
 				accessToken: user.accessToken,
 			});
 		} else {
-			//Throw an error here instead??
-			//Throw "Login failed"
 			res.status(400);
 			res.json({
 				userFound: false,

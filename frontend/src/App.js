@@ -10,7 +10,6 @@ import { SignOutButton } from "./components/SignOutButton";
 
 export const App = () => {
 	const [mode, setMode] = useState("signIn");
-
 	const tokenFromStorage = () => window.localStorage.getItem("tokenAuth") || "";
 	const [token, setToken] = useState(tokenFromStorage);
 	const [signUpOk, setSignUpOk] = useState();

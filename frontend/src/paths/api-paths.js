@@ -1,3 +1,5 @@
-export const signUpUrl = "http://localhost:8081/users";
-export const signInUrl = "http://localhost:8081/session";
-export const getSecretUrl = `http://localhost:8081/secret`;
+export const signUpUrl = "https://karolinandrea-secret-api.herokuapp.com/users";
+export const signInUrl =
+	"https://karolinandrea-secret-api.herokuapp.com/session";
+export const getSecretUrl =
+	"https://karolinandrea-secret-api.herokuapp.com/secret";
