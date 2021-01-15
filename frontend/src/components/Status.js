@@ -15,7 +15,7 @@ export const Status = () => {
       )} */}
       {errorMessage && (
         <div>
-          <p>{`${errorMessage.err}`}</p>
+          <p>{`${errorMessage}`}</p>
         </div>
       )}
     </>
