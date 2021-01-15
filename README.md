@@ -1,13 +1,28 @@
-# Project Auth
+# Authentication Project 🍃
 
-Replace this readme with your own information about your project.
+This project's main goal was to use create a fullstack Authentication Page with Signup and Login.
+Once you have logged in you can reveal a secret message as well as logout.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+# Planning & What we learned 🧩
 
-## The problem
+We started with the backend creating endpoints and mongoose model called User. Then we added the authentication for the secure endpoints
+We used a redux store to be able to use the different states as per the requirement of the forms and to display data.
+We used react router to be able to navigate between pages.
+After Logging in you have two choices either to view a secret message or you have the option to logout.
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+# Tech ⚡️
 
-## View it live
+MongoDB
+Mongoose
+Node.js
+Express
+Heroku
+React
+React Router
+Redux - Toolkit + Hooks
+JS
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+# View it live 🔴
+
+FrontEnd : wk20-api-auth.netlify.app
+BackEnd : https://login-logout-authentication.herokuapp.com/
