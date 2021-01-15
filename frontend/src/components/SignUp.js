@@ -9,11 +9,10 @@ import { rgba } from "polished";
 const SIGNUP = "https://project-auth-liza-kat.herokuapp.com/users";
 
 export const SignUp = ({ setSignedUp }) => {
-  const [inputValue, setInputValue] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
   const [signUpFailed, setSignUpFailed] = useState(false);
 
   const handleFormSubmit = (event) => {
@@ -21,9 +20,9 @@ export const SignUp = ({ setSignedUp }) => {
     fetch(SIGNUP, {
       method: "POST",
       body: JSON.stringify({
-        name: inputValue.name,
-        email: inputValue.email,
-        password: inputValue.password,
+        name: name,
+        email: email,
+        password: password,
       }),
       headers: { "Content-Type": "application/json" },
     })
@@ -39,11 +38,11 @@ export const SignUp = ({ setSignedUp }) => {
         }
       });
 
-    setInputValue({
-      name: "",
-      email: "",
-      password: "",
-    });
+    // setInputValue({
+    //   name: "",
+    //   email: "",
+    //   password: "",
+    // });
   };
   return (
     <Image>
@@ -53,25 +52,28 @@ export const SignUp = ({ setSignedUp }) => {
         <InputField
           name="name"
           label="Name"
-          type="name"
+		  type="name"
+		  value={name}
           placeholder="name"
-          setInputValue={setInputValue}
-          minLength="5"
+		  onChange={(event) => setName(event.target.value)}
+		  minLength="5"
         />
         <InputField
           name="email"
           label="Email"
-          type="email"
+		  type="email"
+		  value={email}
           placeholder="email"
-          setInputValue={setInputValue}
+		  onChange={(event) => setEmail(event.target.value)}
           minLength="3"
         />
         <InputField
           name="password"
           label="Password"
-          type="password"
+		  type="password"
+		  value={password}
           placeholder="password"
-          setInputValue={setInputValue}
+		  onChange={(event) => setPassword(event.target.value)}
           minLength="6"
         />
 

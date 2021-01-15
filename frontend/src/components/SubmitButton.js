@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-export const SubmitButton = ({ title, onSubmit }) => {
+export const SubmitButton = ({ title, onClick, onSubmit }) => {
   return (
-	<MainContainer onSubmit={onSubmit} 
-	>
+    <MainContainer onSubmit={onSubmit} onClick={onClick}>
       <TextField>{title}</TextField>
     </MainContainer>
   );
