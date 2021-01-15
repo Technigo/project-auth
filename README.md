@@ -4,7 +4,8 @@ This week's project is to build an API with authentication to implement a regist
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+The project is built on a backend API, and a React frontend. We created a `User` model using mongoose, with properties for a registered user, and to store a user's access token.
+On the frontend side we built up a registration form that POSTs to the API. We stored the access token we got back in the browser using local storage, and then used that token when making other requests to your API.
 
 ## Learning objectives 🧠
 
