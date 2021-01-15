@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import TextField from '@material-ui/core/TextField'
-// import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@material-ui/core/IconButton'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
-// import InputAdornment from '@material-ui/core/InputAdornment'
-// import Visibility from '@material-ui/icons/Visibility'
-// import VisibilityOff from '@material-ui/icons/VisibilityOff'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import Visibility from '@material-ui/icons/Visibility'
+import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 import { login, signUp } from '../reducers/user'
 import { CustomButton } from './CustomButton'
@@ -34,7 +34,7 @@ export const Login = () => {
   // Form validation
   const minimumNameLength = { minLength: 2, maxLength: 20 }
   const minimumPasswordLength = { minLength: 5 }
-  const validEmail = { pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"} 
+  const validEmail = { pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$" }
   //cannot start with @
   // has to include the pattern of xxxx@xxx.se
 
@@ -44,6 +44,12 @@ export const Login = () => {
   //     dispatch(signUp())
   //   }
   // }, [dispatch, userName])
+
+  // testing this
+  const [showPassword, setShowPassword] = useState(false)
+  const handleClickShowPassword = () => setShowPassword(!showPassword)
+  console.log(showPassword)
+  console.log(password)
 
   const handleLogin = (event) => {
     event.preventDefault()
@@ -65,6 +71,10 @@ export const Login = () => {
   //   setPassword({ ...password, showPassword: !password.showPassword })
   // }
 
+  // console.log(password)
+
+  // console.log(test1)
+
   return (
     <Container>
       <Wrapper>
@@ -77,33 +87,35 @@ export const Login = () => {
               label="Name"
               inputProps={minimumNameLength}
               value={name}
-              error={name === "" ? false : name === 1 ? true : false } //does not work
+              error={name === "" ? false : name === 1 ? true : false} //does not work
               onChange={(event) => setName(event.target.value)}
               helperText={name === "" ? 'min. 2 char' : ' '}
             />
             <div>
-            <InputLabel htmlFor="standard-adornment-password">Password*</InputLabel>
-            <Input
-              required={true}
-              id="standard-adornment-password"
-              type={password.showPassword ? 'text' : 'password'}
-              value={password.password}
-              fullWidth={true}
-              onChange={(event) => setPassword(event.target.value)}
-              inputProps={minimumPasswordLength}
-              // endAdornment={
-              //   <InputAdornment position="end">
-              //     <IconButton
-              //       aria-label="toggle password visibility"
-              //       onClick={handleClickShowPassword}
-              //     >
-              //       {password.showPassword ? <Visibility /> : <VisibilityOff />}
-              //     </IconButton>
-              //   </InputAdornment>
-              // }
-            />
+              <InputLabel htmlFor="standard-adornment-password">Password*</InputLabel>
+              <Input
+                required={true}
+                id="standard-adornment-password"
+                // type={password.showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
+                value={password}
+                fullWidth={true}
+                onChange={(event) => setPassword(event.target.value)}
+                inputProps={minimumPasswordLength}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                    >
+                      {/* {password.showPassword ? <Visibility /> : <VisibilityOff />} */}
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
             </div>
-            
+
             <TextField
               required id="standard-default"  //adds *
               label="Email"
@@ -111,8 +123,8 @@ export const Login = () => {
               onChange={(event) => setEmail(event.target.value)}
               inputProps={validEmail}
               helperText={email === "" ? 'x@xxx.xx' : ' '}
-            /> 
-  
+            />
+
             <ButtonWrapper>
               <CustomButton
                 variant="contained"
