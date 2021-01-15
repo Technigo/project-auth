@@ -37,8 +37,8 @@ export const user = createSlice({
 // Thunks
 // Signup
 export const signup = (name, email, password) => {
-  const SIGNUP_URL = 'http://localhost:8080/signup';
-  // const SIGNUP_URL = 'ADD HEROKU URL';
+  // const SIGNUP_URL = 'http://localhost:8080/signup';
+  const SIGNUP_URL = 'https://auth-by-ylva-tara.herokuapp.com/signup';
   return (dispatch) => {
     fetch(SIGNUP_URL, {
       method: 'POST',
@@ -70,8 +70,8 @@ export const signup = (name, email, password) => {
 
 // Login
 export const login = (email, password) => {
-  const LOGIN_URL = 'http://localhost:8080/login';
-  // const LOGIN_URL = 'ADD HEROKU URL';
+  // const LOGIN_URL = 'http://localhost:8080/login';
+  const LOGIN_URL = 'https://auth-by-ylva-tara.herokuapp.com/login';
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: 'POST',
@@ -104,8 +104,8 @@ export const login = (email, password) => {
 
 // SecretMesssage
 export const getSecretMessage = () => {
-  const USERS_URL = 'http://localhost:8080/users';
-  // const USERS_URL = 'ADD HEROKU URL';
+  // const USERS_URL = 'http://localhost:8080/users';
+  const USERS_URL = 'https://auth-by-ylva-tara.herokuapp.com/users';
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
