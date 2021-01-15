@@ -89,6 +89,7 @@ export const LoginForm = () => {
           Password:
           <InputField
             required
+            type='password'
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
@@ -128,6 +129,7 @@ const InputLabel = styled.label`
 
 const InputField = styled.input`
   border-radius: 5px;
+  margin-left: 5px;
 `
 
 const SubmitButton = styled.button`
