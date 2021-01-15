@@ -1,13 +1,28 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+This project was to build an **API with authentication** where a user gets to login and find a secret message. The goal was to implement a registration flow and a frontend with forms where the user can `sign up`, `sign in`, `view a message` and `log out`. This week was all about web-security.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+## What we learned
 
-## The problem
+- How to build a registration flow
+- How to handle authentication using tokens in both backend and frontend
+- How to store and hash passwords in the database using bcrypt and crypto
+- How to build both frontend & backend in the same repository
+- How to handle errors using Try/Catch
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+## Tech used
+
+- Node.js
+- Express
+- MongoDB
+- MongoDB Compass
+- Javascript
+- Postman
+- React
+- Postman
+- React
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+[Login to find our secret message](Netlify)
+[View Backedn API](Herokuapp)

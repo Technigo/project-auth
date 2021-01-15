@@ -8,14 +8,13 @@ export const SignIn = ({ signIn, signInStatus }) => {
 
 	const handleSignIn = (event) => {
 		event.preventDefault();
-		console.log("sign in");
 		const user = {
 			userName: userName,
 			password: password,
 		};
 		signIn(user);
 	};
-	//flytta onclick till onsubmit på formuläret.
+
 	return (
 		<section>
 			<form onSubmit={(event) => handleSignIn(event)} className="form">

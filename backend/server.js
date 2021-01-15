@@ -1,17 +1,15 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-//nya importer
 import mongoose from "mongoose";
 import crypto from "crypto";
-//import bcrypt from "bcrypt-nodejs";
 import bcrypt from "bcrypt";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth11jan";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-//mongoose model for creating a user object
+// Mongoose model for creating a user object
 const User = mongoose.model("User", {
 	username: {
 		type: String,
@@ -30,7 +28,7 @@ const User = mongoose.model("User", {
 	},
 });
 
-//Middleware, authenticate user. Checks access tokens in header of the request.
+// Middleware, authenticate user. Checks access tokens in header of the request.
 const authenticateUser = async (req, res, next) => {
 	const user = await User.findOne({ accessToken: req.header("Authorization") });
 	if (user) {
@@ -41,10 +39,7 @@ const authenticateUser = async (req, res, next) => {
 	}
 };
 
-// Defines the port the app will run on. Defaults to 8080, but can be
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
+// PORT=9000 npm start
 const port = process.env.PORT || 8081;
 const app = express();
 
@@ -57,37 +52,7 @@ app.get("/", (req, res) => {
 	res.send("Hello world");
 });
 
-//endpoint with authentication. To protect the endpoint.
-/*
-app.get("/secrets", authenticateUser);
-//new endpoint
-app.get("/secrets", (req, res) => {
-	res.json({ secret: "This is a secret" });
-});
-*/
-
-//registration endpoint1
-/*
-app.post("/users", async (req, res) => {
-	try {
-		const { username, password } = req.body;
-		const user = new User({
-			username: username,
-			password: bcrypt.hashSync(password),
-		});
-		user.save();
-		res.status(201).json({ id: user._id, accessToken: user.accessToken });
-	} catch (err) {
-		res
-			.status(400)
-			.json({ message: "could not create user", errors: err.errors });
-	}
-});
-*/
-//Testar ett annat sätt att hantera fel
-
-//Registration endpoint
-
+// Registration endpoint
 app.post("/users", async (req, res) => {
 	try {
 		const { username, password } = req.body;
@@ -102,29 +67,8 @@ app.post("/users", async (req, res) => {
 		res.status(400).json({ message: "could not create user", errors: err });
 	}
 });
-/*
-app.post("/users", async (req, res) => {
-	const { username, password } = req.body;
-	const user = new User({
-		username: username,
-		//password: password,
-		password: bcrypt.hashSync(password),
-	});
 
-	user.save(function (err) {
-		if (err) {
-			res.status(400).json({
-				message: "could not create user",
-				errors: err.errors,
-				error: err,
-			});
-		} else {
-			res.status(201).json({ id: user._id, accessToken: user.accessToken });
-		}
-	});
-});
-*/
-//Login endpoint
+// Login endpoint
 app.post("/session", async (req, res) => {
 	try {
 		const user = await User.findOne({ username: req.body.username });
@@ -135,6 +79,8 @@ app.post("/session", async (req, res) => {
 				accessToken: user.accessToken,
 			});
 		} else {
+			//Throw an error here instead??
+			//Throw "Login failed"
 			res.status(400);
 			res.json({
 				userFound: false,
@@ -160,7 +106,5 @@ app.get("/secret", (req, res) => {
 		imageUrl: `https://i.pinimg.com/originals/52/c6/ef/52c6ef702fa46b05607bb468244338be.jpg`,
 	};
 
-	// Compile information that is access protected
-	// And send it back to the client to use for that specific user
 	res.status(201).json({ secretMessage });
 });
