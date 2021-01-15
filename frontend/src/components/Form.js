@@ -8,8 +8,8 @@ import { Button } from '../lib/Button'
 import { Input } from '../lib/Input'
 import { Secrets } from './Secrets'
 
-const SIGNUP_URL = 'http://secrets-auth-app.herokuapp.com/users'
-const LOGIN_URL = 'http://secrets-auth-app.herokuapp.com/sessions'
+const SIGNUP_URL = 'https://secrets-auth-app.herokuapp.com/users'
+const LOGIN_URL = 'https://secrets-auth-app.herokuapp.com/sessions'
 
 const FormStyle = styled.form`
   display: flex;
