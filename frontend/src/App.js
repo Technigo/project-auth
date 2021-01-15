@@ -7,14 +7,12 @@ import { Secret } from "./components/Secret";
 import { signUpUrl, signInUrl } from "./paths/api-paths";
 import { ToggleButton } from "./components/ToggleButton";
 import { SignOutButton } from "./components/SignOutButton";
-import { ErrorMessage } from "./components/ErrorMessage";
 
 export const App = () => {
 	const [mode, setMode] = useState("signIn");
 
 	const tokenFromStorage = () => window.localStorage.getItem("tokenAuth") || "";
 	const [token, setToken] = useState(tokenFromStorage);
-	const [userId, setUserId] = useState();
 	const [signUpOk, setSignUpOk] = useState();
 	const [signInOk, setSignInOk] = useState();
 
@@ -50,7 +48,6 @@ export const App = () => {
 			.then((data) => {
 				setToken(data.accessToken);
 				window.localStorage.setItem("tokenAuth", data.accessToken);
-				setUserId(data.userId);
 			})
 			.catch((error) => {
 				setSignInOk(false);
@@ -93,7 +90,6 @@ export const App = () => {
 				<SignUp signUpStatus={signUpOk} signUp={signUpUser} />
 			)}
 			{!token && <ToggleButton mode={mode} setModeinApp={handleChangeMode} />}
-
 			{token && <SignOutButton signOut={handleSignOut} />}
 			{token && <Secret token={token} />}
 		</main>

@@ -6,11 +6,16 @@ export const SignUp = ({ signUp, signUpStatus }) => {
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
 	const [repeatPassword, setRepeatPassword] = useState("");
+	const [passwordMatch, setPasswordMatch] = useState();
 
 	const checkPasswordMatch = () => {
 		if (password === repeatPassword) {
+			setPasswordMatch(true);
 			return true;
-		} else return false;
+		} else {
+			setPasswordMatch(false);
+			return false;
+		}
 	};
 
 	const handleRegistration = (event) => {
@@ -58,6 +63,11 @@ export const SignUp = ({ signUp, signUpStatus }) => {
 					minLength="5"
 					disabled={signUpStatus}
 				></input>
+				<output>
+					{passwordMatch === false && (
+						<ErrorMessage message={"Passwords are not matching."} />
+					)}
+				</output>
 				<output>
 					{signUpStatus === false && (
 						<ErrorMessage message={"Sign up failed."} />
