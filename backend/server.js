@@ -9,7 +9,7 @@ const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI'
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-const User = mongoose.model.User({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     minlength:3,
@@ -22,14 +22,28 @@ const User = mongoose.model.User({
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString('hex')
+    default: () => crypto.randomBytes(128).toString('hex'),
+    unique: true
   }
 })
 
+userSchema.pre('save', async function (next) {
+  const user = this
+
+  if (!user.isModified('password')) {
+    return next();
+  }
+
+  const salt = bcrypt.genSaltSync(10)
+  user.password = bcrypt.hashSync(user.password, salt)
+  next()
+})
+
+
 const authenticateUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({ accessToken: req.header('Authorization')})
-
+    const accessToken = req.header('Authorization')
+    const user = await User.findOne({ accessToken })
     if (user) {
       req.user = user
       next()
@@ -41,7 +55,9 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-const port = process.env.PORT || 8080
+const User = mongoose.model('User', userSchema)
+
+const port = process.env.PORT || 8080git a
 const app = express()
 
 app.use(cors())
@@ -58,10 +74,10 @@ app.post('/users', async (req, res) => {
     const user = await new User({
       name,
       password,
-    }).save();
+    }).save()
     res.status(200).json({ userId: user._id, accessToken: user.accessToken });
   } catch (err) {
-    res.status(400).json({ statusMessage: 'Could not create user', errors: err });
+    res.status(400).json({ message: 'Could not create user', error });
   }
 })
 
@@ -76,7 +92,7 @@ app.post('/sessions', async (req, res) => {
     const { name, password } = req.body
     const user = await User.findOne({ name })
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(201).json({ userId: user._id, accessToken: user.accessToken })
+      res.status(200).json({ userId: user._id, accessToken: user.accessToken })
     } else {
       res.status(404).json({ notFound: true, message: "Check if username and/or password is correct" })
     }
