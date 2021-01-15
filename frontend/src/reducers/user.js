@@ -29,6 +29,7 @@ export const user = createSlice({
     },
     logout: (state, action) => {
       state.login.accessToken = null;
+      state.login.userId = 0;
     }
   },
 });

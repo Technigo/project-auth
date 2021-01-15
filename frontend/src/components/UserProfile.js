@@ -26,8 +26,9 @@ export const UserProfile = () => {
     dispatch(user.actions.setStatusMessage({ statusMessage: "Logged out!" }));
   };
 
-  const testSecret = () => {
+  const testSecret = (event) => {
     // Included userId in the path?
+    event.preventDefault();
     fetch(`${SECRET_URL}`, {
       method: "GET",
       // Include the accessToken to get the protected endpoint
@@ -45,19 +46,24 @@ export const UserProfile = () => {
   };
 
   if (!accessToken) {
-    return <></>;
+    return null;
   }
 
   return (
-    <section class="profile">
-      {/* <h2>Profile:</h2>
-      <h4>userId:</h4>
-      <p>{`${userId}`}</p>
-      <h4>accesstoken</h4>
-      <p>{`${accessToken}`}</p> */}
-      <h4>Welcome </h4>
-      <input type="submit" onClick={testSecret} value="Test Secret" />
-      <input type="submit" onClick={logout} value="Test Logout" />
+    <section>
+      <form>
+        <h1>Welcome</h1>
+        <div className="button-container">
+          <button type="submit" onClick={testSecret} value="Test Secret">
+            Secret info
+          </button>
+          <button type="submit" onClick={logout}>Logout</button>
+        </div>
+      </form>
+
+      {/* //Vans exemple */}
+
+      {/* <input type="submit" onClick={logout} value="Test Logout" /> */}
     </section>
   );
 };

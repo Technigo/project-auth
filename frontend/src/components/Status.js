@@ -5,8 +5,9 @@ export const Status = () => {
   const statusMessage = useSelector((store) => store.user.login.statusMessage);
 
   return (
-    <section class="status">
+    <section className="status">
       <p>{`${statusMessage}`}</p>
+      <h1>hello</h1>
     </section>
   );
 };

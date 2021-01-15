@@ -33,8 +33,8 @@ export const Login = () => {
   // Handle sign up
   const handleSignup = (event) => {
     event.preventDefault();
-    // setName("");
-    // setPassword("");
+    setName("");
+    setPassword("");
     // send data to backend, for saving in DB
     fetch(SIGNUP_URL, {
       method: "POST",
@@ -56,8 +56,8 @@ export const Login = () => {
   // Handle log in
   const handleLogin = (event) => {
     event.preventDefault();
-    //setName("");
-    //setPassword("");
+    setName("");
+    setPassword("");
 
     fetch(LOGIN_URL, {
       method: "POST",
@@ -88,10 +88,12 @@ export const Login = () => {
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
-        <label> Password:</label>
+        <label>Password:</label>
         <input
+          // type="password"
           placeholder="Min length 5 characters"
           required
+          minLength="5"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
