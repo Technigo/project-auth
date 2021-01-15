@@ -39,8 +39,8 @@ export const LoginForm = () => {
           headers: { 'Content-Type': 'application/json' },
         })
           .then((res) => {
-            if (res.ok) {
-              throw 'Login Failed';
+            if (!res.ok) {
+              throw 'Login Failed, try again! ';
             }
             return res.json();
           })
