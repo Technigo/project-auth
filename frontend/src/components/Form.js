@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
@@ -25,7 +26,6 @@ const Paragraph = styled.p`
 `
 
 // to either LOGIN or REGISTER as a new user
-// need error msg when login fails
 export const Form = () => {
   const dispatch = useDispatch()
   const accessToken = useSelector((store) => store.user.login.accessToken)
@@ -43,6 +43,12 @@ export const Form = () => {
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }))
     dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }))
     console.log(accessToken)
+    setEmail('')
+    setName('')
+    setPassword('')
+    setConfirmedPassword('')
+    setIsNewUser(false)
+    setLoginFailed(false)
   }
 
   const handleLoginFail = (loginError) => {
@@ -157,7 +163,6 @@ export const Form = () => {
         maxLength="20"
         required />
 
-      {/* may need to specify some length - min/max. */}
       <Input
         type="password"
         value={password}
@@ -178,6 +183,11 @@ export const Form = () => {
         disabled={password !== confirmedPassword || password.length === 0}>
         Sign up
       </Button>
+
+      {loginFailed
+        && <Paragraph>
+            Could not create this user. Please try again with another name or email!
+        </Paragraph>}
     </FormStyle>
   )
 }

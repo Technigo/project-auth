@@ -106,7 +106,6 @@ app.post('/sessions', async (req, res) => {
       user.accessToken = crypto.randomBytes(128).toString('hex')
       // Save new access token
       const updatedUser = await user.save()
-      console.log(updatedUser)
       res.status(200).json({
         userId: user._id, 
         accessToken: updatedUser.accessToken
@@ -119,18 +118,21 @@ app.post('/sessions', async (req, res) => {
   }
 })
 
+// A LOGOUT ENDPOINT THAT WE DON'T MANAGED TO FINISH ON TIME. TO BE CONTINUED LATER
 // Logout
-app.post('/users/logout', authenticateUser)
-app.post('/users/logout', async (req, res) => {
-  try {
-    req.user.accessToken = null
-    await req.user.save()
-    // add a conditional that calls for status to show if user is logged in or out.
-    res.status(200).json({ loggedOut: true })
-  } catch (err) {
-    res.status(400).json({ error: 'Could not logout' })
-  }
-})
+// app.post('/users/logout', authenticateUser)
+// app.post('/users/logout', async (req, res) => {
+//   try {
+//     console.log('Try to log out', req.user.name)
+//     req.user.accessToken = ''
+//     console.log(req.user.accessToken)
+//     await req.user.save()
+//     // add a conditional that calls for status to show if user is logged in or out.
+//     res.status(200).json({ loggedOut: true })
+//   } catch (err) {
+//     res.status(400).json({ error: 'Could not logout' })
+//   }
+// })
 
 // Secure endpoint with content for all logged-in users
 app.get('/secrets', authenticateUser)
