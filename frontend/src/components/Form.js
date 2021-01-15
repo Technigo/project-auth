@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
@@ -19,6 +18,11 @@ const Title = styled.h1`
   font-size: 55px;
   color: #85ad99;
 `
+const Paragraph = styled.p`
+  font-size: 14px;
+  background: orange;
+`
+
 // to either LOGIN or REGISTER as a new user
 // need error msg when login fails
 export const Form = () => {
@@ -54,7 +58,7 @@ export const Form = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw 'Login failed'
+          throw new Error('Login failed')
         }
         return res.json()
       })
@@ -73,7 +77,7 @@ export const Form = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw 'Signup failed'
+          throw new Error('Signup failed')
         }
         return res.json()
       })
@@ -97,33 +101,34 @@ export const Form = () => {
       <>
         <FormStyle>
           <Title>Login</Title>
-//      email type?
-        <Input
-           type="text"
-           value={email}
-           placeholder="email"
-           onChange={(event) => setEmail(event.target.value)}
-          required />
-
-        <Input
-          type="text"
-          value={password}
-          placeholder="password"
-          onChange={(event) => setPassword(event.target.value)}
-          required />
-          
+          {/* email type? */}
+          <Input
+            type="text"
+            value={email}
+            placeholder="email"
+            onChange={(event) => setEmail(event.target.value)}
+            required />
+          <Input
+            type="text"
+            value={password}
+            placeholder="password"
+            onChange={(event) => setPassword(event.target.value)}
+            required />
           <Button
             type="submit"
             background="green"
-            onClick={handleLogin} >
+            onClick={handleLogin}>
             Login
           </Button>
+
+          {loginFailed && <Paragraph>Wrong email or password. Please try again!</Paragraph>}
+          <p>Not registered yet?</p>
+
+          <Button
+            onClick={handleNewUser}>
+            Sign up
+          </Button>
         </FormStyle>
-  
-        {loginFailed && <p>Wrong email or password. Please try again!</p>}
-        <p>Not registered yet?</p>
-                
-         <Button onClick={handleNewUser}>Sign up</Button>
       </>
     )
   }
@@ -132,28 +137,28 @@ export const Form = () => {
     <FormStyle>
       <Title>Signup</Title>
 
-        <Input
-          type="text"
-          value={email}
-          placeholder="email"
-          onChange={(event) => setEmail(event.target.value)} 
-          required />
+      <Input
+        type="text"
+        value={email}
+        placeholder="email"
+        onChange={(event) => setEmail(event.target.value)}
+        required />
 
-        <Input
-          type="text"
-          value={name}
-          placeholder="username"
-          onChange={(event) => setName(event.target.value)}
-          minLength='2'
-          maxLength='20'
-          required />
+      <Input
+        type="text"
+        value={name}
+        placeholder="username"
+        onChange={(event) => setName(event.target.value)}
+        minLength="2"
+        maxLength="20"
+        required />
 
-        <Input
-          type="text"
-          value={password}
-          placeholder="password"
-          onChange={(event) => setPassword(event.target.value)}
-          required />
+      <Input
+        type="text"
+        value={password}
+        placeholder="password"
+        onChange={(event) => setPassword(event.target.value)}
+        required />
 
       <Button
         type="submit"
