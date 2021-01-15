@@ -1,10 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
 
 import { user } from '../reducers/user'
-//import { getSecretMessage } from '../reducers/thunk'
 
-//const SECRET_URL = 'https://project-auth-cla-ellen.herokuapp.com/secrets'
 const URL = 'https://project-auth-cla-ellen.herokuapp.com/secret'
 
 export const Profile = () => {
@@ -21,7 +20,7 @@ export const Profile = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw 'You do not have access to this page'
+          throw new Error('Login failed. Please try to login again')
         }
         return res.json() 
       })
@@ -48,50 +47,33 @@ export const Profile = () => {
   }
   
   return (
-    <div>
-      <p>Welcome! here is your profile!</p>
+    <ProfileSection>
+      <h2>Welcome! here is your profile!</h2>
       <p>Status Message: {`${statusMessage}`}</p>
-      {console.log(`här är ${accessToken}`)}
-      <button type="submit" onClick={getSecret}>
+      <CustomButton type="submit" onClick={getSecret}>
         SECRET BUTTON
-      </button>
-      <button type="submit" onClick={logout}>
+      </CustomButton>
+      <CustomButton type="submit" onClick={logout}>
         Log out
-      </button>
-    </div>
+      </CustomButton>
+    </ProfileSection>
   )
 }
 
-/*const loginSuccess = (loginResponse) => {
-    dispatch(
-      user.actions.setStatusMessage({
-        statusMessage: loginResponse.secret,
-      })
-    )
-  }
-
-  const loginFailed = (loginError) => {
-    dispatch(
-      user.actions.setStatusMessage({
-        statusMessage: loginError
-      })
-    )
-  }
-
-
-
-  const showSecret = () => {
-    fetch(SECRET_URL, {
-      method: 'GET',
-      headers: {Authorization: accessToken},
-    })
-    .then((res) => {
-      if (!res.ok) {
-        throw 'Profile failed'
-      }
-      return res.json()
-    })
-    .then((json) => loginSuccess(json))
-    .catch((err) => loginFailed(err))
-  }
-  */
+const ProfileSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  padding: 0px 10px 30px 10px;
+  border-radius: 10px;
+  border: 2px solid black;
+`
+const CustomButton = styled.button`
+  border-radius: 10px;
+  background: black;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 10px;
+`

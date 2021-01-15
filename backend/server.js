@@ -4,8 +4,9 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
+import listEndpoints from 'express-list-endpoints'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb+srv://clakje:qTycua8bhA5rjWr@cluster0.dia4y.mongodb.net/claudiaellenAUTH?retryWrites=true&w=majority"
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
@@ -55,7 +56,7 @@ app.use(bodyParser.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello Claudia')
+  res.send(listEndpoints(app))
 })
 
 //salt adds som variation to the hash function, per user
@@ -79,11 +80,6 @@ app.post('/users', async (req,res) =>{
   }
 })
 
-/*app.get('/users/secret', authenticateUser)
-app.get('/users/secret', async (req, res) => {
-  console.log(`User from authenticateUser: ${req.user}`)
-  res.status(200).json({secret: `This is a secret message <3`});
-}) */
 app.get('/secret', authenticateUser)
 app.get('/secret', (req, res) => {
   const secretMessage = `This is a secret message for ${req.user.name}`
@@ -91,11 +87,11 @@ app.get('/secret', (req, res) => {
 })
 
 app.post('/sessions', async(req, res) => {
-  try{
+  try {
     const user = await User.findOne({name: req.body.name})
-    if(user && bcrypt.compareSync(req.body.password , user.password)) {
+    if (user && bcrypt.compareSync(req.body.password , user.password)) {
       res.status(201).json({userId: user._id, accessToken: user.accessToken})
-    }else {
+    } else {
       throw 'User not found'
     }
   } catch (error) {

@@ -17,7 +17,6 @@ export const LoginForm = () => {
   const [password, setPassword] = useState('')
       
   const handleLoginSuccess = (loginResponse) => {
-    console.log(loginResponse.id)
     dispatch(
       user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
     )
@@ -42,7 +41,7 @@ export const LoginForm = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw 'Signup failed'
+          throw new Error('Sign up failed')
         }
           return res.json()
       })
@@ -60,7 +59,7 @@ export const LoginForm = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw 'Login fail'
+          throw new Error('Login failed. Please try to login again')
         }
           return res.json()
       })
@@ -79,7 +78,7 @@ export const LoginForm = () => {
       <Form>
         <h1>Sign Up</h1>
         <InputLabel>
-          name:
+          Name:
           <InputField
             required
             value={name}
@@ -87,7 +86,7 @@ export const LoginForm = () => {
           />
         </InputLabel>
         <InputLabel>
-          password:
+          Password:
           <InputField
             required
             value={password}
@@ -112,24 +111,30 @@ const FormContainer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: grey;
-  padding: 0px 10px 30px 10px;
+  background: white;
+  padding: 10px 30px 30px 30px;
   border-radius: 10%;
+  border: 2px solid black;
 `
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
 `
+
 const InputLabel = styled.label`
   margin-bottom: 10px;
 `
+
 const InputField = styled.input`
   border-radius: 5px;
 `
+
 const SubmitButton = styled.button`
-  border-radius: 10%;
+  border-radius: 10px;
   background: black;
   color: white;
   cursor: pointer;
+  padding: 3px;
+  margin-bottom: 10px;
 `
