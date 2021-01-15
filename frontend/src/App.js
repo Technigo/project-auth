@@ -10,9 +10,9 @@ export const App = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  const SIGNUP_URL = "http://localhost:8081/users";
-  const LOGIN_URL = "http://localhost:8081/sessions";
-  const WELCOME_URL = "http://localhost:8081/welcome";
+  const SIGNUP_URL = "https://auth-project-annika-caroline.herokuapp.com/users";
+  const LOGIN_URL = "https://auth-project-annika-caroline.herokuapp.com/sessions";
+  const WELCOME_URL = "https://auth-project-annika-caroline.herokuapp.com/welcome";
 
   const signupUser = (event) => {
     event.preventDefault();
