@@ -81,7 +81,7 @@ app.use(bodyParser.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  console.log('test')
+
   res.send('Hello world')
 })
 
@@ -106,7 +106,6 @@ app.post('/sessions', async (req, res) => {
 try {  
   const { name, password } = req.body
   const user = await User.findOne({ name });
-  console.log(user)
   if (user && bcrypt.compareSync(password, user.password)) {
     res.status(200).json({ userId: user._id, accessToken: user.accessToken });
   } else {
@@ -130,8 +129,6 @@ app.post('/notes', async (req, res) => {
   try {
     const description = req.body.description
     const user = req.user
-    console.log(description)
-    console.log(user)
     const note = await new Note({ description, user }).save()
     res.json({description, user})
   } catch (err) {
