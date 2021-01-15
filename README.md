@@ -1,13 +1,49 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+This week's project has an API with authentication and validations to implement a registration flow, and a frontend with forms to register, sign in, and view some content once you're logged in.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+## What we have learnt
 
-## The problem
+* How to authenticate users using tokens
+* How to securely store passwords in your databases
+* How to think about security and defensive design when building frontend or backend code
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+## The process and structure
+
+We have reached the **BLUE LEVEL** 🔵 and covered one thing at RED level.
+
+At sign up we have messages in the frontend what goes wrong, for example if the password is invalid, we show that next to password input.
+
+We decided to keep the frontend design basic to keep focus on:
+
+* Backend authentication and validations 
+* Frontend validation (on input fields)  
+
+
+### Core Tech
+
+**FRONTEND**
+
+* React
+* React Router
+* Redux (with Thunks)
+* Local Storage 
+* Javascript
+
+**BACKEND**
+
+* Express
+* Mongo DB
+* Moongoose
+* Heroku
+* Postman
+* MongoDB Compass
+* Javascript
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+### Frontend
+[TODO - Add link to Netlify]()
+
+### Backend
+[TODO - Add link to Heroku]()
