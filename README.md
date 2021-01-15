@@ -43,7 +43,7 @@ We decided to keep the frontend design basic to keep focus on:
 ## View it live
 
 ### Frontend
-[TODO - Add link to Netlify]()
+[Try it out!](https://loving-hugle-db5937.netlify.app/)
 
 ### Backend
-[TODO - Add link to Heroku]()
+[Here is Heroku deployed](https://auth-by-ylva-tara.herokuapp.com/)
