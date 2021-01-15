@@ -97,8 +97,14 @@ app.post("/users", async (req, res) => {
 app.post("/sessions", async (req, res, next) => {
   try {
     const { name, password } = req.body;
+    const accessTokenUpdate = crypto.randomBytes(128).toString("hex");
     const user = await User.findOne({ name: name });
     if (user && bcrypt.compareSync(password, user.password)) {
+      console.log(`accesstoken: ${accessTokenUpdate}`);
+      await User.findOneAndUpdate(
+        { name: name },
+        { accessToken: accessTokenUpdate }
+      );
       res.status(200).json({
         userId: user._id,
         accessToken: user.accessToken,
