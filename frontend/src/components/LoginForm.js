@@ -38,18 +38,13 @@ export const LoginForm = () => {
           headers: { 'Content-Type': 'application/json' },
         })
           .then((res) => {
-            if (!res.ok) {
+            if (res.ok) {
               throw 'Login Failed';
             }
             return res.json();
           })
           .then((json) => handleLoginSuccess(json))
-          .catch((err) => {
-            // handleLoginFailed(err));
-            dispatch(user.actions.setAccessToken({ accessToken: null }));
-            dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
-            dispatch(user.actions.setErrorMessage({ errorMessage: err }))
-          });
+          .catch((err) => handleLoginFailed(err));
       };
 
       if (accessToken) {
