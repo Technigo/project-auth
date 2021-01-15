@@ -21,7 +21,9 @@ export const FormLogin = () => {
 		//?save login info
 		dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
 
-		dispatch(user.actions.setAccessToken({ accessToken }));
+		dispatch(
+			user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
+		);
 
 		setDisplayLoggedIn(true);
 	};
