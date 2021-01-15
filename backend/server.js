@@ -106,9 +106,10 @@ app.post('/sessions', async (req, res) => {
       user.accessToken = crypto.randomBytes(128).toString('hex')
       // Save new access token
       const updatedUser = await user.save()
+      console.log(updatedUser)
       res.status(200).json({
         userId: user._id, 
-        accessToken: updatedUser.accesToken
+        accessToken: updatedUser.accessToken
       })
     } else {
       throw 'User not found'

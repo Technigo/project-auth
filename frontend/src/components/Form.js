@@ -6,7 +6,7 @@ import styled from 'styled-components/macro'
 import { user } from '../reducers/user'
 import { Button } from '../lib/Button'
 import { Input } from '../lib/Input'
-// import { Secrets } from './Secrets'
+import { Secrets } from './Secrets'
 
 const SIGNUP_URL = 'http://localhost:8081/users'
 const LOGIN_URL = 'http://localhost:8081/sessions'
@@ -36,6 +36,7 @@ export const Form = () => {
     )
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }))
     dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }))
+    console.log(accessToken)
   }
 
   const handleLoginFail = (loginError) => {
@@ -89,7 +90,7 @@ export const Form = () => {
   }
 
   if (accessToken) {
-    return <p>Secrets!</p>
+    return <Secrets />
   }
 
   if (!isNewUser) {
@@ -98,20 +99,20 @@ export const Form = () => {
         <FormStyle>
           <Title>Login</Title>
 //      email type?
-        <Input
-           type="text"
-           value={email}
-           placeholder="email"
-           onChange={(event) => setEmail(event.target.value)}
-          required />
+          <Input
+            type="text"
+            value={email}
+            placeholder="email"
+            onChange={(event) => setEmail(event.target.value)}
+            required />
 
-        <Input
-          type="text"
-          value={password}
-          placeholder="password"
-          onChange={(event) => setPassword(event.target.value)}
-          required />
-          
+          <Input
+            type="text"
+            value={password}
+            placeholder="password"
+            onChange={(event) => setPassword(event.target.value)}
+            required />
+
           <Button
             type="submit"
             background="green"
@@ -119,10 +120,8 @@ export const Form = () => {
             Login
           </Button>
         </FormStyle>
-  
         {loginFailed && <p>Wrong email or password. Please try again!</p>}
-        <p>Not registered yet?</p>
-                
+        <p>Not registered yet?</p>    
          <Button onClick={handleNewUser}>Sign up</Button>
       </>
     )

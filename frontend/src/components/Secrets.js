@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Status } from 'Status'
+import { Status } from './Status'
 import { user } from '../reducers/user'
 
 // some kind of easter egg type reward for logging in
