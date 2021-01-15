@@ -6,8 +6,7 @@ const initialState = {
     userId: localStorage.userId || 0,
     secretMessage: null,
     errorMessage: null
-  },
-
+  }
 };
 
 export const user = createSlice({
@@ -16,24 +15,20 @@ export const user = createSlice({
   reducers: {
     setAccessToken: (state, action) => {
       const { accessToken } = action.payload;
-      console.log(`Access Token: ${accessToken}`);
       state.login.accessToken = accessToken;
       localStorage.setItem('accessToken', accessToken);
     },
     setUserId: (state, action) => {
       const { userId } = action.payload;
-      console.log(`User Id: ${userId}`);
       state.login.userId = userId;
       localStorage.setItem('userId', userId);
     },
     setSecretMessage: (state, action) => {
       const { secretMessage } = action.payload;
-      console.log(`Secret Message: ${secretMessage}`);
       state.login.secretMessage = secretMessage;
     },
     setErrorMessage: (state, action) => {
       const { errorMessage } = action.payload;
-      console.log(`Error Message: ${errorMessage}`);
       state.login.errorMessage = errorMessage;
     }
   }
@@ -51,7 +46,7 @@ export const signup = (name, email, password) => {
     })
       .then((res) => {
         if (!res.ok /* if not 200, 201, 204 */) {
-          throw 'Could not create account.  Try a different username.';
+          throw 'Could not create account. Email already exists.';
         }
 
         // OK
@@ -128,7 +123,9 @@ export const getSecretMessage = () => {
       // SUCCESS: Do something with the information we got back
       .then((json) => {
         dispatch(
-          user.actions.setSecretMessage({ secretMessage: JSON.stringify(json) })
+          user.actions.setSecretMessage({
+            secretMessage: JSON.stringify(json.secretMessage)
+          })
         );
       })
       .catch((err) => {

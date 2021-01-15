@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { login } from '../reducers/user';
-import { Wrapper,  Form } from 'lib'
-
+import { Wrapper, Form } from 'lib';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -25,30 +24,28 @@ const LoginForm = () => {
           Email
           <input
             required
+            type="email"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}/>
+            onChange={(event) => setEmail(event.target.value)}
+          />
         </label>
         <label>
           Password
           <input
             required
+            type="password"
             value={password}
-            onChange={(event) => setPassword(event.target.value)}/>
+            onChange={(event) => setPassword(event.target.value)}
+          />
         </label>
-        <button 
-          type="submit" 
-          onClick={handleLogin}>
+        <button type="submit" onClick={handleLogin}>
           Login
         </button>
       </Form>
       <Link to="/signup">
-        <button 
-          type="submit"
-        >
-          Not a member?
-          </button>
+        <button type="submit">Not a member?</button>
       </Link>
-      {errorMessage && <h4>Error Message : {`${errorMessage}`}</h4>}
+      {errorMessage && <p>{`${errorMessage}`}</p>}
     </Wrapper>
   );
 };

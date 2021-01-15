@@ -18,7 +18,7 @@ const Profile = () => {
         <div>
           <h1>Welcome to your Profile page</h1>
           <h2>Discover what secret message is waiting for you</h2>
-          {errorMessage && <h4>Error Message : {`${errorMessage}`}</h4>}
+          {errorMessage && <h4>{`${errorMessage}`}</h4>}
           {secretMessage && <h4>Secret Message : {`${secretMessage}`}</h4>}
           <input
             type="submit"
