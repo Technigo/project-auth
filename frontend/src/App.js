@@ -22,7 +22,7 @@ export const App = () => {
 
   return (
     <Provider store={store}>
-      {userLogged === true ? (
+      {userLogged === false ? (
         <MainWrapper>
           <H1>Sign up or log in here!</H1>
           <InnerWrapper>

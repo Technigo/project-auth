@@ -47,7 +47,7 @@ export const Form = ({ input, heading, labelHeading, labelText }) => {
                     <Input
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
-                        type='text' />
+                        type='password' />
                 </Label>
                 <Button input={input} onClickFunction={createUser} />
             </StyledForm>
