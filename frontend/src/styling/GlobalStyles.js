@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+
+// Global styles
 export const MainContainer = styled.div`
   margin: 30px;
   padding: 20px;
@@ -19,6 +21,8 @@ export const StyledButton = styled.button`
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 `;
 
 export const FormButton = styled.button`
@@ -31,4 +35,6 @@ export const FormButton = styled.button`
   width: 130px;
   font-weight: bold;
   color: #00544F;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 `;

@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { user, login } from '../reducers/user';
+import { user, login, signup } from '../reducers/user';
 import { Button } from './Button';
 import { Secret } from './Secret';
 import styled from 'styled-components';
 
 import { FormButton, MainContainer } from 'styling/GlobalStyles';
-
-const SIGNUP_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/users';
 
 export const Form = (showSecret) => {
   const dispatch = useDispatch();
@@ -21,33 +19,9 @@ export const Form = (showSecret) => {
 
   // To sign up a user
   const handleSignup = event => {
-    event.preventDefault()
-
-    fetch(SIGNUP_URL, {
-      method: 'POST',
-      body: JSON.stringify({ name, password, email }),
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw 'Unable to Sign up, please check your e-mail and password.';
-        } else {
-          return res.json();
-        }
-      })
-      .then((json) => {
-        dispatch(user.actions.setUserId({ userId: json.userId }));
-        dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
-        dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful Sign Up' }));
-      })
-      .catch((err) => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
-      });
+    event.preventDefault();
+    dispatch(signup(name, email, password));
   };
-
-  // useEffect(() => {
-  //   dispatch(user.actions.setErrorMessage({ errorMessage: null }))
-  // }), [dispatch]
 
   // To log in a user
   const handleLogin = event => {
@@ -58,7 +32,7 @@ export const Form = (showSecret) => {
   // If accessToken exist
   if (accessToken) {
     return <Secret />
-  }
+  };
 
   // If user is logged out, show the signup / login form
   return (
@@ -153,6 +127,10 @@ const InputField = styled.input`
   border-bottom: 1px solid #749694;
   margin: 8px;
   padding: 10px 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
   /* Styling of placeholder text */
   ::-webkit-input-placeholder {
     color: #749694;
@@ -167,10 +145,12 @@ const InputField = styled.input`
     color: #749694;
   }
 `;
+
 const AccountWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const AccountText = styled.p`
   font-size: 12px;
   padding: 4px;

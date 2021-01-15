@@ -12,10 +12,6 @@ const LOGOUT_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/users/lo
 export const Secret = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
-  // const userId = useSelector((store) => store.user.login.userId);
-  // const statusMessage = useSelector((store) => store.user.login.statusMessage);
-  // const errorMessage = useSelector((store) => store.user.login.errorMessage);
-  // const secretMessage = useSelector((store) => store.user.login.secretMessage);
 
   const loginSucess = (loginResponse) => {
     dispatch(
@@ -48,6 +44,7 @@ export const Secret = () => {
     );
   };
 
+  // Fetch to show the secret content
   const showSecret = () => {
     fetch(SECRET_URL, {
       method: 'GET',

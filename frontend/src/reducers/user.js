@@ -6,7 +6,6 @@ const initialState = {
     userId: 0,
     statusMessage: "",
     errorMessage: null,
-    secretMessage: null
   }
 };
 
@@ -34,11 +33,6 @@ export const user = createSlice({
       state.login.errorMessage = errorMessage;
     },
 
-    setSecretMessage: (state, action) => {
-      const { secretMessage } = action.payload;
-      state.login.secretMessage = secretMessage;
-    },
-
     logout: (state, action) => {
       state.login.userId = 0;
       state.login.accessToken = null;
@@ -48,8 +42,11 @@ export const user = createSlice({
 });
 
 const LOGIN_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/sessions';
+const SIGNUP_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/users';
 
 // Thunks
+
+// For LOGIN
 export const login = (email, password) => {
   return (dispatch) => {
     fetch(LOGIN_URL, {
@@ -73,6 +70,32 @@ export const login = (email, password) => {
         dispatch(user.actions.logout());
         dispatch(user.actions.setAccessToken({ accessToken: null }));
         dispatch(user.actions.setStatusMessage({ statusMessage: 'Failed to login' }));
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+      });
+  };
+};
+
+// For SIGNUP
+export const signup = (name, email, password) => {
+  return (dispatch) => {
+    fetch(SIGNUP_URL, {
+      method: 'POST',
+      body: JSON.stringify({ name, password, email }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw 'Unable to Sign up, please check your e-mail and password.';
+        } else {
+          return res.json();
+        }
+      })
+      .then((json) => {
+        dispatch(user.actions.setUserId({ userId: json.userId }));
+        dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
+        dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful Sign Up' }));
+      })
+      .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
