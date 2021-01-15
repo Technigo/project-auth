@@ -12,10 +12,15 @@ In the frontend we have made a form to sign up/log in, and once logged in you ca
 ## Tech
 
 • MongoDB
+
 • Mongoose
+
 • Node.js
+
 • Express
+
 • React
+
 • Redux
 
 ## View it live
