@@ -4,7 +4,8 @@ import { NotesContainer } from './NotesContainer'
 import { Button, ProfileSection } from '../styling/form'
 import { NotesList, NotesForm } from '../styling/notes'
 
-const NOTE_URL = 'http://localhost:8080/notes'
+//const NOTE_URL = 'http://localhost:8080/notes'
+const NOTE_URL = 'https://project-auth-olof.herokuapp.com/notes'
 
 export const Notes = () => {
   const [note, setNote] = useState('')

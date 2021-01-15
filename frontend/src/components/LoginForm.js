@@ -5,8 +5,10 @@ import { Profile } from './Profile'
 import picture from '../picture/picture.svg'
 import { Button, SignUpImage, LoginSection, Form, InputLabel, LoginInput } from '../styling/form'
 
-const SIGNUP_URL = "http://localhost:8080/users";
-const LOGIN_URL = "http://localhost:8080/sessions";
+// const SIGNUP_URL = "http://localhost:8080/users";
+const SIGNUP_URL = "https://project-auth-olof.herokuapp.com/users";
+// const LOGIN_URL = "http://localhost:8080/sessions";
+const LOGIN_URL = "https://project-auth-olof.herokuapp.com/sessions";
 
 export const LoginForm = () => {
   const [name, setName] = useState('')
