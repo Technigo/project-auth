@@ -33,19 +33,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.pre("save", async function (next) {
-  const user = this;
-
-  if (!user.isModified("password")) {
-    return next();
-  }
-
-  const SALT = bcrypt.genSaltSync(10);
-  user.password = bcrypt.hashSync(user.password, SALT);
-
-  next();
-});
-
 const authenticateUser = async (req, res, next) => {
   try {
     const accessToken = req.header("Authorization");
@@ -63,19 +50,6 @@ const authenticateUser = async (req, res, next) => {
 
 const User = mongoose.model("User", userSchema);
 
-// const authenticateUser = async (req, res, next) => {
-//   try {
-//       const user = await User.findOne({ accessToken: req.header('Authorization') });
-//   if (user) {
-//     req.user = user;
-//     next();
-//   } else {
-//     res.status(401).json({ loggedOut: true, message: 'Please log in again' });
-//   }
-// } catch(err){
-//   res.status(403).json({message: 'Invalide access token or missing', errors: err})
-//   }
-// };
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
@@ -93,9 +67,10 @@ app.get("/", (req, res) => {
 app.post("/users", async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    console.log("!!!", name, email, password);
     const user = new User({ name, email, password: bcrypt.hashSync(password) })
-    const savedUser = await user.save()
-    res.status(201).json({ id: savedUser._id, accessToken: savedUser.accessToken })
+    await user.save()
+    res.status(201).json({ message: 'User created!', id: user._id, accessToken: user.accessToken })
   } catch (err) {
     res.status(400).json({ message: 'Could not create user!', errors: err.errors })
   }
@@ -104,8 +79,8 @@ app.post("/users", async (req, res) => {
 //Login
 app.post("/sessions", async (req, res) => {
   try {
-    const { name, password } = req.body;
-    const user = await User.findOne({ name });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({ userId: user._id, accessToken: user.accessToken });
       //compare passwords
