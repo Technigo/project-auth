@@ -11,18 +11,7 @@ const store = configureStore({ reducer })
 export const App = () => {
   return (
     <Provider store={store}>
-          <Login />
+      <Login />
     </Provider>
   )
 }
-
-/*______ TO-DO 
-- Error Message as variables in backend?
-- When I click reveal secret again, the message disapears - WHAT TO DO WITH THIS?
-      - keep OR/
-      - change button
-- error={name === "" ? false : name === 1 ? true : false } //does not work (login, 79)
-- clean code
-- PR
-- Send in
-*/

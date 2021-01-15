@@ -10,6 +10,12 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
+// error messages
+const SERVICE_UNAVAILABLE = "service unavailable"
+const USER_NOT_FOUND = "Please try logging in again"
+const LOGIN_FAILED = "Access token is missing or wrong"
+const SING_UP_FAILED = "Could not create user"
+
 //_________Schema
 const userSchema = new mongoose.Schema({
   name: {
@@ -24,7 +30,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'a password is required'],
     minLength: 5,
-    // validate: [ isStrongPassword , 'this is not strong']
   },
   email: {
     type: String,
@@ -70,7 +75,7 @@ app.use((req, res, next) => {
   if (mongoose.connection.readyState === 1) {
     next()
   } else {
-    res.status(503).send({ error: 'service unavailable' })
+    res.status(503).send({ error: SERVICE_UNAVAILABLE })
   }
 })
 
@@ -87,12 +92,12 @@ const authenticateUser = async (req, res, next) => {
     } else {
       res
         .status(401)
-        .json({ loggedOut: true, message: 'Please try logging in again' })
+        .json({ loggedOut: true, message: USER_NOT_FOUND })
     }
   } catch (err) {
     res
       .status(403)
-      .json({ message: 'Access token is missing or wrong', errors: err })
+      .json({ message: LOGIN_FAILED, errors: err })
   }
 }
 
@@ -110,7 +115,7 @@ app.post('/signup', async (req, res) => {
     res.status(201).json({ userId: user._id, userName: user.name, accessToken: user.accessToken })
   } catch (err) {
     res.status(400).json({
-      message: 'Could not create user', errors: {
+      message: SING_UP_FAILED, errors: {
         message: err.message,
         error: err,
       },

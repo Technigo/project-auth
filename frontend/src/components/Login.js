@@ -24,10 +24,10 @@ export const Login = () => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
 
   const errorMessage = useSelector((store) => store.user.login.errorMessage)
   const accessToken = useSelector((store) => store.user.login.accessToken)
-  // const userName = useSelector((store) => store.user.login.userName)
 
   const dispatch = useDispatch()
 
@@ -35,21 +35,10 @@ export const Login = () => {
   const minimumNameLength = { minLength: 2, maxLength: 20 }
   const minimumPasswordLength = { minLength: 5 }
   const validEmail = { pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$" }
-  //cannot start with @
-  // has to include the pattern of xxxx@xxx.se
+  //cannot start with @ and has to include the pattern of xxxx@xxx.se
 
-  // To be able to see userName when signing up
-  // useEffect(() => {
-  //   if (userName) {
-  //     dispatch(signUp())
-  //   }
-  // }, [dispatch, userName])
-
-  // testing this
-  const [showPassword, setShowPassword] = useState(false)
+  // Toggle password visibility
   const handleClickShowPassword = () => setShowPassword(!showPassword)
-  console.log(showPassword)
-  console.log(password)
 
   const handleLogin = (event) => {
     event.preventDefault()
@@ -67,14 +56,6 @@ export const Login = () => {
     setPassword('')
   }
 
-  // const handleClickShowPassword = () => {
-  //   setPassword({ ...password, showPassword: !password.showPassword })
-  // }
-
-  // console.log(password)
-
-  // console.log(test1)
-
   return (
     <Container>
       <Wrapper>
@@ -87,7 +68,6 @@ export const Login = () => {
               label="Name"
               inputProps={minimumNameLength}
               value={name}
-              error={name === "" ? false : name === 1 ? true : false} //does not work
               onChange={(event) => setName(event.target.value)}
               helperText={name === "" ? 'min. 2 char' : ' '}
             />
@@ -96,8 +76,7 @@ export const Login = () => {
               <Input
                 required={true}
                 id="standard-adornment-password"
-                // type={password.showPassword ? 'text' : 'password'}
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? "text" : "password"} //changed when icon is clicked
                 value={password}
                 fullWidth={true}
                 onChange={(event) => setPassword(event.target.value)}
@@ -108,7 +87,7 @@ export const Login = () => {
                       aria-label="toggle password visibility"
                       onClick={handleClickShowPassword}
                     >
-                      {/* {password.showPassword ? <Visibility /> : <VisibilityOff />} */}
+                      {/* toggles */}
                       {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>

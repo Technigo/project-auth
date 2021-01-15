@@ -1,10 +1,10 @@
 import React from 'react'
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button'
 
 export const CustomButton = ({ button, onClick, disabled, value, text, color, variant, size }) => {
   return (
     <Button
-      variant={variant} 
+      variant={variant}
       color={color}
       size={size}
       type={button}
