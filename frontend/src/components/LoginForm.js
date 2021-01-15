@@ -19,9 +19,9 @@ export const LoginForm = ( ) => {
   const history = useHistory();
 
   const handleLoginSuccess = (loginResponse) => {
-    dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }));
+    dispatch(user.actions.setAccessToken(loginResponse.accessToken));
     console.log(loginResponse.accessToken)
-    dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
+    dispatch(user.actions.setUserId(loginResponse.userId));
     console.log(loginResponse.userId);
     dispatch(user.actions.setUserName(loginResponse.userName));
     console.log({ loginResponse })
