@@ -10,6 +10,7 @@ export const Main = () => {
   const [notNewUser, setNotNewUser] = useState(false);
   const isLoggedIn = useSelector((store) => store.users.isLoggedIn);
   const name = useSelector((store) => store.users.user.name);
+  const accessToken = useSelector((store) => store.users.user.accessToken);
 
   return (
     <Wrapper>
@@ -23,7 +24,7 @@ export const Main = () => {
           </Button>
         </>
       )}
-      {isLoggedIn && <Content name={name} />}
+      {isLoggedIn && <Content name={name} at={accessToken} />}
     </Wrapper>
   );
 };
@@ -39,7 +40,7 @@ const Wrapper = styled.div`
 
 const Button = styled.button`
   font-family: 'Inconsolata';
-  padding: 4px 15px;
+  padding: 6px 15px;
   background: none;
   border: 1px solid #000;
   width: 150px;

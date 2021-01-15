@@ -59,6 +59,7 @@ const authenticateUser = async (req, res, next) => {
     next();
   } catch (err) {
     res.status(401).json({ error: 'Please try again' });
+    console.log(err);
   }
 };
 
@@ -116,7 +117,7 @@ app.get('/private', authenticateUser);
 app.get('/private', async (req, res) => {
   const accessToken = req.header('Authorization');
   const user = await User.findOne({ accessToken: accessToken });
-  res.json({ message: `Private mode! Hello ${user.name}` });
+  res.json({ message: `☠️ The killer is: ${user.name} ☠️` });
 });
 
 // Start the server
