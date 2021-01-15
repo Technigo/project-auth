@@ -76,15 +76,10 @@ const authenticateUser = async (req, res, next) => {
 }
 
 // Routes
-app.get('/', (req, res) => {
-  res.send('Henrike and Peggys working area. Under construction.')
-})
-
 // Registration
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body
-    // do we want to move this to be global?
     const user = await new User({
       name, 
       email,

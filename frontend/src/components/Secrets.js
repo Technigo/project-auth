@@ -12,7 +12,7 @@ export const Secrets = () => {
   const dispatch = useDispatch()
   const accessToken = useSelector((store) => store.user.login.accessToken)
   const userId = useSelector((store) => store.user.login.userId)
-
+  
   // FUNCTIONS TO HANDLE LOGIN SUCCESS OR FAILURE WHEN USING THE LOGOUT ENDPOINT
   // const logoutSuccess = () => {
   //   dispatch(user.actions.setStatusMessage({ statusMessage: 'Logged out' }))
