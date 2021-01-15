@@ -5,7 +5,7 @@ import { user } from "../reducers/user";
 
 const SIGNUP_URL = "https://project-signup.herokuapp.com/users";
 //"http://localhost:8080/users"
-//"http://localhost:8080/sessions"
+//" http://localhost:8080/sessions"
 const LOGIN_URL = "https://project-signup.herokuapp.com/sessions";
 
 export const Login = () => {
@@ -53,6 +53,7 @@ export const Login = () => {
       })
       .then((json) => handleLoginSuccess(json))
       .catch((err) => handleLoginFailed(err));
+    // .finally => setName(""), setPassword(""));
   };
 
   // Handle log in
