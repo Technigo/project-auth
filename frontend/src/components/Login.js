@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { user } from "../reducers/user";
 
-const SIGNUP_URL = "http://project-signup.herokuapp.com/users";
+const SIGNUP_URL = "https://project-signup.herokuapp.com/users";
 //"http://localhost:8080/users"
 //"http://localhost:8080/sessions"
-const LOGIN_URL = "http://project-signup.herokuapp.com/sessions";
+const LOGIN_URL = "https://project-signup.herokuapp.com/sessions";
 
 export const Login = () => {
   const dispatch = useDispatch();

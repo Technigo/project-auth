@@ -4,7 +4,7 @@ import { Status } from "./Status";
 import { user } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 
-const SECRET_URL = "http://project-signup.herokuapp.com/secret";
+const SECRET_URL = "https://project-signup.herokuapp.com/secret";
 //"http://localhost:8080/secret"
 
 export const UserProfile = () => {
