@@ -17,6 +17,7 @@ Learning objectives:
 
 ## Completed Requirements
 🔵  Blue Level
+
 Backend:
 - Registration endpoint, to create a new user.
 - Passwords in the database should be encrypted with bcrypt
@@ -50,4 +51,5 @@ Frontend:
 
 ## View it live
 Backend: https://secrets-auth-app.herokuapp.com/
+
 Frontend: https://secrets-auth-app.netlify.app/
