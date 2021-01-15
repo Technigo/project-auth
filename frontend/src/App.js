@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import  { Provider } from 'react-redux'
 
 import { FormLogin } from './components/FormLogin';
-import { FormSignup } from './components/FormSignup';
+import { FormSignup } from './components/FormSignUp';
  
 import { combineReducers, configureStore} from '@reduxjs/toolkit'
 import { user } from './reducers/user';
