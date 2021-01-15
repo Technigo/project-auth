@@ -6,7 +6,6 @@ import { Button, SignUpImage, LoginSection, Form, InputLabel, LoginInput } from 
 
 const SIGNUP_URL = "http://localhost:8080/users";
 const LOGIN_URL = "http://localhost:8080/sessions";
-const NOTES_URL = "http://localhost:8080/notes";
 
 export const LoginForm = () => {
   const dispatch = useDispatch()

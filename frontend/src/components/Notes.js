@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Button, NoteTextInput, ProfileSection } from '../styling/form'
 
 export const Notes = () => {
     const accessToken = useSelector((store) => store.user.login.accessToken)
     const [note, setNote] = useState('')
+    const [noteList, setNoteList] = useState([])
 
     const NOTE_URL = 'http://localhost:8080/notes'
     const handleNote = (event) => {
@@ -21,6 +22,26 @@ export const Notes = () => {
             }
             return res.json()
           })
+          .catch(error => console.error(error));
+      }
+
+      useEffect(() => {
+        handleNoteList();
+      }, []);
+
+      const handleNoteList = (event) => {
+        fetch(NOTE_URL, {
+          method: 'GET',
+          headers: { Authorization: accessToken },
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw 'Note save failed'
+            }
+            return res.json()
+          })
+          .then(data => setNoteList(data))
+          .catch(error => console.error(error));
       }
 
     return (
@@ -41,6 +62,14 @@ export const Notes = () => {
                   Add note
                 </Button> 
             </form>
+
+            {noteList.map(note => {
+              return  (
+                <p key={note._id} >{note.description}</p>
+              )
+            }
+              
+            )}
         </ProfileSection>
     )
 }
