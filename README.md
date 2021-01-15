@@ -1,8 +1,6 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This week's project is to build an API with authentication to implement a registration flow, and a frontend with forms to register, sign in, and view some content once you're logged in through a login portal. 
 
 ## The problem
 
