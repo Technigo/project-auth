@@ -1,13 +1,24 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+This is a full stack project in which the user can sign up and login to retrieve a special message for that specific user. The backend is built with Node.js and mongoose.
+The signup and login endpoints are endpoints in which the user posts information that's stored in the database. The frontend is built with React and Redux. There are input fields in which the user can type her/his name and password which is sent to the backend with the press of a button. When the user signs up the user will retrieve an accesstoken which is randomized and works as a key to determine weather the user is authorized or not to get to the next page. The accesstoken gets updated for every time the user logs in, this for security measures. 
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+## Challenges
 
-## The problem
+One of the challenges during the project was to make sure the name and password was validated correctly. We made sure it worked using Postman and by doing console.log. 
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+## Tech
+
+- React
+- Redux
+- Javascript
+- Node.js
+- Mongoose
+- MongoDB
+- Postman
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+- Frontend: https://modest-hamilton-9de3b4.netlify.app/
+
+- Backend: https://project-auth-joel-cornelia.herokuapp.com/
