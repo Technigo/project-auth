@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { Provider } from "react-redux";
-import { configureStore, combineReducers } from "@reduxjs/toolkit"
+import {
+  configureStore,
+  combineReducers,
+} from "Reducers/node_modules/@reduxjs/toolkit";
 import { user } from "Reducers/user";
 
 import { Form } from "./Components/Form";
 import { LogIn } from "./Components/LogIn";
-import { H1, MainWrapper, InnerWrapper } from './styles/Styles'
+import { H1, MainWrapper, InnerWrapper } from "./styles/Styles";
 
 const reducer = combineReducers({
   user: user.reducer,
 });
+npm;
 
 const store = configureStore({ reducer });
 
@@ -37,10 +41,10 @@ export const App = () => {
           </InnerWrapper>
         </MainWrapper>
       ) : (
-          <MainWrapper>
-            <LogIn username="Holabandola" />
-          </MainWrapper>
-        )}
+        <MainWrapper>
+          <LogIn username="Holabandola" />
+        </MainWrapper>
+      )}
     </Provider>
   );
 };
