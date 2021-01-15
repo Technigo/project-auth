@@ -31,6 +31,7 @@ export const user = createSlice ({
       console.log(state.login.userId)
       state.login.userId = 0
       state.login.accessToken = null
+      state.login.statusMessage = 'logged out'
     },
   },
 })

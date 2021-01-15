@@ -23,24 +23,24 @@ const User = mongoose.model('User', {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex'),
     unique: true
-  },
-});
+  }
+})
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const accessToken = req.header('Authorization');
-    const user = await User.findOne({ accessToken });
+    const accessToken = req.header('Authorization')
+    const user = await User.findOne({ accessToken })
     if (!user) {
-      throw 'Login error ';
+      throw 'Login error '
     }
-    req.user = user;
-    next();
+    req.user = user
+    next()
   } catch (err) {
-    const errorMessage = 'Try another username/password';
-    console.log(errorMessage);
-    res.status(401).json({ error: errorMessage });
+    const errorMessage = 'Try to login again'
+    console.log(errorMessage)
+    res.status(401).json({ error: errorMessage })
   }
-};
+}
 
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
@@ -60,42 +60,47 @@ app.get('/', (req, res) => {
 
 //salt adds som variation to the hash function, per user
 app.post('/users', async (req,res) =>{
-  try{
-    const {name, password} = req.body;
+  try {
+    const {name, password} = req.body
     //Do not store plaintext passwords!
     const salt = bcrypt.genSaltSync(10)
     const user = await new User({
       name, 
       password: bcrypt.hashSync(password, salt)
-    }).save();
+    }).save()
     res.status(201).json({
       userId:user._id,
       accessToken:user.accessToken
-    });
-  }catch(err){
+    })
+  } catch (err) {
     res.status(400).json({
       message: 'Could not create user', errors: err.errors
-    });
+    })
   }
 })
 
-app.get('/secrets', authenticateUser); 
-app.get('/secrets', (req, res) => {
-  res.json({secret: `This is a secret message for ${userId}`});
+/*app.get('/users/secret', authenticateUser)
+app.get('/users/secret', async (req, res) => {
+  console.log(`User from authenticateUser: ${req.user}`)
+  res.status(200).json({secret: `This is a secret message <3`});
+}) */
+app.get('/secret', authenticateUser)
+app.get('/secret', (req, res) => {
+  const secretMessage = `This is a secret message for ${req.user.name}`
+  res.status(201).json({ secretMessage })
 })
 
 app.post('/sessions', async(req, res) => {
   try{
-    const user = await User.findOne({name: req.body.name});
+    const user = await User.findOne({name: req.body.name})
     if(user && bcrypt.compareSync(req.body.password , user.password)) {
-      res.status(201).json({userId: user._id, accessToken: user.accessToken});
+      res.status(201).json({userId: user._id, accessToken: user.accessToken})
     }else {
-      throw "User not found"
+      throw 'User not found'
     }
   } catch (error) {
-    res.json({notFound: true });
-  } 
-  
+    res.status(404).json({ error: "User not found" })
+  }  
 })
 
 // Start the server
