@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { user } from '../reducer/user';
 
-import Button from '../lib/Button';
+import { Button } from '../lib/Button';
 import InputField from '../lib/InputField';
 import { CreateUserContainer, Register, Title } from '../lib/CreateUserStyle';
 

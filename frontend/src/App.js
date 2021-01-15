@@ -30,7 +30,7 @@ export const App = () => {
           <Route path="/:id/user">
             <UserPage />
           </Route>
-          </Switch> 
+        </Switch> 
 
       </BrowserRouter>
     </Provider>

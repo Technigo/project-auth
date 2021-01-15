@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 
 import {LoginContainer, Title, Login} from '../lib/LoginFormStyle'
-import Button from '../lib/Button'
+import { Button } from '../lib/Button'
 import InputField from '../lib/InputField'
 import { user } from '../reducer/user'
 
@@ -33,7 +33,6 @@ export const LoginForm = ( ) => {
   };
 
   const handleLogin = (event) => {
-    console.log('yes')  
     event.preventDefault();
 
     fetch(LOGIN_URL, {

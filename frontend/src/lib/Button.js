@@ -22,12 +22,10 @@ const PurpleButton = styled.button`
   }
 `;
 
-const Button = ({title, onClickFunc}) => {
+export const Button = ({title, onClickFunc}) => {
   return (
     <PurpleButton onClick={onClickFunc}>
       {title}
     </PurpleButton>
   )
 }
-
-export default Button;

@@ -36,6 +36,7 @@ export const user = createSlice({
             console.log("logging out");
             store.login.userId = 0;
             store.login.accessToken = null;
+            store.login.userName = '';
         },
     }
 })
