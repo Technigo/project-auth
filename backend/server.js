@@ -92,14 +92,12 @@ app.get("/", (req, res) => {
 // Sign-up
 app.post("/users", async (req, res) => {
   try {
-    const { name, password } = req.body;
-    const user = await new User({
-      name,
-      password,
-    }).save();
-    res.status(200).json({ userId: user._id });
+    const { name, email, password } = req.body;
+    const user = new User({ name, email, password: bcrypt.hashSync(password) })
+    const savedUser = await user.save()
+    res.status(201).json({ id: savedUser._id, accessToken: savedUser.accessToken })
   } catch (err) {
-    res.status(400).json({ message: "Could not create user", errors: err });
+    res.status(400).json({ message: 'Could not create user!', errors: err.errors })
   }
 });
 
