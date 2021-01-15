@@ -54,7 +54,9 @@ export const Login = () => {
 
   return (
     <>
-    <section className="login">
+    {!secrets ? (
+      <>
+      <section className="login">
       <h1>Log in / Sign up</h1>
       <form>
         <input
@@ -78,7 +80,6 @@ export const Login = () => {
           >
             Log in
           </button>
-
           <button
             type="submit"
             onClick={handleSignup}
@@ -88,20 +89,18 @@ export const Login = () => {
         </div>
       </form>
     </section>
-
     <section className="status">
       <p>{status}</p>
     </section>
-
-    {secrets ? (
+    </>) : (
       <section className="profile">
-        <p>{secrets}</p>
-        <button onClick={() => setSecrets(false)}>
-          Log out
-        </button>
-      </section>
-    ) : (<></>)
+      <p>{secrets}</p>
+      <button onClick={() => setSecrets(false)}>
+        Log out
+      </button>
+    </section>
+    )
     }
-   </>
-  )
+    </>
+    )
 }
