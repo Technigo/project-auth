@@ -12,8 +12,8 @@ import bcrypt from "bcrypt";
 - checked - Authenticate/Secrets endpoint (get request) which only returns content if the Authorization header with the users token is returned.
 - checked - The authenticated endpoint should return a 401 or 403 (see 401 vs. 403 on SO) with an error message if you try to access it withoutan Authentication access token or with an invalid token.
 - checked - Your passwords in the database should be encrypted with bcrypt.
-- !!! semi checked- Your API should validate the user input when creating a new user, and return error messages which could be shown by the frontend.
-- Check to see if server is up and running, if not then throw error.
+- checked- Your API should validate the user input when creating a new user, and return error messages which could be shown by the frontend.
+- check to see if server is up and running, if not then throw error.
 
 Questions:
 - Site deploy - error regarding throw.
@@ -21,6 +21,9 @@ Questions:
 - Line 31 Login.js handleloginfailed - what is the error message reffering to, line 161 sessions?
 - What should we show on the UserProfile page? In brief say's: A page to show the authenticated content from the API.
 - Vans code userProfile.js why has he written the url as template literal for the fetch.
+
+Problems:
+1. Can sign in without password.
 */
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
@@ -53,28 +56,6 @@ const User = mongoose.model("User", {
 // Call the next() function which allows the protected endpoint continue
 // execution.
 
-//Our version
-{
-  /*
-const authenticateUser = async (req, res, next) => {
-  try {
-    const user = await User.findOne({
-      accessToken: req.header("Authorization"),
-    });
-    if (!user) {
-      throw "User not found";
-    }
-    req.user = user;
-    next();
-  } catch {
-    res
-      .status(401)
-      .json({ loggedOut: true, statusMessage: "Please try logging in again" });
-  }
-};
-*/
-}
-
 const authenticateUser = async (req, res, next) => {
   try {
     const accessToken = req.header("Authorization");
@@ -91,17 +72,6 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-// OLD VERSION:
-// const authenticateUser = async (req, res, next) => {
-//   const user = await User.findOne({ accessToken: req.header("Authorization") });
-//   if (user) {
-//     req.user = user;
-//     next();
-//   } else {
-//     res.status(401).json({ loggedOut: true, statusMessage: "invalid loggin" });
-//   }
-// };
-
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
 //
@@ -110,7 +80,7 @@ const port = process.env.PORT || 8080;
 const app = express();
 
 // Add middlewares to enable cors and json body parsing
-app.use(cors());
+app.use(cors()); 
 app.use(bodyParser.json());
 
 // Checking if database is up and running
@@ -220,7 +190,3 @@ app.listen(port, () => {
 //   }
 // });
 
-// // Start the server
-// app.listen(port, () => {
-//   console.log(`Server running on http://localhost:${port}`);
-// });
