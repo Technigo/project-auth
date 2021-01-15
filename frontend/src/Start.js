@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { user } from "user";
 import Profile from "Profile";
 
+const USER_URL = "https://modest-hamilton-9de3b4.netlify.app/users";
+const LOGIN_URL = "https://modest-hamilton-9de3b4.netlify.app/sessions";
+
 const Start = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +35,7 @@ const Start = () => {
   const handleSignUp = (event) => {
     event.preventDefault();
 
-    fetch("http://localhost:8080/users", {
+    fetch(USER_URL, {
       method: "POST",
       body: JSON.stringify({ name: username, password: password }),
       headers: { "Content-Type": "application/json" },
@@ -55,7 +58,7 @@ const Start = () => {
   const handleLogin = (event) => {
     event.preventDefault();
 
-    fetch("http://localhost:8080/sessions", {
+    fetch(LOGIN_URL, {
       method: "POST",
       body: JSON.stringify({ name: username, password: password }),
       headers: { "Content-Type": "application/json" },

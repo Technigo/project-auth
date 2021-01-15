@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { user } from "user";
 
+const AUTH_URL = "https://modest-hamilton-9de3b4.netlify.app/authentication";
+
 const Profile = () => {
   const [name, setName] = useState("");
   const accessToken = useSelector((store) => store.user.login.accessToken);
@@ -13,7 +15,7 @@ const Profile = () => {
   };
   console.log(accessToken);
 
-  fetch("http://localhost:8080/authentication", {
+  fetch(AUTH_URL, {
     method: "GET",
     headers: { Authorization: `${accessToken}` },
   })
