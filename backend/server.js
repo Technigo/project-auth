@@ -42,7 +42,7 @@ const User = mongoose.model("User", {
     type: String,
     required: true,
     unique: true,
-    minLength: 5,
+    minlength: 5,
   },
   accessToken: {
     type: String,
