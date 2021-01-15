@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getSecretMessage } from '../reducers/user';
+//import { getSecretMessage } from '../reducers/user';
 import { login } from '../reducers/user';
 
 import { SignUpForm } from './SignUpForm';
@@ -9,7 +9,6 @@ import { SignUpForm } from './SignUpForm';
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const errorMessage = useSelector(store => store.user.login.errorMessage);
-  const accessToken = useSelector(store => store.user.login.accessToken);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

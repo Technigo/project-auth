@@ -3,7 +3,7 @@ import { user } from '../reducers/user';
 import { useDispatch, useSelector } from 'react-redux';
 
 //const URL = 'http://localhost:8080/users';
-import { getSecretMessage } from '../reducers/user';
+import { getSecretMessage, logout } from '../reducers/user';
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -45,44 +45,15 @@ export const Profile = () => {
   //   );
   // };
 
-  // const logout = () => {
-  //   fetch(`${URL}/logout`, {
-  //     method: 'POST',
-  //     headers: { Authorization: accessToken },
-  //   })
-  //     .then(res => {
-  //       if (!res.ok) {
-  //         throw new Error('Failed to logout');
-  //       }
-  //       return res.json();
-  //     })
-  //     .then(json => logoutSuccess(json))
-  //     .catch(err => logoutFailed(err));
-  // };
-
-  // const getSecret = () => {
-  //   fetch(`${URL}/${userId}/secret`, {
-  //     method: 'GET',
-  //     headers: { Authorization: accessToken },
-  //   })
-  //     .then(res => {
-  //       if (!res.ok) {
-  //         throw 'Failed to retrieve secret';
-  //       }
-  //       return res.json();
-  //     })
-  //     .then(json => loginSuccess(json))
-  //     .catch(err => loginFailed(err)); // 401 in backend
-  // };
-
   return (
     <section>
       <p>{`Hello ${name}! Click to reveal secret message`}</p>
       <button
         type="button"
         onClick={() => dispatch(getSecretMessage())}
-      ></button>
+      >Secret message</button>
       {secretMessage && <p>{secretMessage}</p>}
+      <button onClick={() => dispatch(logout())}>Logout</button>
     </section>
   );
 };

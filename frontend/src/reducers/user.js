@@ -101,11 +101,10 @@ export const signUp = (name, email, password) => {
             accessToken: json.accessToken,
           })
         );
-        dispatch(user.actions.setUserId({ userId: json.userId }));
+        //dispatch(user.actions.setUserId({ userId: json.userId }));
         dispatch(user.actions.setName({ name: json.name }));
       })
       .catch(err => {
-        dispatch(logout());
         dispatch(
           user.actions.setErrorMessage({ errorMessage: err.toString() })
         );
@@ -142,12 +141,37 @@ export const getSecretMessage = () => {
 
 // Logout
 export const logout = () => {
-  return dispatch => {
-    dispatch(user.actions.setName({ name: '' }));
-    dispatch(user.actions.setEmail({ email: '' }));
-    dispatch(user.actions.setUserId({ userId: 0 }));
-    dispatch(user.actions.setSecretMessage({ secretMessage: '' }));
-    dispatch(user.actions.setErrorMessage({ errorMessage: '' }));
-    dispatch(user.actions.setAccessToken({ accessToken: null }));
+  return (dispatch, getStore) => {
+    const accessToken = getStore().user.login.accessToken;
+    fetch(`${USERS_URL}/logout`, {
+      method: 'POST',
+      headers: { Authorization: accessToken },
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Failed to logout');
+        }
+        return res.json();
+      })
+      dispatch(user.actions.setName({ name: '' }));
+      dispatch(user.actions.setEmail({ email: '' }));
+      dispatch(user.actions.setUserId({ userId: 0 }));
+      dispatch(user.actions.setSecretMessage({ secretMessage: '' }));
+      dispatch(user.actions.setErrorMessage({ errorMessage: '' }));
+      dispatch(user.actions.setAccessToken({ accessToken: null }));
   };
 };
+// const logout = () => {
+  //   fetch(`${URL}/logout`, {
+  //     method: 'POST',
+  //     headers: { Authorization: accessToken },
+  //   })
+  //     .then(res => {
+  //       if (!res.ok) {
+  //         throw new Error('Failed to logout');
+  //       }
+  //       return res.json();
+  //     })
+  //     .then(json => logoutSuccess(json))
+  //     .catch(err => logoutFailed(err));
+  // };
