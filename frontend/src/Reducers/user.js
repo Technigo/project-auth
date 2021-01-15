@@ -55,8 +55,10 @@ export const login = (username, password) => {
             accessToken: json.accessToken,
           })
         );
+        console.log("Logged in!")
         dispatch(user.actions.setUserId({ userId: json.userId }));
       })
+      dispatch(user.actions.toggleUserLogin(true))
       .catch(err => {
         console.log(err);
       });

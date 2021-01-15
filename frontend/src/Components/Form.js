@@ -57,7 +57,7 @@ export const Form = ({ input, heading, labelHeading, labelText }) => {
           />
         </Label>
         <Button input={input} onClickFunction={createUser} />
-        <Button input={input} onClickFunction={e => dispatch(login)} />
+        <Button input={"Log in"} onClickFunction={e => dispatch(login)} />
       </StyledForm>
     </Wrapper>
   );

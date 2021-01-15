@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import {
   configureStore,
   combineReducers,
-} from "Reducers/node_modules/@reduxjs/toolkit";
+} from "@reduxjs/toolkit";
 import { user } from "Reducers/user";
 
 import { Form } from "./Components/Form";
@@ -26,7 +26,7 @@ export const App = () => {
           <H1>Sign up or log in here!</H1>
           <InnerWrapper>
             <Form
-              input="Log in"
+              input="Create User"
               heading="Log in here:"
               labelHeading="Select a username:"
               labelText="Enter a password:"
