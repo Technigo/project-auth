@@ -7,6 +7,8 @@ import { Button } from '../lib/Button'
 import { Input } from '../lib/Input'
 import { Secrets } from './Secrets'
 
+
+// do these need to be edited for deployment?
 const SIGNUP_URL = 'http://localhost:8081/users'
 const LOGIN_URL = 'http://localhost:8081/sessions'
 
@@ -100,25 +102,24 @@ export const Form = () => {
   if (!isNewUser) {
     return (
       <>
-        <FormStyle>
+        <FormStyle onSubmit={handleLogin}>
           <Title>Login</Title>
           {/* email type? */}
           <Input
-            type="text"
+            type="email"
             value={email}
             placeholder="email"
             onChange={(event) => setEmail(event.target.value)}
             required />
           <Input
-            type="text"
+            type="password"
             value={password}
             placeholder="password"
             onChange={(event) => setPassword(event.target.value)}
             required />
           <Button
             type="submit"
-            background="green"
-            onClick={handleLogin}>
+            background="green">
             Login
           </Button>
 
@@ -126,6 +127,8 @@ export const Form = () => {
           <p>Not registered yet?</p>
 
           <Button
+            type="submit"
+            background="blue"
             onClick={handleNewUser}>
             Sign up
           </Button>
@@ -135,11 +138,11 @@ export const Form = () => {
   }
 
   return (
-    <FormStyle>
+    <FormStyle onSubmit={handleSignup}>
       <Title>Signup</Title>
 
       <Input
-        type="text"
+        type="email"
         value={email}
         placeholder="email"
         onChange={(event) => setEmail(event.target.value)}
@@ -154,16 +157,25 @@ export const Form = () => {
         maxLength="20"
         required />
 
+      {/* need to verify that the two password fields match.
+      may need to specify some length - min/max. */}
       <Input
-        type="text"
+        type="password"
         value={password}
         placeholder="password"
         onChange={(event) => setPassword(event.target.value)}
         required />
 
+      <Input
+        type="password"
+        value={password}
+        placeholder="password (again)"
+        onChange={(event) => setPassword(event.target.value)}
+        required />
+
       <Button
         type="submit"
-        onClick={handleSignup}>
+        background="lightgreen">
         Sign up
       </Button>
     </FormStyle>

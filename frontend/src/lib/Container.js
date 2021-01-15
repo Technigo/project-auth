@@ -8,8 +8,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rosybrown;
-  ${'' /* background: snow; */}
+  background: snow;
   border-radius: 3px;
   
   @media (min-width: 500px) {

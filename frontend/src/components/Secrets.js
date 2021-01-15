@@ -76,7 +76,7 @@ export const Secrets = () => {
       <h4>userId:</h4>
       <p> {`${userId}`}</p>
       <h4>accessToken:</h4>
-      <p> {`${accessToken}`}</p>
+      {/* <p> {`${accessToken}`}</p> */}
       <input type="submit" onClick={getSecrets} value="Test Secret Endpoint" />
       <input type="submit" onClick={logout} value="Test Logout" />
     </section>
