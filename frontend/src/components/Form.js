@@ -22,7 +22,7 @@ const Title = styled.h1`
 `
 const Paragraph = styled.p`
   font-size: 14px;
-  background: orange;
+  font-weight: 400;
 `
 
 // to either LOGIN or REGISTER as a new user
@@ -124,17 +124,15 @@ export const Form = () => {
             onChange={(event) => setPassword(event.target.value)}
             required />
           <Button
-            type="submit"
-            background="green">
+            type="submit">
             Login
           </Button>
 
           {loginFailed && <Paragraph>Wrong email or password. Please try again!</Paragraph>}
-          <p>Not registered yet?</p>
+          <Paragraph>No account?</Paragraph>
 
           <Button
             type="submit"
-            background="blue"
             onClick={handleNewUser}>
             Sign up
           </Button>
