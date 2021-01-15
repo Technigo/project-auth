@@ -57,7 +57,7 @@ const authenticateUser = async (req, res, next) => {
 
 const User = mongoose.model('User', userSchema)
 
-const port = process.env.PORT || 8080git a
+const port = process.env.PORT || 8080
 const app = express()
 
 app.use(cors())
