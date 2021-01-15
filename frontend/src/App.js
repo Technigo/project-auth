@@ -6,6 +6,7 @@ export const App = () => {
   const [loginPage, setLoginPage] = useState(false);
   const [welcomePage, setWelcomePage] = useState(false);
   const [welcomeMessage, setWelcomeMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,7 +24,7 @@ export const App = () => {
       .then((res) => {
         if (!res.ok) {
           throw new Error(
-            "Could not create account. Please try another username."
+            "Please try another username."
           );
         } else {
           return res.json();
@@ -32,7 +33,9 @@ export const App = () => {
       .then((json) => {
         welcomeUser(json.accessToken);
       })
-      .catch((err) => alert(err))
+      .catch((err) => {
+        setErrorMessage(err.message);
+      })
       .finally(() => {
         setName("");
         setPassword("");
@@ -48,7 +51,7 @@ export const App = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Could not log in. Please try again!");
+          throw new Error("Please try again!");
         } else {
           return res.json();
         }
@@ -56,7 +59,9 @@ export const App = () => {
       .then((json) => {
         welcomeUser(json.accessToken);
       })
-      .catch((err) => alert(err))
+      .catch((err) => {
+        setErrorMessage(err.message);
+      })
       .finally(() => {
         setName("");
         setPassword("");
@@ -81,7 +86,9 @@ export const App = () => {
         setWelcomePage(true);
         setWelcomeMessage(json.welcomeMessage);
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        setErrorMessage(err.message);
+      });
   };
 
   return (
@@ -91,10 +98,15 @@ export const App = () => {
         !welcomePage && (
           <>
             <Intro>Please join us by creating an account or log in.</Intro>
-            <SignupButton onClick={() => setSignupPage(true)}>
+            <Button
+              className="signupButton"
+              onClick={() => setSignupPage(true)}
+            >
               Create account
-            </SignupButton>
-            <LoginButton onClick={() => setLoginPage(true)}>Log in</LoginButton>
+            </Button>
+            <Button className="loginButton" onClick={() => setLoginPage(true)}>
+              Log in
+            </Button>
           </>
         )}
       {signupPage && // shows the sign up page
@@ -105,23 +117,31 @@ export const App = () => {
             <Form onSubmit={signupUser}>
               <Label>
                 Create username
-                <SignupInput
+                <Input
+                  required
+                  minlength="5"
+                  placeholder="Minimum 5 letters"
                   value={name}
                   onChange={(event) => setName(event.target.value)}
-                  placeholder="Minimum 5 letters"
                 />
               </Label>
               <Label>
                 Create password
-                <SignupInput
+                <Input
+                  className="signupInput"
                   type="password"
                   name="password"
+                  required
+                  minlength="5"
+                  placeholder="Minimum 5 letters"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  placeholder="Minimum 5 letters"
                 />
               </Label>
-              <FinalSignupButton type="submit">Sign up</FinalSignupButton>
+              <Button className="signupButton" type="submit">
+                Sign up
+              </Button>
+              <ErrorMessage>{errorMessage}</ErrorMessage>
             </Form>
           </>
         )}
@@ -133,21 +153,30 @@ export const App = () => {
             <Form onSubmit={loginUser}>
               <Label>
                 Name
-                <LoginInput
+                <Input
+                  className="loginInput"
                   value={name}
                   onChange={(event) => setName(event.target.value)}
+                  required
+                  minlength="5"
                 />
               </Label>
               <Label>
                 Password
-                <LoginInput
+                <Input
+                  className="loginInput"
                   type="password"
                   name="password"
+                  required
+                  minlength="5"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </Label>
-              <FinalLoginButton type="submit">Log in</FinalLoginButton>
+              <Button className="loginButton" type="submit">
+                Log in
+              </Button>
+              <ErrorMessage>{errorMessage}</ErrorMessage>
             </Form>
           </>
         )}
@@ -156,13 +185,14 @@ export const App = () => {
         !loginPage && (
           <>
             <Intro>{welcomeMessage}</Intro>
-            <LogoutButton
+            <Button
+              className="logoutButton"
               onClick={() => {
                 setWelcomePage(false) && setLoginPage(true);
               }}
             >
               Log out
-            </LogoutButton>
+            </Button>
           </>
         )}
     </Container>
@@ -190,9 +220,30 @@ const Intro = styled.p`
   color: #188c96;
 `;
 
+const ErrorMessage = styled.p`
+  font-family: "Karla", sans-serif;
+  text-align: center;
+`;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+`;
+
+const Input = styled.input`
+  margin: 15px 5px 5px 5px;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #b5bcff;
+
+  &.signupInput {
+    background: #b5bcff;
+  }
+
+  &.loginInput {
+    background: #188c96;
+  }
 `;
 
 const Label = styled.label`
@@ -204,55 +255,11 @@ const Label = styled.label`
   font-weight: 500;
 `;
 
-// Styling Start-page
-
-const SignupButton = styled.button`
-  border: none;
-  border-radius: 25px;
-  padding: 20px;
-  background: #b5bcff;
-  font-family: "Karla", sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  text-transform: uppercase;
-
-  &:hover {
-    background: #3c4a6b;
-  }
-`;
-
-const LoginButton = styled.button`
-  margin: 20px;
-  padding: 20px;
-  border: none;
-  border-radius: 25px;
-  background: #188c96;
-  font-family: "Karla", sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  text-transform: uppercase;
-
-  &:hover {
-    background: #3c4a6b;
-  }
-`;
-
-// Styling Signup-page
-
-const SignupInput = styled.input`
-  margin: 15px 5px 5px 5px;
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  background: #b5bcff;
-`;
-
-const FinalSignupButton = styled.button`
+const Button = styled.button`
   margin-top: 60px;
   padding: 15px;
   border: none;
   border-radius: 15px;
-  background: #b5bcff;
   font-family: "Karla", sans-serif;
   font-weight: 700;
   font-size: 18px;
@@ -261,48 +268,13 @@ const FinalSignupButton = styled.button`
   &:hover {
     background: #3c4a6b;
   }
-`;
 
-// Styling Login-page
-
-const LoginInput = styled.input`
-  margin: 15px 5px 5px 5px;
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  background: #188c96;
-`;
-
-const FinalLoginButton = styled.button`
-  margin-top: 60px;
-  padding: 15px;
-  border: none;
-  border-radius: 15px;
-  background: #188c96;
-  font-family: "Karla", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  text-transform: uppercase;
-
-  &:hover {
-    background: #3c4a6b;
+  &.signupButton {
+    background: #b5bcff;
   }
-`;
 
-// Styling Welcome-page
-
-const LogoutButton = styled.button`
-  margin-top: 60px;
-  padding: 15px;
-  border: none;
-  border-radius: 15px;
-  background: #188c96;
-  font-family: "Karla", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  text-transform: uppercase;
-
-  &:hover {
-    background: #3c4a6b;
+  &.loginButton,
+  &.logoutButton {
+    background: #188c96;
   }
 `;
