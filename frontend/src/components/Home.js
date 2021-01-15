@@ -55,6 +55,14 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   padding: 5px;
+  @media (max-width: 950px) {
+    margin: 50px auto;
+    width: 70%;
+  }
+  @media (max-width: 660px) {
+    margin: 50px auto;
+    width: 70%;
+  }
 `;
 const Text = styled.text`
   display: flex;
@@ -67,6 +75,12 @@ const Text = styled.text`
   align-items: center;
   justify-content: center;
   text-align: center;
+  @media (max-width: 950px) {
+    font-size: 16px;
+  }
+  @media (max-width: 660px) {
+    font-size: 16px;
+  }
 `;
 const TextFinal = styled.text`
   display: flex;
@@ -82,6 +96,14 @@ const TextFinal = styled.text`
   align-items: center;
   justify-content: center;
   text-align: center;
+  @media (max-width: 950px) {
+    font-size: 16px;
+    padding-top: 10px;
+  }
+  @media (max-width: 660px) {
+    font-size: 16px;
+    padding-top: 10px;
+  }
 `;
 const ButtonContainer = styled.div`
   @media (max-width: 950px) {

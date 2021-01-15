@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {
+  createSlice
+} from '@reduxjs/toolkit'
 
 const initialState = {
   loggedIn: false,
@@ -10,7 +12,7 @@ export const user = createSlice({
   name: 'userList',
   initialState,
   reducers: {
-    
+
     logIn: (state) => {
       state.loggedIn = true
     },
@@ -22,7 +24,7 @@ export const user = createSlice({
     setAccessToken: (state, action) => {
       state.accessToken = action.payload
     },
-    
+
     id: (state, action) => {
       state.userId = action.payload
     }

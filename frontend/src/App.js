@@ -4,10 +4,9 @@ import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { user } from "./reducers/user";
 
-import { Home } from "./components/Home"
+import { Home } from "./components/Home";
 import { Login } from "./components/Login";
 import { SignUp } from "./components/SignUp";
-
 
 //const URL = "https://project-auth-liza-kat.herokuapp.com/users"
 
