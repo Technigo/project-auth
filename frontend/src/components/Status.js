@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 export const Status = () => {
   //const statusMessage = useSelector((store) => store.user.login.statusMessage);
-  const errorMessage = useSelector((store) => store.user.errorMessage);
+  const errorMessage = useSelector((state) => state.user.errorMessage);
 
   return (
     <>
