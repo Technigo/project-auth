@@ -1,44 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { user } from '../reducers/user';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { FormButton, MainContainer } from 'styling/GlobalStyles';
 
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
-const SECRET_URL = 'http://localhost:8080/secrets';
-const LOGOUT_URL = 'http://localhost:8080/logout';
+const SECRET_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/secrets';
+const LOGOUT_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/users/logout';
 
 export const Secret = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
-  const statusMessage = useSelector((store) => store.user.login.statusMessage);
 
   const loginSucess = (loginResponse) => {
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginResponse.secretMessage }));
+    dispatch(
+      user.actions.setStatusMessage({
+        statusMessage: loginResponse.secretMessage
+      })
+    );
   };
 
   const loginFailed = (loginError) => {
+    dispatch(user.actions.setAccessToken({ accessToken: null }));
     dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
   };
 
-  // const logoutSuccess = () => {
-  //   dispatch(
-  //     user.actions.setStatusMessage({
-  //       statusMessage: 'Logout Succeded',
-  //     })
-  //   );
-  //   dispatch(user.actions.setAccessToken({ accessToken: null }));
-  // };
+  const logoutSuccess = () => {
+    dispatch(
+      user.actions.setStatusMessage({
+        statusMessage: 'Log Out Succeded',
+      })
+    );
+    dispatch(user.actions.setAccessToken({ accessToken: null }));
+    window.location.reload();
+  };
 
-  // const logoutFailed = () => {
-  //   dispatch(
-  //     user.actions.setStatusMessage({
-  //       statusMessage: logoutError,
-  //     })
-  //   );
-  // };
+  const logoutFailed = () => {
+    dispatch(
+      user.actions.setStatusMessage({
+        statusMessage: 'Log Out failed',
+      })
+    );
+  };
 
+  // Fetch to show the secret content
   const showSecret = () => {
     fetch(SECRET_URL, {
       method: 'GET',
@@ -55,17 +61,29 @@ export const Secret = () => {
       .catch((err) => loginFailed(err));
   };
 
-  // const logout = () => {
-
-  // };
+  const logout = () => {
+    fetch(LOGOUT_URL, {
+      method: 'POST',
+      headers: { Authorization: accessToken },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw 'Failed to Log Out';
+        }
+        return res.json();
+      })
+      .then((json) => logoutSuccess(json))
+      .catch((err) => logoutFailed(err));
+  };
 
   return (
     <SecretContainer>
+      <WelcomeMessage>Welcome!</WelcomeMessage>
       <SecretButton onClick={showSecret}>
         Click me to reveal the secret!
       </SecretButton>
       <Gift role="img" aria-label="emoji"> 🎁 </Gift>
-      <LogOutButton>Log Out</LogOutButton>
+      <LogOutButton onClick={logout}>Log Out</LogOutButton>
     </SecretContainer>
   );
 };
@@ -79,6 +97,8 @@ const SecretContainer = styled(MainContainer)`
   justify-content: space-between;
 `;
 
+const WelcomeMessage = styled.h3``;
+
 const SecretButton = styled(FormButton)`
   background: #fff;
   color: #00544F;
@@ -88,9 +108,12 @@ const SecretButton = styled(FormButton)`
   font-size: 14px;
 `;
 
-const Gift = styled.p`
+const Gift = styled.span`
   font-size: 60px;
   align-self: center;
+  margin: 0;
 `;
 
-const LogOutButton = styled(FormButton)``;
+const LogOutButton = styled(FormButton)`
+  border: 1px solid #00544F;
+`;

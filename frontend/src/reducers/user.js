@@ -12,7 +12,6 @@ const initialState = {
 export const user = createSlice({
   name: "user",
   initialState: initialState,
-
   reducers: {
     setAccessToken: (state, action) => {
       const { accessToken } = action.payload;
@@ -33,16 +32,22 @@ export const user = createSlice({
       const { errorMessage } = action.payload;
       state.login.errorMessage = errorMessage;
     },
-    // logout: (state, action) => {
-    //   state.login.userId = 0;
-    //   state.login.accessToken = null;
-    // },
+
+    logout: (state, action) => {
+      state.login.userId = 0;
+      state.login.accessToken = null;
+      state.login.secretMessage = null;
+    },
   }
 });
 
-// Thunks
+const LOGIN_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/sessions';
+const SIGNUP_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/users';
+
+///// THUNKS /////
+
+// For LOGIN
 export const login = (email, password) => {
-  const LOGIN_URL = 'http://localhost:8080/sessions';
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: 'POST',
@@ -53,16 +58,43 @@ export const login = (email, password) => {
         if (res.ok) {
           return res.json();
         }
-        throw 'Unable to sign in.';
+        throw 'Unable to Log In.';
       })
       .then((json) => {
         // Save the login info
-        dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
         dispatch(user.actions.setUserId({ userId: json.userId }));
-        dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful login' }));
+        dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
+        dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful Log In!' }));
       })
       .catch((err) => {
-        // dispatch(user.actions.logout());
+        dispatch(user.actions.logout());
+        dispatch(user.actions.setAccessToken({ accessToken: null }));
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+      });
+  };
+};
+
+// For SIGNUP
+export const signup = (name, email, password) => {
+  return (dispatch) => {
+    fetch(SIGNUP_URL, {
+      method: 'POST',
+      body: JSON.stringify({ name, password, email }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw 'Unable to Sign Up, please check your e-mail and password.';
+        } else {
+          return res.json();
+        }
+      })
+      .then((json) => {
+        dispatch(user.actions.setUserId({ userId: json.userId }));
+        dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
+        dispatch(user.actions.setStatusMessage({ statusMessage: 'Successful Sign Up' }));
+      })
+      .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };

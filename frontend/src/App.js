@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { user } from './reducers/user';
 import { Form } from './components/Form';
 import { Status } from './components/Status';
+import { Footer } from './components/Footer';
 
 const reducer = combineReducers({ user: user.reducer });
 const store = configureStore({ reducer });
@@ -17,6 +18,7 @@ export const App = () => {
       <Provider store={store}>
         <Form />
         <Status />
+        <Footer />
       </Provider>
     </MainWrapper>
   );

@@ -1,5 +1,7 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
+
+// Global styles
 export const MainContainer = styled.div`
   margin: 30px;
   padding: 20px;
@@ -19,6 +21,9 @@ export const StyledButton = styled.button`
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 `;
 
 export const FormButton = styled.button`
@@ -30,5 +35,47 @@ export const FormButton = styled.button`
   margin-top: 20px;
   width: 130px;
   font-weight: bold;
+  background: #fff;
   color: #00544F;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+`;
+
+export const Heading = styled.h2`
+  padding: 8px;
+  align-items: center;
+  color: #fff;
+  font-size: 20px;
+`;
+
+export const FormWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const InputField = styled.input`
+  background: #00544F;
+  border: none;
+  border-bottom: 1px solid #749694;
+  margin: 8px;
+  padding: 10px 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Styling of placeholder text */
+  ::-webkit-input-placeholder {
+    color: #749694;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: #749694;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: #749694;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: #749694;
+  }
 `;
