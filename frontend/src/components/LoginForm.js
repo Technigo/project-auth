@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 
 import {LoginContainer, Title, Login} from '../lib/LoginFormStyle'
@@ -14,6 +14,8 @@ export const LoginForm = ( ) => {
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+
+  const status = useSelector(store => store.user.login.statusMessage);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -56,6 +58,7 @@ export const LoginForm = ( ) => {
       <LoginContainer>
         <Login>
           <Title>LOGIN</Title>
+          <p>{status}</p>
           <InputField
             title='Username'
             htmlFor='name'
@@ -71,6 +74,7 @@ export const LoginForm = ( ) => {
             onChange={setPassword}
           />
           <Button title='Sign In' onClickFunc={handleLogin} />
+          
         </Login>
       </LoginContainer>
     )
