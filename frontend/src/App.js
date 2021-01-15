@@ -13,7 +13,6 @@ import { H1, MainWrapper, InnerWrapper } from "./styles/Styles";
 const reducer = combineReducers({
   user: user.reducer,
 });
-npm;
 
 const store = configureStore({ reducer });
 
@@ -32,12 +31,6 @@ export const App = () => {
               labelHeading="Select a username:"
               labelText="Enter a password:"
             />
-            {/* <Form
-              input="Sign up"
-              heading="Sign up here:"
-              labelHeading="Enter username:"
-              labelText="Enter password:"
-            /> */}
           </InnerWrapper>
         </MainWrapper>
       ) : (

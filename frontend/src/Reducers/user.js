@@ -4,6 +4,7 @@ const initialState = {
   login: {
     accessToken: null,
     userId: 0,
+    loggedIn: false,
   },
 };
 
@@ -22,7 +23,11 @@ export const user = createSlice({
       console.log(`This is the payload: ${action.payload}`);
       console.log(`This is the userId: ${userId}`);
       state.login.userId = userId;
-    },/* 
+    },
+    toggleUserLogin: (state, action) => {
+      state.login.loggedIn = action.payload;
+    },
+    /* 
     logout: (state, action) => {
       state.login.userId = 0;
       state.login.accessToken = null;
@@ -59,9 +64,9 @@ export const login = (username, password) => {
 };
 
 export const logout = () => {
-  return (dispatch) => {
-    console.log("Logging out!")
-    dispatch(user.actions.setAccessToken({ accessToken: null}));
-    dispatch(user.actions.setUserId({ userId: 0}));
-  }
+  return dispatch => {
+    console.log("Logging out!");
+    dispatch(user.actions.setAccessToken({ accessToken: null }));
+    dispatch(user.actions.setUserId({ userId: 0 }));
+  };
 };
