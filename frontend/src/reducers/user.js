@@ -44,7 +44,7 @@ export const user = createSlice({
 const LOGIN_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/sessions';
 const SIGNUP_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/users';
 
-// Thunks
+///// THUNKS /////
 
 // For LOGIN
 export const login = (email, password) => {
@@ -69,7 +69,6 @@ export const login = (email, password) => {
       .catch((err) => {
         dispatch(user.actions.logout());
         dispatch(user.actions.setAccessToken({ accessToken: null }));
-        dispatch(user.actions.setStatusMessage({ statusMessage: 'Failed to login' }));
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
@@ -85,7 +84,7 @@ export const signup = (name, email, password) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw 'Unable to Sign up, please check your e-mail and password.';
+          throw 'Unable to Sign Up, please check your e-mail and password.';
         } else {
           return res.json();
         }

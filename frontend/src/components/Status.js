@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 export const Status = () => {
   const statusMessage = useSelector((store) => store.user.login.statusMessage);

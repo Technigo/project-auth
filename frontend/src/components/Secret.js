@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { FormButton, MainContainer } from 'styling/GlobalStyles';
 
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const SECRET_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/secrets';
 const LOGOUT_URL = 'https://reveal-secrets-gabriella-sara.herokuapp.com/users/logout';
@@ -114,4 +114,6 @@ const Gift = styled.span`
   margin: 0;
 `;
 
-const LogOutButton = styled(FormButton)``;
+const LogOutButton = styled(FormButton)`
+  border: 1px solid #00544F;
+`;
