@@ -25,4 +25,4 @@ This project was to build an **API with authentication** where a user gets to lo
 ## View it live
 
 - [Login to find our secret message](https://karolin-andrea-secret-frontend.netlify.app)
-- [View Backedn API](https://karolinandrea-secret-api.herokuapp.com/)
+- [View Backend API](https://karolinandrea-secret-api.herokuapp.com/)
