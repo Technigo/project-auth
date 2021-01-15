@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { user } from "user";
 
-const AUTH_URL = "https://modest-hamilton-9de3b4.netlify.app/authentication";
+const AUTH_URL =
+  "https://project-auth-joel-cornelia.herokuapp.com/authentication";
 
 const Profile = () => {
   const [name, setName] = useState("");

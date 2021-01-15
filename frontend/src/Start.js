@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { user } from "user";
 import Profile from "Profile";
 
-const USER_URL = "https://modest-hamilton-9de3b4.netlify.app/users";
-const LOGIN_URL = "https://modest-hamilton-9de3b4.netlify.app/sessions";
+const USER_URL = "https://project-auth-joel-cornelia.herokuapp.com/users";
+const LOGIN_URL = "https://project-auth-joel-cornelia.herokuapp.com/sessions";
 
 const Start = () => {
   const [username, setUsername] = useState("");
