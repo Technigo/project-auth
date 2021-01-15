@@ -21,6 +21,7 @@ export const StyledButton = styled.button`
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   cursor: pointer;
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 `;
@@ -34,7 +35,9 @@ export const FormButton = styled.button`
   margin-top: 20px;
   width: 130px;
   font-weight: bold;
+  background: #fff;
   color: #00544F;
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 `;
