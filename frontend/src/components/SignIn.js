@@ -86,6 +86,7 @@ export const SignIn = () => {
           Name
           <input
             required
+            minLength="5"
             value={name}
             onChange={(event) => setName(event.target.value)}
           />
@@ -95,6 +96,7 @@ export const SignIn = () => {
           <input
             type="password"
             required
+            minLength="5"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
