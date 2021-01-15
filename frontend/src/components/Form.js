@@ -7,7 +7,6 @@ import { Button } from '../lib/Button'
 import { Input } from '../lib/Input'
 import { Secrets } from './Secrets'
 
-
 // do these need to be edited for deployment?
 const SIGNUP_URL = 'http://localhost:8081/users'
 const LOGIN_URL = 'http://localhost:8081/sessions'
