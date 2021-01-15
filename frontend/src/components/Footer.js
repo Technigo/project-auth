@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 
 const FooterStyle = styled.div`
   margin: 0;
-  font-size: 14px;
+  font-size: 10px;
   display: flex;
   align-items: flex-end;
   background: #fff;
@@ -15,9 +15,7 @@ const FooterStyle = styled.div`
 
   &:hover {
     color: #3d99f5;
-  }
-`
-const TextDiv = styled.
+  }`
 
 export const Footer = () => {
   return (
