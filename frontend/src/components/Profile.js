@@ -1,34 +1,39 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Notes } from './Notes'
 import { Button } from '../styling/form'
+import { user } from '../reducers/user'
+import { ProfileSection } from '../styling/profile'
 
 export const Profile = () => {
-  const accessToken = useSelector((store) => store.user.login.accessToken)
+  const dispatch = useDispatch()
   const userId = useSelector((store) => store.user.login.userId)
+  const loggedIn = useSelector((store) => store.user.login.loggedIn)
 
-  const logout = () => {}
+  const logout = () => {
+    dispatch(user.actions.logout());
+    dispatch(user.actions.toggleLoggedState(false));
+  }
 
-  if (!accessToken) {
-    return <></>
+  if (!loggedIn) {
+    return <div>Please log in</div>
   }
 
   return (
-    <section>
-      <h2>Profile:</h2>
-      <h4>userId:</h4>
-      <p> {`${userId}`}</p>
-      <h4>accessToken:</h4>
-      <p> {`${accessToken}`}</p>
-      <Notes />
+    <ProfileSection>
+      <div>
+        <h2>Profile:</h2>
+        <h4>userId:</h4>
+        <p> {`${userId}`}</p>
+      </div>
       <Button 
         type="submit" 
         onClick={logout}
       >
         Logout
       </Button>
-
-    </section>
+      <Notes />
+    </ProfileSection>
   )
 }
 export default Profile

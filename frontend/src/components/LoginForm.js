@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { user } from '../reducers/user'
+import { Profile } from './Profile'
 import picture from '../picture/picture.svg'
 import { Button, SignUpImage, LoginSection, Form, InputLabel, LoginInput } from '../styling/form'
 
@@ -8,18 +9,18 @@ const SIGNUP_URL = "http://localhost:8080/users";
 const LOGIN_URL = "http://localhost:8080/sessions";
 
 export const LoginForm = () => {
-  const dispatch = useDispatch()
-  const statusMessage = useSelector((store) => store.user.login.statusMessage)
-  const accessToken = useSelector((store) => store.user.login.accessToken)
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
+  
+  const dispatch = useDispatch()
+  const statusMessage = useSelector((store) => store.user.login.statusMessage)
+  const loggedIn = useSelector((store) => store.user.login.loggedIn)
 
   const handleLoginSuccess = (loginResponse) => {
-    dispatch(
-      user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
-    );
+    dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }));
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
     dispatch(user.actions.setStatusMessage({ statusMessage: "Login Success" }));
+    dispatch(user.actions.toggleLoggedState(true));
   };
 
   const handleLoginFailed = (loginError) => {
@@ -65,13 +66,8 @@ export const LoginForm = () => {
       .catch((err) => handleLoginFailed(err));
   };
 
-
-  if (accessToken) {
-    return (
-        <div>Yey! Logged in</div>
-    );
-  }
-  // If user is logged out, show login form
+  // If user is not logged in, show login form
+  if (!loggedIn) {
   return (
     <LoginSection>
       <Form>
@@ -108,5 +104,10 @@ export const LoginForm = () => {
         <SignUpImage src={picture} alt="Taking note" />
     </LoginSection>
   );
+  }
+
+  // If user is logged in, show profile
+  return <Profile />
+  
 };
 export default LoginForm;
