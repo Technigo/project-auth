@@ -8,7 +8,6 @@ export const Status = () => {
 
   return (
     <>
-    <p>Hej</p>
       {statusMessage && (
         <div>
           <p>{`${statusMessage}`}</p>
