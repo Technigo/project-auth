@@ -114,6 +114,8 @@ export const App = () => {
               <Label>
                 Create password
                 <SignupInput
+                  type="password"
+                  name="password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   placeholder="Minimum 5 letters"
@@ -139,6 +141,8 @@ export const App = () => {
               <Label>
                 Password
                 <LoginInput
+                  type="password"
+                  name="password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
@@ -178,8 +182,10 @@ const Container = styled.section`
 
 const Intro = styled.p`
   margin-bottom: 80px;
-  font-size: 32px;
-  font-weight: bold;
+  padding: 0 20px;
+  font-family: "Karla", sans-serif;
+  font-size: 36px;
+  font-weight: 400;
   text-align: center;
   color: #188c96;
 `;
@@ -193,9 +199,9 @@ const Label = styled.label`
   display: flex;
   flex-direction: column;
   margin: 10px;
+  font-family: "Karla", sans-serif;
   font-size: 20px;
-  font-weight: bold;
-  color: black;
+  font-weight: 500;
 `;
 
 // Styling Start-page
@@ -205,8 +211,9 @@ const SignupButton = styled.button`
   border-radius: 25px;
   padding: 20px;
   background: #b5bcff;
+  font-family: "Karla", sans-serif;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 700;
   text-transform: uppercase;
 
   &:hover {
@@ -220,8 +227,9 @@ const LoginButton = styled.button`
   border: none;
   border-radius: 25px;
   background: #188c96;
+  font-family: "Karla", sans-serif;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 700;
   text-transform: uppercase;
 
   &:hover {
@@ -245,7 +253,8 @@ const FinalSignupButton = styled.button`
   border: none;
   border-radius: 15px;
   background: #b5bcff;
-  font-weight: bold;
+  font-family: "Karla", sans-serif;
+  font-weight: 700;
   font-size: 18px;
   text-transform: uppercase;
 
@@ -270,8 +279,9 @@ const FinalLoginButton = styled.button`
   border: none;
   border-radius: 15px;
   background: #188c96;
+  font-family: "Karla", sans-serif;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 700;
   text-transform: uppercase;
 
   &:hover {
@@ -287,8 +297,9 @@ const LogoutButton = styled.button`
   border: none;
   border-radius: 15px;
   background: #188c96;
+  font-family: "Karla", sans-serif;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 700;
   text-transform: uppercase;
 
   &:hover {
