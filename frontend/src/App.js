@@ -36,9 +36,11 @@ const store = configureStore({ reducer });
 export const App = () => {
   return (
     <Provider store={store}>
-      <Login />
-      <UserProfile />
-      <Status />
+      <main>
+        <Login />
+        <UserProfile />
+        <Status />
+      </main>
     </Provider>
   );
 };

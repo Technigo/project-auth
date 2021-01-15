@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styled from 'styled-components';
 import { useDispatch, useSelector } from "react-redux";
 
 import { user } from "../reducers/user";
+// import { Container } from "../styled-components/LoginStyling";
 
-const SIGNUP_URL = "https://project-signup.herokuapp.com/users";
-const LOGIN_URL = "https://project-signup.herokuapp.com/sessions";
+const SIGNUP_URL = "http://localhost:8080/users";
+const LOGIN_URL = "http://localhost:8080/sessions";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -33,8 +33,8 @@ export const Login = () => {
   // Handle sign up
   const handleSignup = (event) => {
     event.preventDefault();
-    setName("");
-    setPassword("");
+    // setName("");
+    // setPassword("");
     // send data to backend, for saving in DB
     fetch(SIGNUP_URL, {
       method: "POST",
@@ -43,7 +43,9 @@ export const Login = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Signup failed. Please enter a valid name and password.");
+          throw new Error(
+            "Signup failed. Please enter a valid name and password."
+          );
         }
         return res.json();
       })
@@ -54,8 +56,8 @@ export const Login = () => {
   // Handle log in
   const handleLogin = (event) => {
     event.preventDefault();
-    setName("");
-    setPassword("");
+    //setName("");
+    //setPassword("");
 
     fetch(LOGIN_URL, {
       method: "POST",
@@ -64,7 +66,7 @@ export const Login = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Login failed. Please try again.");
+          throw new Error("Login failed. Please try again."); // throw redirects us to .catch
         }
         return res.json();
       })
@@ -74,35 +76,34 @@ export const Login = () => {
 
   if (accessToken) {
     return <></>;
-  };
+  }
 
   return (
-    <div>
+    <section>
       <form>
-        <h1>Sign Up</h1>
-        <label>
-          name:
-          <input
-            required
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </label>
-        <label>
-          password:
-          <input
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-        <button type="submit" onClick={handleSignup}>
-          SIGN UP
-        </button>
-        <button type="submit" onClick={handleLogin}>
-          Login
-        </button>
+        <h1>Sign Up/Login</h1>
+        <label> Name: </label>
+        <input
+          required
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
+        <label> Password:</label>
+        <input
+          placeholder="Min length 5 characters"
+          required
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <div className="button-container">
+          <button type="submit" onClick={handleSignup}>
+            Sign up
+          </button>
+          <button type="submit" onClick={handleLogin}>
+            Login
+          </button>
+        </div>
       </form>
-    </div>
-  )
+    </section>
+  );
 };
