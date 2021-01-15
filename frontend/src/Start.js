@@ -10,7 +10,7 @@ const LOGIN_URL = "https://project-auth-joel-cornelia.herokuapp.com/sessions";
 const Start = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState({});
+  const [signupMessage, setSignupMessage] = useState({});
 
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
@@ -43,14 +43,14 @@ const Start = () => {
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
-        if (json.error) {
-          setErrorMessage(json);
-        }
+
+        setSignupMessage(json);
+
         setUsername("");
         setPassword("");
       })
       .catch((error) => {
-        setErrorMessage("new error");
+        setSignupMessage("new error");
         console.log(error);
       });
   };
@@ -110,7 +110,7 @@ const Start = () => {
             Log in
           </button>
         </form>
-        <div>{errorMessage && <p>{errorMessage.message}</p>}</div>
+        <div>{signupMessage && <p>{signupMessage.message}</p>}</div>
         <div>{statusMessage && <p>{statusMessage}</p>}</div>
       </>
     );
