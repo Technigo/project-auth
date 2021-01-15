@@ -38,6 +38,7 @@ export const user = createSlice({
 // Signup
 export const signup = (name, email, password) => {
   const SIGNUP_URL = 'http://localhost:8080/signup';
+  // const SIGNUP_URL = 'ADD HEROKU URL';
   return (dispatch) => {
     fetch(SIGNUP_URL, {
       method: 'POST',
@@ -53,7 +54,6 @@ export const signup = (name, email, password) => {
         return res.json();
       })
       .then((json) => {
-        // Save the login info
         dispatch(
           user.actions.setAccessToken({
             accessToken: json.accessToken
@@ -71,6 +71,7 @@ export const signup = (name, email, password) => {
 // Login
 export const login = (email, password) => {
   const LOGIN_URL = 'http://localhost:8080/login';
+  // const LOGIN_URL = 'ADD HEROKU URL';
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: 'POST',
@@ -86,7 +87,6 @@ export const login = (email, password) => {
         throw 'Unable to sign in. Please check your username and password are correct';
       })
       .then((json) => {
-        // Save the login info
         dispatch(
           user.actions.setAccessToken({
             accessToken: json.accessToken
@@ -105,13 +105,12 @@ export const login = (email, password) => {
 // SecretMesssage
 export const getSecretMessage = () => {
   const USERS_URL = 'http://localhost:8080/users';
+  // const USERS_URL = 'ADD HEROKU URL';
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
-    // Include userId in the path
     fetch(`${USERS_URL}/${userId}/secret`, {
       method: 'GET',
-      // Include the accessToken to get the protected endpoint
       headers: { Authorization: accessToken }
     })
       .then((res) => {
@@ -120,7 +119,6 @@ export const getSecretMessage = () => {
         }
         throw 'Could not get information. Make sure you are logged in and try again.';
       })
-      // SUCCESS: Do something with the information we got back
       .then((json) => {
         dispatch(
           user.actions.setSecretMessage({
