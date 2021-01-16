@@ -122,7 +122,7 @@ app.post('/sessions', async (req, res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({ userId: user._id, accessToken: user.accessToken });
     } else {
-      res.status(401).json({ message: 'Unvalid username or password', notFound: true });
+      res.status(401).json({ message: 'Unvalid username or password', errors: err });
     }
   } catch (err) {
     res.status(400).json({ message: 'Could not log in', errors: err });

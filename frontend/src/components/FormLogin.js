@@ -8,10 +8,12 @@ import { Profile } from './Profile.js';
 export const FormLogin = () => {
 	const dispatch = useDispatch();
 	const accessToken = useSelector((store) => store.user.login.accessToken);
+	const statusMessage = useSelector((store) => store.user.login.statusMessage);
 	const LOGIN_URL = 'https://nadlillmar.herokuapp.com/sessions';
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
 	const [displayLoggedIn, setDisplayLoggedIn] = useState(false);
+	const [displayError, setDisplayError] = useState(false);
 
 	const handleLoginSuccess = (loginResponse) => {
 		const statusMessage = JSON.stringify(loginResponse);
@@ -30,7 +32,10 @@ export const FormLogin = () => {
 
 	const handleLoginFailed = (loginError) => {
 		const statusMessage = JSON.stringify(loginError);
+		console.log(`Statusmessage ${statusMessage}`);
 		dispatch(user.actions.setStatusMessage({ statusMessage }));
+		console.log(`Statusmessage ${statusMessage}`);
+		setDisplayError(true);
 	};
 
 	const submitLogin = (e) => {
@@ -49,7 +54,7 @@ export const FormLogin = () => {
 	return (
 		<Container>
 			<h1>Login </h1>
-			<Form onSumit={submitLogin}>
+			<Form onSubmit={submitLogin}>
 				<label>
 					Username:
 					<input
@@ -58,8 +63,8 @@ export const FormLogin = () => {
 						value={userName}
 						onChange={(event) => setUserName(event.target.value)}
 						required
-						minlength="5"
-						maxlength= "30"
+						minLength="5"
+						maxLength= "30"
 					/>
 				</label>
 
@@ -71,13 +76,13 @@ export const FormLogin = () => {
 						value={password}
 						onChange={(event) => setPassword(event.target.value)}
 						required
-						minlength="5"
+						minLength="5"
 					/>
 				</label>
 
 				<Button type="submit">Login</Button>
 			</Form>
-
+			{displayError && <div >{`Errormessage: ${statusMessage}`}</div>}
 			{displayLoggedIn && <Profile />}
 		</Container>
 	);

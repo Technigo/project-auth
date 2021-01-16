@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { user, logout } from '../reducers/user';
+import {user} from '../reducers/user';
 
 export const Profile = () => {
 	const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export const Profile = () => {
 	};
 
 	const loginFailed = (loginError) => {
-		dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
+		//dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
 	};
 
 	const handleLogout = () => {
