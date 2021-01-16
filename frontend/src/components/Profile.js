@@ -14,14 +14,19 @@ export const Profile = () => {
   return (
     <main className="main-container">
       <div className="content">
-        <p>{`Hello ${name}! Click to reveal secret message`}</p>
+        <p className="text-info">
+          {`Hello ${name}! Click to reveal secret message`}
+        </p>
         <Button
           type="button"
           onClick={() => dispatch(getSecretMessage())}
           className="form-button"
           text="Secret message"
         />
-        {secretMessage && <p>{secretMessage}</p>}
+        {secretMessage && 
+        <p className="text-info secret">
+          {secretMessage}
+        </p>}
         <Button
           type="button"
           onClick={() => dispatch(logout())}

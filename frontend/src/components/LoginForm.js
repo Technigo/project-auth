@@ -66,7 +66,7 @@ export const LoginForm = () => {
                 disabled={!email || password.length < 5}
                 text="Login"
               />
-              {errorMessage && <p>{errorMessage}</p>}
+              {errorMessage && <p className="text-info error">{errorMessage}</p>}
               <button className="link-button" onClick={handleSetLogin}>
                 <span className="link-button-text">
                   Not a member? Sign up here

@@ -125,3 +125,22 @@ input:-moz-placeholder { /* Firefox 18- */
   color: #494565;
 }
 
+.text-info {
+  width: 240px;
+  font-family: 'Montserrat', sans-serif;
+  color: #2c3d5f;
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.secret {
+  color: #6d516c;
+}
+
+.error {
+  font-size: 16px;
+  color: #a8435e;
+}
+
+
