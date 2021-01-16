@@ -9,7 +9,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-const userSchema = new mongoose.Schema({
+const User = mongoose.model('User', {
   name: {
     type: String,
     minlength:3,
@@ -22,28 +22,14 @@ const userSchema = new mongoose.Schema({
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString('hex'),
-    unique: true
+    default: () => crypto.randomBytes(128).toString('hex')
   }
 })
-
-userSchema.pre('save', async function (next) {
-  const user = this
-
-  if (!user.isModified('password')) {
-    return next();
-  }
-
-  const salt = bcrypt.genSaltSync(10)
-  user.password = bcrypt.hashSync(user.password, salt)
-  next()
-})
-
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const accessToken = req.header('Authorization')
-    const user = await User.findOne({ accessToken })
+    const user = await User.findOne({ accessToken: req.header('Authorization')})
+
     if (user) {
       req.user = user
       next()
@@ -54,9 +40,6 @@ const authenticateUser = async (req, res, next) => {
     res.status(403).json({ message: 'Access token is missing or wrong', errors: err })
   }
 }
-
-const User = mongoose.model('User', userSchema)
-
 const port = process.env.PORT || 8080
 const app = express()
 
@@ -71,13 +54,11 @@ app.get('/', (req, res) => {
 app.post('/users', async (req, res) => { 
   try { 
     const { name, password } = req.body
-    const user = await new User({
-      name,
-      password,
-    }).save()
-    res.status(200).json({ userId: user._id, accessToken: user.accessToken });
+    const SALT = bcrypt.genSaltSync(10)
+    const user = await new User({ name, password: bcrypt.hashSync(password, SALT)}).save()
+    res.status(201).json({id: user._id, accessToken: user.accessToken})
   } catch (err) {
-    res.status(400).json({ message: 'Could not create user', error });
+    res.status(400).json({message: "Could not create user", errors:err.errors})
   }
 })
 
@@ -92,7 +73,7 @@ app.post('/sessions', async (req, res) => {
     const { name, password } = req.body
     const user = await User.findOne({ name })
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(200).json({ userId: user._id, accessToken: user.accessToken })
+      res.status(201).json({ userId: user._id, accessToken: user.accessToken })
     } else {
       res.status(404).json({ notFound: true, message: "Check if username and/or password is correct" })
     }
