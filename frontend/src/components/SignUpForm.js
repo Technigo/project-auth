@@ -50,6 +50,7 @@ export const SignUpForm = () => {
                     USERNAME
                     <FormInput
                         type="text"
+                        id="name"
                         placeholder="Choose a username"
                         required
                         value={name}
@@ -61,6 +62,7 @@ export const SignUpForm = () => {
                     PASSWORD
                     <FormInput  
                         type="password"
+                        id="password"
                         placeholder="Choose a password"
                         required
                         value={password}

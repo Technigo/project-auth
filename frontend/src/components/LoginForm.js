@@ -60,6 +60,7 @@ export const LoginForm = () => {
                 USERNAME
                 <FormInput
                     type="text"
+                    id="name"
                     placeholder="Enter your username"
                     required
                     value={name}
@@ -71,6 +72,7 @@ export const LoginForm = () => {
                 PASSWORD
                 <FormInput  
                     type="password"
+                    id="password"
                     placeholder="Enter your password"
                     required
                     value={password}
