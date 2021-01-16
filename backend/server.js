@@ -63,9 +63,10 @@ app.post('/users', async (req, res) => {
   }
 })
 
-app.get('/users/:id', authenticateUser)
-app.get('/users/:id', (req, res) => {
-  res.status(401).send()
+app.get('/secret', authenticateUser)
+app.get('/secret', (req, res) => {
+  const secretMessage = `This is a secret message for ${req.user.name}`
+  res.status(201).json({ secretMessage })
 })
 
 app.post('/sessions', async (req, res) => {
