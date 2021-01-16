@@ -5,7 +5,6 @@ import { USERS_URL, SESSIONS_URL } from '../urls';
 const initialState = {
   login: {
     name: '',
-    email: '',
     userId: 0,
     secretMessage: '',
     errorMessage: '',
@@ -21,11 +20,6 @@ export const user = createSlice({
       const { name } = action.payload;
       store.login.name = name;
       console.log(name);
-    },
-    setEmail: (store, action) => {
-      const { email } = action.payload;
-      store.login.email = email;
-      console.log(email);
     },
     setUserId: (store, action) => {
       const { userId } = action.payload;
@@ -163,7 +157,6 @@ export const logout = () => {
         );
       });
     dispatch(user.actions.setName({ name: '' }));
-    dispatch(user.actions.setEmail({ email: '' }));
     dispatch(user.actions.setUserId({ userId: 0 }));
     dispatch(user.actions.setSecretMessage({ secretMessage: '' }));
     dispatch(user.actions.setErrorMessage({ errorMessage: '' }));
