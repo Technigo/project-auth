@@ -13,8 +13,6 @@ Start by briefly describing the assignment in a sentence or two. Keep it short a
 - Logout: `/users/logout`
 - Authenticated endpoint: `/users/:id/secret`
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
-
 ## Tech
 
 **Frontend**
@@ -24,7 +22,8 @@ Describe how you approached to problem, and what tools and techniques you used t
 ## View it live
 
 **Frontend**
+https://thirsty-banach-98f576.netlify.app/
 
 **Backend**
+https://project-login-auth.herokuapp.com/
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.

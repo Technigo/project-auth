@@ -161,15 +161,8 @@ app.post('/users/logout', async (req, res) => {
   }
 });
 
-// GET - secure endpoint, protected by authenticateUser. Should :id be here or not?
+// GET - secure endpoint, protected by authenticateUser.
 //Looks up the user based on the access token stored in the header
-app.get('/users/secret', authenticateUser);
-app.get('/users/secret', (req, res) => {
-  const secretMessage = 'This is a secret message!';
-  res.status(201).json({ secretMessage });
-});
-
-// GET - user specific information
 app.get('/users/:id/secret', authenticateUser);
 app.get('/users/:id/secret', async (req, res) => {
   try {
