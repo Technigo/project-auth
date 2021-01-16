@@ -46,33 +46,36 @@ export const FormLogin = () => {
 			.then((err) => handleLoginFailed(err));
 	};
 
-	//! Move to App.js?
-	// if(!accessToken)
-
 	return (
 		<Container>
-			<Form>
+			<h1>Login </h1>
+			<Form onSumit={submitLogin}>
 				<label>
-					Username
-					<Input
+					Username:
+					<input
 						type="text"
 						name="username"
 						value={userName}
 						onChange={(event) => setUserName(event.target.value)}
-						required></Input>
+						required
+						minlength="5"
+						maxlength= "30"
+					/>
 				</label>
 
 				<label>
-					Password
-					<Input
+					Password:
+					<input
 						type="password"
 						name="password"
 						value={password}
 						onChange={(event) => setPassword(event.target.value)}
-						required></Input>
+						required
+						minlength="5"
+					/>
 				</label>
 
-				<Button onClick={submitLogin}>Login</Button>
+				<Button type="submit">Login</Button>
 			</Form>
 
 			{displayLoggedIn && <Profile />}

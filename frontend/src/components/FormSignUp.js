@@ -22,34 +22,44 @@ export const FormSignup = () => {
 
 	return (
 		<div>
+			<h1>Sign up </h1>
+			<form OnSubmit={handleSignup}>
 			<label>
 				Choose username
-				<Input
+				<input 
 					required
 					type="text"
 					name="select-username"
 					value={userName}
-					onChange={(event) => setUserName(event.target.value)}></Input>
+					onChange={(event) => setUserName(event.target.value)}
+					minlength="5"
+					maxlength= "30"
+				/>
 			</label>
 			<label>
 				Choose password
-				<Input
+				<input
 					required
 					type="password"
 					name="select-password"
 					value={password}
-					onChange={(event) => setPassword(event.target.value)}></Input>
+					onChange={(event) => setPassword(event.target.value)}
+					minlength="5"
+				/>
 			</label>
 			<label>
 				Your email
-				<Input
+				<input
 					required
 					type="text"
 					name="email"
 					value={email}
-					onChange={(event) => setEmail(event.target.value)}></Input>
+					onChange={(event) => setEmail(event.target.value)}
+					minlength="5"
+				/>
 			</label>
-			<Button onClick={handleSignup}>Confirm signup</Button>
+			<Button type="submit">Create user</Button>
+		</form>
 		</div>
 	);
 };
