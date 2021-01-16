@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import {user} from '../reducers/user';
+import { user } from '../reducers/user';
 
 export const Profile = () => {
 	const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const Profile = () => {
 		const statusMessage = JSON.stringify(loginResponse);
 		dispatch(
 			user.actions.setStatusMessage({
-				statusMessage: loginResponse.statusMessage
+				statusMessage: loginResponse.secretMessage,
 			})
 		);
 	};
