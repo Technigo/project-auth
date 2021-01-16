@@ -29,16 +29,17 @@ const User = mongoose.model('User', {
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({ accessToken: req.header('Authorization') })
+    const accessToken = req.header('Authorization')
+    const user = await User.findOne({ accessToken })
 
-    if (user) {
-      req.user = user
-      next()
-    } else {
-      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' })
+    if (!user) {
+      throw 'Login error '
     }
+    req.user = user
+    next()
   } catch (err) {
-    res.status(403).json({ message: 'Access token is missing or wrong', errors: err })
+    const errorMessage = 'Try again'  
+    res.status(401).json({ errors: err.errors })
   }
 }
 
