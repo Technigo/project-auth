@@ -15,11 +15,9 @@ export const SignUpForm = () => {
     const [password, setPassword] = useState('');
 
     const handleLoginSuccess = (loginResponse) => {
-        console.log(loginResponse);
     };
 
     const handleLoginFailed = (loginError) => {
-        console.log(loginError)
     };
     
     const handleSignup = (event) => {
@@ -44,7 +42,6 @@ export const SignUpForm = () => {
     if (!accessToken)  {
 
         return (
-
                 <UserForm>
                     <Text>Don't have an account?</Text>
                     <Heading> SIGN UP </Heading>

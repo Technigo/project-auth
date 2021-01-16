@@ -82,7 +82,7 @@ export const CredText = styled.p`
 `;
 
 export const StatusMessage = styled.div`
- color: #fff;
- background-color: turquoise;
+ background: #A599E0;
+ color: #000;
  min-width: 50vw;
 `;

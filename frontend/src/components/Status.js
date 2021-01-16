@@ -12,14 +12,12 @@ export const Status = () => {
     <StatusMessage>
       {statusMessage && (
         <div>
-          <p>{`${statusMessage}`}</p>
-          <span role="img" aria-label="confetti">🎉</span>
+          <p>{`${statusMessage}`}!</p>
         </div>
       )}
       {errorMessage && (
         <div>
           <p>{`${errorMessage}`}</p>
-          <span role="img" aria-label="warning">⚠️</span>
         </div>
       )}
     </StatusMessage>
