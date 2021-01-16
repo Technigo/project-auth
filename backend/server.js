@@ -110,6 +110,7 @@ app.post('/users', async (req, res) => {
 app.get('/users/:id', authenticateUser);
 app.get('/users/:id', (req, res) => {
   const secretMessage = `This is a secret message for ${req.user.name}`;
+  console.log(`SecretMessage in endpoint {$secretMessage}`)
   res.status(200).json({ secretMessage });
   // res.status(201).json({ name: req.user.name, userId: req.user._id });
 });
