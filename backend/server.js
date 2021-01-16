@@ -100,7 +100,7 @@ const authenticateUser = async (req, res, next) => {
 
 // GET - list of all endpoints
 const listEndpoints = require('express-list-endpoints');
-app.get('/endpoints', (req, res) => {
+app.get('/', (req, res) => {
   res.send(listEndpoints(app));
 });
 

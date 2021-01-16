@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getSecretMessage, login } from '../reducers/user';
+import { login } from '../reducers/user';
 import { SignUpForm } from './SignUpForm';
 import '../styles/style.css'
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const errorMessage = useSelector(store => store.user.login.errorMessage);
-  const userId = useSelector(store => store.user.login.userId);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

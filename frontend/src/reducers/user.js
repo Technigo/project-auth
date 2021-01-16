@@ -4,11 +4,11 @@ import { USERS_URL, SESSIONS_URL } from '../urls';
 
 const initialState = {
   login: {
-    name: '',
-    userId: 0,
+    name: localStorage.name || '',
+    userId: localStorage.name || 0,
     secretMessage: '',
     errorMessage: '',
-    accessToken: null,
+    accessToken: localStorage.accessToken || null,
   },
 };
 
@@ -19,12 +19,12 @@ export const user = createSlice({
     setName: (store, action) => {
       const { name } = action.payload;
       store.login.name = name;
-      console.log(name);
+      localStorage.setItem('name', name);
     },
     setUserId: (store, action) => {
       const { userId } = action.payload;
       store.login.userId = userId;
-      console.log(userId);
+      localStorage.setItem('userId', userId);
     },
     setSecretMessage: (store, action) => {
       const { secretMessage } = action.payload;
@@ -37,6 +37,7 @@ export const user = createSlice({
     setAccessToken: (store, action) => {
       const { accessToken } = action.payload;
       store.login.accessToken = accessToken;
+      localStorage.setItem('accessToken', accessToken);
     },
   },
 });
@@ -91,7 +92,6 @@ export const signUp = (name, email, password) => {
         return res.json();
       })
       .then(json => {
-        console.log(json);
         dispatch(
           user.actions.setAccessToken({
             accessToken: json.accessToken,
@@ -161,5 +161,6 @@ export const logout = () => {
     dispatch(user.actions.setSecretMessage({ secretMessage: '' }));
     dispatch(user.actions.setErrorMessage({ errorMessage: '' }));
     dispatch(user.actions.setAccessToken({ accessToken: null }));
+    localStorage.clear();
   };
 };
