@@ -23,10 +23,10 @@ export const Profile = () => {
           className="form-button"
           text="Secret message"
         />
-        {secretMessage && 
-        <p className="text-info secret">
-          {secretMessage}
-        </p>}
+        {secretMessage &&
+          <p className="text-info secret">
+            {secretMessage}
+          </p>}
         <Button
           type="button"
           onClick={() => dispatch(logout())}

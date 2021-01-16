@@ -31,51 +31,51 @@ export const LoginForm = () => {
       {!isLogin ? (
         <SignUpForm />
       ) : (
-        <>
-          <form className="content" onSubmit={handleSubmit}>
-            <div className="form-text-input-fields">
-              <label>
-                <input
-                  className="text-input-field"
-                  required
-                  type="email"
-                  value={email}
-                  placeholder="email@email.com"
-                  onChange={event => setEmail(event.target.value)}
-                ></input>
-              </label>
-              <label>
-                <input
-                  className="text-input-field"
-                  required
-                  type="password"
-                  value={password}
-                  placeholder="password"
-                  onChange={event => setPassword(event.target.value)}
-                ></input>
-              </label>
-            </div>
-            <div className="form-buttons">
-              <Button
-                className={
-                  !email || password.length < 5
-                    ? 'form-button-disabled'
-                    : 'form-button'
-                }
-                type="submit"
-                disabled={!email || password.length < 5}
-                text="Login"
-              />
-              {errorMessage && <p className="text-info error">{errorMessage}</p>}
-              <button className="link-button" onClick={handleSetLogin}>
-                <span className="link-button-text">
-                  Not a member? Sign up here
+          <>
+            <form className="content" onSubmit={handleSubmit}>
+              <div className="form-text-input-fields">
+                <label>
+                  <input
+                    className="text-input-field"
+                    required
+                    type="email"
+                    value={email}
+                    placeholder="email@email.com"
+                    onChange={event => setEmail(event.target.value)}
+                  ></input>
+                </label>
+                <label>
+                  <input
+                    className="text-input-field"
+                    required
+                    type="password"
+                    value={password}
+                    placeholder="password"
+                    onChange={event => setPassword(event.target.value)}
+                  ></input>
+                </label>
+              </div>
+              <div className="form-buttons">
+                <Button
+                  className={
+                    !email || password.length < 5
+                      ? 'form-button-disabled'
+                      : 'form-button'
+                  }
+                  type="submit"
+                  disabled={!email || password.length < 5}
+                  text="Login"
+                />
+                {errorMessage && <p className="text-info error">{errorMessage}</p>}
+                <button className="link-button" onClick={handleSetLogin}>
+                  <span className="link-button-text">
+                    Not a member? Sign up here
                 </span>
-              </button>
-            </div>
-          </form>
-        </>
-      )}
+                </button>
+              </div>
+            </form>
+          </>
+        )}
     </main>
   );
 };

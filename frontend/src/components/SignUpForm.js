@@ -11,9 +11,6 @@ export const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // Couldn't find a regex that validates all email formats
-  const validatedEmail = '/^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$/';
-
   const handleSubmit = event => {
     event.preventDefault();
     dispatch(signUp(name, email, password));
@@ -40,8 +37,6 @@ export const SignUpForm = () => {
           <input
             className="text-input-field"
             required
-            // pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"
-            pattern={validatedEmail}
             type="email"
             value={email}
             placeholder="email@email.com"
