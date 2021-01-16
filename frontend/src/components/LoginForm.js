@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { login } from '../reducers/user';
 import { SignUpForm } from './SignUpForm';
-import '../styles/style.css'
+import { Button } from './Button';
+import '../styles/style.css';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -31,8 +32,8 @@ export const LoginForm = () => {
         <SignUpForm />
       ) : (
         <>
-          <form className="form" onSubmit={handleSubmit}>
-            <div className="form-text-input-fields"> 
+          <form className="content" onSubmit={handleSubmit}>
+            <div className="form-text-input-fields">
               <label>
                 <input
                   className="text-input-field"
@@ -54,8 +55,17 @@ export const LoginForm = () => {
                 ></input>
               </label>
             </div>
-            <div className="form-buttons"> 
-              <button className="form-button" type="submit">Login</button>
+            <div className="form-buttons">
+              <Button
+                className={
+                  !email || password.length < 5
+                    ? 'form-button-disabled'
+                    : 'form-button'
+                }
+                type="submit"
+                disabled={!email || password.length < 5}
+                text="Login"
+              />
               {errorMessage && <p>{errorMessage}</p>}
               <button className="link-button" onClick={handleSetLogin}>
                 <span className="link-button-text">

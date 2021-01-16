@@ -12,7 +12,7 @@
   background-image: linear-gradient(25deg, #16375c, #5e4b69, #985f76, #d27383)
 }
 
-.form {
+.content {
   display: flex;
   flex-direction: column;
   align-items: center;

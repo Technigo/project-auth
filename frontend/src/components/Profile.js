@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getSecretMessage, logout } from '../reducers/user';
+import { Button } from './Button';
+import '../styles/style.css';
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -10,14 +12,24 @@ export const Profile = () => {
   const name = useSelector(store => store.user.login.name);
 
   return (
-    <section>
-      <p>{`Hello ${name}! Click to reveal secret message`}</p>
-      <button type="button" onClick={() => dispatch(getSecretMessage())}>
-        Secret message
-      </button>
-      {secretMessage && <p>{secretMessage}</p>}
-      <button onClick={() => dispatch(logout())}>Logout</button>
-      {errorMessage && <p>{errorMessage}</p>}
-    </section>
+    <main className="main-container">
+      <div className="content">
+        <p>{`Hello ${name}! Click to reveal secret message`}</p>
+        <Button
+          type="button"
+          onClick={() => dispatch(getSecretMessage())}
+          className="form-button"
+          text="Secret message"
+        />
+        {secretMessage && <p>{secretMessage}</p>}
+        <Button
+          type="button"
+          onClick={() => dispatch(logout())}
+          className="form-button"
+          text="Logout"
+        />
+        {errorMessage && <p>{errorMessage}</p>}
+      </div>
+    </main>
   );
 };

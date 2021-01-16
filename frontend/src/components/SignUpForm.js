@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { signUp } from 'reducers/user';
 import { useDispatch } from 'react-redux';
 
-import '../styles/style.css'
+import { Button } from './Button';
+import '../styles/style.css';
 
 export const SignUpForm = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // Couldn't find a regex that validates all email formats
+  const validatedEmail = '/^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$/';
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -19,8 +23,8 @@ export const SignUpForm = () => {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div className="form-text-input-fields"> 
+    <form className="content" onSubmit={handleSubmit}>
+      <div className="form-text-input-fields">
         <label>
           <input
             className="text-input-field"
@@ -36,6 +40,8 @@ export const SignUpForm = () => {
           <input
             className="text-input-field"
             required
+            // pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"
+            pattern={validatedEmail}
             type="email"
             value={email}
             placeholder="email@email.com"
@@ -54,16 +60,17 @@ export const SignUpForm = () => {
           ></input>
         </label>
       </div>
-      <div className="form-buttons"> 
-        <button 
-          className={!name || !email || !password 
-            ? "form-button-disabled" 
-            : "form-button"}
-          type="submit" 
-          disabled={!name || !email || !password}
-        >
-          Signup
-        </button>
+      <div className="form-buttons">
+        <Button
+          className={
+            !name || !email || password.length < 5
+              ? 'form-button-disabled'
+              : 'form-button'
+          }
+          type="submit"
+          disabled={!name || !email || password.length < 5}
+          text="Signup"
+        />
       </div>
     </form>
   );
