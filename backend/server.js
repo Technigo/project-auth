@@ -10,6 +10,10 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
 const userSchema = new mongoose.Schema({
+  alias: {
+    type: String,
+    default: ""
+  },
   email: {
     type: String,
     required: true,
@@ -72,7 +76,7 @@ app.post("/users", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await new User({ email, password }).save();
-    res.status(200).json({ userId: user._id, accessToken: user.accessToken });
+    res.status(200).json({ userId: user._id, accessToken: user.accessToken, alias: user.alias, email: user.email });
   } catch (err) {
     res.status(400).json({ message: "Could not create user", errors: err });
   };
@@ -83,7 +87,7 @@ app.post("/sessions", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (user && bcrypt.compareSync(password, user.password)) {
-    res.status(200).json({ userId: user._id, accessToken: user.accessToken });
+    res.status(200).json({ userId: user._id, accessToken: user.accessToken, alias: user.alias });
   } else {
     res.status(404).json({ notFound: true });
   };
@@ -94,9 +98,31 @@ app.get("/users/:userId/profile", authenticateUser);
 app.get("/users/:userId/profile", async (req, res) => {
   const userId = req.params.userId;
   if (userId != req.user._id) {
-    res.status(403).json({ error: 'Access Denied' });
+    res.status(403).json({ error: "Access Denied" });
   } else {
-    res.status(200).json({ userId: req.user._id, email: req.user.email, accessToken: req.user.accessToken })
+    res.status(200).json({
+      userId: req.user._id,
+      email: req.user.email,
+      accessToken: req.user.accessToken,
+      alias: req.user.alias
+    })
+  };
+});
+
+// Update endpoint
+app.post("/users/:userId/profile", authenticateUser);
+app.post("/users/:userId/profile", async (req, res) => {
+  const userId = req.params.userId;
+  if (userId != req.user._id) {
+    res.status(403).json({ error: "Access Denied" });
+  } else {
+    const { alias } = req.body;
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      { $set: { "alias": alias } },
+      { new: true }
+    );
+    res.status(200).json({ alias: updatedUser.alias });
   };
 });
 
