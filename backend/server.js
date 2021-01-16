@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
+const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI'
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
@@ -40,6 +40,7 @@ const authenticateUser = async (req, res, next) => {
     res.status(403).json({ message: 'Access token is missing or wrong', errors: err })
   }
 }
+
 const port = process.env.PORT || 8080
 const app = express()
 
@@ -50,7 +51,6 @@ app.get('/', (req, res) => {
   res.send('Welcome!')
 })
 
-//sign in
 app.post('/users', async (req, res) => { 
   try { 
     const { name, password } = req.body
@@ -67,7 +67,6 @@ app.get('/users/:id', (req, res) => {
   res.status(401).send()
 })
 
-//login
 app.post('/sessions', async (req, res) => {
   try {
     const { name, password } = req.body
