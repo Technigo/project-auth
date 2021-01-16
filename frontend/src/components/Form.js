@@ -1,28 +1,38 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
 import { user } from '../reducers/user'
 
-const SIGNUP_URL = 'https://authentication-destiny-lili.herokuapp.com/users'
-const LOGIN_URL = 'https://authentication-destiny-lili.herokuapp.com/sessions'
+const SIGNUP_URL = 'http://localhost:8080/users'
+const LOGIN_URL = 'http://localhost:8080/sessions'
 
 export const Form = () => {
   const dispatch = useDispatch()
+
   const accessToken = useSelector((store) => store.user.login.accessToken)
+
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
+
   const handleLoginSuccess = (loginResponse) => {
     dispatch(
       user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
     )
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }))
-    dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }))
+    dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' })
+    )
+    setName('')
+    setPassword('')
   }
+
   const handleLoginFailed = (loginError) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }))
     dispatch(user.actions.setStatusMessage({ statusMessage: loginError }))
   }
+
   const handleSignup = (event) => {
     event.preventDefault()
+    
     fetch(SIGNUP_URL, {
       method: 'POST',
       body: JSON.stringify({ name, password }),
@@ -37,6 +47,7 @@ export const Form = () => {
       .then((json) => handleLoginSuccess(json))
       .catch((err) => handleLoginFailed(err))
   }
+
   const handleLogin = (event) => {
     event.preventDefault()
 
@@ -54,10 +65,12 @@ export const Form = () => {
       .then((json) => handleLoginSuccess(json))
       .catch((err) => handleLoginFailed(err))
   }
+
   const handleLogout = (loggingout) => { 
     dispatch(user.actions.logout({ logout: loggingout }))
     window.location.reload()
   }
+  
   if(accessToken) {
     return <>
     <h2>{`Hello ${name} you are logged in!`}</h2>
@@ -66,6 +79,7 @@ export const Form = () => {
     </button>
     </>
   }
+
   return (
     <section className='login-form'>
       <form className='form'>
