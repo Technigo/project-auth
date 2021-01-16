@@ -1,4 +1,4 @@
-import React, { useSelector } from 'react';
+import React from 'react';
 
 import Lottie from 'react-lottie';
 import animationData from '../lotties/38825-robot-hello.json';

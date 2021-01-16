@@ -11,7 +11,7 @@ export const LoginForm = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     
-    const isLoggedIn = useSelector(store => store.user.login.loggedIn);
+    //const isLoggedIn = useSelector(store => store.user.login.loggedIn);
 
     const handleLoginSuccess = (loginResponse) => {
         dispatch(

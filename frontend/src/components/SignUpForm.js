@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Heading, Text, UserForm, FormLabel, FormInput, Button } from 'styling/styling';
 import { Profile } from './Profile.js';
+
+import { Heading, Text, UserForm, FormLabel, FormInput, Button } from 'styling/styling';
+
 
 const SIGNUP_URL = 'https://agnes-emma-login.herokuapp.com/users';
 
