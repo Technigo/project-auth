@@ -4,6 +4,7 @@ const initialState = {
   login: {
     accessToken: "",
     userId: "",
+    alias: "",
   },
 };
 
@@ -18,6 +19,10 @@ export const user = createSlice({
     setUserId: (state, action) => {
       const { userId } = action.payload;
       state.login.userId = userId;
+    },
+    setAlias: (state, action) => {
+      const { alias } = action.payload;
+      state.login.alias = alias;
     },
     deleteAccessToken: (state, action) => {
       state.login.accessToken = "";

@@ -18,6 +18,7 @@ const Login = ({ LOGIN_URL, SIGNUP_URL }) => {
   const handleCredentials = (credentials) => {
     dispatch(user.actions.setAccessToken({ accessToken: credentials.accessToken }));
     dispatch(user.actions.setUserId({ userId: credentials.userId }));
+    dispatch(user.actions.setAlias({ alias: credentials.alias }));
   };
 
   const handleLogin = (event) => {
@@ -44,7 +45,7 @@ const Login = ({ LOGIN_URL, SIGNUP_URL }) => {
 
   return (
     <>
-      {accessToken && <StartPage SIGNUP_URL={SIGNUP_URL} />}
+      {accessToken && <StartPage />}
       {!accessToken && (
         <section>
           <h1>Welcome to Max and Sandrine's app!</h1>
