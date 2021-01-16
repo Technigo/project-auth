@@ -20,6 +20,21 @@ h1 {
 
 p {
   margin: 0 0 16px 0;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  padding: 1px;
+  color: white;
+  background-image: linear-gradient(#335b71 45%, #03324c 55%);
+  transition: color 0.3s, background-image 0.5s, ease-in-out;
+  /* border-radius: 25px; */
+}
+
+a:hover {
+  background-image: linear-gradient(#b1ccda 49%, #96b4c5 51%);
+  color: #03324c;
 }
 
 form, section {
@@ -40,8 +55,49 @@ input {
 }
 
 button {
+  font-family: inherit;
+  font-size: inherit;
   width: 150px;
   height: 30px;
   border-radius: 25px;
+  border: none;
   margin-bottom: 16px;
+  box-shadow: 2px 2px 2px #888888;
+  color: #03324c;
+  background-image: linear-gradient(#b1ccda 49%, #96b4c5 51%);
+  transition: color 0.3s, background-image 0.5s, ease-in-out;
+}
+
+button:hover {
+  color: white;
+  background-image: linear-gradient(#335b71 45%, #03324c 55%);
+}
+
+.update-field {
+  display: flex;
+  justify-content: space-between;
+  width: 280px;
+}
+
+.update-label {
+  width: 220px;
+}
+
+.update-input {
+  width: 120px;
+}
+
+.update-button{
+  width: 50px;
+  height: 22px;
+  color: white;
+  font-size: 12px;
+  box-shadow: 2px 2px 2px #888888;
+  background-image: linear-gradient(#335b71 45%, #03324c 55%);
+  transition: color 0.3s, background-image 0.5s, ease-in-out;
+}
+
+.update-button:hover {
+  background-image: linear-gradient(#b1ccda 49%, #96b4c5 51%);
+  color: #03324c;
 }

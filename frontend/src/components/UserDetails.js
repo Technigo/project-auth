@@ -69,19 +69,20 @@ const UserDetails = ({ SIGNUP_URL }) => {
             <input defaultValue={email} disabled />
           </label>
           <form onSubmit={handleUpdate}>
-            <div>
-              <label>
+            <div className="update-field">
+              <label className="update-label">
                 Alias:
               <input
+                  className="update-input"
                   minLength="3"
                   type="text"
                   value={alias}
                   onChange={event => setAlias(event.target.value)} />
               </label>
-              <button type="submit">Update</button>
+              <button className="update-button" type="submit">Save</button>
             </div>
+            <button onClick={() => history.push("/")}>Back</button>
           </form>
-          <button onClick={() => history.push("/")}>Back</button>
           <LogoutButton />
         </>
       }
