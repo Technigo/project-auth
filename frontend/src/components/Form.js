@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { user } from '../reducers/user'
 
-const SIGNUP_URL = 'http://localhost:8080/users'
-const LOGIN_URL = 'http://localhost:8080/sessions'
+const SIGNUP_URL = 'https://project-auth-lili-destiny-1.herokuapp.com/users'
+const LOGIN_URL = 'https://project-auth-lili-destiny-1.herokuapp.com/sessions'
 
 export const Form = () => {
   const dispatch = useDispatch()
