@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { signUp } from 'reducers/user';
 import { useDispatch } from 'react-redux';
 
+import '../styles/style.css'
+
 export const SignUpForm = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
@@ -17,39 +19,52 @@ export const SignUpForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        <input
-          required
-          type="text"
-          value={name}
-          minLength={2}
-          placeholder="Type your name"
-          onChange={event => setName(event.target.value)}
-        ></input>
-      </label>
-      <label>
-        <input
-          required
-          type="email"
-          value={email}
-          placeholder="email@email.com"
-          onChange={event => setEmail(event.target.value)}
-        ></input>
-      </label>
-      <label>
-        <input
-          required
-          type="password"
-          value={password}
-          minLength={5}
-          placeholder="password"
-          onChange={event => setPassword(event.target.value)}
-        ></input>
-      </label>
-      <button type="submit" disabled={!name || !email || !password}>
-        Signup
-      </button>
+    <form className="form" onSubmit={handleSubmit}>
+      <div className="form-text-input-fields"> 
+        <label>
+          <input
+            className="text-input-field"
+            required
+            type="text"
+            value={name}
+            minLength={2}
+            placeholder="Type your name"
+            onChange={event => setName(event.target.value)}
+          ></input>
+        </label>
+        <label>
+          <input
+            className="text-input-field"
+            required
+            type="email"
+            value={email}
+            placeholder="email@email.com"
+            onChange={event => setEmail(event.target.value)}
+          ></input>
+        </label>
+        <label>
+          <input
+            className="text-input-field"
+            required
+            type="password"
+            value={password}
+            minLength={5}
+            placeholder="password"
+            onChange={event => setPassword(event.target.value)}
+          ></input>
+        </label>
+      </div>
+      <div className="form-buttons"> 
+        <button 
+          className={!name || !email || !password 
+            ? "form-button-disabled" 
+            : "form-button"}
+          type="submit" 
+          disabled={!name || !email || !password}
+        >
+          Signup
+        </button>
+      </div>
     </form>
   );
 };

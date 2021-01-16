@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+.main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-image: linear-gradient(25deg, #16375c, #5e4b69, #985f76, #d27383)
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background: #e2e2e2;
+  width: 350px;
+  height: 450px;
+  margin: 15px;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 7px 7px 13px 3px rgba(0,0,0,0.4); 
+  box-shadow: 0px 10px 13px -7px #000000, 7px 7px 13px 3px rgba(0,0,0,0.4);
+  border-radius: 16px;
+}
+
+.form-text-input-fields {
+  display: flex;
+  flex-direction: column;
+  height: 30%;
+  justify-content: space-between;
+  width: 240px;
+}
+
+.text-input-field {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #969696;
+  width: 240px;
+  margin-bottom: 15px;
+}
+
+.form-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+}
+
+input::placeholder {
+  color: #969696;
+  font-size: 18px;
+}
+input::placeholder {
+  color: #969696;
+  font-size: 18px;
+}
+input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #969696;
+  font-size: 18px;
+}
+input::-moz-placeholder { /* Firefox 19+ */
+  color: #969696;
+  font-size: 18px;
+}
+input:-ms-input-placeholder { /* IE 10+ */
+  color: #969696;
+  font-size: 18px;
+}
+input:-moz-placeholder { /* Firefox 18- */
+  color: #969696;
+  font-size: 18px;
+}
+
+.form-button-disabled {
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  background: #9c9696;
+  padding: 8px;
+  width: 240px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.form-button {
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  background: #D27383;
+  padding: 8px;
+  width: 234px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.link-button {
+  color: #D27383;
+  overflow: visible;
+	width: auto;
+  border: none;
+  background: none;
+	margin: 0;
+	padding: 0;
+  cursor: pointer;
+  -moz-user-select: text;
+}
+
+.link-button-text {
+  text-decoration: underline;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+.link-button:hover span,
+.link-button:focus span {
+  color: #494565;
+}
+
