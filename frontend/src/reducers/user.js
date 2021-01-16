@@ -24,10 +24,10 @@ const initialState = {
         const { statusMessage } = action.payload
         state.login.statusMessage = statusMessage
       },
-      logout: (state, action) => {
+      setLogout: (state, action) => {
         state.login.userId = 0
         state.login.accessToken = null
-        state.login.statusMessage = ""
+        state.login.statusMessage = "logged out"
       },
     },
   })
