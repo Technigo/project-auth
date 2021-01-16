@@ -5,8 +5,8 @@ import { configureStore, combineReducers} from '@reduxjs/toolkit'
 import { user } from './reducers/user'
 import { Form } from './components/Form'
 
-const reducer = combineReducers ({ user: user.reducer})
-const store = configureStore ({ reducer })
+const reducer = combineReducers({ user: user.reducer })
+const store = configureStore({ reducer })
 
 export const App = () => {
   return (
