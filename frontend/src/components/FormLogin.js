@@ -48,10 +48,10 @@ export const FormLogin = () => {
 			headers: { 'Content-Type': 'application/json' },
 		})
 			.then((res) => {
-				if (!res.ok){
-					throw 'Login failed'
+				if (!res.ok) {
+					throw 'Login failed';
 				}
-				return 	res.json();
+				return res.json();
 			})
 			.then((json) => handleLoginSuccess(json))
 			.catch((err) => handleLoginFailed(err));
@@ -59,36 +59,39 @@ export const FormLogin = () => {
 
 	return (
 		<Container>
-			<h1>Login </h1>
-			<Form onSubmit={submitLogin}>
-				<label>
-					Username:
-					<input
-						type="text"
-						name="username"
-						value={userName}
-						onChange={(event) => setUserName(event.target.value)}
-						required
-						minLength="5"
-						maxLength= "30"
-					/>
-				</label>
+			{!displayLoggedIn && (
+				<Form onSubmit={submitLogin}>
+					<h1>Login </h1>
+					<label>
+						Username:
+						<input
+							type="text"
+							name="username"
+							value={userName}
+							onChange={(event) => setUserName(event.target.value)}
+							required
+							minLength="5"
+							maxLength="30"
+						/>
+					</label>
 
-				<label>
-					Password:
-					<input
-						type="password"
-						name="password"
-						value={password}
-						onChange={(event) => setPassword(event.target.value)}
-						required
-						minLength="5"
-					/>
-				</label>
+					<label>
+						Password:
+						<input
+							type="password"
+							name="password"
+							value={password}
+							onChange={(event) => setPassword(event.target.value)}
+							required
+							minLength="5"
+						/>
+					</label>
 
-				<Button type="submit">Login</Button>
-			</Form>
-			{displayError && <div >{`Errormessage: ${statusMessage}`}</div>}
+					<Button type="submit">Login</Button>
+				</Form>
+			)}
+
+			{displayError && <div>{`Errormessage: ${statusMessage}`}</div>}
 			{displayLoggedIn && <Profile />}
 		</Container>
 	);

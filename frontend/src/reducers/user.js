@@ -20,7 +20,6 @@ export const user = createSlice({
 		setUserId: (state, action) => {
 			const { userId } = action.payload;
 			console.log(`UserId:${userId}`);
-
 			state.login.userId = userId;
 		},
 		setStatusMessage: (state, action) => {
