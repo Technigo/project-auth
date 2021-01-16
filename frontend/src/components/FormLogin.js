@@ -32,9 +32,7 @@ export const FormLogin = () => {
 
 	const handleLoginFailed = (loginError) => {
 		const statusMessage = JSON.stringify(loginError);
-		console.log(`Statusmessage ${statusMessage}`);
 		dispatch(user.actions.setStatusMessage({ statusMessage }));
-		console.log(`Statusmessage ${statusMessage}`);
 		setDisplayError(true);
 	};
 

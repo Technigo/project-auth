@@ -5,6 +5,7 @@ const initialState = {
 		userId: 0,
 		accessToken: null,
 		statusMessage: '',
+		secretMessage: '',
 	},
 };
 
@@ -26,6 +27,11 @@ export const user = createSlice({
 			const { statusMessage } = action.payload;
 			console.log(`Statusmessage:${statusMessage}`);
 			state.login.statusMessage = statusMessage;
+		},
+		setSecretMessage: (state, action) => {
+			const { secretMessage } = action.payload;
+			console.log(`Secretmessage in reducer:${secretMessage}`);
+			state.login.secretMessage = secretMessage;
 		},
 		logout: (state, action) => {
 			console.log('Logging out');
