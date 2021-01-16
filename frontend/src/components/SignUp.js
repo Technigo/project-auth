@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
+// Reducers
 import { manageUser } from '../reducers/users';
+
+// ----------------------------------------------------------------
 
 export const SignUp = () => {
   const dispatch = useDispatch();
   const [user, setUser] = useState({ name: '', email: '', password: '' });
 
-  // Create a user and send a post request to add the user to the database
+  // Send a post request to add the user to the database by sending the user object
   const createUser = (user) => {
     dispatch(
       manageUser({
@@ -67,6 +70,8 @@ export const SignUp = () => {
     </Wrapper>
   );
 };
+
+// ----------------------------------------------------------------
 
 const Wrapper = styled.form`
   max-width: 50vw;

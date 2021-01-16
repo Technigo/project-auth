@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
+// Reducers
 import { manageUser } from '../reducers/users';
+
+// ----------------------------------------------------------------
 
 export const LogIn = () => {
   const dispatch = useDispatch();
@@ -50,6 +53,8 @@ export const LogIn = () => {
     </Wrapper>
   );
 };
+
+// ----------------------------------------------------------------
 
 const Wrapper = styled.form`
   max-width: 50vw;

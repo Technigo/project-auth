@@ -2,7 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
+// Reducers
 import { users } from '../reducers/users';
+
+// ----------------------------------------------------------------
 
 export const LogOut = () => {
   const dispatch = useDispatch();
@@ -11,6 +14,8 @@ export const LogOut = () => {
   };
   return <Button onClick={handleButton}>Log out</Button>;
 };
+
+// ----------------------------------------------------------------
 
 const Button = styled.button`
   font-family: 'Inconsolata';

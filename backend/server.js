@@ -12,17 +12,17 @@ mongoose.Promise = Promise;
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'You have to enter a name'],
-    minlength: [2, 'Oops, name is too short'],
+    required: [true, 'You have to enter a name.'],
+    minlength: [2, 'Oops, the entered name is too short.'],
   },
   password: {
     type: String,
-    required: true,
-    minlength: [6, 'Oops, password is too short'],
+    required: [true, 'You have to enter a password.'],
+    minlength: [6, 'Oops, the entered password is too short.'],
   },
   email: {
     type: String,
-    required: true,
+    required: [true, 'You have to enter an email address.'],
     unique: true,
   },
   accessToken: {
@@ -81,11 +81,6 @@ app.get('/', (req, res) => {
   res.send('Hello and welcome to Karin and Petras user API!');
 });
 
-app.get('/users', async (req, res) => {
-  const users = await User.find();
-  res.json(users);
-});
-
 // Signup
 app.post('/users', async (req, res) => {
   try {
@@ -96,12 +91,10 @@ app.post('/users', async (req, res) => {
       .status(200)
       .json({ id: user._id, accessToken: user.accessToken, name: user.name });
   } catch (err) {
-    res
-      .status(400)
-      .json({
-        message: `ERROR: Could not create user. Make sure you've entered all the fields correctly.`,
-        errors: err,
-      });
+    res.status(400).json({
+      message: `ERROR: Could not create user. Make sure you've entered all the fields correctly.`,
+      errors: err,
+    });
     console.log({ error: err });
   }
 });

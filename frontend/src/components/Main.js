@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
+// Components
 import { SignUp } from './SignUp';
 import { LogIn } from './LogIn';
 import { ErrorMessage } from './ErrorMessage';
 import { Content } from './Content';
 
+// ----------------------------------------------------------------
+
 export const Main = () => {
   const [notNewUser, setNotNewUser] = useState(false);
   const isLoggedIn = useSelector((store) => store.users.isLoggedIn);
   const name = useSelector((store) => store.users.user.name);
-  const errorMessage = useSelector((store) => store.users.user.errorMessage);
-  console.log({ 'from main': errorMessage });
+  const errorMessage = useSelector((store) => store.users.errorMessage);
 
   return (
     <Wrapper>
@@ -32,6 +34,8 @@ export const Main = () => {
     </Wrapper>
   );
 };
+
+// ----------------------------------------------------------------
 
 const Wrapper = styled.div`
   width: 100vw;

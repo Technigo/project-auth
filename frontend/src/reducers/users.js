@@ -19,6 +19,7 @@ export const users = createSlice({
     },
     logOut: (state, action) => {
       state.user.accessToken = '';
+      state.user.name = '';
       state.isLoggedIn = false;
     },
     toggleLoggedInOut: (state, action) => {
@@ -29,6 +30,8 @@ export const users = createSlice({
     },
   },
 });
+
+// ----------------------------------------------------------------
 
 export const manageUser = ({ url, user }) => {
   return (dispatch) => {
@@ -44,16 +47,13 @@ export const manageUser = ({ url, user }) => {
       }),
     })
       .then((res) => {
-        if (!res.ok) {
-          return res.json();
-        } else {
+        if (res.ok) {
           dispatch(users.actions.toggleLoggedInOut());
-          return res.json();
         }
+        return res.json();
       })
       .then((json) => {
         if (json.message) {
-          console.error(json.message);
           dispatch(users.actions.setError(json.message));
         } else {
           dispatch(users.actions.logIn(json));

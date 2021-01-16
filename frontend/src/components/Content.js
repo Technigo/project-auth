@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+// Components
 import { LogOut } from './LogOut';
+
+// ----------------------------------------------------------------
 
 export const Content = ({ name }) => {
   const [secretMessage, setSecretMessage] = useState('');
@@ -35,6 +38,8 @@ export const Content = ({ name }) => {
     </Wrapper>
   );
 };
+
+// ----------------------------------------------------------------
 
 const Wrapper = styled.div`
   position: fixed;
