@@ -28,6 +28,7 @@ export const FormLogin = () => {
 		);
 
 		setDisplayLoggedIn(true);
+		setDisplayError(false);
 	};
 
 	const handleLoginFailed = (loginError) => {
@@ -46,9 +47,14 @@ export const FormLogin = () => {
 			body: JSON.stringify({ name: userName, password }),
 			headers: { 'Content-Type': 'application/json' },
 		})
-			.then((res) => res.json())
+			.then((res) => {
+				if (!res.ok){
+					throw 'Login failed'
+				}
+				return 	res.json();
+			})
 			.then((json) => handleLoginSuccess(json))
-			.then((err) => handleLoginFailed(err));
+			.catch((err) => handleLoginFailed(err));
 	};
 
 	return (

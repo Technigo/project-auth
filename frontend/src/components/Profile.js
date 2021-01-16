@@ -16,7 +16,7 @@ export const Profile = () => {
 		const statusMessage = JSON.stringify(loginResponse);
 		dispatch(
 			user.actions.setStatusMessage({
-				statusMessage: loginResponse.secretMessage,
+				statusMessage: loginResponse.statusMessage
 			})
 		);
 	};
@@ -53,7 +53,6 @@ export const Profile = () => {
 		<div>
 			<h2>userId: {`${userId}`}</h2>
 			<Button onClick={showSecret}>test secret</Button>
-			<h2>{statusMessage}</h2>
 			You are logged in! <Button onClick={handleLogout}>Logout</Button>
 		</div>
 	);
