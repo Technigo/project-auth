@@ -59,9 +59,7 @@ userSchema.pre("save", async function (next) {
     return next();
   }
   const salt = bcrypt.genSaltSync();
-  console.log(`Password before hash ${user.password}`);
   user.password = bcrypt.hashSync(user.password, salt);
-  console.log(`Password after hash ${user.password}`);
   next();
 });
 
@@ -84,6 +82,7 @@ app.post("/users", async (req, res) => {
       userId: user._id,
       accessToken: user.accessToken,
       message: "Signed up",
+      success: true,
     });
   } catch (error) {
     res.status(400).json({
@@ -100,7 +99,6 @@ app.post("/sessions", async (req, res, next) => {
     const accessTokenUpdate = crypto.randomBytes(128).toString("hex");
     const user = await User.findOne({ name: name });
     if (user && bcrypt.compareSync(password, user.password)) {
-      console.log(`accesstoken: ${accessTokenUpdate}`);
       const updatedUser = await User.findOneAndUpdate(
         { name: name },
         { accessToken: accessTokenUpdate },
@@ -110,15 +108,20 @@ app.post("/sessions", async (req, res, next) => {
         userId: updatedUser._id,
         accessToken: updatedUser.accessToken,
         message: "Logged in",
+        success: true,
       });
       //next?
     } else {
-      res.status(400).json("Username or password not found");
+      res.status(400).json({
+        message: "Username or password not found",
+        success: false,
+      });
     }
   } catch (err) {
     res.status(404).json({
       error: err,
       message: "Username or password not found",
+      success: false,
     });
   }
 });
