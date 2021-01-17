@@ -150,8 +150,8 @@ export const Form = ({ labelHeading, labelText }) => {
   } else {
     return (
       <Wrapper>
-        <SecretParagraph>User ID: {userId} is logged in.</SecretParagraph>
-        <SecretParagraph> Click to reveal secret.</SecretParagraph>
+        <P>User ID: {userId} is logged in.</P>
+        <P> Click to reveal secret.</P>
         <Button input="View secret" onClickFunction={revealSecret} />
         <Button input="Sign out" onClickFunction={signOut} />
         {secretMessage && <SecretText>{secretMessage}</SecretText>}

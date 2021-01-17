@@ -87,7 +87,7 @@ export const HR = styled.hr`
   opacity: 0.5;
 `;
 
-export const SecretParagraph = styled.p`
+export const P = styled.p`
   color: #000;
 `;
 
