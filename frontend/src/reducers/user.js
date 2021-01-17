@@ -93,14 +93,10 @@ export const signUp = (name, email, password) => {
         return res.json();
       })
       .then(json => {
-        dispatch(
-          user.actions.setAccessToken({
-            accessToken: json.accessToken,
-          })
-        );
+        dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
         dispatch(user.actions.setUserId({ userId: json.userId }));
         dispatch(user.actions.setName({ name: json.name }));
-        dispatch(user.actions.setErrorMessage({ errorMessage: '' }))
+        //dispatch(user.actions.setErrorMessage({ errorMessage: '' }))
       })
       .catch(err => {
         dispatch(
