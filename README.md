@@ -7,6 +7,7 @@ This is a pair-programming project by Jamie Cook and Emelie Svensson.
 ## The problem
 
 **_Backend_**
+
 We started by creating a **User** model using **Mongoose** and **MongoDB**, setting up crypto to generate our random access token. Then we created our endpoints.
 
 **/** - root endpoint displaying available routes
@@ -38,4 +39,5 @@ In the Frontend we are using React Redux to store the login information. The mai
 ## View it live
 
 Backend: https://user-authorisation.herokuapp.com/
+
 Frontend: https://project-user-authentication.netlify.app/
