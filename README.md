@@ -1,7 +1,7 @@
 # Project Auth
 
 This is a full stack project in which the user can sign up and login to retrieve a special message for that specific user. The backend is built with Node.js and mongoose.
-The signup and login endpoints are endpoints in which the user posts information that's stored in the database. The frontend is built with React and Redux. There are input fields in which the user can type her/his name and password which is sent to the backend with the press of a button. When the user signs up the user will retrieve an accesstoken which is randomized and works as a key to determine weather the user is authorized or not to get to the next page. The accesstoken gets updated for every time the user logs in, this for security measures. 
+The signup and login endpoints are endpoints in which the user posts information that's stored in the database. The frontend is built with React and Redux, with styling done using Styled components. There are input fields in which the user can type her/his name and password which is sent to the backend with the press of a button. When the user signs up the user will retrieve an accesstoken which is randomized and works as a key to determine weather the user is authorized or not to get to the next page. The accesstoken gets updated for every time the user logs in, this for security measures. 
 
 ## Challenges
 
