@@ -7,6 +7,7 @@ export const Profile = ({ URL }) => {
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const userId = useSelector((store) => store.user.login.userId);
   const name = useSelector((store) => store.user.login.name);
+  const statusMessage = useSelector((store) => store.user.login.statusMessage);
 
   const LOGOUT_URL = `${URL}/users/logout`;
   const SECRET_URL = `${URL}/users/${userId}/secret`; //users/:id/secret
@@ -84,9 +85,11 @@ export const Profile = ({ URL }) => {
 
   return (
     <section>
+      <p>{`${statusMessage}`}</p>
+
       <h2>Profile:</h2>
       <h4>Name:</h4>
-      <p> {`${name}`}</p>
+      <p> {`Hello ${name}`}</p>
       <h4>userId:</h4>
       <p> {`${userId}`}</p>
       <h4>accessToken:</h4>

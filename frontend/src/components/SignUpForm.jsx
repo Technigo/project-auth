@@ -33,7 +33,35 @@ export const SignUpForm = ({ URL }) => {
   const handleSignup = (event) => {
     event.preventDefault();
 
-    if (password === confirmPassword) {
+    // regex e-mail
+    const mail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    mail.test(email);
+
+    if (!name || !email || !password || !confirmPassword) {
+      dispatch(
+        user.actions.setStatusMessage({
+          statusMessage: "All fields are required",
+        })
+      );
+    } else if (!mail.test(email)) {
+      dispatch(
+        user.actions.setStatusMessage({
+          statusMessage: "Please check your email",
+        })
+      );
+    } else if (password.length < 8) {
+      dispatch(
+        user.actions.setStatusMessage({
+          statusMessage: "Password must be at least 8 characters",
+        })
+      );
+    } else if (password !== confirmPassword) {
+      dispatch(
+        user.actions.setStatusMessage({
+          statusMessage: "Password don't match",
+        })
+      );
+    } else {
       fetch(SIGNUP_URL, {
         method: "POST",
         body: JSON.stringify({ name, email, password }),
@@ -47,12 +75,6 @@ export const SignUpForm = ({ URL }) => {
         })
         .then((json) => handleSignupSuccess(json))
         .catch((err) => handleSignupFailed(err));
-    } else {
-      dispatch(
-        user.actions.setStatusMessage({
-          statusMessage: "password don't match",
-        })
-      );
     }
   };
 

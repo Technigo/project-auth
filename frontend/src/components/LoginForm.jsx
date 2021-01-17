@@ -18,7 +18,9 @@ export const LoginForm = ({ URL }) => {
     );
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
     dispatch(user.actions.setName({ name: loginResponse.name }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: "Login Success" }));
+    dispatch(
+      user.actions.setStatusMessage({ statusMessage: "Youe are logedin" })
+    );
   };
 
   const handleLoginFailed = (loginError) => {
