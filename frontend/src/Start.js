@@ -3,6 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { user } from "user";
 import Profile from "Profile";
+import {
+  Header,
+  Headline,
+  SubHeadline,
+  FormContainer,
+  Button,
+  MainContainer,
+  Label,
+  Paragraph,
+  InputField,
+} from "./Styling/StyledComponents";
 
 const USER_URL = "https://project-auth-joel-cornelia.herokuapp.com/users";
 const LOGIN_URL = "https://project-auth-joel-cornelia.herokuapp.com/sessions";
@@ -83,35 +94,40 @@ const Start = () => {
   if (!accessToken) {
     return (
       <>
-        <h1>hi</h1>
-        <form>
-          <label>
-            <p>Username:</p>
-            <input
-              type="text"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              placeholder="Username"
-            />
-          </label>
-          <label>
-            <p>Password:</p>
-            <input
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="Password"
-            />
-          </label>
-          <button type="submit" onClick={handleSignUp}>
-            Sign up
-          </button>
-          <button type="submit" onClick={handleLogin}>
-            Log in
-          </button>
-        </form>
-        <div>{signupMessage && <p>{signupMessage.message}</p>}</div>
-        <div>{statusMessage && <p>{statusMessage}</p>}</div>
+        <MainContainer>
+          <Header>
+            <Headline>Welcome</Headline>
+            <SubHeadline>Sign up/Log in</SubHeadline>
+          </Header>
+          <FormContainer>
+            <Label>
+              <Paragraph>Username:</Paragraph>
+              <InputField
+                type="text"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                placeholder="Username"
+              />
+            </Label>
+            <Label>
+              <Paragraph>Password:</Paragraph>
+              <InputField
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="Password"
+              />
+            </Label>
+            <Button type="submit" onClick={handleSignUp}>
+              Sign up
+            </Button>
+            <Button type="submit" onClick={handleLogin}>
+              Log in
+            </Button>
+          </FormContainer>
+          <div>{signupMessage && <p>{signupMessage.message}</p>}</div>
+          <div>{statusMessage && <p>{statusMessage}</p>}</div>
+        </MainContainer>
       </>
     );
   } else {

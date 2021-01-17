@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { user } from "user";
+import {
+  Button,
+  MainContainer,
+  Header,
+  Headline,
+} from "./Styling/StyledComponents";
 
 const AUTH_URL =
   "https://project-auth-joel-cornelia.herokuapp.com/authentication";
@@ -27,10 +33,12 @@ const Profile = () => {
 
   return (
     <>
-      <div>
-        <h1>Welcome {name} you are logged in!</h1>
-      </div>
-      <button onClick={handleLogOut}>Log Out</button>
+      <MainContainer>
+        <Header>
+          <Headline>Welcome {name} you are logged in!</Headline>
+        </Header>
+        <Button onClick={handleLogOut}>Log Out</Button>
+      </MainContainer>
     </>
   );
 };
