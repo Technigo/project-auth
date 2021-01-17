@@ -87,10 +87,10 @@ export const signUp = (name, email, password) => {
       headers: { 'Content-Type': 'application/json' },
     })
       .then(res => {
-        if (!res.ok) {
-          throw new Error('Could not create new user');
+        if (res.ok) {
+          return res.json();
         }
-        return res.json();
+        throw new Error('Could not create new user');
       })
       .then(json => {
         dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }));
