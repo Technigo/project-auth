@@ -16,11 +16,8 @@ import {
   StatusMessage,
 } from "./Styling/StyledComponents";
 
-const USER_URL = "http://localhost:8080/users";
-const LOGIN_URL = "http://localhost:8080/sessions";
-
-// const USER_URL = "https://project-auth-joel-cornelia.herokuapp.com/users";
-// const LOGIN_URL = "https://project-auth-joel-cornelia.herokuapp.com/sessions";
+const USER_URL = "https://project-auth-joel-cornelia.herokuapp.com/users";
+const LOGIN_URL = "https://project-auth-joel-cornelia.herokuapp.com/sessions";
 
 const Start = () => {
   const [username, setUsername] = useState("");
@@ -58,7 +55,6 @@ const Start = () => {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         setSignupMessage(json);
         setSuccess(json.success);
         setUsername("");
@@ -67,7 +63,6 @@ const Start = () => {
       .catch((error) => {
         setSignupMessage("new error");
         setSuccess(error.success);
-        console.log(error);
       });
   };
 
@@ -86,7 +81,6 @@ const Start = () => {
         return response.json();
       })
       .then((json) => {
-        console.log(json);
         handleLoginSuccess(json);
         setSuccess(json.success);
         setUsername("");
@@ -94,7 +88,6 @@ const Start = () => {
       })
       .catch((error) => {
         handleLoginFail(error);
-        console.log(error);
       });
   };
   if (!accessToken) {

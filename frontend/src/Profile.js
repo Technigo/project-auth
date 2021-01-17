@@ -20,7 +20,6 @@ const Profile = () => {
   const handleLogOut = () => {
     dispatch(user.actions.logOut());
   };
-  console.log(accessToken);
 
   fetch(AUTH_URL, {
     method: "GET",
