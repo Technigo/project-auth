@@ -62,7 +62,7 @@ export const FormLogin = () => {
 					<h1>Login </h1>
 					<Label>
 						Username:
-						<Input
+						<input
 							type="text"
 							name="username"
 							value={userName}
@@ -75,7 +75,7 @@ export const FormLogin = () => {
 
 					<Label>
 						Password:
-						<Input
+						<input
 							type="password"
 							name="password"
 							value={password}
@@ -84,12 +84,12 @@ export const FormLogin = () => {
 							minLength="5"
 						/>
 					</Label>
-
+					{displayError && <div>{`Errormessage: ${statusMessage}`}</div>}
 					<Button type="submit">Login</Button>
 				</Form>
 			)}
 
-			{displayError && <div>{`Errormessage: ${statusMessage}`}</div>}
+			
 			{displayLoggedIn && <Profile />}
 		</Container>
 	);

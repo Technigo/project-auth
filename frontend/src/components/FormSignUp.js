@@ -31,7 +31,7 @@ export const FormSignup = () => {
 			<Form OnSubmit={handleSignup}>
 				<Label>
 					Choose username
-					<Input
+					<input
 						required
 						type="text"
 						name="select-username"
@@ -43,7 +43,7 @@ export const FormSignup = () => {
 				</Label>
 				<Label>
 					Choose password
-					<Input
+					<input
 						required
 						type="password"
 						name="select-password"
@@ -54,7 +54,7 @@ export const FormSignup = () => {
 				</Label>
 				<Label>
 					Your email
-					<Input
+					<input
 						required
 						type="text"
 						name="email"
