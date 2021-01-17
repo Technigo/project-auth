@@ -7,7 +7,7 @@ const initialState = {
         userId: "",
         statusMessage: "",
     }
-}
+};
 
 export const user = createSlice({
     name: "user",
@@ -39,4 +39,4 @@ export const user = createSlice({
             store.login.userName = '';
         },
     }
-})
+});
