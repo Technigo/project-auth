@@ -6,22 +6,29 @@ const SECRETS_URL ='https://project-auth-technigo.herokuapp.com/secrets'
 
 
 export const Login = () => {
-  const [email, setEmail] = useState(undefined)
-  const [password, setPassword] = useState(undefined)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [secrets, setSecrets] = useState('')
   const [status, setStatus] = useState('')
+
+  const validateEmptyMessage = message => message.replace(/\s/g, "").length === 0
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
 
   const handleSignup = (event) => {
     event.preventDefault()
   
-
     fetch(SIGNUP_URL, {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' }
     })
       .then(res => res.json())
-      .then(json => setStatus(json.message))
+      .then(json => {
+        setStatus(json.message)
+        console.log(json)
+      })
       .catch(err => console.log('error:', err))
   }
 
@@ -69,6 +76,12 @@ export const Login = () => {
                 value={email}
                 onChange={event => setEmail(event.target.value)}
               />
+               <span 
+                className="text-validation"
+                style={{ display: !validateEmail(email) ? 'inline-block' : 'none' }}
+               >
+                Please enter a valid email address
+              </span>
               <input
                 required
                 minLength="8"
@@ -77,16 +90,24 @@ export const Login = () => {
                 value={password}
                 onChange={event => setPassword(event.target.value)}
               />
+              <span 
+                className="text-validation"
+                style={{ display: password.length < 6 || password.length > 12 || validateEmptyMessage(password) ? 'inline-block' : 'none' }}
+                >
+                Passwords must be between 6 and 12 letters
+              </span>
               <div className="wrapper-btn">
                 <button
                   type="submit"
                   onClick={handleLogin}
+                  disabled={password.length < 6 || password.length > 12 ? true : false || validateEmptyMessage(password) || !validateEmail(email)}
                 >
                   Log in
                 </button>
                 <button
                   type="submit"
                   onClick={handleSignup}
+                  disabled={password.length < 6 || password.length > 12 ? true : false || validateEmptyMessage(password) || !validateEmail(email)}
                 >
                   Sign up
                 </button>
