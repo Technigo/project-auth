@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString("hex"),
+    // default: () => crypto.randomBytes(128).toString("hex"),
     unique: true,
   },
 });
@@ -80,8 +80,8 @@ app.post("/users", async (req, res) => {
       email,
       password,
     });
-    user.save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
+    await user.save();
+    res.status(201).json({ message: `Signup success for ${user.name}` });
   } catch (err) {
     res
       .status(400)
@@ -93,11 +93,12 @@ app.post("/users", async (req, res) => {
 app.post("/users/logout", authenticateUser);
 app.post("/users/logout", async (req, res) => {
   try {
-    req.user.accessToken = null;
-    await req.user.save();
+    const user = req.user;
+    user.accessToken = null;
+    await user.save();
     res.status(200).json({ loggedOut: true });
   } catch (err) {
-    res.status(400).json({ error: "Could not logout" });
+    res.status(400).json({ error: "Could not logout", err });
   }
 });
 
@@ -124,10 +125,13 @@ app.post("/sessions", async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (user && bcrypt.compareSync(password, user.password)) {
+      user.accessToken = crypto.randomBytes(128).toString("hex");
+      const updatedUser = await user.save();
+
       res.status(200).json({
-        userId: user._id,
-        name: user.name,
-        accessToken: user.accessToken,
+        userId: updatedUser._id,
+        name: updatedUser.name,
+        accessToken: updatedUser.accessToken,
       });
     } else {
       throw "User not found";
@@ -137,11 +141,11 @@ app.post("/sessions", async (req, res) => {
   }
 });
 
-app.get("/secret", authenticateUser);
-app.get("/secret", async (req, res) => {
-  const secretMessage = `This is a secret message for ${req.user.name}`;
-  res.status(200).json({ secretMessage });
-});
+// app.get("/secret", authenticateUser);
+// app.get("/secret", async (req, res) => {
+//   const secretMessage = `This is a secret message for ${req.user.name}`;
+//   res.status(200).json({ secretMessage });
+// });
 
 // Get user specific information
 // app.get("/users/:id", async (req, res) => {
@@ -149,6 +153,7 @@ app.get("/secret", async (req, res) => {
 // });
 
 // Saving for final projectn (why doesn't this work?)
+/*
 app.get("/users/:id/profile", authenticateUser);
 app.get("/users/:id/profile", async (req, res) => {
   const user = await User.findOne({ _id: req.params.id });
@@ -163,6 +168,7 @@ app.get("/users/:id/profile", async (req, res) => {
     res.status(200).json({ profileMessage: publicProfileMessage });
   }
 });
+*/
 
 // Get user specific information
 app.get("/users/:id/secret", authenticateUser);

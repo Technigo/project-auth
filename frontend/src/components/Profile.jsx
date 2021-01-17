@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { user } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 
-const URL = "http://localhost:8080/users";
-const SECRET_URL = "http://localhost:8080/secret";
-
-export const Profile = () => {
+export const Profile = ({ URL }) => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const userId = useSelector((store) => store.user.login.userId);
   const name = useSelector((store) => store.user.login.name);
   const statusMessage = useSelector((store) => store.user.login.statusMessage);
+
+  const LOGOUT_URL = `${URL}/users/logout`;
+  const SECRET_URL = `${URL}/users/${userId}/secret`; //users/:id/secret
 
   const loginSuccess = (loginResponse) => {
     dispatch(
@@ -44,7 +44,7 @@ export const Profile = () => {
 
   const logout = () => {
     // Include userId in the path
-    fetch(`${URL}/logout`, {
+    fetch(LOGOUT_URL, {
       method: "POST",
       // Include the accessToken to get the protected endpoint
       headers: { Authorization: accessToken },
@@ -82,7 +82,7 @@ export const Profile = () => {
   }
 
   return (
-    <section class="profile">
+    <section>
       <h2>Profile:</h2>
       <h4>Name:</h4>
       <p> {`${name}`}</p>
