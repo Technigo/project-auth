@@ -8,7 +8,9 @@ import { Profile } from './Profile.js';
 export const FormLogin = () => {
 	const dispatch = useDispatch();
 	const statusMessage = useSelector((store) => store.user.login.statusMessage);
+
 	const LOGIN_URL = 'https://nadlillmar.herokuapp.com/sessions';
+
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
 	const [displayLoggedIn, setDisplayLoggedIn] = useState(false);
@@ -62,7 +64,7 @@ export const FormLogin = () => {
 					<h1>Login </h1>
 					<Label>
 						Username:
-						<Input
+						<input
 							type="text"
 							name="username"
 							value={userName}
@@ -75,7 +77,7 @@ export const FormLogin = () => {
 
 					<Label>
 						Password:
-						<Input
+						<input
 							type="password"
 							name="password"
 							value={password}
