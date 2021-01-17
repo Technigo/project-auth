@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {LoginContainer, Title, Login} from '../lib/LoginFormStyle';
+
+import { user } from '../reducer/user';
+import { UserStatus } from './UserStatus';
+import { LoginContainer, Title, Login } from '../lib/LoginFormStyle';
 import { Button } from '../lib/Button';
 import InputField from '../lib/InputField';
-import { user } from '../reducer/user';
 
 const LOGIN_URL = 'https://auth-project-api.herokuapp.com/sessions';
 
