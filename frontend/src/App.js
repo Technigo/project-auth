@@ -4,7 +4,6 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { user } from "Reducers/user";
 
 import { Form } from "./components/Form";
-import { LogIn } from "./pages/LogIn";
 import { H1, MainWrapper, InnerWrapper } from "./styles/Styles";
 
 const reducer = combineReducers({

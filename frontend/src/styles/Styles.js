@@ -6,7 +6,7 @@ export const StyledForm = styled.form`
   justify-content: center;
   align-items: center;
   width: 300px;
-  height: 370px;
+  height: 430px;
   background-color: rgba(255, 255, 255, 0.7);
   box-shadow: 2px 5px 8px 3px #596466;
   border-radius: 5px;
@@ -89,4 +89,15 @@ export const HR = styled.hr`
 
 export const SecretParagraph = styled.p`
   color: #000;
+`;
+
+export const ErrorText = styled.p`
+  margin: 0;
+  color: red;
+  font-weight: 500;
+  padding: 0 20px;
+`;
+
+export const SecretText = styled.p`
+  font-weight: 600;
 `;
