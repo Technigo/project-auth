@@ -3,10 +3,11 @@ import styled from "styled-components/macro";
 
 const StyledButton = styled.button`
   background: #fff;
-  padding: 10px 20px;
-  margin: 20px;
+  padding: 6px 20px;
+  margin: 20px 0;
+  margin-left: 2px;
   width: ${(props) => (props.small ? "100px" : "220px")};
-  font-size: ${(props) => (props.small ? "14px" : "20px")};
+  font-size: ${(props) => (props.small ? "14px" : "28px")};
   border: none;
   border-radius: 4px;
   text-transform: uppercase;

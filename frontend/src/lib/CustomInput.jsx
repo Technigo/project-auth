@@ -4,7 +4,7 @@ import styled from "styled-components/macro";
 const StyledInput = styled.input`
   width: 200px;
   font-size: 16px;
-  margin-top: 30px;
+  margin-top: 10px;
   padding-left: 10px;
   height: 32px;
   font-family: Arial, Helvetica, sans-serif;
@@ -18,9 +18,14 @@ const StyledInput = styled.input`
   }
 `;
 
-export const CustomInput = ({ placeholder, onChange, value }) => (
+export const CustomInput = ({
+  placeholder,
+  onChange,
+  value,
+  type = "text",
+}) => (
   <StyledInput
-    type="text"
+    type={type}
     value={value}
     placeholder={placeholder}
     onChange={onChange}

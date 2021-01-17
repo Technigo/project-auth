@@ -1,6 +1,14 @@
 import React from "react";
 import { user } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components/macro";
+
+import { PrimaryButton } from "../lib/PrimaryButton";
+import { StyledSection } from "./styling/StyledSection";
+
+const AccesTokenStyle = styled.p`
+  font-size: 10px;
+`;
 
 export const Profile = ({ URL }) => {
   const dispatch = useDispatch();
@@ -30,7 +38,7 @@ export const Profile = ({ URL }) => {
   const logoutSuccess = () => {
     dispatch(
       user.actions.setStatusMessage({
-        statusMessage: "Logout success",
+        statusMessage: "You are loged out",
       })
     );
     dispatch(user.actions.setAccessToken({ accessToken: null }));
@@ -84,19 +92,26 @@ export const Profile = ({ URL }) => {
   }
 
   return (
-    <section>
+    <StyledSection>
+      <h2> {`Hello ${name}`}</h2>
       <p>{`${statusMessage}`}</p>
+      <p>
+        <strong>This is your user user id:</strong> {`${userId}`}
+      </p>
+      <p>Access token:</p>
+      <AccesTokenStyle>{`${accessToken}`}</AccesTokenStyle>
 
-      <h2>Profile:</h2>
-      <h4>Name:</h4>
-      <p> {`Hello ${name}`}</p>
-      <h4>userId:</h4>
-      <p> {`${userId}`}</p>
-      <h4>accessToken:</h4>
-      <p> {`${accessToken}`}</p>
-      <input type="submit" onClick={testSecret} value="Secret message" />
-      <input type="submit" onClick={logout} value="Logout" />
-    </section>
+      <div>
+        <PrimaryButton
+          small
+          type="submit"
+          onClick={testSecret}
+          value="Secret message"
+          title="Secret"
+        />
+        <PrimaryButton small type="submit" onClick={logout} title="Logout" />
+      </div>
+    </StyledSection>
   );
 };
 export default Profile;

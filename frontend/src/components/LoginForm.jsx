@@ -4,6 +4,7 @@ import { user } from "../reducers/user";
 
 import { CustomInput } from "../lib/CustomInput";
 import { PrimaryButton } from "../lib/PrimaryButton";
+import { StyledForm } from "./styling/StyledForm";
 
 export const LoginForm = ({ URL }) => {
   const LOGIN_URL = `${URL}/sessions`;
@@ -19,7 +20,7 @@ export const LoginForm = ({ URL }) => {
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
     dispatch(user.actions.setName({ name: loginResponse.name }));
     dispatch(
-      user.actions.setStatusMessage({ statusMessage: "Youe are logedin" })
+      user.actions.setStatusMessage({ statusMessage: "You are loged in" })
     );
   };
 
@@ -51,30 +52,24 @@ export const LoginForm = ({ URL }) => {
 
   // If user is logged out, show login form
   return (
-    <section>
-      <form>
-        <h1>Login:</h1>
-        <CustomInput
-          required
-          placeholder={"email"}
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
+    <StyledForm>
+      <h1>Login</h1>
+      <CustomInput
+        required
+        placeholder={"email"}
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+      />
 
-        <CustomInput
-          required
-          placeholder={"password"}
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <PrimaryButton
-          small
-          type="submit"
-          title="Login"
-          onClick={handleLogin}
-        />
-      </form>
-    </section>
+      <CustomInput
+        required
+        placeholder={"password"}
+        value={password}
+        type="password"
+        onChange={(event) => setPassword(event.target.value)}
+      />
+      <PrimaryButton small type="submit" title="Login" onClick={handleLogin} />
+    </StyledForm>
   );
 };
 export default LoginForm;

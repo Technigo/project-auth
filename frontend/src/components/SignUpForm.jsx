@@ -4,6 +4,7 @@ import { user } from "../reducers/user";
 
 import { CustomInput } from "../lib/CustomInput";
 import { PrimaryButton } from "../lib/PrimaryButton";
+import { StyledForm } from "./styling/StyledForm";
 
 export const SignUpForm = ({ URL }) => {
   const SIGNUP_URL = `${URL}/users`;
@@ -80,41 +81,41 @@ export const SignUpForm = ({ URL }) => {
 
   // If user is logged out, show login form
   return (
-    <section>
-      <form>
-        <h1>Sign Up:</h1>
-        <CustomInput
-          required
-          placeholder={"name"}
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
-        <CustomInput
-          required
-          placeholder={"email"}
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <CustomInput
-          required
-          placeholder={"password"}
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <CustomInput
-          required
-          placeholder={"confirm password"}
-          value={confirmPassword}
-          onChange={(event) => setConfirmPassword(event.target.value)}
-        />
-        <PrimaryButton
-          small
-          type="submit"
-          title="Signup"
-          onClick={handleSignup}
-        />
-      </form>
-    </section>
+    <StyledForm>
+      <h1>Sign Up:</h1>
+      <CustomInput
+        required
+        placeholder={"name"}
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+      />
+      <CustomInput
+        required
+        placeholder={"email"}
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+      />
+      <CustomInput
+        required
+        placeholder={"password"}
+        value={password}
+        type="password"
+        onChange={(event) => setPassword(event.target.value)}
+      />
+      <CustomInput
+        required
+        placeholder={"confirm password"}
+        value={confirmPassword}
+        type="password"
+        onChange={(event) => setConfirmPassword(event.target.value)}
+      />
+      <PrimaryButton
+        small
+        type="submit"
+        title="Signup"
+        onClick={handleSignup}
+      />
+    </StyledForm>
   );
 };
 export default SignUpForm;

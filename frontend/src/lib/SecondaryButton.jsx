@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 
 const StyledButton = styled.button`
   padding: 0;
-  margin: 0;
+  margin-top: 20px;
   font-size: 16px;
   border: none;
   background: none;
@@ -15,6 +15,7 @@ const StyledButton = styled.button`
 
   &:hover {
     color: #808080;
+    border-bottom: 1px solid #808080;
     transition: 0.1s;
   }
 `;
