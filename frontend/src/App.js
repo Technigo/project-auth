@@ -16,7 +16,7 @@ export const App = () => {
   return (
     <Provider store={store}>
       <MainWrapper>
-        <H1>User authentication</H1>
+        <H1>Project: user authentication</H1>
         <InnerWrapper>
           <Form labelHeading="Username:" labelText="Password:" />
         </InnerWrapper>
