@@ -68,7 +68,17 @@ const app = express();
 const listEndpoints = require("express-list-endpoints");
 
 // Add middlewares to enable cors and json body parsing
-app.use(cors());
+const allowedDomains = ["https://max-sandrine-auth-app.netlify.app", "http://localhost:3000"];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedDomains.indexOf(origin) === -1) {
+      var msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it`
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 app.use(bodyParser.json());
 
 // Start defining your routes here
