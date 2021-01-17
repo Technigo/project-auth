@@ -52,10 +52,6 @@ const authenticateUser = async (req, res, next) => {
 
 const User = mongoose.model("User", userSchema);
 
-// Defines the port the app will run on. Defaults to 8080, but can be
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -91,11 +87,9 @@ app.post("/users", async (req, res) => {
   }
 });
 
-//Perhaps this could be used to display online users later on?
 app.get("/users", async (req, res) => {
   try {
     const users = await User.find();
-    //Add code that sorts on online users
     res.status(200).json(users);
   } catch (err) {
     res.status(400).json({ error: err });
