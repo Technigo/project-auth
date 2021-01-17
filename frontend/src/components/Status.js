@@ -3,12 +3,21 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { user } from "../reducers/user";
 
-export const Status = () => {
-  const statusMessage = useSelector((store) => store.user.login.statusMessage);
+export const Status = ({ setSecretPage }) => {
   const dispatch = useDispatch();
+  // Accessing data from the redux store using useSelector
+  const statusMessage = useSelector((store) => store.user.login.statusMessage);
+  const userName = useSelector((store) => store.user.login.name);
 
-  const logout = (event) => {
+  /* 
+  1. handleLogout is called when the user clicks the logout button.
+  2. As the button is a submit button we use preventDefault to stop the page from reloading when the button is clicked.
+  3. Then the setSecretPage is set to false so the user isn't directed to this component when they login again and they're instead navigated to the UserProfile.js which is the flow of our login.
+  4. Then two dispatches are done, one to change the userId, accessToken and name back to their initial state and the other to set the statusMessage in the initial state to "Logged out".
+  */
+  const handleLogout = (event) => {
     event.preventDefault();
+    setSecretPage(false);
     dispatch(user.actions.logout());
     dispatch(user.actions.setStatusMessage({ statusMessage: "Logged out!" }));
   };
@@ -16,8 +25,10 @@ export const Status = () => {
   return (
     <>
       <section className="status">
+        <h1>Welcome {userName}!</h1>
+        <span className="material-icons">account_circle</span>
         <p>{`${statusMessage}`}</p>
-        <button type="submit" onClick={logout}>
+        <button type="submit" onClick={handleLogout}>
           Logout
         </button>
       </section>
