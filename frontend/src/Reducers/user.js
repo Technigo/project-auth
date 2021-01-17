@@ -37,6 +37,8 @@ export const user = createSlice({
   },
 });
 
+// We want to move our fetch's to this file as Thunks as below example:
+
 // export const login = (username, password) => {
 //   const LOGIN_URL = "http://localhost:8080/sessions";
 //   return dispatch => {
@@ -63,13 +65,5 @@ export const user = createSlice({
 //     dispatch(user.actions.toggleUserLogin(true)).catch(err => {
 //       console.log(err);
 //     });
-//   };
-// };
-
-// export const logOut = () => {
-//   return dispatch => {
-//     console.log("Logging out!");
-//     dispatch(user.actions.setAccessToken({ accessToken: null }));
-//     dispatch(user.actions.setUserId({ userId: 0 }));
 //   };
 // };

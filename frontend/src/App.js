@@ -1,8 +1,8 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { user } from "Reducers/user";
 
+import { user } from "Reducers/user";
 import { Form } from "./Components/Form";
 import { H1, MainWrapper, InnerWrapper } from "./styles/Styles";
 
