@@ -5,7 +5,7 @@ This week's project is to build an API with authentication to implement a regist
 ## The problem
 
 The project is built on a backend API, and a React frontend. We created a `User` model using mongoose, with properties for a registered user, and to store a user's access token.
-On the frontend side we built up a registration form that POSTs to the API. We stored the access token we got back in the browser using local storage, and then used that token when making other requests to your API.
+On the frontend side we built up a registration form that POSTs to the API. We stored the access token we got back in the browser using local storage, and then used that token when making other requests to the API. 
 
 ## Learning objectives 🧠
 
