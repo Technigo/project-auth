@@ -1,13 +1,15 @@
 # Project Auth
-
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+We made a Log In / Sign in page that's made with backend and frontend in react! 
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We had a problem with using our url from herako. I didn't work I we tried to get help but nothing worked with the help either. So nothing submits into our backend database and we still need help to solve it. 
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend:
+https://laughing-nobel-17dcb6.netlify.app/
+
+Backend:
+https://project-auth-lili-destiny-1.herokuapp.com/users
+https://project-auth-lili-destiny-1.herokuapp.com/sessions
