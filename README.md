@@ -33,7 +33,8 @@ When this was done and we met the minimum requirements, we decided to spend some
 - we created a Mongoose Schema and added a pre hook to validate the password against the schema before hashing
 - we added an `alias` property in `userSchema`
 - we created an additional authenticated route `POST /users/:userId/profile` to post a new value for `alias`
-- we created a form on the profile page where the user can update his/her alias. 
+- we created a form on the profile page where the user can update his/her alias.
+- we added a CORS policy limiting the access to our API
 
 ## Limitations
 
