@@ -49,7 +49,6 @@ const UserDetails = ({ SIGNUP_URL }) => {
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
         dispatch(user.actions.setAlias({ alias: json.alias }));
       })
   };
