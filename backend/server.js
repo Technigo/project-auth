@@ -7,7 +7,10 @@ import bcrypt from "bcrypt-nodejs";
 import endpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 mongoose.Promise = Promise;
 
 const userSchema = new mongoose.Schema({
@@ -36,7 +39,9 @@ const userSchema = new mongoose.Schema({
 const authenticateUser = async (req, res, next) => {
   try {
     const accessToken = req.header("Authorization");
-    const user = await User.findOne({ accessToken });
+    const user = await User.findOne({
+      accessToken
+    });
     if (!user) {
       throw "User not found";
     }
@@ -44,7 +49,9 @@ const authenticateUser = async (req, res, next) => {
     next();
   } catch (err) {
     const errorMessage = "Please try loigging in again";
-    res.status(401).json({ error: errorMessage });
+    res.status(401).json({
+      error: errorMessage
+    });
   }
 };
 
@@ -66,24 +73,53 @@ app.get("/", (req, res) => {
 // Sign-up
 app.post("/users", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const {
+      name,
+      email,
+      password
+    } = req.body;
     console.log("!!!", name, email, password);
-    const user = new User({ name, email, password: bcrypt.hashSync(password) })
+    const user = new User({
+      name,
+      email,
+      password: bcrypt.hashSync(password)
+    })
     await user.save()
-    res.status(201).json({ message: 'User created!', id: user._id, accessToken: user.accessToken })
+    res.status(201).json({
+      message: 'User created!',
+      id: user._id,
+      accessToken: user.accessToken,
+      name: user.name,
+      email: user.email,
+      password: user.password
+    })
   } catch (err) {
-    res.status(400).json({ message: 'Could not create user!', errors: err.errors })
+    res.status(400).json({
+      message: 'Could not create user!',
+      errors: err.errors
+    })
   }
 });
 
 //Login
 app.post("/sessions", async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const {
+      email,
+      password
+    } = req.body;
+    const user = await User.findOne({
+      email
+    });
+    console.log(user);
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(200).json({ userId: user._id, accessToken: user.accessToken });
-      //compare passwords
+      res.status(200).json({
+        userId: user._id,
+        accessToken: user.accessToken,
+        name: user.name,
+        email: user.email,
+        password: user.password
+      });
     } else {
       res
         .status(404)
@@ -95,28 +131,32 @@ app.post("/sessions", async (req, res) => {
   } catch (err) {
     res
       .status(404)
-      .json({ notFound: true, message: "Incorrect username and/or password" });
+      .json({
+        notFound: true,
+        message: "Incorrect username and/or password"
+      });
   }
 });
-// Secure endpoint, user needs to be logged in to access this.
 
-app.get("/users/:id/profile", authenticateUser);
-app.get("/secret", async (req, res) => {
-  const secretMessage = `This is a secret message for ${req.user.name}`;
-  res.status(200).json({ secretMessage });
-});
-//get user specific info
-app.get("/users/:id/profile", authenticateUser);
-app.get("/users/:id/profile", async (req, res) => {
-  const user = await User.findOne({ _id: req.params.id });
-  const secretMsgPrivate = `{Hello, ${user.name}, this secret message is for you.}`;
-  const secretMsgPublic = `{Hello, ${user.name}, this public message is for you.}`;
-
-  //Decide private or public
-  if (req.user._id === user._id) {
-    res.status(200).json({ secretMsgPrivate });
-  } else {
-    res.status(200).json({ secretMsgPublic });
+//get user specific info, secret page in userprofile
+app.get('/users/:id/secret', authenticateUser);
+app.get('/users/:id/secret', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    if (userId != req.user._id) {
+      console.log(
+        "Authenticated user does not have access to this secret.  It's someone else's!"
+      );
+      throw 'Access denied';
+    }
+    const secretMessage = `This is a secret message for ${req.user.name}. We are happy you are with us!`;
+    res.status(200).json({
+      secretMessage
+    });
+  } catch (err) {
+    res.status(403).json({
+      error: 'Access Denied'
+    });
   }
 });
 
