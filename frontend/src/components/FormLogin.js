@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { user } from '../reducers/user';
 import styled from 'styled-components';
 
+import { user } from '../reducers/user';
 import { Profile } from './Profile.js';
 
 export const FormLogin = () => {
@@ -26,13 +26,14 @@ export const FormLogin = () => {
 			user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
 		);
 
+		dispatch(user.actions.toggledLoggedState(true));
+
 		setDisplayLoggedIn(true);
 		setDisplayError(false);
 	};
 
 	const handleLoginFailed = (loginError) => {
-		const statusMessage = JSON.stringify(loginError);
-		dispatch(user.actions.setStatusMessage({ statusMessage }));
+		dispatch(user.actions.setStatusMessage({ statusMessage: 'Login failed' }));
 		setDisplayError(true);
 	};
 
@@ -46,7 +47,7 @@ export const FormLogin = () => {
 		})
 			.then((res) => {
 				if (!res.ok) {
-					throw 'Login failed';
+					throw new Error('Login failed');
 				}
 				return res.json();
 			})
@@ -59,9 +60,9 @@ export const FormLogin = () => {
 			{!displayLoggedIn && (
 				<Form onSubmit={submitLogin}>
 					<h1>Login </h1>
-					<label>
+					<Label>
 						Username:
-						<input
+						<Input
 							type="text"
 							name="username"
 							value={userName}
@@ -70,11 +71,11 @@ export const FormLogin = () => {
 							minLength="5"
 							maxLength="30"
 						/>
-					</label>
+					</Label>
 
-					<label>
+					<Label>
 						Password:
-						<input
+						<Input
 							type="password"
 							name="password"
 							value={password}
@@ -82,7 +83,7 @@ export const FormLogin = () => {
 							required
 							minLength="5"
 						/>
-					</label>
+					</Label>
 
 					<Button type="submit">Login</Button>
 				</Form>
@@ -101,13 +102,60 @@ const Container = styled.div`
 	margin: 250px;
 `;
 
+const Label = styled.label`
+	color: grey;
+	font-size: 13px;
+`;
+
 const Input = styled.input`
-	margin: 10px;
+	background: transparent;
+	width: 200px;
+	padding: 1em;
+	margin-bottom: 2em;
+	border: none;
+	border-left: 1px solid rgba(255, 255, 255, 0.3);
+	border-top: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 50px;
+	backdrop-filter: blur(5px);
+	box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
+	color: #fff;
+	font-family: Montserrat, sans-serif;
+	font-weight: 500;
+	transition: all 0.2s ease-in-out;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+	&:hover {
+		background: rgba(144, 238, 144);
+		box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
+	}
 `;
 
 const Button = styled.button`
-	margin: 5px;
+	margin: 30px 0;
+	height: 30px;
+	width: 90px;
+	border-radius: 5px;
+	background: ${(props) => props.background || 'transparent;'};
+	border-top-color: transparent;
+	font-size: 18px;
+	font-weight: bold;
+	color: ${(props) => props.color || 'grey'};
+	&:hover {
+		background: ${(props) => props.hover || 'lightgreen'};
+		cursor: pointer;
+	}
 `;
 
 //input should be contained in a form
-const Form = styled.form``;
+const Form = styled.form`
+	margin: 130px 0 0 0;
+	background: rgba(255, 255, 255, 0.3);
+	padding: 3em;
+	height: 300px;
+	border-radius: 20px;
+	border-left: 1px solid rgba(255, 255, 255, 0.3);
+	border-top: 1px solid rgba(255, 255, 255, 0.3);
+	backdrop-filter: blur(5px);
+	box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
+	text-align: left;
+	position: relative;
+`;
