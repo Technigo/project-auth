@@ -29,16 +29,16 @@ const userSchema = mongoose.Schema({
   },
 });
 
-userSchema.pre('save', async function (next) {
+userSchema.pre("save", async function (next) {
   const user = this;
-  if(!user.isModified('password')) {
+  if (!user.isModified("password")) {
     return next();
   }
 
   const salt = bcrypt.genSaltSync();
   user.password = bcrypt.hashSync(user.password, salt);
   next();
-})
+});
 
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({ accessToken: req.header("Authorization") });
@@ -50,7 +50,7 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
@@ -81,10 +81,10 @@ app.post("/users", async (req, res) => {
     const { username, password } = req.body;
     const user = await new User({
       username,
-      password
+      password,
     }).save();
-    console.log("UserID:",user._id)
-    console.log("AccessToken:", user.accessToken)
+    console.log("UserID:", user._id);
+    console.log("AccessToken:", user.accessToken);
     res.status(201).json({ userId: user._id, accessToken: user.accessToken });
   } catch (err) {
     res.status(400).json({ message: "Could not create user", error: err });
@@ -94,17 +94,22 @@ app.post("/users", async (req, res) => {
 //Perhaps this could be used to display online users later on?
 app.get("/users", async (req, res) => {
   try {
-    const users = await User.find()
-        //Add code that sorts on online users
-    res.status(200).json(users)
-  } catch(err) {
-    res.status(400).json({ error: err})
+    const users = await User.find();
+    //Add code that sorts on online users
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(400).json({ error: err });
   }
-})
+});
 
 app.get("/secrets", authenticateUser);
-app.get("/secrets", (req, res) => {
-  res.status(200).json({ secret: "Super secret message" });
+app.get("/secrets", async (req, res) => {
+  try {
+    const secretMessage = `This is a super secret message for ${req.user.username}`;
+    res.status(201).json({ secretMessage });
+  } catch (err) {
+    res.status(401).json({ notFound: true, error: err });
+  }
 });
 
 app.post("/sessions", async (req, res) => {

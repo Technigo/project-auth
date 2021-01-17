@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Provider } from "react-redux";
-import {
-  configureStore,
-  combineReducers,
-} from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { user } from "Reducers/user";
 
-import { Form } from "./Components/Form";
-import { LogIn } from "./Components/LogIn";
+import { Form } from "./components/Form";
+import { LogIn } from "./pages/LogIn";
 import { H1, MainWrapper, InnerWrapper } from "./styles/Styles";
 
 const reducer = combineReducers({
@@ -17,27 +14,14 @@ const reducer = combineReducers({
 const store = configureStore({ reducer });
 
 export const App = () => {
-  const [userLogged, setUserLogged] = useState(false);
-
   return (
     <Provider store={store}>
-      {userLogged === false ? (
-        <MainWrapper>
-          <H1>Sign up or log in here!</H1>
-          <InnerWrapper>
-            <Form
-              input="Create User"
-              heading="Log in here:"
-              labelHeading="Select a username:"
-              labelText="Enter a password:"
-            />
-          </InnerWrapper>
-        </MainWrapper>
-      ) : (
-        <MainWrapper>
-          <LogIn username="Holabandola" />
-        </MainWrapper>
-      )}
+      <MainWrapper>
+        <H1>User authentication</H1>
+        <InnerWrapper>
+          <Form labelHeading="Username:" labelText="Password:" />
+        </InnerWrapper>
+      </MainWrapper>
     </Provider>
   );
 };

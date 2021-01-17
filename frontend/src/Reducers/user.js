@@ -5,6 +5,8 @@ const initialState = {
     accessToken: null,
     userId: 0,
     loggedIn: false,
+    errorMessage: null,
+    secretMessage: null,
   },
 };
 
@@ -24,14 +26,23 @@ export const user = createSlice({
       console.log(`This is the userId: ${userId}`);
       state.login.userId = userId;
     },
-    toggleUserLogin: (state, action) => {
-      state.login.loggedIn = action.payload;
-    },
-    /* 
-    logout: (state, action) => {
+    // toggleUserLogin: (state, action) => {
+    //   state.login.loggedIn = action.payload;
+    // },
+
+    logOut: (state, action) => {
       state.login.userId = 0;
       state.login.accessToken = null;
-    }, */
+    },
+    setSecretMessage: (state, action) => {
+      const { secretMessage } = action.payload;
+      console.log(`This is the secret message payload: ${secretMessage}`);
+      state.login.secretMessage = secretMessage;
+    },
+    setErrorMessage: (state, action) => {
+      const { errorMessage } = action.payload;
+      state.login.errorMessage = errorMessage;
+    },
   },
 });
 
@@ -55,17 +66,16 @@ export const login = (username, password) => {
             accessToken: json.accessToken,
           })
         );
-        console.log("Logged in!")
+        console.log("Logged in!");
         dispatch(user.actions.setUserId({ userId: json.userId }));
-      })
-      dispatch(user.actions.toggleUserLogin(true))
-      .catch(err => {
-        console.log(err);
       });
+    dispatch(user.actions.toggleUserLogin(true)).catch(err => {
+      console.log(err);
+    });
   };
 };
 
-export const logout = () => {
+export const logOut = () => {
   return dispatch => {
     console.log("Logging out!");
     dispatch(user.actions.setAccessToken({ accessToken: null }));
