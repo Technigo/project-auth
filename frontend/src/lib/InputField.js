@@ -28,6 +28,6 @@ const InputField = ({title, htmlFor, id, type, onChange, value}) => {
       <Input value={value} id={id} type={type} onChange={event => onChange(event.target.value)}></Input>
     </InputContainer>
   )
-}
+};
 
 export default InputField;

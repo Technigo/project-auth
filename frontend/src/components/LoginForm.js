@@ -1,19 +1,17 @@
-import React, {useState} from 'react'
-import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { user } from '../reducer/user'
+import React, {useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import {LoginContainer, Title, Login} from '../lib/LoginFormStyle';
+import { Button } from '../lib/Button';
+import InputField from '../lib/InputField';
+import { user } from '../reducer/user';
 
-import { UserStatus } from './UserStatus'
-import { LoginContainer, Title, Login } from '../lib/LoginFormStyle'
-import InputField from '../lib/InputField'
-import { Button } from '../lib/Button'
-
-const LOGIN_URL = 'https://auth-project-api.herokuapp.com/sessions'
+const LOGIN_URL = 'https://auth-project-api.herokuapp.com/sessions';
 
 export const LoginForm = ( ) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-
+  const status = useSelector(store => store.user.login.statusMessage);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -54,6 +52,7 @@ export const LoginForm = ( ) => {
       <LoginContainer>
         <Login key={2}>
           <Title>LOGIN</Title>
+          <p>{status}</p>
           <InputField
             required
             title='Username'
@@ -79,4 +78,4 @@ export const LoginForm = ( ) => {
         </Login>
       </LoginContainer>
     )
-}
+};
