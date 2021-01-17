@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Status } from "./components/Status";
 import { Profile } from "./components/Profile";
 import { LoginSignup } from "./components/LoginSignup";
 import { Provider } from "react-redux";
@@ -16,9 +15,8 @@ const store = configureStore({ reducer });
 export const App = () => {
   return (
     <Provider store={store}>
-      <Status />
-
       <LoginSignup />
+
       <Profile URL={URL} />
     </Provider>
   );

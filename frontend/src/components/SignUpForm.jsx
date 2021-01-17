@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { user } from "../reducers/user";
+
+import { CustomInput } from "../lib/CustomInput";
+import { PrimaryButton } from "../lib/PrimaryButton";
 
 export const SignUpForm = ({ URL }) => {
   const SIGNUP_URL = `${URL}/users`;
 
   const dispatch = useDispatch();
-  const accessToken = useSelector((store) => store.user.login.accessToken);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -51,49 +53,42 @@ export const SignUpForm = ({ URL }) => {
       );
     }
   };
-  if (accessToken) {
-    return <></>;
-  }
+
   // If user is logged out, show login form
   return (
     <section>
       <form>
         <h1>Sign Up:</h1>
-        <label>
-          name
-          <input
-            required
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </label>
-        <label>
-          eMAIL
-          <input
-            required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </label>
-        <label>
-          password
-          <input
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-        <label>
-          confirm password
-          <input
-            required
-            value={confirmPassword}
-            onChange={(event) => setConfirmPassword(event.target.value)}
-          />
-        </label>
-        <button type="submit" onClick={handleSignup}>
-          Sign-Up
-        </button>
+        <CustomInput
+          required
+          placeholder={"name"}
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
+        <CustomInput
+          required
+          placeholder={"email"}
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <CustomInput
+          required
+          placeholder={"password"}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <CustomInput
+          required
+          placeholder={"confirm password"}
+          value={confirmPassword}
+          onChange={(event) => setConfirmPassword(event.target.value)}
+        />
+        <PrimaryButton
+          small
+          type="submit"
+          title="Signup"
+          onClick={handleSignup}
+        />
       </form>
     </section>
   );

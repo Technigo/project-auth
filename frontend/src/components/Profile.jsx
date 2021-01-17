@@ -90,8 +90,8 @@ export const Profile = ({ URL }) => {
       <p> {`${userId}`}</p>
       <h4>accessToken:</h4>
       <p> {`${accessToken}`}</p>
-      <input type="submit" onClick={testSecret} value="test secret" />
-      <input type="submit" onClick={logout} value="Test Logout" />
+      <input type="submit" onClick={testSecret} value="Secret message" />
+      <input type="submit" onClick={logout} value="Logout" />
     </section>
   );
 };
