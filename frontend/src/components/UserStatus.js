@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { user } from '../reducer/user'
 
 import { LoginErrorMessage } from '../lib/LoginFormStyle';
 
@@ -9,7 +8,7 @@ export const UserStatus = () => {
 
     return (
         <>
-        {statusMessage && <LoginErrorMessage>{statusMessage}</LoginErrorMessage>}
+        {statusMessage && <LoginErrorMessage >{statusMessage}</LoginErrorMessage>}
         </>
     )
 }

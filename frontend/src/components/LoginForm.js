@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { user } from '../reducer/user'
 
 import { UserStatus } from './UserStatus'
-import { LoginContainer, Title, Login, LoginErrorMessage } from '../lib/LoginFormStyle'
-import { Button } from '../lib/Button'
+import { LoginContainer, Title, Login } from '../lib/LoginFormStyle'
 import InputField from '../lib/InputField'
-import { user } from '../reducer/user'
+import { Button } from '../lib/Button'
 
 const LOGIN_URL = 'https://auth-project-api.herokuapp.com/sessions'
 
@@ -19,11 +19,8 @@ export const LoginForm = ( ) => {
 
   const handleLoginSuccess = (loginResponse) => {
     dispatch(user.actions.setAccessToken(loginResponse.accessToken));
-    console.log(loginResponse.accessToken)
     dispatch(user.actions.setUserId(loginResponse.userId));
-    console.log(loginResponse.userId);
     dispatch(user.actions.setUserName(loginResponse.userName));
-    console.log({ loginResponse })
     dispatch(user.actions.setStatusMessage({ statusMessage: 'You are logged in, welcome.' }));
     history.push(`/${loginResponse.userId}/user`);
   };
@@ -45,18 +42,17 @@ export const LoginForm = ( ) => {
     })
       .then(res => {
         if (!res.ok) {
-          throw 'Log-in failed, please try again';
+          throw 'Login failed, please try again';
         }
         return res.json();
       })
       .then(data => handleLoginSuccess(data))
-      .catch(err => {handleLoginFailed(err);
-      })
+      .catch(err => handleLoginFailed(err))
   };
  
     return (
       <LoginContainer>
-        <Login>
+        <Login key={2}>
           <Title>LOGIN</Title>
           <InputField
             required
@@ -80,7 +76,6 @@ export const LoginForm = ( ) => {
           />
           <Button title='Sign In' onClickFunc={handleLogin} />
           <UserStatus />
-
         </Login>
       </LoginContainer>
     )

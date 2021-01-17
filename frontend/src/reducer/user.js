@@ -30,6 +30,7 @@ export const user = createSlice({
         },
         setStatusMessage: (store, action) => {
             const { statusMessage } = action.payload;
+            console.log(`Status message: ${statusMessage}`)
             store.login.statusMessage = statusMessage;
         },
         logout: (store, action) => {

@@ -28,5 +28,5 @@ width: 300px;
 `;
 
 export const LoginErrorMessage = styled.p`
-    color: white;
+    color: ${props => props.color || '#fff' };
 `

@@ -2,13 +2,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
 import { user } from './reducer/user';
-import { Container } from './lib/Container';
+
 import { LoginForm } from './components/LoginForm';
-import CreateUser from './components/CreateUser';
+import { CreateUser } from './components/CreateUser';
 import { UserPage } from './components/UserPage';
-import { UserStatus } from './components/UserStatus'
+import { Container } from './lib/Container';
+import { UserStatus } from 'components/UserStatus';
 
 const reducer = combineReducers({ 
   user: user.reducer,
@@ -23,16 +23,16 @@ export const App = () => {
         <Switch>
           <Route exact path="/">
             <Container>
-              <LoginForm>
-              </LoginForm>
-              <CreateUser />
+              <LoginForm />
+              <CreateUser>
+                {/* <UserStatus /> */}
+                </CreateUser>
             </Container>
           </Route>
           <Route path="/:id/user">
             <UserPage />
           </Route>
         </Switch> 
-
       </BrowserRouter>
     </Provider>
   )

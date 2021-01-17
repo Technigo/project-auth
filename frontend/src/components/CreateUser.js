@@ -1,24 +1,34 @@
 import React, {useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { user } from '../reducer/user';
-import { Button } from '../lib/Button';
-import InputField from '../lib/InputField';
+
+import { UserStatus } from './UserStatus';
 import { CreateUserContainer, Register, Title } from '../lib/CreateUserStyle';
-import { LoginErrorMessage } from 'lib/LoginFormStyle';
+import InputField from '../lib/InputField';
+import { Button } from '../lib/Button';
 
 
 const SIGNUP_URL = 'https://auth-project-api.herokuapp.com/users';
 
-const CreateUser = () => {
+export const CreateUser = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [signupMessage, setSignupMessage] = useState("");
 
-  const dispatch = useDispatch();
+  const handleSignUpSuccess = (signupResponse) => {
+    dispatch(user.actions.setAccessToken(signupResponse.accessToken));
+    dispatch(user.actions.setUserId(signupResponse.userId));
+    dispatch(user.actions.setUserName(signupResponse.name));
+    dispatch(user.actions.setStatusMessage("Your user has been created, please log in to continue"));
+  };
 
-  const handleSignUpSuccess = (data) => {
-    console.log(data.name);
-    dispatch(user.actions.setUserName(data.name));
+  const handleSignupFailed = (signupError) => {
+    dispatch(user.actions.setAccessToken(null));
+    dispatch(user.actions.setStatusMessage({ statusMessage: signupError }));
+    setName('');
+    setPassword('');
   }
 
   const handleSignup = (event) => {
@@ -29,43 +39,45 @@ const CreateUser = () => {
       body: JSON.stringify({ name, password }),
       headers: { 'Content-type': 'application/json' },
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          throw 'Sign-up failed, please try again';
+        }
+          res.json();
+      })
       .then(data => handleSignUpSuccess(data))
-      .catch((err) => console.log(err));
-    
-    setName('');
-    setPassword('');
+      .catch(err => handleSignupFailed(err));
   }
-
 
   return (
     <CreateUserContainer>
-        <Register>
+        <Register key={2}>
           <Title>Create account</Title>
           <InputField
+            required
             title='Username'
             htmlFor='name'
             id='name'
-            type='text'
             value={name}
+            aria-label='Write your username here'
+            type='text'
             onChange={setName}
           />
           <InputField
+            required
             title='Password'
             htmlFor='password'
             id='password'
-            type='password'
             value={password}
+            aria-label='Write your password here'
+            type='password'
             onChange={setPassword}
           />
           <Button
             title='Sign Up'
             onClickFunc={handleSignup} />
+          <UserStatus />
         </Register>
-      )
-
     </CreateUserContainer>
   )
 }
-
-export default CreateUser;
