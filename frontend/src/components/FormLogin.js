@@ -86,12 +86,12 @@ export const FormLogin = () => {
 							minLength="5"
 						/>
 					</Label>
-
+					{displayError && <div>{`Errormessage: ${statusMessage}`}</div>}
 					<Button type="submit">Login</Button>
 				</Form>
 			)}
 
-			{displayError && <div>{`Errormessage: ${statusMessage}`}</div>}
+			
 			{displayLoggedIn && <Profile />}
 		</Container>
 	);
