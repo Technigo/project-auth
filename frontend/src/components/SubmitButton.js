@@ -39,7 +39,6 @@ const TextField = styled.p`
   align-items: center;
   font-size: 18px;
   color: #a8c5cd;
-
   &:hover {
     color: #d2c5ab;
   }
