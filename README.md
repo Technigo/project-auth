@@ -20,5 +20,5 @@ A ‘sign out’ button that removes the saved access token and redirects the us
 
 ## View it live
 
-Deployed frontend:
-Deployed API:
+Deployed frontend: https://upbeat-edison-ad175c.netlify.app/
+Deployed API: https://project-signup.herokuapp.com/
