@@ -64,7 +64,7 @@ export const SignUpForm = () => {
           }
           type="submit"
           disabled={!name || !email || password.length < 5}
-          text="Signup"
+          text="Sign Up"
         />
       </div>
     </form>
