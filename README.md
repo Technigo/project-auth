@@ -67,5 +67,5 @@ The application is responsive and works on mobile, tablet and desktop view. We t
 
 You can take a look at the result on https://max-sandrine-auth-app.netlify.app/.
 The API can be found on https://max-sandrine-auth-api.herokuapp.com/.
-You are welcome to visit our pull request  and leave some comments about the code.
+You are welcome to visit our pull request https://github.com/Technigo/project-auth/pull/74 and leave some comments about the code.
 Enjoy!
