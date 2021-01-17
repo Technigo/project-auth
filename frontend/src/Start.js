@@ -13,15 +13,20 @@ import {
   Label,
   Paragraph,
   InputField,
+  StatusMessage,
 } from "./Styling/StyledComponents";
 
-const USER_URL = "https://project-auth-joel-cornelia.herokuapp.com/users";
-const LOGIN_URL = "https://project-auth-joel-cornelia.herokuapp.com/sessions";
+const USER_URL = "http://localhost:8080/users";
+const LOGIN_URL = "http://localhost:8080/sessions";
+
+// const USER_URL = "https://project-auth-joel-cornelia.herokuapp.com/users";
+// const LOGIN_URL = "https://project-auth-joel-cornelia.herokuapp.com/sessions";
 
 const Start = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [signupMessage, setSignupMessage] = useState({});
+  const [success, setSuccess] = useState();
 
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
@@ -54,14 +59,14 @@ const Start = () => {
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
-
         setSignupMessage(json);
-
+        setSuccess(json.success);
         setUsername("");
         setPassword("");
       })
       .catch((error) => {
         setSignupMessage("new error");
+        setSuccess(error.success);
         console.log(error);
       });
   };
@@ -83,6 +88,7 @@ const Start = () => {
       .then((json) => {
         console.log(json);
         handleLoginSuccess(json);
+        setSuccess(json.success);
         setUsername("");
         setPassword("");
       })
@@ -125,8 +131,16 @@ const Start = () => {
               Log in
             </Button>
           </FormContainer>
-          <div>{signupMessage && <p>{signupMessage.message}</p>}</div>
-          <div>{statusMessage && <p>{statusMessage}</p>}</div>
+          <div>
+            {signupMessage && (
+              <StatusMessage success={success}>
+                {signupMessage.message}
+              </StatusMessage>
+            )}
+          </div>
+          <div>
+            {statusMessage && <StatusMessage>{statusMessage}</StatusMessage>}
+          </div>
         </MainContainer>
       </>
     );

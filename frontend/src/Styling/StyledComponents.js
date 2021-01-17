@@ -79,3 +79,9 @@ export const InputField = styled.input`
     color: #5b8f8c;
   }
 `;
+
+export const StatusMessage = styled.p`
+  font-size: 20px;
+  font-weight: bold;
+  color: ${(props) => (props.success ? "#41b3a3" : "#E24030")};
+`;
