@@ -57,7 +57,7 @@ app.post('/users', async (req, res) => {
     const SALT = bcrypt.genSaltSync(10)
     const user = new User({ email, password: bcrypt.hashSync(password, SALT) })
     const saved = await user.save()
-    res.status(201).json({ id: saved._id, accessToken: saved.accessToken })
+    res.status(201).json({ id: saved._id, accessToken: saved.accessToken, message: 'Your profile has been created successfully!' })
   } catch (err) {
     res.status(400).json({ message: 'Could not create user / User already exist', error:err.error })
   }
