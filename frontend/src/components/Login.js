@@ -1,17 +1,20 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import { SubmitButton } from "./SubmitButton";
 import { InputField } from "./InputField";
-//import {UserProfile} from "./UserProfile"
+import { UserProfile } from "./UserProfile";
+import { user } from "../reducers/user";
 
 import styled from "styled-components";
 import { rgba } from "polished";
 
-const LOGIN = "http://localhost:8080/sessions";
+const LOGIN = "https://project-auth-liza-kat.herokuapp.com/sessions";
 
 export const Login = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [logInFailed, setLogInFailed] = useState(false);
   const [logInSuccess, setLogInSuccess] = useState(false);
 
@@ -20,19 +23,23 @@ export const Login = () => {
     fetch(LOGIN, {
       method: "POST",
       body: JSON.stringify({
-        email: email,
-        password: password,
+        password,
+        email,
       }),
       headers: { "Content-Type": "application/json" },
     })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.accessToken) {
-          localStorage.setItem("accessToken", json.accessToken);
-          localStorage.setItem("userID", json.id);
-          localStorage.setItem("signedUp", JSON.stringify(true));
-          setLogInSuccess(true);
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Could not create account. Please try again");
         }
+        return res.json();
+      })
+      .then((json) => {
+        dispatch(user.actions.setUserId({ userId: json.id }));
+        dispatch(
+          user.actions.setAccessToken({ accessToken: json.accessToken })
+        );
+        setLogInSuccess(true);
       })
       .catch(() => {
         setLogInFailed(true);
@@ -42,53 +49,57 @@ export const Login = () => {
         setPassword("");
       });
   };
-  return (
-    <Image>
-      <Form onSubmit={handleFormSubmit}>
-        <Text>Log in</Text>
-        <InputField
-          name="email"
-          label="Email"
-          type="email"
-          value={email}
-          placeholder="email"
-          onChange={(event) => setEmail(event.target.value)}
-          minLength="3"
-        />
-        <InputField
-          name="password"
-          label="Password"
-          type="password"
-          value={password}
-          placeholder="password"
-          onChange={(event) => setPassword(event.target.value)}
-          minLength="6"
-        />
 
-        {logInSuccess && (
-          <span>
-            <Text>Welcome, user!</Text>
-          </span>
-        )}
-        {logInFailed && (
-          <span>
-            <Text>
-              Failed to log in. Email and/or password incorrect. Please try again.
-            </Text>
-          </span>
-        )}
-        <SubmitButton title="Log in" />
-      </Form>
-    </Image>
+  return (
+    <>
+      {logInSuccess === true ? (
+        <UserProfile />
+      ) : (
+        <Image>
+          <Form onSubmit={handleFormSubmit}>
+            <Text>Log in</Text>
+            <InputField
+              name="email"
+              label="Email"
+              type="email"
+              value={email}
+              placeholder="email"
+              onChange={(event) => setEmail(event.target.value)}
+              minLength="3"
+            />
+            <InputField
+              name="password"
+              label="Password"
+              type="password"
+              value={password}
+              placeholder="password"
+              onChange={(event) => setPassword(event.target.value)}
+              minLength="6"
+            />
+            {logInFailed && (
+              <span>
+                <Text>
+                  Failed to log in. Email and/or password incorrect. Please try
+                  again.
+                </Text>
+              </span>
+            )}
+            <SubmitButton title="Log in" />
+          </Form>
+        </Image>
+      )}
+      ;
+    </>
   );
 };
+
 const Image = styled.main`
-	background-image: url("${process.env.PUBLIC_URL + "/flower.jpg"}");
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	background-size: cover;
-  `;
+  background-image: url("${process.env.PUBLIC_URL + "/flower.jpg"}");
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+`;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
