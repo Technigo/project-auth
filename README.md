@@ -1,5 +1,5 @@
-# Project Auth
-We made a Log In / Sign in page that's made with backend and frontend in react! 
+# Project Auth 🧚🏽‍♀️
+We made a Log In / Sign in page that's made with backend and frontend in react! Made by Lili & Destiny 💃🏻
 
 ## The problem
 
