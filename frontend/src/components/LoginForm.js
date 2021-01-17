@@ -1,39 +1,34 @@
-import React, {useState} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useHistory } from 'react-router-dom'
+import React, {useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import {LoginContainer, Title, Login} from '../lib/LoginFormStyle';
+import { Button } from '../lib/Button';
+import InputField from '../lib/InputField';
+import { user } from '../reducer/user';
 
-import {LoginContainer, Title, Login} from '../lib/LoginFormStyle'
-import { Button } from '../lib/Button'
-import InputField from '../lib/InputField'
-import { user } from '../reducer/user'
-
-const LOGIN_URL = 'https://auth-project-api.herokuapp.com/sessions'
+const LOGIN_URL = 'https://auth-project-api.herokuapp.com/sessions';
 
 export const LoginForm = ( ) => {
-  // const { id } = useParams();
-
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-
   const status = useSelector(store => store.user.login.statusMessage);
-
   const dispatch = useDispatch();
   const history = useHistory();
 
   const handleLoginSuccess = (loginResponse) => {
     dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }));
-    console.log(loginResponse.accessToken)
+    console.log(loginResponse.accessToken);
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
     console.log(loginResponse.userId);
     dispatch(user.actions.setUserName(loginResponse.userName));
-    console.log({ loginResponse })
+    console.log({ loginResponse });
     dispatch(user.actions.setStatusMessage({ statusMessage: 'You are logged in, welcome.' }));
     history.push(`/${loginResponse.userId}/user`);
   };
 
   const handleLoginFailed = (loginError) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }))
+    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
   };
 
   const handleLogin = (event) => {
@@ -78,4 +73,4 @@ export const LoginForm = ( ) => {
         </Login>
       </LoginContainer>
     )
-}
+};

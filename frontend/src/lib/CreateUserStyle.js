@@ -1,5 +1,4 @@
-import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const CreateUserContainer = styled.div`
   border-radius: 0 20px 20px 0;

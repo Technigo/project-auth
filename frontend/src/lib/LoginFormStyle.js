@@ -1,6 +1,5 @@
-import React from 'react';
-import styled from 'styled-components'
-import img from '../assets/purple.jpg'
+import styled from 'styled-components';
+import img from '../assets/purple.jpg';
 
 export const LoginContainer = styled.div`
 width: 35%;

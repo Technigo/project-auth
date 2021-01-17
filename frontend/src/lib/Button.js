@@ -28,4 +28,4 @@ export const Button = ({title, onClickFunc}) => {
       {title}
     </PurpleButton>
   )
-}
+};

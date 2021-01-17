@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import { user } from '../reducer/user';
-import { UserPageContainer, UserPageHeader, UserPageText } from '../lib/UserPageStyle'
+import { UserPageContainer, UserPageHeader, UserPageText } from '../lib/UserPageStyle';
 import { Button } from '../lib/Button';
 
 
@@ -28,7 +28,7 @@ export const UserPage = ({ id }) => {
                 setInlogMessage(data);
                 console.log(data)
             })
-    }
+    };
 
     
     const loginSuccess = (loginResponse) => {
@@ -39,7 +39,7 @@ export const UserPage = ({ id }) => {
     };
     if (!accessToken) {
         return <></>;
-    }
+    };
 
     const logout = () => {
         dispatch(user.actions.logout())
@@ -47,7 +47,7 @@ export const UserPage = ({ id }) => {
             statusMessage: 'No user logged in'
         }))
         history.push(`/`);
-    }
+    };
 
     return (
         <UserPageContainer>
@@ -56,4 +56,4 @@ export const UserPage = ({ id }) => {
             <Button title='Sign Out' onClickFunc={logout}></Button>
         </UserPageContainer>
     )
-}
+};

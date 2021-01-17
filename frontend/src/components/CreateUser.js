@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { user } from '../reducer/user';
-
 import { Button } from '../lib/Button';
 import InputField from '../lib/InputField';
 import { CreateUserContainer, Register, Title } from '../lib/CreateUserStyle';
@@ -13,14 +11,13 @@ const SIGNUP_URL = 'https://auth-project-api.herokuapp.com/users';
 const CreateUser = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
   const dispatch = useDispatch();
   const userName = useSelector((store) => store.user.login.userName);
 
   const handleSignUpSuccess = (data) => {
     console.log(data.name);
     dispatch(user.actions.setUserName(data.name));
-  }
+  };
 
   const handleSignup = (event) => {
     event.preventDefault();
@@ -37,6 +34,7 @@ const CreateUser = () => {
     setName('');
     setPassword('');
   }
+  
   return (
     <CreateUserContainer>
       {userName && <p>{userName}</p>}
@@ -67,6 +65,6 @@ const CreateUser = () => {
 
     </CreateUserContainer>
   )
-}
+};
 
 export default CreateUser;
