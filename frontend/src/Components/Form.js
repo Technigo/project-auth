@@ -9,7 +9,7 @@ import {
   Wrapper,
   FormParagraph,
   HR,
-  SecretParagraph,
+  P,
   ErrorText,
   SecretText,
 } from "styles/Styles";
