@@ -24,7 +24,9 @@ export const SignUpForm = ({ URL }) => {
   };
 
   const handleSignupFailed = (signupError) => {
-    dispatch(user.actions.setStatusMessage({ statusMessage: signupError }));
+    dispatch(
+      user.actions.setStatusMessage({ statusMessage: signupError.message })
+    );
   };
 
   // To sign up a user.
@@ -39,7 +41,7 @@ export const SignUpForm = ({ URL }) => {
       })
         .then((res) => {
           if (!res.ok) {
-            throw "Signup Failed";
+            throw new Error("Signup Failed");
           }
           return res.json();
         })

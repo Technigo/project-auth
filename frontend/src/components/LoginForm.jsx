@@ -23,7 +23,9 @@ export const LoginForm = ({ URL }) => {
 
   const handleLoginFailed = (loginError) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
+    dispatch(
+      user.actions.setStatusMessage({ statusMessage: loginError.message })
+    );
   };
 
   // To sign up a user.
@@ -37,7 +39,7 @@ export const LoginForm = ({ URL }) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw "Login Failed";
+          throw new Error("Login Failed");
         }
         return res.json();
       })

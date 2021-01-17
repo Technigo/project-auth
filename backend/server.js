@@ -28,7 +28,6 @@ const userSchema = new mongoose.Schema({
   },
   accessToken: {
     type: String,
-    // default: () => crypto.randomBytes(128).toString("hex"),
     unique: true,
   },
 });
@@ -102,22 +101,18 @@ app.post("/users/logout", async (req, res) => {
   }
 });
 
-// Logout
-// const authenticateUser = async (req, res, next) => {
-//   const user = await User.findOne({ accessToken: req.header("Authorization") });
-//   if (user) {
-//     req.user = user;
-//     next();
-//   } else {
-//     res.status(401).json({ loggedOut: true });
-//   }
-// };
-
-// Start defining your routes here
-
-// app.get("/", (req, res) => {
-// res.send("Hello world");
-// });
+// Logout -> SAVING AS REF.
+/*
+const authenticateUser = async (req, res, next) => {
+  const user = await User.findOne({ accessToken: req.header("Authorization") });
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    res.status(401).json({ loggedOut: true });
+  }
+};
+*/
 
 // Login
 app.post("/sessions", async (req, res) => {
@@ -141,18 +136,7 @@ app.post("/sessions", async (req, res) => {
   }
 });
 
-// app.get("/secret", authenticateUser);
-// app.get("/secret", async (req, res) => {
-//   const secretMessage = `This is a secret message for ${req.user.name}`;
-//   res.status(200).json({ secretMessage });
-// });
-
-// Get user specific information
-// app.get("/users/:id", async (req, res) => {
-//   res.status(501).send();
-// });
-
-// Saving for final projectn (why doesn't this work?)
+// -> SAVING AS REF. (why doesn't this work?)
 /*
 app.get("/users/:id/profile", authenticateUser);
 app.get("/users/:id/profile", async (req, res) => {

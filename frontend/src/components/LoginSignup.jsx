@@ -7,8 +7,7 @@ import { Status } from "./Status";
 
 import { SecondaryButton } from "../lib/SecondaryButton";
 
-export const LoginSignup = () => {
-  const URL = "http://localhost:8080";
+export const LoginSignup = ({ URL }) => {
   const accessToken = useSelector((store) => store.user.login.accessToken);
 
   const [showSignup, setShowSignup] = useState(false);

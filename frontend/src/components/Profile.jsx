@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { user } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -7,7 +7,6 @@ export const Profile = ({ URL }) => {
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const userId = useSelector((store) => store.user.login.userId);
   const name = useSelector((store) => store.user.login.name);
-  const statusMessage = useSelector((store) => store.user.login.statusMessage);
 
   const LOGOUT_URL = `${URL}/users/logout`;
   const SECRET_URL = `${URL}/users/${userId}/secret`; //users/:id/secret
@@ -22,7 +21,9 @@ export const Profile = ({ URL }) => {
 
   const loginFailed = (loginError) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
+    dispatch(
+      user.actions.setStatusMessage({ statusMessage: loginError.message })
+    );
   };
 
   const logoutSuccess = () => {
@@ -37,7 +38,7 @@ export const Profile = ({ URL }) => {
   const logoutFailed = (logoutError) => {
     dispatch(
       user.actions.setStatusMessage({
-        statusMessage: logoutError,
+        statusMessage: logoutError.message,
       })
     );
   };
@@ -51,7 +52,7 @@ export const Profile = ({ URL }) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw "Failed to logout";
+          throw new Error("Failed to logout");
         }
         return res.json();
       })
@@ -69,7 +70,7 @@ export const Profile = ({ URL }) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw "Profile test failed";
+          throw new Error("Profile test failed");
         }
         return res.json();
       })
