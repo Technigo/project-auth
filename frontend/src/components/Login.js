@@ -27,7 +27,6 @@ export const Login = () => {
       .then(res => res.json())
       .then(json => {
         setStatus(json.message)
-        console.log(json)
       })
       .catch(err => console.log('error:', err))
   }
