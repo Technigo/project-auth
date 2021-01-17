@@ -22,3 +22,5 @@ One of the challenges during the project was to make sure the name and password 
 - Frontend: https://modest-hamilton-9de3b4.netlify.app/
 
 - Backend: https://project-auth-joel-cornelia.herokuapp.com/
+
+This is a pair programming project made by Cornelia Ryås and Joel Harde
