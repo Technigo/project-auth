@@ -29,7 +29,7 @@ export const user = createSlice({
             store.login.userName = userName;
         },
         setStatusMessage: (store, action) => {
-            const { statusMessage } = action.payload;
+            const statusMessage = action.payload;
             console.log(`Status message: ${statusMessage}`)
             store.login.statusMessage = statusMessage;
         },

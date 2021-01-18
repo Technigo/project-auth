@@ -4,8 +4,7 @@ import { user } from '../reducer/user';
 import { Button } from '../lib/Button';
 import InputField from '../lib/InputField';
 import { CreateUserContainer, Register, Title } from '../lib/CreateUserStyle';
-import InputField from '../lib/InputField';
-import { Button } from '../lib/Button';
+import { UserStatus } from './UserStatus';
 
 
 const SIGNUP_URL = 'https://auth-project-api.herokuapp.com/users';
@@ -19,7 +18,7 @@ export const CreateUser = () => {
   const handleSignUpSuccess = (signupResponse) => {
     dispatch(user.actions.setAccessToken(signupResponse.accessToken));
     dispatch(user.actions.setUserId(signupResponse.userId));
-    dispatch(user.actions.setUserName(signupResponse.name));
+    dispatch(user.actions.setUserName(signupResponse.userName));
     dispatch(user.actions.setStatusMessage("Your user has been created, please log in to continue"));
   };
 
@@ -42,10 +41,12 @@ export const CreateUser = () => {
         if (!res.ok) {
           throw 'Sign-up failed, please try again';
         }
-          res.json();
+        return res.json();
       })
       .then(data => handleSignUpSuccess(data))
-      .catch(err => handleSignupFailed(err));
+      .catch(err => {
+        handleSignupFailed(err)
+      });
   }
   
   return (
