@@ -28,8 +28,6 @@ export const App = () => {
             "Please try another username."
           );
         } else {
-          console.log(name)
-          console.log(password)
           return res.json();
         }
       })
