@@ -41,7 +41,6 @@ export const LoginForm = ( ) => {
     })
       .then(res => {
         if (!res.ok) {
-          // throw 'Login failed, please try again';
           throw new Error("Sign-up failed, please try again")
         }
         return res.json();

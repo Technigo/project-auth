@@ -19,6 +19,7 @@ This was a pair programming project where created an API with authentication to 
 
 ## View it live
 Frontend:
+https://user-auth-project.netlify.app/
 
 Backend:
 https://auth-project-api.herokuapp.com

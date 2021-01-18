@@ -41,7 +41,6 @@ export const CreateUser = () => {
     })
       .then(res => {
         if (!res.ok) {
-          // throw 'Sign-up failed, please try again';
           throw new Error("Sign-up failed, please try again")
         }
         return res.json();
