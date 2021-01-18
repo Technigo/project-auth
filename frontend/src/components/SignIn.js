@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { user } from "../reducers/user";
 
 const SIGNUP_URL = "https://authentication-sandra-sofia.herokuapp.com/users";
@@ -66,7 +67,7 @@ export const SignIn = () => {
 
   const handleLogout = (loggingout) => { 
     dispatch(user.actions.logout({ logout: loggingout }));
-    window.location.reload()
+    window.location.reload();
   };
 
   if(accessToken) {
@@ -86,7 +87,7 @@ export const SignIn = () => {
           Name
           <input
             required
-            minLength="5"
+            minLength="3"
             value={name}
             onChange={(event) => setName(event.target.value)}
           />
@@ -96,7 +97,6 @@ export const SignIn = () => {
           <input
             type="password"
             required
-            minLength="5"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
