@@ -16,6 +16,7 @@ export const App = () => {
 
   const signupUser = (event) => {
     event.preventDefault();
+    setErrorMessage("")
     fetch(SIGNUP_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -27,6 +28,8 @@ export const App = () => {
             "Please try another username."
           );
         } else {
+          console.log(name)
+          console.log(password)
           return res.json();
         }
       })
@@ -44,6 +47,7 @@ export const App = () => {
 
   const loginUser = (event) => {
     event.preventDefault();
+    setErrorMessage("")
     fetch(LOGIN_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
