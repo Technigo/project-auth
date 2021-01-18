@@ -15,11 +15,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
+    minlength: 5,
   },
   password: {
     type: String,
     required: true,
-    minLength: 5,
+    minlength: 5,
   },
   accessToken: {
     type: String,
@@ -54,9 +55,9 @@ const authenticateUser = async (req, res, next) => {
     }
     req.user = user;
     next();
-  } catch (err) {
+  } catch (error) {
     const errorMessage = 'Please try logging in again';
-    res.status(401).json({ error: errorMessage });
+    res.status(401).json({ error: errorMessage, error });
   }
 };
 
@@ -83,8 +84,8 @@ app.post('/users', async (req, res) => {
       password,
     }).save();
     res.status(200).json({ userId: user._id, accessToken: user.accessToken, name: name, statusMessage: "You're signed up!" });
-  } catch (err) {
-    res.status(400).json({ statusMessage: 'Could not create user', errors: err });
+  } catch (error) {
+    res.status(400).json({ statusMessage: "Could not create user", error });
   }
 });
 
@@ -105,8 +106,8 @@ app.post('/sessions', async (req, res) => {
     } else {
       throw 'User not found';
     }
-  } catch (err) {
-    res.status(404).json({ statusMessage: 'User not found' });
+  } catch (error) {
+    res.status(404).json({ statusMessage: "User not found", error });
   }
 });
 
