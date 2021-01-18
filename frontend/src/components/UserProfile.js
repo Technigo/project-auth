@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Status } from "./Status";
 import { user } from "../reducers/user";
 
-const SECRET_URL = "http://localhost:8080/secret";
+const SECRET_URL = "https://project-signup.herokuapp.com/secret";
+//"http://localhost:8080/secret";
 
 export const UserProfile = () => {
   //Using the useState, secretPage, to help naviagate to the Status component if the user presses the Secret info button. This calls the testSecret function which changes the state from false to true.
