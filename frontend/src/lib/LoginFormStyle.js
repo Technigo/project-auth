@@ -11,11 +11,14 @@ flex-direction: column;
 align-items: center;
 box-shadow: -5px 5px 5px grey;
 
-@media (min-width: 667px) {
+  @media (min-width: 667px) {
+    height: auto;
+  }
+
+  @media (min-width: 1024px) {
     width: 35%;
     border-radius: 20px 0 0 20px;
-    height: auto;
-}
+  }
 `;
 
 export const Title = styled.h1`

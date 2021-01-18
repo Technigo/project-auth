@@ -7,8 +7,12 @@ justify-content: center;
 align-items: center;
 background: #F9E9FA;
 
-@media (min-width: 667px) {
-  flex-direction: row;
-  height: 100vh;
-}
+  @media (min-width: 667px) {
+
+  }
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    height: 100vh;    
+  }
 `;

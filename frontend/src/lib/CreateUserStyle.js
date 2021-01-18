@@ -10,9 +10,12 @@ export const CreateUserContainer = styled.div`
   box-shadow: 5px 5px 5px grey;
 
   @media (min-width: 667px) {
-      width: 35%;
-      border-radius: 0 20px 20px 0;
-      height: auto;
+    height: auto;
+  }
+
+  @media (min-width: 1024px) {
+    width: 35%;
+    border-radius: 0 20px 20px 0;
   }
 `;
 
