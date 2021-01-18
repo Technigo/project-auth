@@ -20,6 +20,8 @@ export const CreateUser = () => {
     dispatch(user.actions.setUserId(signupResponse.userId));
     dispatch(user.actions.setUserName(signupResponse.userName));
     dispatch(user.actions.setStatusMessage("Your user has been created, please log in to continue"));
+    setName('');
+    setPassword('');
   };
 
   const handleSignupFailed = (signupError) => {
