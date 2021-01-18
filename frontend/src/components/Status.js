@@ -27,7 +27,7 @@ export const Status = ({ setSecretPage }) => {
       <section className="status">
         <h1>Welcome {userName}!</h1>
         <span className="material-icons">account_circle</span>
-        <p>{`${statusMessage}`}</p>
+        <p>{statusMessage}</p>
         <button type="submit" onClick={handleLogout}>
           Logout
         </button>

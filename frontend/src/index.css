@@ -73,6 +73,10 @@ input:invalid {
   border-bottom: 3px solid #f77676;
 }
 
+.user-message {
+  color: #f55e5e;
+}
+
 /* UserProfile page */
 p {
   font-size: 20px;

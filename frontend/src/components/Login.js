@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { user } from "../reducers/user";
 
-const SIGNUP_URL = "https://project-signup.herokuapp.com/users";
-//"http://localhost:8080/users"
-const LOGIN_URL = "https://project-signup.herokuapp.com/sessions";
-//"http://localhost:8080/sessions"
+const SIGNUP_URL = " http://localhost:8080/users";
+const LOGIN_URL = "http://localhost:8080/sessions";
 
 export const Login = () => {
   const dispatch = useDispatch();
   //Using useSelector to access data from the redux store
   const accessToken = useSelector((store) => store.user.login.accessToken);
-  const loggedOutMessage = useSelector((store) => store.user.login.statusMessage);
+  const messageToUser = useSelector((store) => store.user.login.statusMessage);
 
   // useState is used to store the name and password entered by the user in the form
   const [name, setName] = useState("");
@@ -31,10 +29,13 @@ export const Login = () => {
   };
 
   // If the fetch wasn't successful, because the user didn't give valid name or password when signing up or a when logging in the data sent didn't match was is stored in the database for that user e.g. name and password, then the access token is set to null and status message is that's returned in the json is sent to the redux store 
-  const handleLoginFailed = (loginError) => {
+  const handleLoginFailed = (error) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError.statusMessage }));
+    dispatch(user.actions.setStatusMessage({ statusMessage: error.toString() }))
+    ;
   };
+
+// Want to know the difference between the throw error message in the fetch and the error message we define in the endpoint in server.js. Is the one in the endpoint only for the backend, and the throw the one we should show in the frontend?
 
   /* Handle sign up:
   1. prevents the page from refreshing after the form is submitted.
@@ -106,6 +107,7 @@ export const Login = () => {
         <input
           required
           minLength="5"
+          maxLength="20"
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
@@ -115,6 +117,7 @@ export const Login = () => {
           placeholder="Min length 5 characters"
           required
           minLength="5"
+          maxLength="20"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
@@ -126,7 +129,7 @@ export const Login = () => {
             Login
           </button>
         </div>
-        {!accessToken && <p>{loggedOutMessage}</p>}
+        {!accessToken && <p className="user-message">{messageToUser}</p>}
       </form>
     </section>
   );
