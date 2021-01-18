@@ -11,9 +11,9 @@ const SIGNUP_URL = 'https://auth-project-api.herokuapp.com/users';
 
 export const CreateUser = () => {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState(""); 
-  const [signupMessage, setSignupMessage] = useState("");
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState(''); 
+  const [signupMessage, setSignupMessage] = useState('');
 
   const handleSignUpSuccess = (signupResponse) => {
     dispatch(user.actions.setAccessToken(signupResponse.accessToken));
@@ -26,7 +26,7 @@ export const CreateUser = () => {
 
   const handleSignupFailed = (signupError) => {
     dispatch(user.actions.setAccessToken(null));
-    dispatch(user.actions.setStatusMessage({ statusMessage: signupError }));
+    setSignupMessage(signupError.message);
     setName('');
     setPassword('');
   }
@@ -41,7 +41,7 @@ export const CreateUser = () => {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error("Sign-up failed, please try again")
+          throw new Error('Sign-up failed, please try again')
         }
         return res.json();
       })
@@ -53,35 +53,34 @@ export const CreateUser = () => {
   
   return (
     <CreateUserContainer>
-        <Register key={2}>
+      <Register key={2}>
         <Title>Create account</Title>
         <p>{signupMessage}</p>
-          <InputField
-            required
-            title='Username'
-            htmlFor='name'
-            id='name'
-            value={name}
-            aria-label='Write your username here'
-            type='text'
-            onChange={setName}
-          />
-          <InputField
-            required
-            title='Password'
-            htmlFor='password'
-            id='password'
-            value={password}
-            aria-label='Write your password here'
-            type='password'
-            onChange={setPassword}
-          />
-          <Button
-            title='Sign Up'
-            onClickFunc={handleSignup} />
-        </Register>
+        <InputField
+          required
+          title='Username'
+          htmlFor='name'
+          id='name'
+          value={name}
+          aria-label='Write your username here'
+          type='text'
+          onChange={setName}
+        />
+        <InputField
+          required
+          title='Password'
+          htmlFor='password'
+          id='password'
+          value={password}
+          aria-label='Write your password here'
+          type='password'
+          onChange={setPassword}
+        />
+        <Button
+          title='Sign Up'
+          onClickFunc={handleSignup} />
+      </Register>
     </CreateUserContainer>
   )
 };
 
-export default CreateUser;

@@ -13,7 +13,7 @@ export const user = createSlice({
     name: "user",
     initialState,
     reducers: {
-      setAccessToken: (store, action) => {
+        setAccessToken: (store, action) => {
             const accessToken = action.payload;
             store.login.accessToken = accessToken;
         },

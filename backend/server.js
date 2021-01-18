@@ -55,7 +55,6 @@ const authenticateUser = async (req, res, next) => {
     next();
   } catch (err) {
     const errorMessage = 'Please try logging in again';
-    console.log(errorMessage);
     res.status(401).json({error: errorMessage})
   }
 }

@@ -16,6 +16,8 @@ export const CreateUserContainer = styled.div`
   @media (min-width: 1024px) {
     width: 35%;
     border-radius: 0 20px 20px 0;
+    max-width: 500px;
+    height: 600px;
   }
 `;
 

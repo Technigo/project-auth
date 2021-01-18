@@ -18,6 +18,8 @@ box-shadow: -5px 5px 5px grey;
   @media (min-width: 1024px) {
     width: 35%;
     border-radius: 20px 0 0 20px;
+    max-width: 500px;
+    height: 600px;
   }
 `;
 

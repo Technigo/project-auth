@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { user } from '../reducer/user';
-import { LoginContainer, Title, Login } from '../lib/LoginFormStyle';
+import { LoginContainer, Title, Login, LoginErrorMessage } from '../lib/LoginFormStyle';
 import { Button } from '../lib/Button';
 import InputField from '../lib/InputField';
 
@@ -26,7 +26,7 @@ export const LoginForm = ( ) => {
 
   const handleLoginFailed = (loginError) => {
     dispatch(user.actions.setAccessToken(null));
-    dispatch(user.actions.setStatusMessage(loginError));
+    dispatch(user.actions.setStatusMessage(loginError.message));
     setName('');
     setPassword('');
    };
@@ -41,7 +41,7 @@ export const LoginForm = ( ) => {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error("Sign-up failed, please try again")
+          throw new Error("Sign-in failed, please try again")
         }
         return res.json();
       })
@@ -53,7 +53,7 @@ export const LoginForm = ( ) => {
       <LoginContainer>
         <Login key={2}>
           <Title>LOGIN</Title>
-          <p>{status}</p>
+          <LoginErrorMessage>{status}</LoginErrorMessage>
           <InputField
             required
             title='Username'
