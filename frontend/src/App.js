@@ -8,7 +8,6 @@ import { LoginForm } from './components/LoginForm';
 import { CreateUser } from './components/CreateUser';
 import { UserPage } from './components/UserPage';
 import { Container } from './lib/Container';
-import { UserStatus } from 'components/UserStatus';
 
 const reducer = combineReducers({ 
   user: user.reducer,

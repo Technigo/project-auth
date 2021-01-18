@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { user } from '../reducer/user';
@@ -7,21 +7,16 @@ import { Button } from '../lib/Button';
 
 
 export const UserPage = ({ id }) => {
-    const [secretMessage, setSecretMessage] = useState("");
     const dispatch = useDispatch();
     const history = useHistory();
     const myUser = useSelector(store => store.user.login.userName);
     const statusMessage = useSelector(store => store.user.login.statusMessage);
     const accessToken = useSelector(store => store.user.login.accessToken);
     const userId = useSelector(store => store.user.login.userId);
-    console.log('userID from Userpage' + userId)
 
-    // useEffect(() => {
-    //     getUserInfo();
-    // }, [userId]); 
 
     const loginSuccessful = (loginResponse) => {
-        dispatch(user.actions.setStatusMessage({ statusMessage: loginResponse.secretMessage}))
+        dispatch(user.actions.setStatusMessage(loginResponse.secretMessage))
     };
 
     const getUserInfo = (userId) => {
@@ -32,26 +27,23 @@ export const UserPage = ({ id }) => {
             .then(res => res.json())
             .then(data => {
                 loginSuccessful(data);
-                console.log(data)
             })
     };
 
     
-    const loginSuccess = (loginResponse) => {
-        dispatch(user.actions.setStatusMessage({
-            statusMessage: loginResponse.statusMessage
-        })
-      );
-    };
-    if (!accessToken) {
-        return <></>;
-    };
+    // const loginSuccess = (loginResponse) => {
+    //     dispatch(user.actions.setStatusMessage({
+    //         statusMessage: loginResponse.statusMessage
+    //     })
+    //   );
+    // };
+    // if (!accessToken) {
+    //     return <></>;
+    // };
 
     const logout = () => {
         dispatch(user.actions.logout())
-        dispatch(user.actions.setStatusMessage({
-            statusMessage: 'No user logged in'
-        }))
+        dispatch(user.actions.setStatusMessage('No user logged in'))
         history.push(`/`);
     };
 

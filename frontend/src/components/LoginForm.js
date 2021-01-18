@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { user } from '../reducer/user';
-import { UserStatus } from './UserStatus';
 import { LoginContainer, Title, Login } from '../lib/LoginFormStyle';
 import { Button } from '../lib/Button';
 import InputField from '../lib/InputField';
@@ -21,13 +20,13 @@ export const LoginForm = ( ) => {
     dispatch(user.actions.setAccessToken(loginResponse.accessToken));
     dispatch(user.actions.setUserId(loginResponse.userId));
     dispatch(user.actions.setUserName(loginResponse.userName));
-    dispatch(user.actions.setStatusMessage({ statusMessage: 'You are logged in, welcome.' }));
+    dispatch(user.actions.setStatusMessage('You are logged in, welcome.'));
     history.push(`/${loginResponse.userId}/user`);
   };
 
   const handleLoginFailed = (loginError) => {
-    dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
+    dispatch(user.actions.setAccessToken(null));
+    dispatch(user.actions.setStatusMessage(loginError));
     setName('');
     setPassword('');
    };
@@ -76,7 +75,6 @@ export const LoginForm = ( ) => {
             onChange={setPassword}
           />
           <Button title='Sign In' onClickFunc={handleLogin} />
-          <UserStatus />
         </Login>
       </LoginContainer>
     )

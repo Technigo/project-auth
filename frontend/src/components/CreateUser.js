@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
 import { user } from '../reducer/user';
 import { Button } from '../lib/Button';
 import InputField from '../lib/InputField';
 import { CreateUserContainer, Register, Title } from '../lib/CreateUserStyle';
-import { UserStatus } from './UserStatus';
 
 
 const SIGNUP_URL = 'https://auth-project-api.herokuapp.com/users';
@@ -19,7 +19,7 @@ export const CreateUser = () => {
     dispatch(user.actions.setAccessToken(signupResponse.accessToken));
     dispatch(user.actions.setUserId(signupResponse.userId));
     dispatch(user.actions.setUserName(signupResponse.userName));
-    dispatch(user.actions.setStatusMessage("Your user has been created, please log in to continue"));
+    setSignupMessage('Your user has been created, please log in to continue')
     setName('');
     setPassword('');
   };
@@ -54,7 +54,8 @@ export const CreateUser = () => {
   return (
     <CreateUserContainer>
         <Register key={2}>
-          <Title>Create account</Title>
+        <Title>Create account</Title>
+        <p>{signupMessage}</p>
           <InputField
             required
             title='Username'
@@ -78,7 +79,6 @@ export const CreateUser = () => {
           <Button
             title='Sign Up'
             onClickFunc={handleSignup} />
-          <UserStatus />
         </Register>
     </CreateUserContainer>
   )
