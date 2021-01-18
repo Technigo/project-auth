@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 
 export const CreateUserContainer = styled.div`
-  border-radius: 0 20px 20px 0;
-  width: 35%;
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: white;
   box-shadow: 5px 5px 5px grey;
+
+  @media (min-width: 667px) {
+      width: 35%;
+      border-radius: 0 20px 20px 0;
+      height: auto;
+  }
 `;
 
 export const Register = styled.form`

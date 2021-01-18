@@ -2,14 +2,20 @@ import styled from 'styled-components';
 import img from '../assets/purple.jpg';
 
 export const LoginContainer = styled.div`
-width: 35%;
-border-radius: 20px 0 0 20px;
+width: 100%;
+height: 100vh;
 background-image: url(${img});
 background-size: cover;
 display: flex;
 flex-direction: column;
 align-items: center;
 box-shadow: -5px 5px 5px grey;
+
+@media (min-width: 667px) {
+    width: 35%;
+    border-radius: 20px 0 0 20px;
+    height: auto;
+}
 `;
 
 export const Title = styled.h1`
