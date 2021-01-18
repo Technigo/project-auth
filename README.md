@@ -9,5 +9,6 @@ We had some troubles connecting backend to frontend.
 
 ## View it live
 
-https://epic-liskov-82545e.netlify.app/
-https://project-auth-cla-ellen.herokuapp.com/
+- https://epic-liskov-82545e.netlify.app/
+
+- https://project-auth-cla-ellen.herokuapp.com/
