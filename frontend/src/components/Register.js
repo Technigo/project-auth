@@ -31,7 +31,7 @@ export const Register = () => {
   const handleSignup = (event, name, password) => {
     event.preventDefault()
 
-    fetch('https://auth-sara-amanda.netlify.app/users', {
+    fetch('https://project-auth-sara-amanda.herokuapp.com/users', {
       method: 'POST',
       body: JSON.stringify({ name, password }),
       headers: { 'Content-Type': 'application/json' },

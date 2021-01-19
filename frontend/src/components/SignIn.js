@@ -22,7 +22,7 @@ export const SignIn = () => {
   const handleLogin = (event, name, password) => {
     event.preventDefault()
 
-    fetch('https://auth-sara-amanda.netlify.app/sessions', {
+    fetch('https://project-auth-sara-amanda.herokuapp.com/sessions', {
       method: 'POST',
       body: JSON.stringify({ name, password }),
       headers: { 'Content-Type': 'application/json' }

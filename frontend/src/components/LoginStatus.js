@@ -52,7 +52,7 @@ export const LoginStatus = () => {
   }
 
   const fetchSecret = () => {
-    fetch('https://auth-sara-amanda.netlify.app/secret', {
+    fetch('https://project-auth-sara-amanda.herokuapp.com/secret', {
       method: 'GET',
       headers:
       {
