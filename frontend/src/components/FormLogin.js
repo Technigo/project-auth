@@ -8,7 +8,9 @@ import { Profile } from './Profile.js';
 export const FormLogin = () => {
 	const dispatch = useDispatch();
 	const statusMessage = useSelector((store) => store.user.login.statusMessage);
+
 	const LOGIN_URL = 'https://nadlillmar.herokuapp.com/sessions';
+
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
 	const [displayLoggedIn, setDisplayLoggedIn] = useState(false);
