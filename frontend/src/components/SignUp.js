@@ -26,7 +26,7 @@ export const SignUp = ({ signUp, signUpStatus }) => {
 		};
 		if (checkPasswordMatch()) {
 			signUp(user);
-		} else console.log("passwords don't match");
+		}
 	};
 
 	return (

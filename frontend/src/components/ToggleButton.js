@@ -2,7 +2,6 @@ import React from "react";
 
 export const ToggleButton = ({ mode, setModeinApp }) => {
 	const handleClick = () => {
-		console.log("clickButton");
 		if (mode === "signUp") {
 			setModeinApp("signIn");
 		}
