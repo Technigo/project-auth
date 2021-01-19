@@ -8,10 +8,13 @@ export const Profile = () => {
 	const dispatch = useDispatch();
 	const accessToken = useSelector((store) => store.user.login.accessToken);
 	const userId = useSelector((store) => store.user.login.userId);
+	const secretMessage = useSelector((store) => store.user.login.secretMessage);
+	const statusMessage = useSelector((store) => store.user.login.statusMessage);
 
 	const SECURE_URL = `https://nadlillmar.herokuapp.com/users/${userId}`;
 
 	const loginSuccess = (loginResponse) => {
+		const secretMessage = JSON.stringify(loginResponse);
 		dispatch(
 			user.actions.setStatusMessage({
 				statusMessage: loginResponse.secretMessage,
@@ -20,7 +23,7 @@ export const Profile = () => {
 	};
 
 	const loginFailed = (loginError) => {
-		//dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
+		dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
 	};
 
 	const handleLogout = () => {
@@ -51,8 +54,9 @@ export const Profile = () => {
 		<div>
 			<h2>userId: {`${userId}`}</h2>
 			<Button onClick={showSecret}>test secret</Button>
-			You are logged in! <Button onClick={handleLogout}>Logout</Button>
-			<p>{}</p>
+			You are logged in!
+			<Button onClick={handleLogout}>Logout</Button>
+			<p>{secretMessage}</p>
 		</div>
 	);
 };

@@ -20,6 +20,7 @@ export const FormLogin = () => {
 		const statusMessage = JSON.stringify(loginResponse);
 		//?for debugging
 		dispatch(user.actions.setStatusMessage({ statusMessage }));
+		console.log(`Statusmessage ${statusMessage}`);
 
 		//?save login info
 		dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
@@ -28,13 +29,14 @@ export const FormLogin = () => {
 			user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
 		);
 
-		dispatch(user.actions.toggledLoggedState(true));
+		// dispatch(user.actions.toggledLoggedState(true));
 
 		setDisplayLoggedIn(true);
 		setDisplayError(false);
 	};
 
 	const handleLoginFailed = (loginError) => {
+		const statusMessage = JSON.stringify(loginError);
 		dispatch(user.actions.setStatusMessage({ statusMessage: 'Login failed' }));
 		setDisplayError(true);
 	};
@@ -62,7 +64,7 @@ export const FormLogin = () => {
 			{!displayLoggedIn && (
 				<Form onSubmit={submitLogin}>
 					<h1>Login </h1>
-					<Label>
+					<label>
 						Username:
 						<input
 							type="text"
@@ -73,9 +75,9 @@ export const FormLogin = () => {
 							minLength="5"
 							maxLength="30"
 						/>
-					</Label>
+					</label>
 
-					<Label>
+					<label>
 						Password:
 						<input
 							type="password"
@@ -85,13 +87,12 @@ export const FormLogin = () => {
 							required
 							minLength="5"
 						/>
-					</Label>
+					</label>
 					{displayError && <div>{`Errormessage: ${statusMessage}`}</div>}
 					<Button type="submit">Login</Button>
 				</Form>
 			)}
 
-			
 			{displayLoggedIn && <Profile />}
 		</Container>
 	);
