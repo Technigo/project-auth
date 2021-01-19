@@ -31,7 +31,7 @@ export const Register = () => {
   const handleSignup = (event, name, password) => {
     event.preventDefault()
 
-    fetch('http://localhost:8080/users', {
+    fetch('https://auth-sara-amanda.netlify.app/users', {
       method: 'POST',
       body: JSON.stringify({ name, password }),
       headers: { 'Content-Type': 'application/json' },

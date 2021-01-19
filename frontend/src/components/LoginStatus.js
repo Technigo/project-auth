@@ -52,7 +52,7 @@ export const LoginStatus = () => {
   }
 
   const fetchSecret = () => {
-    fetch('http://localhost:8080/secret', {
+    fetch('https://auth-sara-amanda.netlify.app/secret', {
       method: 'GET',
       headers:
       {
