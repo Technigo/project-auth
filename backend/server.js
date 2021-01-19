@@ -120,7 +120,10 @@ app.get('/users/:id', (req, res) => {
 app.post('/sessions', async (req, res) => {
   try {
     const { name, password } = req.body;
+    console.log(`User :${user}`)
     const user = await User.findOne({ name });
+    console.log(`accessToken: ${user.accessToken}`)
+    console.log(`user_id :${user._id}`)
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({ userId: user._id, accessToken: user.accessToken });
     } else {
