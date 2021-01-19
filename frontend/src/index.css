@@ -149,18 +149,3 @@ input::placeholder {
 	font-weight: 700;
 	color: #dcc697;
 }
-
-/* MEDIA QUERIES */
-
-/* @media (max-width: 768px) {
-	h2 {
-    width: 280px;	
-  }
-  p {
-    width: 280px;
-  }
-
-  form {
-    width: 290px;
-  }
-} */
