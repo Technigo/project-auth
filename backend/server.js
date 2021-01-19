@@ -2,8 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
-import crypto from "crypto";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -24,8 +24,8 @@ const userSchema = new mongoose.Schema({
 	},
 	password: {
 		type: String,
-		required: true,
-		minlength: 5,
+		required: [true, "Password is required"],
+		minlength: [5, "Password must be at least 5 characters"],
 	},
 	accessToken: {
 		type: String,
@@ -34,7 +34,8 @@ const userSchema = new mongoose.Schema({
 	},
 });
 
-userSchema.pre("validate", async function (next) {
+// Middleware to hash password before new user is saved
+userSchema.pre("save", async function (next) {
 	const user = this;
 
 	if (!user.isModified("password")) {
@@ -42,11 +43,7 @@ userSchema.pre("validate", async function (next) {
 	}
 
 	const salt = bcrypt.genSaltSync();
-	console.log(`PRE- password before hash: ${user.password}`);
 	user.password = bcrypt.hashSync(user.password, salt);
-	console.log(`PRE- password after  hash: ${user.password}`);
-
-	// Continue with the save
 	next();
 });
 
