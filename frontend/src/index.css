@@ -57,3 +57,7 @@ button:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
+
+.error {
+  margin-top: 20px;
+}

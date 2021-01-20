@@ -5,7 +5,6 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { LogInForm } from './components/LogInForm'
 import { user } from './reducers/user'
 
-
 const reducer = combineReducers({ user: user.reducer})
 const store = configureStore({ reducer })
 
