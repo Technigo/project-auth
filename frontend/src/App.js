@@ -267,10 +267,6 @@ const Button = styled.button`
   font-size: 18px;
   text-transform: uppercase;
 
-  &:hover {
-    background: #3c4a6b;
-  }
-
   &.signupButton {
     background: #b5bcff;
   }
@@ -278,5 +274,11 @@ const Button = styled.button`
   &.loginButton,
   &.logoutButton {
     background: #188c96;
+  }
+
+  &.signupButton:hover,
+  &.loginButton:hover,
+  &.logoutButton:hover {
+    background: #3c4a6b;
   }
 `;
