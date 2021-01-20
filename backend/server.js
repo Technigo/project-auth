@@ -79,7 +79,7 @@ app.post('/users', async (req, res) => {
 app.get('/secrets', authenticateUser)
 app.get('/secrets', async (req, res) => {
   const secretMessage = `This is a super secret message for ${req.user.name}`
-  res.status(201).json({ secretMessage })
+  res.status(201).json(secretMessage)
 })
 
 app.post('/sessions', async (req, res) => {
