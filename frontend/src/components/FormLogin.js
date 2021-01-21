@@ -8,6 +8,7 @@ import { Profile } from './Profile.js';
 export const FormLogin = () => {
 	const dispatch = useDispatch();
 	const statusMessage = useSelector((store) => store.user.login.statusMessage);
+	const isLoggedIn = useSelector((store) => store.user.login.loggedIn);
 
 	const LOGIN_URL = 'https://nadlillmar.herokuapp.com/sessions';
 
@@ -28,6 +29,8 @@ export const FormLogin = () => {
 		dispatch(
 			user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
 		);
+
+		dispatch(user.actions.toggleLoggedState(true));
 
 		// dispatch(user.actions.toggledLoggedState(true));
 
@@ -57,7 +60,6 @@ export const FormLogin = () => {
 			})
 			.then((json) => handleLoginSuccess(json))
 			.catch((err) => handleLoginFailed(err));
-
 	};
 
 	return (

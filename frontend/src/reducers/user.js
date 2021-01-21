@@ -34,8 +34,10 @@ export const user = createSlice({
 			state.login.secretMessage = secretMessage;
 		},
 		toggleLoggedState: (state, action) => {
+			const isLoggedIn = action.payload;
+			console.log(isLoggedIn);
 			state.login.loggedIn = action.payload;
-			if (state.loggedIn === false) {
+			if (isLoggedIn === false) {
 				state.login.accessToken = null;
 			}
 		},
@@ -43,6 +45,9 @@ export const user = createSlice({
 			console.log('Logging out');
 			state.login.userId = 0;
 			state.login.accessToken = null;
+			state.login.statusMessage = 'Logged out';
+			state.login.secretMessage = '';
+			state.login.loggedIn = false;
 		},
 	},
 });
