@@ -29,7 +29,7 @@ export const FormSignup = () => {
 		<div>
 			<h1>Sign up </h1>
 			<Form OnSubmit={handleSignup}>
-				<Label>
+				<label>
 					Choose username
 					<input
 						required
@@ -40,8 +40,8 @@ export const FormSignup = () => {
 						minlength="5"
 						maxlength="30"
 					/>
-				</Label>
-				<Label>
+				</label>
+				<label>
 					Choose password
 					<input
 						required
@@ -51,8 +51,8 @@ export const FormSignup = () => {
 						onChange={(event) => setPassword(event.target.value)}
 						minlength="5"
 					/>
-				</Label>
-				<Label>
+				</label>
+				<label>
 					Your email
 					<input
 						required
@@ -62,39 +62,12 @@ export const FormSignup = () => {
 						onChange={(event) => setEmail(event.target.value)}
 						minlength="5"
 					/>
-				</Label>
+				</label>
 				<Button type="submit">Create user</Button>
 			</Form>
 		</div>
 	);
 };
-
-const Input = styled.input`
-	background: transparent;
-	width: 200px;
-	padding: 1em;
-	margin-bottom: 2em;
-	border: none;
-	border-left: 1px solid rgba(255, 255, 255, 0.3);
-	border-top: 1px solid rgba(255, 255, 255, 0.3);
-	border-radius: 50px;
-	backdrop-filter: blur(5px);
-	box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
-	color: #fff;
-	font-family: Montserrat, sans-serif;
-	font-weight: 500;
-	transition: all 0.2s ease-in-out;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-	&:hover {
-		background: rgba(144, 238, 144);
-		box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
-	}
-`;
-
-const Label = styled.label`
-	color: grey;
-	font-size: 13px;
-`;
 
 const Button = styled.button`
 	display: block;
@@ -102,22 +75,23 @@ const Button = styled.button`
 	height: 30px;
 	width: 150px;
 	border-radius: 50px;
-	background: ${(props) => props.background || 'transparent;'};
-	border-top-color: transparent;
+	background: transparent;
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
 	font-size: 18px;
 	font-weight: bold;
-	color: ${(props) => props.color || 'grey'};
+	color: grey;
 	&:hover {
-		background: ${(props) => props.hover || 'lightgreen'};
+		background: lightgreen;
 		cursor: pointer;
 	}
 `;
 
 const Form = styled.form`
-	margin: 130px 0 0 0;
+	margin: -10px 0 0 0;
 	background: rgba(255, 255, 255, 0.3);
 	padding: 3em;
-	height: 300px;
+	height: 250px;
+	width: 150px;
 	border-radius: 20px;
 	border-left: 1px solid rgba(255, 255, 255, 0.3);
 	border-top: 1px solid rgba(255, 255, 255, 0.3);

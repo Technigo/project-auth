@@ -102,15 +102,10 @@ export const FormLogin = () => {
 };
 
 const Container = styled.div`
-	display: flex;
+	display: absolute;
 	justify-content: center;
 	align-items: center;
 	margin: 250px;
-`;
-
-const Label = styled.label`
-	color: grey;
-	font-size: 13px;
 `;
 
 const Input = styled.input`
@@ -136,27 +131,28 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
+	display: block;
 	margin: 30px 0;
 	height: 30px;
-	width: 90px;
-	border-radius: 5px;
-	background: ${(props) => props.background || 'transparent;'};
-	border-top-color: transparent;
+	width: 150px;
+	border-radius: 50px;
+	background: transparent;
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
 	font-size: 18px;
 	font-weight: bold;
-	color: ${(props) => props.color || 'grey'};
+	color: grey;
 	&:hover {
-		background: ${(props) => props.hover || 'lightgreen'};
+		background: lightgreen;
 		cursor: pointer;
 	}
 `;
 
-//input should be contained in a form
 const Form = styled.form`
-	margin: 130px 0 0 0;
+	margin: -225px 0 -45px 0;
 	background: rgba(255, 255, 255, 0.3);
 	padding: 3em;
 	height: 300px;
+	width: 150px;
 	border-radius: 20px;
 	border-left: 1px solid rgba(255, 255, 255, 0.3);
 	border-top: 1px solid rgba(255, 255, 255, 0.3);

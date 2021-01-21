@@ -14,10 +14,15 @@ export const Profile = () => {
 	const SECURE_URL = `https://nadlillmar.herokuapp.com/users/${userId}`;
 
 	const loginSuccess = (loginResponse) => {
-		const secretMessage = JSON.stringify(loginResponse);
 		dispatch(
 			user.actions.setStatusMessage({
-				statusMessage: loginResponse.secretMessage,
+				statusMessage: loginResponse.statusMessage,
+			})
+		);
+
+		dispatch(
+			user.actions.setSecretMessage({
+				secretMessage: loginResponse.secretMessage,
 			})
 		);
 	};
@@ -33,7 +38,7 @@ export const Profile = () => {
 	};
 
 	const showSecret = () => {
-		fetch(`${SECURE_URL}`, {
+		fetch(SECURE_URL, {
 			method: 'GET',
 			headers: { Authorization: accessToken },
 		})
@@ -52,28 +57,44 @@ export const Profile = () => {
 	}
 
 	return (
-		<div>
-			<h2>userId: {userId}</h2>
-			<Button onClick={showSecret}>test secret</Button>
+		<Container>
+			<h2>Profile</h2>
 			You are logged in!
-			<Button onClick={handleLogout}>Logout</Button>
+			<p>userId: {`${userId}`}</p>
+			<Button onClick={showSecret}>test secret</Button>
 			<p>{secretMessage}</p>
-		</div>
+			<Button onClick={handleLogout}>Logout</Button>
+		</Container>
 	);
 };
 
+const Container = styled.form`
+	margin: -100px 0 0 0;
+	background: rgba(255, 255, 255, 0.3);
+	padding: 3em;
+	height: 300px;
+	width: 250px;
+	border-radius: 20px;
+	border-left: 1px solid rgba(255, 255, 255, 0.3);
+	border-top: 1px solid rgba(255, 255, 255, 0.3);
+	backdrop-filter: blur(5px);
+	box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
+	text-align: left;
+	position: relative;
+`;
 const Button = styled.button`
-	margin: 30px 0;
+	display: block;
+	margin-top: 10px;
 	height: 30px;
-	width: 90px;
-	border-radius: 5px;
-	background: ${(props) => props.background || 'transparent;'};
-	border-top-color: transparent;
+	width: 150px;
+	border-radius: 50px;
+	background: transparent;
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
 	font-size: 18px;
 	font-weight: bold;
-	color: ${(props) => props.color || 'grey'};
+	color: grey;
 	&:hover {
-		background: ${(props) => props.hover || 'lightgreen'};
+		background: lightgreen;
 		cursor: pointer;
 	}
 `;

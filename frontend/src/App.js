@@ -39,27 +39,28 @@ export const App = () => {
 };
 
 const Container = styled.div`
-	position: absolute;
-	transform: translate(-50%, -50%);
-	top: 50%;
-	left: 50%;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	align-items: center;
 	justify-content: center;
-	border-radius: 10px;
-	padding: 40px 50px 40px 50px;
+	margin: 10px 0 50px 0;
+	background: linear-gradient(45deg, #fc466b, #3f5efb);
 `;
 
 const Button = styled.button`
-	margin: 30px 0;
+	display: block;
+	margin-top: -200px;
 	height: 30px;
-	width: 90px;
-	border-radius: 5px;
-	background: ${(props) => props.background || 'transparent;'};
-	border-top-color: transparent;
+	width: 150px;
+	border-radius: 50px;
+	background: transparent;
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
 	font-size: 18px;
 	font-weight: bold;
-	color: ${(props) => props.color || 'grey'};
+	color: grey;
 	&:hover {
-		background: ${(props) => props.hover || 'lightgreen'};
+		background: lightgreen;
 		cursor: pointer;
 	}
 `;
