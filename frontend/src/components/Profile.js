@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -29,6 +29,7 @@ export const Profile = () => {
 	const handleLogout = () => {
 		dispatch(user.actions.logout);
 		dispatch(user.actions.toggleLoggedState(false));
+		window.location.reload();
 	};
 
 	const showSecret = () => {
@@ -52,7 +53,7 @@ export const Profile = () => {
 
 	return (
 		<div>
-			<h2>userId: {`${userId}`}</h2>
+			<h2>userId: {userId}</h2>
 			<Button onClick={showSecret}>test secret</Button>
 			You are logged in!
 			<Button onClick={handleLogout}>Logout</Button>
