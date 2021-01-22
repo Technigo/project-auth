@@ -8,7 +8,7 @@ import { Profile } from './Profile.js';
 export const FormLogin = () => {
 	const dispatch = useDispatch();
 	const statusMessage = useSelector((store) => store.user.login.statusMessage);
-
+	const isLoggedIn = useSelector((store) => store.user.login.loggedIn);
 	const accessToken = useSelector((store) => store.user.login.accessToken)
 	
 	const SIGNUP_URL = 'https://nadlillmar.herokuapp.com/users';
@@ -16,8 +16,6 @@ export const FormLogin = () => {
 
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
-	//const [email, setEmail] = useState('user@email.com');
-	const [displayLoggedIn, setDisplayLoggedIn] = useState(false);
 	const [displayError, setDisplayError] = useState(false);
 
 	const handleLoginSuccess = (loginResponse) => {
@@ -28,16 +26,10 @@ export const FormLogin = () => {
 
 		//?save login info
 		dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
-
 		dispatch(
 			user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
 		);
-
 		dispatch(user.actions.toggleLoggedState(true));
-
-		// dispatch(user.actions.toggledLoggedState(true));
-
-		setDisplayLoggedIn(true);
 		setDisplayError(false);
 	};
 
@@ -89,12 +81,12 @@ export const FormLogin = () => {
 					<h1>Sign Up/Login</h1>
 					<label>
 						Username:
-						<Input
+						<input
+							required
 							type="text"
 							name="username"
 							value={userName}
 							onChange={(event) => setUserName(event.target.value)}
-							required
 							minlength="5"
 							maxlength="30"
 						/>
@@ -102,16 +94,15 @@ export const FormLogin = () => {
 
 					<label>
 						Password:
-						<Input
+						<input
+							required
 							type="password"
 							name="password"
 							value={password}
 							onChange={(event) => setPassword(event.target.value)}
-							required
 							minlength="5"
 						/>
 					</label>
-					{displayError && <div>{`Errormessage: ${statusMessage}`}</div>}
 					{displayError && <div>{`Errormessage: ${statusMessage}`}</div>}
 					<Button  type="submit" onClick={handleSignup}>
           				Sign Up

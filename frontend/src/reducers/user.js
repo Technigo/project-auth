@@ -7,7 +7,6 @@ const initialState = {
 		statusMessage: '',
 		secretMessage: '',
 		loggedIn: false,
-		signUp: true,
 	},
 };
 

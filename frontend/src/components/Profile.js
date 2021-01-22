@@ -38,7 +38,9 @@ export const Profile = () => {
 		window.location.reload();
 	};
 
-	const showSecret = () => {
+	const showSecret = (event) => {
+		event.preventDefault();
+
 		fetch(SECURE_URL, {
 			method: 'GET',
 			headers: { Authorization: accessToken },
@@ -60,7 +62,7 @@ export const Profile = () => {
 	return (
 		<Container>
 			<h2>Profile </h2>
-			<p>Here is your secret messsage userid {`${userId}`}</p>
+			<p>Here is a messsage userid {`${userId}`}</p>
 			<p>Enjoy!</p>
 			<Button onClick={showSecret}>test secret</Button>
 			<p>{secretMessage}</p>
