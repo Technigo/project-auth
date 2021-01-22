@@ -17,6 +17,7 @@ export const user = createSlice({
     setAccessToken: ( state, action) => {
       const { accessToken } = action.payload
       state.login.accessToken = accessToken
+      localStorage.setItem('accessToken', accessToken)
     },
     setUserId: (state, action) => {
       const { userId } = action.payload
