@@ -29,7 +29,7 @@ export const Notes = () => {
         }
         return res.json()
       })
-      .catch(error => console.error(error));
+      .catch(error => console.error(error))
     }
 
   const handleNoteList = () => {
@@ -44,11 +44,11 @@ export const Notes = () => {
         return res.json()
       })
       .then(data => setNoteList(data))
-      .catch(error => console.error(error));
+      .catch(error => console.error(error))
   }
 
   //get notes
-  handleNoteList();
+  handleNoteList()
 
   return (
     <ProfileSection>

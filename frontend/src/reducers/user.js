@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   login: {
-    accessToken: null,
+    accessToken: localStorage.accessToken || null,
     name: '',
-    userId: 0,
+    userId: localStorage.userId || 0,
     loggedIn: false,
     statusMessage: '',
   },
@@ -17,10 +17,12 @@ export const user = createSlice({
     setAccessToken: (state, action) => {
       const { accessToken } = action.payload
       state.login.accessToken = accessToken
+      localStorage.setItem('accessToken', accessToken)
     },
     setUserId: (state, action) => {
       const { userId } = action.payload
       state.login.userId = userId
+      localStorage.setItem('userId', userId)
     },
     setStatusMessage: (state, action) => {
       const { statusMessage } = action.payload
@@ -32,6 +34,8 @@ export const user = createSlice({
     logout: (state, action) => {
       state.login.userId = 0
       state.login.accessToken = null
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('userId')
     },
   },
 })

@@ -5,10 +5,10 @@ import { Profile } from './Profile'
 import picture from '../picture/picture.svg'
 import { Button, SignUpImage, LoginSection, Form, InputLabel, LoginInput } from '../styling/form'
 
-// const SIGNUP_URL = "http://localhost:8080/users";
-const SIGNUP_URL = "https://project-auth-olof.herokuapp.com/users";
-// const LOGIN_URL = "http://localhost:8080/sessions";
-const LOGIN_URL = "https://project-auth-olof.herokuapp.com/sessions";
+// const SIGNUP_URL = "http://localhost:8080/users"
+const SIGNUP_URL = "https://project-auth-olof.herokuapp.com/users"
+// const LOGIN_URL = "http://localhost:8080/sessions"
+const LOGIN_URL = "https://project-auth-olof.herokuapp.com/sessions"
 
 export const LoginForm = () => {
   const [name, setName] = useState('')
@@ -17,22 +17,23 @@ export const LoginForm = () => {
   const dispatch = useDispatch()
   const statusMessage = useSelector((store) => store.user.login.statusMessage)
   const loggedIn = useSelector((store) => store.user.login.loggedIn)
+  const accessToken = useSelector((store) => store.user.login.accessToken)
 
   const handleLoginSuccess = (loginResponse) => {
-    dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }));
-    dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: "Login Success" }));
-    dispatch(user.actions.toggleLoggedState(true));
-  };
+    dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }))
+    dispatch(user.actions.setUserId({ userId: loginResponse.userId }))
+    dispatch(user.actions.setStatusMessage({ statusMessage: "Login Success" }))
+    dispatch(user.actions.toggleLoggedState(true))
+  }
 
   const handleLoginFailed = (loginError) => {
-    dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
-  };
+    dispatch(user.actions.setAccessToken({ accessToken: null }))
+    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }))
+  }
 
   // To sign up a user.
   const handleSignup = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     fetch(SIGNUP_URL, {
       method: "POST",
@@ -41,17 +42,17 @@ export const LoginForm = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw "Signup Failed";
+          throw "Signup Failed"
         }
-        return res.json();
+        return res.json()
       })
       .then((json) => handleLoginSuccess(json))
-      .catch((err) => handleLoginFailed(err));
-  };
+      .catch((err) => handleLoginFailed(err))
+  }
 
   // To sign up a user.
   const handleLogin = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     fetch(LOGIN_URL, {
       method: "POST",
@@ -62,14 +63,14 @@ export const LoginForm = () => {
         if (!res.ok) {
           throw 'Login Failed'
         }
-        return res.json();
+        return res.json()
       })
       .then((json) => handleLoginSuccess(json))
-      .catch((err) => handleLoginFailed(err));
-  };
+      .catch((err) => handleLoginFailed(err))
+  }
 
   // If user is not logged in, show login form
-  if (!loggedIn) {
+  if (!accessToken) {
   return (
     <LoginSection>
       <Form>
@@ -105,11 +106,11 @@ export const LoginForm = () => {
         </Form>
         <SignUpImage src={picture} alt="Taking note" />
     </LoginSection>
-  );
+  )
   }
 
   // If user is logged in, show profile
   return <Profile />
   
-};
-export default LoginForm;
+}
+export default LoginForm
