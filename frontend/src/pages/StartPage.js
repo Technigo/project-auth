@@ -4,7 +4,7 @@ import { LoginForm } from '../components/LoginForm'
 
 export const StartPage = () => {
   return (
-    <section> 
+    <section className="forms-container"> 
       <div>
         <SignUp />
       </div>

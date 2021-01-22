@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState= {
   login: {
-    accessToken: null,
+    accessToken: localStorage.accessToken || null,
     userId: 0,
     secretMessage:null,
     errorMessage:null, 
@@ -43,5 +43,6 @@ export const logout = () => {
     dispatch(user.actions.setErrorMessage({ errorMessage: null }))
     dispatch(user.actions.setAccessToken({ accessToken: null }))
     dispatch(user.actions.setUserId({ userId: 0 }))
+    localStorage.removeItem('accessToken')
   }
 }

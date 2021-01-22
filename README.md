@@ -24,5 +24,5 @@ After Logging in you have two choices either to view a secret message or you hav
 
 # View it live 🔴
 
-- FrontEnd : wk20-api-auth.netlify.app
+- FrontEnd : https://wk20-api-auth.netlify.app
 - BackEnd : https://login-logout-authentication.herokuapp.com/
