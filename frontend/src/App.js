@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Provider } from 'react-redux';
 
-import { FormLogin } from './components/FormLogin';
-import { FormSignup } from './components/FormSignUp';
+import { LandingPage} from './components/LandingPage';
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { user } from './reducers/user';
@@ -13,26 +12,12 @@ export const App = () => {
 	const reducer = combineReducers({ user: user.reducer });
 	//Create store
 	const store = configureStore({ reducer });
-
-	const [displaySignup, setDisplaySignup] = useState(false);
-	const [displayLogin, setDisplayLogin] = useState(true);
-
-	const signupOnClick = () => {
-		setDisplayLogin(false);
-		setDisplaySignup(true);
-	};
+	
 
 	return (
 		<Provider store={store}>
 			<Container>
-				{displayLogin && (
-					<>
-						<FormLogin />
-						<Button onClick={signupOnClick}>Signup</Button>
-					</>
-				)}
-
-				{displaySignup && <FormSignup />}
+				<LandingPage />
 			</Container>
 		</Provider>
 	);
@@ -46,6 +31,7 @@ const Container = styled.div`
 	justify-content: center;
 	margin: 10px 0 50px 0;
 	background: linear-gradient(45deg, #fc466b, #3f5efb);
+	
 `;
 
 const Button = styled.button`

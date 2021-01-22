@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -10,6 +10,7 @@ export const Profile = () => {
 	const userId = useSelector((store) => store.user.login.userId);
 	const secretMessage = useSelector((store) => store.user.login.secretMessage);
 	const statusMessage = useSelector((store) => store.user.login.statusMessage);
+
 
 	const SECURE_URL = `https://nadlillmar.herokuapp.com/users/${userId}`;
 
@@ -58,9 +59,9 @@ export const Profile = () => {
 
 	return (
 		<Container>
-			<h2>Profile</h2>
-			You are logged in!
-			<p>userId: {`${userId}`}</p>
+			<h2>Profile </h2>
+			<p>Here is your secret messsage userid {`${userId}`}</p>
+			<p>Enjoy!</p>
 			<Button onClick={showSecret}>test secret</Button>
 			<p>{secretMessage}</p>
 			<Button onClick={handleLogout}>Logout</Button>

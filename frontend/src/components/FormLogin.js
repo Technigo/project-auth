@@ -8,12 +8,15 @@ import { Profile } from './Profile.js';
 export const FormLogin = () => {
 	const dispatch = useDispatch();
 	const statusMessage = useSelector((store) => store.user.login.statusMessage);
-	const isLoggedIn = useSelector((store) => store.user.login.loggedIn);
 
+	const accessToken = useSelector((store) => store.user.login.accessToken)
+	
+	const SIGNUP_URL = 'https://nadlillmar.herokuapp.com/users';
 	const LOGIN_URL = 'https://nadlillmar.herokuapp.com/sessions';
 
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
+	//const [email, setEmail] = useState('user@email.com');
 	const [displayLoggedIn, setDisplayLoggedIn] = useState(false);
 	const [displayError, setDisplayError] = useState(false);
 
@@ -44,6 +47,24 @@ export const FormLogin = () => {
 		setDisplayError(true);
 	};
 
+	const handleSignup = (event) => {
+		event.preventDefault();
+
+		fetch(SIGNUP_URL, {
+			method: 'POST',
+			body: JSON.stringify({ name: userName, password }),
+			headers: { 'Content-Type': 'application/json' },
+		})
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error('Signup failed');
+				}
+				return res.json();
+			})
+			.then((json) => json)
+			.catch((err) => err);
+	};
+
 	const submitLogin = (e) => {
 		e.preventDefault();
 
@@ -61,44 +82,47 @@ export const FormLogin = () => {
 			.then((json) => handleLoginSuccess(json))
 			.catch((err) => handleLoginFailed(err));
 	};
-
+	if (!accessToken) {
 	return (
 		<Container>
-			{!displayLoggedIn && (
-				<Form onSubmit={submitLogin}>
-					<h1>Login </h1>
+				<Form >
+					<h1>Sign Up/Login</h1>
 					<label>
 						Username:
-						<input
+						<Input
 							type="text"
 							name="username"
 							value={userName}
 							onChange={(event) => setUserName(event.target.value)}
 							required
-							minLength="5"
-							maxLength="30"
+							minlength="5"
+							maxlength="30"
 						/>
 					</label>
 
 					<label>
 						Password:
-						<input
+						<Input
 							type="password"
 							name="password"
 							value={password}
 							onChange={(event) => setPassword(event.target.value)}
 							required
-							minLength="5"
+							minlength="5"
 						/>
 					</label>
 					{displayError && <div>{`Errormessage: ${statusMessage}`}</div>}
-					<Button type="submit">Login</Button>
-				</Form>
+					{displayError && <div>{`Errormessage: ${statusMessage}`}</div>}
+					<Button  type="submit" onClick={handleSignup}>
+          				Sign Up
+        			</Button>
+        			<Button  type="submit" onClick={submitLogin}>
+          				Login
+        			</Button>
+			</Form>
+	</Container>
 			)}
-
-			{displayLoggedIn && <Profile />}
-		</Container>
-	);
+			return <Profile />
 };
 
 const Container = styled.div`
