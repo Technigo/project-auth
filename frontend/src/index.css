@@ -90,10 +90,3 @@ code {
   flex-direction: column;
 }
 
-@media (min-width: 700px) {
-
-.forms-container {
-  flex-direction: row;
-}
-
-}
