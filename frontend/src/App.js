@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Provider } from 'react-redux'
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { createStore, combineReducers } from '@reduxjs/toolkit'
 import styled from 'styled-components'
 
 import { Register } from './components/Register'
@@ -11,7 +11,22 @@ import { user } from './reducers/user'
 
 
 const reducer = combineReducers({ user: user.reducer })
-const store = configureStore({ reducer })
+
+const persistedStateJSON = localStorage.getItem("authStorage")
+let persistedState = {}
+
+if (persistedStateJSON) {
+  persistedState = JSON.parse(persistedStateJSON)
+}
+
+const store = createStore(
+  reducer,
+  persistedState
+)
+
+store.subscribe(() => {
+  localStorage.setItem("authStorage", JSON.stringify(store.getState()))
+})
 
 const Container = styled.div`
   display: flex;
