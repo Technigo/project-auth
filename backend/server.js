@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema({
   accessToken: {
     type: String,
     unique: true,
+    default: () => crypto.randomBytes(128).toString("hex"),
   },
 });
 
@@ -119,8 +120,8 @@ app.post("/sessions", async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (user && bcrypt.compareSync(password, user.password)) {
-      user.accessToken = crypto.randomBytes(128).toString("hex");
-      const updatedUser = await user.save();
+      // user.accessToken = crypto.randomBytes(128).toString("hex");
+      // const updatedUser = await user.save();
 
       res.status(200).json({
         userId: updatedUser._id,
