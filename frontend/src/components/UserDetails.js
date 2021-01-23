@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { user } from "../reducers/user";
@@ -9,9 +9,9 @@ import LogoutButton from "./LogoutButton";
 const UserDetails = ({ SIGNUP_URL }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const accessToken = useSelector((store) => store.user.login.accessToken);
-  const userId = useSelector((store) => store.user.login.userId);
-  const currentAlias = useSelector((store) => store.user.login.alias);
+  const sessionToken = localStorage.getItem("sessionToken");
+  const sessionId = localStorage.getItem("sessionId");
+  const sessionAlias = localStorage.getItem("sessionAlias");
 
   const [alias, setAlias] = useState("");
   const [email, setEmail] = useState("");
@@ -22,9 +22,9 @@ const UserDetails = ({ SIGNUP_URL }) => {
   }, []);
 
   const fetchProfile = () => {
-    fetch(`${SIGNUP_URL}/${userId}/profile`, {
+    fetch(`${SIGNUP_URL}/profile`, {
       method: "GET",
-      headers: { Authorization: accessToken },
+      headers: { Authorization: sessionToken, userId: sessionId },
     })
       .then((res) => {
         if (!res.ok) {
@@ -42,10 +42,10 @@ const UserDetails = ({ SIGNUP_URL }) => {
 
   const handleUpdate = (event) => {
     event.preventDefault();
-    fetch(`${SIGNUP_URL}/${userId}/profile`, {
-      method: "POST",
-      body: JSON.stringify({ alias }),
-      headers: { "Content-Type": "application/json", Authorization: accessToken }
+    fetch(`${SIGNUP_URL}/profile`, {
+      method: "PATCH",
+      body: JSON.stringify({ userId: sessionId, alias }),
+      headers: { "Content-Type": "application/json", Authorization: sessionToken }
     })
       .then((res) => res.json())
       .then((json) => {
@@ -56,13 +56,13 @@ const UserDetails = ({ SIGNUP_URL }) => {
   return (
     <section>
       <h1>Max and Sandrine's app</h1>
-      {accessToken &&
+      {sessionToken &&
         <>
-          {currentAlias && <h3>{currentAlias}, this is your profile page</h3>}
-          {!currentAlias && <h3>This is your profile page</h3>}
+          {sessionAlias && <h3>{sessionAlias}, this is your profile page</h3>}
+          {!sessionAlias && <h3>This is your profile page</h3>}
           <p>On this page, you can find your user details and update your alias.</p>
           <label>UserId:
-            <input defaultValue={userId} disabled />
+            <input defaultValue={sessionId} disabled />
           </label>
           <label>Email:
             <input defaultValue={email} disabled />
@@ -85,7 +85,7 @@ const UserDetails = ({ SIGNUP_URL }) => {
           <LogoutButton />
         </>
       }
-      {!accessToken &&
+      {!sessionToken &&
         <>
           <h3>Logged out</h3>
           <p>Your session has been terminated. Please log in again.</p>
@@ -93,7 +93,7 @@ const UserDetails = ({ SIGNUP_URL }) => {
         </>
       }
     </section>
-  )
+  );
 };
 
 export default UserDetails;

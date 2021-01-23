@@ -6,7 +6,7 @@ const ProfileButton = () => {
 
   return (
     <button onClick={() => history.push("/userdetails")}>Profile</button>
-  )
-}
+  );
+};
 
 export default ProfileButton;

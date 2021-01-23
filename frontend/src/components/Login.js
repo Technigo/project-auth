@@ -1,21 +1,24 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useHistory } from 'react-router-dom';
 
 import { user } from "../reducers/user";
 
 import StartPage from "./StartPage";
 
-const Login = ({ LOGIN_URL, SIGNUP_URL }) => {
+const Login = ({ LOGIN_URL }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const accessToken = useSelector((store) => store.user.login.accessToken);
+  const sessionToken = localStorage.getItem("sessionToken");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState(true);
 
   const handleCredentials = (credentials) => {
+    localStorage.setItem("sessionToken", credentials.accessToken);
+    localStorage.setItem("sessionId", credentials.userId);
+    localStorage.setItem("sessionAlias", credentials.alias);
     dispatch(user.actions.setAccessToken({ accessToken: credentials.accessToken }));
     dispatch(user.actions.setUserId({ userId: credentials.userId }));
     dispatch(user.actions.setAlias({ alias: credentials.alias }));
@@ -45,8 +48,8 @@ const Login = ({ LOGIN_URL, SIGNUP_URL }) => {
 
   return (
     <>
-      {accessToken && <StartPage />}
-      {!accessToken && (
+      {sessionToken && <StartPage />}
+      {!sessionToken && (
         <section>
           <h1>Welcome to Max and Sandrine's app!</h1>
           <form onSubmit={handleLogin}>
@@ -77,7 +80,7 @@ const Login = ({ LOGIN_URL, SIGNUP_URL }) => {
         </section>
       )}
     </>
-  )
+  );
 };
 
 export default Login;

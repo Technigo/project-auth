@@ -51,7 +51,10 @@ const User = mongoose.model("User", userSchema);
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({ accessToken: req.header('Authorization') });
+    const user = await User.findOne({ accessToken: req.header("Authorization") });
+    if (!user) {
+      throw "User not found";
+    }
     req.user = user;
     next();
   } catch (err) {
@@ -59,10 +62,7 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-// Defines the port the app will run on. Defaults to 8080, but can be 
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
+// Defines the port the app will run on (defaults to 8080)
 const port = process.env.PORT || 8080;
 const app = express();
 const listEndpoints = require("express-list-endpoints");
@@ -73,7 +73,7 @@ app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
     if (allowedDomains.indexOf(origin) === -1) {
-      var msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it`
+      const msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it`;
       return callback(new Error(msg), false);
     }
     return callback(null, true);
@@ -108,11 +108,10 @@ app.post("/sessions", async (req, res) => {
   };
 });
 
-// Authenticated endpoint
-app.get("/users/:userId/profile", authenticateUser);
-app.get("/users/:userId/profile", async (req, res) => {
-  const userId = req.params.userId;
-  if (userId != req.user._id) {
+// Authenticated endpoint to retrieve user profile data
+app.get("/users/profile", authenticateUser);
+app.get("/users/profile", async (req, res) => {
+  if (req.header("userId") != req.user._id) {
     res.status(403).json({ error: "Access Denied" });
   } else {
     res.status(200).json({
@@ -120,21 +119,19 @@ app.get("/users/:userId/profile", async (req, res) => {
       email: req.user.email,
       accessToken: req.user.accessToken,
       alias: req.user.alias
-    })
+    });
   };
 });
 
-// Update endpoint
-app.post("/users/:userId/profile", authenticateUser);
-app.post("/users/:userId/profile", async (req, res) => {
-  const userId = req.params.userId;
-  if (userId != req.user._id) {
+// Authenticated endpoint to update user alias
+app.patch("/users/profile", authenticateUser);
+app.patch("/users/profile", async (req, res) => {
+  if (req.body.userId != req.user._id) {
     res.status(403).json({ error: "Access Denied" });
   } else {
-    const { alias } = req.body;
     const updatedUser = await User.findOneAndUpdate(
-      { _id: userId },
-      { $set: { "alias": alias } },
+      { _id: req.body.userId },
+      { $set: { "alias": req.body.alias } },
       { new: true }
     );
     res.status(200).json({ alias: updatedUser.alias });
@@ -143,5 +140,5 @@ app.post("/users/:userId/profile", async (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`)
+  console.log(`Server running on http://localhost:${port}`);
 });

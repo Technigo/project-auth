@@ -12,8 +12,12 @@ const SignUp = ({ SIGNUP_URL }) => {
   const [response, setResponse] = useState(true);
 
   const handleCredentials = (credentials) => {
+    localStorage.setItem("sessionToken", credentials.accessToken);
+    localStorage.setItem("sessionId", credentials.userId);
+    localStorage.setItem("sessionAlias", credentials.alias);
     dispatch(user.actions.setAccessToken({ accessToken: credentials.accessToken }));
     dispatch(user.actions.setUserId({ userId: credentials.userId }));
+    dispatch(user.actions.setAlias({ alias: credentials.alias }));
   };
 
   const handleSignup = (event) => {
@@ -71,7 +75,7 @@ const SignUp = ({ SIGNUP_URL }) => {
         <p>Already a member? Please login <Link to={"/"}>here</Link>.</p>
       </form>
     </section>
-  )
+  );
 };
 
 export default SignUp;
