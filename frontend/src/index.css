@@ -29,7 +29,6 @@ a {
   color: white;
   background-image: linear-gradient(#335b71 45%, #03324c 55%);
   transition: color 0.3s, background-image 0.5s, ease-in-out;
-  /* border-radius: 25px; */
 }
 
 a:hover {

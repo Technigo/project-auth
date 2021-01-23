@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory } from 'react-router-dom';
 
 import { user } from "../reducers/user";
-
 import StartPage from "./StartPage";
 
 const Login = ({ LOGIN_URL }) => {

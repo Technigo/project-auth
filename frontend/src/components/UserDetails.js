@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { user } from "../reducers/user";
-
 import LogoutButton from "./LogoutButton";
 
 const UserDetails = ({ SIGNUP_URL }) => {
