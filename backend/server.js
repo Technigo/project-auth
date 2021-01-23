@@ -124,9 +124,9 @@ app.post("/sessions", async (req, res) => {
       // const updatedUser = await user.save();
 
       res.status(200).json({
-        userId: updatedUser._id,
-        name: updatedUser.name,
-        accessToken: updatedUser.accessToken,
+        userId: user._id,
+        name: user.name,
+        accessToken: user.accessToken,
       });
     } else {
       throw "User not found";
