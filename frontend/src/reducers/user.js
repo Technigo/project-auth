@@ -5,7 +5,7 @@ import { USERS_URL, SESSIONS_URL } from '../urls';
 const initialState = {
   login: {
     name: localStorage.name || '',
-    userId: localStorage.name || 0,
+    userId: localStorage.userId || 0,
     secretMessage: '',
     errorMessage: '',
     accessToken: localStorage.accessToken || null,
@@ -159,6 +159,8 @@ export const logout = () => {
     dispatch(user.actions.setSecretMessage({ secretMessage: '' }));
     dispatch(user.actions.setErrorMessage({ errorMessage: '' }));
     dispatch(user.actions.setAccessToken({ accessToken: null }));
-    localStorage.clear();
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('name')
+    localStorage.removeItem('userId')
   };
 };
