@@ -10,7 +10,20 @@ const URL = "https://jonnas-auth.herokuapp.com";
 
 const reducer = combineReducers({ user: user.reducer });
 
-const store = configureStore({ reducer });
+// Get localstorage and sets as preloadedState
+const persistedStateJSON = localStorage.getItem("userStore");
+let preloadedState = {};
+if (persistedStateJSON) {
+  preloadedState = JSON.parse(persistedStateJSON);
+}
+
+// Configure store with preloadedState
+export const store = configureStore({ reducer, preloadedState });
+
+// Store the state in localstorage on Redux state change
+store.subscribe(() => {
+  localStorage.setItem("userStore", JSON.stringify(store.getState()));
+});
 
 export const App = () => {
   return (
