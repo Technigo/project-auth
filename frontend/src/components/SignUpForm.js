@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from './Button';
 import '../styles/style.css';
 
+import '../styles/style.css'
+
 export const SignUpForm = () => {
   const dispatch = useDispatch();
   const errorMessage = useSelector(store => store.user.login.errorMessage);
