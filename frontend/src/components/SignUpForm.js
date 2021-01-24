@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { signUp } from 'reducers/user';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button } from './Button';
 import '../styles/style.css';
 
 export const SignUpForm = () => {
   const dispatch = useDispatch();
+  const errorMessage = useSelector(store => store.user.login.errorMessage);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -66,6 +68,7 @@ export const SignUpForm = () => {
           disabled={!name || !email || password.length < 5}
           text="Sign Up"
         />
+        {errorMessage && <p className="text-info error">{errorMessage}</p>}
       </div>
     </form>
   );
