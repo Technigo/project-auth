@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import SignupForm from '../components/SignupForm';
-import { Wrapper } from 'lib'
+import { Wrapper } from '../lib';
 
 const SignUp = () => {
   const accessToken = useSelector((store) => store.user.login.accessToken);

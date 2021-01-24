@@ -3,12 +3,11 @@ import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { logout, getSecretMessage } from '../reducers/user';
-import { Wrapper } from 'lib';
+import { Wrapper } from '../lib';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
-  const userId = useSelector((store) => store.user.login.userId);
   const secretMessage = useSelector((store) => store.user.login.secretMessage);
   const errorMessage = useSelector((store) => store.user.login.errorMessage);
 

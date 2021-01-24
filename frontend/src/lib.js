@@ -1,4 +1,4 @@
-import styled from  'styled-components/macro'
+import styled from 'styled-components/macro';
 
 export const Wrapper = styled.div`
   align-items: center;
@@ -6,8 +6,8 @@ export const Wrapper = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   width: 100%;
-`
+`;
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-`
+`;

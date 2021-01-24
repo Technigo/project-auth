@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
+import endpoints from 'express-list-endpoints';
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/auth';
 mongoose.connect(mongoUrl, {
@@ -72,50 +73,25 @@ const port = process.env.PORT || 8080;
 const app = express();
 
 // Add middlewares to enable cors and json body parsing
-
-// Simple usage
-// This is how we have used CORS in previous project, which is a Simple Usage (Enable All CORS Requests).
-// As default the CORS allow all domain to access the server.
-// Access-Control-Allow-Origin: * is shown in the network tab.  The * = all domain has access.
-
 app.use(cors());
 app.use(bodyParser.json());
 
 // GET - list of all endpoints
-const endPointList = require('express-list-endpoints');
 app.get('/', (req, res) => {
   if (!res) {
     res
       .status(404)
       .send({ error: 'Oops! Something goes wrong. Try again later!' });
   }
-  res.send(endPointList(app));
+  res.send(endpoints(app));
 });
-
-// Configuring CORS
-// To limit access to a specific domain, below is an example how to write that in code.
-// We only allow http://localhost:3000 as an origin.
-// app.use(cors());
-// app.use(bodyParser.json());
-
-// var corsOptions = {
-//   origin: 'http://localhost:3000',
-//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// };
-
-// app.get('/', cors(corsOptions), (req, res) => {
-//   res.json('Hello hello');
-// });
-
-// Const's for error messages instead of text in error handling
-const SERVICE_UNAVAILABLE = 'Service unavailable.';
 
 // Error message in case server is down
 app.use((req, res, next) => {
   if (mongoose.connection.readyState === 1) {
     next();
   } else {
-    res.status(503).send({ error: SERVICE_UNAVAILABLE });
+    res.status(503).send({ error: 'Service unavailable.' });
   }
 });
 

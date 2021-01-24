@@ -37,7 +37,6 @@ export const user = createSlice({
 // Thunks
 // Signup
 export const signup = (name, email, password) => {
-  // const SIGNUP_URL = 'http://localhost:8080/signup';
   const SIGNUP_URL = 'https://auth-by-ylva-tara.herokuapp.com/signup';
   return (dispatch) => {
     fetch(SIGNUP_URL, {
@@ -46,11 +45,9 @@ export const signup = (name, email, password) => {
       headers: { 'Content-Type': 'application/json' }
     })
       .then((res) => {
-        if (!res.ok /* if not 200, 201, 204 */) {
+        if (!res.ok) {
           throw 'Could not create account. Email already exists.';
         }
-
-        // OK
         return res.json();
       })
       .then((json) => {
@@ -70,7 +67,6 @@ export const signup = (name, email, password) => {
 
 // Login
 export const login = (email, password) => {
-  // const LOGIN_URL = 'http://localhost:8080/login';
   const LOGIN_URL = 'https://auth-by-ylva-tara.herokuapp.com/login';
   return (dispatch) => {
     fetch(LOGIN_URL, {
@@ -79,11 +75,9 @@ export const login = (email, password) => {
       headers: { 'Content-Type': 'application/json' }
     })
       .then((res) => {
-        if (res.ok /* if 200, 201, 204 */) {
+        if (res.ok) {
           return res.json();
         }
-
-        // Not OK
         throw 'Unable to sign in. Please check your username and password are correct';
       })
       .then((json) => {
@@ -104,7 +98,6 @@ export const login = (email, password) => {
 
 // SecretMesssage
 export const getSecretMessage = () => {
-  // const USERS_URL = 'http://localhost:8080/users';
   const USERS_URL = 'https://auth-by-ylva-tara.herokuapp.com/users';
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;

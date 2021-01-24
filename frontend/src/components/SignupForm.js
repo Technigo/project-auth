@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { signup } from '../reducers/user';
-import { Wrapper, Form } from 'lib';
+import { Wrapper, Form } from '../lib';
 
 const SignupForm = () => {
   const dispatch = useDispatch();

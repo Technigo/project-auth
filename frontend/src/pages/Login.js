@@ -1,9 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Wrapper } from 'lib'
 
-import LoginForm from 'components/LoginForm';
+import LoginForm from '../components/LoginForm';
+import { Wrapper } from '../lib';
 
 const Login = () => {
   const accessToken = useSelector((store) => store.user.login.accessToken);
