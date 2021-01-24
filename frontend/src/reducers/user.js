@@ -37,7 +37,7 @@ export const user = createSlice({
 // Thunks
 // Signup
 export const signup = (name, email, password) => {
-  const SIGNUP_URL = 'https://auth-by-ylva-tara.herokuapp.com/signup';
+  const SIGNUP_URL = 'https://auth-by-ylva-tara.herokuapp.com/users';
   return (dispatch) => {
     fetch(SIGNUP_URL, {
       method: 'POST',
@@ -67,7 +67,7 @@ export const signup = (name, email, password) => {
 
 // Login
 export const login = (email, password) => {
-  const LOGIN_URL = 'https://auth-by-ylva-tara.herokuapp.com/login';
+  const LOGIN_URL = 'https://auth-by-ylva-tara.herokuapp.com/sessions';
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: 'POST',

@@ -96,7 +96,7 @@ app.use((req, res, next) => {
 });
 
 // POST - Signup a user
-app.post('/signup', async (req, res) => {
+app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const user = await new User({
@@ -113,7 +113,7 @@ app.post('/signup', async (req, res) => {
 });
 
 // Login user
-app.post('/login', async (req, res) => {
+app.post('/sessions', async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -139,7 +139,7 @@ app.post('/login', async (req, res) => {
 app.get('/users/:id/secret', authenticateUser);
 app.get('/users/:id/secret', async (req, res) => {
   try {
-    const secretMessage = `This is a super secret message for  ${req.user.name}`;
+    const secretMessage = `This is a super secret message for ${req.user.name}`;
     res.status(201).json({ secretMessage });
   } catch (err) {
     res.status(404).json({
