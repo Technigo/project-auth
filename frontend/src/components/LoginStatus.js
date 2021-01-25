@@ -49,6 +49,8 @@ export const LoginStatus = () => {
 
   const logOut = () => {
     dispatch(user.actions.setAccessToken({ accessToken: null }))
+    dispatch(user.actions.setSecret({ secret: null }))
+    dispatch(user.actions.setStatusMessage({ statusMessage: null }))
   }
 
   const fetchSecret = () => {
