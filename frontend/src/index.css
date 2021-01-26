@@ -5,7 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f4f4;
+  background: #24C6DC;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #514A9D, #24C6DC);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #514A9D, #24C6DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 code {
@@ -14,16 +16,18 @@ code {
 }
 
 .login-signup, .secret-message {
-  color: #f5f4f4;
+  color: black;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: none;
-  background-color: #008080;
+  background-color: white;
   padding: 30px;
   margin: 20px;
-  border-radius: 60px; 
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 input {
@@ -33,8 +37,9 @@ input {
   padding: 10px 15px;
   border-radius: 60px;
   margin-bottom: 20px;
-  border: none;
   margin-top: 5px;
+  background-color:#F8F8FF;
+  border: none;
 }
 
 .buttons {
@@ -45,12 +50,11 @@ input {
 button {
   border-radius: 60px;
   padding: 10px 15px;
-  max-width: 150px;
   margin-top: 10px;
-  box-shadow: 6px 6px 15px -4px #000000;
-  background: linear-gradient(to bottom, #FAFFD1, #A1FFCE);
-  border: none;
-  transition: all .2s ease-in-out
+  transition: all .2s ease-in-out;
+  width: 216px;
+  background: white;
+  border: 1px solid;
 }
 
 button:hover {
@@ -60,4 +64,10 @@ button:hover {
 
 .error {
   margin-top: 20px;
+}
+
+@media (min-width: 1024px) {
+  .login-signup, .secret-message {
+    width: 400px;
+  }
 }
