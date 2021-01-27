@@ -27,8 +27,8 @@ export const Form = ({ labelHeading, labelText }) => {
 
   const createUser = event => {
     event.preventDefault();
-    // const USER_URL = "http://localhost:8080/users";
-    const USER_URL = "https://user-authorisation.herokuapp.com/users";
+    const USER_URL = "http://localhost:8080/users";
+    // const USER_URL = "https://user-authorisation.herokuapp.com/users";
 
     fetch(USER_URL, {
       method: "POST",
@@ -38,7 +38,11 @@ export const Form = ({ labelHeading, labelText }) => {
       .then(res => {
         if (res.ok) {
           return res.json();
-        } //eslint-disable-next-line
+        } else {
+          setUsername("");
+          setPassword("");
+        }
+        //eslint-disable-next-line
         throw "Could not create user"; // we want to display error message from backend here
       })
       .then(json => {
@@ -57,8 +61,8 @@ export const Form = ({ labelHeading, labelText }) => {
 
   const loginUser = event => {
     event.preventDefault();
-    // const LOGIN_URL = "http://localhost:8080/sessions";
-    const LOGIN_URL = "https://user-authorisation.herokuapp.com/sessions";
+    const LOGIN_URL = "http://localhost:8080/sessions";
+    // const LOGIN_URL = "https://user-authorisation.herokuapp.com/sessions";
     fetch(LOGIN_URL, {
       method: "POST",
       body: JSON.stringify({ username, password }),
@@ -67,6 +71,9 @@ export const Form = ({ labelHeading, labelText }) => {
       .then(res => {
         if (res.ok) {
           return res.json();
+        } else {
+          setUsername("");
+          setPassword("");
         } //eslint-disable-next-line
         throw "Unable to sign in - Please ensure username and password are correct";
       })
@@ -86,8 +93,8 @@ export const Form = ({ labelHeading, labelText }) => {
 
   const revealSecret = event => {
     event.preventDefault();
-    // const SECRETS_URL = "http://localhost:8080/secrets";
-    const SECRETS_URL = "https://user-authorisation.herokuapp.com/secrets";
+    const SECRETS_URL = "http://localhost:8080/secrets";
+    // const SECRETS_URL = "https://user-authorisation.herokuapp.com/secrets";
     fetch(SECRETS_URL, {
       method: "GET",
       headers: { Authorization: accessToken },
