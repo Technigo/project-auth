@@ -39,8 +39,14 @@ export const FormLogin = () => {
 		setDisplayError(true);
 	};
 
-	const handleSignup = (event) => {
+	const handleSubmit =(event) =>{
 		event.preventDefault();
+		console.log(event);
+	}
+
+	const handleSignup = (event) => {
+		//event.preventDefault();
+		console.log("signup");
 
 		fetch(SIGNUP_URL, {
 			method: 'POST',
@@ -58,7 +64,8 @@ export const FormLogin = () => {
 	};
 
 	const submitLogin = (e) => {
-		e.preventDefault();
+	//	e.preventDefault();
+		console.log("login");
 
 		fetch(LOGIN_URL, {
 			method: 'POST',
@@ -77,7 +84,7 @@ export const FormLogin = () => {
 	if (!accessToken) {
 	return (
 		<Container>
-				<Form >
+				<Form onSubmit ={handleSubmit} >
 					<h1>Sign Up/Login</h1>
 					<label>
 						Username:
@@ -87,8 +94,8 @@ export const FormLogin = () => {
 							name="username"
 							value={userName}
 							onChange={(event) => setUserName(event.target.value)}
-							minlength="5"
-							maxlength="30"
+							minLength="5"
+							maxLength="30"
 						/>
 					</label>
 
@@ -100,7 +107,7 @@ export const FormLogin = () => {
 							name="password"
 							value={password}
 							onChange={(event) => setPassword(event.target.value)}
-							minlength="5"
+							minLength="5"
 						/>
 					</label>
 					{displayError && <div>{`Errormessage: ${statusMessage}`}</div>}
