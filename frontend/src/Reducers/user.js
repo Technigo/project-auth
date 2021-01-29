@@ -29,6 +29,7 @@ export const user = createSlice({
       state.login.accessToken = null;
       state.login.errorMessage = null;
       state.login.secretMessage = null;
+      localStorage.clear();
     },
     setSecretMessage: (state, action) => {
       const { secretMessage } = action.payload;
