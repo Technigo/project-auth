@@ -52,7 +52,7 @@ const authenticateUser = async (req, res, next) => {
 
 const User = mongoose.model("User", userSchema);
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8081;
 const app = express();
 
 // Add middlewares to enable cors and json body parsing
@@ -86,11 +86,12 @@ app.post("/users", async (req, res) => {
     res.status(400).json({ message: "Could not create user", error: err });
   }
 });
-
+// This endpoint can be used to get all usernames. It be developed further to include a loggedIn state and return all usernames that are logged in
 app.get("/users", async (req, res) => {
   try {
-    const users = await User.find();
-    res.status(200).json(users);
+    const users = await User.find().sort().exec();
+    const usernames = users.map(user => user.username);
+    res.status(200).json(usernames);
   } catch (err) {
     res.status(400).json({ error: err });
   }
@@ -116,11 +117,13 @@ app.post("/sessions", async (req, res) => {
         userId: user._id,
         accessToken: user.accessToken,
       });
-    } else {
-      throw "User not found";
     }
+    throw "User not found";
   } catch (err) {
-    res.status(404).json({ error: err });
+    res.status(400).json({
+      message: "Failed attempt",
+      errors: { message: err.message, error: err },
+    });
   }
 });
 

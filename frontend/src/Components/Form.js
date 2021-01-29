@@ -6,12 +6,14 @@ import {
   Label,
   Input,
   H1,
+  H2,
   Wrapper,
   FormParagraph,
   HR,
   P,
   ErrorText,
   SecretText,
+  HintParagraph,
 } from "styles/Styles";
 
 import { Button } from "./Button";
@@ -27,8 +29,8 @@ export const Form = ({ labelHeading, labelText }) => {
 
   const createUser = event => {
     event.preventDefault();
-    const USER_URL = "http://localhost:8080/users";
-    // const USER_URL = "https://user-authorisation.herokuapp.com/users";
+    // const USER_URL = "http://localhost:8081/users";
+    const USER_URL = "https://user-authorisation.herokuapp.com/users";
 
     fetch(USER_URL, {
       method: "POST",
@@ -41,28 +43,28 @@ export const Form = ({ labelHeading, labelText }) => {
         } else {
           setUsername("");
           setPassword("");
+          throw new Error("Could not create user");
         }
-        //eslint-disable-next-line
-        throw "Could not create user"; // we want to display error message from backend here
       })
       .then(json => {
         dispatch(
           user.actions.setAccessToken({ accessToken: json.accessToken })
         );
         dispatch(user.actions.setUserId({ userId: json.userId }));
-        localStorage.setItem("accessToken", json.accessToken);
         setUsername("");
         setPassword("");
       })
       .catch(err => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(
+          user.actions.setErrorMessage({ errorMessage: err.toString() })
+        );
       });
   };
 
   const loginUser = event => {
     event.preventDefault();
-    const LOGIN_URL = "http://localhost:8080/sessions";
-    // const LOGIN_URL = "https://user-authorisation.herokuapp.com/sessions";
+    // const LOGIN_URL = "http://localhost:8081/sessions";
+    const LOGIN_URL = "https://user-authorisation.herokuapp.com/sessions";
     fetch(LOGIN_URL, {
       method: "POST",
       body: JSON.stringify({ username, password }),
@@ -74,27 +76,30 @@ export const Form = ({ labelHeading, labelText }) => {
         } else {
           setUsername("");
           setPassword("");
-        } //eslint-disable-next-line
-        throw "Unable to sign in - Please ensure username and password are correct";
+          throw new Error(
+            "Unable to sign in - Please ensure username and password are correct"
+          );
+        }
       })
       .then(json => {
         dispatch(
           user.actions.setAccessToken({ accessToken: json.accessToken })
         );
         dispatch(user.actions.setUserId({ userId: json.userId }));
-        localStorage.setItem("accessToken", json.accessToken);
         setUsername("");
         setPassword("");
       })
       .catch(err => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(
+          user.actions.setErrorMessage({ errorMessage: err.toString() })
+        );
       });
   };
 
   const revealSecret = event => {
     event.preventDefault();
-    const SECRETS_URL = "http://localhost:8080/secrets";
-    // const SECRETS_URL = "https://user-authorisation.herokuapp.com/secrets";
+    // const SECRETS_URL = "http://localhost:8081/secrets";
+    const SECRETS_URL = "https://user-authorisation.herokuapp.com/secrets";
     fetch(SECRETS_URL, {
       method: "GET",
       headers: { Authorization: accessToken },
@@ -124,7 +129,7 @@ export const Form = ({ labelHeading, labelText }) => {
   if (!accessToken) {
     return (
       <Wrapper>
-        <H1>Create account</H1>
+        <H2>Create account</H2>
         <StyledForm>
           <Label>
             {" "}
@@ -133,9 +138,13 @@ export const Form = ({ labelHeading, labelText }) => {
               value={username}
               onChange={event => setUsername(event.target.value)}
               type="text"
+              minLength="2"
               required
             />
           </Label>
+          <HintParagraph>
+            {username.length < 2 && "(Min length: 2 characters)"}
+          </HintParagraph>
           {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
           <Label>
             {" "}
@@ -144,9 +153,13 @@ export const Form = ({ labelHeading, labelText }) => {
               value={password}
               onChange={event => setPassword(event.target.value)}
               type="password"
+              minLength="5"
               required
             />
           </Label>
+          <HintParagraph>
+            {password.length < 5 && "(Min length: 5 characters)"}
+          </HintParagraph>
           <Button input="Create account" onClickFunction={createUser} />
           <HR />
           <FormParagraph>Already a member?</FormParagraph>

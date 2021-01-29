@@ -37,12 +37,6 @@ export const H2 = styled.h2`
   text-shadow: 1px 2px #6a9292;
 `;
 
-export const H3 = styled.h3`
-  font-family: "Roboto Slab", serif;
-  color: #e9f9fa;
-  text-shadow: 1px 2px #6a9292;
-`;
-
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -89,6 +83,12 @@ export const HR = styled.hr`
 
 export const P = styled.p`
   color: #000;
+`;
+
+export const HintParagraph = styled.p`
+  margin: 0;
+  font-size: 14px;
+  font-style: italic;
 `;
 
 export const ErrorText = styled.p`
