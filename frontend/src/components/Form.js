@@ -67,7 +67,7 @@ export const Form = () => {
   }
 
   const handleLogout = (loggingout) => { 
-    dispatch(user.actions.logout({ logout: loggingout }))
+    dispatch(user.actions.setLogout())
     window.location.reload()
   }
   

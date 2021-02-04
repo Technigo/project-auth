@@ -39,7 +39,7 @@ const authenticateUser = async (req, res, next) => {
     next()
   } catch (err) {
     const errorMessage = 'Try again'  
-    res.status(401).json({ errors: err.errors })
+    res.status(401).json({ errorMessage: err.errors })
   }
 }
 
