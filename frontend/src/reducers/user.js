@@ -31,8 +31,8 @@ export const user = createSlice({
             state.login.errorMessage = errorMessage;
         },
         toggledLoggedState: (state, action) => {
-          state.login.loggedIn = action.payload;
+            state.login.loggedIn = action.payload;
 
         }
     }
-})
+});
