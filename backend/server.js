@@ -45,7 +45,11 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-//Used to authenticate if the access token submitted in the header when the user clicks the profile details button is a match. If success then will action the secrets GET endpoint. If not then user won't be able to access the status.js component and he catch will be activated and return the error message
+// Used to authenticate if the access token, submitted in the header 
+// when the user clicks the profile details button, is a match.
+// If success then will action the secrets GET endpoint. If not then 
+// user won't be able to access the status.js component and the catch 
+// will be activated and return the error message
 const authenticateUser = async (req, res, next) => {
   try {
     const accessToken = req.header('Authorization');
@@ -83,7 +87,12 @@ app.post('/users', async (req, res) => {
       name,
       password,
     }).save();
-    res.status(200).json({ userId: user._id, accessToken: user.accessToken, name: name, statusMessage: "You're signed up!" });
+    res.status(200).json({
+      userId: user._id,
+      accessToken: user.accessToken,
+      name: name,
+      statusMessage: "You're signed up!"
+    });
   } catch (error) {
     res.status(400).json({ statusMessage: "Could not create user", error });
   }
@@ -102,7 +111,12 @@ app.post('/sessions', async (req, res) => {
     const { name, password } = req.body;
     const user = await User.findOne({ name });
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(200).json({ userId: user._id, accessToken: user.accessToken, name: name, statusMessage: "You're logged in!" });
+      res.status(200).json({
+        userId: user._id,
+        accessToken: user.accessToken,
+        name: name,
+        statusMessage: "You're logged in!"
+      });
     } else {
       throw 'User not found';
     }
@@ -112,34 +126,14 @@ app.post('/sessions', async (req, res) => {
 });
 
 /* GET request endpoint for accessing the users details:
-1. If the access token sent when the fetch for this endpoint is successful after being authenticated via the authenticateuser function, then the endpoint can be run in.
+1. If the access token sent when the fetch for this endpoint is successful after 
+// being authenticated via the authenticateuser function, then the endpoint can be run.
 2. Returned from the endpoint in the json is the secretMessage */
 app.get('/secret', authenticateUser);
 app.get('/secret', async (req, res) => {
   const secretMessage = `${req.user.name} here you can update your profile details`;
   res.status(200).json({ secretMessage });
 });
-
-// Get user specific information
-// app.get('/users/:id/profile', authenticateUser);
-// app.get('/users/:id/profile', async (req, res) => {
-//   const user = await User.findOne({ _id: req.params.id });
-//   const publicProfileMessage = `This is a public profile message for ${user.name}`;
-//   const privateProfileMessage = `This is a private profile message for ${user.name}`;
-
-//   console.log(`Authenticated req.user._id: '${req.user._id.$oid}'`);
-//   console.log(`Requested     user._id    : '${user._id}'`);
-//   console.log(`Equal   : ${req.user_id == user._id}`);
-
-  // Decide private or public here
-  // if (req.user._id.$oid === user._id.$oid) {
-    // Private
-  //   res.status(200).json({ profileMessage: privateProfileMessage });
-  // } else {
-    // Public information or Forbidden (403) because the users don't match
-//     res.status(200).json({ profileMessage: publicProfileMessage });
-//   }
-// });
 
 // Start the server
 app.listen(port, () => {
