@@ -23,7 +23,7 @@ export const LoginForm = () => {
 
   const handleLoginFailed = (err) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: 'Failed to login' })); 
+    dispatch(user.actions.setStatusMessage({ statusMessage: 'Failed to login⚠️' })); 
     dispatch(user.actions.setErrorMessage({ errorMessage: err }));
   };
 

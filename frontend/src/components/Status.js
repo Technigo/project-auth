@@ -15,7 +15,6 @@ export const Status = () => {
       {errorMessage && (
         <div>
           <p>{`${errorMessage}`}</p>
-          <span role="img" aria-label="warning">⚠️</span>
         </div>
       )}
     </>
