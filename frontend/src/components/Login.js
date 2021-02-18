@@ -10,7 +10,7 @@ const LOGIN_URL = "https://project-signup.herokuapp.com/sessions";
 
 export const Login = () => {
   const dispatch = useDispatch();
-  //Using useSelector to access data from the redux store
+  // Using useSelector to access data from the redux store
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const messageToUser = useSelector((store) => store.user.login.statusMessage);
 
@@ -18,7 +18,8 @@ export const Login = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  // Sending the response from the fetches for both the SIGNUP_URL & LOGIN_URL to the redux store if the fetch was successful
+  // Sending the response from the fetches for both the SIGNUP_URL & LOGIN_URL to 
+  // the redux store if the fetch was successful
   const handleLoginSuccess = (loginResponse) => {
     dispatch(
       user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
@@ -30,19 +31,25 @@ export const Login = () => {
     );
   };
 
-  // If the fetch wasn't successful, because the user didn't give valid name or password when signing up or a when logging in the data sent didn't match was is stored in the database for that user e.g. name and password, then the access token is set to null and status message is that's returned in the json is sent to the redux store 
+  // If the fetch wasn't successful, because the user didn't give valid name or 
+  // password when signing up or a when logging in the data sent didn't match was 
+  // is stored in the database for that user e.g.name and password, then the 
+  // access token is set to null and status message is that's returned in the json 
+  // is sent to the redux store 
   const handleLoginFailed = (error) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
     dispatch(user.actions.setStatusMessage({ statusMessage: error.toString() }))
     ;
   };
 
-// Want to know the difference between the throw error message in the fetch and the error message we define in the endpoint in server.js. Is the one in the endpoint only for the backend, and the throw the one we should show in the frontend?
+  // Want to know the difference between the throw error message in the fetch and 
+  // the error message we define in the endpoint in server.js.Is the one in the 
+  // endpoint only for the backend, and the throw the one we should show in the frontend?
 
   /* Handle sign up:
   1. prevents the page from refreshing after the form is submitted.
   2. Then does the fetch passing the name and password the user has inputted via the body as this is what the endpoint requires to create a new user.
-  3. If the name and password aren't ok because they don't match what is required e.g the lenght is less than 5, then the throw is actioned.
+  3. If the name and password aren't ok because they don't match what is required e.g the length is less than 5, then the throw is actioned.
   4. Otherwise if the fetch is successful then the data from the endpoint in server.js is returned in the json respons e.g. userId, accessToken, name and statusMessage.
   5. If not successful then the handleLoginFailed function is called and the redux store is updated with an access token that's null and the status message from the endpoint in server.js.
   6. Finally the setName and setPassword is cleared of the users name and password to an empty string.
@@ -96,7 +103,11 @@ export const Login = () => {
       });
   };
 
-  // If the user is successful (i.e. the accessToken has been created and successfully stored in the redux store) when logging in and signing in then the UserProfile component will be rendered. This is done because we have written the UserProfile tag in App.js, otherwise we could write it here and not in App.js
+  // If the user is successful (i.e. the accessToken has been created and 
+  // successfully stored in the redux store) when logging in and signing in
+  // then the UserProfile component will be rendered. This is done because 
+  // we have written the UserProfile tag in App.js, otherwise we could write 
+  // it here and not in App.js.
   if (accessToken) {
     return <></>;
   }

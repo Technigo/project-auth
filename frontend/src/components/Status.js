@@ -11,9 +11,13 @@ export const Status = ({ setSecretPage }) => {
 
   /* 
   1. handleLogout is called when the user clicks the logout button.
-  2. As the button is a submit button we use preventDefault to stop the page from reloading when the button is clicked.
-  3. Then the setSecretPage is set to false so the user isn't directed to this component when they login again and they're instead navigated to the UserProfile.js which is the flow of our login.
-  4. Then two dispatches are done, one to change the userId, accessToken and name back to their initial state and the other to set the statusMessage in the initial state to "Logged out".
+  2. As the button is a submit button we use preventDefault to stop the 
+  // page from reloading when the button is clicked.
+  3. Then the setSecretPage is set to false - else the user can't access the
+  // SecretPage when logging in again, only the UserProfile. 
+  4. Then two dispatches are done, one to change the userId, accessToken 
+  // and name back to their initial state and the other to set the statusMessage 
+  // in the initial state to "Logged out".
   */
   const handleLogout = (event) => {
     event.preventDefault();

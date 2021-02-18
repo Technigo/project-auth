@@ -77,6 +77,10 @@ export const UserProfile = () => {
 
   return (
     <section>
+      {/* 
+      Conditional rendering: if NOT secretPage render this, IF secretPage render nested component
+      <Status />} 
+      */}
       {!secretPage ? (
         <section>
           <h1>Welcome {userName}!</h1>
@@ -92,7 +96,11 @@ export const UserProfile = () => {
           </div>
         </section>
       ) : (
-        // Passing the useState setSecretPage to status.js so this can also be used when the user clicks the logout button. We noticed that when the user signs in, loggs out and then loggs in again they were automatically taken to the Status.js component. Passing this useState as props means we don't have to refresh the page to stop this from happening.
+          // Passing the useState setSecretPage to status.js so this can also be 
+          // used when the user clicks the logout button. We noticed that when 
+          // the user signs in, loggs out and then loggs in again they were 
+          // automatically taken to the Status.js component. Passing this useState 
+          // as props means we don't have to refresh the page to stop this from happening.
         <Status setSecretPage={setSecretPage}/>
       )}
     </section>
