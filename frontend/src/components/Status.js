@@ -9,12 +9,13 @@ export const Status = () => {
     <>
       {statusMessage && (
         <div>
-          <p>{`${statusMessage}`}</p>
+          <p>{`${statusMessage}`}!</p>
         </div>
       )}
       {errorMessage && (
         <div>
           <p>{`${errorMessage}`}</p>
+          <span role="img" aria-label="warning">⚠️</span>
         </div>
       )}
     </>

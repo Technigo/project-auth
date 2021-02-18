@@ -80,3 +80,9 @@ export const CredText = styled.p`
  font-size: 10px;
  margin-top: 20px;
 `;
+
+export const StatusMessage = styled.div`
+ background: #A599E0;
+ color: #000;
+ min-width: 50vw;
+`;
