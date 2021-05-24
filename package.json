@@ -3,5 +3,12 @@
   "version": "1.0.0",
   "scripts": {
     "postinstall": "npm install --prefix backend"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
+    "mongoose": "^5.12.10"
+  },
+  "devDependencies": {
+    "@types/bcrypt-nodejs": "^0.0.31"
   }
 }
