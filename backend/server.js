@@ -65,7 +65,7 @@ app.get('/', (req, res) => {
 
 //GET Requests to get all messages in Thought model:
 // specify authenticateUser for this end point, do we have a user with this token -> then move on to next()
-app.get('/thoughts', authenticateUser)
+app.get('/thoughts', authenticateUser);
 app.get('/thoughts', async (req, res) => {
   const thoughts = await Thought.find()
   res.json(thoughts)
