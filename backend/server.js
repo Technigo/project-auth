@@ -64,7 +64,7 @@ app.use(express.json()) // app here?
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  res.send(listEndpoints(app))
 })
 
 app.get('/thoughts', authenticateUser)
