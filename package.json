@@ -3,5 +3,25 @@
   "version": "1.0.0",
   "scripts": {
     "postinstall": "npm install --prefix backend"
+  },
+  "description": "Replace this readme with your own information about your project.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esteficodes/project-auth.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/esteficodes/project-auth/issues"
+  },
+  "homepage": "https://github.com/esteficodes/project-auth#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3"
+  },
+  "dependencies": {
+    "@babel/helper-plugin-utils": "^7.13.0",
+    "@babel/plugin-proposal-class-static-block": "^7.14.3"
   }
 }
