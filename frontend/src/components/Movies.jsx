@@ -20,7 +20,6 @@ export const Movies = () => {
 
   return (
       <div>
-        <h1>HELLO MOVIES</h1>
         {moviesList.map((movie) => (
           <div key={movie._id}>
             <p>{movie.title}</p>

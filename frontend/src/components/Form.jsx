@@ -1,23 +1,41 @@
 import React from 'react'
+import styled from 'styled-components/macro';
+
+const FormContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  margin: 0 auto;
+`;
+
+const Input = styled.input`
+  border: none;
+  border-bottom: 1px solid white;
+  margin-bottom: 10px;
+  background-color: black;
+`;
 
 export const Form = () => {
   return (
-    <form>
+    <FormContainer>
       <label>email</label>
-      <input
+      <Input
         type="text"
         id="email"
-      ></input>
+        placeholder="email"
+      ></Input>
       <label>name</label>
-      <input
+      <Input
         type="text"
         id="name"
-      ></input>
+        placeholder="name"
+      ></Input>
       <label>password</label>
-      <input
+      <Input
         type="text"
         id="password"
-      ></input>
-    </form>
+        placeholder="password"
+      ></Input>
+    </FormContainer>
   )
 }

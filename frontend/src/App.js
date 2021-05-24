@@ -14,6 +14,7 @@ const store = configureStore({ reducer });
 export const App = () => {
   return (
     <Provider store={ store }>
+      <h1>HELLO MOVIES</h1>
       <Form />
       <Movies />
     </Provider>
