@@ -18,6 +18,7 @@ const Input = styled.input`
 export const Form = () => {
   return (
     <FormContainer>
+      <h2>Sign Up!</h2>
       <label>email</label>
       <Input
         type="text"
