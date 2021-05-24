@@ -14,6 +14,22 @@ const Thought = mongoose.model("Thought", {
   message: String,
 });
 
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header("Authorization");
+
+  try {
+    const user = await User.findOne({ accessToken });
+
+    if (user) {
+      next();
+    } else {
+      res.status(401).json({ message: "Not authorized" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: "Invalid request", error });
+  }
+};
+
 const User = mongoose.model("User", {
   username: {
     type: String,
@@ -84,6 +100,26 @@ app.post("/signup", async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({ message: "Invalid request".error });
+  }
+});
+
+app.post("/signin", async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username });
+
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.json({
+        userID: user._id,
+        username: user.username,
+        accessToken: user.accessToken,
+      });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: "Invalid request", error });
   }
 });
 
