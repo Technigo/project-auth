@@ -21,15 +21,32 @@ const User = mongoose.model('User', {
     unique: true
   },
   password: {
-    type: String, 
+    type: String,
     required: true
   },
   accessToken: {
-    type: String, 
-    // function declaration method run one time when application start, one unique access token
-    default: () => crypto.randombytes(128).toString('hex')
+    type: String,
+    default: () => crypto.randomBytes(128).toString('hex')
   }
-})
+});
+
+// access token always sent when you send your request frmo front end 
+// if user have the access token then next()
+//authenicate middlewear, specific on some end point or always 
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header('Authorization');
+
+  try {
+    const user = await User.findOne({ accessToken });
+    if (user) {
+      next();
+    } else {
+      res.status(401).json({ message: 'Not authorized' });
+    }
+  } catch (error) {
+    res.status(400).json({ message: 'Invalid request', error });
+  }
+}
 
 // Defines the port the app will run on. Defaults to 8080, but can be 
 const port = process.env.PORT || 8080
@@ -47,6 +64,8 @@ app.get('/', (req, res) => {
 })
 
 //GET Requests to get all messages in Thought model:
+// specify authenticateUser for this end point, do we have a user with this token -> then move on to next()
+app.get('/thoughts', authenticateUser)
 app.get('/thoughts', async (req, res) => {
   const thoughts = await Thought.find()
   res.json(thoughts)
@@ -69,25 +88,48 @@ app.post('/thoughts', async (req, res) => {
 // there is one matching hashed password in the database when login in 
 // Salt: making the hash password random, makes it difficult to hack.
 // hashed randomized password 
-app.post('/signup', async (req,res) => {
-  const { username, password } = req.body
+app.post('/signup', async (req, res) => {
+  const { username, password } = req.body;
 
   try {
-    const salt = bcrypt.genSaltSync()
+    const salt = bcrypt.genSaltSync();
     const newUser = await new User({
       username,
       password: bcrypt.hashSync(password, salt)
-    }).save()
+    }).save();
+
     res.json({
-      userID: newUser._id, 
+      userID: newUser._id,
       username: newUser.username,
       accessToken: newUser.accessToken
-    })
+    });
   } catch (error) {
-    res.json(400).json({ message: 'invalid request', error })
+    res.status(400).json({ message: 'Invalid request', error });
   }
-})
+});
 
+// standard for login
+app.post('/signin', async (req, res) => {
+  const { username, password } = req.body;
+
+  console.log(username, password);
+
+  try {
+    const user = await User.findOne({ username });
+
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.json({
+        userID: user._id,
+        username: user.username,
+        accessToken: user.accessToken
+      });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(400).json({ message: 'Invalid request', error });
+  }
+});
 
 // Start the server
 app.listen(port, () => {
