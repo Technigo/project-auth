@@ -1,18 +1,17 @@
 import express from "express";
+require("dotenv").config();
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 
-const userDB = process.env.userDB;
-const passDB = process.env.passDB;
-// mongodb://localhost/authAPI
-
-const mongoUrl =
-  process.env.MONGO_URL ||
-  `mongodb+srv://{userDB}:{passDB}@cluster0.gexln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const mongoUrl = process.env.MONGO_URL || `mongodb://localhost/authAPI`;
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
+
+const Thought = mongoose.model("Thought", {
+  message: String,
+});
 
 const User = mongoose.model("User", {
   username: {
@@ -44,6 +43,26 @@ app.use(bodyParser.json());
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello world");
+});
+
+app.get("/thoughts", async (req, res) => {
+  try {
+    const thoughts = await Thought.find();
+    res.json(thoughts);
+  } catch (error) {
+    res.status(400).json({ message: "Could not fetch thoughts", error });
+  }
+});
+
+app.post("/thoughts", async (req, res) => {
+  const { message } = req.body;
+
+  try {
+    const newThought = await new Thought({ message }).save();
+    res.json(newThought);
+  } catch (error) {
+    res.status(400).json({ message: "Invalid request", error });
+  }
 });
 
 // Start the server
