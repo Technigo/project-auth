@@ -1,9 +1,10 @@
-import express from "express";
 require("dotenv").config();
+import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
+import bcrypt, { genSaltSync } from "bcrypt";
 
 const mongoUrl = process.env.MONGO_URL || `mongodb://localhost/authAPI`;
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -25,7 +26,7 @@ const User = mongoose.model("User", {
   },
   accessToken: {
     type: String,
-    defualt: () => crypto.randomBytes(128).toString("hex"),
+    default: () => crypto.randomBytes(128).toString("hex"),
   },
 });
 
@@ -62,6 +63,27 @@ app.post("/thoughts", async (req, res) => {
     res.json(newThought);
   } catch (error) {
     res.status(400).json({ message: "Invalid request", error });
+  }
+});
+
+app.post("/signup", async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const salt = bcrypt.genSaltSync();
+
+    const newUser = await new User({
+      username: username,
+      password: bcrypt.hashSync(password, salt),
+    }).save();
+
+    res.json({
+      userID: newUser._id,
+      username: newUser.username,
+      accessToken: newUser.accessToken,
+    });
+  } catch (error) {
+    res.status(400).json({ message: "Invalid request".error });
   }
 });
 
