@@ -2,22 +2,33 @@ import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const StyledButton = styled.button`
-  width: 200px;
-  font-size: 16px;
-  color: #6A7885;
-  height: 50px;
-  margin-bottom: 20px;
-  background-color: #CAEBF2;
+import { StyledButton } from '../components/StyledBtn'
+
+//maybe add two input fields for password for extra check
+
+const Wrapper = styled.div`
   border: 1px solid #9099A5;
   border-radius: 2px;
-  cursor: pointer;
-  box-shadow: 7px 7px white, 7px 7px 0px 1px #9099A5;
-  &:hover {
-    background-color: rgb(203,200,254);
-  }
+  box-shadow: 7px 7px #CAEBF2, 7px 7px 0px 1px #9099A5;
+  background-color: white;
+  margin: 30px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const Input = styled.input`
+  margin: 7px;
+`
 
 export const SignUp = () => {
   const [ username, setUsername ] = useState('')
@@ -52,26 +63,25 @@ export const SignUp = () => {
   }
 
   return (
-    <>
-    
-    <form>
-    <h2>Sign Up</h2>
+    <Wrapper>
+    <Form>
+    <h2>Sign up</h2>
       <label>
         Username
-        <input onChange={(e) => setUsername(e.target.value)} type="text" />
+        <Input onChange={(e) => setUsername(e.target.value)} value={username} type="text" />
       </label>
       <label>
-        Password
-        <input onChange={(e) => setPassword(e.target.value)} type="password" />
+        Password 
+        <Input onChange={(e) => setPassword(e.target.value)} value={password} type="password" />
       </label>
       <StyledButton onClick={onFormSubmit} type="submit">Submit</StyledButton>
-    </form>
+    </Form>
 
     {isSuccess ? (
-        <Redirect to ="/login" />
+          <Redirect to ="/login" />
       ) : (
         <p>{response}</p>
       )}
-    </>
+    </Wrapper>
   )
 }

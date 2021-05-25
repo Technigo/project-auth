@@ -2,11 +2,39 @@ import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { StyledButton } from '../components/StyledBtn'
+
+const Wrapper = styled.div`
+  border: 1px solid #9099A5;
+  border-radius: 2px;
+  box-shadow: 7px 7px #CAEBF2, 7px 7px 0px 1px #9099A5;
+  background-color: white;
+  margin: 30px;
+  width: 500px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const Input = styled.input`
+  margin: 7px;
+`
+
 export const LogIn = () => {
   const [ username, setUsername ] = useState('')
   const [ password, setPassword ] = useState('')
+  const [ response, setResponse ] = useState('')
   const [ isLoggedIn, setIsLoggedIn ] = useState(false)
-
+  
   const onLogIn = (e) => {
     e.preventDefault()
     fetch('http://localhost:8080/signin', {
@@ -21,32 +49,41 @@ export const LogIn = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data);
-        setIsLoggedIn(true)
+        if (data.message === 'User not found') {
+          setResponse('User not found')
+          setUsername('')
+          setPassword('')
+        } else {
+          setIsLoggedIn(true)
+        }
       })
       .catch((error) => {
         console.error('Error:', error);
+        setUsername('')
+        setPassword('')
       })
   }
 
   return (
-    <>
-    {isLoggedIn ? (
-        <Redirect to ="/content" />
-      ) : (
-      <form>
+    <Wrapper>
+      <Form>
         <h2>Log In</h2>
         <label>
           Username
-          <input onChange={(e) => setUsername(e.target.value)} type="text" />
+          <Input onChange={(e) => setUsername(e.target.value)} value={username} type="text" />
         </label>
         <label>
           Password
-          <input onChange={(e) => setPassword(e.target.value)} type="password" />
+          <Input onChange={(e) => setPassword(e.target.value)} value={password} type="password" />
         </label>
-        <button onClick={onLogIn} type="submit">Log in</button>
-      </form>
+        <StyledButton onClick={onLogIn} type="submit">Log in</StyledButton>
+      </Form>
+      {isLoggedIn ? (
+        <Redirect to ="/content" />
+      ) : (
+          <p>{response}</p>
+
       )}
-    </>
+    </Wrapper>
   )
 }

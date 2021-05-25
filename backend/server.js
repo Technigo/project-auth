@@ -1,4 +1,5 @@
 import express from 'express'
+import listEndpoints from 'express-list-endpoints'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
@@ -48,12 +49,26 @@ app.use(express.json())
 
 // Endpoints
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  res.send(listEndpoints(app))
 })
 
 app.get('/session', authenticateUser)
 app.get('/session', (req, res) => {
-  res.send('You are logged in!')
+  const axios = require('axios')
+
+  const config = {
+    method: 'get',
+    url: 'https://api.thecatapi.com/v1/images/search',
+    headers: {
+      'x-api-key': '0f2ac4bc-3fb8-4532-8d82-398268850e58',
+      'content-type': 'application/json; charset=utf-8',
+    }
+  }
+  axios(config)
+    .then((response) => {
+      res.send(response.data)
+    })
+    .catch((err) => res.send(err))
 })
 
 app.post('/signup', async (req, res) => {
