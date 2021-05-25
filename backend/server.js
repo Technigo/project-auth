@@ -34,6 +34,22 @@ const User = mongoose.model('User', {
 const port = process.env.PORT || 8080
 const app = express()
 
+
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header('Authorization')
+
+  try {
+    const user = await User.findOne({ accessToken })
+      if (user) {
+        next()
+      } else {
+        res.status(401).json({ message: "Not authenticated" })
+      }
+  } catch (error){
+    res.status(400).json({ message: "Invalid request", error })
+  }
+}
+
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(bodyParser.json())
@@ -42,12 +58,15 @@ app.use(bodyParser.json())
 app.get('/', (req, res) => {
   res.send(listEndpoints(app))
 })
+
 //An endpoint to get all thoughts
+app.get('/thoughts', authenticateUser)
 app.get('/thoughts', async (req, res) => {
   const thoughts = await Thought.find()
   res.json(thoughts)
 })
 
+app.post('/thoughts', authenticateUser)
 app.post('/thoughts', async (req, res) => {
   const { message } = req.body
 
@@ -58,6 +77,7 @@ app.post('/thoughts', async (req, res) => {
     res.status(400).json({ message: 'Invalid request', error })
   }
 })
+
 //An endpoint to sign up 
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
