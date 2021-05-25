@@ -2,6 +2,9 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import listEndpoints from 'express-list-endpoints'
+import crypto from 'crypto'
+import bcrypt from 'bcrypt'
+
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
@@ -22,6 +25,10 @@ const User = mongoose.model('User', {
   password: {
     type: String,
     required: true
+  },
+  accessToken: {
+    type: String,
+    default: () => crypto.randomBytes(128).toString('hex')
   }
 })
 
@@ -57,14 +64,21 @@ app.post('/thoughts', async (req, res) => {
 // edpoint - get request for signup
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
-
   try {
-
+    const salt = bcrypt.genSaltSync()
+    const newUser = await new User ({
+      username,
+      password: bcrypt.hashSync(password, salt)
+    }).save()
+    res.json({
+      userID: newUser._id,
+      username: newUser.username,
+      accessToken: newUser.accessToken
+    });
   } catch (error) {
-    
+    res.status(400).json({ message: 'Invalid request', error });
   }
 })
-
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
