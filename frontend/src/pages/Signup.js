@@ -8,7 +8,6 @@ const Signup = () => {
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      // body: { email: email, password: password }
       body: JSON.stringify({ email, password })
     }
     event.preventDefault()

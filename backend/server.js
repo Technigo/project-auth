@@ -5,7 +5,7 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 import listEndpoints from 'express-list-endpoints'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI_test"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
@@ -89,7 +89,7 @@ app.post('/thoughts/', async (req, res) => {
 // or call the endpoint:  /user or:  /register
 app.post('/signup', async (req, res) => {
  const { email, password } = req.body  // --> sent from frontend
-
+  console.log(req.body)
  try {
    const salt = bcrypt.genSaltSync() // initialize salt randomizer
    
@@ -97,7 +97,7 @@ app.post('/signup', async (req, res) => {
     email,
     password: bcrypt.hashSync(password, salt) // a hashed randomized password 2 arguments: password, salt
   }).save()
-
+  console.log(newUser)
   res.json({
     userId: newUser._id,
     email: newUser.email,
