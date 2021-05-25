@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { Button } from "components/Button";
 import { InputForm } from "components/InputForm";
 import { Footer } from "components/Footer";
-import logo from "components/logo.png";
-import pic from "components/pic.jpg";
+import logo from "assets/logo.png";
+import pic from "assets/pic.jpg";
 
 const Container = styled.div`
   display: flex;
@@ -50,7 +50,6 @@ const ImageContainer = styled.div`
 
 const Image = styled.img`
   object-fit: cover;
-  background-image: url(./components/pic.jpg);
   width: 100%;
 `;
 
@@ -63,7 +62,7 @@ const Form = styled.form`
 `;
 
 const Logo = styled.img`
-  background-image: url(./components/logo.png);
+  background-image: url(./assets/logo.png);
   width: 50%;
   margin-bottom: 100px;
   @media (min-width: 768px) {

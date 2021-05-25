@@ -20,7 +20,6 @@ const Text = styled.h3`
   font-size: 14px;
   color: white;
   font-weight: 400;
-  word-spacing: -1px;
   @media (min-width: 768px) {
     font-size: 18px;
   }
@@ -30,7 +29,6 @@ const LinkText = styled.p`
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  word-spacing: -5px;
   color: #ffffff;
   display: inline;
   :hover,
