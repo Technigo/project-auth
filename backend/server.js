@@ -6,7 +6,15 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt, { genSaltSync } from "bcrypt";
 
-const mongoUrl = process.env.MONGO_URL || `mongodb://localhost/authAPI`;
+const userDB = process.env.userDB;
+const passDB = process.env.passDB;
+
+// Local host url
+// mongodb://localhost/authAPI
+
+const mongoUrl =
+  process.env.MONGO_URL ||
+  `mongodb+srv://{userDB}:{passDB}@cluster0.1imwj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
