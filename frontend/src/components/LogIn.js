@@ -14,29 +14,33 @@ const LogIn = () => {
     <section className="login-container">
       <form className="form-box-left">
         <h1 className="form-heading">Sign in</h1>
-        <label className="input-label">
-          Email
+        <label className="input-wrapper">
+          <p className="input-label">password</p>
           <input
+            placeholder="Email"
             className="input-box"
             type="email"
             value={email}
             onChange={onEmailChange}
           />
         </label>
-        <label className="input-label">
-          Password
+        <label className="input-wrapper">
+          <p className="input-label">password</p>
           <input
+            placeholder="Password"
             className="input-box"
             type="password"
             value={password}
             onChange={onPaswordChange}
           />
         </label>
-        <button type="submit">Sing in</button>
-        <button type="submit">Sing up</button>
+        <div className="form-buttons-container">
+          <button type="submit" className="form-button">Sing in</button>
+          <button type="submit" className="form-button">Sing up</button>
+        </div>
       </form>
       <div className="form-box-right">
-        <img src="./assets/moody.jpeg"/>
+        <img src="./assets/moody.jpeg" />
       </div>
     </section>
   )
