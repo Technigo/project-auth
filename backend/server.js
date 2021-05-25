@@ -3,7 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
-import { request } from 'http'
+import drinkData from './data/drink-recipes.json'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
@@ -38,6 +38,42 @@ const User = mongoose.model('User', {
   }
 })
 
+const DrinkRecipe = mongoose.model('DrinkRecipe', {
+  title: String,
+  id: Number,
+  description: String,
+  alcoholic: Boolean,
+})
+
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header('Authorization')
+
+  try {
+    const user = await User.findOne({ accessToken })
+    if (user) {
+      // req.user = user
+      next()
+    } else {
+      res.status(401).json({ message: 'Not authenticated' })
+    }
+  } catch (error) {
+    res.status(400).json({ message: 'invalid request', error})
+  }
+}
+
+if (process.env.RESET_DATABASE) {
+  const seedDB = async () => {
+    console.log("SEEDING!")
+    await DrinkRecipe.deleteMany()
+    
+    drinkData.forEach(async (item) => {
+      const drinkRecipe = new DrinkRecipe(item)
+      await drinkRecipe.save()
+    })
+  }
+  seedDB()
+}
+
 const port = process.env.PORT || 8080
 const app = express()
 //testing!! Elaine was here, writing by your test!
@@ -48,6 +84,12 @@ app.use(express.json())
 // Start defining your routes here
 app.get('/', (req, res) => {
   res.send('Hello world')
+})
+
+app.get('/happyhour', authenticateUser)
+app.get('/happyhour', async (req, res) => {
+  const drinkRecipes = await DrinkRecipe.find()
+  res.json(drinkRecipes)
 })
 
 app.post('/signup', async (req, res) => {
@@ -67,6 +109,26 @@ app.post('/signup', async (req, res) => {
       accessToken:newUser.accessToken
     })
   } catch(error) {
+    res.status(400).json({ message: 'invalid request', error})
+  }
+})
+
+app.post('/signin', async (req, res) => {
+  const { username, password, email } = req.body
+
+  try {
+    const user = await User.findOne({ username })
+    if (user && bcrypt.compareSync(password, user.password)) {
+       res.json({
+        userId: user._id,
+        username: user.username,
+        email: user.email,
+        accessToken:user.accessToken
+       })
+    } else {
+      res.status(404).json({ message: 'User not found' })
+    }
+  } catch (error) {
     res.status(400).json({ message: 'invalid request', error})
   }
 })
