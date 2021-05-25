@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 //   res.json(thoughts)
 // });
 
-app.get('/thoughts', authenticateUser);
+//app.get('/thoughts', authenticateUser);
 app.get('/thoughts', async (req, res) => {
   const { message } = req.body;
   try {
