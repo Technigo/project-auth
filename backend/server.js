@@ -101,7 +101,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-// endpoint for signin (add erro messages for user/ password)
+// endpoint - post request for signing in (add erro messages for user/ password)
 app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
   try {
