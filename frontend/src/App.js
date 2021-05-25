@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Index from "./pages/Index";
+import { BrowserRouter, Route } from "react-router-dom";
 
 export const App = () => {
   return (
-    <div>
-      Find me in src/app.js!
-    </div>
-  )
-}
+    <>
+      <BrowserRouter>
+        <Route exact path="/" component={Index} />
+      </BrowserRouter>
+    </>
+  );
+};
