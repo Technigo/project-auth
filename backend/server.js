@@ -13,7 +13,7 @@ const passDB = process.env.passDB;
 
 const mongoUrl =
   process.env.MONGO_URL ||
-  `mongodb+srv://${userDB}:${passDB}@cluster0.1imwj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+  `mongodb+srv://${userDB}:${passDB}@cluster0.gexln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
