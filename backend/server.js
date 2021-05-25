@@ -150,7 +150,6 @@ app.post('/users/:id/feelings', async (req, res) => {
   }
 })
 
-
 app.listen(port, () => {
   // eslint-disable-next-line
   console.log(`Server running on http://localhost:${port}`)
