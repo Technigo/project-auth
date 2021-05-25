@@ -27,13 +27,15 @@ const User = mongoose.model("User", {
   password: {
     type: String,
     required: true,
-    minlength: 8,
-    maxlenght: 15,
-  //   validate: {
-  //     validator: (value) => {
-  //       return /^(?=.*\d+)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%]{6,10}$/.test(value);
-  //     },
-  // },
+    // minlength: 8,
+    // maxlenght: 15,
+    //   validate: {
+    //     validator: (value) => {
+    //       return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value);
+    //     },
+    //     message: 'Password needs to contain at least one letter and one number'
+    // },
+  },
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),

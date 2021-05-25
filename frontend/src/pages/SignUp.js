@@ -2,14 +2,17 @@ import React from "react";
 import styled from "styled-components";
 
 import { Button } from "components/Button";
-import { InputForm } from 'components/InputForm'
+import { InputForm } from "components/InputForm";
+import { Footer } from "components/Footer";
 
-const MainContainer = styled.main`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  height: 50%;
+  width: 100%;
+  margin-bottom: 100px;
 `;
 
 const Form = styled.form`
@@ -18,18 +21,33 @@ const Form = styled.form`
   justify-content: center;
   align-items: center;
   width: 75%;
+  // margin-top: 100px;
 `;
 
-export const SignIn = () => {
+const CreateAccount = styled.h1`
+  font-weight: 600;
+  font-size: 26px;
+  // margin-top: -100px;
+`;
+
+export const SignUp = () => {
   return (
-    <MainContainer>
-      <Form>
-          <InputForm  id="name" placeholder="Name"></InputForm>
-          <InputForm  id="username" placeholder="Username"></InputForm>
-          <InputForm  id="email" placeholder="Email"></InputForm>
-          <InputForm  id="password" placeholder="Password"></InputForm>
-        <Button />
-      </Form>
-    </MainContainer>
+    <>
+      <Container>
+        <CreateAccount>Create New Account</CreateAccount>
+        <Form>
+          <InputForm id="name" placeholder="Name"></InputForm>
+          <InputForm id="username" placeholder="Username"></InputForm>
+          <InputForm id="email" placeholder="Email"></InputForm>
+          <InputForm id="password" placeholder="Password"></InputForm>
+          <Button buttonText="register" />
+        </Form>
+      </Container>
+      <Footer
+        footerText="Already have an account?"
+        linkText="Sign Up"
+        linkTo="/"
+      />
+    </>
   );
 };

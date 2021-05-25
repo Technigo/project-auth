@@ -3,14 +3,8 @@ import styled from "styled-components";
 
 import { Button } from "components/Button";
 import { InputForm } from 'components/InputForm'
+import { Footer } from 'components/Footer'
 
-const MainContainer = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-`;
 
 const Form = styled.form`
   display: flex;
@@ -22,12 +16,12 @@ const Form = styled.form`
 
 export const SignIn = () => {
   return (
-    <MainContainer>
       <Form>
           <InputForm  id="username" placeholder="Username"></InputForm>
           <InputForm  id="password" placeholder="Password"></InputForm>
-        <Button />
+        <Button 
+          buttonText="sign in" />
+        <Footer footerText="Don't have an account?" linkText="Sign In" linkTo="/signup"/>
       </Form>
-    </MainContainer>
   );
 };

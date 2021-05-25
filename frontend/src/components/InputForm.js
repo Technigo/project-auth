@@ -19,7 +19,9 @@ const Input = styled.input`
   border-bottom: 2px solid grey;
   width: 100%;
   padding-bottom: 5px;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
+  font-size: 14px;
+  font-family: 'Padauk';
   :focus {
     border-bottom: 2px solid pink;
   }
@@ -28,7 +30,7 @@ const Input = styled.input`
 export const InputForm = ({ id, placeholder }) => {
   return (
     <>
-      <Label for={id} aria-label={`Enter your ${id}`}></Label>
+      <Label htmlFor={id} aria-label={`Enter your ${id}`}></Label>
       <Input
         type="text"
         id={id}
