@@ -1,6 +1,12 @@
 :root {
   font-size: 62.5%;
   font-family: 'Montserrat', sans-serif;
+  --primary-one: #E3E7B8;
+  --primary-two: #80BDB3;
+  --primary-three:#CC5E38;
+  --primary-four: #735533;   
+  --primary-fifth: #978D4F; 
+  --primary-sixth: #3B2B20;                                                                                                                                                                                                                                                             
 }
 
 body {
@@ -20,11 +26,21 @@ code {
 .main {
   font-size: 1.6rem;
   font-family: 'Montserrat', sans-serif;
+  color: var(--primary-sixth);
+  background-image: url("/images/flatearth.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.landingpage-section-wrapper {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
 }
 
 .landingpage-section {
@@ -32,7 +48,7 @@ code {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f8eded;
+  background-color: var(--primary-one);
   width: 30%;
   border-radius: 8px;
   padding: 50px;
@@ -48,6 +64,7 @@ code {
   height: 30px;
   border: none;
   border-radius: 4px;
+  color: var(--primary-sixth);
 }
 
 .btn {
@@ -56,3 +73,63 @@ code {
   border-radius: 4px;
   margin-top: 20px;
 }
+
+.sidebar {
+  background: var(--primary-three);
+  color: var(--primary-one);
+  width: 200px;
+  height: 100%;
+}
+
+.sidebar-list {
+  margin: 0;
+  padding: 10px;
+}
+
+.profile-info-section {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  
+  width: 100%;
+  border-radius: 8px;
+  padding: 50px;
+}
+
+.profile-info-wrapper {
+  align-self: center;
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 25px;
+  background: var(--primary-two);
+  color: var(--primary-sixth);
+}
+
+
+.profile-info-section h3 {
+  width: 70%;
+  align-self: center;
+  color:var(--primary-fifth); 
+  font-size: 3rem;
+}
+
+.profile-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.profile-info-form {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.description-textarea {
+  width: 250px;
+  height: 150px;
+}
+

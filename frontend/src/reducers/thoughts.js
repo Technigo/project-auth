@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const thoughts = createSlice({
-  name: 'thoughts',
+  name: 'account',
   initialState: {},
   reducers: {}
 })

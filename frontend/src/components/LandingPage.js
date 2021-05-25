@@ -1,14 +1,18 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
-import { useSelector } from 'react-redux'
+import AuthorizedPage from './AuthorizedPage'
 
 const LandingPage = () => {
   const account = useSelector(store => store.account)
 
   return (
     <>
-      {account.signup ? < SignupForm /> : < LoginForm />}
+      {!account.logedIn && account.signup && (< SignupForm /> )}
+      {!account.logedIn && !account.signup && (< LoginForm /> )}
+      {account.logedIn && <AuthorizedPage />}
     </>
   )
 }
