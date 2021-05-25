@@ -58,15 +58,13 @@ app.get("/", (req, res) => {
   res.send(listEndpoints(app));
 });
 
-// app.post("/welcome", async (req, res) => {
-//   const { message } = req.body;
-
-//   try {
-//   } catch (error) {}
-// });
+app.get("/welcome", authenticateUser);
+app.get("/welcome", async (req, res) => {
+  res.json({ message: 'Welcome!'})
+});
 
 // USER REGISTER
-// app.post("/register", authenticateUser);
+app.post("/register", authenticateUser);
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
@@ -89,7 +87,7 @@ app.post("/register", async (req, res) => {
 });
 
 // USER SIGNIN
-// app.post("/signin", authenticateUser);
+app.post("/signin", authenticateUser);
 app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
 
