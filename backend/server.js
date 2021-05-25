@@ -4,7 +4,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import listEndpoints from 'express-list-endpoints'
 import crypto from 'crypto'
-
+import bcrypt from 'bcryptjs'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
@@ -30,8 +30,6 @@ const User = mongoose.model('User', {
     default:() => crypto.randomBytes(128).toString('hex')
   }
 })
-
-
 
 const port = process.env.PORT || 8080
 const app = express()
@@ -61,6 +59,25 @@ app.post('/thoughts', async (req, res) => {
   }
 })
 
+app.post('/signup', async (req, res) => {
+  const { username, password } = req.body
+
+  try {
+    const salt = bcrypt.genSaltSync()
+
+    const newUser = await new User({
+      username,
+      password: bcrypt.hashSync(password, salt)
+    }).save()
+    res.json({
+     userID: newUser._id,
+     username: newUser.username,
+     accessToken: newUser.accessToken
+    })
+  } catch (error) {
+    res.status(400).json({ message: 'Invalid request', error })
+  }
+})
 // Start the server
 app.listen(port, () => {
   // eslint-disable-next-line
