@@ -58,7 +58,7 @@ app.post('/thoughts', async (req, res) => {
     res.status(400).json({ message: 'Invalid request', error })
   }
 })
-
+//An endpoint to sign up 
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
 
@@ -78,6 +78,28 @@ app.post('/signup', async (req, res) => {
     res.status(400).json({ message: 'Invalid request', error })
   }
 })
+
+//An endpoint to signin
+app.post('/signin', async (req, res) => {
+  const { username, password } = req.body
+
+  try {
+    const user = await User.findOne({ username })
+
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.json({
+        userId: user._id,
+        username: user.username,
+        accessToken: user.accessToken
+      })
+    } else {
+      res.status(404).json({ message: 'User not found' })
+    }
+  } catch (error) {
+    res.status(400).json({ message: 'Invalid request', error })
+  }
+})
+
 // Start the server
 app.listen(port, () => {
   // eslint-disable-next-line
