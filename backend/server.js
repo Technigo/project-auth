@@ -3,7 +3,10 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-import listEndpoints from "express-list-endpoints";
+import listEndpoints from 'express-list-endpoints'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, {
@@ -63,7 +66,7 @@ app.get("/", (req, res) => {
 // });
 
 // USER REGISTER
-app.post("/register", authenticateUser);
+// app.post("/register", authenticateUser);
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
@@ -86,7 +89,7 @@ app.post("/register", async (req, res) => {
 });
 
 // USER SIGNIN
-app.post("/signin", authenticateUser);
+// app.post("/signin", authenticateUser);
 app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
 
