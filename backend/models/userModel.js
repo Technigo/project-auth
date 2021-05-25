@@ -17,10 +17,6 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, 'You need to provide a password']
-  },
-  accessToken: {
-    type: String,
-    default: () => crypto.randomBytes(128).toString('hex')
   }
 });
 

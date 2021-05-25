@@ -14,6 +14,8 @@ export default (err, req, res, next) => {
     if (err.errors.email) {
       messages.push(err.errors.email.message);
     }
+  } else {
+    err.statusCode = err.statusCode || 500;
   }
 
   if (process.env.NODE_ENV === 'development') {
