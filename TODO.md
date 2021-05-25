@@ -1,7 +1,8 @@
 ## Todo 2021-05-25
 [X] Fixa Heroku & Atlas Cloud
-[] Fetch BE API med FE
+[X] Fetch BE API med FE
 [] POST Req FE to BE 
+[] 2 input field och submit button
 
 FE
 npm install

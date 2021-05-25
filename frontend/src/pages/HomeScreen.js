@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import credentials, { generateText } from '../reducers/credentials'
+import Form from '../components/Form.js'
 
 const HomeScreen = () => {
     const message = useSelector(store => store.credentials.message)
@@ -9,7 +10,12 @@ const HomeScreen = () => {
 
     dispatch(generateText())
     return (
-        <h1>{message}</h1>
+        <>
+            <h2>Sign Up</h2>
+            <Form mode={'signup'}/>
+            <h2>Sign In</h2>
+            <Form mode={'signin'}/>
+        </>
     )
 }
 
