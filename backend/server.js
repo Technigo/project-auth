@@ -48,7 +48,7 @@ const authenticateUser = async (req, res, next) => {
       req.user = user // keep or throw? 
       next() // ok go ahead/proceed! 
     } else {
-      res.status(401).json({ loggedOut: true, message: 'Not authorized' }) // not authenticated
+      res.status(401).json({ loggedOut: true, message: 'Not authenticated' }) // not authenticated
     }
   } catch (error) {
     res.status(400).json({ message: 'Invalid request', error })

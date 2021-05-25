@@ -1,9 +1,10 @@
 import React from 'react'
+import Signup from './pages/Signup'
 
 export const App = () => {
   return (
     <div>
-      Find me in src/app.js!
+      <Signup />
     </div>
   )
 }
