@@ -63,13 +63,11 @@ app.get('/', (req, res) => {
 //   res.json(thoughts)
 // });
 
-app.get('/thoughts', authenticateUser);
-app.get('/thoughts', async (req, res) => {
+app.post('/thoughts', async (req, res) => {
   const { message } = req.body;
   try {
-    // const newThought = await new Thought({ message }).save();
-    // res.json(newThought)
-    res.json({ message: "here is a message :D" })
+    const newThought = await new Thought({ message }).save();
+    res.json(newThought)
   } catch (error) {
     res.status(400).json({ message: "Invalid Request", error })
   }
