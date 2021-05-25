@@ -13,6 +13,7 @@ const Container = styled.div`
   height: 50%;
   width: 100%;
   margin-bottom: 100px;
+  border: 1px solid black;
 `;
 
 const Form = styled.form`
@@ -21,13 +22,14 @@ const Form = styled.form`
   justify-content: center;
   align-items: center;
   width: 75%;
-  // margin-top: 100px;
 `;
 
 const CreateAccount = styled.h1`
-  font-weight: 600;
-  font-size: 26px;
-  // margin-top: -100px;
+  font-weight: 500;
+  font-size: 23px;
+  color: #83868e;
+  font-family: "Roboto";
+  margin-bottom: 40px;
 `;
 
 export const SignUp = () => {
@@ -45,7 +47,7 @@ export const SignUp = () => {
       </Container>
       <Footer
         footerText="Already have an account?"
-        linkText="Sign Up"
+        linkText="Sign In"
         linkTo="/"
       />
     </>

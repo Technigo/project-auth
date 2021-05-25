@@ -13,9 +13,11 @@ const SubmitButton = styled.button`
   cursor: pointer;
   background-color: #f780b1;
   color: #ffffff;
-  font-family: 'Padauk', sans-serif;
+  font-family: "Padauk", sans-serif;
   letter-spacing: 1.5px;
-  :hover, :focus {
+  margin-top: 20px;
+  :hover,
+  :focus {
     color: #f780b1;
     background-color: #fff;
   }

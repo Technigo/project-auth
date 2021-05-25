@@ -16,14 +16,16 @@ const Input = styled.input`
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 2px solid grey;
+  border-bottom: 2px solid #d8d8d8;
   width: 100%;
   padding-bottom: 5px;
   margin-bottom: 30px;
-  font-size: 14px;
-  font-family: 'Padauk';
+  font-size: 16px;
+  font-family: "Padauk";
+  background-color: #f2f3ff;
+  color: #fff;
   :focus {
-    border-bottom: 2px solid pink;
+    border-bottom: 2px solid #f780b1;
   }
 `;
 
@@ -31,12 +33,7 @@ export const InputForm = ({ id, placeholder }) => {
   return (
     <>
       <Label htmlFor={id} aria-label={`Enter your ${id}`}></Label>
-      <Input
-        type="text"
-        id={id}
-        name={id}
-        placeholder={placeholder}
-      ></Input>
+      <Input type="text" id={id} name={id} placeholder={placeholder}></Input>
     </>
   );
 };

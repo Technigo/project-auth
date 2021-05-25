@@ -11,6 +11,7 @@ const PurpleFooter = styled.footer`
   border-radius: 40% 40% 0px 0px / 10px;
   width: 100%;
   height: 80px;
+  margin: 0;
   position: absolute;
   bottom: 0;
 `;
@@ -20,6 +21,9 @@ const Text = styled.h3`
   color: white;
   font-weight: 400;
   word-spacing: -1px;
+  @media (min-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 const LinkText = styled.p`
