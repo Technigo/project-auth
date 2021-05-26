@@ -41,10 +41,10 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next();
     } else {
-      res.status(401).json({ message: 'Not authorized' });
+      res.status(401).json({ success: false, message: 'Not authorized' });
     }
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error });
+    res.status(400).json({ success: false, message: 'Invalid request', error });
   }
 }
 
@@ -67,48 +67,52 @@ app.get('/', (req, res) => {
 // specify authenticateUser for this end point, do we have a user with this token -> then move on to next()
 app.get('/thoughts', authenticateUser);
 app.get('/thoughts', async (req, res) => {
-  const thoughts = await Thought.find()
-  res.json(thoughts)
-})
+  const thoughts = await Thought.find();
+  res.json({ success: true, thoughts});
+});
 
-// POST Requests to our Thought model, with a message. 
+app.post('/thoughts', authenticateUser);
 app.post('/thoughts', async (req, res) => {
-  const { message } = req.body   
+  const { message } = req.body;
 
-  try { 
-    const newThought = await new Thought({ message }).save()
-    res.json(newThought)
+  try {
+    const newThought = await new Thought({ message }).save();
+    res.json({ success: true, newThought});
   } catch (error) {
-      res.status(400).json({ message : "invalid request", error })
-    }
-})
+    res.status(400).json({ success: false, message: 'Invalid request', error });
+  }
+});
 
 // username and password required en point 
 // hash password, never need to reveal the password when login in
 // there is one matching hashed password in the database when login in 
 // Salt: making the hash password random, makes it difficult to hack.
 // hashed randomized password 
+// or '/users' or '/register'
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body;
 
   try {
     const salt = bcrypt.genSaltSync();
+
     const newUser = await new User({
       username,
       password: bcrypt.hashSync(password, salt)
     }).save();
 
     res.json({
+      success: true,
       userID: newUser._id,
       username: newUser.username,
       accessToken: newUser.accessToken
     });
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error });
+    res.status(400).json({ success: false, message: 'Invalid request', error });
   }
 });
 
-// standard for login
+
+// or '/session' or '/login'
 app.post('/signin', async (req, res) => {
   const { username, password } = req.body;
 
@@ -119,17 +123,19 @@ app.post('/signin', async (req, res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
+        success: true, 
         userID: user._id,
         username: user.username,
         accessToken: user.accessToken
       });
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ success: false, message: 'User not found' });
     }
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error });
+    res.status(400).json({ success: false, message: 'Invalid request', error });
   }
 });
+
 
 // Start the server
 app.listen(port, () => {
