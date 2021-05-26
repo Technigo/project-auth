@@ -1,39 +1,59 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
+import { useDispatch, batch } from 'react-redux'
+import { API_URL } from '../reusables/urls'
 
 const credentials = createSlice({
     name: 'credentials',
     initialState: {
-        message: 'start',
-        accessToken: ''
+        username: null,
+        accessToken: null,
+        error: null
     },
     reducers: {
-        setData: (store, action) => {
-            console.log("data was set ^^")
-            store.message = action.payload.message
+        setUsername: (store, action) => {
+            console.log("name was set ^^")
+            store.username = action.payload
         },
-        setToken: (store, action) => {
+        setAccessToken: (store, action) => {
             console.log(action)
             console.log("funkar denna")
             console.log(action.payload)
-            store.accessToken = action.payload.accessToken
+            store.accessToken = action.payload
             console.log(store.accessToken)
+        },
+        setError: (store, action) => {
+            store.error = action.payload
         }
     }
 })
 
-export const generateText = () => {
-    //const dispatch = useDispatch()
-    return (dispatch) => {
-        fetch('https://week-20-project-auth-api.herokuapp.com/thoughts')
-        .then(res => res.json())
-        .then(items => dispatch(credentials.actions.setData(items)))
-    }
-}
+// export const signIn = (username, password) => {
+//     return (dispatch) => {
+//         fetch('https://week-20-project-auth-api.herokuapp.com/signin', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-type' : 'application/json'
+//             },
+//             body: JSON.stringify({ username, password })
+//         })
+//         .then(res => {
+//             if (!res.ok) {
+//                 throw Error(res.statusText)
+//             } else {
+//                 return res.json()
+//             }
+//         })
+//         .then(items => batch(() => {
+//             dispatch(credentials.actions.setAccessToken(items))
+//             dispatch(credentials.actions.setUsername(items))
+//         }))
+//         .catch(error => console.log(error))
+//     }
+// }
 
-export const signIn = (username, password) => {
+export const authenticate = (username, password, mode) => {
     return (dispatch) => {
-        fetch('https://week-20-project-auth-api.herokuapp.com/signin', {
+        fetch(API_URL(mode), {
             method: 'POST',
             headers: {
                 'Content-type' : 'application/json'
@@ -47,28 +67,10 @@ export const signIn = (username, password) => {
                 return res.json()
             }
         })
-        .then(items => dispatch(credentials.actions.setToken(items)))
-        .catch(error => console.log(error))
-    }
-}
-
-export const signUp = (username, password) => {
-    return (dispatch) => {
-        fetch('https://week-20-project-auth-api.herokuapp.com/signup', {
-            method: 'POST',
-            headers: {
-                'Content-type' : 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-        })
-        .then(res => {
-            if (!res.ok) {
-                throw Error(res.statusText)
-            } else {
-                return res.json()
-            }
-        })
-        .then(items => dispatch(credentials.actions.setToken(items)))
+        .then(items => batch(() => {
+            dispatch(credentials.actions.setAccessToken(items))
+            dispatch(credentials.actions.setUsername(items))
+        }))
         .catch(error => console.log(error))
     }
 }

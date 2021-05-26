@@ -8,13 +8,9 @@ const HomeScreen = () => {
     const dispatch = useDispatch()
     console.log(message)
 
-    dispatch(generateText())
     return (
         <>
-            <h2>Sign Up</h2>
-            <Form mode={'signup'}/>
-            <h2>Sign In</h2>
-            <Form mode={'signin'}/>
+            <Form />
         </>
     )
 }

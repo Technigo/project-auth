@@ -108,7 +108,7 @@ app.post('/signin', async (req, res) => {
     const user = await User.findOne({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
-        userID: user._id,
+        userID: user._id, // lägg till success true etc
         username: user.username,
         accessToken: user.accessToken
       });

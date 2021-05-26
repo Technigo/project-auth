@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { signIn, signUp } from '../reducers/credentials'
-const Form = ({ mode }) => {
+import { authenticate } from '../reducers/credentials'
+const Form = () => {
 
   const dispatch = useDispatch()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [submitLabel, setSubmitLabel] = useState('Submit')
+  const [mode, setMode] = useState(null)
 
  /*  switch (mode) {
     case 'signup':
@@ -30,18 +30,7 @@ const Form = ({ mode }) => {
 
   const onFormSubmit = (event) => {
     event.preventDefault()
-    
-    switch (mode) {
-      case 'signup':
-        dispatch(signUp(username, password))
-        break
-      case 'signin':
-        dispatch(signIn(username, password))
-        break
-      default:
-        alert('Sorry, something went wrong :(')
-    }
-    
+    dispatch(authenticate(username, password, mode))
   }
 
   console.log(username)
@@ -51,11 +40,18 @@ const Form = ({ mode }) => {
         <label>Username</label>
         <input type='text' value={username} onChange={onUsernameChange} />
         <label>Password</label>
-        <input type='text' value={password} onChange={onPasswordChange} />
+        <input type='password' value={password} onChange={onPasswordChange} />
         <button
             type='submit'
+            onClick={() => setMode('signin')}
         >
-            {submitLabel}
+            Sign In
+        </button>
+        <button
+          type='submit'
+          onClick={() => setMode('signup')}
+        >
+            Sign Up
         </button>
     </form>
   )
