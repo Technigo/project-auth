@@ -39,6 +39,7 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
+// This is our user model for the database. It's the same for every user that is registered.
 const User = mongoose.model("User", {
   username: {
     type: String,
@@ -72,6 +73,7 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
+// This is a GET endpoint that will return all the thougut that are available in the database and if there are no thoughts the API will throw and error
 app.get("/thoughts", async (req, res) => {
   try {
     const thoughts = await Thought.find();
@@ -81,6 +83,7 @@ app.get("/thoughts", async (req, res) => {
   }
 });
 
+// This is a POST endpoint and it will allow the used to submit a new thought that will be stored in the database. The post request takes a message in the json body.
 app.post("/thoughts", async (req, res) => {
   const { message } = req.body;
 
@@ -92,6 +95,8 @@ app.post("/thoughts", async (req, res) => {
   }
 });
 
+// This is a POST endpoint that will allow users to sign up to the website. The post request takes a username and password in the json body.
+// The backend will encrypt the users password for securit and well as generating a personal accessToken for the account
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
 
@@ -113,6 +118,8 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+// This is a POST endpoint that will allow a user to log in to the website. The endpoint takes a username and password in the json body.
+// IF the username and the encpyted password match what's in the databse then the user is logged in and an accessToken is passed back to the user via tha API.
 app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
 
