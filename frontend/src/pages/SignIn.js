@@ -11,7 +11,7 @@ import { Loading } from "../components/Loading";
 import { Button } from "components/Button";
 import { InputForm } from "components/InputForm";
 import { Footer } from "components/Footer";
-import logo from "assets/logo.png";
+import logo from "assets/logonew.png";
 import pic from "assets/pic.jpg";
 
 const Container = styled.div`
