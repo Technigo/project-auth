@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch, batch } from 'react-redux'
-import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch, batch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
+import { Loading } from "../components/Loading";
 import { Button } from "components/Button";
 import { InputForm } from "components/InputForm";
 import { Footer } from "components/Footer";
@@ -75,9 +76,12 @@ const CreateAccount = styled.h1`
 `;
 
 export const SignUp = () => {
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
@@ -90,63 +94,88 @@ export const SignUp = () => {
       history.push("/");
     }
   }, [accessToken, history]);
-  
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password })
-    }
-    fetch(API_URL(mode), options)
-        .then(res => res.json())
-        .then(data => {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, username, email, password }),
+    };
+    setTimeout(
+      () =>
+        fetch(API_URL(mode), options)
+          .then((res) => res.json())
+          .then((data) => {
             if (data.success) {
-                batch(() => {
-                    dispatch(user.actions.setUsername(data.username))
-                    dispatch(user.actions.setAccessToken(data.accessToken))
-                    dispatch(user.actions.setErrors(null))
-                });
+              batch(() => {
+                dispatch(user.actions.setUsername(data.username));
+                dispatch(user.actions.setName(data.name));
+                dispatch(user.actions.setEmail(data.email));
+                dispatch(user.actions.setAccessToken(data.accessToken));
+                dispatch(user.actions.setErrors(null));
+              });
             } else {
-                dispatch(user.actions.setErrors(data));
+              dispatch(user.actions.setErrors(data));
+
+              console.log(data);
             }
+            setName("");
             setUsername("");
+            setEmail("");
             setPassword("");
-        }) 
-        .catch()
+            setLoading(false);
+          })
+          .catch(),
+      1500
+    );
   };
   return (
     <>
-      <Container>
-        <ImageContainer>
-          <Image src={pic2}></Image>
-        </ImageContainer>
-        <FormContainer>
-          <CreateAccount>Create New Account</CreateAccount>
-          <Form onSubmit={handleFormSubmit}>
-            {/* <InputForm id="name" placeholder="Name"></InputForm> */}
-            <InputForm 
-              onChange={(e) => setUsername(e.target.value)}
-              id="username"
-              placeholder="Username"
-              value={username}
-              type="text"></InputForm>
-            {/* <InputForm id="email" placeholder="Email"></InputForm> */}
-            <InputForm 
-              type="password" 
-              id="password" 
-              placeholder="Password" 
-              value={password}  
-              onChange={(e) => setPassword(e.target.value)}></InputForm>
-            <Button 
-              onClick={() => setMode('signup')} 
-              buttonText="register" />
-          </Form>
-        </FormContainer>
-      </Container>
+      {loading && <Loading loadingText="Creating new account..." />}
+      {!loading && (
+        <Container>
+          <ImageContainer>
+            <Image src={pic2}></Image>
+          </ImageContainer>
+          <FormContainer>
+            <CreateAccount>Create New Account</CreateAccount>
+            <Form onSubmit={handleFormSubmit}>
+              <InputForm
+                value={name}
+                id="name"
+                placeholder="Name"
+                onChange={(e) => setName(e.target.value)}
+              ></InputForm>
+              <InputForm
+                onChange={(e) => setUsername(e.target.value)}
+                id="username"
+                placeholder="Username"
+                value={username}
+                type="text"
+              ></InputForm>
+              <InputForm
+                value={email}
+                id="email"
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+              ></InputForm>
+              <InputForm
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              ></InputForm>
+              <Button onClick={() => setMode("signup")} buttonText="register" />
+            </Form>
+          </FormContainer>
+        </Container>
+      )}
       <Footer
         footerText="Already have an account?"
         linkText="Sign In"

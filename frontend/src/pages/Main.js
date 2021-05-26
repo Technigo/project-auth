@@ -4,7 +4,7 @@ import { useHistory, Link } from "react-router-dom";
 
 export const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
-  const username = useSelector((store) => store.user.username);
+  const name = useSelector((store) => store.user.name);
 
   const history = useHistory();
 
@@ -16,7 +16,7 @@ export const Main = () => {
 
   return (
     <>
-      <div>Hello, {username}</div>
+      <div>Hello, {name}</div>
       <Link to="/joke">hej</Link>
     </>
   );

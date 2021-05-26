@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import user from "../reducers/user";
 import { JokeButton } from "components/Button";
 import { Footer } from "components/Footer";
 import logo from "assets/logo.png";
@@ -88,6 +89,7 @@ const Logo = styled.img`
 export const Joke = () => {
   const [joke, setJoke] = useState([]);
   const accessToken = useSelector((store) => store.user.accessToken);
+  const dispatch = useDispatch();
 
   const history = useHistory();
 
@@ -124,7 +126,8 @@ export const Joke = () => {
       <Footer
         footerText="Tired of our jokes?"
         linkText="Sign Out"
-        linkTo="/signup"
+        linkTo="/signin"
+        onClick={() => dispatch(user.actions.setLogOut())}
       />
     </>
   );

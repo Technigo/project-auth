@@ -7,6 +7,7 @@ import user from "../reducers/user";
 
 import { API_URL } from "../reusables/urls";
 
+import { Loading } from "../components/Loading";
 import { Button } from "components/Button";
 import { InputForm } from "components/InputForm";
 import { Footer } from "components/Footer";
@@ -83,6 +84,7 @@ export const SignIn = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
@@ -98,6 +100,7 @@ export const SignIn = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const options = {
       method: "POST",
@@ -106,51 +109,59 @@ export const SignIn = () => {
       },
       body: JSON.stringify({ username, password }),
     };
-    fetch(API_URL(mode), options)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.success) {
-          batch(() => {
-            dispatch(user.actions.setUsername(data.username));
-            dispatch(user.actions.setAccessToken(data.accessToken));
-            dispatch(user.actions.setErrors(null));
-          });
-        } else {
-          dispatch(user.actions.setErrors(data));
-        }
-      })
-      .catch();
+    setTimeout(
+      () =>
+        fetch(API_URL(mode), options)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              batch(() => {
+                dispatch(user.actions.setUsername(data.username));
+                dispatch(user.actions.setAccessToken(data.accessToken));
+                dispatch(user.actions.setErrors(null));
+              });
+            } else {
+              dispatch(user.actions.setErrors(data));
+            }
+            setUsername("");
+            setPassword("");
+            setLoading(false);
+          })
+          .catch(),
+      1500
+    );
   };
 
   return (
     <>
-      <Container>
-        <FormContainer>
-          <Logo src={logo}></Logo>
-          <Form onSubmit={handleFormSubmit}>
-            <InputForm
-              onChange={(e) => setUsername(e.target.value)}
-              id="username"
-              placeholder="Username"
-              value={username}
-              type="text"
-            ></InputForm>
-            <InputForm 
-              type="password" 
-              id="password" 
-              placeholder="Password" 
-              value={password}  
-              onChange={(e) => setPassword(e.target.value)}></InputForm>
-            <Button 
-            onClick={() => setMode('signin')} 
-            buttonText="sign in" />
-          </Form>
-        </FormContainer>
-        <ImageContainer>
-          <Image src={pic}></Image>
-        </ImageContainer>
-      </Container>
+      {loading && <Loading loadingText="On your way to the jokes.." />}
+      {!loading && (
+        <Container>
+          <FormContainer>
+            <Logo src={logo}></Logo>
+            <Form onSubmit={handleFormSubmit}>
+              <InputForm
+                onChange={(e) => setUsername(e.target.value)}
+                id="username"
+                placeholder="Username"
+                value={username}
+                type="text"
+              ></InputForm>
+              <InputForm
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              ></InputForm>
+              <Button onClick={() => setMode("signin")} buttonText="sign in" />
+            </Form>
+          </FormContainer>
+          <ImageContainer>
+            <Image src={pic}></Image>
+          </ImageContainer>
+        </Container>
+      )}
       <Footer
         footerText="Don't have an account?"
         linkText="Sign Up"

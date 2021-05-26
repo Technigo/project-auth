@@ -37,12 +37,12 @@ const LinkText = styled.p`
   }
 `;
 
-export const Footer = ({ footerText, linkText, linkTo }) => {
+export const Footer = ({ footerText, linkText, linkTo, onClick }) => {
   return (
     <PurpleFooter>
       <Text>
         {footerText}
-        <Link to={linkTo}>
+        <Link to={linkTo} onClick={onClick}>
           <LinkText> {linkText}</LinkText>
         </Link>
       </Text>

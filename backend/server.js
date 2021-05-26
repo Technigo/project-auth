@@ -17,6 +17,12 @@ const Thoughts = mongoose.model("Thoughts", {
 });
 
 const User = mongoose.model("User", {
+  name: {
+    type: String,
+    required: [true, "You need to enter a name"],
+    minlength: 1,
+    maxlenght: 15,
+  },
   username: {
     type: String,
     required: true,
@@ -24,17 +30,23 @@ const User = mongoose.model("User", {
     minlength: 5,
     maxlenght: 15,
   },
+  email: {
+    type: String,
+    required: [true, "You need to enter an email"],
+    unique: true,
+    trim: true,
+    validate: {
+      validator: (value) => {
+        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+      },
+      message: "Please, enter a valid email",
+    },
+  },
   password: {
     type: String,
     required: true,
-    // minlength: 8,
-    // maxlenght: 15,
-    //   validate: {
-    //     validator: (value) => {
-    //       return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value);
-    //     },
-    //     message: 'Password needs to contain at least one letter and one number'
-    // },
+    minlength: 8,
+    maxlenght: 15,
   },
   accessToken: {
     type: String,
@@ -50,10 +62,10 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next();
     } else {
-      res.status(401).json({  success: false, message: "Not authorized" });
+      res.status(401).json({ success: false, message: "Not authorized" });
     }
   } catch (error) {
-    res.status(400).json({  success: false, message: "Invalid request", error });
+    res.status(400).json({ success: false, message: "Invalid request", error });
   }
 };
 
@@ -75,30 +87,22 @@ app.get("/thoughts", async (req, res) => {
   res.json({ success: true, thoughts });
 });
 
-// app.post("/thoughts", authenticateUser);
-// app.post("/thoughts", async (req, res) => {
-//   const { message } = req.body;
-//   try {
-//     const newThought = await new Thoughts({ message }).save();
-//     res.json(newThought);
-//   } catch (error) {
-//     res.status(400).json({ message: "Invalid request", error });
-//   }
-// });
-
 // Post request for signing up
 app.post("/signup", async (req, res) => {
-  const { username, password } = req.body;
+  const { name, username, email, password } = req.body;
 
   try {
     const salt = bcrypt.genSaltSync();
 
     const newUser = await new User({
+      name,
       username,
+      email,
       password: bcrypt.hashSync(password, salt),
     }).save();
     res.json({
       success: true,
+      name: newUser.name,
       userID: newUser._id,
       username: newUser.username,
       accessToken: newUser.accessToken,

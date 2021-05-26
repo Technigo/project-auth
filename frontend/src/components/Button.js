@@ -45,3 +45,4 @@ export const Button = ({ buttonText, onClick }) => {
 export const JokeButton = ({ buttonText, onClick }) => {
   return <ButtonJoke type="submit" onClick = {onClick}>{buttonText}</ButtonJoke>;
 };
+
