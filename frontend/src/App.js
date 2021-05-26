@@ -23,8 +23,8 @@ const App = () => {
       <Provider store={store}>
         <Switch>
           <Route exact path="/" component={MainPage}/>
-          <Route exact path="/signin" component={SignInPage} />
-          <Route exact path="/signup" component={SignUpPage} />
+          <Route path="/signin" component={SignInPage} />
+          <Route path="/signup" component={SignUpPage} />
         </Switch>
       </Provider>
     </BrowserRouter>
