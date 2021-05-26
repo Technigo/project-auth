@@ -16,6 +16,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
 }
 
 code {
@@ -24,6 +26,7 @@ code {
 }
 
 .main {
+  position: sticky;
   font-size: 1.6rem;
   font-family: 'Montserrat', sans-serif;
   color: var(--primary-sixth);
@@ -31,12 +34,14 @@ code {
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
 }
 
 .landingpage-section-wrapper {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -79,21 +84,30 @@ code {
   color: var(--primary-one);
   width: 200px;
   height: 100%;
+  position: fixed;
+  
 }
 
+/* .sidebar-nav {
+  
+
+} */
 .sidebar-list {
   margin: 0;
   padding: 10px;
+  /* width: 200px;
+  height: 100%;
+  background: var(--primary-three); */
 }
 
 .profile-info-section {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  
-  width: 100%;
+  width: 85%;
   border-radius: 8px;
   padding: 50px;
+  margin-left: auto;
 }
 
 .profile-info-wrapper {
@@ -133,3 +147,28 @@ code {
   height: 150px;
 }
 
+.feed-section {
+  box-sizing: border-box;
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  border-radius: 8px;
+  padding: 50px;
+  margin-left: auto;
+}
+
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: solid 2px var(--primary-four);
+}
+
+.card {
+  background-color: var(--primary-fifth);
+  width: 70%;
+  border-radius: 5px;
+  margin: 20px;
+  
+}

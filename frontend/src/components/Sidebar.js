@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useDebugValue } from 'react'
+
+import { dispatch, useDispatch } from 'react-redux'
+
+import { account } from '../reducers/account'
+
+import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
-  console.log('mounted')
+
+  const dispatch = useDispatch()
   return (
     <aside className="sidebar">
-      <nav>
+      <nav className="sidebar-nav">
         <ul className="sidebar-list">
-          <li>Profile</li>
-          <li>Feed</li>
-          <li>Log out</li>
+          <Link to="/authorized/profile"><li>Profile</li></Link>
+          <Link to="/authorized/feed"><li>Feed</li></Link>
+          <li onClick={() => dispatch(account.actions.logOut())}>Log out</li>
         </ul>
       </nav>
 

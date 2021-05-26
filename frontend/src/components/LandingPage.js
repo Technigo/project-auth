@@ -10,9 +10,12 @@ const LandingPage = () => {
 
   return (
     <>
-      {!account.logedIn && account.signup && (< SignupForm /> )}
-      {!account.logedIn && !account.signup && (< LoginForm /> )}
-      {account.logedIn && <AuthorizedPage />}
+      {!account.logedIn && account.signup && (
+        <SignupForm /> 
+      )}
+      {!account.logedIn && !account.signup && (
+        <LoginForm /> 
+      )}
     </>
   )
 }
