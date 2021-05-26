@@ -5,8 +5,6 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 
-import secret from './data/secret.json'
-
 dotenv.config()
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
