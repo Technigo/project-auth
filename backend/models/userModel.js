@@ -16,7 +16,8 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    required: [true, 'You need to provide a password']
+    required: [true, 'You need to provide a password'],
+    select: false
   }
 });
 
@@ -25,5 +26,10 @@ userSchema.pre('save', async function () {
   // Hashing the password
   this.password = await bcrypt.hash(this.password, 12);
 });
+
+// create a custom method for the user instance
+userSchema.methods.comparePassword = async (inputPassword, userPassword) => {
+  return await bcrypt.compare(inputPassword, userPassword)
+}
 
 export default mongoose.model('User', userSchema);

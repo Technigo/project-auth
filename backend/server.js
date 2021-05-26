@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -23,7 +22,7 @@ const app = express();
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Add router module and error handler
 app.use('/', router);

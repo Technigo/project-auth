@@ -23,13 +23,12 @@ export const authenticate = async (req, res, next) => {
     // verify the token
     const decodedToken = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-    const user = await User.findById(decodedToken.id);
+    const user = await User.findById(decodedToken.id).select("-password");
     if (!user) {
       return next(new AppError(401, 'Unauthorized', 'This user is no longer exist'));
     }
 
     req.user = user;
-
     next();
   } catch (error) {
     next(error);
