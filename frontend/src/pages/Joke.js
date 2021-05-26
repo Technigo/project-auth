@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import { JokeButton } from "components/Button";
 import { Footer } from "components/Footer";
@@ -85,6 +87,15 @@ const Logo = styled.img`
 
 export const Joke = () => {
   const [joke, setJoke] = useState([]);
+  const accessToken = useSelector((store) => store.user.accessToken);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!accessToken) {
+      history.push("/signin");
+    }
+  }, [accessToken, history]);
 
   useEffect(() => {
     fetchJoke();
@@ -107,9 +118,7 @@ export const Joke = () => {
         </JokeContainer>
         <ImageContainer>
           <Image src={jokepic}></Image>
-          <JokeButton 
-          buttonText="Get new joke"
-          onClick={fetchJoke} />
+          <JokeButton buttonText="Get new joke" onClick={fetchJoke} />
         </ImageContainer>
       </Container>
       <Footer

@@ -91,7 +91,7 @@ export const SignUp = () => {
     }
   }, [accessToken, history]);
   
-  const onFormSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
 
     const options = {
@@ -113,9 +113,11 @@ export const SignUp = () => {
             } else {
                 dispatch(user.actions.setErrors(data));
             }
-        } )
+            setUsername("");
+            setPassword("");
+        }) 
         .catch()
-};
+  };
   return (
     <>
       <Container>
@@ -124,7 +126,7 @@ export const SignUp = () => {
         </ImageContainer>
         <FormContainer>
           <CreateAccount>Create New Account</CreateAccount>
-          <Form onSubmit={onFormSubmit}>
+          <Form onSubmit={handleFormSubmit}>
             {/* <InputForm id="name" placeholder="Name"></InputForm> */}
             <InputForm 
               onChange={(e) => setUsername(e.target.value)}

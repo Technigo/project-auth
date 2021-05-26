@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
+import { Main } from "./pages/Main"
 import { SignIn } from "pages/SignIn";
 import { SignUp } from "pages/SignUp";
 import { Joke } from "pages/Joke";
@@ -30,16 +31,10 @@ export const App = () => {
       <Provider store={store}>
         <MainContainer>
           <Switch>
-            <Route exact path="/" component={SignIn}>
-              <SignIn />
-            </Route>
-            <Route path="/signup" component={SignUp}>
-              <SignUp />
-            </Route>
+            <Route exact path="/" component={Main} />
             <Route path="/joke" component={Joke} />
-            <Route path="/joke">
-              <Joke />
-            </Route>
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signup" component={SignUp} />
           </Switch>
         </MainContainer>
       </Provider>

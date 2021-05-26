@@ -96,7 +96,7 @@ export const SignIn = () => {
     }
   }, [accessToken, history]);
 
-  const onFormSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
 
     const options = {
@@ -128,7 +128,7 @@ export const SignIn = () => {
       <Container>
         <FormContainer>
           <Logo src={logo}></Logo>
-          <Form onSubmit={onFormSubmit}>
+          <Form onSubmit={handleFormSubmit}>
             <InputForm
               onChange={(e) => setUsername(e.target.value)}
               id="username"
@@ -136,7 +136,12 @@ export const SignIn = () => {
               value={username}
               type="text"
             ></InputForm>
-            <InputForm type="password" id="password" placeholder="Password" value={password}  onChange={(e) => setPassword(e.target.value)}></InputForm>
+            <InputForm 
+              type="password" 
+              id="password" 
+              placeholder="Password" 
+              value={password}  
+              onChange={(e) => setPassword(e.target.value)}></InputForm>
             <Button 
             onClick={() => setMode('signin')} 
             buttonText="sign in" />

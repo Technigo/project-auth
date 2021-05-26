@@ -101,7 +101,7 @@ app.post("/signup", async (req, res) => {
       success: true,
       userID: newUser._id,
       username: newUser.username,
-      accesToken: newUser.accessToken,
+      accessToken: newUser.accessToken,
     });
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error });
@@ -120,7 +120,7 @@ app.post("/signin", async (req, res) => {
         success: true,
         userID: user._id,
         username: user.username,
-        accesToken: user.accessToken,
+        accessToken: user.accessToken,
       });
     } else {
       res.status(404).json({ message: "User not found" });
