@@ -22,9 +22,10 @@ const App = () => {
     <BrowserRouter>
       <Provider store={store}>
         <Switch>
-          <Route exact path="/" component={MainPage} />
+          <Route exact path="/" />
           <Route path="/signin" component={SignInPage} />
           <Route path="/signup" component={SignUpPage} />
+          <Route path="/travelinspo" component={MainPage} />
         </Switch>
       </Provider>
     </BrowserRouter>

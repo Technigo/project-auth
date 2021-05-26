@@ -18,7 +18,7 @@ const SignUpPage = () => {
   useEffect(() => {
     // redirect user to '/' path if user has accessToken
     if (accessToken) {
-      history.push('/')
+      history.push('/travelinspo')
     }
   }, [accessToken, history])
 
