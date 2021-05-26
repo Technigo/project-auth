@@ -58,7 +58,9 @@ app.get('/', (req, res) => {
 
 app.get('/travelinspo', authenticateUser)
 app.get('/travelinspo', async (req, res) => {
-  res.json('Secret message')
+  const secretMessage = 'This is a super secret message'
+  
+  res.status(201).json({ secretMessage })
 })
 
 app.post('/signup', async (req, res) => {
@@ -79,6 +81,9 @@ app.post('/signup', async (req, res) => {
       accessToken: newUser.accessToken 
     })
   } catch (error) {
+    if (err.code === 11000) {
+      res.status(400).json({ message: 'User already exists', fields: err.keyValue });
+    }
     res.status(400).json({ success: false, message: 'Could not create user', error })
   }
 })
