@@ -1,17 +1,16 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
 const Thought = mongoose.model('Thought', {
   message: String
-}); 
+});
 
 const User = mongoose.model('User', {
   username: {
@@ -37,40 +36,38 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next();
     } else {
-      res.status(401).json({ message: 'Not authorized' });
+      res.status(401).json({ success: false, message: 'Not authorized' });
     }
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error });
+    res.status(400).json({ success: false, message: 'Invalid request', error });
   }
 }
 
 const port = process.env.PORT || 8080
 const app = express()
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors())
-app.use(bodyParser.json())
+app.use(express.json())
 
-// Start defining your routes here
 app.get('/', (req, res) => {
   res.send('Hello world')
-})
+});
 
 app.get('/thoughts', authenticateUser);
 app.get('/thoughts', async (req, res) => {
   const thoughts = await Thought.find();
-  res.json(thoughts);
+  res.json({ success: true, thoughts});
 });
 
-app.get('/thoughts', authenticateUser);
+app.post('/thoughts', authenticateUser);
 app.post('/thoughts', async (req, res) => {
   const { message } = req.body;
 
   try {
     const newThought = await new Thought({ message }).save();
-    res.json(newThought);
+    res.json({ success: true, newThought});
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error });
+    res.status(400).json({ success: false, message: 'Invalid request', error });
   }
 });
 
@@ -87,14 +84,15 @@ app.post('/signup', async (req, res) => {
     }).save();
 
     res.json({
+      success: true,
       userID: newUser._id,
       username: newUser.username,
       accessToken: newUser.accessToken
     });
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error });
+    res.status(400).json({ success: false, message: 'Invalid request', error });
   }
-}); 
+});
 
 // or '/session' or '/login'
 app.post('/signin', async (req, res) => {
@@ -107,20 +105,20 @@ app.post('/signin', async (req, res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
+        success: true, 
         userID: user._id,
         username: user.username,
         accessToken: user.accessToken
       });
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ success: false, message: 'User not found' });
     }
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error });
+    res.status(400).json({ success: false, message: 'Invalid request', error });
   }
 });
 
-// Start the server
 app.listen(port, () => {
   // eslint-disable-next-line
   console.log(`Server running on http://localhost:${port}`)
-})
+});
