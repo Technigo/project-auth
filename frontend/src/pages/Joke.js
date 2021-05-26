@@ -79,10 +79,10 @@ const Logo = styled.img`
   width: 20%;
   margin-bottom: 40px;
   @media (min-width: 768px) {
-    margin-bottom: 0;
+    margin-bottom: 20px;
+    width: 120px;
   }
   @media (min-width: 1200px) {
-    width: 40%;
   }
 `;
 
@@ -93,11 +93,11 @@ export const Joke = () => {
 
   const history = useHistory();
 
-  useEffect(() => {
-    if (!accessToken) {
-      history.push("/signin");
-    }
-  }, [accessToken, history]);
+  // useEffect(() => {
+  //   if (!accessToken) {
+  //     history.push("/signin");
+  //   }
+  // }, [accessToken, history]);
 
   useEffect(() => {
     fetchJoke();

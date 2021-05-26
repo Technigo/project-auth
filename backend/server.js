@@ -12,7 +12,7 @@ mongoose.connect(mongoUrl, {
 });
 mongoose.Promise = Promise;
 
-const Thoughts = mongoose.model("Thoughts", {
+const Joke = mongoose.model("Joke", {
   message: String,
 });
 
@@ -81,10 +81,10 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thoughts.find();
-  res.json({ success: true, thoughts });
+app.get("/joke", authenticateUser);
+app.get("/joke", async (req, res) => {
+  const joke = await Joke.find();
+  res.json({ success: true, joke });
 });
 
 // Post request for signing up

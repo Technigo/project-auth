@@ -138,7 +138,7 @@ export const SignIn = () => {
       {!loading && (
         <Container>
           <FormContainer>
-            <Logo src={logo}></Logo>
+              <Logo src={logo}></Logo>
             <Form onSubmit={handleFormSubmit}>
               <InputForm
                 onChange={(e) => setUsername(e.target.value)}
