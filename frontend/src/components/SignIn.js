@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
+import { useHistory, Link } from 'react-router-dom';
+
 import styled from 'styled-components/macro'
 
 import user from '../reducers/user'
@@ -10,6 +12,17 @@ const SignInForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [status, setStatus] = useState(null)
+
+  const accessToken = useSelector(store => store.user.accessToken)
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  useEffect (() => {
+    console.log('Checking access token', accessToken)
+      if (accessToken) {
+        history.push('/')
+      }
+  }, [accessToken, history])
 
   const onFormSubmit = (e) => {
     e.preventDefault()
@@ -27,9 +40,16 @@ const SignInForm = () => {
       .then(data => {
         console.log(data)
         if (data.success) {
-
+          batch(() => {
+            dispatch(user.actions.setUsername(data.username))
+            dispatch(user.actions.setAccessToken(data.accessToken))
+            dispatch(user.actions.setErrors(null))
+          })
+        } else {
+          dispatch(user.actions.setErrors(data))
         }
       })
+      .catch()
   }
 
   return (
@@ -53,9 +73,14 @@ const SignInForm = () => {
         </Button>
       </Form>
       <SignUpText>Not a user yet? Create an account</SignUpText>
-      <Button type='submit' onClick={() => setStatus('signup')}>
-        Sign up
+      <Button>
+        <Link to='/signup'>
+          Sign up
+        </Link>
       </Button>
+      {/* <Button type='submit' onClick={() => setStatus('signup')}>
+        Sign up
+      </Button> */}
     </Wrapper>
   )
 }

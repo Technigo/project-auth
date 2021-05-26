@@ -11,8 +11,8 @@ const user = createSlice({
     setUsername: (store, action) => {
       store.username = action.payload
     },
-    setAcessToken: (store, action) => {
-      store.acessToken = action.payload
+    setAccessToken: (store, action) => {
+      store.accessToken = action.payload
     },
     setErrors: (store, action) => {
       store.errors = action.payload

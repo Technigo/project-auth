@@ -1,26 +1,65 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro'
 
+import user from '../reducers/user'
+
+import { API_URL } from '../reusables/urls'
+
 const SignUpForm = () => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [status, setStatus] = useState(null)
+
+  const onFormSubmit = (e) => {
+    e.preventDefault()
+
+    const options ={
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    }
+
+    fetch(API_URL(status), options)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if (data.success) {
+
+        } else {
+
+        }
+      })
+  }
 
   return (
     <Wrapper>
       <Header>Sign up</Header>
-      <Form>
+      <Form onSubmit={onFormSubmit}>
         <Input
             type='text'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder='username'>
         </Input>
         <Input
             type='password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder='•••••'>
         </Input>
-        <Button>
+        <Button type='submit' onClick={() => setStatus('signup')}>
           Sign up
         </Button>
       </Form>
       <SignUpText>Already a user? Sign in</SignUpText>
-      <Button>Sign in</Button>
+      <Button>
+        <Link to='/signin'>
+          Sign in
+        </Link>
+      </Button>
     </Wrapper>
   )
 }
