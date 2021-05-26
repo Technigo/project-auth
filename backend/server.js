@@ -54,10 +54,10 @@ const authenticateUser = async (req, res, next) => {
       // req.user = user
       next()
     } else {
-      res.status(401).json({ message: 'Not authenticated' })
+      res.status(401).json({ success: false, message: 'Not authenticated' })
     }
   } catch (error) {
-    res.status(400).json({ message: 'invalid request', error})
+    res.status(400).json({ success: false, message: 'invalid request', error})
   }
 }
 
@@ -89,7 +89,7 @@ app.get('/', (req, res) => {
 app.get('/happyhour', authenticateUser)
 app.get('/happyhour', async (req, res) => {
   const drinkRecipes = await DrinkRecipe.find()
-  res.json(drinkRecipes)
+  res.json({ success: true, drinkRecipes })
 })
 
 app.post('/signup', async (req, res) => {
@@ -103,13 +103,14 @@ app.post('/signup', async (req, res) => {
       password: bcrypt.hashSync(password, salt)
     }).save()
     res.json({
+      success: true,
       userId: newUser._id,
       username: newUser.username,
       email: newUser.email,
       accessToken:newUser.accessToken
     })
   } catch(error) {
-    res.status(400).json({ message: 'invalid request', error})
+    res.status(400).json({ success: false, message: 'invalid request', error})
   }
 })
 
@@ -125,16 +126,17 @@ app.post('/signin', async (req, res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
+        success: true,
         userId: user._id,
         username: user.username,
         email: user.email,
         accessToken:user.accessToken
       })
     } else {
-      res.status(404).json({ message: 'User not found' })
+      res.status(404).json({ success: false, message: 'User not found' })
     }
   } catch (error) {
-    res.status(400).json({ message: 'invalid request', error})
+    res.status(400).json({ success: false, message: 'invalid request', error})
   }
 })
 
