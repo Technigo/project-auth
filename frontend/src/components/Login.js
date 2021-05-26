@@ -16,7 +16,6 @@ const Login = () => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log({ where: "login", accessToken });
     if (accessToken) {
       history.push("/");
     }
