@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt, { genSaltSync } from "bcrypt";
 
+// Theare are env varaibles that are passed in when the backend server runs. This way we don't store the database username or password
 const userDB = process.env.userDB;
 const passDB = process.env.passDB;
 
@@ -21,6 +22,7 @@ const Thought = mongoose.model("Thought", {
   message: String,
 });
 
+// This function will check if the user is logged in before the user is allowed to perform actions on the website. This middleware will always be checked before any endpoint.
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
 
@@ -63,6 +65,7 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(bodyParser.json());
+app.use(authenticateUser);
 
 // Start defining your routes here
 app.get("/", (req, res) => {
