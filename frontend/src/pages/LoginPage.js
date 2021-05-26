@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Login from '../components/Login'
 import Button from '../components/Button'
 
-const StartPage = () => {
+const LoginPage = () => {
   return (
     <Main>
       <Login />
@@ -16,7 +16,7 @@ const StartPage = () => {
   )
 }
 
-export default StartPage
+export default LoginPage
 
 const Main = styled.main`
   display: flex;

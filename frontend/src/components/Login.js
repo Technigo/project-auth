@@ -18,7 +18,7 @@ const Login = () => {
   
   useEffect(() => {
     if (accessToken) {
-        history.push('/')
+        history.push('/secret')
     }
 }, [accessToken, history])
 
@@ -30,8 +30,9 @@ const Login = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password})
+      body: JSON.stringify({ username, password })
     }
+
     fetch(API_URL(mode), options)
       .then(res => res.json())
       .then(data => {
@@ -52,17 +53,17 @@ const Login = () => {
   return (
     <Form onSubmit={onFormSubmit}>
     <Title>Log in form </Title>
-      <label htmlFor='loginEmail'>Email</label>
+      <label htmlFor='username'>Username</label>
       <Input
-        id='loginEmail'
-        type=''
+        id='username'
+        type='text'
         required
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <label htmlFor='loginPassword'>Password</label>
+      <label htmlFor='password'>Password</label>
       <Input
-        id='loginPassword'
+        id='password'
         type='password'
         required
         value={password}
@@ -72,6 +73,11 @@ const Login = () => {
         type='submit'
         onClick={() => setMode('signin')}>
         LOGIN
+      </Button>
+      <Button
+        type='submit'
+        onClick={() => setMode('signup')}>
+        SIGN UP
       </Button>
     </Form>
   )

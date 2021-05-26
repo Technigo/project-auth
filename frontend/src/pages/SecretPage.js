@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch, batch } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
+import { useSelector/* , useDispatch *//* , batch */ } from 'react-redux'
+import { useHistory/* , Link */ } from 'react-router-dom'
 
 import { API_URL } from '../reusable/urls'
 
 const SecretPage = () => {
   const accessToken = useSelector(store => store.user.accessToken)
 
-  const dispatch = useDispatch()
+  /* const dispatch = useDispatch() */
   const history = useHistory()
 
   useEffect(() => {
     if (!accessToken) {
       history.push('/')
+    } else if (accessToken) {
+      history.push('/secret')
     }
   }, [accessToken, history])
 
