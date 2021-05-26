@@ -1,14 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 75%;
-`;
-
 const Label = styled.label``;
 
 const Input = styled.input`
@@ -23,17 +15,24 @@ const Input = styled.input`
   font-size: 16px;
   font-family: "Padauk";
   background-color: #f2f3ff;
-  color: #fff;
+  color: #6c6c6d;
   :focus {
     border-bottom: 2px solid #f780b1;
   }
 `;
 
-export const InputForm = ({ id, placeholder }) => {
+export const InputForm = ({ id, value, placeholder, onChange, type }) => {
   return (
     <>
       <Label htmlFor={id} aria-label={`Enter your ${id}`}></Label>
-      <Input type="text" id={id} name={id} placeholder={placeholder}></Input>
+      <Input
+        type={type}
+        id={id}
+        value={value}
+        name={id}
+        placeholder={placeholder}
+        onChange={onChange}
+      ></Input>
     </>
   );
 };

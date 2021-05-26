@@ -50,10 +50,10 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next();
     } else {
-      res.status(401).json({ message: "Not authorized" });
+      res.status(401).json({  success: false, message: "Not authorized" });
     }
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error });
+    res.status(400).json({  success: false, message: "Invalid request", error });
   }
 };
 
@@ -72,19 +72,19 @@ app.get("/", (req, res) => {
 app.get("/thoughts", authenticateUser);
 app.get("/thoughts", async (req, res) => {
   const thoughts = await Thoughts.find();
-  res.json(thoughts);
+  res.json({ success: true, thoughts });
 });
 
-app.post("/thoughts", authenticateUser);
-app.post("/thoughts", async (req, res) => {
-  const { message } = req.body;
-  try {
-    const newThought = await new Thoughts({ message }).save();
-    res.json(newThought);
-  } catch (error) {
-    res.status(400).json({ message: "Invalid request", error });
-  }
-});
+// app.post("/thoughts", authenticateUser);
+// app.post("/thoughts", async (req, res) => {
+//   const { message } = req.body;
+//   try {
+//     const newThought = await new Thoughts({ message }).save();
+//     res.json(newThought);
+//   } catch (error) {
+//     res.status(400).json({ message: "Invalid request", error });
+//   }
+// });
 
 // Post request for signing up
 app.post("/signup", async (req, res) => {
@@ -98,24 +98,26 @@ app.post("/signup", async (req, res) => {
       password: bcrypt.hashSync(password, salt),
     }).save();
     res.json({
+      success: true,
       userID: newUser._id,
       username: newUser.username,
       accesToken: newUser.accessToken,
     });
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error });
+    res.status(400).json({ success: false, message: "Invalid request", error });
   }
 });
 
 // Post request for signing in
 app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
-
+  console.log(username, password);
   try {
     const user = await User.findOne({ username });
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
+        success: true,
         userID: user._id,
         username: user.username,
         accesToken: user.accessToken,
@@ -124,7 +126,7 @@ app.post("/signin", async (req, res) => {
       res.status(404).json({ message: "User not found" });
     }
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error });
+    res.status(400).json({ success: false, message: "Invalid request", error });
   }
 });
 

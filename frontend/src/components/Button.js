@@ -26,17 +26,22 @@ const SubmitButton = styled.button`
 const ButtonJoke = styled(SubmitButton)`
   padding: 5px 0;
   width: 50%;
-  background-color: #e56d6b;
-  border: 2px solid #e56d6b;
+  background-color: rgba(229, 109, 107, 1);
+  border: 2px solid rgba(229, 109, 107, 1);
   position: absolute;
   height: fit-content;
   bottom: 10px;
-`
+  :hover {
+    color: #fff;
+    background-color: rgba(229, 109, 107, 0.5);
+    border: 2px solid rgba(255,255,255,0.5);
+  }
+`;
 
-export const Button = ({ buttonText }) => {
-  return <SubmitButton type="button">{buttonText}</SubmitButton>;
+export const Button = ({ buttonText, onClick }) => {
+  return <SubmitButton type="submit" onClick = {onClick}>{buttonText}</SubmitButton>;
 };
 
 export const JokeButton = ({ buttonText, onClick }) => {
-  return <ButtonJoke type="button" onClick = {onClick}>{buttonText}</ButtonJoke>;
+  return <ButtonJoke type="submit" onClick = {onClick}>{buttonText}</ButtonJoke>;
 };

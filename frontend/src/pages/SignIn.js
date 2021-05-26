@@ -1,5 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch, batch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+
+import user from "../reducers/user";
+
+import { API_URL } from "../reusables/urls";
 
 import { Button } from "components/Button";
 import { InputForm } from "components/InputForm";
@@ -74,15 +80,66 @@ const Logo = styled.img`
 `;
 
 export const SignIn = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [mode, setMode] = useState(null);
+
+  const accessToken = useSelector((store) => store.user.accessToken);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    // redirect user to '/' path
+    console.log("Checking access token", accessToken);
+    if (accessToken) {
+      history.push("/");
+    }
+  }, [accessToken, history]);
+
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    };
+    fetch(API_URL(mode), options)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          batch(() => {
+            dispatch(user.actions.setUsername(data.username));
+            dispatch(user.actions.setAccessToken(data.accessToken));
+            dispatch(user.actions.setErrors(null));
+          });
+        } else {
+          dispatch(user.actions.setErrors(data));
+        }
+      })
+      .catch();
+  };
+
   return (
     <>
       <Container>
         <FormContainer>
           <Logo src={logo}></Logo>
-          <Form>
-            <InputForm id="username" placeholder="Username"></InputForm>
-            <InputForm id="password" placeholder="Password"></InputForm>
-            <Button buttonText="sign in" />
+          <Form onSubmit={onFormSubmit}>
+            <InputForm
+              onChange={(e) => setUsername(e.target.value)}
+              id="username"
+              placeholder="Username"
+              value={username}
+              type="text"
+            ></InputForm>
+            <InputForm type="password" id="password" placeholder="Password" value={password}  onChange={(e) => setPassword(e.target.value)}></InputForm>
+            <Button 
+            onClick={() => setMode('signin')} 
+            buttonText="sign in" />
           </Form>
         </FormContainer>
         <ImageContainer>
@@ -91,7 +148,7 @@ export const SignIn = () => {
       </Container>
       <Footer
         footerText="Don't have an account?"
-        linkText="Sign In"
+        linkText="Sign Up"
         linkTo="/signup"
       />
     </>
