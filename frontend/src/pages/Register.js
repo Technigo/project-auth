@@ -17,8 +17,8 @@ const Register = () => {
     <div className="form-wrapper">
       <div className="form-container">
         <form className="form" onSubmit={onFormSubmit}>
+          <label>Sign up here</label>
           <input
-            className="input"
             placeholder="Username"
             type="text"
             value={username}
