@@ -14,26 +14,28 @@ const Register = () => {
   };
 
   return (
-    <div className="form-container">
-      <form onSubmit={onFormSubmit}>
-        <input
-          className="input"
-          placeholder="Username"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          className="input"
-          placeholder="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="signup-button" type="submit">
-          Sign up
-        </button>
-      </form>
+    <div className="form-wrapper">
+      <div className="form-container">
+        <form className="form" onSubmit={onFormSubmit}>
+          <input
+            className="input"
+            placeholder="Username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            className="input"
+            placeholder="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className="signup-button" type="submit">
+            Sign up
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
