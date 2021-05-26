@@ -72,6 +72,7 @@ app.post('/signup', async (req, res) => {
     }).save()
 
     res.json({
+      success: true,
       userID: newUser._id,
       username: newUser.username,
       accessToken: newUser.accessToken
@@ -90,6 +91,7 @@ app.post('/signin', async (req, res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
+        success: true,
         userID: user._id,
         username: user.username,
         accessToken: user.accessToken
