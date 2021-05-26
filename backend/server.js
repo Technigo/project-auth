@@ -115,16 +115,21 @@ app.post('/signup', async (req, res) => {
 
 app.post('/signin', async (req, res) => {
   const { username, password, email } = req.body
-
+  // checks if user logs in with username or email 
   try {
-    const user = await User.findOne({ username })
+    if (username) {
+      var user = await User.findOne({ username })
+    } else {
+      var user = await User.findOne({ email })
+    } 
+
     if (user && bcrypt.compareSync(password, user.password)) {
-       res.json({
+      res.json({
         userId: user._id,
         username: user.username,
         email: user.email,
         accessToken:user.accessToken
-       })
+      })
     } else {
       res.status(404).json({ message: 'User not found' })
     }
