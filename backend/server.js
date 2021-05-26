@@ -5,7 +5,7 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 import listEndpoints from 'express-list-endpoints'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI_test"
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
@@ -99,12 +99,13 @@ app.post('/signup', async (req, res) => {
   }).save()
   console.log(newUser)
   res.json({
+    success: true,
     userId: newUser._id,
     email: newUser.email,
     accessToken: newUser.accessToken
   })
  } catch (error) {
-  res.status(400).json({ message: 'Invalid request', error })
+  res.status(400).json({ success: false, message: 'Invalid request', error })
  }
 })
 
@@ -123,10 +124,10 @@ app.post('/signin', async (req, res) => {
           accessToken: user.accessToken
         })
       } else {
-        res.status(404).json({ message: 'User not found'})
+        res.status(404).json({ success: false, message: 'User not found'})
       }
    } catch (error) {
-      res.status(400).json({ message: 'Invalid request', error })
+      res.status(400).json({ success: false, message: 'Invalid request', error })
    }
 })
 
