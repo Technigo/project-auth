@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import mongoose from 'mongoose';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
@@ -29,7 +30,7 @@ userSchema.pre('save', async function () {
 
 // create a custom method for the user instance
 userSchema.methods.comparePassword = async (inputPassword, userPassword) => {
-  return await bcrypt.compare(inputPassword, userPassword)
+  return bcrypt.compare(inputPassword, userPassword)
 }
 
 export default mongoose.model('User', userSchema);
