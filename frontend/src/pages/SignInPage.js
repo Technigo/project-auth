@@ -1,10 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
+import styled from 'styled-components/macro'
+
 
 import user from '../reducers/user'
 
 import { API_URL } from '../reusable/urls'
+
+
+const Form = styled.form`
+
+`
+
+// const Heading = styled.h1`
+
+// `
+
+const InputUsername = styled.input`
+
+`
+
+const InputPassword = styled.input`
+
+`
 
 const SignInPage = () => {
   const [username, setUsername] = useState('')
@@ -18,7 +37,7 @@ const SignInPage = () => {
   useEffect(() => {
     // redirect user to '/' path if user has accessToken
     if (accessToken) {
-      history.push('/travelinspo')
+      history.push('/')
     }
   }, [accessToken, history])
 
@@ -48,16 +67,16 @@ const SignInPage = () => {
       })
       .catch()
   }
-
+  
   return (
     <>
-      <form onSubmit={onFormSubmit}>
-        <input 
+      <Form onSubmit={onFormSubmit}>
+        <InputUsername 
           type="text" 
           value={username} 
           onChange={(e) => setUsername(e.target.value)} 
         />
-        <input 
+        <InputPassword 
           type="password" 
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
@@ -67,7 +86,7 @@ const SignInPage = () => {
           Not a user? 
           <Link to="/signup">Register here</Link> 
         </p>
-      </form>
+      </Form>
     </>
   )
 }

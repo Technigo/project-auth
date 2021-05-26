@@ -3,7 +3,6 @@ import { Provider } from 'react-redux'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import LandingPage from './pages/LandingPage'
 import MainPage from './pages/MainPage'
 import SignInPage from './pages/SignInPage'
 import SignUpPage from './pages/SignUpPage'
@@ -23,10 +22,9 @@ const App = () => {
     <BrowserRouter>
       <Provider store={store}>
         <Switch>
-          <Route exact path="/" component={LandingPage}/>
+          <Route exact path="/" component={MainPage}/>
           <Route exact path="/signin" component={SignInPage} />
           <Route exact path="/signup" component={SignUpPage} />
-          <Route exact path="/travelinspo" component={MainPage} />
         </Switch>
       </Provider>
     </BrowserRouter>
