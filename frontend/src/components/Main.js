@@ -1,72 +1,144 @@
-// import React, { useEffect } from 'react';
-// import { useSelector, useDispatch, batch } from 'react-redux';
-// import { useHistory, Link } from 'react-router-dom';
-
-// import { API_URL } from '../reusables/urls';
-
-// import thoughts from '../reducers/thoughts';
-
-// const Main = () => {
-//     const accessToken = useSelector(store => store.user.accessToken);
-//     const thoughtsItems = useSelector(store => store.thoughts.items);
-
-//     const dispatch = useDispatch();
-//     const history = useHistory();
-
-//     useEffect(() => {
-//         if (!accessToken) {
-//             history.push('/login');
-//         }
-//     }, [accessToken, history]);
-
-//     useEffect(() => {
-//         const options = {
-//             method: 'GET',
-//             headers: {
-//                 Authorization: accessToken
-//             }
-//         }
-
-//         fetch(API_URL('thoughts'), options)
-//             .then(res => res.json())
-//             .then(data => {
-//                 if (data.success) {
-//                     batch(() => {
-//                         dispatch(thoughts.actions.setThoughts(data.thoughts));
-//                         dispatch(thoughts.actions.setErrors(null));
-//                     });
-//                 } else {
-//                     dispatch(thoughts.actions.setErrors(data));
-//                 }
-//             });
-//     }, [accessToken]);
-
-//     console.log(thoughtsItems)
-//     return (
-//         <div>
-//             <div>MAIN</div>
-//             <Link to="/login">To login we go!</Link>
-//             {thoughtsItems.map(thought => (
-//                 <div key={thought._id}>{thought.message}</div>
-//             ))}
-//         </div>
-//     );
-// };
-
-// export default Main
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Accordion, AccordionDetails, AccordionSummary, Typography, Container } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
-import React from 'react'
+const font = "'PT Sans', sans-serif"
 
+const useStyles = makeStyles((theme) => ({
+background: {
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "#FAACA8",
+    backgroundImage: "linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%)"
+},
+  root: {
+    width: '100%',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '33.33%',
+    flexShrink: 0,
+    fontFamily: font,
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+    fontFamily: font,
+  },
+  container: {
+    // marginTop: "50px"
+  },
+  wrapper: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column"
+  },
+  header: {
+    fontFamily: font,
+    fontWeight: "bold",
+    fontSize: "38px",
+    color: "#4B0082",
+    marginTop: "100px"
+  },
+  paragraph: {
+    fontFamily: font,
+    fontWeight: "bold",
+    fontSize: "24px",
+    color: "#4B0082",
+    marginBottom: "40px"
+  }
 
-const Main = () => {
+}));
 
-  return(
-    <div>
-      <h1>A secret?</h1>
-      <p>"Grace Hopper was the first person to create a compiler for a programming language and one of the first programmers of the Harvard Mark I computer, an electro-mechanical computer based on Analytical Engine. Hopper's work with computers started in 1943, when she started working at the Bureau of Ordnance's Computation Project at Harvard where she programmed the Harvard Mark I. Hopper not only programmed the computer, but created a 500-page comprehensive manual for it.Even though Hopper created the manual, which was widely cited and published, she was not specifically credited in it.Hopper is often credited with the coining of the term "bug" and "debugging" when a moth caused the Mark II to malfunction.While a moth was found and the process of removing it called "debugging," the terms were already part of the language of programmers"./Wikipedia</p>
+const Main = () =>  {
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
+  return (
+    <div className={classes.background}>
+        <Container className={classes.container}>
+            <div className={classes.wrapper}>
+                <Typography className={classes.header}>Are you feeling blue..? </Typography>
+                <Typography className={classes.paragraph}>Here are some secret questions to answer that could hopefully help you feeling a bit better </Typography>
+            </div>
+        <div className={classes.root}>
+            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1bh-content"
+                id="panel1bh-header"
+            >
+                <Typography className={classes.heading}>Question 1 </Typography>
+                <Typography className={classes.secondaryHeading}>How do I Feel right now</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                <Typography>
+                What do you feel at the moment. Are you feeling, happy angry, sad, anxious😣?
+                </Typography>
+            </AccordionDetails>
+            </Accordion>
+            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2bh-content"
+                id="panel2bh-header"
+            >
+                <Typography className={classes.heading}>Question 2 </Typography>
+                <Typography className={classes.secondaryHeading}>
+                What do I think makes me feel like this? 
+                </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                <Typography>
+                Maybe you are working too much? You are not sleeping well or someone makes you feel bad😢
+                </Typography>
+            </AccordionDetails>
+            </Accordion>
+            <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel3bh-content"
+                id="panel3bh-header"
+            >
+                <Typography className={classes.heading}>Question 3</Typography>
+                <Typography className={classes.secondaryHeading}>
+                How do I want to feel? 
+                </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                <Typography>
+                Maybe you want to feel more peaceful, at ease and happy with your self❤️
+                </Typography>
+            </AccordionDetails>
+            </Accordion>
+            <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel4bh-content"
+                id="panel4bh-header"
+            >
+                <Typography className={classes.heading}>Question 4</Typography>
+                <Typography className={classes.secondaryHeading}>
+                What can I do to make me feel like this? 
+                </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                <Typography>
+                Maybe you need to prioritise your own health and tell yourself only nice things🙏 
+                </Typography>
+            </AccordionDetails>
+            </Accordion>
+        </div>
+        </Container>
     </div>
-  )
+  );
 }
 
-export default Main;
+export default Main
