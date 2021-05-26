@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import listEndpoints from "express-list-endpoints";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-import { restart } from "nodemon";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, {
@@ -70,7 +69,7 @@ app.get("/thoughts", async (_, res) => {
 });
 
 // edpoints - post thoughts
-app.get("/thoughts", authenticateUser);
+app.post("/thoughts", authenticateUser);
 app.post("/thoughts", async (req, res) => {
   const { message } = req.body;
 
