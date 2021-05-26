@@ -1,41 +1,50 @@
 import React, { useEffect } from 'react'
-import { useSelector/* , useDispatch *//* , batch */ } from 'react-redux'
-import { useHistory/* , Link */ } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+/* import { Link } from 'react-router-dom' */
+import styled from 'styled-components/macro'
 
-import { API_URL } from '../reusable/urls'
+/* import Button from '../components/Button' */
 
 const SecretPage = () => {
   const accessToken = useSelector(store => store.user.accessToken)
 
-  /* const dispatch = useDispatch() */
   const history = useHistory()
 
   useEffect(() => {
     if (!accessToken) {
-      history.push('/')
-    } else if (accessToken) {
-      history.push('/secret')
+      history.push('/signin')
     }
   }, [accessToken, history])
 
-  useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: accessToken
-      }
-    }
-
-  fetch(API_URL('secret'), options)
-    .then(res => res.json())
-    .then(data => data)
-  }, [accessToken])
-
   return (
-    <>
-      <h1>SECRET</h1>
-    </>
+    <Main>
+      <Title>Welcome in!</Title>
+      <lottie-player
+        src='https://assets4.lottiefiles.com/private_files/lf30_Xtzj7X.json' 
+        background='transparent'
+        speed='1'
+        style={{width: '300x', height: '300px'}}
+        loop 
+        autoplay>
+      </lottie-player>
+{/*       <Link to='/signin'>
+        <Button
+          text='LOG OUT'
+        />
+      </Link> */}
+    </Main>
   )
 }
 
 export default SecretPage
+
+const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+const Title = styled.h1`
+  font-size: 48px;
+`

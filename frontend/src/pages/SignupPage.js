@@ -1,12 +1,19 @@
 import React from 'react'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components/macro'
 
 import Signup from '../components/Signup'
+import Button from '../components/Button'
 
 const SignupPage = () => {
   return (
     <Main>
       <Signup />
+      <Link to='/signin'>
+        <Button
+          text='BACK TO LOG IN'
+        />
+      </Link>
     </Main>
   )
 }

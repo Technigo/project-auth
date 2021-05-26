@@ -1,10 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
-const Button = () => {
+const Button = ({ text }) => {
   return (
     <ButtonOne>
-      TO SIGN UP PAGE
+      {text}
     </ButtonOne>
   )
 }

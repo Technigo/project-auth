@@ -17,11 +17,15 @@ const User = mongoose.model('User', {
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    minlength: [5, 'Minimum length is 5 characters'],
+    maxlength: [140, 'Maximum length is 140 characters']
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minlength: [5, 'Minimum length is 5 characters'],
+    maxlength: [15, 'Maximum length is 15 characters']
   },
   accessToken: {
     type: String,
@@ -104,7 +108,7 @@ app.post('/signin', async (req, res) => {
   }
 });
 
-// Start the server
+
 app.listen(port, () => {
   // eslint-disable-next-line
   console.log(`Server running on http://localhost:${port}`)

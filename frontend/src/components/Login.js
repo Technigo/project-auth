@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import user from '../reducers/user'
 
@@ -18,7 +18,7 @@ const Login = () => {
   
   useEffect(() => {
     if (accessToken) {
-        history.push('/secret')
+        history.push('/')
     }
 }, [accessToken, history])
 
@@ -49,11 +49,13 @@ const Login = () => {
       .catch()
   }
 
-
   return (
     <Form onSubmit={onFormSubmit}>
-    <Title>Log in form </Title>
-      <label htmlFor='username'>Username</label>
+    <Title>Log in! </Title>
+      <Label
+        htmlFor='username'>
+          Username
+      </Label>
       <Input
         id='username'
         type='text'
@@ -61,7 +63,10 @@ const Login = () => {
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <label htmlFor='password'>Password</label>
+      <Label
+        htmlFor='password'>
+          Password
+      </Label>
       <Input
         id='password'
         type='password'
@@ -74,11 +79,6 @@ const Login = () => {
         onClick={() => setMode('signin')}>
         LOGIN
       </Button>
-      <Button
-        type='submit'
-        onClick={() => setMode('signup')}>
-        SIGN UP
-      </Button>
     </Form>
   )
 }
@@ -86,19 +86,41 @@ const Login = () => {
 export default Login
 
 const Title = styled.h1`
+  font-size: 30px;
   margin: 0px;
-  padding: 20px;
+  padding: 20px 0;
+    @media (min-width: 768px) {
+      font-size: 45px;
+    }
+    @media (min-width: 1025px) {
+      font-size: 30px;
+    }
 `
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   background-color: #939b62;
-  width: 20%;
-  padding: 30px 25px;
+  width: 80%;
+  padding: 15px 10px;
   border-radius: 10px;
+    @media (min-width: 768px) {
+      width: 50%;
+      padding: 30px 25px;
+    }
+    @media (min-width: 1025px) {
+      width: 20%;
+      padding: 30px 25px;
+    }
 `
-
+const Label = styled.label`
+  font-size: 18px;
+    @media (min-width: 768px) {
+      font-size: 25px;
+    }
+    @media (min-width: 1025px) {
+      font-size: 18px;
+    }
+`
 const Button = styled.button`
   padding: 10px;
   margin: 20px;
@@ -110,7 +132,6 @@ const Button = styled.button`
   transition: all 0.3s ease 0s;
   cursor: pointer;
 `
-
 const Input = styled.input`
   padding: 5px;
   border-radius: 5px;

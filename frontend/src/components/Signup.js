@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import user from '../reducers/user'
 
@@ -46,22 +46,31 @@ const Signup = () => {
         }
       })
       .catch()
-  }
+    }
 
   return (
-    <Form onSubmit={onFormSubmit}>
-    <Title>Sign up form </Title>
-      <label htmlFor='loginEmail'>Email</label>
-      <input
-        id='loginEmail'
-        type='email'
+    <Form
+      onSubmit={onFormSubmit}>
+      <Title>
+        Sign up!
+      </Title>
+      <Label
+        htmlFor='username'>
+          Username
+      </Label>
+      <Input
+        id='username'
+        type='text'
         required
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <label htmlFor='loginPassword'>Password</label>
-      <input
-        id='loginPassword'
+      <Label
+        htmlFor='password'>
+          Password
+      </Label>
+      <Input
+        id='password'
         type='password'
         required
         value={password}
@@ -70,8 +79,8 @@ const Signup = () => {
       <Button
         type='submit'
         onClick={() => setMode('signup')}>
-          SIGN UP
-        </Button>
+        SIGN UP
+      </Button>
     </Form>
   )
 }
@@ -81,14 +90,38 @@ export default Signup
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  background-color: #939b62;
-  width: 20%;
-  padding: 30px 25px;
+  background-color: #ffd56b;
+  width: 80%;
+  padding: 15px 10px;
   border-radius: 10px;
+    @media (min-width: 768px) {
+      width: 50%;
+      padding: 30px 25px;
+    }
+    @media (min-width: 1025px) {
+      width: 20%;
+      padding: 30px 25px;
+    }
 `
 const Title = styled.h1`
+  font-size: 30px;
   margin: 0px;
-  padding: 20px;
+  padding: 20px 0;
+    @media (min-width: 768px) {
+      font-size: 45px;
+    }
+    @media (min-width: 1025px) {
+      font-size: 30px;
+    }
+`
+const Label = styled.label`
+  font-size: 18px;
+    @media (min-width: 768px) {
+      font-size: 25px;
+    }
+    @media (min-width: 1025px) {
+      font-size: 18px;
+    }
 `
 const Button = styled.button`
   padding: 10px;
@@ -100,4 +133,8 @@ const Button = styled.button`
   box-shadow: 0px 8px 15px rgba(12, 20, 80, 0.5);
   transition: all 0.3s ease 0s;
   cursor: pointer;
+`
+const Input = styled.input`
+  padding: 5px;
+  border-radius: 5px;
 `

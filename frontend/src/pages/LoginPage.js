@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import Login from '../components/Login'
 import Button from '../components/Button'
@@ -10,7 +10,9 @@ const LoginPage = () => {
     <Main>
       <Login />
       <Link to='/signup'>
-        <Button />
+        <Button
+          text='SIGN UP HERE'
+        />
       </Link>
     </Main>
   )
