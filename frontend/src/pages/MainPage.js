@@ -7,13 +7,6 @@ import { API_URL } from '../reusable/urls'
 
 import travelInspo from '../reducers/travelInspo'
 
-const Main = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-
 const Image = styled.img`
 
 `
@@ -40,11 +33,14 @@ const MainPage = () => {
 
     fetch(API_URL('travelinspo'), options)   //make sure that this url is in line with the endpoint we have for the secret page
       .then(res => res.json())
-      .then(data => dispatch(travelInspo.actions.setTravelInspo(data)))
+      .then(data => {
+        console.log(data)
+        dispatch(travelInspo.actions.setTravelInspo(data))
+      })
   }, [accessToken, dispatch])
 
   return (
-    <Main>
+    <>
       MAIN PAGE
 
       <Image
@@ -52,7 +48,7 @@ const MainPage = () => {
       />
 
       <Link to="/signin">GO TO SIGN IN</Link> 
-    </Main>
+    </>
   )
 }
 

@@ -82,7 +82,7 @@ app.post('/signup', async (req, res) => {
     })
   } catch (error) {
     if (err.code === 11000) {
-      res.status(400).json({ message: 'User already exists', fields: err.keyValue });
+      res.status(400).json({ message: 'User already exists', fields: err.keyValue })
     }
     res.status(400).json({ success: false, message: 'Could not create user', error })
   }

@@ -17,7 +17,7 @@ const InputPassword = styled.input`
 
 `
 
-const RegistrationForm = () => {
+const SignUpForm = () => {
   return (
     <Form>
       <Heading>
@@ -35,4 +35,4 @@ const RegistrationForm = () => {
   )
 }
 
-export default RegistrationForm
+export default SignUpForm

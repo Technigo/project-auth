@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
-
 
 import user from '../reducers/user'
 
 import { API_URL } from '../reusable/urls'
 
+import SignInForm from '../components/SignInForm'
 
-const Form = styled.form`
-
+const Container = styled.div`
+  background-image: url('/assets/sign-in-background-image.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
 
-// const Heading = styled.h1`
-
-// `
-
-const InputUsername = styled.input`
-
-`
-
-const InputPassword = styled.input`
-
+const Heading = styled.h1`
+  color: #6d6875;
+  font-size: 46px;
 `
 
 const SignInPage = () => {
@@ -41,7 +42,7 @@ const SignInPage = () => {
     }
   }, [accessToken, history])
 
-  const onFormSubmit = (e) => { // Can be moved to be a thunk in the reducer
+  const handleFormSubmit = (e) => { // Can be moved to be a thunk in the reducer
     e.preventDefault()
 
     const options = {
@@ -69,25 +70,17 @@ const SignInPage = () => {
   }
   
   return (
-    <>
-      <Form onSubmit={onFormSubmit}>
-        <InputUsername 
-          type="text" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
-        />
-        <InputPassword 
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-        />
-        <button type="submit" onClick={() => setMode('signin')}>SIGN IN</button>
-        <p>
-          Not a user? 
-          <Link to="/signup">Register here</Link> 
-        </p>
-      </Form>
-    </>
+    <Container>
+      <Heading>Welcome to the most amazing page ever if you love to travel!</Heading>
+      <SignInForm 
+        onFormSubmit={handleFormSubmit}
+        username={username} 
+        setUsername={setUsername} 
+        password={password} 
+        setPassword={setPassword}
+        setMode={setMode}
+      />
+    </Container>
   )
 }
 
