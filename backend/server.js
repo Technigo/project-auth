@@ -32,7 +32,7 @@ const User = mongoose.model('User', {
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
 
-  try {
+  try {t
     const user = await User.findOne({ accessToken })
     if (user) {
       next()
