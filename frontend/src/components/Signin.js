@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch} from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
+import user from '../reducers/user'
+import { API_URL } from '../reuseables/urls'
+
 const Signin = () => {                     
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')

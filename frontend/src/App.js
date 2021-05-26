@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import user from './reducers/user'
 import drink from './reducers/drink'
 import Signin from './components/Signin'
+import HappyHour from 'components/HappyHour'
 
 const reducer = combineReducers({
   user: user.reducer,
@@ -19,7 +20,7 @@ export const App = () => {
     <BrowserRouter>
       <Provider store={store}>
         <Switch>
-          <Route exact path="/happyhour" />
+          <Route exact path="/happyhour" component={HappyHour}/>
           <Route path="/signup" />
           <Route path="/signin" component={Signin} />
         </Switch>
