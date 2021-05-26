@@ -3,6 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
+import listEndpoints from 'express-list-endpoints'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
@@ -40,10 +41,10 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next()
     } else {
-      res.status(401).json({ message: 'Not authorized' }) // res.status(401).json({ loggedOut: true, message: 'Please try logging in again' })
+      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' })
     }
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error }) // res.status(403).json({ message: 'Access token is missing or wrong', error })
+    res.status(403).json({ message: 'Access token is missing or wrong', error })
   }
 }
 
@@ -52,25 +53,12 @@ app.use(express.json())
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Hello world') // npm install express-list-endpoints
+  res.send(listEndpoints(app))
 })
 
-app.get('/thoughts', authenticateUser)
-app.get('/thoughts', async (req, res) => {
-  const thoughts = await Thought.find()
-  res.json(thoughts)
-})
-
-app.post('/thoughts', authenticateUser)
-app.post('/thoughts', async (req, res) => {
-  const { message } = req.body
-
-  try {
-    const newThought = await new Thought({ message }).save()
-    res.json(newThought)
-  } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error })
-  }
+app.get('/travelinspo', authenticateUser)
+app.get('/travelinspo', async (req, res) => {
+  res.json('Secret message')
 })
 
 app.post('/signup', async (req, res) => {
