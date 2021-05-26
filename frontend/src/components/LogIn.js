@@ -1,8 +1,17 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch, batch } from 'react-redux'
+
+import user from '../reducers/user'
+
+import { API_URL } from '../reusable/urls'
 
 const LogIn = () => {
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const dispatch = useDispatch()
+
 
   const onEmailChange = (event) => {
     setEmail(event.target.value)
@@ -10,9 +19,38 @@ const LogIn = () => {
   const onPaswordChange = (event) => {
     setPassword(event.target.value)
   }
+
+  const onFormSubmit = (event) => {
+    event.preventDefault()
+    
+    const options = {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify({ email, password })
+    }
+    fetch(API_URL('sessions'), options)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          batch(() => {
+            dispatch(user.actions.setUsername(data.username))
+            dispatch(user.actions.setUserId(data.userId))
+            dispatch(user.actions.setAccessToken(data.accessToken))
+            dispatch(user.actions.setErrors(null))
+        })
+      } else {
+          dispatch(user.actions.setErrors(data))
+      }
+    })
+  }
+
+  const history = useHistory()
+  
   return (
     <section className="login-container">
-      <form className="form-box-left">
+      <form className="form-box-left" onSubmit={onFormSubmit}>
         <h1 className="form-heading">Sign in</h1>
         <label className="input-wrapper">
           <p className="input-label">password</p>
@@ -36,11 +74,11 @@ const LogIn = () => {
         </label>
         <div className="form-buttons-container">
           <button type="submit" className="form-button">Sing in</button>
-          <button type="submit" className="form-button">Sing up</button>
+          <button type="button" className="form-button" onClick={() => history.push('/signup')}>Sing up</button>
         </div>
       </form>
       <div className="form-box-right">
-        <img src="./assets/moody.jpeg" />
+        <img src="./assets/moody.jpeg" alt="feeling bubbles" />
       </div>
     </section>
   )

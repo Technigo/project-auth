@@ -66,6 +66,7 @@ body {
   background-color: #CF0568;
   color: #f0f8ff;
   font-family: 'Inter', sans-serif;
+  cursor: pointer;
 }
 
 .form-box-right img {

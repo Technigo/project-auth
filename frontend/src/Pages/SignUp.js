@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch, batch } from 'react-redux'
+
+import { API_URL } from '../reusable/urls'
+import user from '../reducers/user'
 
 const SignUp = () => {
-  const [name, setName] = useState()
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const dispatch = useDispatch()
+
 
   const onNameChange = (event) => {
-    setName(event.target.value)
+    setUsername(event.target.value)
   }
 
   const onEmailChange = (event) => {
@@ -17,37 +24,73 @@ const SignUp = () => {
     setPassword(event.target.value)
   }
 
+  const onFormSubmit = (event) => {
+    event.preventDefault()
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password, email })
+    }
+
+    fetch(API_URL('users'), options)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          batch(() => {
+            dispatch(user.actions.setUsername(data.username))
+            dispatch(user.actions.setUserId(data.userId))
+            dispatch(user.actions.setAccessToken(data.accessToken))
+            dispatch(user.actions.setErrors(null))
+          })
+        } else {
+          dispatch(user.actions.setErrors(data))
+        }
+      })
+  }
+
   return (
-    <section>
-      <form>
-        <h1>Create an account</h1>
-        <label>
-          Name
+    <section className="login-container">
+      <form className="form-box-left" onSubmit={onFormSubmit}>
+        <h1 className="form-heading">Create an account</h1>
+        <label className="input-wrapper">
+          <p className="input-label">Name</p>
           <input
+            placeholder="User name"
+            className="input-box"
             type="text"
-            value={name}
+            value={username}
             onChange={onNameChange}
           />
         </label>
-        <label>
-          Email
+        <label className="input-wrapper">
+          <p className="input-label">Email</p>
           <input
+            className="input-box"
             placeholder="E-post"
             type="email"
             value={email}
             onChange={onEmailChange}
           />
         </label>
-        <label>
+        <label className="input-wrapper">
+          <p className="input-label">password</p>
           <input
-            placeholder="password"
+            className="input-box"
+            placeholder="Password"
             type="password"
             value={password}
             onChange={onPasswordChange}
           />
         </label>
-        <button>Sign up</button>
+        <div className="form-buttons-container">
+          <button type="submit" className="form-button">Sing up</button>
+        </div>
       </form>
+      <div className="form-box-right">
+        <img src="./assets/moody.jpeg" alt="feeling bubbles" />
+      </div>
     </section>
   )
 }
