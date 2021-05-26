@@ -1,27 +1,61 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import styled from 'styled-components/macro'
 
+import user from '../reducers/user'
+
+import { API_URL } from '../reusables/urls'
+
 const SignInForm = () => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [status, setStatus] = useState(null)
+
+  const onFormSubmit = (e) => {
+    e.preventDefault()
+
+    const options ={
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    }
+
+    fetch(API_URL(status), options)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if (data.success) {
+
+        }
+      })
+  }
 
   return (
     <Wrapper>
       <Header>Sign in</Header>
-      <Form>
+      <Form onSubmit={onFormSubmit}>
         <Input
-            type='text'
-            placeholder='username'>
-        </Input>
+          type='text'
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder='username'
+        />
         <Input
-            type='text'
-            placeholder='•••••'
-            value='password'>
-        </Input>
-        <Button>
+          type='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder='•••••'
+        />
+        <Button type='submit' onClick={() => setStatus('signin')}>
           Sign in
         </Button>
       </Form>
       <SignUpText>Not a user yet? Create an account</SignUpText>
-      <Button>Sign up</Button>
+      <Button type='submit' onClick={() => setStatus('signup')}>
+        Sign up
+      </Button>
     </Wrapper>
   )
 }
@@ -34,6 +68,15 @@ const Wrapper = styled.div`
   align-items: center;
   width: 80%;
   margin: auto;
+
+  @media (min-width: 767px){
+    width: 50%;
+    margin-top: 35px;
+  }
+
+  @media (min-width: 1024px) {
+    width: 500px;
+  }
 `
 
 const Form = styled.form`
@@ -49,6 +92,10 @@ const Header = styled.h2`
   color: white;
   font-weight: 400;
   font-size: 40px;
+
+  @media (min-width: 1024px) {
+    font-size: 50px;
+  }
 `
 
 const SignUpText = styled.h3`
@@ -63,7 +110,10 @@ const Input = styled.input`
   border: none;
   padding: 10px 20px;
   margin-bottom: 10px;
-  // placeholder: raw("&bull;");
+
+  @media (min-width: 767px){
+  font-size: 17px;
+}
 `
 
 const Button = styled.button`
@@ -71,10 +121,25 @@ const Button = styled.button`
   background-color: #006cde;
   background-image: linear-gradient(90deg, #006cde 0%, #FC00FF 100%);
   padding: 10px 20px;
-  border: none;
+  border: solid #FFF 1.5px;
   border-radius: 50px;
   outline: none;
   width: 100%;
   color: #FFF;
   font-size: 17px;
+  // transition: all 1s ease;
+  // transition: 0.3s;
+
+  :hover {
+    background-color: #FC00FF;
+    background-image: linear-gradient(90deg, #FC00FF 0%, #006cde 100%);
+  }
+
+  :active {
+    background-color: #006cde;
+  }
+
+  @media (min-width: 767px){
+    font-size: 19px;
+  }
 `

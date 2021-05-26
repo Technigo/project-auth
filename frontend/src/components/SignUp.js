@@ -12,8 +12,8 @@ const SignUpForm = () => {
             placeholder='username'>
         </Input>
         <Input
-            type='text'
-            placeholder='*****'>
+            type='password'
+            placeholder='•••••'>
         </Input>
         <Button>
           Sign up
@@ -33,6 +33,15 @@ const Wrapper = styled.div`
   align-items: center;
   width: 80%;
   margin: auto;
+
+  @media (min-width: 767px){
+    width: 50%;
+    margin-top: 35px;
+  }
+
+  @media (min-width: 1024px) {
+    width: 500px;
+  }
 `
 
 const Form = styled.form`
@@ -48,6 +57,10 @@ const Header = styled.h2`
   color: white;
   font-weight: 400;
   font-size: 40px;
+
+  @media (min-width: 1024px) {
+    font-size: 50px;
+  }
 `
 
 const SignUpText = styled.h3`
@@ -62,6 +75,10 @@ const Input = styled.input`
   border: none;
   padding: 10px 20px;
   margin-bottom: 10px;
+
+  @media (min-width: 767px){
+    font-size: 17px;
+  }
 `
 
 const Button = styled.button`
@@ -75,4 +92,8 @@ const Button = styled.button`
   width: 100%;
   color: #FFF;
   font-size: 17px;
+
+  @media (min-width: 767px){
+    font-size: 19px;
+  }
 `

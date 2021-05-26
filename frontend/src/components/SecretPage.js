@@ -19,11 +19,20 @@ const Wrapper = styled.div`
   align-items: center;
   width: 80%;
   margin: auto;
+
+  @media (min-width: 767px){
+    margin-top: 35px;
+  }
 `
 const SecretText = styled.p`
   color: white;
+  font-size: 18px;
 `
 
 const SecretHeader = styled.h2`
   color: white;
+
+  @media (min-width: 767px){
+    font-size: 40px;
+  }
 `
