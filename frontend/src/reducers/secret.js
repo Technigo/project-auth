@@ -3,12 +3,16 @@ import { createSlice } from '@reduxjs/toolkit';
 const secret= createSlice({
     name: 'secret',
     initialState: {
-        secret: null
+        message: null,
+        errors: null
     },
     reducers: {
         setSecret: (store, action) => {
-            store.secret = action.payload;
+            store.message = action.payload;
             
+        },
+        setErrors: (store, action) => {
+            store.errors = action.payload;
         }
     }
 })

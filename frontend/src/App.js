@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import Login from './pages/Login'
-import Signup from './pages/Signup'
 import Main from './pages/Main'
 import user from './reducers/user'
 import secret from './reducers/secret'
@@ -22,9 +21,8 @@ export const App = () => {
   <Provider store={store}>
     <Router>
       <Switch>
-        <Route path="/" component={Main} />
-        <Route path="/Signup" exact component={Signup} />
-        <Route path="/Login" exact component={Login} />
+        <Route exact path="/" component={Main} />
+        <Route path="/login" component={Login} />
       </Switch>
     </Router>
   </Provider>

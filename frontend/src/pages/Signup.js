@@ -24,8 +24,8 @@ const Signup = () => {
   return (
     <Form>
       <Title></Title>
-        <TextInput value={value.username} handleChange={handleChange('username')} title="Username" />
-        <TextInput value={value.password} handleChange={handleChange('password')} title="Password" />
+        <TextInput value={value.username} type="text" handleChange={handleChange('username')} title="Username" />
+        <TextInput value={value.passwrd} type="password" handleChange={handleChange('password')} title="Password" />
       <PathLink to="/Login">
           <SubmitButton type="button"> </SubmitButton> 
       </PathLink>

@@ -6,7 +6,7 @@ const Password = ({value, handleChange}) => {
   return(
     <>
     <Label htmlFor="password">Password: </Label>
-      <TextInput id="password" value={value} onChange={handleChange} />
+      <TextInput type="password" id="password" value={value} onChange={handleChange} />
     </>
   )
 }

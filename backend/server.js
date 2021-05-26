@@ -36,21 +36,26 @@ app.use(express.json())
 const authenticateUser = async (req, res, next) => {
   try
   {
-     const user = await User.findOne({ acessToken: req.header('Authorization')})
+     const user = await User.findOne({ accessToken: req.header('Authorization')})
      if (user){
        req.user = user;
        next()
      } else {
-      res.status(401).json({ loggedOut: true })
+      res.status(401).json({ success: false, loggedOut: true })
      }
   } catch (err) {
-    res.status(400).json({ message: "Invalid request", err})
+    res.status(400).json({ success: false, message: "Invalid request", err})
   }
  }
 
 // Start defining your routes here
 app.get('/', (req, res) => {
   res.send('Hello world')
+})
+
+app.get('/secret', authenticateUser)
+app.get('/secret', async (req, res) => {
+  res.json({ success: true, message: 'This is a secret' })
 })
 
 app.post('/signup', async (req, res) => {
@@ -64,10 +69,11 @@ app.post('/signup', async (req, res) => {
     res.json({ 
       userID: user._id,
       username: user.username,
-      accessToken: user.accessToken
+      accessToken: user.accessToken,
+      success: true
     })
   } catch(err) {
-    res.status(400).json({ message: "Invalid request", err})
+    res.status(400).json({ success: false, message: "Invalid request", err})
   }
 })
 
@@ -79,22 +85,23 @@ app.post('/signin', async (req, res) => {
     
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
-        userID: user._id,
+      userID: user._id,
       username: user.username,
-      accessToken: user.accessToken
+      accessToken: user.accessToken,
+      success: true
       })
     } else {
-      res.status(404).json({ message: 'Incorrect username or password' })
+      res.status(404).json({ success: false, message: 'Incorrect username or password' })
       }
     } catch (err) {
-      res.status(400).json({ message: "Invalid request", err})
+      res.status(400).json({ success: false, message: "Invalid request", err})
   }
 })
 
-app.get('/secret', authenticateUser)
-app.get('/secret', (res, req) => {
-  res.json({ message: 'This is a secret' })
-})
+// app.get('/secret', authenticateUser)
+// app.get('/secret', (res, req) => {
+// res.json({ success: true, message: 'This is a secret' })
+// })
 
 // Start the server
 app.listen(port, () => {

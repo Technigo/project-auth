@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
+import secret from '../reducers/secret'
 import { API_URL } from '../reusable/urls'
 
 const Main = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const accessToken = useSelector(store => store.user.accessToken)
-    const secret = useSelector(store => store.secret.secret)
+    const secrets = useSelector(store => store.secret.message)
 
     useEffect(() => {
       if (!accessToken) {
@@ -17,6 +18,7 @@ const Main = () => {
       }
     }, [accessToken, history]);
 
+    console.log(accessToken)
     useEffect(() => {
         const option = {
             method: 'GET',
@@ -27,14 +29,15 @@ const Main = () => {
         fetch(API_URL('secret'), option)
         .then((res) => res.json())
         .then(data => {
-            data 
+            data.success 
             ? dispatch(secret.actions.setSecret(data)) 
             : dispatch(secret.actions.setErrors(data))
         })
         .catch()
     })
+    // ,[accessToken])
 
- return <> {secret} </>
+ return <div> {secrets} </div>
 
 }
 
