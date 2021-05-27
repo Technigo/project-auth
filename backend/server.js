@@ -65,7 +65,7 @@ app.get("/", (_, res) => {
 app.get("/thoughts", authenticateUser);
 app.get("/thoughts", async (_, res) => {
   const thoughts = await Thought.find();
-  res.json(thoughts);
+  res.json({ success: true, thoughts });
 });
 
 // edpoints - post thoughts
@@ -75,9 +75,9 @@ app.post("/thoughts", async (req, res) => {
 
   try {
     const newThought = await new Thought({ message }).save();
-    res.json(newThought);
+    res.json({ success:true, newThought });
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error });
+    res.status(400).json({ success: false, message: "Invalid request", error });
   }
 });
 
@@ -91,12 +91,13 @@ app.post("/signup", async (req, res) => {
       password: bcrypt.hashSync(password, salt),
     }).save();
     res.json({
+      success: true,
       userID: newUser._id,
       username: newUser.username,
       accessToken: newUser.accessToken,
     });
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error });
+    res.status(400).json({ success: false, message: "Invalid request", error });
   }
 });
 
@@ -107,15 +108,16 @@ app.post("/signin", async (req, res) => {
     const user = await User.findOne({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
+        success: true,
         userId: user._id,
         username: user.username,
         accessToken: user.accessToken,
       });
     } else {
-      res.status(404).json({ message: "User not found" });
+      res.status(404).json({ success: false, message: "User not found" });
     }
   } catch {
-    res.status(400).json({ message: "Invalid request", error });
+    res.status(400).json({ success: false, message: "Invalid request", error });
   }
 });
 
