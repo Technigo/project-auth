@@ -8,7 +8,7 @@ const user = createSlice ({
         errors: null
     },
     reducers: {
-        setUserName: (store, action) => {
+        setUsername: (store, action) => {
             store.username = action.payload
         },
         setAccessToken: (store, action) => {

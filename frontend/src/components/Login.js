@@ -37,7 +37,7 @@ const Login = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data)
-        if (data.sucess) {
+        if (data.success) {
           batch(() => {
             dispatch(user.actions.setUsername(data.username));
             dispatch(user.actions.setAccessToken(data.accessToken));
