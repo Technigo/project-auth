@@ -39,7 +39,7 @@ border-radius: 5px;
 &:active {
   box-shadow: none;
   transform: translateY(4px);
-transform: translateX(4px);
+  transform: translateX(4px);
 }
 }`
 
