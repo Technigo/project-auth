@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-/* import { Link } from 'react-router-dom' */
-import styled from 'styled-components/macro'
 
-/* import Button from '../components/Button' */
+import styled from 'styled-components/macro'
 
 const SecretPage = () => {
   const accessToken = useSelector(store => store.user.accessToken)
@@ -28,11 +26,6 @@ const SecretPage = () => {
         loop 
         autoplay>
       </lottie-player>
-{/*       <Link to='/signin'>
-        <Button
-          text='LOG OUT'
-        />
-      </Link> */}
     </Main>
   )
 }

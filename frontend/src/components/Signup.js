@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import Swal from 'sweetalert2'
 
 import user from '../reducers/user'
 
@@ -42,7 +43,13 @@ const Signup = () => {
             dispatch(user.actions.setErrors(null))
           })
         } else {
-          dispatch(user.actions.setErrors(data))
+          if(data.error.code === 11000) {
+            Swal.fire('Please choose another username.')
+            dispatch(user.actions.setErrors(data))
+          } else {
+            Swal.fire(`Username: ${data.error.errors.username.message}`)
+            dispatch(user.actions.setErrors(data))
+          }
         }
       })
       .catch()
@@ -75,8 +82,6 @@ const Signup = () => {
         id='password'
         type='password'
         required
-        minlength='5'
-        maxlength='25'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
