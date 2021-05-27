@@ -1,13 +1,23 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch, batch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 
 import "./RegisterStyle.css";
+import user from "../reducers/user";
 
 const Register = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
+  const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (accessToken) {
+      history.push("/");
+    }
+  }, [accessToken, history]);
 
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +33,19 @@ const Register = () => {
 
     fetch(API_REGISTER, options)
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+
+        if (data) {
+          batch(() => {
+            dispatch(user.actions.setUsername(data.username));
+            dispatch(user.actions.setAccessToken(data.accessToken));
+            dispatch(user.actions.setErrors(null));
+          });
+        } else {
+          dispatch(user.actions.setErrors(data));
+        }
+      });
   };
 
   return (
@@ -35,7 +57,6 @@ const Register = () => {
           <div className="green-circle"></div>
           <form className="form" onSubmit={onFormSubmit}>
             <h2>Sign up here</h2>
-            <label>Full name</label>
             <input
               className="input"
               placeholder="Username"
@@ -57,7 +78,10 @@ const Register = () => {
         </div>
         <div className="member-container">
           <p>
-            Already a member? <b>Login here</b>
+            Already a member?{" "}
+            <Link to="/login">
+              <b>Log in</b>
+            </Link>
           </p>
         </div>
       </div>

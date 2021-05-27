@@ -22,11 +22,41 @@
   align-items: center;
 }
 
+.pink-circle {
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: linear-gradient(#fff, #d9afd9);
+}
+
+.blue-circle {
+  position: absolute;
+  top: -50px;
+  left: 100px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(#fff, #86e1eb);
+}
+
+.green-circle {
+  position: absolute;
+  top: -70px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: linear-gradient(#fff, #80d0c7);
+}
+
 .input {
   border: hidden;
 }
 
-.signup-button {
+.login-button {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   padding: 10px;
@@ -39,6 +69,98 @@
   cursor: pointer;
 }
 
-.signup-button:hover {
+.login-button:hover {
   background-color: #93d9e0;
 }*/
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.form-container {
+  position: relative;
+  overflow: hidden;
+  padding: 25px;
+  width: 330px;
+  height: 400px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.pink-circle {
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: linear-gradient(#fff, #d9afd9);
+}
+
+.blue-circle {
+  position: absolute;
+  top: -50px;
+  left: 100px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(#fff, #86e1eb);
+}
+
+.green-circle {
+  position: absolute;
+  top: -70px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: linear-gradient(#fff, #80d0c7);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+h2 {
+  color: #817d7d;
+}
+
+.input {
+  margin-bottom: 14px;
+  font-size: 16px;
+  color: #b8b6b6;
+  border: hidden;
+  border-bottom: 2px solid #d4d1d1;
+  cursor: pointer;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.login-button {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  padding: 12px;
+  margin-top: 70px;
+  width: 150px;
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  background-color: #83c3ca;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #93d9e0;
+}

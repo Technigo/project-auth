@@ -23,8 +23,8 @@ export const App = () => {
         <Provider store={store}>
           <Switch>
             <Route exact path="/" component={Index} />
-            <Route exact path="/signup" component={Register} />
-            <Route exact path="/login" component={Login} />
+            <Route path="/signup" component={Register} />
+            <Route path="/login" component={Login} />
           </Switch>
         </Provider>
       </BrowserRouter>

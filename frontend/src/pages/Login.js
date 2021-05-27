@@ -37,25 +37,30 @@ const Login = () => {
   };
 
   return (
-    <div className='form-wrapper'>
-      <div className='form-container'>
+    <div className="form-wrapper">
+      <div className="form-container">
+        <div className="pink-circle"></div>
+        <div className="blue-circle"></div>
+        <div className="green-circle"></div>
         <form onSubmit={onFormSubmit}>
-          <label>Username</label>
+          <h2>Log in here</h2>
           <input
-            className='input'
-            type='text'
+            className="input"
+            placeholder="Username"
+            type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
-            className='input'
-            type='password'
+            className="input"
+            placeholder="Password"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <button
-            className='login-button'
-            type='submit'
+            className="login-button"
+            type="submit"
             onClick={() => setMode("signin")}
           >
             Log in
