@@ -33,10 +33,6 @@ const Signup = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     }
-   
-    // fetch('http://localhost:8080/signup', options)
-    //   .then(res => res.json())
-    //   .then(json => console.log(json))
 
     fetch(API_URL(mode), options)
       .then(res => res.json())
