@@ -1,107 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components";
 
 import { Loading } from "../components/Loading";
-import { Button } from "components/Button";
+import { Button } from "components/Buttons";
 import { InputForm } from "components/InputForm";
 import { Footer } from "components/Footer";
 import pic2 from "assets/pic2.jpg";
-
 import user from "../reducers/user";
-
 import { API_URL } from "../reusables/urls";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  height: 50%;
-  width: 100%;
-  margin-bottom: 100px;
-  @media (min-width: 768px) {
-    flex-direction: row;
-    height: 60%;
-    max-width: 75%;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  }
-  @media (min-width: 1200px) {
-    width: 60%;
-    height: 70%;
-  }
-`;
-
-const FormContainer = styled.div`
-  width: 75%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 30px;
-  align-items: center;
-  @media (min-width: 768px) {
-    height: 100%;
-  }
-`;
-
-const ImageContainer = styled.div`
-  display: none;
-  @media (min-width: 768px) {
-    display: flex;
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-const Image = styled.img`
-  object-fit: cover;
-  width: 100%;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  position: relative;
-`;
-
-const CreateAccount = styled.h1`
-  font-weight: 500;
-  font-size: 23px;
-  color: #83868e;
-  font-family: "Roboto";
-  margin-bottom: 40px;
-`;
-
-const ErrorMessage = styled.p`
-  color: red;
-  padding-top: 10px;
-  font-size: 12px;
-  margin: 0;
-  position: absolute;
-  bottom: 25%;
-  @media (min-width: 768px) {
-    padding-top: 15px;
-    bottom: 27%;
-  }
-`;
-
-const EyeButton = styled.button`
-  background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  color: #6c6c6d;
-  position: absolute;
-  right: 0;
-  bottom: 36%;
-  :hover {
-    opacity: 0.8;
-  }
-`;
+import { 
+  SignInUpContainer, 
+  FormContainer, 
+  SignInUpForm, 
+  CreateAccount, 
+  ErrorMessageSignUp, 
+  EyeButtonSignUp, 
+  FormImageContainer, 
+  FormImage } from '../components/StylingPages';
 
 export const SignUp = () => {
   const [name, setName] = useState("");
@@ -112,13 +28,11 @@ export const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(true);
-
   const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    // redirect user to '/' path
     console.log("Checking access token", accessToken);
     if (accessToken) {
       history.push("/");
@@ -152,9 +66,6 @@ export const SignUp = () => {
             } else {
               handleErrors(data);
             }
-            // setName("");
-            // setUsername("");
-            // setEmail("");
             setPassword("");
             setLoading(false);
           })
@@ -185,13 +96,13 @@ export const SignUp = () => {
     <>
       {loading && <Loading loadingText="Creating new account..." />}
       {!loading && (
-        <Container>
-          <ImageContainer>
-            <Image src={pic2}></Image>
-          </ImageContainer>
+        <SignInUpContainer>
+          <FormImageContainer>
+            <FormImage src={pic2}></FormImage>
+          </FormImageContainer>
           <FormContainer>
             <CreateAccount>Create New Account</CreateAccount>
-            <Form onSubmit={handleFormSubmit}>
+            <SignInUpForm onSubmit={handleFormSubmit}>
               <InputForm
                 value={name}
                 id="name"
@@ -219,18 +130,18 @@ export const SignUp = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 minLength="8"
               ></InputForm>
-              <EyeButton type="button" onClick={togglePassword}>
+              <EyeButtonSignUp type="button" onClick={togglePassword}>
                 {showPassword ? (
                   <i className="fas fa-eye"></i>
                 ) : (
                   <i className="fas fa-eye-slash"></i>
                 )}
-              </EyeButton>
-              <ErrorMessage>{errorMessage}</ErrorMessage>
+              </EyeButtonSignUp>
+              <ErrorMessageSignUp>{errorMessage}</ErrorMessageSignUp>
               <Button onClick={() => setMode("signup")} buttonText="register" />
-            </Form>
+            </SignInUpForm>
           </FormContainer>
-        </Container>
+        </SignInUpContainer>
       )}
       <Footer
         footerText="Already have an account?"
