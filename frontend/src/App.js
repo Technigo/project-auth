@@ -4,13 +4,15 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import user from './reducers/user'
+import thoughts from './reducers/thoughts'
 
 import LandingPage from './pages/LandingPage'
 import Signup from './pages/Signup'
 
 
 const reducer = combineReducers({
-  user: user.reducer
+  user: user.reducer,
+  thougths: thoughts.reducer
 })
 
 const store = configureStore({ reducer })
@@ -23,7 +25,7 @@ export const App = () => {
       <Provider store={store}>
         <Switch>
         <Route exact path="/" component={LandingPage} />
-          <Route path="/login" component={Signup} />
+          <Route path="/signup" component={Signup} />
         </Switch>
       </Provider>
     </BrowserRouter>

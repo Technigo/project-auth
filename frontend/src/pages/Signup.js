@@ -3,6 +3,8 @@ import { batch, useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import user from '../reducers/user'
+import { API_URL } from '../reusable/urls'
+
 
 const Signup = () => {
   const [email, setEmail] = useState('')
@@ -21,20 +23,20 @@ const Signup = () => {
     if (accessToken) {
       history.push('/') //redirecting user to a different route
     }
-  }, [accessToken])
+  }, [accessToken, history])
 
+  // console.log(mode)
   const onFormSubmit = (e) => {
     e.preventDefault()
-
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     }
    
-    fetch('http://localhost:8080/signup', options)
-      .then(res => res.json())
-      .then(json => console.log(json))
+    // fetch('http://localhost:8080/signup', options)
+    //   .then(res => res.json())
+    //   .then(json => console.log(json))
 
     fetch(API_URL(mode), options)
       .then(res => res.json())
@@ -42,19 +44,19 @@ const Signup = () => {
         console.log(data)
         if (data.success) {
           batch(() => {
-            dispatch(user.actions.setUserName(data.email))
+            dispatch(user.actions.setUsername(data.email))
             dispatch(user.actions.setAccessToken(data.accessToken))
             dispatch(user.actions.setErrors(null))
           })
         } else {
-            dipsatch(user.actions.setErrors(data))
+            dispatch(user.actions.setErrors(data))
         }
       })
       .catch()
   }
 
   return (
-    <div>
+    <>
       <form onSubmit={onFormSubmit}>
         <label>
           E-mail:
@@ -75,7 +77,7 @@ const Signup = () => {
         <button type="submit" onClick={() => setMode('signin')}>Sign in</button>
         <button type="submit" onClick={() => setMode('signup')}>Sign up</button>
       </form>
-    </div>
+    </>
   )
 }
 

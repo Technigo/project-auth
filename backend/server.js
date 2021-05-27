@@ -89,7 +89,7 @@ app.post('/thoughts/', async (req, res) => {
 // or call the endpoint:  /user or:  /register
 app.post('/signup', async (req, res) => {
  const { email, password } = req.body  // --> sent from frontend
-  console.log(req.body)
+  console.log('92 signup: ' + email + ' ' + password)
  try {
    const salt = bcrypt.genSaltSync() // initialize salt randomizer
    
