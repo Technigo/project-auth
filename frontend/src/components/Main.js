@@ -39,7 +39,7 @@ const Main = () => {
                     dispatch(listitems.actions.setErrors(data));
                 }
             });
-    }, [accessToken,dispatch]);
+    }, [accessToken, dispatch]);
 
     console.log(listitemsItems)
     return (

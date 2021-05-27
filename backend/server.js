@@ -1,13 +1,13 @@
 import express from 'express'
 import cors from 'cors'
-import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
+import dotenv from 'dotenv'
 
 dotenv.config();
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
+const mongoUrl = process.env.MONGO_URL || "mongodb+srv://FirstSuperuser:CiGxIlhCM6l3sU62@cluster0.hjbeu.mongodb.net/shoppingList?retryWrites=true&w=majority"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
