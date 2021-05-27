@@ -21,11 +21,11 @@ const Register = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data)
-        if (data.success) {
+        // if (data.success) {
 
-        } else {
+        // } else {
 
-        }
+        // }
       })
       .catch()
   }
