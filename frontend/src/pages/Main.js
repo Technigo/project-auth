@@ -32,7 +32,7 @@ export const Main = () => {
 
   useEffect(() => {
     if (!accessToken) {
-      history.push("/");
+      history.push("/signin");
     }
   }, [accessToken, history]);
 
