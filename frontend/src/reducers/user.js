@@ -18,6 +18,11 @@ const user = createSlice({
     setErrors: (store, action) => {
       store.errors = action.payload
     },
+    setReturnInitialState: (store, action) => {
+      store.accessToken = action.payload
+      // store.email = action.payload,
+      // store.errors = action.payload
+    }
   }
 })
 

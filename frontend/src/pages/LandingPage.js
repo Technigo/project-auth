@@ -4,6 +4,7 @@ import { useHistory, Link } from 'react-router-dom'
 
 import { API_URL } from '../reusable/urls'
 import thoughts from '../reducers/thoughts'
+import user from '../reducers/user'
 
 
 const LandingPage = () => {
@@ -38,10 +39,15 @@ const LandingPage = () => {
             dispatch(thoughts.actions.setErrors(null))
           })
         } else {
+          console.log(data)
           dispatch(thoughts.actions.setErrors(data))
         }
       }) 
   }, [accessToken, dispatch])
+
+  const onLogout = () => {
+    dispatch(user.actions.setReturnInitialState(null))
+  }
 
   return (
     <div>
@@ -54,6 +60,7 @@ const LandingPage = () => {
         )
       })}
       <Link to="/login">To LOGOUT we go</Link>
+      <button onClick={() => onLogout()}>Log out</button>
     </div>
   )
 }

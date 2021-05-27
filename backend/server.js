@@ -48,10 +48,10 @@ const authenticateUser = async (req, res, next) => {
       // req.user = user // keep or throw? 
       next() // ok go ahead/proceed! 
     } else {
-      res.status(401).json({ loggedOut: true, message: 'Not authenticated' })
+      res.status(401).json({ success: false, loggedOut: true, message: 'Not authenticated' })
     }
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error })
+    res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 }
 
@@ -131,7 +131,6 @@ app.post('/signin', async (req, res) => {
       res.status(400).json({ success: false, message: 'Invalid request', error })
    }
 })
-
 
 // Start the server
 app.listen(port, () => {

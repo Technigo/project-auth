@@ -10,7 +10,7 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState(null) // executing onFormSubmit wihtout clicking a button
-  const [errorMessage, setErrorMessage] = useState(null)
+  // const [errorMessage, setErrorMessage] = useState(null)
   
   const errors = useSelector((store) => store.user.errors)
   // const userData = useSelector(store => store.user)
@@ -24,28 +24,18 @@ const Login = () => {
 
   
   useEffect(() => {
-    
-    // if (userData.errors) {
-    //   setEmailValidationError(userData.errors.error.message)
-    //   console.log(emailValidationError)
-    // }
-
-    // const emailValidationError = useSelector(store => store.user.errors.error.message)
-
-
     console.log('Checking accessToken', accessToken)
     if (accessToken) {
       history.push('/') //redirecting user to a different route
     }
   }, [accessToken, history])
 
-  if (errors) {
-    if (errors.error) {
-      setErrorMessage(errors.error?.message) //email validation
-    } else {
-      setErrorMessage(errors.message) //login failed
-    }
-  } 
+    let errorMessage = ''
+    if (errors?.error?.errors?.email?.message) {
+        errorMessage = errors?.error?.errors?.email?.message //email validation
+      } else if (errors?.message) {
+        errorMessage = errors?.message //login failed
+    } 
 
   console.log(errors)
   const onFormSubmit = (e) => {
@@ -85,8 +75,9 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {/* {emailValidationError && <p>That was not a valid email address</p>} */}
-          {errorMessage && <p>{`${errorMessage}`}</p>}
+          {/* {errors?.error?.errors?.email?.message && <p>{errors.error.errors.email.message}</p>}
+          {errors?.message && <p>{errors?.message}</p>} */}
+          {errorMessage && <p>{errorMessage}</p>}
         </label>
         <label>
           Password:
