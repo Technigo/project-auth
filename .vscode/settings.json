@@ -1,0 +1,11 @@
+{
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+    "editor.formatOnSave": true,
+    "css.lint.compatibleVendorPrefixes": "warning",
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+    "html.format.indentInnerHtml": true,
+    "html.format.endWithNewline": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    }
+}

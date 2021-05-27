@@ -27,21 +27,21 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column"
-      },
-      header: {
+        },
+        header: {
         fontFamily: font,
         fontWeight: "bold",
         fontSize: "38px",
         color: "#4B0082",
         marginTop: "100px"
-      },
-      paragraph: {
+        },
+        paragraph: {
         fontFamily: font,
         fontWeight: "bold",
         fontSize: "24px",
         color: "#4B0082",
         marginBottom: "40px"
-      },
+        },
     paper: {
     //   marginTop: theme.spacing(8),
       display: 'flex',

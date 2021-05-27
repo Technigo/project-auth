@@ -1,18 +1,20 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
-import { Accordion, AccordionDetails, AccordionSummary, Typography, Container } from '@material-ui/core';
+import { Accordion, AccordionDetails, AccordionSummary, Typography, Container, Button } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import { logout } from '../reducers/user'
 
 const font = "'PT Sans', sans-serif"
 
 const useStyles = makeStyles((theme) => ({
-background: {
+  background: {
     width: "100vw",
     height: "100vh",
     backgroundColor: "#FAACA8",
     backgroundImage: "linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%)"
-},
+  },
   root: {
     width: '100%',
   },
@@ -54,12 +56,15 @@ background: {
 }));
 
 const Main = () =>  {
+  const accessToken = useSelector(store => store.user.accessToken);
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
 
   return (
     <div className={classes.background}>
@@ -137,6 +142,11 @@ const Main = () =>  {
             </Accordion>
         </div>
         </Container>
+        <Button
+        variant="contained"
+        type="submit"
+        onClick={() => dispatch(logout())}
+        >Log out</Button>
     </div>
   );
 }

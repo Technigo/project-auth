@@ -16,8 +16,21 @@ const user = createSlice({
         },
         setErrors: (store, action) => {
             store.errors = action.payload;
-        }
+        },
+        logout: (state, action) => {
+            state.login.accessToken = null;
+            state.user = {}
+            // localStorage.removeItem('accessToken')
+        },
     }
+
+
 });
 
+export const logout = () => {
+    return (dispatch) => {
+      dispatch(user.actions.setAccessToken({ accessToken: null }))
+    }
+  }
 export default user;
+
