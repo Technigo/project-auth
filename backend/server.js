@@ -66,7 +66,7 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(bodyParser.json());
-app.use(authenticateUser);
+// app.use(authenticateUser);
 
 // Start defining your routes here
 app.get("/", (req, res) => {
