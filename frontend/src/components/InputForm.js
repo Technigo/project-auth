@@ -16,12 +16,15 @@ const Input = styled.input`
   font-family: "Padauk";
   background-color: #f2f3ff;
   color: #6c6c6d;
+  :last-of-type {
+    margin-bottom: 0;
+  }
   :focus {
     border-bottom: 2px solid #f780b1;
   }
 `;
 
-export const InputForm = ({ id, value, placeholder, onChange, type }) => {
+export const InputForm = ({ id, value, placeholder, onChange, type, minLength, required }) => {
   return (
     <>
       <Label htmlFor={id} aria-label={`Enter your ${id}`}></Label>
@@ -32,6 +35,8 @@ export const InputForm = ({ id, value, placeholder, onChange, type }) => {
         name={id}
         placeholder={placeholder}
         onChange={onChange}
+        minLength={minLength}
+        // required
       ></Input>
     </>
   );

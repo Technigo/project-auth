@@ -75,6 +75,12 @@ const CreateAccount = styled.h1`
   margin-bottom: 40px;
 `;
 
+const ErrorMessage = styled.p`
+  color: red;
+  margin-top: 10px;
+  font-size: 12px;
+`;
+
 export const SignUp = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -82,6 +88,7 @@ export const SignUp = () => {
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("")
 
   const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
@@ -120,13 +127,11 @@ export const SignUp = () => {
                 dispatch(user.actions.setErrors(null));
               });
             } else {
-              dispatch(user.actions.setErrors(data));
-
-              console.log(data);
+              handleErrors(data);
             }
-            setName("");
-            setUsername("");
-            setEmail("");
+            // setName("");
+            // setUsername("");
+            // setEmail("");
             setPassword("");
             setLoading(false);
           })
@@ -134,6 +139,20 @@ export const SignUp = () => {
       1500
     );
   };
+
+  const handleErrors = (error) => {
+    const errorType = error.error.errors;
+    if (errorType.username) {
+      setErrorMessage(errorType.username.message);
+    } else if (errorType.name) {
+      setErrorMessage(errorType.name.message);
+    } else if (errorType.email) {
+      setErrorMessage(errorType.email.message);
+    } else {
+      setErrorMessage(errorType);
+    }
+  };
+
   return (
     <>
       {loading && <Loading loadingText="Creating new account..." />}
@@ -170,7 +189,9 @@ export const SignUp = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                minLength="8"
               ></InputForm>
+              <ErrorMessage>{errorMessage}</ErrorMessage>
               <Button onClick={() => setMode("signup")} buttonText="register" />
             </Form>
           </FormContainer>
