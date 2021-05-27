@@ -7,7 +7,7 @@ import user from './reducers/user'
 import thoughts from './reducers/thoughts'
 
 import LandingPage from './pages/LandingPage'
-import Signup from './pages/Signup'
+import Login from './pages/Login'
 
 
 const reducer = combineReducers({
@@ -25,7 +25,7 @@ export const App = () => {
       <Provider store={store}>
         <Switch>
         <Route exact path="/" component={LandingPage} />
-          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
         </Switch>
       </Provider>
     </BrowserRouter>

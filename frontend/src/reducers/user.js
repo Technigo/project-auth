@@ -9,7 +9,7 @@ const user = createSlice({
     errors: null
   },
   reducers: {
-    setUsername: (store, action) => {
+    setEmail: (store, action) => {
       store.email = action.payload
     },
     setAccessToken: (store, action) => {

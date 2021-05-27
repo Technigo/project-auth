@@ -48,7 +48,7 @@ const authenticateUser = async (req, res, next) => {
       req.user = user // keep or throw? 
       next() // ok go ahead/proceed! 
     } else {
-      res.status(401).json({ loggedOut: true, message: 'Not authenticated' }) // not authenticated
+      res.status(401).json({ loggedOut: true, message: 'Not authenticated' })
     }
   } catch (error) {
     res.status(400).json({ message: 'Invalid request', error })
@@ -71,7 +71,8 @@ app.get('/', (req, res) => {
 app.get('/thoughts', authenticateUser)
 app.get('/thoughts/', async (req, res) => {
   const thoughts = await Thought.find()
-  res.json(thoughts)
+  console.log(thoughts)
+  res.json({ success: true, thoughts})
 })
 
 app.post('/thoughts', authenticateUser)
@@ -118,6 +119,7 @@ app.post('/signin', async (req, res) => {
 
       if (user && bcrypt.compareSync(password, user.password)) {
         res.json({
+          success: true,
           userId: user._id,
           email: user.email,
           accessToken: user.accessToken

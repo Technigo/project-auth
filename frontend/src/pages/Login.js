@@ -6,7 +6,7 @@ import user from '../reducers/user'
 import { API_URL } from '../reusable/urls'
 
 
-const Signup = () => {
+const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState(null) // executing onFormSubmit wihtout clicking a button
@@ -40,7 +40,7 @@ const Signup = () => {
         console.log(data)
         if (data.success) {
           batch(() => {
-            dispatch(user.actions.setUsername(data.email))
+            dispatch(user.actions.setEmail(data.email))
             dispatch(user.actions.setAccessToken(data.accessToken))
             dispatch(user.actions.setErrors(null))
           })
@@ -77,4 +77,5 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default Login  
+
