@@ -3,11 +3,12 @@ import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { API_URL } from '../reuseables/urls'
+
 import drink from '../reducers/drink'
 
 const HappyHour = () => {
     const accessToken = useSelector(store => store.user.accessToken)
-    const drinks = useSelector(store => store.drink.items)
+    const drinkRecipes = useSelector(store => store.drink.items)
     
     const dispatch = useDispatch()
     const history = useHistory()
@@ -30,21 +31,22 @@ const HappyHour = () => {
             .then(data => {
                 if (data.success) {
                     batch(() => {
-                        dispatch(drink.actions.setDrink(data.drink))
+                        dispatch(drink.actions.setDrink([data])) //.drink?
                         dispatch(drink.actions.setErrors(null))
                     })
                 } else {
                     dispatch(drink.actions.setErrors(data))
                 }
             })
-    }, [accessToken, dispatch])
+        
+    }, [accessToken]) 
 
+    console.log('New log', drinkRecipes)
     return (
         <div>
-           {drinks.map(recipe => (
-                <div key={recipe.id}>{recipe.title}</div>
-            ))
-           }
+           {/* {drinkRecipes.map((item) => (
+                <div key={item._id}>Recipe:{item.title}</div>
+            ))} */}
         </div>
     )
 }

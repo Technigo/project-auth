@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 
 import user from '../reducers/user'
 import { API_URL } from '../reuseables/urls'
+import { MainContainer, Header, Form, Label, InputField, Text, SecondaryButtonContainer, PrimaryButton, SecondaryButton, ErrorMessage } from './styled-components/signin-style'
 
 const Signin = () => {                     
   const [username, setUsername] = useState('')
@@ -11,6 +12,8 @@ const Signin = () => {
   const [mode, setMode] = useState(null)
 
   const accessToken = useSelector(store => store.user.accessToken)
+  const error = useSelector(store => store.user.errors)
+
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -47,31 +50,50 @@ const Signin = () => {
   }
 
   return (
-    <form onSubmit={onFormSubmit}>
-      <input
-        type='text' 
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type='password'
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button
-        type='submit'
-        onClick={() => setMode('signin')}
-      >
-        Sign In
-      </button>
-      <button
-        type='submit'
-        onClick={() => setMode('signup')}
-      >
-        Sign Up!
-      </button>
-      
-    </form>
+    <MainContainer>
+      <Form onSubmit={onFormSubmit}>
+        <Header>
+          Welcome, please sign in
+        </Header>
+        <Label htmlFor="username">Username:</Label> 
+          <InputField
+            id='username'
+            type='text' 
+            minLength= "2"
+            maxLength= "20"
+            required
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        <Label htmlFor="password">Password:</Label> 
+          <InputField
+            id='password'
+            type='password'
+            minLength= "8"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        <PrimaryButton
+          className='primary-button'
+          type='submit'
+          onClick={() => setMode('signin')}
+        >
+          Sign In
+        </PrimaryButton>
+        {error && <ErrorMessage>{error.message}</ErrorMessage>}
+        <SecondaryButtonContainer>
+          <Text>Not registrered yet? </Text>
+          <SecondaryButton
+            className='primary-button'
+            type='submit'
+            onClick={() => setMode('signup')}
+          >
+            Create account
+          </SecondaryButton>
+        </SecondaryButtonContainer>
+      </Form>
+    </MainContainer>
   )
 }
 

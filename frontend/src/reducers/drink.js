@@ -5,6 +5,9 @@ const drink = createSlice({
     initialState: {
         items: [],
         errors: null
+        // {title: 'Karen', description: 'dfgjsdfg'},
+        //         {title: 'Martini', description: 'dfgjsdfg'},
+        //         {title: 'Bloody Mary', description: 'dfgjsdfg'},
     },
     reducers: {
         setDrink: (store, action) => {
