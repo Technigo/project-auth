@@ -58,8 +58,8 @@ app.get("/", (req, res) => {
   res.send(listEndpoints(app));
 });
 
-//app.get("/welcome", authenticateUser);
-app.get("/welcome", async (req, res) => {
+app.get("/mainpage", authenticateUser);
+app.get("/mainpage", async (req, res) => {
   res.json({ message: 'Welcome!'})
 });
 
