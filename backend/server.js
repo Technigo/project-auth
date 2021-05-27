@@ -18,7 +18,7 @@ mongoose.Promise = Promise;
 
 const User = mongoose.model("User", {
   username: {
-    type: String,
+    type: String, 
     required: true,
     unique: true,
   },
@@ -103,7 +103,7 @@ app.post("/signin", async (req, res) => {
         accessToken: user.accessToken,
       });
     } else {
-      res.status(404).json({ success: false, message: "User not found" });
+      res.status(404).json({ success: false, message: "Oops! Something went wrong. Please try again!" });
     }
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error });

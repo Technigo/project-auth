@@ -1,0 +1,80 @@
+.backend-text-container {
+  display: flex;
+  justify-content: center;
+}
+
+.backend-text {
+  margin: 130px 0 40px 0px;
+  color: #e4634a;
+  font-size: 50px;
+}
+
+.machines-illustration {
+  width: 100%;
+}
+
+.link-to-register {
+  display: none;
+}
+
+.sign-out-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.log-out-button {
+  background-color: #95c3be;
+  border: none;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  padding: 15px 20px;
+  border-radius: 15px;
+  font-family: "Varela Round", sans-serif;
+  color: #002840;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 65px;
+}
+
+.log-out-button:hover {
+  opacity: 0.8;
+  color: #e4634a;
+}
+
+@media (min-width: 768px) {
+  .backend-text {
+    margin: 80px 0 40px 0px;
+    color: #e4634a;
+    font-size: 50px;
+  }
+
+  .log-out-button {
+    margin-bottom: 30px;
+    margin-top: 50px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .machines-illustration {
+    width: 60%;
+    position: absolute;
+    top: 120px;
+    left: 0px;
+  }
+
+  .backend-text {
+    font-size: 70px;
+    position: absolute;
+    top: 215px;
+    right: 190px;
+  }
+
+  .log-out-button {
+    margin-bottom: 30px;
+    margin-top: 50px;
+    position: absolute;
+    top: 380px;
+    right: 360px;
+  }
+}

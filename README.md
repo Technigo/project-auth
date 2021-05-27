@@ -6,13 +6,13 @@ Start by briefly describing the assignment in a sentence or two. Keep it short a
 
 ## The problem
 
-- Berätta för usern att de bara kan skapa lösenord i format String
 - Kan man se/göra endpoint för alla registerade användare?
-- ändra titel
-- Fundering kring Routes! Vår motsvarighet till Maks Main = /welcome?
 - Blev lite galet i namngivning av databas
 - Vad blir Url:en för vår sida när vi som default vill landa på /register?
-- Vi skulle gärna vilja visa Error messages till användaren
+- Vi skulle ex vilja visa invalid password eller invalid username när registrerad användare loggar in men glömmer/har fel användarnamn eller lösen. Vårat Oops verkar inte funka? Samt att man kommer in om man bara skriver sitt namn och trycker på Register - WHY!!??!?!
+- Styled components om vi hade haft mer tid, just nu var vi säkrare på css.filer
+- Vi vill göra Log Out funktion på vår knapp!
+- Kvar att göra: rensa upp i filerna, skriva Readme, skriva PR
 
   Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
 
