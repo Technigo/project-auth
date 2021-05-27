@@ -1,10 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import styled from 'styled-components/macro'
 
 import user from '../reducers/user'
 
 import { API_URL } from '../reusable/urls'
+
+const Container = styled.div`
+  background-image: url('/assets/sign-up-background-image.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+// const Heading = styled.h1`
+//   color: #6d6875;
+//   font-size: 46px;
+// `
 
 const SignUpPage = () => {
   const [username, setUsername] = useState('')
@@ -50,19 +68,21 @@ const SignUpPage = () => {
   }
 
   return (
-    <form onSubmit={onFormSubmit}>
-      <input 
-        type="text" 
-        value={username} 
-        onChange={(e) => setUsername(e.target.value)} 
-      />
-      <input 
-        type="password" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)} 
-      />
-      <button type="submit" onClick={() => setMode('signup')}>SIGN UP</button>
-    </form>
+    <Container>
+      <form onSubmit={onFormSubmit}>
+        <input 
+          type="text" 
+          value={username} 
+          onChange={(e) => setUsername(e.target.value)} 
+        />
+        <input 
+          type="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+        />
+        <button type="submit" onClick={() => setMode('signup')}>SIGN UP</button>
+      </form>
+    </Container>
   )
 }
 

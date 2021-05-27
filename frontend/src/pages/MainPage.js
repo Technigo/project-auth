@@ -1,20 +1,26 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { API_URL } from '../reusable/urls'
 
+import user from '../reducers/user'
 import travelInspo from '../reducers/travelInspo'
 
 const Image = styled.img`
 
 `
 
+const SignOutButton = styled.button`
+  
+`
+
 const MainPage = () => {
-  const accessToken = useSelector(store => store.user.accessToken)
   const dispatch = useDispatch()
   const history = useHistory()
+  const accessToken = useSelector(store => store.user.accessToken)
+  const inspo = useSelector(store => store.travelInspo.inspo) 
 
   useEffect(() => {
     // redirect user to '/' path
@@ -35,23 +41,28 @@ const MainPage = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data)
-        dispatch(travelInspo.actions.setTravelInspo(data))
+        dispatch(travelInspo.actions.setTravelInspo(data.secretMessage))
       })
   }, [accessToken, dispatch])
+
+  
+  const handleLogOut = () => {
+    dispatch(user.actions.setSignOut())
+    window.location.reload()
+  }
 
   return (
     <>
       MAIN PAGE
+      <p>{inspo}</p>
 
       <Image
         src="https://plchldr.co/i/500x500?&bg=fcba03&fc=000000&text=TRAVEL"
       />
 
-      <Link to="/signin">GO TO SIGN IN</Link> 
+      <SignOutButton onClick={handleLogOut}>SIGN OUT</SignOutButton> 
     </>
   )
 }
-
-//instead of having a Link above, have a button that says SIGN OUT and dispatch actions to do so
 
 export default MainPage

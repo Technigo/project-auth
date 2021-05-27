@@ -4,7 +4,7 @@ const user = createSlice ({
   name: 'user',
   initialState: {
     username: null,
-    accessToken: null,
+    accessToken: localStorage.accessToken || null,
     errors: null,
     loading: false
   },
@@ -14,9 +14,16 @@ const user = createSlice ({
     },
     setAccessToken: (store, action) => {
       store.accessToken = action.payload
+      localStorage.setItem('accessToken', store.accessToken)
     },
     setErrors: (store, action) => {
       store.errors = action.payload
+    },
+    setSignOut: (store, action) => {
+      store.username = null
+      store.accessToken = null
+      store.errors = null
+      localStorage.removeItem('accessToken')
     }
   }
 })
