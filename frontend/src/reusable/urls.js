@@ -1,4 +1,4 @@
-const BASE_URL = 'https://grocery-shoppinglist.herokuapp.com/';
+const BASE_URL = 'https://grocery-shoppinglist.herokuapp.com';
 
 
 export const API_URL = (slug) => `${BASE_URL}/${slug}`;
