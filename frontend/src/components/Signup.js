@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { API_URL } from '../reusable/urls'
 
-const Login = () => {
+const Signup = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -17,7 +17,7 @@ const Login = () => {
       body: JSON.stringify({ username, password })
     }
 
-    fetch(API_URL('signin'), options)
+    fetch(API_URL('signup'), options)
       .then(res => console.log(res))
   }
 
@@ -33,9 +33,9 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type='submit'>Sign in</button>
+      <button type='submit'>Sign up</button>
     </form>
   )
 }
 
-export default Login
+export default Signup
