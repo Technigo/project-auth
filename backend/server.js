@@ -20,18 +20,18 @@ const User = mongoose.model('User', {
     required: true,
     minlength: 8, // add error message
   }, 
-  email: {
-    type: String,
-    trim: true,
-    lowercase: true,
-    unique: true,
-    validate: {
-      validator: (value) => {
-        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
-      },
-      message: "Please enter a valid email address"
-    }
-  }, 
+  // email: {
+  //   type: String,
+  //   trim: true,
+  //   lowercase: true,
+  //   unique: true,
+  //   validate: {
+  //     validator: (value) => {
+  //       return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
+  //     },
+  //     message: "Please enter a valid email address"
+  //   }
+  // }, 
   accessToken: {
     type: String, 
     default: () => crypto.randomBytes(128).toString('hex')
@@ -76,7 +76,7 @@ if (process.env.RESET_DATABASE) {
 
 const port = process.env.PORT || 8080
 const app = express()
-//testing!! Elaine was here, writing by your test!
+
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(express.json())
@@ -115,30 +115,51 @@ app.post('/register', async (req, res) => {
 })
 
 app.post('/login', async (req, res) => {
-  const { username, password, email } = req.body
-  // checks if user logs in with username or email 
+  const { username, password } = req.body
+
   try {
-    if (username) {
-      var user = await User.findOne({ username })
-    } else {
-      var user = await User.findOne({ email })
-    } 
+    const user = await User.findOne({ username });
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
-        success: true,
-        userId: user._id,
+        success: true, 
+        userID: user._id,
         username: user.username,
-        email: user.email,
-        accessToken:user.accessToken
-      })
+        accessToken: user.accessToken
+      });
     } else {
-      res.status(404).json({ success: false, message: 'User not found' })
+      res.status(404).json({ success: false, message: 'User not found' });
     }
   } catch (error) {
-    res.status(400).json({ success: false, message: 'invalid request', error})
+    res.status(400).json({ success: false, message: 'Invalid request', error });
   }
 })
+//v 2
+// app.post('/login', async (req, res) => {
+//   const { username, password, email } = req.body
+//   // checks if user logs in with username or email 
+//   try {
+//     if (username) {
+//       var user = await User.findOne({ username })
+//     } else {
+//       var user = await User.findOne({ email })
+//     } 
+
+//     if (user && bcrypt.compareSync(password, user.password)) {
+//       res.json({
+//         success: true,
+//         userId: user._id,
+//         username: user.username,
+//         email: user.email,
+//         accessToken:user.accessToken
+//       })
+//     } else {
+//       res.status(404).json({ success: false, message: 'User not found' })
+//     }
+//   } catch (error) {
+//     res.status(400).json({ success: false, message: 'invalid request', error})
+//   }
+// })
 
 // Start the server
 app.listen(port, () => {

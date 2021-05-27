@@ -5,6 +5,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import user from './reducers/user'
 import drink from './reducers/drink'
+
+import HomePage from './components/HomePage'
 import Login from './components/Login'
 import HappyHour from 'components/HappyHour'
 import Register from './components/Register'
@@ -21,7 +23,8 @@ export const App = () => {
     <BrowserRouter>
       <Provider store={store}>
         <Switch>
-          <Route exact path="/happyhour" component={HappyHour}/>
+          <Route exact path="/" component={HomePage}/>
+          <Route path="/happyhour" component={HappyHour}/>
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
         </Switch>

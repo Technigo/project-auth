@@ -76,7 +76,6 @@ const Login = () => {
             />
          {error && <ErrorMessage>{error.message}</ErrorMessage>}
         <PrimaryButton
-          className='primary-button'
           type='submit'
           onClick={() => setMode('login')}
         >
@@ -85,13 +84,9 @@ const Login = () => {
         <SecondaryButtonContainer>
           <Text>Not registered yet? </Text>
           <Link to="/register">
-          <SecondaryButton
-            className='primary-button'
-            type='submit'
-            onClick={() => ('register')}
-          >
-            Register
-          </SecondaryButton>
+            <SecondaryButton>
+              Register
+            </SecondaryButton>
           </Link>
         </SecondaryButtonContainer>
       </Form>
