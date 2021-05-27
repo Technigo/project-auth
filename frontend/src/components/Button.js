@@ -16,11 +16,6 @@ const SubmitButton = styled.button`
   font-family: "Padauk", sans-serif;
   letter-spacing: 1.5px;
   margin-top: 20px;
-  :hover,
-  :focus {
-    color: #f780b1;
-    background-color: #f2f3ff;
-  }
   @media (min-width: 768px) {
     margin-bottom: 17px;
   };

@@ -14,6 +14,10 @@ mongoose.Promise = Promise;
 
 const UserMessage = mongoose.model("UserMessage", {
   message: String,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const User = mongoose.model("User", {
@@ -59,7 +63,10 @@ const authenticateUser = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ accessToken });
+    const userMessage = await UserMessage.findOne({ accessToken });
     if (user) {
+      next();
+    } else if(userMessage) {
       next();
     } else {
       res.status(401).json({ success: false, message: "Not authorized" });
@@ -82,15 +89,12 @@ app.get("/", (req, res) => {
 });
 
 app.get("/joke", authenticateUser);
-// app.get("/joke", async (req, res) => {
-//   const joke = await Joke.find();
-//   res.json({ success: true, joke });
-// });
 
-app.get("/joke", authenticateUser);
-app.get("/joke", async (req, res) => {
-  const joke = await Joke.find();
-  res.json({ success: true, joke });
+
+app.get("/usermessage", authenticateUser);
+app.get("/usermessage", async (req, res) => {
+  const userMessage = await UserMessage.find().sort({ createdAt: -1 }).limit(1);
+  res.json({ success: true, userMessage });
 });
 
 app.post('/usermessage', authenticateUser);
