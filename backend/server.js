@@ -7,7 +7,7 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
-const mongoUrl = process.env.MONGO_URL || "mongodb+srv://FirstSuperuser:CiGxIlhCM6l3sU62@cluster0.hjbeu.mongodb.net/shoppingList?retryWrites=true&w=majority"
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
