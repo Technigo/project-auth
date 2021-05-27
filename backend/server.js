@@ -3,7 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
-import drinkData from './data/drink-recipes.json'
+// import drinkData from './data/drink-recipes.json'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
@@ -38,12 +38,12 @@ const User = mongoose.model('User', {
   }
 })
 
-const DrinkRecipe = mongoose.model('DrinkRecipe', {
-  title: String,
-  id: Number,
-  description: String,
-  alcoholic: Boolean,
-})
+// const DrinkRecipe = mongoose.model('DrinkRecipe', {
+//   title: String,
+//   id: Number,
+//   description: String,
+//   alcoholic: Boolean,
+// })
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
@@ -61,18 +61,18 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-if (process.env.RESET_DATABASE) {
-  const seedDB = async () => {
-    console.log("SEEDING!")
-    await DrinkRecipe.deleteMany()
+// if (process.env.RESET_DATABASE) {
+//   const seedDB = async () => {
+//     console.log("SEEDING!")
+//     await DrinkRecipe.deleteMany()
     
-    drinkData.forEach(async (item) => {
-      const drinkRecipe = new DrinkRecipe(item)
-      await drinkRecipe.save()
-    })
-  }
-  seedDB()
-}
+//     drinkData.forEach(async (item) => {
+//       const drinkRecipe = new DrinkRecipe(item)
+//       await drinkRecipe.save()
+//     })
+//   }
+//   seedDB()
+// }
 
 const port = process.env.PORT || 8080
 const app = express()
@@ -88,8 +88,9 @@ app.get('/', (req, res) => {
 
 app.get('/happyhour', authenticateUser)
 app.get('/happyhour', async (req, res) => {
-  const drinkRecipes = await DrinkRecipe.find()
-  res.json({ success: true, drinkRecipes })
+  // const drinkRecipes = await DrinkRecipe.find()
+  const secretMessage = 'very secret test message'
+  res.json({ success: true, secretMessage})
 })
 
 app.post('/register', async (req, res) => {
