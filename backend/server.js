@@ -22,7 +22,7 @@ const User = mongoose.model('User', {
     trim: true,
     validate: {
       validator: (value) => {
-        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
+        return /^\w+([\.+-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
       },
       message: "Please enter a valid email address"
     }
@@ -105,7 +105,7 @@ app.post('/signup', async (req, res) => {
     accessToken: newUser.accessToken
   })
  } catch (error) {
-  res.status(400).json({ success: false, message: 'Invalid request', error })
+  res.status(400).json({ success: false, message: 'Invalid request', error }) // if user already signed up error === 11000 Duplicate value
  }
 })
  
