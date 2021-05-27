@@ -20,33 +20,33 @@ const User = mongoose.model("User", {
   name: {
     type: String,
     required: [true, "You need to enter a name"],
-    minlength: 1,
-    maxlenght: 15,
+    minlength: [1, 'Your name needs to be min 1 character'],
+    maxlength: [15, 'Your name can be max 15 characters']
   },
   username: {
     type: String,
-    required: true,
-    unique: true,
-    minlength: 5,
-    maxlenght: 15,
+    required: [true, 'You need to enter a username'],
+    unique: [true, 'Username is already taken'],
+    minlength: [5, 'Your username needs to be min 5 characters'],
+    maxlength: [15, 'Your username can be max 15 characters'],
   },
   email: {
     type: String,
-    required: [true, "You need to enter an email"],
-    unique: true,
+    required: [true, 'You need to enter an email'],
+    unique: [true, 'There is already an user with that email'],
     trim: true,
     validate: {
       validator: (value) => {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
       },
-      message: "Please, enter a valid email",
+      message: 'Please, enter a valid email',
     },
   },
   password: {
     type: String,
-    required: true,
-    minlength: 8,
-    maxlenght: 15,
+    required: [true, 'You need to choose a password'],
+    minlength: [8, 'Your password needs to contain min 8 characters'],
+    // maxlength: [15, 'Your password can be max 15 characters']
   },
   accessToken: {
     type: String,
@@ -105,6 +105,7 @@ app.post("/signup", async (req, res) => {
       name: newUser.name,
       userID: newUser._id,
       username: newUser.username,
+      email: newUser.email,
       accessToken: newUser.accessToken,
     });
   } catch (error) {
