@@ -1,2 +1,2 @@
-const BASE_URL='http://localhost:8080' //change later!
+const BASE_URL='https://secret-auth-api.herokuapp.com/'
 export const API_URL= (slug) => `${BASE_URL}/${slug}`
