@@ -116,7 +116,7 @@ app.post('/sessions', async (req, res) => {
         userId: user._id,
         username: user.username,
         accessToken: user.accessToken,
-        feelings: newUser.feelings
+        feelings: user.feelings
       })
     } else {
       res.status(404).json({ success: false, message: 'User not found' })
