@@ -10,8 +10,9 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState(null) // executing onFormSubmit wihtout clicking a button
-  const [emailValidationError, setEmailValidationError] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
   
+  const errors = useSelector((store) => store.user.errors)
   // const userData = useSelector(store => store.user)
   const accessToken = useSelector(store => store.user.accessToken)
   const dispatch = useDispatch()
@@ -38,7 +39,15 @@ const Login = () => {
     }
   }, [accessToken, history])
 
-  // console.log(mode)
+  if (errors) {
+    if (errors.error) {
+      setErrorMessage(errors.error?.message) //email validation
+    } else {
+      setErrorMessage(errors.message) //login failed
+    }
+  } 
+
+  console.log(errors)
   const onFormSubmit = (e) => {
     e.preventDefault()
     const options = {
@@ -61,7 +70,9 @@ const Login = () => {
             dispatch(user.actions.setErrors(data))
         }
       })
-      .catch()
+      .catch((error) => {
+        dispatch(user.actions.setErrors(error))
+      })
   }
 
   return (
@@ -75,6 +86,7 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           {/* {emailValidationError && <p>That was not a valid email address</p>} */}
+          {errorMessage && <p>{`${errorMessage}`}</p>}
         </label>
         <label>
           Password:
