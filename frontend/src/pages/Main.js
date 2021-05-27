@@ -46,7 +46,7 @@ const Main = () => {
             }
         })
         .catch()
-    },[accessToken])
+    },[accessToken, dispatch])
 
  return (
  <Wrapper> 
