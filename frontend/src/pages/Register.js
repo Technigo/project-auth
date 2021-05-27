@@ -7,6 +7,7 @@ import user from "../reducers/user";
 
 const Register = () => {
   const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -28,7 +29,7 @@ const Register = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, email, password }),
     };
 
     fetch(API_REGISTER, options)
@@ -63,6 +64,13 @@ const Register = () => {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              className="input"
+              placeholder="E-mail"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               className="input"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import user from "../reducers/user";
 
@@ -73,6 +73,14 @@ const Login = () => {
             Log in
           </button>
         </form>
+      </div>
+      <div className="signup-container">
+        <p>
+          Not a member?{" "}
+          <Link to="/signup">
+            <b>Sign up</b>
+          </Link>
+        </p>
       </div>
     </div>
   );

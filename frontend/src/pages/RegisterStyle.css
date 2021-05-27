@@ -60,13 +60,8 @@ h2 {
   color: #817d7d;
 }
 
-label {
-  /*Ska flyttas till höger om den ska vara kvar*/
-  font-size: 14px;
-  color: #b8b6b6;
-}
-
 .input {
+  width: 270px;
   margin-bottom: 14px;
   font-size: 16px;
   color: #b8b6b6;
@@ -83,7 +78,7 @@ label {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   padding: 12px;
-  margin-top: 70px;
+  margin-top: 50px;
   width: 150px;
   border: none;
   border-radius: 25px;
@@ -105,6 +100,19 @@ label {
   background-color: rgba(255, 255, 255, 0.2);
   color: #fff;
   border-radius: 8px;
+}
+
+a:link {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #fff;
+}
+
+a:hover {
+  color: #fff;
 }
 
 @media (min-width: 450px) {
