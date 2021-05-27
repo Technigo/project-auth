@@ -5,7 +5,8 @@ const user = createSlice({
   initialState: {
     userId: null,
     username: null,
-    accessToken: null, 
+    accessToken: null,
+    feelings:[], 
     errors: null
   }, 
   reducers: {
@@ -17,6 +18,9 @@ const user = createSlice({
     },
     setAccessToken: (store, action) => {
       store.accessToken = action.payload
+    },
+    setFeelings: (store, action) => {
+      store.feelings = action.payload
     },
     setErrors: (store, action) => {
       store.errors = action.payload

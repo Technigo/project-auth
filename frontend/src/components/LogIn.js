@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch, batch } from 'react-redux'
 
@@ -11,6 +11,14 @@ const LogIn = () => {
   const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
+  const accessToken = useSelector(store => store.user.accessToken)
+  const history = useHistory()
+
+  useEffect(() => {
+    if(accessToken) {
+      history.push('/profile')
+    }
+  }, [accessToken, history])
 
 
   const onEmailChange = (event) => {
@@ -46,8 +54,6 @@ const LogIn = () => {
     })
   }
 
-  const history = useHistory()
-  
   return (
     <section className="login-container">
       <form className="form-box-left" onSubmit={onFormSubmit}>

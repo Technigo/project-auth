@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import { API_URL } from '../reusable/urls'
 import user from '../reducers/user'
@@ -9,8 +10,15 @@ const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const accessToken = useSelector(store => store.user.accessToken)
   const dispatch = useDispatch()
+  const history = useHistory()
 
+  useEffect(() => {
+    if(accessToken) {
+      history.push('/profile')
+    }
+  }, [accessToken, history])
 
   const onNameChange = (event) => {
     setUsername(event.target.value)
@@ -42,6 +50,7 @@ const SignUp = () => {
             dispatch(user.actions.setUsername(data.username))
             dispatch(user.actions.setUserId(data.userId))
             dispatch(user.actions.setAccessToken(data.accessToken))
+            //dispatch(user.actions.setFellings(data.feelings))
             dispatch(user.actions.setErrors(null))
           })
         } else {

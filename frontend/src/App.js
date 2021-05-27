@@ -5,6 +5,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
 import Home from './Pages/Home'
 import SignUp from './Pages/SignUp'
+import Profile from './Pages/Profile'
 
 import user from './reducers/user'
 
@@ -25,6 +26,9 @@ export const App = () => {
             </Route>
             <Route exact path='/signup'>
               <SignUp />
+            </Route>
+            <Route exact path='/profile'>
+              <Profile />
             </Route>
           </Switch>
         </main>

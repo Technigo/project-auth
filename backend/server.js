@@ -94,7 +94,8 @@ app.post('/users', async (req, res) => {
       success: true,
       userId: newUser._id,
       username: newUser.username,
-      accessToken: newUser.accessToken
+      accessToken: newUser.accessToken,
+      feelings: newUser.feelings
     })
   } catch (error) {
     res.status(400).json({
@@ -114,7 +115,8 @@ app.post('/sessions', async (req, res) => {
         success: true,
         userId: user._id,
         username: user.username,
-        accessToken: user.accessToken
+        accessToken: user.accessToken,
+        feelings: newUser.feelings
       })
     } else {
       res.status(404).json({ success: false, message: 'User not found' })
@@ -124,6 +126,7 @@ app.post('/sessions', async (req, res) => {
   }
 })
 
+app.post('/users/:id/feelings', authenticateUser)
 app.post('/users/:id/feelings', async (req, res) => {
   const { id } = req.params
   const { feelings } = req.body
@@ -144,7 +147,10 @@ app.post('/users/:id/feelings', async (req, res) => {
       }
     )
     if (user){
-      res.json({ data: user })
+      res.json({ 
+        success: true,
+        feelings: newUser.feelings 
+      })
     } else {
       res.status(404).json({ message: 'User not found' })
     }
