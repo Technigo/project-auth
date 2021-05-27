@@ -64,7 +64,7 @@ app.get("/mainpage", async (req, res) => {
 });
 
 // USER REGISTER
-// app.post("/register", authenticateUser);
+
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
@@ -88,7 +88,7 @@ app.post("/register", async (req, res) => {
 });
 
 // USER SIGNIN
-// app.post("/signin", authenticateUser);
+
 app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
 
