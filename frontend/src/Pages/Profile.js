@@ -22,7 +22,7 @@ const Page = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: accessToken
+        'Authorization': accessToken
       }, 
       body: JSON.stringify({ feelings: e.target.value })
     }

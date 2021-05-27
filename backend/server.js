@@ -149,7 +149,7 @@ app.post('/users/:id/feelings', async (req, res) => {
     if (user){
       res.json({ 
         success: true,
-        feelings: newUser.feelings 
+        feelings: user.feelings 
       })
     } else {
       res.status(404).json({ message: 'User not found' })
