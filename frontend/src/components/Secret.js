@@ -6,6 +6,7 @@ import { API_URL } from '../reuseables/urls'
 
 // import drink from '../reducers/drink'
 import user from '../reducers/user'
+import { MainContainer, SubContainer, Header, Text, Anchor, Button } from './styled-components/secret-style'
 
 const Secret = () => {
     const accessToken = useSelector(store => store.user.accessToken)
@@ -29,10 +30,9 @@ const Secret = () => {
                 Authorization: accessToken
             }
         }
-        fetch(API_URL('happyhour'), options)
+        fetch(API_URL('secret'), options)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if (data.success) {
                     batch(() => {
                         dispatch(user.actions.setSecretMessage(data.secretMessage))
@@ -45,22 +45,28 @@ const Secret = () => {
         
     }, [accessToken, dispatch]) 
 
-    console.log('New log', secretMessage)
     return (
-        <div>
-            {secretMessage}
-            <iframe src="https://giphy.com/embed/cXgGNaWiSoesw" 
-                width="480"
-                height="471"
-                frameBorder="0"
-                className="giphy-embed"
-                allowFullScreen
-            />
-            <p>
-                <a href="https://giphy.com/gifs/cat-party-cXgGNaWiSoesw">via GIPHY</a>
-            </p>
-            <button onClick={() => dispatch(user.actions.setLogout())}>Log Out</button>
-        </div>
+        <MainContainer>
+            <SubContainer>
+                <Header>{secretMessage}</Header>
+                <iframe src="https://giphy.com/embed/cXgGNaWiSoesw" 
+                    className="giphy-embed"
+                    allowFullScreen
+                />
+                <Text>
+                    <Anchor 
+                        href="https://giphy.com/gifs/cat-party-cXgGNaWiSoesw"
+                    >
+                            via GIPHY
+                    </Anchor>
+                </Text>
+                <Button 
+                    onClick={() => dispatch(user.actions.setLogout())}
+                >
+                    Log Out
+                </Button>
+            </SubContainer>
+        </MainContainer>
     )
 }
 

@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url(../src/assets/party_pink.jpg);
-  height: 100vh;
+  height: 120vh;
   width: 100vw;
   background-position: center;
   background-size: cover;
@@ -17,5 +17,19 @@ code {
   font-family: 'Roboto', sans-serif;
 }
 
+.giphy-embed {
+  width: 240px;
+  height: 240px;
+  border: 0px;
+}
+
+@media (min-width: 768px) {
+  .giphy-embed {
+    width: 450px;
+    height: 450px;
+    border: 0px;
+  }
+  
+}
 /* Styling signin page */
 

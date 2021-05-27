@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 
 app.get('/secret', authenticateUser)
 app.get('/secret', async (req, res) => {
-  const secretMessage = 'very secret test message'
+  const secretMessage = 'YOU are our secret VIP!'
   res.json({ success: true, secretMessage})
 })
 

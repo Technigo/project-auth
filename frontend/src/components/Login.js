@@ -4,7 +4,7 @@ import { useHistory, Link } from 'react-router-dom'
 
 import user from '../reducers/user'
 import { API_URL } from '../reuseables/urls'
-import { MainContainer, Header, Form, InputWrapper, Label, InputField, Text, SecondaryButtonContainer, PrimaryButton, SecondaryButton, ErrorMessage } from './styled-components/login-style'
+import { MainContainer, Header, Form, InputWrapper, Label, InputField, Text, SecondaryButtonContainer, PrimaryButton, SecondaryButton, ErrorMessage } from './styled-components/form-style'
 
 const Login = () => {                     
   const [username, setUsername] = useState('')
@@ -81,7 +81,7 @@ const Login = () => {
           type='submit'
           onClick={() => setMode('login')}
         >
-          Log In
+          Login
         </PrimaryButton>
         <SecondaryButtonContainer>
           <Text>Register as a VIP? </Text>

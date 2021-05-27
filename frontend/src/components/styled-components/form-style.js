@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components/macro"
 
 export const MainContainer = styled.div`
     width: 100%;
@@ -10,7 +10,6 @@ export const Header = styled.h1`
     font-weight: 300;
     font-size: 35px;
     margin-top: 15px;
-    padding: 0 15px;
     @media (min-width: 768px) {
         font-size: 40px;
     }
@@ -26,6 +25,7 @@ export const Form = styled.form`
     align-items: center;
     margin: 60px auto;
     padding: 10px;
+    background-color: rgba(244,244,244,0.5); 
     @media (min-width: 768px) {
         max-width: 650px;
         margin: 150px auto;
@@ -33,6 +33,7 @@ export const Form = styled.form`
 `
 export const InputWrapper = styled.div`
     text-align: left;
+    margin: 0 auto;
 `
 
 export const Label = styled.label`
@@ -42,7 +43,7 @@ export const Label = styled.label`
 
 export const InputField = styled.input`
     border-radius: 10px;
-    width: 90%;
+    width: 100%;
     margin: 15px 0;
     box-sizing:border-box;
     border: 1px solid lightgrey;
@@ -66,9 +67,9 @@ export const PrimaryButton = styled.button`
     border-radius: 10px;
     font-size: 20px;
     font-weight: 200;
-    width: 30%;
+    width: 50%;
     margin: 10px 0 10px 0;
-    padding: 10px 25px;
+    padding: 10px 20px;
     border: 1px solid lightgrey;
     background-color: rgba(189,227,219,0.9);
     &:hover {
@@ -81,15 +82,16 @@ export const SecondaryButton = styled.button`
     border-radius: 10px;
     font-size: 20px;
     font-weight: 200;
-    width: 30%;
+    width: 50%;
     margin-bottom: 30px;
-    padding: 10px 25px;
+    padding: 10px 20px;
     border: 1px solid lightgrey;
     background-color: rgba(189,227,219,0.8);
     &:hover {
         background-color: rgb(189,227,219);
     }
     cursor: pointer;
+
 `
 
 export const ErrorMessage = styled.div`

@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components/macro"
 
 export const MainContainer  = styled.div`
 width: 100%;
@@ -30,6 +30,7 @@ export const Header = styled.h1`
 export const Text = styled.p`
   font-size: 26px;
   font-family: 'Roboto', sans-serif;
+  text-align: center;
 `
 
 

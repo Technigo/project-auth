@@ -5,7 +5,7 @@ import { useHistory, Link } from 'react-router-dom'
 import user from '../reducers/user'
 
 import { API_URL } from '../reuseables/urls'
-import { MainContainer, Header, Form, Label, InputField, Text, SecondaryButtonContainer, PrimaryButton, SecondaryButton, ErrorMessage } from './styled-components/login-style'
+import { MainContainer, Header, Form, Label, InputField, Text, SecondaryButtonContainer, PrimaryButton, SecondaryButton, ErrorMessage, InputWrapper } from './styled-components/form-style'
 
 const Register = () => {
   const [username, setUsername] = useState('')
@@ -21,7 +21,7 @@ const Register = () => {
 
   useEffect(() => {
     if (accessToken){
-      history.push('/happyhour')
+      history.push('/secret')
     }
   },[accessToken, history])
 
@@ -58,6 +58,7 @@ const Register = () => {
       <Header>
         Register to be a VIP!
       </Header>
+      <InputWrapper>
       <Label htmlFor="username">Username:</Label> 
         <InputField
           id='username'
@@ -68,14 +69,6 @@ const Register = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-      {/* <Label htmlFor="email">Email:</Label> 
-        <InputField
-          id='email'
-          type='email' 
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        /> */}
       <Label htmlFor="password">Password:</Label> 
         <InputField
           id='password'
@@ -85,6 +78,7 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           />
+        </InputWrapper>
        {error && <ErrorMessage>{error.message}</ErrorMessage>}
       <PrimaryButton
         type='submit'
@@ -96,7 +90,7 @@ const Register = () => {
         <Text>Already registered? </Text>
         <Link to="/login">
           <SecondaryButton>
-            Back to log in
+            Login
           </SecondaryButton>
         </Link>
       </SecondaryButtonContainer>
