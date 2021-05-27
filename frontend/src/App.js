@@ -18,7 +18,7 @@ export const App = () => {
     <BrowserRouter>
       <Provider store={store}>
         <Switch>
-          <Route exact path="/" component={Main} />
+          <Route exact path="/mainpage" component={Main} />
           <Route path="/register" component={Register} />
         </Switch>
       </Provider>
