@@ -38,15 +38,18 @@ const Register = () => {
         console.log(data);
 
         if (data) {
+          console.log("if data");
           batch(() => {
             dispatch(user.actions.setUsername(data.username));
             dispatch(user.actions.setAccessToken(data.accessToken));
             dispatch(user.actions.setErrors(null));
           });
         } else {
+          console.log("else");
           dispatch(user.actions.setErrors(data));
         }
-      });
+      })
+      .catch((error) => console.log(error));
   };
 
   return (

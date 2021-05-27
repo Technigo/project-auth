@@ -119,7 +119,7 @@ app.post("/signup", async (req, res) => {
       accessToken: newUser.accessToken,
     });
   } catch (error) {
-    res.status(400).json({ message: "Invalid request".error });
+    res.status(400).json({ message: "Invalid request", error });
   }
 });
 
