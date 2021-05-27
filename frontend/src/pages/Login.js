@@ -10,7 +10,9 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState(null) // executing onFormSubmit wihtout clicking a button
-
+  const [emailValidationError, setEmailValidationError] = useState(null)
+  
+  // const userData = useSelector(store => store.user)
   const accessToken = useSelector(store => store.user.accessToken)
   const dispatch = useDispatch()
   const history = useHistory()
@@ -18,7 +20,18 @@ const Login = () => {
   // every time accessToken is changing from our redux store we should redirect user to '/' path
   // if it is not null we are not logged in so we should stay on the login/signup page/landingpage/Home
   // else redirect user
+
+  
   useEffect(() => {
+    
+    // if (userData.errors) {
+    //   setEmailValidationError(userData.errors.error.message)
+    //   console.log(emailValidationError)
+    // }
+
+    // const emailValidationError = useSelector(store => store.user.errors.error.message)
+
+
     console.log('Checking accessToken', accessToken)
     if (accessToken) {
       history.push('/') //redirecting user to a different route
@@ -61,6 +74,7 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          {/* {emailValidationError && <p>That was not a valid email address</p>} */}
         </label>
         <label>
           Password:

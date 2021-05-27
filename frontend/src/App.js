@@ -12,7 +12,7 @@ import Login from './pages/Login'
 
 const reducer = combineReducers({
   user: user.reducer,
-  thougths: thoughts.reducer
+  thoughts: thoughts.reducer
 })
 
 const store = configureStore({ reducer })

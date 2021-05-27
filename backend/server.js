@@ -45,7 +45,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ accessToken }) // lookup by accessToken
     if (user) {
-      req.user = user // keep or throw? 
+      // req.user = user // keep or throw? 
       next() // ok go ahead/proceed! 
     } else {
       res.status(401).json({ loggedOut: true, message: 'Not authenticated' })
@@ -108,7 +108,7 @@ app.post('/signup', async (req, res) => {
   res.status(400).json({ success: false, message: 'Invalid request', error })
  }
 })
-
+ 
 // standard to create a POST request to login ---> you are creating a 'session'
 // login
 app.post('/signin', async (req, res) => {
