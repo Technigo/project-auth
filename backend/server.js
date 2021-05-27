@@ -44,10 +44,10 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next()
     } else {
-      res.status(401).json({ message: 'Not authorized' })
+      res.status(401).json({ success: false, message: 'Not authorized' })
     }
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error })
+    res.status(400).json({ success: false, message: "Invalid request", error })
   }
 }
 const port = process.env.PORT || 8080
@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 app.get('/secrets', authenticateUser)
 app.get('/secrets', async (req, res) => {
   const secrets = await Secret.find()
-  res.json(secrets)
+  res.json({ success: true, secrets })
 })
 
 app.post('/secrets', authenticateUser)
@@ -75,11 +75,9 @@ app.post('/secrets', async (req, res) => {
       message
     }).save()
 
-    res.json({
-      newSecret
-    })
+    res.json({ success: true, newSecret })
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error })
+    res.status(400).json({ success: false, message: "Invalid request", error })
   }
 })
 
@@ -95,12 +93,13 @@ app.post('/users', async (req, res) => {
     }).save()
 
     res.json({
+      success: true,
       userID: newUser._id,
       username: newUser.username,
       accessToken: newUser.accessToken
     })
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error })
+    res.status(400).json({ success: false, message: "Invalid request", error })
   }
 })
 
@@ -112,15 +111,16 @@ app.post('/sessions', async (req, res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
+        success: true,
         userID: user._id,
         username: user.username,
         accessToken: user.accessToken
       })
     } else {
-      res.status(404).json({ message: 'User not found' })
+      res.status(404).json({ success: false, message: 'User not found' })
     }
   } catch (error) {
-    res.status(404).json({ message: 'Invalid request', error: error })
+    res.status(404).json({ success: false, message: 'Invalid request', error: error })
   }
 })
 
