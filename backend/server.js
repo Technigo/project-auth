@@ -16,13 +16,14 @@ const User = mongoose.model('User', {
     type: String,
     required: true,
     unique: true,
-    minlength: [5, 'Minimum length is 5 characters'],
-    maxlength: [140, 'Maximum length is 140 characters']
+    minlength: [5, 'Username min 5 characters'],
+    maxlength: [18, 'Username max 18 characters']
   },
   password: {
     type: String,
     required: true,
-    minlength: [5, 'Minimum length is 5 characters']
+    minlength: [5, 'Password min 5 characters'],
+    maxlength: [25, 'Password max 25 characters']
   },
   accessToken: {
     type: String,

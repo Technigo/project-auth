@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import Swal from 'sweetalert2'
 
 import user from '../reducers/user'
 
@@ -43,6 +44,7 @@ const Login = () => {
             dispatch(user.actions.setErrors(null))
           })
         } else {
+          Swal.fire(data.message)
           dispatch(user.actions.setErrors(data))
         }
       })
