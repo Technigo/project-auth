@@ -4,16 +4,13 @@ import { useHistory } from 'react-router-dom'
 
 import { API_URL } from '../reuseables/urls'
 
-// import drink from '../reducers/drink'
 import user from '../reducers/user'
 import { MainContainer, SubContainer, Header, Text, Anchor, Button } from './styled-components/secret-style'
 
 const Secret = () => {
     const accessToken = useSelector(store => store.user.accessToken)
     const secretMessage = useSelector(store => store.user.secretMessage)
-    // const drinkRecipes = useSelector(store => store.drink.items)
 
-    
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -64,7 +61,7 @@ const Secret = () => {
                 <Button 
                     onClick={() => dispatch(user.actions.setLogout())}
                 >
-                    Log Out
+                    Logout
                 </Button>
             </SubContainer>
         </MainContainer>
