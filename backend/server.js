@@ -37,7 +37,6 @@ const User = mongoose.model("User", {
   email: {
     type: String,
     required: [true, 'You need to enter an email'],
-    unique: [true, 'There is already an user with that email'],
     trim: true,
     validate: {
       validator: (value) => {
