@@ -7,8 +7,6 @@ import { StyledButton } from '../components/StyledBtn'
 import { API_URL } from '../reusables/urls'
 import user from '../reducers/user'
 
-//maybe add two input fields for password for extra check
-
 const Wrapper = styled.div`
   border: 1px solid #9099A5;
   border-radius: 2px;

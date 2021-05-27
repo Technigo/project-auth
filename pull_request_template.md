@@ -10,7 +10,7 @@ My reflections on how this week's project turned out:
 
 Things I'd like to have clarified or explained in more detail:
 
-- As mentioned in the README we do still have one error which we don't know exactly what it means. Would be great to get some more explantion on this :)
+- As mentioned in the README we do still have one error which we don't know exactly what it means. Would be great to get some more explanation on this :)
 
 "index.js:1 Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
 in LogIn (at App.js:43)"

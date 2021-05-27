@@ -53,7 +53,6 @@ useEffect(() => {
       dispatch(user.actions.setErrors(null))
     })
     history.push('/')
-    //window.localStorage.clear()
   }
 
   return (

@@ -70,7 +70,6 @@ export const LogIn = () => {
             dispatch(user.actions.setAccessToken(data.accessToken))
             dispatch(user.actions.setErrors(null))
           })
-          // window.localStorage.setItem('accessToken', accessToken)
           setUsername('')
           setPassword('')
         } else {
