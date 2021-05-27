@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { API_URL } from '../reusable/urls';
 
@@ -39,18 +39,22 @@ const Main = () => {
                     dispatch(listitems.actions.setErrors(data));
                 }
             });
-    }, [accessToken]);
+    }, [accessToken,dispatch]);
 
     console.log(listitemsItems)
     return (
-        <div>
-            <div>MAIN</div>
-            <Link to="/login">Go here to log in!</Link>
-            <div>Your shopping list</div>
+        
+        <div className="wrapper">
+        <div className="shoppinglist">
+            
+            <h1>Your shopping list</h1>
             {listitemsItems.map(list => (
                 <div key={list._id}>{list.message}</div>
             ))}
         </div>
+        <div className="photo"></div>
+        </div>
+        
     );
 };
 

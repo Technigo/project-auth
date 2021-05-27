@@ -51,19 +51,27 @@ const Login = () => {
     };
 
     return (
-        <form onSubmit={onFormSubmit}>
+        <form className="form-container" onSubmit={onFormSubmit}>
+            <div className="input-container">
             <input
                 type="text"
+                placeholder="username"
+                className="input"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
             <input
                 type="password"
+                placeholder="password"
+                className="input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="submit" onClick={() => setMode('signin')}>Sign in</button>
-            <button type="submit" onClick={() => setMode('signup')}>Sign up</button>
+            </div>
+            <div className="button-container">
+            <button type="submit" className="signin-button" onClick={() => setMode('signin')}>Sign in</button>
+            <button type="submit" className="signup-button" onClick={() => setMode('signup')}>Sign up</button>
+            </div>
         </form>
     );
 };
