@@ -4,14 +4,38 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints'
+import dotenv from 'dotenv';
+
+import travelData from './data/travel_nature.json'
+
+dotenv.config()
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
-const Thought = mongoose.model('Thought', {   // Change this later to the content that we want
-  message: String
+const inspoSchema = new mongoose.Schema({
+  id: String,
+  urls: String,
 })
+
+const Inspo = mongoose.model('Inspo', inspoSchema)
+
+if (process.env.RESET_DB) {
+  const seedDB = async () => {
+    await Inspo.deleteMany()
+
+    travelData.forEach(async (item) => {
+      const newInspo = new Inspo({
+        id: item.id,
+        urls: item.urls.small
+      })
+      await newInspo.save()
+    })
+  }
+
+  seedDB()
+}
 
 const User = mongoose.model('User', {
   username: {
@@ -58,9 +82,13 @@ app.get('/', (req, res) => {
 
 app.get('/travelinspo', authenticateUser)
 app.get('/travelinspo', async (req, res) => {
-  const secretMessage = 'This is a super secret message'
+  const travelInspoToSend = await Inspo.find()   
+  res.json(travelInspoToSend)
+
+
+  // const secretMessage = 'This is a super secret message'
   
-  res.status(201).json({ secretMessage })
+  // res.status(201).json({ secretMessage })
 })
 
 app.post('/signup', async (req, res) => {
