@@ -4,21 +4,17 @@ import { useHistory } from "react-router-dom";
 
 import user from "../reducers/user";
 
-//import { API_URL } from "../reusable/urls";
-
 import "./LoginStyle.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [mode, setMode] = useState(null);
 
   const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    console.log("Checking access token, accessToken");
     if (accessToken) {
       history.push("/");
     }
@@ -26,6 +22,7 @@ const Login = () => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
+    const API_LOGIN = "https://week20-project-auth.herokuapp.com/signin";
 
     const options = {
       method: "POST",
@@ -34,6 +31,20 @@ const Login = () => {
       },
       body: JSON.stringify({ username, password }),
     };
+
+    fetch(API_LOGIN, options)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          batch(() => {
+            dispatch(user.actions.setUsername(data.username));
+            dispatch(user.actions.setAccessToken(data.accessToken));
+            dispatch(user.actions.setErrors(null));
+          });
+        } else {
+          dispatch(user.actions.setErrors(data));
+        }
+      });
   };
 
   return (
@@ -42,7 +53,7 @@ const Login = () => {
         <div className="pink-circle"></div>
         <div className="blue-circle"></div>
         <div className="green-circle"></div>
-        <form onSubmit={onFormSubmit}>
+        <form className="form" onSubmit={onFormSubmit}>
           <h2>Log in here</h2>
           <input
             className="input"
@@ -58,11 +69,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button
-            className="login-button"
-            type="submit"
-            onClick={() => setMode("signin")}
-          >
+          <button className="login-button" type="submit" onClick={onFormSubmit}>
             Log in
           </button>
         </form>
