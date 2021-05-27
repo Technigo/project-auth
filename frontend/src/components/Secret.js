@@ -50,6 +50,7 @@ const Secret = () => {
             <SubContainer>
                 <Header>{secretMessage}</Header>
                 <iframe src="https://giphy.com/embed/cXgGNaWiSoesw" 
+                    title="Party cats"
                     className="giphy-embed"
                     allowFullScreen
                 />
