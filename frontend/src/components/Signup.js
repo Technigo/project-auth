@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import Swal from 'sweetalert2'
 
 import user from '../reducers/user'
 
@@ -43,7 +42,6 @@ const Signup = () => {
             dispatch(user.actions.setErrors(null))
           })
         } else {
-          Swal.fire(data.error.errors.username.properties.message)
           dispatch(user.actions.setErrors(data))
         }
       })
@@ -64,8 +62,8 @@ const Signup = () => {
         id='username'
         type='text'
         required
-        minLength='5'
-        maxLength='18'
+        minlength='5'
+        maxlength='18'
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
@@ -77,8 +75,8 @@ const Signup = () => {
         id='password'
         type='password'
         required
-        minLength='5'
-        maxLength='25'
+        minlength='5'
+        maxlength='25'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
