@@ -22,8 +22,6 @@ const User = mongoose.model('User', {
   password: {
     type: String,
     required: true,
-    minlength: [5, 'PW min 5 characters'],
-    maxlength: [25, 'PW max 25 characters']
   },
   accessToken: {
     type: String,
