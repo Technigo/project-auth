@@ -9,7 +9,7 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.set('useCreateIndex', true); //added due to deprecation error 26868
 mongoose.Promise = Promise
 
-const Greeting = mongoose.model('Greeting', {
+const Thought = mongoose.model('Thought', {
   greeting: String
 })
 
@@ -102,7 +102,7 @@ app.post('/signin', async (req, res) => {
 //HOME ENDPOINT FOR LOGGED-IN USERS
 app.get('/home', authenticateUser)
 app.get('/home', async (req, res) => {
-  const home = await Greeting.find()
+  const home = await Thought.find()
   res.json(home)
 })
 
