@@ -12,7 +12,7 @@ mongoose.connect(mongoUrl, {
 });
 mongoose.Promise = Promise;
 
-const Joke = mongoose.model("Joke", {
+const UserMessage = mongoose.model("UserMessage", {
   message: String,
 });
 
@@ -82,18 +82,24 @@ app.get("/", (req, res) => {
 });
 
 app.get("/joke", authenticateUser);
+// app.get("/joke", async (req, res) => {
+//   const joke = await Joke.find();
+//   res.json({ success: true, joke });
+// });
+
+app.get("/joke", authenticateUser);
 app.get("/joke", async (req, res) => {
   const joke = await Joke.find();
   res.json({ success: true, joke });
 });
 
-app.post('/joke', authenticateUser);
-app.post('/joke', async (req, res) => {
+app.post('/usermessage', authenticateUser);
+app.post('/usermessage', async (req, res) => {
   const { message } = req.body;
 
   try {
-    const newThought = await new Thought({ message }).save();
-    res.json({ success: true, newThought});
+    const newUserMessage = await new UserMessage({ message }).save();
+    res.json({ success: true, newUserMessage});
   } catch (error) {
     res.status(400).json({ success: false, message: 'Invalid request', error });
   }
