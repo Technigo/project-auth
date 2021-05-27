@@ -50,6 +50,10 @@ const User = mongoose.model("User", {
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+  },
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
@@ -98,7 +102,7 @@ app.post("/thoughts", async (req, res) => {
 // This is a POST endpoint that will allow users to sign up to the website. The post request takes a username and password in the json body.
 // The backend will encrypt the users password for securit and well as generating a personal accessToken for the account
 app.post("/signup", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
 
   try {
     const salt = bcrypt.genSaltSync();
@@ -106,6 +110,7 @@ app.post("/signup", async (req, res) => {
     const newUser = await new User({
       username: username,
       password: bcrypt.hashSync(password, salt),
+      email: email,
     }).save();
 
     res.json({
