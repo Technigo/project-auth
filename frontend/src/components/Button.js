@@ -21,6 +21,12 @@ const SubmitButton = styled.button`
     color: #f780b1;
     background-color: #f2f3ff;
   }
+  @media (min-width: 768px) {
+    margin-bottom: 17px;
+  };
+  @media (min-width: 1200px) {
+    margin-bottom: 14px;
+  }
 `;
 
 const ButtonJoke = styled(SubmitButton)`

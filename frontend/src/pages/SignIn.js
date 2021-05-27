@@ -85,6 +85,8 @@ const ErrorMessage = styled.p`
   color: red;
   margin-top: 10px;
   font-size: 12px;
+  position: absolute;
+  bottom: 35%;
 `;
 
 const EyeButton = styled.button`
@@ -95,7 +97,7 @@ const EyeButton = styled.button`
   color: #6c6c6d;
   position: absolute;
   right: 0;
-  bottom: 57%;
+  bottom: 59%;
   :hover {
     opacity: 0.8;
   }`
@@ -145,8 +147,6 @@ export const SignIn = () => {
             } else {
               setErrorMessage(data.message);
             }
-            // setUsername("");
-            // setPassword("");
             setLoading(false);
           })
           .catch(),

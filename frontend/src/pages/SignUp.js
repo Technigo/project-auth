@@ -65,6 +65,7 @@ const Form = styled.form`
   justify-content: center;
   align-items: center;
   width: 100%;
+  position: relative;
 `;
 
 const CreateAccount = styled.h1`
@@ -77,8 +78,29 @@ const CreateAccount = styled.h1`
 
 const ErrorMessage = styled.p`
   color: red;
-  margin-top: 10px;
+  padding-top: 10px;
   font-size: 12px;
+  margin: 0;
+  position: absolute;
+  bottom: 25%;
+  @media (min-width: 768px) {
+    padding-top: 15px;
+    bottom: 27%;
+  }
+`;
+
+const EyeButton = styled.button`
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #6c6c6d;
+  position: absolute;
+  right: 0;
+  bottom: 36%;
+  :hover {
+    opacity: 0.8;
+  }
 `;
 
 export const SignUp = () => {
@@ -88,7 +110,8 @@ export const SignUp = () => {
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(true);
 
   const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
@@ -153,6 +176,11 @@ export const SignUp = () => {
     }
   };
 
+  const togglePassword = () => {
+    if (!showPassword) setShowPassword(true);
+    else setShowPassword(false);
+  };
+
   return (
     <>
       {loading && <Loading loadingText="Creating new account..." />}
@@ -184,13 +212,20 @@ export const SignUp = () => {
                 onChange={(e) => setEmail(e.target.value)}
               ></InputForm>
               <InputForm
-                type="password"
+                type={showPassword ? "password" : "text"}
                 id="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 minLength="8"
               ></InputForm>
+              <EyeButton type="button" onClick={togglePassword}>
+                {showPassword ? (
+                  <i className="fas fa-eye"></i>
+                ) : (
+                  <i className="fas fa-eye-slash"></i>
+                )}
+              </EyeButton>
               <ErrorMessage>{errorMessage}</ErrorMessage>
               <Button onClick={() => setMode("signup")} buttonText="register" />
             </Form>

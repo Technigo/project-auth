@@ -87,6 +87,18 @@ app.get("/joke", async (req, res) => {
   res.json({ success: true, joke });
 });
 
+app.post('/joke', authenticateUser);
+app.post('/joke', async (req, res) => {
+  const { message } = req.body;
+
+  try {
+    const newThought = await new Thought({ message }).save();
+    res.json({ success: true, newThought});
+  } catch (error) {
+    res.status(400).json({ success: false, message: 'Invalid request', error });
+  }
+});
+
 // Post request for signing up
 app.post("/signup", async (req, res) => {
   const { name, username, email, password } = req.body;

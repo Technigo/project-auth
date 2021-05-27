@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import user from "../reducers/user";
 import { JokeButton } from "components/Button";
 import { Footer } from "components/Footer";
-import logo from "assets/logo.png";
+import logo from "assets/logonew.png";
 import jokepic from "assets/jokepic.jpg";
 
 const Container = styled.div`
@@ -20,7 +20,7 @@ const Container = styled.div`
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   @media (min-width: 768px) {
     flex-direction: column;
-    height: 70%;
+    // height: 70%;
     max-width: 75%;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
@@ -38,7 +38,7 @@ const JokeContainer = styled.div`
   align-items: center;
   height: 80%;
   @media (min-width: 768px) {
-    height: 70%;
+    height: 60%;
   }
 `;
 
@@ -55,6 +55,7 @@ const Punchline = styled.h3`
   font-weight: 400;
   color: #83868e;
   text-align: center;
+  padding-bottom: 20px
 `;
 
 const ImageContainer = styled.div`
@@ -62,10 +63,10 @@ const ImageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 70%;
   @media (min-width: 768px) {
     display: flex;
     width: 100%;
-    height: 70%;
   }
 `;
 
@@ -93,11 +94,11 @@ export const Joke = () => {
 
   const history = useHistory();
 
-  useEffect(() => {
-    if (!accessToken) {
-      history.push("/signin");
-    }
-  }, [accessToken, history]);
+  // useEffect(() => {
+  //   if (!accessToken) {
+  //     history.push("/signin");
+  //   }
+  // }, [accessToken, history]);
 
   useEffect(() => {
     fetchJoke();

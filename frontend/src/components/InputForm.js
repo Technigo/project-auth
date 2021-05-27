@@ -16,11 +16,22 @@ const Input = styled.input`
   font-family: "Padauk";
   background-color: #f2f3ff;
   color: #6c6c6d;
-  :last-of-type {
-    margin-bottom: 0;
-  }
+  // :last-of-type {
+  //   margin-bottom: 27px;
+  // }
   :focus {
     border-bottom: 2px solid #f780b1;
+  }
+  @media (min-width: 768px) {
+    margin-bottom: 25px;
+    :last-of-type {
+      margin-bottom: 10px;
+    };
+    @media (min-width: 1200px) {
+      margin-bottom: 25px;
+      :last-of-type {
+        margin-bottom: 15px;
+      }
   }
 `;
 
