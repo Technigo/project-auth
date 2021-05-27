@@ -40,7 +40,7 @@ export const ButtonContainer = styled.div`
 `
 
 export const Button = styled.button`
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 20px;
     font-weight: 200;
     width: fit-content;

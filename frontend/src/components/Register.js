@@ -56,7 +56,7 @@ const Register = () => {
     <MainContainer>
     <Form onSubmit={onFormSubmit}>
       <Header>
-        Welcome, please register here
+        Register to be a VIP!
       </Header>
       <Label htmlFor="username">Username:</Label> 
         <InputField

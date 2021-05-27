@@ -31,15 +31,19 @@ export const Form = styled.form`
         margin: 150px auto;
     }
 `
+export const InputWrapper = styled.div`
+    text-align: left;
+`
+
 export const Label = styled.label`
     font-weight: 300;
     margin-bottom: 10px;
 `
 
 export const InputField = styled.input`
-    border-radius: 20px;
+    border-radius: 10px;
     width: 90%;
-    margin-bottom: 20px;
+    margin: 15px 0;
     box-sizing:border-box;
     border: 1px solid lightgrey;
     background-color: whitesmoke;
@@ -59,7 +63,7 @@ export const Text = styled.p`
 `
 
 export const PrimaryButton = styled.button`
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 20px;
     font-weight: 200;
     width: 30%;
@@ -74,7 +78,7 @@ export const PrimaryButton = styled.button`
 `
 
 export const SecondaryButton = styled.button`
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 20px;
     font-weight: 200;
     width: 30%;

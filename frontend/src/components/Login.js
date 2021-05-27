@@ -4,7 +4,7 @@ import { useHistory, Link } from 'react-router-dom'
 
 import user from '../reducers/user'
 import { API_URL } from '../reuseables/urls'
-import { MainContainer, Header, Form, Label, InputField, Text, SecondaryButtonContainer, PrimaryButton, SecondaryButton, ErrorMessage } from './styled-components/login-style'
+import { MainContainer, Header, Form, InputWrapper, Label, InputField, Text, SecondaryButtonContainer, PrimaryButton, SecondaryButton, ErrorMessage } from './styled-components/login-style'
 
 const Login = () => {                     
   const [username, setUsername] = useState('')
@@ -19,7 +19,7 @@ const Login = () => {
 
   useEffect(() => {
     if (accessToken){
-      history.push('/happyhour')
+      history.push('/secret')
     }
   },[accessToken, history])
 
@@ -55,25 +55,27 @@ const Login = () => {
         <Header>
         Who's our secret VIP?
         </Header>
+        <InputWrapper>
         <Label htmlFor="username">Username:</Label> 
-          <InputField
-            id='username'
-            type='text' 
-            minLength= "2"
-            maxLength= "20"
-            required
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        <Label htmlFor="password">Password:</Label> 
-          <InputField
-            id='password'
-            type='password'
-            minLength= "8"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            <InputField
+              id='username'
+              type='text' 
+              minLength= "2"
+              maxLength= "20"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
+          <Label htmlFor="password">Password:</Label> 
+            <InputField
+              id='password'
+              type='password'
+              minLength= "8"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              />
+        </InputWrapper>
          {error && <ErrorMessage>{error.message}</ErrorMessage>}
         <PrimaryButton
           type='submit'
@@ -82,7 +84,7 @@ const Login = () => {
           Log In
         </PrimaryButton>
         <SecondaryButtonContainer>
-          <Text>Not registered yet? </Text>
+          <Text>Register as a VIP? </Text>
           <Link to="/register">
             <SecondaryButton>
               Register
