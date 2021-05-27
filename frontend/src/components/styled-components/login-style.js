@@ -18,7 +18,7 @@ export const Header = styled.h1`
 
 export const Form = styled.form`
     width: 80%;
-    height: 500px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     border: 1px solid black;
@@ -27,7 +27,6 @@ export const Form = styled.form`
     margin: 60px auto;
     padding: 10px;
     @media (min-width: 768px) {
-        height: 480px;
         max-width: 650px;
         margin: 150px auto;
     }

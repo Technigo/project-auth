@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch} from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 import user from '../reducers/user'
 import { API_URL } from '../reuseables/urls'
-import { MainContainer, Header, Form, Label, InputField, Text, SecondaryButtonContainer, PrimaryButton, SecondaryButton, ErrorMessage } from './styled-components/signin-style'
+import { MainContainer, Header, Form, Label, InputField, Text, SecondaryButtonContainer, PrimaryButton, SecondaryButton, ErrorMessage } from './styled-components/login-style'
 
-const Signin = () => {                     
+const Login = () => {                     
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState(null)
@@ -53,7 +53,7 @@ const Signin = () => {
     <MainContainer>
       <Form onSubmit={onFormSubmit}>
         <Header>
-          Welcome, please sign in
+          Welcome, please log in
         </Header>
         <Label htmlFor="username">Username:</Label> 
           <InputField
@@ -73,28 +73,30 @@ const Signin = () => {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          />
+            />
+         {error && <ErrorMessage>{error.message}</ErrorMessage>}
         <PrimaryButton
           className='primary-button'
           type='submit'
-          onClick={() => setMode('signin')}
+          onClick={() => setMode('login')}
         >
-          Sign In
+          Log In
         </PrimaryButton>
-        {error && <ErrorMessage>{error.message}</ErrorMessage>}
         <SecondaryButtonContainer>
-          <Text>Not registrered yet? </Text>
+          <Text>Not registered yet? </Text>
+          <Link to="/register">
           <SecondaryButton
             className='primary-button'
             type='submit'
-            onClick={() => setMode('signup')}
+            onClick={() => ('register')}
           >
-            Create account
+            Register
           </SecondaryButton>
+          </Link>
         </SecondaryButtonContainer>
       </Form>
     </MainContainer>
   )
 }
 
-export default Signin
+export default Login

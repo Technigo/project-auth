@@ -5,8 +5,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import user from './reducers/user'
 import drink from './reducers/drink'
-import Signin from './components/Signin'
+import Login from './components/Login'
 import HappyHour from 'components/HappyHour'
+import Register from './components/Register'
 
 const reducer = combineReducers({
   user: user.reducer,
@@ -21,8 +22,8 @@ export const App = () => {
       <Provider store={store}>
         <Switch>
           <Route exact path="/happyhour" component={HappyHour}/>
-          <Route path="/signup" />
-          <Route path="/signin" component={Signin} />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
         </Switch>
       </Provider>
     </BrowserRouter>

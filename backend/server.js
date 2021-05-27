@@ -92,7 +92,7 @@ app.get('/happyhour', async (req, res) => {
   res.json({ success: true, drinkRecipes })
 })
 
-app.post('/signup', async (req, res) => {
+app.post('/register', async (req, res) => {
   const { username, password, email } = req.body
 
   try {
@@ -114,7 +114,7 @@ app.post('/signup', async (req, res) => {
   }
 })
 
-app.post('/signin', async (req, res) => {
+app.post('/login', async (req, res) => {
   const { username, password, email } = req.body
   // checks if user logs in with username or email 
   try {
