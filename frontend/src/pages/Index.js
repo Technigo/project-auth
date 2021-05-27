@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import user from "../reducers/user";
 import thoughts from "../reducers/thoughts";
 
+import "./IndexStyle.css";
+
 const Index = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const thoughtsItems = useSelector((store) => store.thoughts.items);
@@ -44,12 +46,15 @@ const Index = () => {
       });
   }, [accessToken]);
   return (
-    <div>
-      <div>MAIN</div>
-      {thoughtsItems.map((thought) => (
-        <div key={thought._id}>{thought.message}</div>
-      ))}
-    </div>
+    <>
+      <div className='thought-wrapper'>
+        {thoughtsItems.map((thought) => (
+          <div classname='thought-container' key={thought._id}>
+            <p>{thought.message}</p>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

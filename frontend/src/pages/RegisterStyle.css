@@ -9,12 +9,12 @@
 
 .form-container {
   position: relative;
-  overflow: hidden;
-  padding: 25px;
   width: 330px;
   height: 400px;
-  background-color: #fff;
+  padding: 25px;
+  overflow: hidden;
   border-radius: 8px;
+  background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -63,10 +63,10 @@ h2 {
 .input {
   width: 270px;
   margin-bottom: 14px;
-  font-size: 16px;
-  color: #b8b6b6;
   border: hidden;
   border-bottom: 2px solid #d4d1d1;
+  font-size: 16px;
+  color: #b8b6b6;
   cursor: pointer;
 }
 
@@ -78,7 +78,7 @@ h2 {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   padding: 12px;
-  margin-top: 50px;
+  margin-top: 48.5px; /*fixa bättre lösning*/
   width: 150px;
   border: none;
   border-radius: 25px;
@@ -97,9 +97,9 @@ h2 {
   width: 300px;
   padding: 5px;
   margin-top: 40px;
+  border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.2);
   color: #fff;
-  border-radius: 8px;
 }
 
 a:link {
@@ -115,7 +115,7 @@ a:hover {
   color: #fff;
 }
 
-@media (min-width: 450px) {
+@media (min-width: 400px) {
   .member-container {
     width: 370px;
   }
