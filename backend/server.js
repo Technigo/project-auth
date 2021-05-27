@@ -93,20 +93,20 @@ app.get('/happyhour', async (req, res) => {
 })
 
 app.post('/register', async (req, res) => {
-  const { username, password, email } = req.body
+  const { username, password } = req.body
 
   try {
     const salt = bcrypt.genSaltSync()
     const newUser = await new User({
       username,
-      email,
+      // email,
       password: bcrypt.hashSync(password, salt)
     }).save()
     res.json({
       success: true,
       userId: newUser._id,
       username: newUser.username,
-      email: newUser.email,
+      // email: newUser.email,
       accessToken:newUser.accessToken
     })
   } catch(error) {
