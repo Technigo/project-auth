@@ -36,20 +36,6 @@ const userSchema = mongoose.Schema({
 })
 
 const User = mongoose.model('User', userSchema)
-// const feelingSchema = mongoose.Schema({
-//   description: {
-//     type: String
-//   },
-//   numericValue: {
-//     type: Number,
-//   },
-//   createdAt: {
-//     type: Date,
-//     default: Date.now
-//   }
-// })
-
-// const Feeling = mongoose.model('Feeling', feelingSchema)
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')

@@ -60,7 +60,7 @@ body {
 .form-button {
   width: 120px;
   padding: 10px 5px;
-  margin: 0 5px;
+  margin: 0 5px 10px 5px;
   border-radius: 7px;
   border: none;
   background-color: #CF0568;
@@ -73,6 +73,17 @@ body {
   object-fit: cover;
   height: 100%;
   width: 100%;
+}
+
+.profile-container {
+  text-align: center;
+  border: 1px solid pink;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 @media (max-width: 450px) {

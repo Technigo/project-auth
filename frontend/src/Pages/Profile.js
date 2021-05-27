@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { FEELING_URL } from '../reusable/urls'
+import user from '../reducers/user'
+import { feelingsArray } from '../reusable/constants'
 
 const Page = () => {
-  //const [feelings, setFeelings] = useState('')
-
+  const [feelings, setFeelings] = useState('')
+  const name = useSelector(state => state.user.username)
   const accessToken = useSelector(store => store.user.accessToken)
   const userId = useSelector(store => store.user.userId)
+  const feelingsHistory = useSelector(store => store.user.feelings)
+
+  const dispatch = useDispatch()
   const history = useHistory()
 
   useEffect(() => {
@@ -23,60 +28,65 @@ const Page = () => {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': accessToken
-      }, 
+      },
       body: JSON.stringify({ feelings: e.target.value })
     }
     fetch(FEELING_URL(userId), options)
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => dispatch(user.actions.setFeelings(data.feelings)))
+    setFeelings(e.target.value)
+  }
+
+  const onFeelingsRegistred = (feelings) => {
+    switch (feelings) {
+      case 'angry':
+        return 'Why are you so angry? Call a friend asap!';
+      case 'happy': 
+        return 'We are happy that you feel happy today!';
+      case 'sad': 
+        return 'Oh noo, why? Buy yourself some ice-cream'; 
+      case 'fearless': 
+        return 'Cool, you should try some bungee jumping!';
+      case 'surprised': 
+        return 'Why so surprised? Well well, surprise!';
+      case 'curious': 
+        return 'What should we explore today?'
+    }
   }
 
   return (
-    <div>
-      <h1>Profile page</h1>
-      <button
-        className="feeling-button"
-        value="angry"
-        onClick={onButtonClick}
-      >
-        Angry
-      </button>
-      <button
-        className="feeling-button"
-        value="happy"
-        onClick={onButtonClick}
-      >
-        Happy
-      </button>
-      <button
-        className="feeling-button"
-        value="sad"
-        onClick={onButtonClick}
-      >
-        Sad
-      </button>
-      <button
-        className="feeling-button"
-        onClick={onButtonClick}
-        value="fearless"
-      >
-        Fearless
-      </button>
-      <button
-        className="feeling-button"
-        value="surprised"
-        onClick={onButtonClick}
-      >
-        Surprised
-      </button>
-      <button
-        className="feeling-button"
-        value="curious"
-        onClick={onButtonClick}
-      >
-        Curious
-      </button>
-    </div>
+    <section className="profile-container">
+      { !feelings &&
+        <>
+          <h1 className="form-heading">Hello {name}! How are you feeling today?</h1>
+          <div>
+            {feelingsArray.map((item) => {
+              return (
+                <button
+                  key={item}
+                  className="form-button"
+                  value={item}
+                  onClick={onButtonClick}
+                >
+                  {`${item.charAt(0).toUpperCase()}${item.slice(1)}`}
+                </button>
+              )
+            })
+            }
+          </div>
+        </>
+      }
+      {feelings &&
+        <div>
+          <h2>{onFeelingsRegistred(feelings)}</h2>
+          <p>All of your feelings so far:</p>
+          <div>
+            {feelingsHistory.map((feeling) => <p>{feeling}</p>)}
+          </div>
+        </div>
+
+      }
+    </section>
   )
 }
 

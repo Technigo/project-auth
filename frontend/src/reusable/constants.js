@@ -1,0 +1,1 @@
+export const feelingsArray = ["angry", "happy", "sad", "fearless", "surprised", "curious" ]
