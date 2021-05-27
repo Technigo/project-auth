@@ -74,7 +74,7 @@ app.post('/listitems', async (req, res) => {
   }
 });
 
-// or '/users' or '/register'
+// endpoint to sign up
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body;
 
@@ -97,7 +97,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-// or '/session' or '/login'
+//endpoint to sign in
 app.post('/signin', async (req, res) => {
   const { username, password } = req.body;
 
