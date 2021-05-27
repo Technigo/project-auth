@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import { StyledButton } from '../components/StyledBtn'
+import { API_URL } from '../reusables/urls'
+import user from '../reducers/user'
 
 //maybe add two input fields for password for extra check
 
@@ -13,6 +16,7 @@ const Wrapper = styled.div`
   background-color: white;
   margin: 30px;
   width: 500px;
+  height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,12 +37,15 @@ const Input = styled.input`
 export const SignUp = () => {
   const [ username, setUsername ] = useState('')
   const [ password, setPassword ] = useState('')
-  const [ response, setResponse ] = useState('')
-  const [ isSuccess, setIsSuccess ] = useState(false)
+
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const errorMessage = useSelector(store => store.user.errors)
+  
 
   const onFormSubmit = (e) => {
     e.preventDefault()
-    fetch('http://localhost:8080/signup', {
+    fetch(API_URL('signup'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -50,16 +57,13 @@ export const SignUp = () => {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.message === 'Invalid request') {
-          setResponse('Username already exsist, try again!')
+        if (data.success) {
+          history.push('/login')
         } else {
-          setIsSuccess(true)
+          dispatch(user.actions.setErrors(data))
         }
       })
-      .catch((error) => {
-        console.error('Error:', error);
-        setResponse('Something went wrong')
-      })
+      .catch()
   }
 
   return (
@@ -74,14 +78,9 @@ export const SignUp = () => {
         Password 
         <Input onChange={(e) => setPassword(e.target.value)} value={password} type="password" />
       </label>
+      {errorMessage ? <p>{errorMessage.message}</p> : ''}
       <StyledButton onClick={onFormSubmit} type="submit">Submit</StyledButton>
     </Form>
-
-    {isSuccess ? (
-          <Redirect to ="/login" />
-      ) : (
-        <p>{response}</p>
-      )}
     </Wrapper>
   )
 }

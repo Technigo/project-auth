@@ -1,6 +1,10 @@
-import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import styled from 'styled-components'
+
+import { API_URL } from '../reusables/urls'
+import user from '../reducers/user'
 
 import { StyledButton } from '../components/StyledBtn'
 
@@ -32,12 +36,23 @@ const Input = styled.input`
 export const LogIn = () => {
   const [ username, setUsername ] = useState('')
   const [ password, setPassword ] = useState('')
-  const [ response, setResponse ] = useState('')
-  const [ isLoggedIn, setIsLoggedIn ] = useState(false)
   
+  const accessToken = useSelector(store => store.user.accessToken)
+  const errorMessage = useSelector(store => store.user.errors)
+  const history = useHistory()
+  const dispatch = useDispatch()
+
+
+  useEffect(() => {
+    if (accessToken) {
+      history.push('/content')
+    }
+  },[accessToken, history])
+
   const onLogIn = (e) => {
     e.preventDefault()
-    fetch('http://localhost:8080/signin', {
+    
+    fetch(API_URL('login'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -49,19 +64,20 @@ export const LogIn = () => {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.message === 'User not found') {
-          setResponse('User not found')
+        if (data.success) {
+          batch(() => {
+            dispatch(user.actions.setUsername(data.username))
+            dispatch(user.actions.setAccessToken(data.accessToken))
+            dispatch(user.actions.setErrors(null))
+          })
+          // window.localStorage.setItem('accessToken', accessToken)
           setUsername('')
           setPassword('')
         } else {
-          setIsLoggedIn(true)
+          dispatch(user.actions.setErrors(data))
         }
       })
-      .catch((error) => {
-        console.error('Error:', error);
-        setUsername('')
-        setPassword('')
-      })
+      .catch()
   }
 
   return (
@@ -76,14 +92,9 @@ export const LogIn = () => {
           Password
           <Input onChange={(e) => setPassword(e.target.value)} value={password} type="password" />
         </label>
+        {errorMessage ? <p>{errorMessage.message}</p> : ''}
         <StyledButton onClick={onLogIn} type="submit">Log in</StyledButton>
       </Form>
-      {isLoggedIn ? (
-        <Redirect to ="/content" />
-      ) : (
-          <p>{response}</p>
-
-      )}
     </Wrapper>
   )
 }

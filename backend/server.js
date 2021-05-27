@@ -33,10 +33,10 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next()
     } else {
-      res.status(401).json({ message: 'Not authorized' })
+      res.status(401).json({ success: false, message: 'Not authorized' })
     }
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error });
+    res.status(400).json({ success: false, message: 'Invalid request', error });
   }
 } 
 
@@ -53,7 +53,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/session', authenticateUser)
-app.get('/session', (req, res) => {
+app.get('/session', async (req, res) => {
   const axios = require('axios')
 
   const config = {
@@ -64,11 +64,12 @@ app.get('/session', (req, res) => {
       'content-type': 'application/json; charset=utf-8',
     }
   }
-  axios(config)
+  await axios(config)
     .then((response) => {
-      res.send(response.data)
+      const images = response.data
+      res.send({success: true, images})
     })
-    .catch((err) => res.send(err))
+    .catch((err) => res.status(401).json({ success: false, message: 'Not authorized', err }))
 })
 
 app.post('/signup', async (req, res) => {
@@ -82,31 +83,38 @@ app.post('/signup', async (req, res) => {
      }).save()
 
     res.json({
+      success: true,
       userID: newUser._id,
       username: newUser.username,
       accessToken: newUser.accessToken 
      })
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error})
+    if (error.code === 11000) {
+      res.status(409).json({ success: false, message: 'Username already exists', error })
+    } else {
+      res.status(400).json({ success: false, message: 'Invalid request', error })
+    }
+    
   }
 })
 
-app.post('/signin', async (req, res) => {
+app.post('/login', async (req, res) => {
   const { username, password } = req.body
 
   try {
     const user = await User.findOne({username})
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
+        success: true,
         userID: user._id,
         username: user.username, 
         accessToken: user.accessToken
       })
     } else {
-      res.status(404).json({ message: 'User not found'})
+      res.status(404).json({ success: false, message: 'User not found'})
     }
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error})
+    res.status(400).json({ success: false, message: 'Invalid request', error})
   }
 
 })
