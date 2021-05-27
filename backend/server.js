@@ -98,11 +98,6 @@ app.post('/signin', async (req, res) => {
   }
 })
 
-// app.get('/secret', authenticateUser)
-// app.get('/secret', (res, req) => {
-// res.json({ success: true, message: 'This is a secret' })
-// })
-
 // Start the server
 app.listen(port, () => {
   // eslint-disable-next-line

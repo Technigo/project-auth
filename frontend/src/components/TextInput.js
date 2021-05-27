@@ -1,8 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Label = styled.label``
-const Input = styled.input.attrs(props => ({ type: props.type}))``
+const Label = styled.label`
+padding: 5px 0;`
+
+const Input = styled.input.attrs(props => ({ type: props.type}))`
+margin-bottom: 20px;`
 
 const TextInput = ({value, handleChange, title, type}) => {
 

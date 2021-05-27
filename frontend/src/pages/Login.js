@@ -7,14 +7,41 @@ import user from '../reducers/user'
 import TextInput from '../components/TextInput'
 import { API_URL } from '../reusable/urls'
 
+const Wrapper = styled.div`
+width: 100%;
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;`
 
 const Form = styled.form`
 display: flex;
 flex-direction: column;`
 
-const Title = styled.h1``
+const Title = styled.h1`
+font-size: 40px;`
 
-const SubmitButton = styled.button``
+const ButtonContainer = styled.div`
+display:flex;
+width: 100%;
+justify-content: space-between;`
+
+const SubmitButton = styled.button`
+background: white;
+border: none;
+box-shadow: 2px 2px 1px 2px grey;
+border-radius: 5px;
+
+&:hover{
+  background: darkcyan;
+  color: white;
+
+&:active {
+  box-shadow: none;
+  transform: translateY(4px);
+transform: translateX(4px);
+}
+}`
 
 // const PathLink = styled(Link)``
 
@@ -24,6 +51,7 @@ const Login = () => {
     const accessToken = useSelector(store => store.user.accessToken)
     const [value, setValue] = useState({ password: '', username: ''})
     const [path, setPath] = useState('')
+
     const handleChange = (props) => (event) => {
         event.preventDefault()
         setValue({...value, [props]: event.target.value})
@@ -61,13 +89,17 @@ const Login = () => {
       }
 
       return (
+      <Wrapper>
         <Form onSubmit={handleSubmit} >
-          <Title></Title>
+          <Title>Welcome</Title>
             <TextInput value={value.username} type="text" handleChange={handleChange('username')} title="Username" />
             <TextInput value={value.password} type="password" handleChange={handleChange('password')} title="Password" />
+            <ButtonContainer>
               <SubmitButton type="submit" onClick={() => setPath('signin')}> LOG IN </SubmitButton> 
               <SubmitButton type="submit" onClick={() => setPath('signup')}> SIGN UP </SubmitButton> 
+            </ButtonContainer>
         </Form>
+      </Wrapper>
       )
 
 }

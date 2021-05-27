@@ -6,6 +6,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import secret from '../reducers/secret'
 import { API_URL } from '../reusable/urls'
 
+const Wrapper = styled.div`
+width: 100%;
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;`
+
+const Title = styled.h1`` 
+
 const Main = () => {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -29,16 +38,21 @@ const Main = () => {
         fetch(API_URL('secret'), option)
         .then((res) => res.json())
         .then(data => {
-            data.success 
-            ? dispatch(secret.actions.setSecret(data)) 
-            : dispatch(secret.actions.setErrors(data))
+            if(data.success) { 
+              dispatch(secret.actions.setSecret(data)) 
+              dispatch(secret.actions.setErrors(null))
+            } else {
+              dispatch(secret.actions.setErrors(data))
+            }
         })
         .catch()
-    })
-    // ,[accessToken])
+    },[accessToken])
 
- return <div> {secrets} </div>
-
+ return (
+ <Wrapper> 
+   <Title>{secrets? secrets.message : "loading..."}</Title> 
+   </Wrapper>
+ )
 }
 
 export default Main;
