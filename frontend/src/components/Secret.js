@@ -7,7 +7,7 @@ import { API_URL } from '../reuseables/urls'
 // import drink from '../reducers/drink'
 import user from '../reducers/user'
 
-const HappyHour = () => {
+const Secret = () => {
     const accessToken = useSelector(store => store.user.accessToken)
     const secretMessage = useSelector(store => store.user.secretMessage)
     // const drinkRecipes = useSelector(store => store.drink.items)
@@ -64,4 +64,4 @@ const HappyHour = () => {
     )
 }
 
-export default HappyHour
+export default Secret

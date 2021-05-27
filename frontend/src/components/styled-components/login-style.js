@@ -62,9 +62,9 @@ export const PrimaryButton = styled.button`
     border-radius: 20px;
     font-size: 20px;
     font-weight: 200;
-    width: 90%;
+    width: 30%;
     margin: 10px 0 10px 0;
-    padding: 10px;
+    padding: 10px 25px;
     border: 1px solid lightgrey;
     background-color: rgba(189,227,219,0.9);
     &:hover {
@@ -77,8 +77,9 @@ export const SecondaryButton = styled.button`
     border-radius: 20px;
     font-size: 20px;
     font-weight: 200;
-    width: 100%;
-    padding: 10px;
+    width: 30%;
+    margin-bottom: 30px;
+    padding: 10px 25px;
     border: 1px solid lightgrey;
     background-color: rgba(189,227,219,0.8);
     &:hover {

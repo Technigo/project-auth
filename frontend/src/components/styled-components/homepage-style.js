@@ -23,29 +23,29 @@ export const SubContainer = styled.div`
 }
 `
 export const Header = styled.h1`
-  font-size: 30px;
+  margin-top: 40px;
+  font-size: 34px;
 `
 
 export const Text = styled.p`
-  font-size: 20px;
+  font-size: 26px;
   font-family: 'Roboto', sans-serif;
 `
 
 
 export const ButtonContainer = styled.div`
     width: 90%;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 40px;
     text-align: center;
 `
 
 export const Button = styled.button`
     border-radius: 20px;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 200;
     width: fit-content;
-    padding: 10px;
-    margin: 15px 0;
+    padding: 10px 15px;
+    margin: 10px 0;
     border: 1px solid white;
     background-color: rgba(254,91,138,0.5);
     &:hover {

@@ -53,7 +53,7 @@ const Login = () => {
     <MainContainer>
       <Form onSubmit={onFormSubmit}>
         <Header>
-          Welcome, please log in
+        Who's our secret VIP?
         </Header>
         <Label htmlFor="username">Username:</Label> 
           <InputField

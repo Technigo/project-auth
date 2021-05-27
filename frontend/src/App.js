@@ -8,7 +8,7 @@ import drink from './reducers/drink'
 
 import HomePage from './components/HomePage'
 import Login from './components/Login'
-import HappyHour from 'components/HappyHour'
+import Secret from 'components/Secret'
 import Register from './components/Register'
 
 const reducer = combineReducers({
@@ -24,7 +24,7 @@ export const App = () => {
       <Provider store={store}>
         <Switch>
           <Route exact path="/" component={HomePage}/>
-          <Route path="/happyhour" component={HappyHour}/>
+          <Route path="/secret" component={Secret}/>
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
         </Switch>
