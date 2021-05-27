@@ -16,8 +16,8 @@ const User = mongoose.model('User', {
     type: String,
     required: true,
     unique: true,
-    minlength: [5, 'Username min 5 characters'],
-    maxlength: [18, 'Username max 18 characters']
+    minlength: [5, 'Min 5 characters'],
+    maxlength: [18, 'Max 18 characters']
   },
   password: {
     type: String,
@@ -32,7 +32,7 @@ const User = mongoose.model('User', {
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
 
-  try {t
+  try {
     const user = await User.findOne({ accessToken })
     if (user) {
       next()
@@ -50,14 +50,15 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+app.get('/', authenticateUser)
 app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
-app.get('/secret', authenticateUser)
+/* app.get('/secret', authenticateUser)
 app.get('/secret', async (req, res) => {
-  res.json(secret)
-});
+res.json(secret)
+});  */
 
 //signup
 app.post('/signup', async (req, res) => {
