@@ -5,14 +5,45 @@
   align-items: center;
 }
 
+.thought-input {
+  display: flex;
+  width: 320px;
+  height: 120px;
+  margin-top: 30px;
+  padding: 20px;
+  border: hidden;
+  border-radius: 8px;
+  font-size: 18px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.thought-input:focus {
+  outline: none;
+}
+
+.thought-button {
+  width: 120px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  background-color: #83c3ca;
+  cursor: pointer;
+}
+
 .thought-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 300px;
-  height: 200px;
+  width: 320px;
+  height: 120px;
   margin-top: 30px;
+  padding: 20px;
   border-radius: 8px;
+  font-size: 18px;
   background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

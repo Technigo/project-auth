@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { batch, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -7,11 +7,14 @@ import thoughts from "../reducers/thoughts";
 import "./IndexStyle.css";
 
 const Index = () => {
+  const [message, setMessage] = useState("");
   const accessToken = useSelector((store) => store.user.accessToken);
   const thoughtsItems = useSelector((store) => store.thoughts.items);
 
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const API_THOUGHTS = "https://week20-project-auth.herokuapp.com/thoughts";
 
   // This useEffect will check is the accessToken in the redux state is null. If it is null then the user will be sent to /login page.
   useEffect(() => {
@@ -33,7 +36,6 @@ const Index = () => {
     fetch(API_THOUGHTS, options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data) {
           batch(() => {
             dispatch(thoughts.actions.setThoughts(data));
@@ -43,10 +45,39 @@ const Index = () => {
           dispatch(thoughts.actions.setErrors(data));
         }
       });
-  }, [accessToken, dispatch]);
+  }, [thoughtsItems, accessToken, dispatch]);
+
+  const onButtonClick = (e) => {
+    e.preventDefault();
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message }),
+    };
+
+    fetch(API_THOUGHTS, options)
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+
+    setMessage("");
+  };
+
   return (
     <>
       <div className="thought-wrapper">
+        <form>
+          <input
+            className="thought-input"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="New thought"
+          />
+          <button className="thought-button" onClick={onButtonClick}>
+            Send
+          </button>
+        </form>
         {thoughtsItems.map((thought) => (
           <div className="thought-container" key={thought._id}>
             <p>{thought.message}</p>
