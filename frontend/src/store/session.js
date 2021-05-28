@@ -1,23 +1,76 @@
-import { createSlice } from '@reduxjs/toolkit';
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { API_URL } from '../utils/apiConfig';
+import { setUser } from './user'
+
+export const registerUser = createAsyncThunk(
+  'session/register',
+  async (userData, thunkAPI) => {
+
+  }
+);
+
+export const loginUser = createAsyncThunk(
+  'session/login',
+  async (loginData, thunkAPI) => {
+    try {
+      const response = await fetch(API_URL('login'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...loginData })
+      });
+      const data = await response.json();
+      console.log('response', data);
+      if (response.status === 200) {
+        thunkAPI.dispatch(setUser({ ...data.user }));
+        return data.accessToken;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (error) {
+      console.log('Error', error.response.data);
+      thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const sessionSlice = createSlice({
   name: 'session',
   initialState: {
-    authenticated: null,
-    user: {},
+    accessToken: null,
+    reqSuccess: false,
+    reqLoading: false,
+    reqError: false,
+    errorMessage: ''
   },
   reducers: {
-    login(state, action) {
-      state.authenticated = true;
-      // state.user = { ...action.payload };
+    clearRequests: (state) => {
+      state.reqError = false;
+      state.reqLoading = false;
+      state.reqSuccess = false;
     },
-    logout(state) {
-      state.authenticated = false;
-      state.user = {};
+    logoutUser: (state) => {
+      state.accessToken = null;
     }
   },
+  extraReducers: {
+    [loginUser.fulfilled]: (state, { payload }) => {
+      state.reqLoading = false;
+      state.reqSuccess = true;
+      state.accessToken = payload;
+    },
+    [loginUser.rejected]: (state, { payload }) => {
+      state.reqLoading = false;
+      state.reqError = true;
+      state.errorMessage = payload.message;
+    },
+    [loginUser.pending]: (state) => {
+      state.reqLoading = true;
+    }
+  }
 });
 
-
-export const { login, logout } = sessionSlice.actions;
+export const { clearRequests, logoutUser } = sessionSlice.actions;
+export const sessionSelector = (store) => store.session;
 export default sessionSlice.reducer;

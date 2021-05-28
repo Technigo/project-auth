@@ -1,19 +1,25 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-import { logout } from '../store/session';
+import { logoutUser } from '../store/session';
+import { setUser, userSelector } from '../store/user';
 
 export default () => {
   const dispatch = useDispatch();
-  const secret = 'nothing';
+  const history = useHistory();
+  const { name, email } = useSelector(userSelector);
 
   const onLogout = () => {
-    dispatch(logout());
+    dispatch(logoutUser());
+    dispatch(setUser(null));
+    history.push('/login');
   };
+
   return (
     <main>
-      <h1>Home page</h1>
-      <p>{secret}</p>
+      <h1>Welcome {name}</h1>
+      <p>Your currently registered email is: {email}</p>
       <button type="button" onClick={onLogout}>
         Logout
       </button>
