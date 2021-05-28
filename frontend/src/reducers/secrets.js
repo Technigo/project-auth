@@ -12,6 +12,9 @@ const secrets = createSlice({
     },
     setErrors: (store, action) => {
       store.errors = action.payload
+    },
+    addNewSecret: (store, action) => {
+      store.items = [action.payload, ...store.items]
     }
   }
 })
