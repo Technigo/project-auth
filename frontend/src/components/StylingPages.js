@@ -222,7 +222,7 @@ export const MainJokeContainer = styled.section`
 
 export const Logo = styled.img`
   width: 30%;
-  margin: 0 0 10px 0;
+  margin: 0 0 40px 0;
   @media (min-width: 768px) {
     margin-bottom: 20px;
     width: 120px;
