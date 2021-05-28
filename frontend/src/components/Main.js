@@ -41,7 +41,7 @@ const Main = () => {
           dispatch(secrets.actions.setErrors(data))
         }
       })
-  }, [accessToken])
+  }, [accessToken, dispatch])
 
   const onSecretSubmit = (e) => {
     e.preventDefault()
