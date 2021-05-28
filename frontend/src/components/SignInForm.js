@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 const Form = styled.form`
@@ -65,7 +66,15 @@ const RegisterLink = styled(Link)`
   color: #6d6875;
 `
 
+const ErrorMessage = styled.p`
+  font-size: 22px;
+  font-weight: 700;
+  color: #6d6875;
+`
+
 const SignInForm = ({ onFormSubmit, username, setUsername, password, setPassword, setMode }) => {
+  const error = useSelector(store => store.user.errors)
+
   return (
     <Form onSubmit={onFormSubmit}>
       <SubContainer> 
@@ -84,6 +93,8 @@ const SignInForm = ({ onFormSubmit, username, setUsername, password, setPassword
           onChange={(e) => setPassword(e.target.value)} 
         />
       </SubContainer>
+
+      {error && <ErrorMessage>{error.message}</ErrorMessage>}
 
       <SignInButton type="submit" onClick={() => setMode('signin')}>SIGN IN</SignInButton>
 

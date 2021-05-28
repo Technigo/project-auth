@@ -41,11 +41,14 @@ const User = mongoose.model('User', {
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    minlength: 3,
+    maxlength: 15
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minlength: 6,
   }, 
   accessToken: {
     type: String,
@@ -65,10 +68,10 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next()
     } else {
-      res.status(401).json({ loggedOut: true, message: 'Please try logging in again' })
+      res.status(401).json({ success: false, message: 'Not authorized' })
     }
   } catch (error) {
-    res.status(403).json({ message: 'Access token is missing or wrong', error })
+    res.status(400).json({ sucess: false, message: 'Invalid request', error })
   }
 }
 
@@ -82,13 +85,8 @@ app.get('/', (req, res) => {
 
 app.get('/travelinspo', authenticateUser)
 app.get('/travelinspo', async (req, res) => {
-  const travelInspoToSend = await Inspo.find()   
-  res.json(travelInspoToSend)
-
-
-  // const secretMessage = 'This is a super secret message'
-  
-  // res.status(201).json({ secretMessage })
+  const inspos = await Inspo.aggregate([{ $sample: { size: 1 } }])
+  res.json(inspos)
 })
 
 app.post('/signup', async (req, res) => {
@@ -109,8 +107,8 @@ app.post('/signup', async (req, res) => {
       accessToken: newUser.accessToken 
     })
   } catch (error) {
-    if (err.code === 11000) {
-      res.status(400).json({ message: 'User already exists', fields: err.keyValue })
+    if (error.code === 11000) {
+      res.status(400).json({ message: 'User already exists', fields: error.keyValue })
     }
     res.status(400).json({ success: false, message: 'Could not create user', error })
   }

@@ -4,9 +4,8 @@ const user = createSlice ({
   name: 'user',
   initialState: {
     username: null,
-    accessToken: localStorage.accessToken || null,
+    accessToken: localStorage.getItem('accessToken') || null,
     errors: null,
-    loading: false
   },
   reducers: {
     setUsername: (store, action) => {

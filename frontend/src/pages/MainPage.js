@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -7,7 +7,6 @@ import { API_URL } from '../reusable/urls'
 
 import user from '../reducers/user'
 import travelInspo from '../reducers/travelInspo'
-
 
 const Container = styled.div`
   background: #84a98c;
@@ -76,6 +75,10 @@ const MainPage = () => {
   }, [accessToken, history])
 
   useEffect(() => {
+    if (!accessToken) {
+      return
+    }
+
     const options = {
       method: 'GET',
       headers: {
@@ -83,17 +86,19 @@ const MainPage = () => {
       }
     }
 
-    fetch(API_URL('travelinspo'), options)   //make sure that this url is in line with the endpoint we have for the secret page
+    fetch(API_URL('travelinspo'), options)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
-        dispatch(travelInspo.actions.setTravelInspo(data.secretMessage))
+        console.log(data) // REMOVE
+        dispatch(travelInspo.actions.setTravelInspo(data[0].urls))
       })
   }, [accessToken, dispatch])
-
   
   const handleLogOut = () => {
-    dispatch(user.actions.setSignOut())
+    batch(() => {
+      dispatch(user.actions.setSignOut())
+      dispatch(travelInspo.actions.setSignOut())
+    })
     window.location.reload()
   }
 
@@ -101,10 +106,9 @@ const MainPage = () => {
     <Container>
       <SubContainer>
         <Heading>YOU'RE HERE!</Heading>
-        <p>{inspo}</p>
 
         <Image
-          src="https://plchldr.co/i/500x500?&bg=fcba03&fc=000000&text=TRAVEL"
+          src={`${inspo}`}
         />
 
         <SignOutButton onClick={handleLogOut}>SIGN OUT</SignOutButton> 

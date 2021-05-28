@@ -42,7 +42,7 @@ const SignUpPage = () => {
     }
   }, [accessToken, history])
 
-  const handleFormSubmit = (e) => { // Can be moved to be a thunk in the reducer
+  const handleFormSubmit = (e) => {
     e.preventDefault()
 
     const options = {
