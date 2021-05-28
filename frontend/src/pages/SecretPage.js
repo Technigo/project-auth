@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-
 import styled from 'styled-components/macro'
 
+import user from '../reducers/user'
+
+import Button from '../components/Button'
+
 const SecretPage = () => {
+  const dispatch = useDispatch()
+
   const accessToken = useSelector(store => store.user.accessToken)
 
   const history = useHistory()
@@ -15,6 +20,13 @@ const SecretPage = () => {
     }
   }, [accessToken, history])
 
+  const onButtonClick = () => {
+    batch(()=> {
+      dispatch(user.actions.setUsername(null))
+      dispatch(user.actions.setAccessToken(null))
+    })
+  }
+  
   return (
     <Main>
       <Title>Welcome in!</Title>
@@ -26,6 +38,10 @@ const SecretPage = () => {
         loop 
         autoplay>
       </lottie-player>
+      <Button
+      onClick={onButtonClick}
+      text='LOG OUT'
+      />
     </Main>
   )
 }
