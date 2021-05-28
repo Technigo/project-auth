@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { API_URL } from '../reusable/urls';
 
 import listitems from '../reducers/listitems';
+import Logout from '../components/Logout';
 
 const Main = () => {
     const accessToken = useSelector(store => store.user.accessToken);
@@ -51,9 +52,13 @@ const Main = () => {
             {listitemsItems.map(list => (
                 <div key={list._id}>{list.message}</div>
             ))}
+             <Logout />
         </div>
+       
         <div className="photo"></div>
+        
         </div>
+       
         
     );
 };
