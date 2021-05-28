@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 // MAIN PAGE
 export const Container = styled.div`
@@ -9,6 +9,7 @@ export const Container = styled.div`
   height: 100%;
   width: 100%;
   margin-bottom: 80px;
+  overflow: hidden;
   @media (min-width: 768px) {
     flex-direction: row;
     height: 60%;
@@ -153,14 +154,14 @@ export const Form = styled.form`
 `;
 
 export const InputMessage = styled.textarea`
-  border: 1px solid #F780B1;
+  border: 1px solid #f780b1;
   padding: 10px;
   outline: none;
   margin-bottom: 10px;
-  background-color: #F2F3FF;
+  background-color: #f2f3ff;
   ::placeholder {
-    color: #F780B1;
-    opacity: 1; 
+    color: #f780b1;
+    opacity: 1;
   }
   :focus {
     border: 2px solid #f780b1;
@@ -195,7 +196,6 @@ export const SentMessageText = styled.p`
   margin: 0;
   font-weight: 600;
 `;
-
 
 // JOKE PAGE
 export const Logo = styled.img`
@@ -255,7 +255,7 @@ export const Punchline = styled.h3`
   font-weight: 400;
   color: #83868e;
   text-align: center;
-  padding-bottom: 20px
+  padding-bottom: 20px;
 `;
 
 export const ImageContainer = styled.div`
@@ -337,7 +337,6 @@ export const ErrorMessage = styled.p`
   position: absolute;
   bottom: 35%;
 `;
-
 
 export const EyeButton = styled.button`
   background-color: transparent;
