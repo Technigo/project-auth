@@ -21,10 +21,10 @@ We didn't have many problems. The few ones we had we sorted out quite quickly by
 
 ## View it live
 
-Backend: https://jokeio.herokuapp.com/
-Frontend: https://jokeio.netlify.app/
+* Backend: https://jokeio.herokuapp.com/
+* Frontend: https://jokeio.netlify.app/
 
 ## Project made by
 
-Jessika Hage (https://github.com/jessika-hage)
-Laima Duhovnaja (https://github.com/leelalaim)
+* Jessika Hage (https://github.com/jessika-hage)
+* Laima Duhovnaja (https://github.com/leelalaim)
