@@ -35,17 +35,13 @@ const Register = () => {
     fetch(API_REGISTER, options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
-          console.log("if");
           batch(() => {
             dispatch(user.actions.setUsername(data.username));
             dispatch(user.actions.setAccessToken(data.accessToken));
             dispatch(user.actions.setErrors(null));
           });
         } else {
-          console.log("else");
-          console.log(data);
           dispatch(user.actions.setErrors(data));
         }
       });
