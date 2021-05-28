@@ -45,7 +45,7 @@ const Index = () => {
           dispatch(thoughts.actions.setErrors(data));
         }
       });
-  }, [thoughtsItems, accessToken, dispatch]);
+  }, [accessToken, dispatch]);
 
   const onButtonClick = (e) => {
     e.preventDefault();
@@ -67,12 +67,15 @@ const Index = () => {
   return (
     <>
       <div className="thought-wrapper">
-        <form>
+        <form className="thought-form">
+          <div className="pink-circle"></div>
+          <div className="blue-circle"></div>
+          <div className="green-circle"></div>
           <input
             className="thought-input"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="New thought"
+            placeholder="What's on your mind?"
           />
           <button className="thought-button" onClick={onButtonClick}>
             Send
