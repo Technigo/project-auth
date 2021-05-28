@@ -5,21 +5,21 @@ import { useHistory, Link } from "react-router-dom";
 import user from "../reducers/user";
 import { API_URL } from "../reusables/urls";
 import { Footer } from "../components/Footer";
-import { 
-  Container, 
-  StartContainer, 
-  Header, 
-  Button, 
-  MessageContainer, 
-  ReceivedMessageContainer, 
-  IconContainer, 
-  Heart, 
-  MessageTitle, 
-  Message, 
-  Form, 
-  InputMessage, 
-  MessageButton } from '../components/StylingPages';
-
+import {
+  Container,
+  StartContainer,
+  Header,
+  Button,
+  MessageContainer,
+  ReceivedMessageContainer,
+  IconContainer,
+  Heart,
+  MessageTitle,
+  Message,
+  Form,
+  InputMessage,
+  MessageButton,
+} from "../components/StylingPages";
 
 export const Main = () => {
   const [userMessage, setUserMessage] = useState("");
@@ -76,8 +76,10 @@ export const Main = () => {
 
         <MessageContainer>
           <IconContainer>
-          <i class="far fa-envelope"></i>
-          <Heart><i class="fas fa-heart"></i></Heart>
+            <i class="far fa-envelope"></i>
+            <Heart>
+              <i class="fas fa-heart"></i>
+            </Heart>
           </IconContainer>
           <ReceivedMessageContainer>
             <MessageTitle>Message from previous user:</MessageTitle>
@@ -94,7 +96,7 @@ export const Main = () => {
               onChange={(e) => setUserMessage(e.target.value)}
             ></InputMessage>
             <MessageButton type="submit" onClick={() => setMode("usermessage")}>
-              send
+              send me
             </MessageButton>
           </Form>
         </MessageContainer>
