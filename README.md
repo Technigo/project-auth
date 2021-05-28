@@ -1,14 +1,41 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+For this week's project, we're going to tie all the skills we've learnt so far to build an API with authentication to implement a registration flow, and a frontend with forms to register, sign in, and view some content once the user is logged in.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+Below follows what we have implemented in this project.
+
+### Backend 
+- Created a User model with properties username, password and accessToken using mongoose
+- Set up endpoints for register, login and authentication of a user (endpoint giving access to "secret" content if the user is registered as a member)
+- The authenticated endpoint returns a status 401 with an error message if a user tries to access it without an access token or an invalid token
+- Validation of user input when creating a new user, which returns error message if the registration fails 
+- We also added a fetch with axios on backend which gets a random picture from Unsplash  
+
+### Frontend
+- Structured pages and components and allocated code accordingly (sign in/up form, main page displaying secret content, sign out button). Added functionality and react hooks, props and styled them with styled components
+- Set up of reducers and slices
+- Stored access token in localStorage, which was saved to Redux store
+- Made use of browserrouter, provider, switch, routes
+- Displayed an error message when the validation of user input when creating a new user fails 
+
 
 ## View it live
 
 * Here's the link to our live fullstack application: https://clever-wright-d2914b.netlify.app
 * Here's the link to our live API: https://project-auth-isma-toha.herokuapp.com/ 
+
+
+### Available paths backend
+"path": "/",
+"methods": "GET"
+
+"path": "/travelinspo",
+"methods": "GET"
+
+"path": "/signup",
+"methods": "POST"
+
+"path": "/signin",
+"methods": "POST"
