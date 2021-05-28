@@ -7,7 +7,24 @@ import { setUser } from './user'
 export const registerUser = createAsyncThunk(
   'session/register',
   async (userData, thunkAPI) => {
-
+    try {
+      const response = await fetch(API_URL('signup'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...userData })
+      });
+      const data = await response.json();
+      console.log('response', data);
+      if (response.status === 201) {
+        thunkAPI.dispatch(setUser({ ...data.user }));
+        return data.accessToken;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (error) {
+      console.log('Error', error.response.data);
+      thunkAPI.rejectWithValue(error.response.data);
+    }
   }
 );
 
@@ -66,6 +83,19 @@ export const sessionSlice = createSlice({
       state.errorMessage = payload.message;
     },
     [loginUser.pending]: (state) => {
+      state.reqLoading = true;
+    },
+    [registerUser.fulfilled]: (state, { payload }) => {
+      state.reqLoading = false;
+      state.reqSuccess = true;
+      state.accessToken = payload;
+    },
+    [registerUser.rejected]: (state, { payload }) => {
+      state.reqLoading = false;
+      state.reqError = true;
+      state.errorMessage = payload.message;
+    },
+    [registerUser.pending]: (state) => {
       state.reqLoading = true;
     }
   }

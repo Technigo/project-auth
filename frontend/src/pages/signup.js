@@ -7,8 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import toast from 'react-hot-toast';
 
 import Header from '../components/Header';
-import Login from '../components/Login';
-import { loginUser, sessionSelector, clearRequests } from '../store/session';
+import Signup from '../components/Signup';
+import { registerUser, sessionSelector, clearRequests } from '../store/session';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -26,8 +26,8 @@ export default () => {
 
   const { reqSuccess, reqError, errorMessage } = useSelector(sessionSelector);
 
-  const onLogin = (data) => {
-    dispatch(loginUser({ ...data }));
+  const onSignup = (data) => {
+    dispatch(registerUser({ ...data }));
   };
 
   useEffect(() => {
@@ -54,8 +54,8 @@ export default () => {
 
   return (
     <div className={classes.paper}>
-      <Header title="Login" />
-      <Login handleSubmit={onLogin} />
+      <Header title="Sign up" />
+      <Signup handleSubmit={onSignup} />
     </div>
   );
 };

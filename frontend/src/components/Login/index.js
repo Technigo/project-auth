@@ -53,7 +53,7 @@ export default ({ handleSubmit }) => {
         variant="contained"
         color="primary"
         className={classes.submit}>
-        Sign In
+        Login
       </Button>
 
       <Link to="/signup">No account? Sign Up</Link>

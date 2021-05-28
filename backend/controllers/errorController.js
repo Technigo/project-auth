@@ -2,6 +2,12 @@ export default (err, req, res, next) => {
   const messages = [];
   err.type = err.type || 'Error';
 
+  // handle duplication errors
+  if (err.name === 'MongoError' && err.code === 11000) {
+    err.statusCode = err.statusCode || 400;
+    messages.push(`${Object.keys(err.keyValue)} already exists. Please try again.`);
+  }
+
   // handle validation errors
   if (err.name === 'ValidationError') {
     err.statusCode = err.statusCode || 400;

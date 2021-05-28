@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default () => {
+export default ({ title }) => {
   const classes = useStyles();
 
   return (
@@ -21,7 +21,7 @@ export default () => {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Sign in
+        {title}
       </Typography>
     </>
   );
