@@ -71,6 +71,7 @@ const SignUp = () => {
         <label className="input-wrapper">
           <p className="input-label">Name</p>
           <input
+            required
             placeholder="User name"
             className="input-box"
             type="text"
@@ -81,6 +82,7 @@ const SignUp = () => {
         <label className="input-wrapper">
           <p className="input-label">Email</p>
           <input
+            required
             className="input-box"
             placeholder="E-post"
             type="email"
@@ -91,6 +93,7 @@ const SignUp = () => {
         <label className="input-wrapper">
           <p className="input-label">password</p>
           <input
+            required
             className="input-box"
             placeholder="Password"
             type="password"

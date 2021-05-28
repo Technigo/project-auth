@@ -12,15 +12,15 @@ const userSchema = mongoose.Schema({
   username: {
     type: String,
     required: true,
-    minlength: 8,
-    maxlength: 12,
-    unique: true,
+    minlength: [5, 'The username should be at least 5 characters, {VALUE}'],
+    maxlength: [12, 'The username should no more than 12 characters, {VALUE}'],
+    unique: [true, 'The username has already been used'],
     trim: true
   },
   email: {
     type: String,
     required: [true, 'Email is required'],
-    unique: true,
+    unique: [true, 'The email has already been used'],
     trim: true, 
     validate: {
       validator: (value) => {
@@ -69,11 +69,6 @@ app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
-app.get('/secrets', authenticateUser)
-app.get('/secrets', (req, res) => {
-  res.json({ message: 'Here is you VIP ticket' })
-})
-
 app.post('/users', async (req, res) => {
   const { username, email, password } = req.body
 
@@ -101,9 +96,15 @@ app.post('/users', async (req, res) => {
 })
 
 app.post('/sessions', async (req, res) => {
-  const { email, password } = req.body
+  const { usernameOrEmail, password } = req.body
+
   try {
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ 
+      $or: [
+        { email: usernameOrEmail  },
+        { username: usernameOrEmail }
+      ]
+    })
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
         success: true,

@@ -67,6 +67,7 @@ const LogIn = () => {
         <label className="input-wrapper">
           <p className="input-label">password</p>
           <input
+            required
             placeholder="Email"
             className="input-box"
             type="email"
@@ -77,6 +78,7 @@ const LogIn = () => {
         <label className="input-wrapper">
           <p className="input-label">password</p>
           <input
+            required
             placeholder="Password"
             className="input-box"
             type="password"
