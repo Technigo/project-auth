@@ -56,7 +56,8 @@ const LandingPage = () => {
     const options = {
         method: 'POST',
         headers: {
-          'Content-type': 'application/json'
+          'Content-type': 'application/json',
+          Authorization: accessToken
         },
         body: JSON.stringify({ message: newThought })
     }
@@ -65,7 +66,7 @@ const LandingPage = () => {
       .then(data => {
         if (data.success) {
           batch(() => {
-            dispatch(thoughts.actions.setThoughts(newThought))
+            dispatch(thoughts.actions.setThoughts(data.message)) //newThought
             dispatch(thoughts.actions.setErrors(null))
           })
         } else {
@@ -94,7 +95,7 @@ const LandingPage = () => {
             onChange={onNewThoughtChange}
             placeholder="Write your thoughts here, you will contribute to our database 😊">
           </textarea>
-          <button>Post new thought</button>
+          <button onClick={() => dispatch(thoughts.actions.setThoughts(newThought))}>Post new thought</button>
         </form>
        {thoughtsList.map(thought => {
         console.log(thought)
