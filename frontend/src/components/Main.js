@@ -21,6 +21,7 @@ const Main = () => {
   }, [accessToken, history]);
 
   useEffect(() => {
+      if (accessToken) {
       const options = {
           method: 'GET',
           headers: {
@@ -39,8 +40,8 @@ const Main = () => {
                 dispatch(thoughts.actions.setErrors(data));
             }
         })
+    }
   }, [accessToken])
-    console.log(thoughtsItems)
     return (
         <div>
             <div>Main</div>

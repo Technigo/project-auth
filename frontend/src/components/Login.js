@@ -18,7 +18,7 @@ const Login = () => {
   const history = useHistory();
 
   useEffect(() => {
-    //console.log(accessToken)
+
     if (accessToken) {
       history.push("/");
     }
@@ -38,7 +38,6 @@ const Login = () => {
     fetch(API_URL(mode), options)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUsername(data.username));
