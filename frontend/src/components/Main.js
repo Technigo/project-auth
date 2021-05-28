@@ -58,7 +58,6 @@ const Main = () => {
         </Typography>
         </div>
         <Header />
-
         <Box mt={8}>
         </Box>
         </Container>
