@@ -22,6 +22,7 @@ const Secret = () => {
 
   const handleClick = () => {
      dispatch(user.actions.setAccessToken(null))
+     dispatch(user.actions.setUsername(null))
   }
 
   return(
