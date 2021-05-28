@@ -20,6 +20,7 @@ const user = createSlice({
     },
     setReturnInitialState: (store, action) => {
       store.accessToken = action.payload
+      // return initialState
       // store.email = action.payload,
       // store.errors = action.payload
     }

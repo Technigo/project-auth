@@ -60,7 +60,7 @@ const LandingPage = () => {
         )
       })}
       <Link to="/login">To LOGOUT we go</Link>
-      <button onClick={() => onLogout()}>Log out</button>
+      <button onClick={onLogout}>Log out</button>
     </div>
   )
 }
