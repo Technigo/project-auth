@@ -15,11 +15,11 @@ const Index = () => {
   const history = useHistory();
 
   // This useEffect will check is the accessToken in the redux state is null. If it is null then the user will be sent to /login page.
-  // useEffect(() => {
-  //   if (!accessToken) {
-  //     history.push("/login");
-  //   }
-  // });
+  useEffect(() => {
+    if (!accessToken) {
+      history.push("/login");
+    }
+  });
 
   // This useEffect will send a GET request to to the backend and the backend will send a response back with all of the thoughts that are in the database
   useEffect(() => {
