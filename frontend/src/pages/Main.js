@@ -4,16 +4,27 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import secret from '../reducers/secret'
+import user from '../reducers/user'
 import { API_URL } from '../reusable/urls'
 
 const Wrapper = styled.div`
 width: 100%;
 min-height: 100vh;
 display: flex;
+flex-direction: column;
 justify-content: center;
 align-items: center;`
 
-const Title = styled.h1`` 
+const Title = styled.h1`
+background-color: rgb(255,255,255,0.3);
+padding: 40px;` 
+
+const Button = styled.button`
+background: white;
+border: none;
+box-shadow: 2px 2px 1px 2px grey;
+border-radius: 5px;
+`
 
 const Main = () => {
     const history = useHistory();
@@ -27,7 +38,6 @@ const Main = () => {
       }
     }, [accessToken, history]);
 
-    console.log(accessToken)
     useEffect(() => {
         const option = {
             method: 'GET',
@@ -48,10 +58,16 @@ const Main = () => {
         .catch()
     },[accessToken, dispatch])
 
+    const handleClick = () => {
+      dispatch(user.actions.setUser({userID: null, accessToken: null, errors: null}))
+      dispatch(secret.actions.setSecret(null))
+    }
+
  return (
  <Wrapper> 
    <Title>{secrets? secrets.message : "loading..."}</Title> 
-   </Wrapper>
+   <Button onClick={handleClick} >Log out</Button>
+ </Wrapper>
  )
 }
 

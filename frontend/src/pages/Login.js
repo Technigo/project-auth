@@ -43,8 +43,6 @@ border-radius: 5px;
 }
 }`
 
-// const PathLink = styled(Link)``
-
 const Login = () => {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -101,7 +99,6 @@ const Login = () => {
         </Form>
       </Wrapper>
       )
-
 }
 
 export default Login;
