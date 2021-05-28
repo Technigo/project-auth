@@ -216,6 +216,7 @@ export const MainJokeContainer = styled.section`
   }
   @media (min-width: 768px) {
     height: 100vh;
+    justify-content: center;
   }
 `;
 
