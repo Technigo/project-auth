@@ -23,7 +23,7 @@ export const Container = styled.div`
     height: 70%;
   }
   @media (max-height: 668px) {
-    height: 80vh;
+    height: 75vh;
   }
 `;
 
@@ -203,6 +203,16 @@ export const SentMessageText = styled.p`
 `;
 
 // JOKE PAGE
+export const MainJokeContainer = styled.section`
+  height: 85vh;
+  @media (max-height: 668px) {
+    height: 75vh;
+}
+  @media (min-width: 768px) {
+    height: 100vh;
+  }
+`;
+
 export const Logo = styled.img`
   width: 20%;
   margin: 10px;
@@ -251,16 +261,23 @@ export const Setup = styled.h1`
   margin-bottom: 10px;
   text-align: center;
   line-height: 25px;
-  font-size: 22px;
+  font-size: 20px;
   color: #e56d6b;
+  @media (min-width: 768px) {
+    font-size: 22px;
+  }
 `;
 
 export const Punchline = styled.h3`
   margin: 0px;
   font-weight: 400;
   color: #83868e;
+  font-size: 16px;
   text-align: center;
   padding-bottom: 20px;
+  @media (min-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 export const ImageContainer = styled.div`
