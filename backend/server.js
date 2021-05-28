@@ -11,6 +11,13 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
+const inspoSchema = new mongoose.Schema({
+  id: String,
+  urls: String,
+})
+
+const Inspo = mongoose.model('Inspo', inspoSchema)
+
 const User = mongoose.model('User', {
   username: {
     type: String,
@@ -72,8 +79,11 @@ app.get('/travelinspo', async (req, res) => {
   //   })
   //   .catch((error) => res.status(401).json({ success: false, message: 'Not authorized', error }))
 
-    const secretMessage = 'This is a super secret message!'
-    res.status(201).json({ secretMessage });
+    // const secretMessage = 'This is a super secret message!'
+    // res.status(201).json({ secretMessage });
+
+    const inspos = await Inspo.aggregate([{ $sample: { size: 1 } }])
+    res.json(inspos)
 })
 
 app.post('/signup', async (req, res) => {
