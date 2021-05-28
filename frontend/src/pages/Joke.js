@@ -24,11 +24,11 @@ export const Joke = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // useEffect(() => {
-  //   if (!accessToken) {
-  //     history.push("/signin");
-  //   }
-  // }, [accessToken, history]);
+  useEffect(() => {
+    if (!accessToken) {
+      history.push("/signin");
+    }
+  }, [accessToken, history]);
 
   useEffect(() => {
     fetchJoke();
