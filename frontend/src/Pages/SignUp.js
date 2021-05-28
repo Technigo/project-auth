@@ -11,6 +11,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('')
 
   const accessToken = useSelector(store => store.user.accessToken)
+  const errors = useSelector(store => store.user.errors)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -68,6 +69,15 @@ const SignUp = () => {
     <section className="login-container">
       <form className="form-box-left" onSubmit={onFormSubmit}>
         <h1 className="form-heading">Create an account</h1>
+        {errors && 
+          <>
+            {errors.error.code === 11000 
+            ? 
+            <p className="error-message">Email or username is not unique</p>
+            : 
+            <p className="error-message">{errors.message}</p>}
+          </>
+        }
         <label className="input-wrapper">
           <p className="input-label">Name</p>
           <input

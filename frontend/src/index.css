@@ -7,7 +7,6 @@ body {
   padding: 0;
   background-color: #f0f8ff;
   font-family: 'Inter', sans-serif;
-
 }
 
 .login-container {
@@ -34,6 +33,16 @@ body {
   color: #CF0568;
   font-size: 34px;
   margin-top: 50px;
+}
+
+.error-message {
+  background-color: rgba(234, 161, 161, 0.318);
+  padding: 10px 0;
+  text-align: center;
+  width: 50%;
+  font-size: 14px;
+  border-radius: 7px;
+  color: #626365;
 }
 
 .input-wrapper {
@@ -69,6 +78,10 @@ body {
   cursor: pointer;
 }
 
+.form-button:hover {
+  opacity: 0.8;
+}
+
 .sign-out {
   position: absolute;
   right: 20px;
@@ -89,6 +102,24 @@ body {
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.feelings {
+  border: 2px solid #cf0567ae;
+  border-radius: 7px;
+}
+
+.feelings-header {
+  color: #626365;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.feelings-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: left;
+  padding: 0 15px;
 }
 
 @media (max-width: 450px) {

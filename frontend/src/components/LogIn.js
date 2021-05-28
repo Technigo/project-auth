@@ -7,11 +7,12 @@ import user from '../reducers/user'
 import { API_URL } from '../reusable/urls'
 
 const LogIn = () => {
-  const [email, setEmail] = useState('')
+  const [usernameOrEmail, setUsernameOrEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
   const accessToken = useSelector(store => store.user.accessToken)
+  const errors = useSelector(store => store.user.errors)
   const history = useHistory()
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const LogIn = () => {
 
 
   const onEmailChange = (event) => {
-    setEmail(event.target.value)
+    setUsernameOrEmail(event.target.value)
   }
   const onPaswordChange = (event) => {
     setPassword(event.target.value)
@@ -36,7 +37,7 @@ const LogIn = () => {
       headers: {
         'Content-Type': 'application/json'
       }, 
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ usernameOrEmail, password })
     }
     fetch(API_URL('sessions'), options)
       .then(res => res.json())
@@ -56,6 +57,8 @@ const LogIn = () => {
         })
       } else {
           dispatch(user.actions.setErrors(data))
+          setUsernameOrEmail('')
+          setPassword('')
       }
     })
   }
@@ -64,14 +67,15 @@ const LogIn = () => {
     <section className="login-container">
       <form className="form-box-left" onSubmit={onFormSubmit}>
         <h1 className="form-heading">Sign in</h1>
+        {errors && <p className="error-message">{errors.message}</p>}
         <label className="input-wrapper">
           <p className="input-label">password</p>
           <input
             required
-            placeholder="Email"
+            placeholder="Email or username"
             className="input-box"
-            type="email"
-            value={email}
+            type="text"
+            value={usernameOrEmail}
             onChange={onEmailChange}
           />
         </label>

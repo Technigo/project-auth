@@ -1,13 +1,30 @@
 # Project Auth
+The aim of this project was to build an API with authentication to implement a registration flow, and a frontend with forms to sign up, sign in, and view some content once user is logged in.
 
-Replace this readme with your own information about your project.
+# The main requirements included
+Backend:
+- Registration endpoint, to create a new user.
+- Sign-in endpoint, to authenticate a returning user.
+- An authenticated endpoint which only returns content if the `Authorization` header with the user's token was correct.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+Frontend:
+- A registration form.
+- A sign-in form.
+- A page to show the authenticated content from the API.
+- A 'sign out' button that removes the saved access token and redirects the user to the login form.
 
-## The problem
+# Stretch goals included
+- Store data in the database for your authenticated data routes.
+- When registering, display error messages from the API.
+- Improve validations in the backend to ensure unique email addresses, or validate the email address format using a regular expression.
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+# Backend endpoints
+
+- POST '/users': creates a user;
+- POST '/sessions': allows user to log in;
+- POST '/users/:id/feelings': allows user to register emotions of the day
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Backend: 
+Frontend: 
