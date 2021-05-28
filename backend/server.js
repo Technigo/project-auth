@@ -36,7 +36,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ accessToken });
     if (user) {
-      next();
+      next()
     } else {
       res.status(401).json({ message: "Not authenticated" });
     }
@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 //   res.json(thoughts)
 // });
 
-app.get('/thoughts', authenticateUser);
+app.get('/thoughts', authenticateUser)
 app.get('/thoughts', async (req, res) => {
   const { message } = req.body;
   try {
@@ -108,6 +108,7 @@ app.post('/signin', async (req, res) => {
     const user = await User.findOne({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
+        success: true,
         userID: user._id, // lägg till success true etc
         username: user.username,
         accessToken: user.accessToken

@@ -1,8 +1,12 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import HomeScreen from './pages/HomeScreen' 
+import Login from './pages/Login' 
+import Main from './pages/Main'
+import Form from './components/Form'
+
 import credentials from './reducers/credentials'
 
 const reducer = combineReducers({
@@ -13,10 +17,13 @@ const store = configureStore({ reducer })
 
 export const App = () => {
   return (
-    <div>
+    <BrowserRouter>
       <Provider store={store}>
-        <HomeScreen />
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route path="/login" component={Login} />
+        </Switch>
       </Provider>
-    </div>
+    </BrowserRouter>
   )
 }

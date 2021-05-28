@@ -11,18 +11,17 @@ const credentials = createSlice({
     },
     reducers: {
         setUsername: (store, action) => {
-            console.log("name was set ^^")
             store.username = action.payload
         },
         setAccessToken: (store, action) => {
-            console.log(action)
-            console.log("funkar denna")
-            console.log(action.payload)
             store.accessToken = action.payload
-            console.log(store.accessToken)
         },
         setError: (store, action) => {
             store.error = action.payload
+        },
+        logOut: (store, action) => {
+            store.username = null
+            store.accessToken = null
         }
     }
 })
@@ -60,19 +59,41 @@ export const authenticate = (username, password, mode) => {
             },
             body: JSON.stringify({ username, password })
         })
-        .then(res => {
-            if (!res.ok) {
-                throw Error(res.statusText)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.accessToken)
+            if (data.success) {
+                
+                batch(() => {
+                    dispatch(credentials.actions.setAccessToken(data.accessToken))
+                    dispatch(credentials.actions.setUsername(data.username))
+                    dispatch(credentials.actions.setError(null))
+                })
             } else {
-                return res.json()
+                dispatch(credentials.actions.setError(data))
             }
         })
-        .then(items => batch(() => {
-            dispatch(credentials.actions.setAccessToken(items))
-            dispatch(credentials.actions.setUsername(items))
-        }))
-        .catch(error => console.log(error))
+        .catch()
+            
+            
+            
+        
     }
 }
 
 export default credentials
+
+
+
+/*.then(res => {
+    if (!res.ok) {
+        dispatch(credentials.actions.setError(res.status))
+        throw Error(res.statusText)
+    } else {
+        return res.json()
+    }
+})
+.then(items => batch(() => {
+    dispatch(credentials.actions.setAccessToken(items.accessToken))
+    dispatch(credentials.actions.setUsername(items.username))
+}))*/

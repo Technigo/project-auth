@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import HomeScreen from './pages/HomeScreen' 
+import HomeScreen from './pages/Login' 
 import credentials from './reducers/credentials'
 import Form from './components/Form'
 

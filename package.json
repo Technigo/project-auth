@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "crypto": "^1.0.1"
+    "crypto": "^1.0.1",
+    "react-router-dom": "^5.2.0"
   }
 }

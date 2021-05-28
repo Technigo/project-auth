@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { authenticate } from '../reducers/credentials'
+
+import Button from './Button'
 const Form = () => {
 
   const dispatch = useDispatch()
@@ -33,26 +35,22 @@ const Form = () => {
     dispatch(authenticate(username, password, mode))
   }
 
-  console.log(username)
-
   return (
     <form onSubmit={onFormSubmit}>
-        <label>Username</label>
-        <input type='text' value={username} onChange={onUsernameChange} />
-        <label>Password</label>
-        <input type='password' value={password} onChange={onPasswordChange} />
-        <button
-            type='submit'
-            onClick={() => setMode('signin')}
-        >
-            Sign In
-        </button>
-        <button
-          type='submit'
-          onClick={() => setMode('signup')}
-        >
-            Sign Up
-        </button>
+      <label>Username</label>
+      <input type='text' value={username} onChange={onUsernameChange} />
+      <label>Password</label>
+      <input type='password' value={password} onChange={onPasswordChange} />
+      <Button 
+        text='Sign in'
+        type='submit'
+        onClick={() => setMode('signin')}
+      />
+      <Button 
+        text='Sign Up'
+        type='submit'
+        onClick={() => setMode('signup')}
+      />
     </form>
   )
 }
