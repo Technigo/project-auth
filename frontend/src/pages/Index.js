@@ -47,9 +47,9 @@ const Index = () => {
   }, [accessToken]);
   return (
     <>
-      <div className='thought-wrapper'>
+      <div className="thought-wrapper">
         {thoughtsItems.map((thought) => (
-          <div classname='thought-container' key={thought._id}>
+          <div className="thought-container" key={thought._id}>
             <p>{thought.message}</p>
           </div>
         ))}
