@@ -1,0 +1,16 @@
+.footer-container {
+  position: absolute;
+  top: 670px;
+  right: 15px;
+}
+
+.footer-text {
+  font-size: 10px;
+}
+
+@media (min-width: 1200px) {
+  .footer-container {
+    top: 720px;
+    right: 45px;
+  }
+}

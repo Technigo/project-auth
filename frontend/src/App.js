@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Main from './components/Main'
 import Register from './components/Register'
+import Footer from './components/Footer'
 
 import user from './reducers/user'
 
@@ -19,8 +20,9 @@ export const App = () => {
       <Provider store={store}>
         <Switch>
           <Route exact path="/mainpage" component={Main} />
-          <Route path="/register" component={Register} />
+          <Route path="/" component={Register} />
         </Switch>
+        <Footer/> 
       </Provider>
     </BrowserRouter>
   )
