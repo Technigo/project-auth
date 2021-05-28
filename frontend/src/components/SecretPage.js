@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import styled from 'styled-components/macro'
 
-import { logout } from '../reducers/user'
+// import { logout } from '../reducers/user'
 import user from '../reducers/user'
 
 const Secret = () => {
