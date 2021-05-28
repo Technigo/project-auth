@@ -7,13 +7,17 @@ const HomePage = () => {
   return (
     <MainContainer>
       <SubContainer>
-        <Header>Welcome</Header>
-        <Text>Would you like to know our super secret?</Text>
+        <Header>
+          Welcome
+        </Header>
+        <Text>
+          Would you like to know our super secret?
+        </Text>
         <ButtonContainer>
           <Link to="/login">
-          <Button>
-            Yes!
-          </Button>
+            <Button>
+              Yes!
+            </Button>
           </Link>
         </ButtonContainer>
       </SubContainer>

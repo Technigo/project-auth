@@ -1,9 +1,9 @@
 import styled from 'styled-components/macro'
 
 export const MainContainer  = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `
 
 export const SubContainer = styled.div`
@@ -17,19 +17,19 @@ export const SubContainer = styled.div`
   margin: 60px auto;
   padding: 10px;
   background-color: rgba(244,244,244,0.5); 
-   @media (min-width: 768px) {
+  @media (min-width: 768px) {
     max-width: 650px;
     margin: 100px auto;
-}
+  }
 `
 
 export const Header = styled.h1`
   margin-top: 40px;
   font-size: 24px;
   text-align: center;
-    @media (min-width: 768px) {
-      font-size: 30px;
-    }
+  @media (min-width: 768px) {
+    font-size: 30px;
+  }
 `
 
 export const Text = styled.p`

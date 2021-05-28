@@ -9,7 +9,6 @@ import { MainContainer, Header, Form, Label, InputField, Text, SecondaryButtonCo
 
 const Register = () => {
   const [username, setUsername] = useState('')
-  // const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState(null)
 
@@ -35,13 +34,12 @@ const Register = () => {
       },
       body: JSON.stringify({ username, password }) 
     }
-  fetch (API_URL(mode), options)
+    fetch (API_URL(mode), options)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUsername(data.username))
-            // dispatch(user.actions.setEmail(data.email))
             dispatch(user.actions.setAccessToken(data.accessToken))
             dispatch(user.actions.setErrors(null))
           })
@@ -54,48 +52,50 @@ const Register = () => {
 
   return (
     <MainContainer>
-    <Form onSubmit={onFormSubmit}>
-      <Header>
-        Register to be a VIP!
-      </Header>
-      <InputWrapper>
-      <Label htmlFor="username">Username:</Label> 
-        <InputField
-          id='username'
-          type='text' 
-          minLength= "2"
-          maxLength= "20"
-          required
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      <Label htmlFor="password">Password:</Label> 
-        <InputField
-          id='password'
-          type='password'
-          minLength= "8"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          />
+      <Form onSubmit={onFormSubmit}>
+        <Header>
+          Register to be a VIP!
+        </Header>
+        <InputWrapper>
+          <Label htmlFor="username">Username:</Label> 
+            <InputField
+              id='username'
+              type='text' 
+              minLength= "2"
+              maxLength= "20"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          <Label htmlFor="password">Password:</Label> 
+            <InputField
+              id='password'
+              type='password'
+              minLength= "8"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
         </InputWrapper>
-       {error && <ErrorMessage>{error.message}</ErrorMessage>}
-      <PrimaryButton
-        type='submit'
-        onClick={() => setMode('register')}
-      >
-        Register
-      </PrimaryButton>
-      <SecondaryButtonContainer>
-        <Text>Already registered? </Text>
-        <Link to="/login">
-          <SecondaryButton>
-            Login
-          </SecondaryButton>
-        </Link>
-      </SecondaryButtonContainer>
-    </Form>
-  </MainContainer>
+        {error && <ErrorMessage>{error.message}</ErrorMessage>}
+        <PrimaryButton
+          type='submit'
+          onClick={() => setMode('register')}
+        >
+          Register
+        </PrimaryButton>
+        <SecondaryButtonContainer>
+          <Text>
+            Already registered? 
+          </Text>
+          <Link to="/login">
+            <SecondaryButton>
+              Login
+            </SecondaryButton>
+          </Link>
+        </SecondaryButtonContainer>
+      </Form>
+    </MainContainer>
   )
 }
 

@@ -31,7 +31,7 @@ const Login = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password }) //add email later
+      body: JSON.stringify({ username, password })
     }
     fetch (API_URL(mode), options)
       .then(res => res.json())
@@ -53,10 +53,10 @@ const Login = () => {
     <MainContainer>
       <Form onSubmit={onFormSubmit}>
         <Header>
-        Who's our secret VIP?
+          Who's our secret VIP?
         </Header>
         <InputWrapper>
-        <Label htmlFor="username">Username:</Label> 
+          <Label htmlFor="username">Username:</Label> 
             <InputField
               id='username'
               type='text' 
@@ -74,9 +74,9 @@ const Login = () => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              />
+            />
         </InputWrapper>
-         {error && <ErrorMessage>{error.message}</ErrorMessage>}
+        {error && <ErrorMessage>{error.message}</ErrorMessage>}
         <PrimaryButton
           type='submit'
           onClick={() => setMode('login')}
@@ -84,7 +84,9 @@ const Login = () => {
           Login
         </PrimaryButton>
         <SecondaryButtonContainer>
-          <Text>Register as a VIP? </Text>
+          <Text>
+            Register as a VIP? 
+          </Text>
           <Link to="/register">
             <SecondaryButton>
               Register
