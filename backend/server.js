@@ -8,9 +8,9 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
-const Thought = mongoose.model('Thought', {
-  message: String
-});
+// const Thought = mongoose.model('Thought', {
+//   message: String
+// });
 
 const User = mongoose.model('User', {
   username: {
@@ -28,20 +28,20 @@ const User = mongoose.model('User', {
   }
 });
 
-const authenticateUser = async (req, res, next) => {
-  const accessToken = req.header('Authorization');
+// const authenticateUser = async (req, res, next) => {
+//   const accessToken = req.header('Authorization');
 
-  try {
-    const user = await User.findOne({ accessToken });
-    if (user) {
-      next();
-    } else {
-      res.status(401).json({ success: false, message: 'Not authorized' });
-    }
-  } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid request', error });
-  }
-}
+//   try {
+//     const user = await User.findOne({ accessToken });
+//     if (user) {
+//       next();
+//     } else {
+//       res.status(401).json({ success: false, message: 'Not authorized' });
+//     }
+//   } catch (error) {
+//     res.status(400).json({ success: false, message: 'Invalid request', error });
+//   }
+// }
 
 const port = process.env.PORT || 8080
 const app = express()
@@ -53,23 +53,23 @@ app.get('/', (req, res) => {
   res.send('Hello world')
 });
 
-app.get('/thoughts', authenticateUser);
-app.get('/thoughts', async (req, res) => {
-  const thoughts = await Thought.find();
-  res.json({ success: true, thoughts});
-});
+// app.get('/thoughts', authenticateUser);
+// app.get('/thoughts', async (req, res) => {
+//   const thoughts = await Thought.find();
+//   res.json({ success: true, thoughts});
+// });
 
-app.post('/thoughts', authenticateUser);
-app.post('/thoughts', async (req, res) => {
-  const { message } = req.body;
+// app.post('/thoughts', authenticateUser);
+// app.post('/thoughts', async (req, res) => {
+//   const { message } = req.body;
 
-  try {
-    const newThought = await new Thought({ message }).save();
-    res.json({ success: true, newThought});
-  } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid request', error });
-  }
-});
+//   try {
+//     const newThought = await new Thought({ message }).save();
+//     res.json({ success: true, newThought});
+//   } catch (error) {
+//     res.status(400).json({ success: false, message: 'Invalid request', error });
+//   }
+// });
 
 // or '/users' or '/register'
 app.post('/signup', async (req, res) => {
