@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import { useSelector } from 'react-redux'
 
 const Form = styled.form`
   display: flex;
@@ -54,7 +55,15 @@ const SignUpButton = styled.button`
   }
 `
 
+const ErrorMessage = styled.p`
+  font-size: 22px;
+  font-weight: 700;
+  color: #072d32;
+`
+
 const SignUpForm = ({ onFormSubmit, username, setUsername, password, setPassword, setMode }) => {
+  const error = useSelector(store => store.user.errors)
+
   return (
     <Form onSubmit={onFormSubmit}>
       <SubContainer>
@@ -73,6 +82,9 @@ const SignUpForm = ({ onFormSubmit, username, setUsername, password, setPassword
           onChange={(e) => setPassword(e.target.value)} 
         ></InputField>
       </SubContainer>
+
+      {error && <ErrorMessage>{error.message}</ErrorMessage>}
+
       <SignUpButton type="submit" onClick={() => setMode('signup')}>SIGN UP</SignUpButton>
     </Form>
   )
