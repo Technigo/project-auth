@@ -36,9 +36,8 @@ const Register = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-
-        if (data) {
-          console.log("if data");
+        if (data.success) {
+          console.log("if");
           batch(() => {
             dispatch(user.actions.setUsername(data.username));
             dispatch(user.actions.setAccessToken(data.accessToken));
@@ -48,8 +47,11 @@ const Register = () => {
           console.log("else");
           dispatch(user.actions.setErrors(data));
         }
-      })
-      .catch((error) => console.log(error));
+      });
+
+    setUsername("");
+    setEmail("");
+    setPassword("");
   };
 
   return (
