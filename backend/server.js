@@ -95,7 +95,7 @@ app.post("/thoughts", async (req, res) => {
     const newThought = await new Thought({ message }).save();
     res.json(newThought);
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error });
+    res.status(400).json({ message: "Invalid request", success: false, error });
   }
 });
 
@@ -120,7 +120,7 @@ app.post("/signup", async (req, res) => {
       accessToken: newUser.accessToken,
     });
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error });
+    res.status(400).json({ message: "Invalid request", success: false, error });
   }
 });
 
@@ -142,7 +142,7 @@ app.post("/signin", async (req, res) => {
       res.status(404).json({ message: "User not found" });
     }
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error });
+    res.status(400).json({ message: "Invalid request", success: false, error });
   }
 });
 
