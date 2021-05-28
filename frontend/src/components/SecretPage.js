@@ -21,7 +21,7 @@ const Secret = () => {
 
 
   const handleClick = () => {
-     dispatch(logout());
+     dispatch(user.actions.setAccessToken(null))
   }
 
   return(
@@ -32,7 +32,8 @@ const Secret = () => {
         <Button
           type = 'submit'
           //onClick={handleClick()}
-          onClick={() => dispatch(logout())}
+          // onClick={() => dispatch(logout())}
+          onClick={handleClick}
           >
           Sign out
         </Button>
@@ -41,7 +42,7 @@ const Secret = () => {
   )
 }
 
-export default Secret;
+export default Secret
 
 const Wrapper = styled.div`
   display: flex;
