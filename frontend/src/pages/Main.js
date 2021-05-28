@@ -19,7 +19,7 @@ import {
   Form,
   InputMessage,
   MessageButton,
-  SentMessageText
+  SentMessageText,
 } from "../components/StylingPages";
 
 export const Main = () => {
@@ -32,11 +32,11 @@ export const Main = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // useEffect(() => {
-  //   if (!accessToken) {
-  //     history.push("/signin");
-  //   }
-  // }, [accessToken, history]);
+  useEffect(() => {
+    if (!accessToken) {
+      history.push("/signin");
+    }
+  }, [accessToken, history]);
 
   useEffect(() => {
     fetch(API_URL("usermessage"))
@@ -98,10 +98,16 @@ export const Main = () => {
               value={userMessage}
               onChange={(e) => setUserMessage(e.target.value)}
             ></InputMessage>
-            {messageSent ? <MessageButton type="submit" onClick={() => setMode("usermessage")}>
-              send me
-            </MessageButton> 
-            : <SentMessageText>MESSAGE SENT!</SentMessageText>}
+            {messageSent ? (
+              <MessageButton
+                type="submit"
+                onClick={() => setMode("usermessage")}
+              >
+                send me
+              </MessageButton>
+            ) : (
+              <SentMessageText>MESSAGE SENT!</SentMessageText>
+            )}
           </Form>
         </MessageContainer>
       </Container>
