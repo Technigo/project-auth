@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 1200px;
 }
 
 .thought-form {
@@ -18,10 +19,10 @@
 }
 
 .thought-input {
-  height: 120px;
+  min-height: 120px;
   padding: 10px;
-  border: hidden;
   resize: none;
+  border: hidden;
   font-size: 16px;
   background-color: #fff;
 }
@@ -33,10 +34,10 @@
 .thought-button {
   width: 120px;
   margin-top: 20px;
-  font-size: 16px;
   padding: 12px;
   border: none;
   border-radius: 25px;
+  font-size: 16px;
   color: #fff;
   background-color: #83c3ca;
   cursor: pointer;
@@ -47,19 +48,25 @@
 }
 
 .thought-container {
-  width: 300px;
-  height: 50px;
+  width: 320px;
+  min-height: 60px;
   margin-top: 30px;
-  padding: 25px;
+  padding: 15px;
+  flex-wrap: wrap;
+  word-wrap: break-word;
   border-radius: 8px;
   font-size: 16px;
   background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-p {
+.thought-container:last-child {
+  margin-bottom: 30px;
+}
+
+.thought-p {
   margin-top: 0;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 @media (min-width: 400px) {
@@ -68,41 +75,63 @@ p {
   }
 
   .thought-container {
-    width: 350px;
+    width: 370px;
   }
 }
 
-@media (min-width: 1024px) {
-  .t-pink-circle {
+@media (min-width: 1200px) {
+  .thought-pink-circle {
     position: absolute;
+    width: 180px;
+    height: 180px;
     top: 200px;
     left: 300px;
-    width: 180px;
-    height: 180px;
     border-radius: 50%;
     background: linear-gradient(#fff, #d9afd9);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
   }
 
-  .t-blue-circle {
+  .thought-blue-circle {
     position: absolute;
-    top: 80px;
-    left: 450px;
     width: 120px;
     height: 120px;
+    top: 80px;
+    left: 450px;
     border-radius: 50%;
     background: linear-gradient(#fff, #86e1eb);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
   }
 
-  .t-green-circle {
+  .thought-green-circle {
     position: absolute;
-    top: 60px;
-    right: 400px;
     width: 180px;
     height: 180px;
+    top: 60px;
+    right: 400px;
     border-radius: 50%;
     background: linear-gradient(#fff, #80d0c7);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .thought-purple-circle {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 200px;
+    right: 380px;
+    border-radius: 50%;
+    background: linear-gradient(#fff, #c186c4);
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .thought-dark-purple-circle {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    top: 350px;
+    right: 450px;
+    border-radius: 50%;
+    background: linear-gradient(#fff, #a86caa);
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
   }
 }
