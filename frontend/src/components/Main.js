@@ -58,7 +58,8 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: "24px",
     color: "#4B0082",
-    marginBottom: "40px"
+    marginBottom: "40px",
+    paddingLeft: "5px"
   },
   button: {
     marginTop: "10px"
