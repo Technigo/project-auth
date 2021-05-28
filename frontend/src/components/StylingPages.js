@@ -79,11 +79,11 @@ export const Button = styled.button`
 export const MessageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   width: 100%;
   height: 60%;
   align-items: center;
   @media (min-width: 768px) {
+    justify-content: center;
     height: 100%;
   }
 `;
