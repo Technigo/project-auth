@@ -64,6 +64,10 @@ const RegisterText = styled.p`
 const RegisterLink = styled(Link)`
   text-decoration: none;
   color: #6d6875;
+
+  &:hover, &:focus {
+    color: #b5838d;
+  }
 `
 
 const ErrorMessage = styled.p`
@@ -99,8 +103,7 @@ const SignInForm = ({ onFormSubmit, username, setUsername, password, setPassword
       <SignInButton type="submit" onClick={() => setMode('signin')}>SIGN IN</SignInButton>
 
       <RegisterText>
-        Not a user? 
-        <RegisterLink to="/signup">Register here</RegisterLink> 
+        Not a user? <RegisterLink to="/signup">Register here</RegisterLink> 
       </RegisterText>
   </Form>
   )
