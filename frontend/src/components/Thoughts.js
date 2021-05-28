@@ -22,6 +22,24 @@ export const Thoughts = () => {
         }
     }, [accessToken, history]);
 
+    //     const onThoughtSubmit = (event) => {
+	// 	event.preventDefault();
+
+	// 	const options = {
+	// 		method: 'POST',
+	// 		headers: {
+	// 			Authorization: accessToken,
+	// 		},
+	// 		body: JSON.stringify({ message: messageNew }),
+	// 	};
+
+	// 	fetch(API_URL, options)
+	// 		.then((res) => res.json())
+	// 		.then(() => fetchMessageList())
+	// 		.then(() => setMessageNew(''))
+	// 		.catch((err) => console.error(err));
+	// };
+
 
 	useEffect(() => {
 		const options = {

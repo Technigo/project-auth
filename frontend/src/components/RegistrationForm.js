@@ -43,7 +43,6 @@ export const RegistrationForm = () => {
                         dispatch(user.actions.setErrors(null));
                     });
                 } else {
-                    // setErrorMessage(data.message);
                     console.log('nej')
                 }
             })
@@ -83,7 +82,6 @@ export const RegistrationForm = () => {
                 </button>
             </div>          
             </form>
-            
         </Main>
     )
 } 
@@ -108,7 +106,7 @@ h1{
 }
 
 form{
-    displa: flex;
+    display: flex;
     flex-direction: column;
     border: 2px solid green;
     background-color: #c5d2e6;
@@ -131,6 +129,4 @@ button{
     background-color: #e2e6c5;
     cursor: pointer;
 }
-
-
 `
