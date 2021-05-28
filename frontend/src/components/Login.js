@@ -12,6 +12,8 @@ const Login = () => {
   const [mode, setMode] = useState(null);
 
   const accessToken = useSelector(store => store.user.accessToken);
+  const error = useSelector(store => store.user.errors)
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -62,6 +64,9 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+      <div>
+        {error && <p>{error.message}</p>}
+      </div>
       <button type="submit" onClick={() => setMode("signin")}> Sign in</button>
       <button type="submit" onClick={() => setMode("signup")}> Sign up</button>
     </form>
