@@ -9,6 +9,7 @@ import thoughts from '../reducers/thoughts'
 const Main = () => {
 
   const accessToken = useSelector(store => store.user.accessToken);
+  const thoughtsItems = useSelector(store => store.thoughts.items)
  
   const dispatch = useDispatch()
   const history = useHistory(); 
@@ -23,11 +24,11 @@ const Main = () => {
       const options = {
           method: 'GET',
           headers: {
-              'Authorization': accessToken
+              Authorization: accessToken
           }
       }
-      fetch(API_URL('thoughts', options))
-        .then(res => res.json)
+      fetch(API_URL('thoughts'), options)
+        .then(res => res.json())
         .then(data => {
             if (data.success) {
                 batch(() => {
@@ -39,12 +40,18 @@ const Main = () => {
             }
         })
   }, [accessToken])
-
+    console.log(thoughtsItems)
     return (
         <div>
             <div>Main</div>
-            <Link to='/login'>Login</Link>
+            {thoughtsItems.map(thought => (
+                <div key={thought._id}>
+                    {thought.message}
+                </div>
+            ))}
         </div>
+
+        
     )
 }
 
