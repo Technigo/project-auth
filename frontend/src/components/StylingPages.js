@@ -9,7 +9,6 @@ export const Container = styled.div`
   height: 100%;
   width: 100%;
   margin-bottom: 80px;
-  overflow: hidden;
   @media (min-width: 768px) {
     flex-direction: row;
     height: 60%;
