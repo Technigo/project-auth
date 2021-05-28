@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { batch, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import user from "../reducers/user";
 import thoughts from "../reducers/thoughts";
 
 import "./IndexStyle.css";
@@ -44,7 +43,7 @@ const Index = () => {
           dispatch(thoughts.actions.setErrors(data));
         }
       });
-  }, [accessToken]);
+  }, [accessToken, dispatch]);
   return (
     <>
       <div className="thought-wrapper">
