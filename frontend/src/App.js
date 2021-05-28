@@ -25,6 +25,7 @@ export const App = () => {
     <BrowserRouter>
       <Provider store={store}>
         <Switch>
+          <Route exact path='/' component={RegistrationForm} />
           <Route path='/registration' component={RegistrationForm} />
           <Route exact path='/thoughts' component={Thoughts} /> 
         </Switch>
@@ -33,3 +34,4 @@ export const App = () => {
     </>
   )
 }
+
