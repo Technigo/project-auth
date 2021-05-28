@@ -49,8 +49,8 @@ const Page = () => {
         return 'Cool, you should try some bungee jumping!';
       case 'surprised': 
         return 'Why so surprised? Well well, surprise!';
-      case 'curious': 
-        return 'What should we explore today?'
+      default: 
+        return 'What should we explore today?';
     }
   }
 
@@ -60,10 +60,10 @@ const Page = () => {
         <>
           <h1 className="form-heading">Hello {name}! How are you feeling today?</h1>
           <div>
-            {feelingsArray.map((item) => {
+            {feelingsArray.map((item, index) => {
               return (
                 <button
-                  key={item}
+                  key={`key-${index}`}
                   className="form-button"
                   value={item}
                   onClick={onButtonClick}
@@ -81,7 +81,7 @@ const Page = () => {
           <h2>{onFeelingsRegistred(feelings)}</h2>
           <p>All of your feelings so far:</p>
           <div>
-            {feelingsHistory.map((feeling) => <p>{feeling}</p>)}
+            {feelingsHistory.map((feeling, index) => <p key={`key-${index}`}>{feeling}</p>)}
           </div>
         </div>
 

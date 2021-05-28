@@ -1,14 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const user = createSlice({
-  name: "user", 
-  initialState: {
+const initialState = localStorage.getItem('user') 
+  ? {
+    userId: JSON.parse(localStorage.getItem('user')).userId,
+    username: JSON.parse(localStorage.getItem('user')).username,
+    accessToken: JSON.parse(localStorage.getItem('user')).accessToken,
+    feelings: [],
+    errors: null
+  } 
+  : {
     userId: null,
     username: null,
     accessToken: null,
     feelings:[], 
     errors: null
-  }, 
+  }
+
+const user = createSlice({
+  name: "user", 
+  initialState, 
   reducers: {
     setUsername: (store, action) => {
       store.username = action.payload

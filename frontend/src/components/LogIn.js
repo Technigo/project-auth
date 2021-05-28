@@ -47,6 +47,12 @@ const LogIn = () => {
             dispatch(user.actions.setUserId(data.userId))
             dispatch(user.actions.setAccessToken(data.accessToken))
             dispatch(user.actions.setErrors(null))
+
+            localStorage.setItem('user', JSON.stringify({
+              userId: data.userId,
+              username: data.username,
+              accessToken: data.accessToken
+            }))
         })
       } else {
           dispatch(user.actions.setErrors(data))
@@ -79,8 +85,8 @@ const LogIn = () => {
           />
         </label>
         <div className="form-buttons-container">
-          <button type="submit" className="form-button">Sing in</button>
-          <button type="button" className="form-button" onClick={() => history.push('/signup')}>Sing up</button>
+          <button type="submit" className="form-button">Sign in</button>
+          <button type="button" className="form-button" onClick={() => history.push('/signup')}>Sign up</button>
         </div>
       </form>
       <div className="form-box-right">

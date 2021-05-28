@@ -50,8 +50,13 @@ const SignUp = () => {
             dispatch(user.actions.setUsername(data.username))
             dispatch(user.actions.setUserId(data.userId))
             dispatch(user.actions.setAccessToken(data.accessToken))
-            //dispatch(user.actions.setFellings(data.feelings))
             dispatch(user.actions.setErrors(null))
+
+            localStorage.setItem('user', JSON.stringify({
+              userId: data.userId,
+              username: data.username,
+              accessToken: data.accessToken
+            }))
           })
         } else {
           dispatch(user.actions.setErrors(data))
@@ -94,7 +99,7 @@ const SignUp = () => {
           />
         </label>
         <div className="form-buttons-container">
-          <button type="submit" className="form-button">Sing up</button>
+          <button type="submit" className="form-button">Sign up</button>
         </div>
       </form>
       <div className="form-box-right">
