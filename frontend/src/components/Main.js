@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import { Accordion, AccordionDetails, AccordionSummary, Typography, Container, Button } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useHistory } from 'react-router-dom';
 
-import { logout } from '../reducers/user'
+import user from '../reducers/user'
 
 const font = "'PT Sans', sans-serif"
 
@@ -58,12 +59,20 @@ const useStyles = makeStyles((theme) => ({
 const Main = () =>  {
   const accessToken = useSelector(store => store.user.accessToken);
   const dispatch = useDispatch();
+  const history = useHistory()
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  useEffect(() => {
+    if (!accessToken) {
+      history.push('/')
+    }
+  }, [accessToken, history])
 
 
   return (
@@ -145,7 +154,8 @@ const Main = () =>  {
         <Button
         variant="contained"
         type="submit"
-        onClick={() => dispatch(logout())}
+        onClick={() => 
+          dispatch(user.actions.logout())}
         >Log out</Button>
     </div>
   );

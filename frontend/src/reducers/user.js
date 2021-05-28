@@ -7,6 +7,7 @@ const user = createSlice({
         accessToken: null,
         errors: null
     },
+    // actions 
     reducers: {
         setUsername: (store, action) => {
             store.username = action.payload;
@@ -18,19 +19,13 @@ const user = createSlice({
             store.errors = action.payload;
         },
         logout: (state, action) => {
-            state.login.accessToken = null;
+            console.log("Logging out")
+            state.accessToken = null;
             state.user = {}
-            // localStorage.removeItem('accessToken')
         },
     }
 
-
 });
 
-export const logout = () => {
-    return (dispatch) => {
-      dispatch(user.actions.setAccessToken({ accessToken: null }))
-    }
-  }
 export default user;
 
