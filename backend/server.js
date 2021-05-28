@@ -5,18 +5,16 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints'
 
-// import { UNSPLASH_KEY } from './keys'
+import { UNSPLASH_KEY } from './keys'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
-const inspoSchema = new mongoose.Schema({
-  id: String,
-  urls: String,
-})
-
-const Inspo = mongoose.model('Inspo', inspoSchema)
+// const Inspo = mongoose.model('Inspo', {
+//   id: String,
+//   urls: String
+// })
 
 const User = mongoose.model('User', {
   username: {
@@ -82,8 +80,8 @@ app.get('/travelinspo', async (req, res) => {
     // const secretMessage = 'This is a super secret message!'
     // res.status(201).json({ secretMessage });
 
-    // const inspos = await Inspo.aggregate([{ $sample: { size: 1 } }])
-    // res.json(inspos)
+    // const inspo = await Inspo.aggregate([{ $sample: { size: 1 } }])
+    // res.json(inspo)
 })
 
 app.post('/signup', async (req, res) => {

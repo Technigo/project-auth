@@ -90,7 +90,7 @@ const MainPage = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data) // REMOVE
-        dispatch(travelInspo.actions.setTravelInspo(data.secretMessage))  //data.image
+        dispatch(travelInspo.actions.setTravelInspo(data))  //data.image
       })
   }, [accessToken, dispatch])
   
