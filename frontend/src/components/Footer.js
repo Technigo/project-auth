@@ -12,7 +12,7 @@ const PurpleFooter = styled.footer`
   width: 100%;
   height: 80px;
   margin: 0;
-  position: absolute;
+  position: fixed;
   bottom: 0;
 `;
 

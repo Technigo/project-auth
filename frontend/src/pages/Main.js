@@ -19,22 +19,24 @@ import {
   Form,
   InputMessage,
   MessageButton,
+  SentMessageText
 } from "../components/StylingPages";
 
 export const Main = () => {
   const [userMessage, setUserMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [messageSent, setMessageSent] = useState(true);
   const [mode, setMode] = useState("");
   const accessToken = useSelector((store) => store.user.accessToken);
   const username = useSelector((store) => store.user.username);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  useEffect(() => {
-    if (!accessToken) {
-      history.push("/signin");
-    }
-  }, [accessToken, history]);
+  // useEffect(() => {
+  //   if (!accessToken) {
+  //     history.push("/signin");
+  //   }
+  // }, [accessToken, history]);
 
   useEffect(() => {
     fetch(API_URL("usermessage"))
@@ -59,6 +61,7 @@ export const Main = () => {
           console.log(message);
         } else {
           setUserMessage("");
+          setMessageSent(false);
         }
       })
       .catch();
@@ -76,9 +79,9 @@ export const Main = () => {
 
         <MessageContainer>
           <IconContainer>
-            <i class="far fa-envelope"></i>
+            <i className="far fa-envelope"></i>
             <Heart>
-              <i class="fas fa-heart"></i>
+              <i className="fas fa-heart"></i>
             </Heart>
           </IconContainer>
           <ReceivedMessageContainer>
@@ -95,9 +98,10 @@ export const Main = () => {
               value={userMessage}
               onChange={(e) => setUserMessage(e.target.value)}
             ></InputMessage>
-            <MessageButton type="submit" onClick={() => setMode("usermessage")}>
+            {messageSent ? <MessageButton type="submit" onClick={() => setMode("usermessage")}>
               send me
-            </MessageButton>
+            </MessageButton> 
+            : <SentMessageText>MESSAGE SENT!</SentMessageText>}
           </Form>
         </MessageContainer>
       </Container>

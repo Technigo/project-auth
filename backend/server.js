@@ -30,13 +30,14 @@ const User = mongoose.model("User", {
   username: {
     type: String,
     required: [true, 'You need to enter a username'],
-    unique: [true, 'Username is already taken'],
+    unique: [true, "user taken"],
     minlength: [5, 'Your username needs to be min 5 characters'],
     maxlength: [15, 'Your username can be max 15 characters'],
   },
   email: {
     type: String,
     required: [true, 'You need to enter an email'],
+    unique: [true, "email taken"],
     trim: true,
     validate: {
       validator: (value) => {
@@ -130,6 +131,13 @@ app.post("/signup", async (req, res) => {
       accessToken: newUser.accessToken,
     });
   } catch (error) {
+    if (error.code === 11000) {
+      if (error.keyValue.username) {
+      res.status(400).json({ success: false, message: "Username already taken, sorry! :)", error });
+      } else if (error.keyValue.email) {
+        res.status(400).json({ success: false, message: "Email already taken, sorry! :)", error });
+      }
+    }
     res.status(400).json({ success: false, message: "Invalid request", error });
   }
 });

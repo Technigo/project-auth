@@ -64,6 +64,7 @@ export const SignUp = () => {
                 dispatch(user.actions.setErrors(null));
               });
             } else {
+              console.log(data)
               handleErrors(data);
             }
             setPassword("");
@@ -76,7 +77,14 @@ export const SignUp = () => {
 
   const handleErrors = (error) => {
     const errorType = error.error.errors;
-    if (errorType.username) {
+    if (error.error.code === 11000) {
+      if (error.error.keyValue.username) {
+        setErrorMessage(error.error.message)
+      } else if (error.error.keyValue.email) {
+        setErrorMessage(error.error.message)
+      }
+      setErrorMessage(error.message)
+    } else if (errorType.username) {
       setErrorMessage(errorType.username.message);
     } else if (errorType.name) {
       setErrorMessage(errorType.name.message);

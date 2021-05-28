@@ -87,7 +87,7 @@ export const ReceivedMessageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 15px;
-  border-bottom: 1px solid #f780b1;
+  border-bottom: 2px solid #f780b1;
   @media (min-width: 768px) {
     padding: 20px 0;
   }
@@ -153,10 +153,15 @@ export const Form = styled.form`
 `;
 
 export const InputMessage = styled.textarea`
-  border: 2px solid #d8d8d8;
+  border: 1px solid #F780B1;
   padding: 10px;
   outline: none;
   margin-bottom: 10px;
+  background-color: #F2F3FF;
+  ::placeholder {
+    color: #F780B1;
+    opacity: 1; 
+  }
   :focus {
     border: 2px solid #f780b1;
   }
@@ -182,6 +187,13 @@ export const MessageButton = styled.button`
     color: #6970f7;
     background-color: #f2f3ff;
   }
+`;
+
+export const SentMessageText = styled.p`
+  font-size: 14px;
+  color: #6970f7;
+  margin: 0;
+  font-weight: 600;
 `;
 
 
