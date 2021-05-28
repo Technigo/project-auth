@@ -66,24 +66,24 @@ app.get('/', (req, res) => {
 
 app.get('/travelinspo', authenticateUser)
 app.get('/travelinspo', async (req, res) => {
-  // const axios = require('axios')
+  const axios = require('axios')
 
-  // const config = {
-  //   method: 'get',
-  //   url: `https://api.unsplash.com/photos/random?client_id=${UNSPLASH_KEY}&query=travel nature`,
-  // }
-  // await axios(config)
-  //   .then((response) => {
-  //     const image = response.data.urls.small
-  //     res.send({ success: true, image })
-  //   })
-  //   .catch((error) => res.status(401).json({ success: false, message: 'Not authorized', error }))
+  const config = {
+    method: 'get',
+    url: `https://api.unsplash.com/photos/random?client_id=${UNSPLASH_KEY}&query=travel nature`,
+  }
+  await axios(config)
+    .then((response) => {
+      const image = response.data
+      res.send({ success: true, image })
+    })
+    .catch((error) => res.status(401).json({ success: false, message: 'Not authorized', error }))
 
     // const secretMessage = 'This is a super secret message!'
     // res.status(201).json({ secretMessage });
 
-    const inspos = await Inspo.aggregate([{ $sample: { size: 1 } }])
-    res.json(inspos)
+    // const inspos = await Inspo.aggregate([{ $sample: { size: 1 } }])
+    // res.json(inspos)
 })
 
 app.post('/signup', async (req, res) => {
