@@ -5,8 +5,6 @@ import styled from 'styled-components/macro'
 
 import user from '../reducers/user'
 
-import Button from '../components/Button'
-
 const SecretPage = () => {
   const dispatch = useDispatch()
 
@@ -36,14 +34,19 @@ const SecretPage = () => {
         src='https://assets4.lottiefiles.com/private_files/lf30_Xtzj7X.json' 
         background='transparent'
         speed='1'
-        style={{width: '300x', height: '300px'}}
+        style={{
+          width: '300x',
+          height: '300px'
+        }}
         loop 
-        autoplay>
+        autoplay
+      >
       </lottie-player>
-      <Button
+      <ButtonOne
         onClick={onButtonClick}
-        text='LOG OUT'
-      />
+      >
+        LOG OUT
+      </ButtonOne>
     </Main>
   )
 }
@@ -58,4 +61,15 @@ const Main = styled.main`
 `
 const Title = styled.h1`
   font-size: 48px;
+`
+const ButtonOne = styled.button`
+  padding: 10px;
+  margin: 20px;
+  border-radius: 15px;
+  border: none;
+  background-color: #B4D5F0;
+  color: ;
+  box-shadow: 0px 8px 15px rgba(12, 20, 80, 0.5);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
 `

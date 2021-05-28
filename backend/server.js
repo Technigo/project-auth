@@ -66,12 +66,6 @@ app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
-/* app.get('/secret', authenticateUser)
-app.get('/secret', async (req, res) => {
-res.json(secret)
-});  */
-
-//signup
 app.post('/signup', async (req, res) => {
   const {
     username,
@@ -96,11 +90,11 @@ app.post('/signup', async (req, res) => {
     res.status(400).json({
       success: false,
       message: 'Invalid request',
-      error })
+      error
+    })
   }
 })
 
-//login
 app.post('/signin', async (req, res) => {
   const {
     username,
@@ -108,7 +102,9 @@ app.post('/signin', async (req, res) => {
   } = req.body
 
   try {
-    const user = await User.findOne({ username })
+    const user = await User.findOne({
+      username
+    })
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
