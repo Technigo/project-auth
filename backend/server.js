@@ -15,13 +15,13 @@ mongoose.Promise = Promise
 const User = mongoose.model('User', {
   username: {
     type: String,
-    required: true, 
+    required: [true, 'Message is required!'],
     unique: true 
   }, 
   password: {
     type: String,
-    required: true,
-    minlength: 8, // add error message
+    required: [true, 'Message is required!'],
+    minlength: [8, 'Password must be a minimum of 8 characters!'],
   }, 
   accessToken: {
     type: String, 
@@ -40,7 +40,7 @@ const authenticateUser = async (req, res, next) => {
       res.status(401).json({ success: false, message: 'Not authenticated' })
     }
   } catch (error) {
-    res.status(400).json({ success: false, message: 'invalid request', error})
+    res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 }
 
@@ -51,17 +51,19 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-// Start defining your routes here
 app.get('/', (req, res) => {
   res.send(listEndpoints(app))
 })
 
+// Restricted endpoint - the user's accessToken must be included in the GET request from the frontend
 app.get('/secret', authenticateUser)
 app.get('/secret', async (req, res) => {
   const secretMessage = 'YOU are our secret VIP!'
-  res.json({ success: true, secretMessage})
+  res.json({ success: true, secretMessage })
 })
 
+// POST request to register new user
+// This endpoint expects a name and password in the body from the POST request from the Frontend
 app.post('/register', async (req, res) => {
   const { username, password } = req.body
 
@@ -78,15 +80,16 @@ app.post('/register', async (req, res) => {
       accessToken:newUser.accessToken
     })
   } catch(error) {
-    res.status(400).json({ success: false, message: 'invalid request', error})
+    res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
 
+// Endpoint to login for users that have already registered 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body
 
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username })
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
@@ -94,17 +97,14 @@ app.post('/login', async (req, res) => {
         userID: user._id,
         username: user.username,
         accessToken: user.accessToken
-      });
+      })
     } else {
-      res.status(404).json({ success: false, message: 'User not found' });
+      res.status(404).json({ success: false, message: 'User not found' })
     }
   } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid request', error });
+    res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
 
 // Start the server
-app.listen(port, () => {
-  // eslint-disable-next-line
-  console.log(`Server running on http://localhost:${port}`)
-})
+app.listen(port, () => {})
