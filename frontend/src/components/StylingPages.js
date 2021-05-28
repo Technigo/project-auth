@@ -82,7 +82,7 @@ export const MessageContainer = styled.div`
   width: 100%;
   height: 60%;
   align-items: center;
-  margin-top: 20px
+  margin-top: 20px;
   @media (min-width: 768px) {
     justify-content: center;
     margin-top: 0;
