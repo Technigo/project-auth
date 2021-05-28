@@ -26,5 +26,5 @@ Frontend:
 
 ## View it live
 
-Backend: 
+Backend: https://moody-test.netlify.app/
 Frontend: 
