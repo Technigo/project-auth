@@ -114,6 +114,7 @@ app.post("/signup", async (req, res) => {
     }).save();
 
     res.json({
+      success: true,
       userID: newUser._id,
       username: newUser.username,
       accessToken: newUser.accessToken,

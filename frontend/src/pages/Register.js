@@ -45,6 +45,7 @@ const Register = () => {
           });
         } else {
           console.log("else");
+          console.log(data);
           dispatch(user.actions.setErrors(data));
         }
       });
