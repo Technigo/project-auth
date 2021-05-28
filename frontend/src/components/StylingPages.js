@@ -10,6 +10,7 @@ export const Container = styled.div`
   position: fixed;
   top: 0;
   @media (min-width: 768px) {
+    position: static;
     height: 100vh;
     margin-bottom: 80px;
     flex-direction: row;
