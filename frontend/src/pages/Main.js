@@ -97,6 +97,8 @@ export const Main = () => {
               aria-multiline="true"
               value={userMessage}
               onChange={(e) => setUserMessage(e.target.value)}
+              maxLength="30"
+              required
             ></InputMessage>
             {messageSent ? (
               <MessageButton

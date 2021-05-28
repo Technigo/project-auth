@@ -18,10 +18,10 @@ from { transform: rotate(-30deg) }
 `;
 
 const Image = styled.img`
-  height: 60%;
+  height: 30%;
   animation: ${rotating} 1s linear infinite alternate-reverse;
   @media (min-width: 600px) {
-    height: 30%;
+    height: 60%;
   }
 `;
 

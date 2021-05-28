@@ -218,7 +218,7 @@ export const MainJokeContainer = styled.section`
 `;
 
 export const Logo = styled.img`
-  width: 20%;
+  width: 30%;
   margin: 0 0 10px 0;
   @media (min-width: 768px) {
     margin-bottom: 20px;
