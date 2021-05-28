@@ -21,25 +21,34 @@ const Secret = () => {
     }, [accessToken, history])
 
     useEffect(() => {
-      const options = {
-        method: 'GET',
-        headers: {
-            Authorization: accessToken
-        }
-      }
-      fetch(API_URL('secret'), options)
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            batch(() => {
-              dispatch(user.actions.setSecretMessage(data.secretMessage))
-              dispatch(user.actions.setErrors(null))
-            })
-          } else {
-            dispatch(user.actions.setErrors(data))
+      if (accessToken) {
+        const options = {
+          method: 'GET',
+          headers: {
+              Authorization: accessToken
           }
-        }) 
+        }
+        fetch(API_URL('secret'), options)
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              batch(() => {
+                dispatch(user.actions.setSecretMessage(data.secretMessage))
+                dispatch(user.actions.setErrors(null))
+              })
+            } else {
+              dispatch(user.actions.setErrors(data))
+            }
+          })
+      } 
     }, [accessToken, dispatch]) 
+
+    const onButtonClick = () => {
+      batch(() => {
+          dispatch(user.actions.setUsername(null));
+          dispatch(user.actions.setAccessToken(null))
+      })
+    }
 
     return (
       <MainContainer>
@@ -61,7 +70,7 @@ const Secret = () => {
             </Anchor>
           </Text>
           <Button 
-            onClick={() => dispatch(user.actions.setLogout())}
+            onClick={onButtonClick}
           >
             Logout
           </Button>

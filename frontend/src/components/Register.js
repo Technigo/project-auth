@@ -60,10 +60,7 @@ const Register = () => {
           <Label htmlFor="username">Username:</Label> 
             <InputField
               id='username'
-              type='text' 
-              minLength= "2"
-              maxLength= "20"
-              required
+              type='text'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -71,8 +68,6 @@ const Register = () => {
             <InputField
               id='password'
               type='password'
-              minLength= "8"
-              required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

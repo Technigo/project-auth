@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
-    username: null,
-    accessToken: null, 
-    errors: null,
-    secretMessage: null,
-}
 const user = createSlice({
     name: 'user',
-    initialState,
+    initialState: { 
+      username: null,
+      accessToken: null, 
+      errors: null,
+      secretMessage: null
+    },
     reducers: {
         setUsername: (store, action) => {
             store.username = action.payload
@@ -21,9 +20,6 @@ const user = createSlice({
         },
         setSecretMessage: (store, action) => {
             store.secretMessage = action.payload
-        },
-        setLogout: (store, action) => {
-            return initialState
         }
     }
 })
