@@ -90,7 +90,7 @@ const MainPage = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data) // REMOVE
-        dispatch(travelInspo.actions.setTravelInspo(data[0].urls))
+        dispatch(travelInspo.actions.setTravelInspo(data.image))
       })
   }, [accessToken, dispatch])
   

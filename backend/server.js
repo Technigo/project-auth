@@ -4,38 +4,12 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints'
-import dotenv from 'dotenv';
 
-import travelData from './data/travel_nature.json'
-
-dotenv.config()
+import { UNSPLASH_KEY } from './keys'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
-
-const inspoSchema = new mongoose.Schema({
-  id: String,
-  urls: String,
-})
-
-const Inspo = mongoose.model('Inspo', inspoSchema)
-
-if (process.env.RESET_DB) {
-  const seedDB = async () => {
-    await Inspo.deleteMany()
-
-    travelData.forEach(async (item) => {
-      const newInspo = new Inspo({
-        id: item.id,
-        urls: item.urls.small
-      })
-      await newInspo.save()
-    })
-  }
-
-  seedDB()
-}
 
 const User = mongoose.model('User', {
   username: {
@@ -85,8 +59,18 @@ app.get('/', (req, res) => {
 
 app.get('/travelinspo', authenticateUser)
 app.get('/travelinspo', async (req, res) => {
-  const inspos = await Inspo.aggregate([{ $sample: { size: 1 } }])
-  res.json(inspos)
+  const axios = require('axios')
+
+  const config = {
+    method: 'get',
+    url: `https://api.unsplash.com/photos/random?client_id=${UNSPLASH_KEY}&query=travel nature`,
+  }
+  await axios(config)
+    .then((response) => {
+      const image = response.data.urls.small
+      res.send({ success: true, image })
+    })
+    .catch((error) => res.status(401).json({ success: false, message: 'Not authorized', error }))
 })
 
 app.post('/signup', async (req, res) => {
