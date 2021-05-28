@@ -36,7 +36,6 @@ const SignInPage = () => {
   const history = useHistory()
 
   useEffect(() => {
-    // redirect user to '/' path if user has accessToken
     if (accessToken) {
       history.push('/')
     }

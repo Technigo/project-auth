@@ -40,7 +40,7 @@ const Heading = styled.h1`
 
 const Image = styled.img`
   border-radius: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `
 
 const SignOutButton = styled.button`
@@ -69,7 +69,6 @@ const MainPage = () => {
   const inspo = useSelector(store => store.travelInspo.inspo) 
 
   useEffect(() => {
-    // redirect user to '/' path
     if (!accessToken) {
       history.push('/signin')
     }
@@ -90,7 +89,6 @@ const MainPage = () => {
     fetch(API_URL('travelinspo'), options)
       .then(res => res.json())
       .then(data => {
-        console.log(data) // REMOVE
         dispatch(travelInspo.actions.setTravelInspo(data[0].urls.small))
       })
   }, [accessToken, dispatch])
