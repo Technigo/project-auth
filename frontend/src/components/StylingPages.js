@@ -21,6 +21,9 @@ export const Container = styled.div`
     width: 60%;
     height: 70%;
   }
+  @media (max-height: 668px) {
+    height: 80vh;
+  }
 `;
 
 // MAIN PAGE - Joke side
