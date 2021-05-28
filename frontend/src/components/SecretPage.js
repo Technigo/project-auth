@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch, batch  } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import styled from 'styled-components/macro'
 
-// import { logout } from '../reducers/user'
 import user from '../reducers/user'
 
 const Secret = () => {
@@ -21,8 +20,10 @@ const Secret = () => {
 
 
   const handleClick = () => {
-     dispatch(user.actions.setAccessToken(null))
-     dispatch(user.actions.setUsername(null))
+    batch(() => {
+      dispatch(user.actions.setAccessToken(null))
+      dispatch(user.actions.setUsername(null))
+    })
   }
 
   return(
@@ -32,10 +33,8 @@ const Secret = () => {
         <SecretText>"Grace Hopper was the first person to create a compiler for a programming language and one of the first programmers of the Harvard Mark I computer, an electro-mechanical computer based on Analytical Engine. Hopper's work with computers started in 1943, when she started working at the Bureau of Ordnance's Computation Project at Harvard where she programmed the Harvard Mark I. Hopper not only programmed the computer, but created a 500-page comprehensive manual for it.Even though Hopper created the manual, which was widely cited and published, she was not specifically credited in it.Hopper is often credited with the coining of the term "bug" and "debugging" when a moth caused the Mark II to malfunction.While a moth was found and the process of removing it called "debugging," the terms were already part of the language of programmers"./Wikipedia</SecretText>
         <Button
           type = 'submit'
-          //onClick={handleClick()}
-          // onClick={() => dispatch(logout())}
           onClick={handleClick}
-          >
+        >
           Sign out
         </Button>
       </Background>
@@ -73,9 +72,17 @@ const Background = styled.div`
     padding: 15px 40px 30px;
   }
 `
+
 const SecretText = styled.p`
   color: white;
-  font-size: 18px;
+  font-size: 15px;
+
+  @media (min-width: 767px){
+    font-size: 18px;
+  }
+  @media (min-width: 1024px){
+    font-size: 18px;
+  }
 `
 const SecretHeader = styled.h2`
   color: white;
@@ -101,12 +108,7 @@ const Button = styled.button`
   :hover {
     background: linear-gradient(90deg, #FC00FF 0%, #006cde 100%);
   }
-  :active {
-    background-color: #006cde;
-  }
-  :visited {
-    color: #FFF;
-  }
+
   @media (min-width: 767px){
     margin: 38px 0 35px;
   }

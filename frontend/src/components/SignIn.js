@@ -152,10 +152,6 @@ const Button = styled.button`
     background-image: linear-gradient(90deg, #FC00FF 0%, #006cde 100%);
   }
 
-  :active {
-    background-color: #006cde;
-  }
-
   @media (min-width: 767px){
     font-size: 19px;
   }

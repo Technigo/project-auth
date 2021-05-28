@@ -16,29 +16,8 @@ const user = createSlice({
     },
     setErrors: (store, action) => {
       store.errors = action.payload
-    },
-    // logout: (store, action) => {
-    //   console.log('hej')
-    //   store.login.accessToken = null
-    //   store.user = {}
-    // }
+    }
   }
-
 })
 
-
-
-// export const logout = () => {
-//   return (dispatch) = {
-//     dispatch(store.actions.setAccessToken({ accessToken: null }))
-//   }
-// }
-
-export const logout = () => {
-  console.log("logout")
-  return (dispatch) => {
-    dispatch(user.actions.setAccessToken({ accessToken: null }))
-    dispatch(user.actions.setUsername(null))
-  }
-}
 export default user
