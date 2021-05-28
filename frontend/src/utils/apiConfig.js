@@ -1,3 +1,3 @@
-const BASE_URL = 'http://localhost:1337'
+const BASE_URL = 'https://auth-api-prj20.herokuapp.com'
 
 export const API_URL = (slug) => `${BASE_URL}/${slug}`;
