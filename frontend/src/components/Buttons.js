@@ -16,12 +16,18 @@ const SubmitButton = styled.button`
   font-family: "Padauk", sans-serif;
   letter-spacing: 1.5px;
   margin-top: 20px;
+  :hover,
+  :focus {
+    color: #f780b1;
+    background-color: transparent;
+    border: 2px solid #f780b1;
+  }
   @media (min-width: 768px) {
     margin-bottom: 17px;
-  };
+  }
   @media (min-width: 1200px) {
     margin-bottom: 14px;
-  }
+  } ;
 `;
 
 const ButtonJoke = styled(SubmitButton)`
@@ -35,15 +41,22 @@ const ButtonJoke = styled(SubmitButton)`
   :hover {
     color: #fff;
     background-color: rgba(229, 109, 107, 0.5);
-    border: 2px solid rgba(255,255,255,0.5);
+    border: 2px solid rgba(255, 255, 255, 0.5);
   }
 `;
 
 export const Button = ({ buttonText, onClick }) => {
-  return <SubmitButton type="submit" onClick = {onClick}>{buttonText}</SubmitButton>;
+  return (
+    <SubmitButton type="submit" onClick={onClick}>
+      {buttonText}
+    </SubmitButton>
+  );
 };
 
 export const JokeButton = ({ buttonText, onClick }) => {
-  return <ButtonJoke type="submit" onClick = {onClick}>{buttonText}</ButtonJoke>;
+  return (
+    <ButtonJoke type="submit" onClick={onClick}>
+      {buttonText}
+    </ButtonJoke>
+  );
 };
-

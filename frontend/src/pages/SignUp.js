@@ -2,22 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import user from "../reducers/user";
+import pic2 from "assets/pic2.jpg";
 import { Loading } from "../components/Loading";
 import { Button } from "components/Buttons";
 import { InputForm } from "components/InputForm";
 import { Footer } from "components/Footer";
-import pic2 from "assets/pic2.jpg";
-import user from "../reducers/user";
 import { API_URL } from "../reusables/urls";
-import { 
-  SignInUpContainer, 
-  FormContainer, 
-  SignInUpForm, 
-  CreateAccount, 
-  ErrorMessageSignUp, 
-  EyeButtonSignUp, 
-  FormImageContainer, 
-  FormImage } from '../components/StylingPages';
+import {
+  SignInUpContainer,
+  FormContainer,
+  SignInUpForm,
+  CreateAccount,
+  ErrorMessageSignUp,
+  EyeButtonSignUp,
+  FormImageContainer,
+  FormImage,
+} from "../components/StylingPages";
 
 export const SignUp = () => {
   const [name, setName] = useState("");
@@ -33,7 +34,6 @@ export const SignUp = () => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log("Checking access token", accessToken);
     if (accessToken) {
       history.push("/");
     }
@@ -64,7 +64,6 @@ export const SignUp = () => {
                 dispatch(user.actions.setErrors(null));
               });
             } else {
-              console.log(data)
               handleErrors(data);
             }
             setPassword("");
@@ -79,11 +78,11 @@ export const SignUp = () => {
     const errorType = error.error.errors;
     if (error.error.code === 11000) {
       if (error.error.keyValue.username) {
-        setErrorMessage(error.error.message)
+        setErrorMessage(error.error.message);
       } else if (error.error.keyValue.email) {
-        setErrorMessage(error.error.message)
+        setErrorMessage(error.error.message);
       }
-      setErrorMessage(error.message)
+      setErrorMessage(error.message);
     } else if (errorType.username) {
       setErrorMessage(errorType.username.message);
     } else if (errorType.name) {

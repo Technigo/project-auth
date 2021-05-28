@@ -3,15 +3,6 @@ import styled, { keyframes } from "styled-components/macro";
 
 import girlLoading from "../assets/girl_loading.png";
 
-export const Loading = ({ loadingText }) => {
-  return (
-    <LoaderContainer>
-      <Title>{loadingText}</Title>
-      <Image src={girlLoading}></Image>
-    </LoaderContainer>
-  );
-};
-
 const rotating = keyframes`
 from { transform: rotate(-30deg) }
   to { transform: rotate(30deg) }
@@ -38,3 +29,12 @@ const Title = styled.h1`
   margin-bottom: 40px;
   color: #6970f7;
 `;
+
+export const Loading = ({ loadingText }) => {
+  return (
+    <LoaderContainer>
+      <Title>{loadingText}</Title>
+      <Image src={girlLoading}></Image>
+    </LoaderContainer>
+  );
+};

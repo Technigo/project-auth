@@ -10,10 +10,13 @@ const PurpleFooter = styled.footer`
   color: white;
   border-radius: 40% 40% 0px 0px / 10px;
   width: 100%;
-  height: 80px;
+  height: 50px;
   margin: 0;
   position: fixed;
   bottom: 0;
+  @media (min-width: 768px) {
+    height: 80px;
+  } ;
 `;
 
 const Text = styled.h3`
@@ -22,19 +25,16 @@ const Text = styled.h3`
   font-weight: 400;
   @media (min-width: 768px) {
     font-size: 18px;
-  }
+  } ;
 `;
 
-const LinkText = styled.p`
+const LinkText = styled.a`
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
   color: #ffffff;
   display: inline;
-  :hover,
-  :focus {
-    color: #f780b1;
-  }
+  margin-left: 3px;
 `;
 
 export const Footer = ({ footerText, linkText, linkTo, onClick }) => {
@@ -42,9 +42,11 @@ export const Footer = ({ footerText, linkText, linkTo, onClick }) => {
     <PurpleFooter>
       <Text>
         {footerText}
-        <Link to={linkTo} onClick={onClick}>
-          <LinkText> {linkText}</LinkText>
-        </Link>
+        <LinkText>
+          <Link to={linkTo} onClick={onClick}>
+            {linkText}
+          </Link>
+        </LinkText>
       </Text>
     </PurpleFooter>
   );

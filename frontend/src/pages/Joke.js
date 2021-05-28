@@ -7,16 +7,16 @@ import logo from "assets/logonew.png";
 import jokepic from "assets/jokepic.jpg";
 import { JokeButton } from "components/Buttons";
 import { Footer } from "components/Footer";
-import { 
+import {
   MainJokeContainer,
-  Logo, 
-  MainContainer, 
-  JokeContainer, 
-  Setup, 
-  Punchline, 
-  ImageContainer, 
-  Image } from '../components/StylingPages';
-
+  Logo,
+  MainContainer,
+  JokeContainer,
+  Setup,
+  Punchline,
+  ImageContainer,
+  Image,
+} from "../components/StylingPages";
 
 export const Joke = () => {
   const [joke, setJoke] = useState([]);
@@ -38,31 +38,30 @@ export const Joke = () => {
     fetch(`https://official-joke-api.appspot.com/random_joke`)
       .then((res) => res.json())
       .then((joke) => setJoke(joke))
-      .catch((err) => console.error(err));
+      .catch((err) => alert(`Error: ${err}`));
   };
 
   return (
     <>
-    <MainJokeContainer>
-      <Logo src={logo}></Logo>
-      <MainContainer>
-        <JokeContainer>
-          <Setup>{joke.setup}</Setup>
-          <Punchline>{joke.punchline}</Punchline>
-        </JokeContainer>
-        <ImageContainer>
-          <Image src={jokepic}></Image>
-          <JokeButton buttonText="Get new joke" onClick={fetchJoke} />
-        </ImageContainer>
-      </MainContainer>
-     
-    </MainJokeContainer> 
-    <Footer
+      <MainJokeContainer>
+        <Logo src={logo}></Logo>
+        <MainContainer>
+          <JokeContainer>
+            <Setup>{joke.setup}</Setup>
+            <Punchline>{joke.punchline}</Punchline>
+          </JokeContainer>
+          <ImageContainer>
+            <Image src={jokepic}></Image>
+            <JokeButton buttonText="Get new joke" onClick={fetchJoke} />
+          </ImageContainer>
+        </MainContainer>
+      </MainJokeContainer>
+      <Footer
         footerText="Tired of our jokes?"
         linkText="Sign Out"
         linkTo="/signin"
         onClick={() => dispatch(user.actions.setLogOut())}
       />
-      </>
+    </>
   );
 };

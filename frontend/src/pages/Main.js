@@ -55,16 +55,12 @@ export const Main = () => {
       body: JSON.stringify({ message: userMessage }),
       headers: { "Content-Type": "application/json" },
     })
-      .then((res) => res.json)
-      .then((message) => {
-        if (message.errors) {
-          console.log(message);
-        } else {
-          setUserMessage("");
-          setMessageSent(false);
-        }
+      .then((res) => res.json())
+      .then(() => {
+        setUserMessage("");
+        setMessageSent(false);
       })
-      .catch();
+      .catch((err) => alert(`Error: ${err}`));
   };
 
   return (

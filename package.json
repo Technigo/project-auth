@@ -5,6 +5,7 @@
     "postinstall": "npm install --prefix backend"
   },
   "dependencies": {
+    "express-list-endpoints": "^5.0.0",
     "regex": "^0.1.1"
   }
 }

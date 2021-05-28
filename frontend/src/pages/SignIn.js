@@ -10,16 +10,16 @@ import { InputForm } from "components/InputForm";
 import { Footer } from "components/Footer";
 import logo from "assets/logonew.png";
 import pic from "assets/pic.jpg";
-import { 
-  SignInUpContainer, 
-  FormContainer, 
-  SignInLogo, 
-  SignInUpForm, 
-  ErrorMessage, 
-  EyeButton, 
-  FormImageContainer, 
-  FormImage } from '../components/StylingPages';
-
+import {
+  SignInUpContainer,
+  FormContainer,
+  SignInLogo,
+  SignInUpForm,
+  ErrorMessage,
+  EyeButton,
+  FormImageContainer,
+  FormImage,
+} from "../components/StylingPages";
 
 export const SignIn = () => {
   const [username, setUsername] = useState("");
@@ -33,7 +33,6 @@ export const SignIn = () => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log("Checking access token", accessToken);
     if (accessToken) {
       history.push("/");
     }
@@ -72,17 +71,17 @@ export const SignIn = () => {
   };
 
   const togglePassword = () => {
-    if (!showPassword) setShowPassword(true)
-    else setShowPassword(false)
+    if (!showPassword) setShowPassword(true);
+    else setShowPassword(false);
   };
 
   return (
     <>
-      {loading && <Loading loadingText="On your way to the jokes.." />}
+      {loading && <Loading loadingText="On your way to the jokes..." />}
       {!loading && (
         <SignInUpContainer>
           <FormContainer>
-              <SignInLogo src={logo}></SignInLogo>
+            <SignInLogo src={logo}></SignInLogo>
             <SignInUpForm onSubmit={handleFormSubmit}>
               <InputForm
                 onChange={(e) => setUsername(e.target.value)}
@@ -99,7 +98,11 @@ export const SignIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
               ></InputForm>
               <EyeButton type="button" onClick={togglePassword}>
-                {showPassword ? <i className="fas fa-eye"></i> : <i className="fas fa-eye-slash"></i>}
+                {showPassword ? (
+                  <i className="fas fa-eye"></i>
+                ) : (
+                  <i className="fas fa-eye-slash"></i>
+                )}
               </EyeButton>
               <ErrorMessage>{errorMessage}</ErrorMessage>
               <Button onClick={() => setMode("signin")} buttonText="sign in" />

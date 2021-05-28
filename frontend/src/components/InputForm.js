@@ -18,7 +18,7 @@ const Input = styled.input`
   color: #6c6c6d;
   :focus {
     border-bottom: 2px solid #f780b1;
-  }
+  };
   @media (min-width: 768px) {
     margin-bottom: 25px;
     :last-of-type {
@@ -28,11 +28,18 @@ const Input = styled.input`
     margin-bottom: 25px;
     :last-of-type {
       margin-bottom: 15px;
-    }
-  }
+    };
+  };
 `;
 
-export const InputForm = ({ id, value, placeholder, onChange, type, minLength, required }) => {
+export const InputForm = ({
+  id,
+  value,
+  placeholder,
+  onChange,
+  type,
+  minLength,
+}) => {
   return (
     <>
       <Label htmlFor={id} aria-label={`Enter your ${id}`}></Label>
@@ -44,7 +51,6 @@ export const InputForm = ({ id, value, placeholder, onChange, type, minLength, r
         placeholder={placeholder}
         onChange={onChange}
         minLength={minLength}
-        // required
       ></Input>
     </>
   );

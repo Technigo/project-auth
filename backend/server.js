@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, {
@@ -12,14 +13,7 @@ mongoose.connect(mongoUrl, {
 });
 mongoose.Promise = Promise;
 
-const UserMessage = mongoose.model("UserMessage", {
-  message: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
-
+// Model for user
 const User = mongoose.model("User", {
   name: {
     type: String,
@@ -30,14 +24,14 @@ const User = mongoose.model("User", {
   username: {
     type: String,
     required: [true, "You need to enter a username"],
-    unique: [true, "user taken"],
+    unique: [true, "User taken"],
     minlength: [5, "Your username needs to be min 5 characters"],
     maxlength: [15, "Your username can be max 15 characters"],
   },
   email: {
     type: String,
     required: [true, "You need to enter an email"],
-    unique: [true, "email taken"],
+    unique: [true, "Email taken"],
     trim: true,
     validate: {
       validator: (value) => {
@@ -50,11 +44,19 @@ const User = mongoose.model("User", {
     type: String,
     required: [true, "You need to choose a password"],
     minlength: [8, "Your password needs to contain min 8 characters"],
-    // maxlength: [15, 'Your password can be max 15 characters']
   },
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
+  },
+});
+
+// Model for when user posts a message
+const UserMessage = mongoose.model("UserMessage", {
+  message: String,
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 
@@ -83,13 +85,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Start defining your routes here
+// Routes
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.json(listEndpoints(app));
 });
 
+// Authenticate user to access all routes when logged in
 app.get("/joke", authenticateUser);
 
+// POST and GET request for  messages
 app.get("/usermessage", authenticateUser);
 app.get("/usermessage", async (req, res) => {
   const userMessage = await UserMessage.find().sort({ createdAt: -1 }).limit(1);
@@ -108,7 +112,7 @@ app.post("/usermessage", async (req, res) => {
   }
 });
 
-// Post request for signing up
+// POST request for signing up
 app.post("/signup", async (req, res) => {
   const { name, username, email, password } = req.body;
 
@@ -132,31 +136,27 @@ app.post("/signup", async (req, res) => {
   } catch (error) {
     if (error.code === 11000) {
       if (error.keyValue.username) {
-        res
-          .status(400)
-          .json({
-            success: false,
-            message: "Username already taken, sorry! :)",
-            error,
-          });
+        res.status(400).json({
+          success: false,
+          message: "Username already taken, sorry! :)",
+          error,
+        });
       } else if (error.keyValue.email) {
-        res
-          .status(400)
-          .json({
-            success: false,
-            message: "Email already taken, sorry! :)",
-            error,
-          });
+        res.status(400).json({
+          success: false,
+          message: "Email already taken, sorry! :)",
+          error,
+        });
       }
     }
     res.status(400).json({ success: false, message: "Invalid request", error });
   }
 });
 
-// Post request for signing in
+// POST request for signing in
 app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
-  console.log(username, password);
+
   try {
     const user = await User.findOne({ username });
 

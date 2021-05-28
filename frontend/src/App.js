@@ -4,11 +4,12 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
-import { Main } from "./pages/Main"
+import user from "reducers/user";
+import { Main } from "./pages/Main";
 import { SignIn } from "pages/SignIn";
 import { SignUp } from "pages/SignUp";
 import { Joke } from "pages/Joke";
-import  user from "reducers/user";
+
 
 const MainContainer = styled.main`
   display: flex;

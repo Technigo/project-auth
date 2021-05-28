@@ -20,5 +20,11 @@ code {
 
 a {
   text-decoration: none;
+  outline: none;
+  border: none;
+  color: #ffffff;
 }
-
+a:focus,
+a:hover {
+  color: #f780b1;
+}

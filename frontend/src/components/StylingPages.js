@@ -33,7 +33,7 @@ export const StartContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 40%;
+  height: 45%;
   width: 100%;
   background-color: #f780b1;
   @media (min-width: 768px) {
@@ -80,7 +80,7 @@ export const MessageContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 60%;
+  height: 55%;
   align-items: center;
   margin-top: 20px;
   @media (min-width: 768px) {
@@ -241,7 +241,6 @@ export const MainContainer = styled.div`
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   @media (min-width: 768px) {
     flex-direction: column;
-    // height: 70%;
     max-width: 75%;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
@@ -326,7 +325,7 @@ export const SignInUpContainer = styled.div`
 `;
 
 export const FormContainer = styled.div`
-  width: 75%;
+  width: 85%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -334,6 +333,7 @@ export const FormContainer = styled.div`
   align-items: center;
   @media (min-width: 768px) {
     height: 100%;
+    width: 75%;
   }
 `;
 
@@ -344,6 +344,12 @@ export const SignInUpForm = styled.form`
   align-items: center;
   width: 100%;
   position: relative;
+  @media (min-width: 768px) {
+    width: 90%;
+  }
+  @media (min-width: 1200px) {
+    width: 85%;
+  }
 `;
 
 export const SignInLogo = styled.img`
@@ -377,6 +383,9 @@ export const EyeButton = styled.button`
   bottom: 59%;
   :hover {
     opacity: 0.8;
+  }
+  :focus {
+    color: #f780b1;
   }
 `;
 
