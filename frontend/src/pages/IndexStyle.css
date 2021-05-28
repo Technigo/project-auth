@@ -5,17 +5,25 @@
   align-items: center;
 }
 
-.thought-input {
+.thought-form {
   display: flex;
-  width: 320px;
-  height: 120px;
+  flex-direction: column;
+  width: 300px;
+  height: 170px;
   margin-top: 30px;
-  padding: 20px;
-  border: hidden;
+  padding: 25px;
   border-radius: 8px;
-  font-size: 18px;
-  background-color: #fff;
+  background: linear-gradient(#f0cdf0, #fff);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.thought-input {
+  height: 120px;
+  padding: 10px;
+  border: hidden;
+  resize: none;
+  font-size: 16px;
+  background-color: #fff;
 }
 
 .thought-input:focus {
@@ -24,7 +32,7 @@
 
 .thought-button {
   width: 120px;
-  font-family: "Source Sans Pro", sans-serif;
+  margin-top: 20px;
   font-size: 16px;
   padding: 12px;
   border: none;
@@ -34,21 +42,67 @@
   cursor: pointer;
 }
 
+.thought-button:hover {
+  background-color: #93d9e0;
+}
+
 .thought-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 320px;
-  height: 120px;
+  width: 300px;
+  height: 50px;
   margin-top: 30px;
-  padding: 20px;
+  padding: 25px;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 16px;
   background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 p {
+  margin-top: 0;
   font-size: 20px;
-  /*color: #817d7d;*/
+}
+
+@media (min-width: 400px) {
+  .thought-form {
+    width: 350px;
+  }
+
+  .thought-container {
+    width: 350px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .t-pink-circle {
+    position: absolute;
+    top: 200px;
+    left: 300px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(#fff, #d9afd9);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .t-blue-circle {
+    position: absolute;
+    top: 80px;
+    left: 450px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(#fff, #86e1eb);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .t-green-circle {
+    position: absolute;
+    top: 60px;
+    right: 400px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(#fff, #80d0c7);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
 }

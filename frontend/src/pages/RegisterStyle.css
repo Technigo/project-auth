@@ -22,8 +22,8 @@
   position: absolute;
   top: -50px;
   left: -50px;
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   background: linear-gradient(#fff, #d9afd9);
 }
@@ -32,8 +32,8 @@
   position: absolute;
   top: -50px;
   left: 100px;
-  width: 120px;
-  height: 120px;
+  width: 115px;
+  height: 115px;
   border-radius: 50%;
   background: linear-gradient(#fff, #86e1eb);
 }
@@ -42,8 +42,8 @@
   position: absolute;
   top: -70px;
   right: -50px;
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   background: linear-gradient(#fff, #80d0c7);
 }
@@ -57,7 +57,7 @@
 }
 
 h2 {
-  color: #817d7d;
+  font-size: 20px;
 }
 
 .input {
@@ -66,8 +66,6 @@ h2 {
   border: hidden;
   border-bottom: 2px solid #d4d1d1;
   font-size: 16px;
-  color: #b8b6b6;
-  cursor: pointer;
 }
 
 .input:focus {
@@ -75,7 +73,6 @@ h2 {
 }
 
 .signup-button {
-  font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   padding: 12px;
   margin-top: 48.5px; /*fixa bättre lösning*/
@@ -116,6 +113,31 @@ a:hover {
 }
 
 @media (min-width: 400px) {
+  .form-container {
+    width: 330px;
+  }
+
+  .pink-circle {
+    top: -50px;
+    left: -50px;
+    width: 180px;
+    height: 180px;
+  }
+
+  .blue-circle {
+    top: -50px;
+    left: 100px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .green-circle {
+    top: -70px;
+    right: -50px;
+    width: 180px;
+    height: 180px;
+  }
+
   .member-container {
     width: 370px;
   }

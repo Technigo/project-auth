@@ -11,7 +11,7 @@
   position: relative;
   overflow: hidden;
   padding: 25px;
-  width: 330px;
+  width: 300px;
   height: 400px;
   background-color: #fff;
   border-radius: 8px;
@@ -22,8 +22,8 @@
   position: absolute;
   top: -50px;
   left: -50px;
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   background: linear-gradient(#fff, #d9afd9);
 }
@@ -32,8 +32,8 @@
   position: absolute;
   top: -50px;
   left: 100px;
-  width: 120px;
-  height: 120px;
+  width: 115px;
+  height: 115px;
   border-radius: 50%;
   background: linear-gradient(#fff, #86e1eb);
 }
@@ -42,8 +42,8 @@
   position: absolute;
   top: -70px;
   right: -50px;
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   background: linear-gradient(#fff, #80d0c7);
 }
@@ -57,7 +57,7 @@
 }
 
 h2 {
-  color: #817d7d;
+  font-size: 20px;
 }
 
 .input {
@@ -66,8 +66,6 @@ h2 {
   border: hidden;
   border-bottom: 2px solid #d4d1d1;
   font-size: 16px;
-  color: #b8b6b6;
-  cursor: pointer;
 }
 
 .input:focus {
@@ -76,7 +74,6 @@ h2 {
 
 .login-button {
   width: 150px;
-  font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   padding: 12px;
   margin-top: 85px;
@@ -102,6 +99,10 @@ h2 {
   border-radius: 8px;
 }
 
+p {
+  font-size: 16px;
+}
+
 a:link {
   color: #fff;
   text-decoration: none;
@@ -116,6 +117,40 @@ a:hover {
 }
 
 @media (min-width: 400px) {
+  .form-container {
+    width: 330px;
+  }
+
+  .pink-circle {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(#fff, #d9afd9);
+  }
+
+  .blue-circle {
+    position: absolute;
+    top: -50px;
+    left: 100px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(#fff, #86e1eb);
+  }
+
+  .green-circle {
+    position: absolute;
+    top: -70px;
+    right: -50px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(#fff, #80d0c7);
+  }
+
   .signup-container {
     width: 370px;
   }

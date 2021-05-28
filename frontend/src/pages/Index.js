@@ -66,20 +66,23 @@ const Index = () => {
 
   return (
     <>
-      <div className="thought-wrapper">
-        <form>
-          <input
-            className="thought-input"
+      <div className='thought-wrapper'>
+        <div className='t-pink-circle'></div>
+        <div className='t-blue-circle'></div>
+        <div className='t-green-circle'></div>
+        <form className='thought-form'>
+          <textarea
+            className='thought-input'
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="New thought"
+            placeholder="What's on your mind?"
           />
-          <button className="thought-button" onClick={onButtonClick}>
+          <button className='thought-button' onClick={onButtonClick}>
             Send
           </button>
         </form>
         {thoughtsItems.map((thought) => (
-          <div className="thought-container" key={thought._id}>
+          <div className='thought-container' key={thought._id}>
             <p>{thought.message}</p>
           </div>
         ))}
