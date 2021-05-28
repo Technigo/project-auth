@@ -4,12 +4,14 @@ import styled, { keyframes } from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
+  height: 85vh;
   width: 100%;
-  margin-bottom: 80px;
+  margin: 0;
+  position: fixed;
+  top: 0;
   @media (min-width: 768px) {
+    height: 100vh;
+    margin-bottom: 80px;
     flex-direction: row;
     height: 60%;
     width: 75%;

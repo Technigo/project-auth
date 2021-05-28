@@ -16,40 +16,40 @@ const UserMessage = mongoose.model("UserMessage", {
   message: String,
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 const User = mongoose.model("User", {
   name: {
     type: String,
     required: [true, "You need to enter a name"],
-    minlength: [1, 'Your name needs to be min 1 character'],
-    maxlength: [15, 'Your name can be max 15 characters']
+    minlength: [1, "Your name needs to be min 1 character"],
+    maxlength: [15, "Your name can be max 15 characters"],
   },
   username: {
     type: String,
-    required: [true, 'You need to enter a username'],
+    required: [true, "You need to enter a username"],
     unique: [true, "user taken"],
-    minlength: [5, 'Your username needs to be min 5 characters'],
-    maxlength: [15, 'Your username can be max 15 characters'],
+    minlength: [5, "Your username needs to be min 5 characters"],
+    maxlength: [15, "Your username can be max 15 characters"],
   },
   email: {
     type: String,
-    required: [true, 'You need to enter an email'],
+    required: [true, "You need to enter an email"],
     unique: [true, "email taken"],
     trim: true,
     validate: {
       validator: (value) => {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
       },
-      message: 'Please, enter a valid email',
+      message: "Please, enter a valid email",
     },
   },
   password: {
     type: String,
-    required: [true, 'You need to choose a password'],
-    minlength: [8, 'Your password needs to contain min 8 characters'],
+    required: [true, "You need to choose a password"],
+    minlength: [8, "Your password needs to contain min 8 characters"],
     // maxlength: [15, 'Your password can be max 15 characters']
   },
   accessToken: {
@@ -66,7 +66,7 @@ const authenticateUser = async (req, res, next) => {
     const userMessage = await UserMessage.findOne({ accessToken });
     if (user) {
       next();
-    } else if(userMessage) {
+    } else if (userMessage) {
       next();
     } else {
       res.status(401).json({ success: false, message: "Not authorized" });
@@ -90,22 +90,21 @@ app.get("/", (req, res) => {
 
 app.get("/joke", authenticateUser);
 
-
 app.get("/usermessage", authenticateUser);
 app.get("/usermessage", async (req, res) => {
   const userMessage = await UserMessage.find().sort({ createdAt: -1 }).limit(1);
   res.json({ success: true, userMessage });
 });
 
-app.post('/usermessage', authenticateUser);
-app.post('/usermessage', async (req, res) => {
+app.post("/usermessage", authenticateUser);
+app.post("/usermessage", async (req, res) => {
   const { message } = req.body;
 
   try {
     const newUserMessage = await new UserMessage({ message }).save();
-    res.json({ success: true, newUserMessage});
+    res.json({ success: true, newUserMessage });
   } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid request', error });
+    res.status(400).json({ success: false, message: "Invalid request", error });
   }
 });
 
@@ -133,9 +132,21 @@ app.post("/signup", async (req, res) => {
   } catch (error) {
     if (error.code === 11000) {
       if (error.keyValue.username) {
-      res.status(400).json({ success: false, message: "Username already taken, sorry! :)", error });
+        res
+          .status(400)
+          .json({
+            success: false,
+            message: "Username already taken, sorry! :)",
+            error,
+          });
       } else if (error.keyValue.email) {
-        res.status(400).json({ success: false, message: "Email already taken, sorry! :)", error });
+        res
+          .status(400)
+          .json({
+            success: false,
+            message: "Email already taken, sorry! :)",
+            error,
+          });
       }
     }
     res.status(400).json({ success: false, message: "Invalid request", error });
@@ -157,7 +168,7 @@ app.post("/signin", async (req, res) => {
         accessToken: user.accessToken,
       });
     } else {
-      res.status(404).json({ message: "User not found" });
+      res.status(404).json({ message: "Your Username / Password is wrong" });
     }
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error });
