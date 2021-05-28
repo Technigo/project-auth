@@ -33,7 +33,7 @@ export const StartContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 50%;
+  height: 40%;
   width: 100%;
   background-color: #f780b1;
   @media (min-width: 768px) {
@@ -81,7 +81,7 @@ export const MessageContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  height: 50%;
+  height: 60%;
   align-items: center;
   @media (min-width: 768px) {
     height: 100%;
@@ -204,10 +204,14 @@ export const SentMessageText = styled.p`
 
 // JOKE PAGE
 export const MainJokeContainer = styled.section`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   height: 85vh;
   @media (max-height: 668px) {
     height: 75vh;
-}
+    margin-top: -40px;
+  }
   @media (min-width: 768px) {
     height: 100vh;
   }
@@ -215,7 +219,7 @@ export const MainJokeContainer = styled.section`
 
 export const Logo = styled.img`
   width: 20%;
-  margin: 10px;
+  margin: 0 0 10px 0;
   @media (min-width: 768px) {
     margin-bottom: 20px;
     width: 120px;

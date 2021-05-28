@@ -8,6 +8,7 @@ import jokepic from "assets/jokepic.jpg";
 import { JokeButton } from "components/Buttons";
 import { Footer } from "components/Footer";
 import { 
+  MainJokeContainer,
   Logo, 
   MainContainer, 
   JokeContainer, 
@@ -23,11 +24,11 @@ export const Joke = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  useEffect(() => {
-    if (!accessToken) {
-      history.push("/signin");
-    }
-  }, [accessToken, history]);
+  // useEffect(() => {
+  //   if (!accessToken) {
+  //     history.push("/signin");
+  //   }
+  // }, [accessToken, history]);
 
   useEffect(() => {
     fetchJoke();
@@ -42,6 +43,7 @@ export const Joke = () => {
 
   return (
     <>
+    <MainJokeContainer>
       <Logo src={logo}></Logo>
       <MainContainer>
         <JokeContainer>
@@ -53,12 +55,14 @@ export const Joke = () => {
           <JokeButton buttonText="Get new joke" onClick={fetchJoke} />
         </ImageContainer>
       </MainContainer>
-      <Footer
+     
+    </MainJokeContainer> 
+    <Footer
         footerText="Tired of our jokes?"
         linkText="Sign Out"
         linkTo="/signin"
         onClick={() => dispatch(user.actions.setLogOut())}
       />
-    </>
+      </>
   );
 };
