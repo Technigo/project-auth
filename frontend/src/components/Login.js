@@ -33,7 +33,8 @@ const Login = () => {
       },
       body: JSON.stringify({
         username,
-        password })
+        password
+      })
     }
 
     fetch(API_URL(mode), options)
@@ -54,11 +55,16 @@ const Login = () => {
   }
 
   return (
-    <Form onSubmit={onFormSubmit}>
-    <Title>Log in! </Title>
+    <Form
+      onSubmit={onFormSubmit}
+    >
+    <Title>
+      Log in!
+    </Title>
       <Label
-        htmlFor='username'>
-          Username
+        htmlFor='username'
+      >
+        Username
       </Label>
       <Input
         id='username'
@@ -68,7 +74,8 @@ const Login = () => {
         onChange={(e) => setUsername(e.target.value)}
       />
       <Label
-        htmlFor='password'>
+        htmlFor='password'
+        >
           Password
       </Label>
       <Input
@@ -80,7 +87,8 @@ const Login = () => {
       />
       <Button
         type='submit'
-        onClick={() => setMode('signin')}>
+        onClick={() => setMode('signin')}
+      >
         LOGIN
       </Button>
     </Form>

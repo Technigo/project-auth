@@ -26,10 +26,12 @@ const SecretPage = () => {
       dispatch(user.actions.setAccessToken(null))
     })
   }
-  
+
   return (
     <Main>
-      <Title>Welcome in!</Title>
+      <Title>
+        Welcome in!
+      </Title>
       <lottie-player
         src='https://assets4.lottiefiles.com/private_files/lf30_Xtzj7X.json' 
         background='transparent'
@@ -39,8 +41,8 @@ const SecretPage = () => {
         autoplay>
       </lottie-player>
       <Button
-      onClick={onButtonClick}
-      text='LOG OUT'
+        onClick={onButtonClick}
+        text='LOG OUT'
       />
     </Main>
   )

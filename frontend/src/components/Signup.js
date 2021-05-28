@@ -31,7 +31,10 @@ const Signup = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password})
+      body: JSON.stringify({
+        username,
+        password
+      })
     }
     fetch(API_URL(mode), options)
       .then(res => res.json())
@@ -57,13 +60,15 @@ const Signup = () => {
 
   return (
     <Form
-      onSubmit={onFormSubmit}>
+      onSubmit={onFormSubmit}
+    >
       <Title>
         Sign up!
       </Title>
       <Label
-        htmlFor='username'>
-          Username
+        htmlFor='username'
+      >
+        Username
       </Label>
       <Input
         id='username'
@@ -75,8 +80,9 @@ const Signup = () => {
         onChange={(e) => setUsername(e.target.value)}
       />
       <Label
-        htmlFor='password'>
-          Password
+        htmlFor='password'
+      >
+        Password
       </Label>
       <Input
         id='password'
@@ -87,7 +93,8 @@ const Signup = () => {
       />
       <Button
         type='submit'
-        onClick={() => setMode('signup')}>
+        onClick={() => setMode('signup')}
+      >
         SIGN UP
       </Button>
     </Form>

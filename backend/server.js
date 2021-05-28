@@ -8,7 +8,11 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(mongoUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+})
 mongoose.Promise = Promise
 
 const User = mongoose.model('User', {
@@ -33,14 +37,21 @@ const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
 
   try {
-    const user = await User.findOne({ accessToken })
+    const user = await User.findOne({
+      accessToken
+    })
     if (user) {
       next()
     } else {
-      res.status(401).json({ message: 'Not authorized' })
+      res.status(401).json({
+        message: 'Not authorized'
+      })
     }
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error })
+    res.status(400).json({
+      message: 'Invalid request',
+      error
+    })
   }
 }
 
@@ -62,7 +73,10 @@ res.json(secret)
 
 //signup
 app.post('/signup', async (req, res) => {
-  const { username, password } = req.body
+  const {
+    username,
+    password
+  } = req.body
 
   try {
     const salt = bcrypt.genSaltSync()
@@ -79,13 +93,19 @@ app.post('/signup', async (req, res) => {
       accessToken: newUser.accessToken
     })
   } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid request', error })
+    res.status(400).json({
+      success: false,
+      message: 'Invalid request',
+      error })
   }
 })
 
 //login
 app.post('/signin', async (req, res) => {
-  const { username, password } = req.body
+  const {
+    username,
+    password
+  } = req.body
 
   try {
     const user = await User.findOne({ username })
@@ -98,13 +118,19 @@ app.post('/signin', async (req, res) => {
         accessToken: user.accessToken
       })
     } else {
-      res.status(401).json({ success: false, message: 'User not found' })
+      res.status(401).json({
+        success: false,
+        message: 'User not found'
+      })
     }
   } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid request', error })
+    res.status(400).json({
+      success: false,
+      message: 'Invalid request',
+      error
+    })
   }
 });
-
 
 app.listen(port, () => {
   // eslint-disable-next-line

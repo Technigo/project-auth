@@ -9,7 +9,9 @@ const SignupPage = () => {
   return (
     <Main>
       <Signup />
-      <Link to='/signin'>
+      <Link
+        to='/signin'
+      >
         <Button
           text='BACK TO LOG IN'
         />

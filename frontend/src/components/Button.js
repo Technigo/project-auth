@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
-const Button = ({ text }) => {
+const Button = ({
+  text
+}) => {
   return (
     <ButtonOne>
       {text}

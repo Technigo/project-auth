@@ -9,7 +9,9 @@ const LoginPage = () => {
   return (
     <Main>
       <Login />
-      <Link to='/signup'>
+      <Link
+        to='/signup'
+      >
         <Button
           text='SIGN UP HERE'
         />

@@ -18,11 +18,23 @@ const store = configureStore({ reducer })
 export const App = () => {
   return (
     <BrowserRouter>
-      <Provider store={store}>
+      <Provider
+        store={store}
+      >
         <Switch>
-          <Route path='/' exact component={SecretPage} />
-          <Route path='/signin' component={LoginPage} />
-          <Route path='/signup' component={SignupPage} />
+          <Route
+            path='/'
+            exact
+            component={SecretPage}
+          />
+          <Route
+            path='/signin'
+            component={LoginPage}
+          />
+          <Route
+            path='/signup'
+            component={SignupPage}
+          />
         </Switch> 
       </Provider>
     </BrowserRouter>
