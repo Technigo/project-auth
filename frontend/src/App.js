@@ -9,7 +9,6 @@ import thoughts from './reducers/thoughts'
 import LandingPage from './pages/LandingPage'
 import Login from './pages/Login'
 
-
 const reducer = combineReducers({
   user: user.reducer,
   thoughts: thoughts.reducer
@@ -17,8 +16,6 @@ const reducer = combineReducers({
 
 const store = configureStore({ reducer })
 
-//           <Signup /> 
-//  If you want to pass a prop use render: ---> render={() =>  }
 export const App = () => {
   return (
     <BrowserRouter>

@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react' 
+import React, { useState, useEffect } from 'react' 
 import { useSelector, useDispatch, batch } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { API_URL } from '../reusable/urls'
 import thoughts from '../reducers/thoughts'
 import user from '../reducers/user'
 
-
 const LandingPage = () => {
+  const [newThought, setNewThought] = useState('')
   const accessToken = useSelector(store => store.user.accessToken)
-  console.log(accessToken)
   const thoughtsList = useSelector(store => store.thoughts.items)
-  console.log(thoughtsList)
+
   const dispatch = useDispatch()
   const history = useHistory()
 
-  // Redirect to signup or login/signin in our case week 20
+  // Redirect to signup or login when there is no accessToken
   useEffect(() => {
     if (!accessToken) {
       history.push('/login')
@@ -30,6 +29,7 @@ const LandingPage = () => {
         Authorization: accessToken
       }
     }
+
     fetch(API_URL('thoughts'), options)
       .then(res => res.json())
       .then(data => {
@@ -39,18 +39,63 @@ const LandingPage = () => {
             dispatch(thoughts.actions.setErrors(null))
           })
         } else {
-          console.log(data)
           dispatch(thoughts.actions.setErrors(data))
         }
       }) 
   }, [accessToken, dispatch])
 
-  const onLogout = () => {
-    dispatch(user.actions.setReturnInitialState(null))
+  const onNewThoughtChange = (e) => {
+    setNewThought(e.target.value)
   }
 
+  //POST new thought - added this on friday!
+  useEffect(() => {
+    const onFormSubmit = (e) => {
+    e.preventDefault()
+
+    const options = {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({ message: newThought })
+    }
+    fetch(API_URL('thoughts'), options)
+      .then(res => res.json()) 
+      .then(data => {
+        if (data.success) {
+          batch(() => {
+            dispatch(thoughts.actions.setThoughts(newThought))
+            dispatch(thoughts.actions.setErrors(null))
+          })
+        } else {
+          dispatch(thoughts.actions.setErrors(data))
+        }
+      })
+    }
+  }, [accessToken, dispatch, newThought])
+
+  const onLogout = () => {
+    dispatch(user.actions.setReturnInitialState()) 
+    dispatch(thoughts.actions.setThoughts([])) // set thoughts items []    
+    localStorage.removeItem('user') // remve user from localStorage 
+  }
+
+  // could not reach onFormSubmit from inside useEffect therefore added this which is not correct ~ work on this! 
   return (
-    <div>
+    <>
+      <form onSubmit={() => dispatch(thoughts.actions.setThoughts(newThought))}> 
+        <label htmlFor="newThought">Write your message here</label>
+          <textarea
+            id="newThought"
+            type="text"
+            maxLength="80"
+            value={newThought}
+            onChange={onNewThoughtChange}
+            placeholder="Write your thoughts here, you will contribute to our database 😊">
+          </textarea>
+          <button>Post new thought</button>
+        </form>
        {thoughtsList.map(thought => {
         console.log(thought)
         return (
@@ -59,9 +104,8 @@ const LandingPage = () => {
         </div>
         )
       })}
-      <Link to="/login">To LOGOUT we go</Link>
       <button onClick={onLogout}>Log out</button>
-    </div>
+    </>
   )
 }
 

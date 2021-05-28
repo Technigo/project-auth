@@ -40,16 +40,14 @@ const User = mongoose.model('User', {
   }
 })
 
-// Middleware function used with cors and express.json(app)
-// Logic of the guard inside of the club / the bartender when you wanna get a drink
+// Middleware function
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization') 
 
   try {
-    const user = await User.findOne({ accessToken }) // lookup by accessToken
+    const user = await User.findOne({ accessToken })
     if (user) {
-      // req.user = user // keep or throw? 
-      next() // ok go ahead/proceed! 
+      next()
     } else {
       res.status(401).json({ success: false, loggedOut: true, message: 'Not authenticated' })
     }
@@ -63,8 +61,7 @@ const app = express()
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
-app.use(express.json()) // app here?
-//app.use(authenticateuser) // use it ALL the time / everywhere add it here. BUT then it would be impossible to actually sign-up
+app.use(express.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
@@ -74,7 +71,6 @@ app.get('/', (req, res) => {
 app.get('/thoughts', authenticateUser)
 app.get('/thoughts/', async (req, res) => {
   const thoughts = await Thought.find()
-  console.log(thoughts)
   res.json({ success: true, thoughts})
 })
 
@@ -83,16 +79,15 @@ app.post('/thoughts/', async (req, res) => {
   const { message } = req.body // destructure message from request body
 
   try {
-    const newThought = await new Thought({ message }).save() // Create a new thought-message
+    const newThought = await new Thought({ message }).save()
     res.json(newThought)
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error }) // If key and value are the same no need to specify both of them. ES6 feature. 
+    res.status(400).json({ message: 'Invalid request', error })
   }
 })
 
-// or call the endpoint:  /user or:  /register
 app.post('/signup', async (req, res) => {
- const { email, password } = req.body  // --> sent from frontend
+ const { email, password } = req.body 
  try {
    const salt = bcrypt.genSaltSync() // initialize salt randomizer
    
@@ -113,12 +108,11 @@ app.post('/signup', async (req, res) => {
 })
  
 // standard to create a POST request to login ---> you are creating a 'session'
-// login
 app.post('/signin', async (req, res) => {
    const { email, password } = req.body
     
    try {
-    const user = await User.findOne({ email }) // lookup by email
+    const user = await User.findOne({ email })
 
       if (user && bcrypt.compareSync(password, user.password)) {
         res.json({
