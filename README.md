@@ -26,5 +26,5 @@ Frontend:
 
 ## View it live
 
-Backend: https://moody-test.netlify.app/
-Frontend: 
+Backend: https://moody-test-technigo.herokuapp.com 
+Frontend: https://moody-test.netlify.app/
