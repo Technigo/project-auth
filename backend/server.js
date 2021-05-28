@@ -4,11 +4,8 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints'
-import dotenv from 'dotenv'
 
-import { UNSPLASH_KEY } from './keys'
-
-dotenv.config()
+// import { UNSPLASH_KEY } from './keys'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
@@ -62,18 +59,21 @@ app.get('/', (req, res) => {
 
 app.get('/travelinspo', authenticateUser)
 app.get('/travelinspo', async (req, res) => {
-  const axios = require('axios')
+  // const axios = require('axios')
 
-  const config = {
-    method: 'get',
-    url: `https://api.unsplash.com/photos/random?client_id=${UNSPLASH_KEY}&query=travel nature`,
-  }
-  await axios(config)
-    .then((response) => {
-      const image = response.data.urls.small
-      res.send({ success: true, image })
-    })
-    .catch((error) => res.status(401).json({ success: false, message: 'Not authorized', error }))
+  // const config = {
+  //   method: 'get',
+  //   url: `https://api.unsplash.com/photos/random?client_id=${UNSPLASH_KEY}&query=travel nature`,
+  // }
+  // await axios(config)
+  //   .then((response) => {
+  //     const image = response.data.urls.small
+  //     res.send({ success: true, image })
+  //   })
+  //   .catch((error) => res.status(401).json({ success: false, message: 'Not authorized', error }))
+
+    const secretMessage = 'This is a super secret message!'
+    res.status(201).json({ secretMessage });
 })
 
 app.post('/signup', async (req, res) => {
