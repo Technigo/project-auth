@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 
 dotenv.config()
-console.log(process.env.MONGO_URL)
+
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
@@ -99,7 +99,6 @@ app.post('/signin', async (req, res) => {
   }
 })
 
-// Start the server
 app.listen(port, () => {
   // eslint-disable-next-line
   console.log(`Server running on http://localhost:${port}`)

@@ -1,13 +1,38 @@
-# Project Auth
+# Project Auth by Julia & Ann-Sofi
 
-Replace this readme with your own information about your project.
+This is a project made with pair programming during the Technigo bootcamp. The assignment was to build an API with authentication to implement a registration flow, and a frontend with forms to register, sign in, and view some content once you're logged in.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+## The project
 
-## The problem
+# Backend
+We started with the backend and it's created using express, mongoose and MongoDB.
+The backend has three endpoints.
+- A POST to create a new user.
+- A POST for an existing user to login.
+- A GET that is only avaliable for an authenticated user with a valid accesstoken.
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
 
-## View it live
+# Frontend
+The frontend is created using React redux, router and styled components. We have a form for Sign In, another for Sign Up and a secret page that the user get access to when they sucessfully sign in or sign up.
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+
+## Tech & Tools used ⛏💻
+
+* Node.js
+* MongoDB
+* Mongoose
+* Express
+* Postman
+* React
+* Redux
+* React router
+* Styled components
+
+
+## View it live ✨
+
+Finished project:
+https://project-authorization-2021.netlify.app/
+
+Backend:
+https://julia-annsofi-secret-api.herokuapp.com/

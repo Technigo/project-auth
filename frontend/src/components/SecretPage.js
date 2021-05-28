@@ -16,6 +16,7 @@ const Secret = () => {
     if (!accessToken) {
       history.push('/signin')
     }
+
   }, [accessToken, history])
 
 

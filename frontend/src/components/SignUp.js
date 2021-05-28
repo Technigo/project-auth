@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 import user from '../reducers/user'
@@ -16,9 +16,7 @@ const SignUpForm = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-
   useEffect (() => {
-    console.log('Checking access token', accessToken)
       if (accessToken) {
         history.push('/secret')
       }
@@ -38,7 +36,6 @@ const SignUpForm = () => {
     fetch(API_URL(status), options)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUsername(data.username))
@@ -49,6 +46,7 @@ const SignUpForm = () => {
           dispatch(user.actions.setErrors(data))
         }
       })
+      .catch()
   }
 
   return (
@@ -73,7 +71,10 @@ const SignUpForm = () => {
       </Form>
       <SignUpText>Already a user? Sign in</SignUpText>
       <Button>
-        <Link to='/signin'>
+        <Link
+          to='/signin'
+          style={{ color: 'white', textDecoration: 'none'}}
+        >
           Sign in
         </Link>
       </Button>
@@ -99,7 +100,6 @@ const Wrapper = styled.div`
     width: 500px;
   }
 `
-
 const Form = styled.form`
   width: 100%;
   display: flex;
@@ -107,7 +107,6 @@ const Form = styled.form`
   align-items: center;
   justify-content: flex-start;
 `
-
 const Header = styled.h2`
   text-align: center;
   color: white;
@@ -118,12 +117,10 @@ const Header = styled.h2`
     font-size: 50px;
   }
 `
-
 const SignUpText = styled.h3`
   color: white;
   text-align: center;
 `
-
 const Input = styled.input`
   width: 100%;
   border-radius: 50px;
@@ -136,7 +133,6 @@ const Input = styled.input`
     font-size: 17px;
   }
 `
-
 const Button = styled.button`
   border-radius: 8px;
   background-color: #006cde;

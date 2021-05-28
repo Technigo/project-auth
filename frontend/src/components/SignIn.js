@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom'
 
 import styled from 'styled-components/macro'
 
@@ -18,7 +18,6 @@ const SignInForm = () => {
   const history = useHistory()
 
   useEffect (() => {
-    console.log('Checking access token', accessToken)
       if (accessToken) {
         history.push('/secret')
       }
@@ -74,13 +73,13 @@ const SignInForm = () => {
       </Form>
       <SignUpText>Not a user yet? Create an account</SignUpText>
       <Button>
-        <Link to='/signup'>
+        <Link
+          to='/signup'
+          style={{ color: 'white', textDecoration: 'none'}}
+        >
           Sign up
         </Link>
       </Button>
-      {/* <Button type='submit' onClick={() => setStatus('signup')}>
-        Sign up
-      </Button> */}
     </Wrapper>
   )
 }
@@ -103,7 +102,6 @@ const Wrapper = styled.div`
     width: 500px;
   }
 `
-
 const Form = styled.form`
   width: 100%;
   display: flex;
@@ -111,7 +109,6 @@ const Form = styled.form`
   align-items: center;
   justify-content: flex-start;
 `
-
 const Header = styled.h2`
   text-align: center;
   color: white;
@@ -122,12 +119,10 @@ const Header = styled.h2`
     font-size: 50px;
   }
 `
-
 const SignUpText = styled.h3`
   color: white;
   text-align: center;
 `
-
 const Input = styled.input`
   width: 100%;
   border-radius: 50px;
@@ -140,7 +135,6 @@ const Input = styled.input`
   font-size: 17px;
 }
 `
-
 const Button = styled.button`
   border-radius: 8px;
   background-color: #006cde;
@@ -152,8 +146,6 @@ const Button = styled.button`
   width: 100%;
   color: #FFF;
   font-size: 17px;
-  // transition: all 1s ease;
-  // transition: 0.3s;
 
   :hover {
     background-color: #FC00FF;

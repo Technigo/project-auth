@@ -17,11 +17,11 @@ const user = createSlice({
     setErrors: (store, action) => {
       store.errors = action.payload
     },
-    logout: (store, action) => {
-      console.log('hej')
-      store.login.accessToken = null
-      store.user = {}
-    }
+    // logout: (store, action) => {
+    //   console.log('hej')
+    //   store.login.accessToken = null
+    //   store.user = {}
+    // }
   }
 
 })
