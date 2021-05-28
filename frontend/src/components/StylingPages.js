@@ -199,7 +199,7 @@ export const SentMessageText = styled.p`
 // JOKE PAGE
 export const Logo = styled.img`
   width: 20%;
-  margin-bottom: 40px;
+  margin: 10px;
   @media (min-width: 768px) {
     margin-bottom: 20px;
     width: 120px;
