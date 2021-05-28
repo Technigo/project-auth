@@ -1,13 +1,17 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+The purpose of this project was to practise creating an API with authentication where the user can register and view content once they are logged in.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+## Project members
+
+Åsa Hildebrand, Linnéa Helén & Katharina Liebig
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+The first thing we did was to create all of the endpoints and the authentication needed for those. Then we created a user model for our database. We used bcrypt and crypto to encrypt the users password. Then we built a frontend with two routes to register or log in and a main page where the secret content is shown. The user has to log in to view and post to the main page. The most challenging part was writing a reducer for adding a new secret. If we had had more time we would have added styling.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+FE: https://secrets-project-auth.netlify.app/login
+
+BE: https://secrets-project-auth.herokuapp.com/
