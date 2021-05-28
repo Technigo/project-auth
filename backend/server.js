@@ -5,8 +5,6 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints'
 
-// import { UNSPLASH_KEY } from './keys'
-
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
@@ -64,24 +62,8 @@ app.get('/', (req, res) => {
 
 app.get('/travelinspo', authenticateUser)
 app.get('/travelinspo', async (req, res) => {
-  // const axios = require('axios')
-
-  // const config = {
-  //   method: 'get',
-  //   url: `https://api.unsplash.com/photos/random?client_id=${UNSPLASH_KEY}&query=travel nature`,
-  // }
-  // await axios(config)
-  //   .then((response) => {
-  //     const image = response.data
-  //     res.send({ success: true, image })
-  //   })
-  //   .catch((error) => res.status(401).json({ success: false, message: 'Not authorized', error }))
-
-    // const secretMessage = 'This is a super secret message!'
-    // res.status(201).json({ secretMessage });
-
-    const inspo = await Inspo.aggregate([{ $sample: { size: 1 } }])
-    res.json(inspo)
+  const inspo = await Inspo.aggregate([{ $sample: { size: 1 } }])
+  res.json(inspo)
 })
 
 app.post('/signup', async (req, res) => {

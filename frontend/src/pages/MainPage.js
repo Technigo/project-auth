@@ -39,7 +39,8 @@ const Heading = styled.h1`
 `
 
 const Image = styled.img`
-
+  border-radius: 5px;
+  margin-bottom: 20px;
 `
 
 const SignOutButton = styled.button`
@@ -90,7 +91,7 @@ const MainPage = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data) // REMOVE
-        dispatch(travelInspo.actions.setTravelInspo(data))  //data.image
+        dispatch(travelInspo.actions.setTravelInspo(data[0].urls.small))
       })
   }, [accessToken, dispatch])
   
