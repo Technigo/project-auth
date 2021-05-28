@@ -1,13 +1,57 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap');
+
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+body {
+  margin: 0 auto;
+  font-family: 'Noto', monospace;
+  background: pink;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boxes-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.username-box {
+  border-radius: 50px;
+}
+
+.password-box {
+  border-radius: 50px;
+  margin-top: 20px;
+}
+
+.signin-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size:large;
+  border-radius: 20px;
+}
+
+.signup-button {
+  border-radius: 20px;
+  font-size:large;
+}
+
+.login-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
 }

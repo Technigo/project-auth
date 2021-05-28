@@ -94,10 +94,10 @@ app.post('/signin', async (req, res) => {
         accessToken: user.accessToken
       })
     } else {
-      res.status(404).json({ success: false, message: 'user not found' })
+      res.status(404).json({ success: false, message: 'User not found' })
     }
   } catch (error) {
-    res.status(400).json({ success: false, message: 'invalid request', error })
+    res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
 

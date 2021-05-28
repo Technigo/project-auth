@@ -9,7 +9,7 @@ import Main from './components/Main'
 import user from './reducers/user'
 import thoughts from './reducers/thoughts'
 
-const reducer = combineReducers({
+const reducer = combineReducers({ 
   user: user.reducer,
   thoughts: thoughts.reducer
 })
