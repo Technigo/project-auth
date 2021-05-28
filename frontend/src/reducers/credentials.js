@@ -61,7 +61,7 @@ export const authenticate = (username, password, mode) => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data.accessToken)
+            console.log(data.error)
             if (data.success) {
                 
                 batch(() => {

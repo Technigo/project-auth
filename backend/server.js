@@ -87,7 +87,8 @@ app.post('/signup', async (req, res) => {
 
     if (newUser) {
       res.json({
-        usedID: newUser._id,
+        success: true,
+        userID: newUser._id,
         username: newUser.username,
         accessToken: newUser.accessToken
       });
@@ -95,9 +96,9 @@ app.post('/signup', async (req, res) => {
     
   } catch(error) {
     if(error.code===11000){
-      res.status(400).json({ error: 'Username already exists', field: error.keyValue })
+      res.status(400).json({ success: false, error: 'Username already exists', field: error.keyValue })
     }
-    res.status(400).json({ message: 'Invalid Request', error })
+    res.status(400).json({ success: false, message: 'Invalid Request', error })
   }
 });
 
@@ -114,10 +115,10 @@ app.post('/signin', async (req, res) => {
         accessToken: user.accessToken
       });
     } else {
-      res.status(404).json({ message: "User not found" });
+      res.status(404).json({ success: false, message: "User not found" });
     }
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error })
+    res.status(400).json({ success: false, message: "Invalid request", error })
   }
 
 })
