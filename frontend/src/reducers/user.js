@@ -34,9 +34,11 @@ const user = createSlice({
 //   }
 // }
 
-// export const logout = () => {
-//   return (dispatch) => {
-//     dispatch(user.actions.setAccessToken({ accessToken: null }))
-//   }
-// }
+export const logout = () => {
+  console.log("logout")
+  return (dispatch) => {
+    dispatch(user.actions.setAccessToken({ accessToken: null }))
+    dispatch(user.actions.setUsername(null))
+  }
+}
 export default user

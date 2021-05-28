@@ -19,8 +19,9 @@ export const App = () => {
    <BrowserRouter>
     <Provider store={store}>
       <Switch>
-        <Route exact path="/" component={Secret}/>
+        <Route exact path="/secret" component={Secret}/>
         <Route path="/signin" component={SignInForm}/>
+        <Route path="/" component={SignInForm}/>
         <Route path="/signup" component={SignUpForm}/>
       </Switch>
     </Provider>

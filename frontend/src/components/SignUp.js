@@ -20,7 +20,7 @@ const SignUpForm = () => {
   useEffect (() => {
     console.log('Checking access token', accessToken)
       if (accessToken) {
-        history.push('/')
+        history.push('/secret')
       }
   }, [accessToken, history])
 
