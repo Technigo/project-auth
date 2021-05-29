@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import cors from 'cors'
+import cors from 'cors' 
 import mongoose from 'mongoose'
 import listEndpoints from 'express-list-endpoints'
 import crypto from 'crypto'
@@ -31,7 +31,7 @@ const User = mongoose.model('User', {
   }
 })
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 3004
 const app = express()
 
 
@@ -89,14 +89,16 @@ app.post('/signup', async (req, res) => {
       username,
       password: bcrypt.hashSync(password, salt)
     }).save()
+
     res.json({
+     success: true,  // new
      userID: newUser._id,
      username: newUser.username,
      accessToken: newUser.accessToken
     })
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error })
-  }
+    res.status(400).json({ success: false, message: 'Invalid request', error })
+  }                          // new
 })
 
 //An endpoint to signin
@@ -108,15 +110,16 @@ app.post('/signin', async (req, res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
+        success:true,  // new
         userId: user._id,
         username: user.username,
         accessToken: user.accessToken
       })
     } else {
-      res.status(404).json({ message: 'User not found' })
-    }
+      res.status(404).json({ success:false, message: 'User not found' })
+    }                          // new
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error })
+    res.status(400).json({ success:false, message: 'Invalid request', error })
   }
 })
 
