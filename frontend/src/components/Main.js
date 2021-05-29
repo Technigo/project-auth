@@ -40,6 +40,7 @@ const Main = () => {
       dispatch(thoughts.actions.setErrors('data'))
     }
   })
+  // eslint-disable-next-line
   }, [accessToken])
 
 const onButtonClick = () => {
