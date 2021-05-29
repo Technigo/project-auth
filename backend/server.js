@@ -80,7 +80,7 @@ app.post('/thoughts/', async (req, res) => {
 
   try {
     const newThought = await new Thought({ message }).save()
-    res.json({ success: true, thoughts })
+    res.json({ success: true, newThought })
   } catch (error) {
     res.status(400).json({ message: 'Invalid request', error })
   }
