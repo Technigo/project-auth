@@ -23,11 +23,12 @@ const Login = () => {
     }
   }, [accessToken, history])
 
-    let errorMessage = ''
+    let loginErrorMessage = ''
+    let emailErrorMessage = ''
     if (errors?.error?.errors?.email?.message) {
-        errorMessage = errors?.error?.errors?.email?.message //email validation
+      emailErrorMessage = errors?.error?.errors?.email?.message //email validation
       } else if (errors?.message) {
-        errorMessage = errors?.message //login failed
+        loginErrorMessage = errors?.message //login failed
     } 
 
   const onFormSubmit = (e) => {
@@ -71,7 +72,7 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {errorMessage && <p>{errorMessage}</p>}
+          {emailErrorMessage && <p>{emailErrorMessage}</p>}
         </label>
         <label>
           Password:
@@ -80,6 +81,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {loginErrorMessage && <p>{loginErrorMessage}</p>}
         </label>
         <button type="submit" onClick={() => setMode('signin')}>Sign in</button>
         <button type="submit" onClick={() => setMode('signup')}>Sign up</button>

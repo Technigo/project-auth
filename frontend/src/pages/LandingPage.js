@@ -50,6 +50,7 @@ const LandingPage = () => {
 
   // POST again: 
   const onFormSubmit = (e) => {
+    console.log('onsubmit')
     e.preventDefault();
     const options = {
       method: "POST",
@@ -65,52 +66,23 @@ const LandingPage = () => {
         if (data.success) {
           console.log(data)
           batch(() => {
-            dispatch(thoughts.actions.setThoughts(data.message)) //newThought // data.message
+            dispatch(thoughts.actions.setThoughts(data.thoughts)) //newThought // data.message
             dispatch(thoughts.actions.setErrors(null))
           })
         } else {
           dispatch(thoughts.actions.setErrors(data))
         }
       })
-    //setMessage('')
+    setNewThought('')
   }
-  //POST new thought - added this on friday!
-/*   useEffect(() => {
-    const onFormSubmit = (e) => {
-    e.preventDefault()
 
-    const options = {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-          Authorization: accessToken
-        },
-        body: JSON.stringify({ message: newThought })
-    }
-    fetch(API_URL('thoughts'), options)
-      .then(res => res.json()) 
-      .then(data => {
-        if (data.success) {
-          batch(() => {
-            dispatch(thoughts.actions.setThoughts(data)) //newThought // data.message
-            dispatch(thoughts.actions.setErrors(null))
-          })
-        } else {
-          dispatch(thoughts.actions.setErrors(data))
-        }
-      })
-    }
-  }, [accessToken, dispatch, newThought]) */
 
   const onLogout = () => {
+    localStorage.removeItem('user') // remve user from localStorage 
     dispatch(user.actions.setReturnInitialState()) 
     dispatch(thoughts.actions.setThoughts([])) // set thoughts items []    
-    localStorage.removeItem('user') // remve user from localStorage 
   }
 
-  // could not reach onFormSubmit from inside useEffect therefore added this which is not correct ~ work on this! 
-  // () => dispatch(thoughts.actions.setThoughts(newThought))
-  // () => dispatch(thoughts.actions.setThoughts(newThought))
   return (
     <>
       <form onSubmit={onFormSubmit}> 
@@ -123,16 +95,16 @@ const LandingPage = () => {
             onChange={onNewThoughtChange}
             placeholder="Write your thoughts here, you will contribute to our database 😊">
           </textarea>
-          <button onClick={onFormSubmit}>Post new thought</button>
+          <button type="submit">Post new thought</button>
         </form>
-    {/*    {thoughtsList.map(thought => {
+       {thoughtsList.map(thought => {
         console.log(thought)
         return (
           <div key={thought._id}>
           <p>{thought.message}</p>
         </div>
         )
-      })} */}
+      })}
       <button onClick={onLogout}>Log out</button>
     </>
   )

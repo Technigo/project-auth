@@ -79,7 +79,8 @@ app.post('/thoughts/', async (req, res) => {
   const { message } = req.body // destructure message from request body
 
   try {
-    const newThought = await new Thought({ message }).save()
+    await new Thought({ message }).save()
+    const thoughts = await Thought.find()
     res.json({ success: true, thoughts })
   } catch (error) {
     res.status(400).json({ message: 'Invalid request', error })
