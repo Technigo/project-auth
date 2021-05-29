@@ -9,8 +9,10 @@ import Signup from "./components/Signup";
 
 import user from "./reducers/user";
 
+
 const reducer = combineReducers({
   user: user.reducer,
+ 
 });
 
 const store = configureStore({ reducer });
