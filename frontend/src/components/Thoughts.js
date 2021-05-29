@@ -1,12 +1,12 @@
  
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { useSelector, useDispatch, batch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import moment from 'moment'
 
-import { thoughts } from '../reducers/thoughts'
-import { THOUGHTS_URL } from '../reusable/Urls';
+// import { thoughts } from '../reducers/thoughts'
+// import { THOUGHTS_URL } from '../reusable/Urls';
 import {user} from '../reducers/user';
 
 export const Thoughts = () => {
@@ -41,34 +41,34 @@ export const Thoughts = () => {
 	// };
 
 
-	useEffect(() => {
-		const options = {
-			method: 'GET',
-			headers: {
-				Authorization: accessToken,
-			},
-		};
+	// useEffect(() => {
+	// 	const options = {
+	// 		method: 'GET',
+	// 		headers: {
+	// 			Authorization: accessToken,
+	// 		},
+	// 	};
 
-		fetch(THOUGHTS_URL('thoughts'), options)
-			.then((res) => res.json())
-			.then((data) => {
-				if (data.success) {
-					batch(() => {
-						dispatch(thoughts.actions.setThoughts(data.thoughts));
-						dispatch(thoughts.actions.setErrors(null));
-					});
-				} else {
-					dispatch(thoughts.actions.setErrors(data));
-				}
-			});
-	}, [accessToken]);
+	// 	fetch(THOUGHTS_URL('thoughts'), options)
+	// 		.then((res) => res.json())
+	// 		.then((data) => {
+	// 			if (data.success) {
+	// 				batch(() => {
+	// 					dispatch(thoughts.actions.setThoughts(data.thoughts));
+	// 					dispatch(thoughts.actions.setErrors(null));
+	// 				});
+	// 			} else {
+	// 				dispatch(thoughts.actions.setErrors(data));
+	// 			}
+	// 		});
+	// }, [accessToken]);
 
 
     const onThoughtSubmit = (event) => {
         event.preventDefault()
     }
 
-    const [thought, setThought] = useState('')
+    // const [thought, setThought] = useState('')
     
     return (
     <Main>  
@@ -80,9 +80,9 @@ export const Thoughts = () => {
             aria-label='input form for thoughts'>       
             <input 
                 type='text'
-                value={thought}
-                placeholder='Type here'
-                onChange={event => setThought(event.target.value)}
+                // value={thought}
+                // placeholder='Type here'
+                // onChange={event => setThought(event.target.value)}
             />
             <div>
             <button
