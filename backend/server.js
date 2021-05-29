@@ -41,10 +41,10 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next();
     } else {
-      res.status(401).json({ message: "Not authenticated" });
+      res.status(401).json({ message: "Sorry! You are unfortunately not authorised" });
     }
   } catch (error) {
-    res.status(400).json({ message: "Invalid requset", error });
+    res.status(400).json({ message: "Sorry! Invalid request", error });
   }
 };
 
@@ -83,7 +83,7 @@ app.post("/register", async (req, res) => {
       accessToken: newUser.accessToken,
     });
   } catch (error) {
-    res.status(400).json({ success: false, message: "Invalid request", error });
+    res.status(400).json({ success: false, message: "Sorry! Invalid request", error });
   }
 });
 
@@ -106,7 +106,7 @@ app.post("/signin", async (req, res) => {
       res.status(404).json({ success: false, message: "Oops! Something went wrong. Please try again!" });
     }
   } catch (error) {
-    res.status(400).json({ success: false, message: "Invalid request", error });
+    res.status(400).json({ success: false, message: "Sorry! Invalid request", error });
   }
 });
 

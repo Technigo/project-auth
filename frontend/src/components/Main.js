@@ -29,18 +29,18 @@ const Main = () => {
   return (
     <div className="main-container">
       <div className="backend-text-container">
-      <h1 className="backend-text">The back end!</h1>
+        <h1 className="backend-text">The back end!</h1>
       </div>
       <Link className="link-to-register" to="/">To Register we go!</Link>
       <img className="machines-illustration" src="./assets/backend.gif" alt="communicating machines illustration" />
       <div className="sign-out-button-container">
-      <button 
-        type="submit"
-        className="log-out-button"  
-        onClick={handleLogOut} 
-      > 
-          LOG OUT
-      </button>
+        <button 
+          type="submit"
+          className="log-out-button"  
+          onClick={handleLogOut} 
+        > 
+            LOG OUT
+        </button>
       </div>
     </div>
   )
