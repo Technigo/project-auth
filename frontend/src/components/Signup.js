@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch, batch } from "react-redux";
+import { useHistory, Link } from "react-router-dom";
 import styled from 'styled-components/macro'
 
 import { API_URL } from '../reusable/urls'
+
+import user from "../reducers/user";
 
 const SignupWrapper = styled.div`
   background-color: #4838a8;
@@ -73,9 +77,25 @@ const Password = styled.label`
   margin-left: 130px;
 `
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: #fff;
+`
+
 const Signup = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const accessToken = useSelector((store) => store.user.accessToken);
+  const errorMessage = useSelector(store => store.user.errors);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (accessToken) {
+      history.push("/");
+    }
+  }, [accessToken, history]);
 
   const onFormSubmit = (e) => {
     e.preventDefault()
@@ -89,7 +109,19 @@ const Signup = () => {
     }
 
     fetch(API_URL('signup'), options)
-      .then(res => console.log(res))
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        batch(() => {
+          dispatch(user.actions.setUsername(data.username));
+          dispatch(user.actions.setAccessToken(data.accessToken));
+          dispatch(user.actions.setErrors(null));
+        });
+      } else {
+        dispatch(user.actions.setErrors(data));
+      }
+    })
+    .catch();
   }
 
   return (
@@ -97,6 +129,7 @@ const Signup = () => {
       <WelcomeMessage>
         <h1>Welcome To Happy Thoughts Website</h1>
         <WelcomeText>Let´s Sign up here</WelcomeText>
+        <WelcomeText>Already have an account? Sign in here <span role='img' aria-label='finger pointing'>👉👉👉</span><StyledLink to="/signin">Sign in</StyledLink></WelcomeText>
       </WelcomeMessage>
       <FormWrapper>
         <InputForm onSubmit={onFormSubmit}>
@@ -113,7 +146,8 @@ const Signup = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button type='submit'>Sign up</Button>
+          {errorMessage ? <p>{errorMessage.message}</p> : ''}
+          <Button type='submit' >Sign up</Button>
         </InputForm>
       </FormWrapper>
     </SignupWrapper>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import styled from 'styled-components/macro'
 
 import { API_URL } from "../reusable/urls";
@@ -77,11 +77,17 @@ const Password = styled.label`
   margin-left: 130px;
 `
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: #fff;
+`
+
 const Signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const accessToken = useSelector((store) => store.user.accessToken);
+  const errorMessage = useSelector(store => store.user.errors);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -105,7 +111,6 @@ const Signin = () => {
     fetch(API_URL("signin"), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUsername(data.username));
@@ -124,6 +129,7 @@ const Signin = () => {
       <WelcomeMessage>
         <h1>Welcome To Happy Thoughts Website</h1>
         <WelcomeText>Let´s Sign in here</WelcomeText>
+        <WelcomeText>Don´t have an account? Sign up here <span role='img' aria-label='finger pointing'>👉👉👉</span><StyledLink to="/signup">Sign up</StyledLink></WelcomeText>
       </WelcomeMessage>
       <FormWrapper>
         <InputForm onSubmit={onFormSubmit}>
@@ -140,6 +146,7 @@ const Signin = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {errorMessage ? <p>{errorMessage.message}</p> : ''}
           <Button type='submit'>Sign in</Button>
         </InputForm>
       </FormWrapper>
