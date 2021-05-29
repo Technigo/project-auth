@@ -77,8 +77,8 @@ const Index = () => {
             className='thought-input'
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            maxLength={5}
             placeholder="What's on your mind?"
+            maxLength={145}
           />
           <button className='thought-button' onClick={onButtonClick}>
             Send

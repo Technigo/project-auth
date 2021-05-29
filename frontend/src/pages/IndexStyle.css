@@ -19,7 +19,7 @@
 }
 
 .thought-input {
-  min-height: 120px;
+  height: 90px;
   padding: 10px;
   resize: none;
   border: hidden;
