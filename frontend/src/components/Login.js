@@ -76,14 +76,14 @@ const Login = () => {
       </div>
         {errorMsg ?<p>{errorMsg.message}</p> :null}          
       <button 
-        className="form-button" 
+        
         type="submit" 
         onClick={() => setMode('signin')}
         >
         Sign in
       </button>
       <button 
-        className="form-button" 
+        
         type="submit" 
         onClick={() => setMode('signup')}
         >

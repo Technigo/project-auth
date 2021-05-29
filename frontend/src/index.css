@@ -48,7 +48,7 @@ code {
   text-align: center;
 }
 
-.form-button {
+button {
   outline: none;
   border: none;
   cursor: pointer;
@@ -66,11 +66,11 @@ code {
   margin-bottom: 24px;
 }
 
-.form-button:hover {
+button:hover {
   background: #2fdbb6;  
 }
 
-.form-button:active {
+button:active {
   background: #1da88a;
 }
 

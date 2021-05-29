@@ -55,11 +55,11 @@ const onButtonClick = () => {
 
   return (
     <div className="main-container">
-      <p>Main</p>
+      <p>Collections of thoughts from api:</p>
       {thoughtsItems.map(thought => (
         <div key={thought._id}>{thought.message}</div>
       ))}
-     {accessToken && <button className="form-button" onClick={onButtonClick}>Logout</button>}
+      {accessToken && <button  onClick={onButtonClick}>Logout</button>}
     </div>
   )
 }

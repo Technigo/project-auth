@@ -4,6 +4,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
+import listEndpoints from 'express-list-endpoints'
 
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
@@ -54,7 +55,7 @@ app.use(express.json())
 
 
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  res.send(listEndpoints(app))
 })
 
 app.get('/thoughts', authenticateUser )

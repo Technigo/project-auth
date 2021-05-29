@@ -5,6 +5,7 @@
     "postinstall": "npm install --prefix backend"
   },
   "dependencies": {
-    "@babel/helpers": "^7.14.0"
+    "@babel/helpers": "^7.14.0",
+    "express-list-endpoints": "^5.0.0"
   }
 }
