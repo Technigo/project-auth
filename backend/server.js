@@ -1,5 +1,4 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import cors from 'cors' 
 import mongoose from 'mongoose'
 import listEndpoints from 'express-list-endpoints'
@@ -31,9 +30,6 @@ const User = mongoose.model('User', {
   }
 })
 
-const port = process.env.PORT || 3004
-const app = express()
-
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
@@ -43,16 +39,20 @@ const authenticateUser = async (req, res, next) => {
       if (user) {
         next()
       } else {
-        res.status(401).json({ message: "Not authenticated" })
+        res.status(401).json({ success:false, message: "Not authenticated" })
       }
   } catch (error){
-    res.status(400).json({ message: "Invalid request", error })
+    res.status(400).json({ success:false, message: "Invalid request", error })
   }
 }
 
+const port = process.env.PORT || 3004
+const app = express()
+
+
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
-app.use(bodyParser.json())
+app.use(express.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 app.get('/thoughts', authenticateUser)
 app.get('/thoughts', async (req, res) => {
   const thoughts = await Thought.find()
-  res.json(thoughts)
+  res.json({ success: true, thoughts });
 })
 
 app.post('/thoughts', authenticateUser)
@@ -72,9 +72,9 @@ app.post('/thoughts', async (req, res) => {
 
   try {
     const newThought = await new Thought ({ message }).save()
-    res.json(newThought)
+    res.json({success: true, newThought});
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error })
+    res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
 
@@ -116,10 +116,10 @@ app.post('/signin', async (req, res) => {
         accessToken: user.accessToken
       })
     } else {
-      res.status(404).json({ success:false, message: 'User not found' })
+      res.status(404).json({ success:false, message: 'User not found' });
     }                          // new
   } catch (error) {
-    res.status(400).json({ success:false, message: 'Invalid request', error })
+    res.status(400).json({ success:false, message: 'Invalid request', error });
   }
 })
 
