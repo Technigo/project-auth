@@ -72,8 +72,12 @@ app.get('/', (req, res) => {
 
 app.get('/thoughts', authenticateUser)
 app.get('/thoughts/', async (req, res) => {
-  const thoughts = await Thought.find().sort({ createdAt: "descending" })
-  res.json({ success: true, thoughts})
+  try {
+    const thoughts = await Thought.find().sort({ createdAt: "descending" }).limit(20)
+    res.json({ success: true, thoughts})
+  } catch (error) {
+    res.status(404).json({ error: 'Page not found' })
+  }
 })
 
 app.post('/thoughts', authenticateUser)
@@ -82,7 +86,7 @@ app.post('/thoughts/', async (req, res) => {
 
   try {
     await new Thought({ message }).save()
-    const thoughts = await Thought.find().sort({ createdAt: "descending" })
+    const thoughts = await Thought.find().sort({ createdAt: "descending" }).limit(20)
     res.json({ success: true, thoughts })
   } catch (error) {
     res.status(400).json({ message: 'Invalid request', error })
