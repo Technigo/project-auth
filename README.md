@@ -11,7 +11,7 @@ Below follows what we have implemented in this project.
 - Set up endpoints for register, login and authenticated (endpoint giving access to "secret" content if the user is registered as a member)
 - The authenticated endpoint returns a status 401 with an error message if a user tries to access it without an access token or an invalid token
 - Validation of user input when creating a new user, which returns error message if the registration fails 
-- Created an Inspo model and imported json response to the database with images from Unsplash that is randomly selected using the mongodb method aggregate.sample 
+- Created an Inspo model and imported json response to the database with urls (images) from Unsplash. By using mongodb method aggregate.sample a randomized url is sent when a fetch is made from the frontend the API  
 
 ### Frontend
 - Structured pages and components and allocated code accordingly (sign in/up form, main page displaying secret content, sign out button). Added functionality and react hooks, props and styled them with styled components
