@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
-import brypt from 'bcrypt'
+import bcrypt from 'bcrypt'
 
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
@@ -21,7 +21,7 @@ const User = mongoose.model('User', {
     unique: true
   },
   password: {
-    type:String,
+    type: String,
     required: true
   },
   accessToken: {
@@ -45,12 +45,12 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8081
 const app = express()
 
 
 app.use(cors())
-app.use(bodyParser.json())
+app.use(express.json())
 
 
 app.get('/', (req, res) => {
@@ -60,17 +60,17 @@ app.get('/', (req, res) => {
 app.get('/thoughts', authenticateUser )
 app.get('/thoughts', async (req,res) => {
   const thoughts = await Thought.find()
-  res.json(thoughts)
+  res.json({ success: true, thoughts})
 })
 
+app.post('/thoughts', authenticateUser )
 app.post('/thoughts', async (req, res) => {
   const { message } = req.body
   try {
     const newThought = await new Thought({ message }).save()
-
-    res.json(newThought)    
+    res.json({ success: true, newThought })    
   } catch (error) {
-    res.status(400).json({ message: "Invalid requset", error})
+    res.status(400).json({ success: false, message: "Invalid requset", error})
   }
 })
 
@@ -79,18 +79,20 @@ app.post('/signup', async (req,res) => {
   
   try {
     const salt = bcrypt.genSaltSync()
+
     const newUser = await new User({
       username, 
       password: bcrypt.hashSync(password, salt)
     }).save()
 
     res.json({
+      success: true,
       userID: newUser._id, 
       username: newUser.username,
       accessToken: newUser.accessToken
     })
   } catch(error) {
-    res.status(400).json({ message: 'Invalid request', error})
+    res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
 
@@ -102,15 +104,16 @@ app.post('/signin', async (req,res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
+        success: true,
         userID: user._id, 
         username: user.username,
         accessToken: user.accessToken
       })
     } else {
-      res.status(404).json({ message: 'User not found' })
+      res.status(404).json({ success: false, message: 'User not found' })
     }
   } catch (error) {
-    res.status(400).json({ message: 'Invalid request', error})
+    res.status(400).json({ success: false, message: 'Invalid request', error})
   }
 })
 

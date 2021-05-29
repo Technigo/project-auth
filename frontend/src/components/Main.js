@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { API_URL } from '../reusable/urls'
 
 import thoughts from '../reducers/thoughts'
+import user from '../reducers/user'
 
 const Main = () => {
   const accessToken = useSelector(store => store.user.accessToken)
@@ -36,18 +37,28 @@ const Main = () => {
         dispatch(thoughts.actions.setErrors(null))
       })
     }else {
-      dispatch(thoughts.actions.setErrors(data))
+      dispatch(thoughts.actions.setErrors('data'))
     }
   })
   }, [accessToken])
 
+const onButtonClick = () => {
+  batch(() => {
+    dispatch(user.actions.setUsername(null))
+    dispatch(user.actions.setAccessToken(null))
+    dispatch(thoughts.actions.setThoughts([]))
+
+    localStorage.removeItem('user')
+  })
+}  
+
   return (
-    <div>
+    <div className="main-container">
       <p>Main</p>
-      <Link to="/login">Log out</Link>
       {thoughtsItems.map(thought => (
         <div key={thought._id}>{thought.message}</div>
       ))}
+     {accessToken && <button className="form-button" onClick={onButtonClick}>Logout</button>}
     </div>
   )
 }
