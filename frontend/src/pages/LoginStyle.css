@@ -9,8 +9,8 @@
 
 .form-container {
   position: relative;
-  width: 330px;
-  height: 400px;
+  width: 270px;
+  height: 350px;
   padding: 25px;
   border-radius: 8px;
   overflow: hidden;
@@ -20,28 +20,28 @@
 
 .pink-circle {
   position: absolute;
-  width: 160px;
-  height: 160px;
-  top: -50px;
-  left: -50px;
+  width: 150px;
+  height: 150px;
+  top: -40px;
+  left: -40px;
   border-radius: 50%;
   background: linear-gradient(#fff, #d9afd9);
 }
 
 .blue-circle {
   position: absolute;
-  width: 115px;
-  height: 115px;
+  width: 110px;
+  height: 110px;
   top: -50px;
-  left: 100px;
+  left: 80px;
   border-radius: 50%;
   background: linear-gradient(#fff, #86e1eb);
 }
 
 .green-circle {
   position: absolute;
-  width: 160px;
-  height: 160px;
+  width: 150px;
+  height: 150px;
   top: -70px;
   right: -50px;
   border-radius: 50%;
@@ -57,14 +57,14 @@
 }
 
 h2 {
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 26px;
 }
 
 .input {
-  width: 270px;
+  width: 250px;
   margin-bottom: 14px;
-  font-size: 16px;
+  font-size: 14px;
   border: hidden;
   border-bottom: 2px solid #d4d1d1;
 }
@@ -74,28 +74,29 @@ h2 {
 }
 
 .login-button {
-  width: 150px;
-  margin-top: 84px;
-  padding: 12px;
+  width: 120px;
+  margin-top: 59px;
+  padding: 10px;
   border: none;
   border-radius: 25px;
-  font-size: 16px;
+  font-size: 14px;
   color: #fff;
-  background-color: #83c3ca;
+  background: linear-gradient(#a2e0e7, #83c3ca);
   cursor: pointer;
 }
 
 .login-button:hover {
-  background-color: #93d9e0;
+  background: linear-gradient(#b2dfe4, #a0d8dd);
 }
 
 .signup-container {
   display: flex;
   justify-content: center;
-  width: 300px;
+  width: 310px;
   margin-top: 40px;
   padding: 5px;
   border-radius: 8px;
+  font-size: 12px;
   color: #fff;
   background-color: rgba(255, 255, 255, 0.2);
 }
@@ -111,35 +112,4 @@ a:visited {
 
 a:hover {
   color: #fff;
-}
-
-@media (min-width: 400px) {
-  .form-container {
-    width: 330px;
-  }
-
-  .pink-circle {
-    width: 180px;
-    height: 180px;
-    top: -50px;
-    left: -50px;
-  }
-
-  .blue-circle {
-    width: 120px;
-    height: 120px;
-    top: -50px;
-    left: 100px;
-  }
-
-  .green-circle {
-    width: 180px;
-    height: 180px;
-    top: -70px;
-    right: -50px;
-  }
-
-  .signup-container {
-    width: 370px;
-  }
 }

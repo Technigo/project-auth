@@ -3,14 +3,30 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 1200px;
+}
+
+.logout-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logout-button {
+  width: 90px;
+  margin-top: 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  color: #fff;
+  background: linear-gradient(#e5aae7, #c587c7);
+  cursor: pointer;
 }
 
 .thought-form {
   display: flex;
   flex-direction: column;
-  width: 300px;
-  height: 170px;
+  width: 270px;
+  height: 150px;
   margin-top: 30px;
   padding: 25px;
   border-radius: 8px;
@@ -19,11 +35,11 @@
 }
 
 .thought-input {
-  height: 90px;
+  height: 70px;
   padding: 10px;
   resize: none;
   border: hidden;
-  font-size: 16px;
+  font-size: 14px;
   background-color: #fff;
 }
 
@@ -34,28 +50,28 @@
 .thought-button {
   width: 120px;
   margin-top: 20px;
-  padding: 12px;
+  padding: 10px;
   border: none;
   border-radius: 25px;
-  font-size: 16px;
+  font-size: 14px;
   color: #fff;
-  background-color: #83c3ca;
+  background: linear-gradient(#a2e0e7, #83c3ca);
   cursor: pointer;
 }
 
 .thought-button:hover {
-  background-color: #93d9e0;
+  background: linear-gradient(#b2dfe4, #a0d8dd);
 }
 
 .thought-container {
-  width: 320px;
-  min-height: 60px;
+  width: 290px;
+  min-height: 40px;
   margin-top: 30px;
   padding: 15px;
   flex-wrap: wrap;
   word-wrap: break-word;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
   background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -66,26 +82,34 @@
 
 .thought-p {
   margin-top: 0;
-  font-size: 16px;
+  font-size: 14px;
 }
 
-@media (min-width: 400px) {
-  .thought-form {
-    width: 350px;
+@media (min-width: 768px) {
+  .logout-button {
+    position: absolute;
+    margin-top: 0;
+    top: 30px;
+    right: calc(50% - 360px);
   }
 
-  .thought-container {
-    width: 370px;
+  .logout-button:hover {
+    background: linear-gradient(#e4bfe6, #c994ca);
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1000px) {
+  .logout-button {
+    margin-top: 0;
+    right: calc(50% - 490px);
+  }
+
   .thought-pink-circle {
     position: absolute;
-    width: 180px;
-    height: 180px;
-    top: 200px;
-    left: 300px;
+    width: 145px;
+    height: 145px;
+    top: 180px;
+    left: calc(50% - 400px);
     border-radius: 50%;
     background: linear-gradient(#fff, #d9afd9);
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
@@ -93,10 +117,10 @@
 
   .thought-blue-circle {
     position: absolute;
-    width: 120px;
-    height: 120px;
-    top: 80px;
-    left: 450px;
+    width: 100px;
+    height: 100px;
+    top: 65px;
+    left: calc(50% - 310px);
     border-radius: 50%;
     background: linear-gradient(#fff, #86e1eb);
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
@@ -104,10 +128,10 @@
 
   .thought-green-circle {
     position: absolute;
-    width: 180px;
-    height: 180px;
+    width: 130px;
+    height: 130px;
     top: 60px;
-    right: 400px;
+    right: calc(50% - 330px);
     border-radius: 50%;
     background: linear-gradient(#fff, #80d0c7);
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
@@ -115,10 +139,10 @@
 
   .thought-purple-circle {
     position: absolute;
-    width: 100px;
-    height: 100px;
-    top: 200px;
-    right: 380px;
+    width: 80px;
+    height: 80px;
+    top: 210px;
+    right: calc(50% - 370px);
     border-radius: 50%;
     background: linear-gradient(#fff, #c186c4);
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
@@ -126,10 +150,10 @@
 
   .thought-dark-purple-circle {
     position: absolute;
-    width: 70px;
-    height: 70px;
-    top: 350px;
-    right: 450px;
+    width: 50px;
+    height: 50px;
+    top: 300px;
+    right: calc(50% - 280px);
     border-radius: 50%;
     background: linear-gradient(#fff, #a86caa);
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 15px 0 rgba(0, 0, 0, 0.19);

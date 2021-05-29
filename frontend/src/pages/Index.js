@@ -3,6 +3,7 @@ import { batch, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import thoughts from "../reducers/thoughts";
+import user from "../reducers/user";
 
 import "./IndexStyle.css";
 
@@ -47,6 +48,11 @@ const Index = () => {
       });
   }, [thoughtsItems, accessToken, dispatch]);
 
+  const onLogout = (e) => {
+    e.preventDefault();
+    dispatch(user.actions.setAccessToken(""));
+  };
+
   const onButtonClick = (e) => {
     e.preventDefault();
     const options = {
@@ -66,6 +72,11 @@ const Index = () => {
 
   return (
     <>
+      <div className='logout-button-container'>
+        <button className='logout-button' onClick={onLogout}>
+          Logout
+        </button>
+      </div>
       <div className='thought-wrapper'>
         <div className='thought-pink-circle'></div>
         <div className='thought-blue-circle'></div>
