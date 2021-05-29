@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-label, button {
+label, button, textarea, .thoughts-container p {
   display: flex;
   flex-direction: column;
   justify-content: center;

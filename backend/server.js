@@ -13,7 +13,11 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, us
 mongoose.Promise = Promise
 
 const Thought = mongoose.model('Thought', {
-  message: String
+  message: String,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 })
 
 // Here is Schema directly inside the Model. 
@@ -59,18 +63,16 @@ const authenticateUser = async (req, res, next) => {
 const port = process.env.PORT || 8080
 const app = express()
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(express.json())
 
-// Start defining your routes here
 app.get('/', (req, res) => {
   res.send(listEndpoints(app))
 })
 
 app.get('/thoughts', authenticateUser)
 app.get('/thoughts/', async (req, res) => {
-  const thoughts = await Thought.find().sort()
+  const thoughts = await Thought.find().sort({ createdAt: "descending" })
   res.json({ success: true, thoughts})
 })
 
@@ -80,7 +82,7 @@ app.post('/thoughts/', async (req, res) => {
 
   try {
     await new Thought({ message }).save()
-    const thoughts = await Thought.find()
+    const thoughts = await Thought.find().sort({ createdAt: "descending" })
     res.json({ success: true, thoughts })
   } catch (error) {
     res.status(400).json({ message: 'Invalid request', error })
@@ -91,12 +93,10 @@ app.post('/signup', async (req, res) => {
  const { email, password } = req.body 
  try {
    const salt = bcrypt.genSaltSync() // initialize salt randomizer
-   
    const newUser = await new User({
     email,
     password: bcrypt.hashSync(password, salt) // a hashed randomized password 2 arguments: password, salt
   }).save()
-  console.log(newUser)
   res.json({
     success: true,
     userId: newUser._id,
@@ -111,7 +111,6 @@ app.post('/signup', async (req, res) => {
 // standard to create a POST request to login ---> you are creating a 'session'
 app.post('/signin', async (req, res) => {
    const { email, password } = req.body
-    
    try {
     const user = await User.findOne({ email })
 

@@ -17,19 +17,18 @@ const Login = () => {
 
   // every time accessToken is changing from our redux store we should redirect user to '/' path
   useEffect(() => {
-    console.log('Checking accessToken', accessToken)
     if (accessToken) {
       history.push('/')
     }
   }, [accessToken, history])
 
-    let loginErrorMessage = ''
-    let emailErrorMessage = ''
-    if (errors?.error?.errors?.email?.message) {
-      emailErrorMessage = errors?.error?.errors?.email?.message //email validation
-      } else if (errors?.message) {
-        loginErrorMessage = errors?.message //login failed
-    } 
+  let loginErrorMessage = ''
+  let emailErrorMessage = ''
+  if (errors?.error?.errors?.email?.message) {
+    emailErrorMessage = errors?.error?.errors?.email?.message //email validation
+    } else if (errors?.message) {
+      loginErrorMessage = errors?.message //login failed
+  } 
 
   const onFormSubmit = (e) => {
     e.preventDefault()

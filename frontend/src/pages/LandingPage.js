@@ -22,7 +22,6 @@ const LandingPage = () => {
   }, [accessToken, history])
 
   useEffect(() => {
-
     const options = {
       method: 'GET',
       headers: {
@@ -43,14 +42,12 @@ const LandingPage = () => {
         }
       }) 
   }, [accessToken, dispatch])
-
   const onNewThoughtChange = (e) => {
     setNewThought(e.target.value)
   }
 
-  // POST again: 
+  // POST new thought: 
   const onFormSubmit = (e) => {
-    console.log('onsubmit')
     e.preventDefault();
     const options = {
       method: "POST",
@@ -64,9 +61,8 @@ const LandingPage = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          console.log(data)
           batch(() => {
-            dispatch(thoughts.actions.setThoughts(data.thoughts)) //newThought // data.message
+            dispatch(thoughts.actions.setThoughts(data.thoughts)) 
             dispatch(thoughts.actions.setErrors(null))
           })
         } else {
@@ -78,9 +74,9 @@ const LandingPage = () => {
 
 
   const onLogout = () => {
-    localStorage.removeItem('user') // remve user from localStorage 
-    dispatch(user.actions.setReturnInitialState()) 
-    dispatch(thoughts.actions.setThoughts([])) // set thoughts items []    
+    localStorage.removeItem('user') // remove user from localStorage 
+    dispatch(user.actions.setReturnInitialState())
+    dispatch(thoughts.actions.setThoughts([])) // set thoughts items []
   }
 
   return (
@@ -98,9 +94,8 @@ const LandingPage = () => {
           <button type="submit">Post new thought</button>
         </form>
        {thoughtsList.map(thought => {
-        console.log(thought)
         return (
-          <div key={thought._id}>
+          <div className="thoughts-container" key={thought._id}>
           <p>{thought.message}</p>
         </div>
         )
