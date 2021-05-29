@@ -14,7 +14,7 @@ Our aim was to succeed in implementing the general requirements listed below, wh
 - The passwords in the database should be encrypted with bcrypt.
 - The API should validate the user input when creating a new user, and return error messages which could be shown by the frontend.
 
-When we have more time we would like to investigate why the inital page load at times is a bit slow, perhaps our image content might be a bit to heavy. Initially we also wanted to use Styled Components, but decided to go for separate css-files as we both felt more comfortable with that approach.
+When we have more time we would like to investigate why the inital page load at times is a bit slow, perhaps our image content might be a bit too heavy. Initially we also wanted to use Styled Components, but decided to go for separate css-files as we both felt more comfortable with that approach.
 
 We are very happy with our visuals - and the code too!
 
