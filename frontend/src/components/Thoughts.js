@@ -1,17 +1,12 @@
- 
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
-import moment from 'moment'
 
-// import { thoughts } from '../reducers/thoughts'
-// import { THOUGHTS_URL } from '../reusable/Urls';
 import {user} from '../reducers/user';
 
 export const Thoughts = () => {
-  	const accessToken = useSelector((store) => store.user.accessToken);
-	const thoughtsItems = useSelector((store) => store.thoughts.items);
+const accessToken = useSelector((store) => store.user.accessToken);
 
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -22,93 +17,29 @@ export const Thoughts = () => {
         }
     }, [accessToken, history]);
 
-    //     const onThoughtSubmit = (event) => {
-	// 	event.preventDefault();
-
-	// 	const options = {
-	// 		method: 'POST',
-	// 		headers: {
-	// 			Authorization: accessToken,
-	// 		},
-	// 		body: JSON.stringify({ message: messageNew }),
-	// 	};
-
-	// 	fetch(API_URL, options)
-	// 		.then((res) => res.json())
-	// 		.then(() => fetchMessageList())
-	// 		.then(() => setMessageNew(''))
-	// 		.catch((err) => console.error(err));
-	// };
-
-
-	// useEffect(() => {
-	// 	const options = {
-	// 		method: 'GET',
-	// 		headers: {
-	// 			Authorization: accessToken,
-	// 		},
-	// 	};
-
-	// 	fetch(THOUGHTS_URL('thoughts'), options)
-	// 		.then((res) => res.json())
-	// 		.then((data) => {
-	// 			if (data.success) {
-	// 				batch(() => {
-	// 					dispatch(thoughts.actions.setThoughts(data.thoughts));
-	// 					dispatch(thoughts.actions.setErrors(null));
-	// 				});
-	// 			} else {
-	// 				dispatch(thoughts.actions.setErrors(data));
-	// 			}
-	// 		});
-	// }, [accessToken]);
-
 
     const onThoughtSubmit = (event) => {
         event.preventDefault()
     }
-
-    // const [thought, setThought] = useState('')
     
     return (
-    <Main>  
-
-            <h1 tabIndex='0'>Share your secret secters here!</h1>
-          
+    <Main>    
         <form 
             onSubmit={onThoughtSubmit}
             aria-label='input form for thoughts'>       
-            <input 
-                type='text'
-                // value={thought}
-                // placeholder='Type here'
-                // onChange={event => setThought(event.target.value)}
-            />
+            
+            <img alt='Bee' src='https://images.unsplash.com/photo-1584712200560-f68e5cb7c7d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2793&q=80' />
+
             <div>
-            <button
-                type="submit">
-                Share Secret
-            </button>
-            <Link to='/registration'>
-                <button
-                    type='button'
-                    onClick={()=> dispatch(user.actions.setLogOut())}
-                    >Leave the Secret Room                
-                </button>
-            </Link>
+                <Link to='/registration'>
+                    <button
+                        type='button'
+                        onClick={()=> dispatch(user.actions.setLogOut())}
+                        >Let the Bee be                
+                    </button>
+                </Link>
             </div>
         </form>
-        
-        <h1>Previous Secrets</h1>
-        <MessageWrapper>
-            {thoughtsItems.map(thought => (
-                <div key={thought._id}>
-                    <h4 tabIndex='0'>{thought.message}</h4>
-                    <p>{moment(thought.createdAt).fromNow()}</p>             
-                </div>    
-            ))} 
-        </MessageWrapper>
-
     </Main>  
     )
 }
@@ -121,12 +52,6 @@ background-image: linear-gradient(#c5e6de, #fff);
 height: 100vh;
 align-items: center;
 
-
-h1 {
-    font-size: 20px;
-    color: #626f80;
-}
-
 form {
     displa: flex;
     flex-direction: column;
@@ -138,12 +63,8 @@ form {
     margin: 0 auto;
 }
 
-input {
-    padding: 20px;
-    margin: 10px;
-    cursor: text;
-    width: 300px;
-    height: 150px;
+img{
+    width: 350px;
 }
 
 button{
@@ -153,24 +74,4 @@ button{
     background-color: #e2e6c5;
     cursor: pointer;
 }
-
 ` 
-const MessageWrapper = styled.div`
-    border: 2px solid green;
-    background-color: #c5d2e6;
-    width: 80%:
-    padding: 30px;
-    margin: 0 auto;
-
-div{
-    padding: 20px;
-    margin: 10px;
-    width: 300px;
-    height: 100px;
-    background-color: #fff;
-    }
-
-p{
-    font-size: 10px;
-    }
-`
