@@ -45,7 +45,7 @@ const Index = () => {
           dispatch(thoughts.actions.setErrors(data));
         }
       });
-  }, [accessToken, dispatch]);
+  }, [thoughtsItems, accessToken, dispatch]);
 
   const onButtonClick = (e) => {
     e.preventDefault();
