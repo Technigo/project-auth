@@ -41,7 +41,7 @@ const Main = () => {
             }
         })
     }
-  }, [accessToken])
+  }, [accessToken], dispatch)
     return (
         <div>
             <div>Main</div>
@@ -51,8 +51,6 @@ const Main = () => {
                 </div>
             ))}
         </div>
-
-        
     )
 }
 
