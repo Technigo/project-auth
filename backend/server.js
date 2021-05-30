@@ -4,6 +4,8 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 
+import listEndpoints from 'express-list-endpoints' 
+
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.set('useCreateIndex', true); //added due to deprecation error 26868
@@ -53,7 +55,7 @@ app.use(express.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  res.send(listEndpoints(app))
 })
 
 //ENDPOINT TO SIGNUP
