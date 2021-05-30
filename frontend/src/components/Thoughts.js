@@ -18,14 +18,14 @@ const accessToken = useSelector((store) => store.user.accessToken);
     }, [accessToken, history]);
 
 
-    const onThoughtSubmit = (event) => {
+    const onFormSubmit = (event) => {
         event.preventDefault()
     }
     
     return (
     <Main>    
         <form 
-            onSubmit={onThoughtSubmit}
+            onSubmit={onFormSubmit}
             aria-label='input form for thoughts'>       
             
             <img alt='Bee' src='https://images.unsplash.com/photo-1584712200560-f68e5cb7c7d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2793&q=80' />

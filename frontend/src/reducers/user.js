@@ -23,6 +23,6 @@ export const user = createSlice({
                 accessToken: null,
                 errors: null
             };
-    },   
+        },   
     },
 });
