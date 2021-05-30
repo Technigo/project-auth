@@ -7,6 +7,12 @@ import crypto from "crypto";
 import bcrypt from "bcrypt";
 
 dotenv.config();
+const port = process.env.PORT || 8080;
+const app = express();
+
+// Add middlewares to enable cors and json body parsing
+app.use(cors());
+app.use(express.json());
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, {
@@ -50,13 +56,6 @@ const authenticateUser = async (req, res, next) => {
     res.status(400).json({ message: "Invalid request", error });
   }
 };
-
-const port = process.env.PORT || 8080;
-const app = express();
-
-// Add middlewares to enable cors and json body parsing
-app.use(cors());
-app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
