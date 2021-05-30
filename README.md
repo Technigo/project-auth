@@ -1,13 +1,48 @@
 # Project Auth
+A project with two parts; a backend API, and a React frontend. In this project, we were supposed to create a User model using mongoose, with properties for the registered user, and storage of a user's access token.
 
-Replace this readme with your own information about your project.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+## Requirements
 
-## The problem
+A backend API with:
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+- Registration endpoint, to create a new user.
+- Sign-in endpoint, to authenticate a returning user.
+- An authenticated endpoint which only returns content if the athorization header with the user's token was correct.
+
+A frontend with:
+
+- A registration form.
+- A sign-in form.
+- A page to show the authenticated content from the API.
+- A 'sign out' button that removes the saved access token and redirects the user to the login form.
+
+## Endpoints
+
+GET /listitems 
+
+- endpoint to get all items on the grocery shopping list, after authentication.
+
+POST /listitems
+
+-endpoint to post new items to the grocery shopping list, after authentication.
+
+POST /signup 
+
+- endpoint to signup as new user with username and password
+
+POST /signin
+
+- endpoint for an already created user to sign in with username and password.
+
+
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+The backend is deployed here:
+
+https://grocerylistitems.herokuapp.com/
+
+The frontend can be seen here:
+
+https://grocery-shoppinglist.netlify.app/
