@@ -5,21 +5,12 @@ import { useHistory } from 'react-router-dom'
 import { API_URL } from '../reusable/urls'
 
 import thoughts from '../reducers/thoughts'
-import user from '../reducers/user'
 
-
-const Main = () => {
+const Welcome = () => {
     const accessToken = useSelector(store => store.user.accessToken)
 
     const dispatch = useDispatch()
     const history = useHistory()
-
-    const logout = () => {
-        batch(() => {
-            dispatch(user.actions.setUsername(null))
-            dispatch(user.actions.setAccessToken(null))
-        })
-    }
 
     useEffect(() => {
         if (!accessToken) {
@@ -31,11 +22,11 @@ const Main = () => {
         const options = {
             method: 'GET',
             headers: {
-                Authorization: accessToken //added quotations to accessToken
+                Authorization: 'accessToken'//added quotations to accessToken
             }
         }
 
-        fetch(API_URL('thoughts'), options) 
+        fetch(API_URL('thoughts'), options) //in the lesson it's done with /signin instead
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -50,11 +41,15 @@ const Main = () => {
     }, [accessToken, dispatch])
 
     return (
-        <div className="main-wrapper">
-            <iframe className="happy-thoughts-site" src="https://happy-thoughts-app-estefania.netlify.app/" title="Happy Thoughts site"></iframe>
-            <button className="button" onClick={logout}>Logout</button>
+        <div>
+            <div className="main-wrapper">
+                <iframe title="Welcome-gif" src="https://giphy.com/embed/l0MYC0LajbaPoEADu" width="350" height="240" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                <p className="text">Congratulation to becoming a member of the coolest crowd there is!</p>
+                <p className="text">Don't get confused by the missing content on here. We are cool silently and inactively.</p>
+                <h3 className="welcome-title">Now login to enter the memberarea <a href="/">here</a></h3>
+            </div>
         </div>
     )
 }
 
-export default Main
+export default Welcome
