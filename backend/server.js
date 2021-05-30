@@ -12,13 +12,13 @@ mongoose.Promise = Promise
 const User = mongoose.model('User', {
   username: {
     type: String,
-    unique: true,
-    required: true
+    required: true,
+    unique: true
   },
   email: {
     type: String,
-    unique: true,
-    required: true
+    required: true,
+    unique: true
   },
   fullName: {
     type: String,
@@ -86,7 +86,7 @@ app.get('/', (req, res) => {
 app.get('/thoughts', authenticateUser)
 app.get('/thoughts', async (req, res) => {
   const thoughts = await Thought.find()
-  res.json(thoughts)
+  res.json({success: true, thoughts})
 })
 
 app.post('/thoughts', (req, res) => {
@@ -115,9 +115,12 @@ app.post('/signup', async (req, res) => {
       username, 
       email, 
       password: bcrypt.hashSync(password, salt)
-    })
-    user.save()
-    res.status(201).json({success: true, id: user._id, username: user.username, email: user.email, accessToken: user.accessToken})
+    }).save()
+    
+      res.status(201).json({success: true, id: user._id, username: user.username, email: user.email, accessToken: user.accessToken})
+    
+    
+    
   } catch (error) {
     res.status(400).json({success: false, message: 'Could not create user', error})
   }
@@ -148,10 +151,10 @@ app.patch('/sessions/:id', async (req, res) => {
   const { id } = req.params
 
   try {
-    const updateUser = await User.findOneAndUpdate(id, { username: req.body.username })
+    const updateUser = await User.findByIdAndUpdate(id, { fullName: req.body.fullName, age: req.body.age, location: req.body.location, description: req.body.description })
 
     if (updateUser) {
-      res.json({success: true}, updateUser)
+      res.json({success: true, updateUser})
     } else {
       res.status(404).json({ success: false, message: 'Not found' })
     }

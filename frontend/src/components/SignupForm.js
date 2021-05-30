@@ -16,8 +16,6 @@ const SignupForm = () => {
   const history = useHistory()
 
   useEffect(() => {
-    // redirect user to '/' path
-    console.log('Checking access token', accessToken)
     if (accessToken) {
         history.push('/authorized')
     }
@@ -41,6 +39,7 @@ const SignupForm = () => {
     fetch(API_URL(SIGNUP), options)
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         if (data.success) {
           batch(() => {
             dispatch(account.actions.setID(data.id))

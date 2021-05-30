@@ -8,9 +8,8 @@ export const account = createSlice({
     email: null,
     accessToken: null,
     errors: null, 
-    signup: false,
-    logedIn: false
-   },
+    signup: false
+  },
   reducers: {
     setID: (store, action) => {
       store.id = action.payload
@@ -33,15 +32,11 @@ export const account = createSlice({
     },
 
     showSignupForm: (store, action) => {
-      const setSignupForm = action.payload
-
-      store.signup = setSignupForm
+      store.signup = action.payload
     },
     
     logIn: (store, action) => {
-      const setLogedIn = action.payload
-
-      store.logedIn = setLogedIn
+      store.logedIn = action.payload
     },
 
     logOut: (store, action) => {

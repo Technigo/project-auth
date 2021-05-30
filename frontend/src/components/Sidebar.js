@@ -1,6 +1,6 @@
-import React, { useDebugValue } from 'react'
+import React from 'react'
 
-import { dispatch, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { account } from '../reducers/account'
 
@@ -13,9 +13,9 @@ const Sidebar = () => {
     <aside className="sidebar">
       <nav className="sidebar-nav">
         <ul className="sidebar-list">
-          <Link to="/authorized/profile"><li>Profile</li></Link>
-          <Link to="/authorized/feed"><li>Feed</li></Link>
-          <li onClick={() => dispatch(account.actions.logOut())}>Log out</li>
+          <Link to="/authorized/profile"><li className="sidebar-list-item">Profile</li></Link>
+          <Link to="/authorized/feed"><li className="sidebar-list-item">Feed</li></Link>
+          <li className="sidebar-list-item" onClick={() => dispatch(account.actions.logOut())}>Log out</li>
         </ul>
       </nav>
 

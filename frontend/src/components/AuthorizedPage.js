@@ -3,8 +3,6 @@ import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import Sidebar from './Sidebar'
-import Feed from './Feed'
-import Profile from './Profile'
 
 const AuthorizedPage = () => {
 
@@ -19,12 +17,7 @@ const AuthorizedPage = () => {
   }, [accessToken, history]);
 
   return (
-    <>
-      <Sidebar />
-   
-   </>
-    
-
+    <Sidebar />
   )
 }
 

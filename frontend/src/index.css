@@ -88,16 +88,19 @@ code {
   
 }
 
-/* .sidebar-nav {
-  
-
-} */
 .sidebar-list {
   margin: 0;
   padding: 10px;
-  /* width: 200px;
-  height: 100%;
-  background: var(--primary-three); */
+}
+
+.sidebar-list-item {
+  cursor: pointer;
+}
+
+.sidebar-list a {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--primary-one)
 }
 
 .profile-info-section {
@@ -158,17 +161,29 @@ code {
   margin-left: auto;
 }
 
-.card-wrapper {
+.feed-card-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: solid 2px var(--primary-four);
 }
 
-.card {
+.feed-card {
   background-color: var(--primary-fifth);
   width: 70%;
   border-radius: 5px;
   margin: 20px;
-  
+  padding: 10px;
+}
+
+.feed-item-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.feed-item-posted {
+  font-style: italic;
+}
+
+.feed-item-message {
+  font-size: 2rem;
 }
