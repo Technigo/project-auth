@@ -8,4 +8,4 @@ Main problem was connection to cloud MongoDB database
 
 ## View it live
 
-The application is alive on Netlify server: https://kind-knuth-2345f5.netlify.app
+The application is alive on Netlify server: https://elastic-hawking-e24322.netlify.app/
