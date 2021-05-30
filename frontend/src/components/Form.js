@@ -11,17 +11,6 @@ const Form = () => {
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState(null)
 
- /*  switch (mode) {
-    case 'signup':
-      setSubmitLabel('Sign Up')
-      break
-    case 'signin':
-      setSubmitLabel('Sign In')
-      break
-    default:
-      alert('Sorry, something went wrong :(')
-  } */
-
   const onUsernameChange = (event) => {
     setUsername(event.target.value)
   }

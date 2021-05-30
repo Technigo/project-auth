@@ -5,7 +5,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Login from './pages/Login' 
 import Main from './pages/Main'
-import Form from './components/Form'
 
 import credentials from './reducers/credentials'
 

@@ -9,10 +9,6 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
-// const Thought = mongoose.model('Thought', {
-//   message: String
-// });
-
 const User = mongoose.model('User', {
   username: {
     type: String, 
@@ -29,16 +25,14 @@ const User = mongoose.model('User', {
   }
 })
 
-// Our authenticator that will enable/unenable us from entering content or not, it will with the help of accesstoken that it finds in our database give us access to content
 const authenticateUser = async (req, res, next) => {
-  const accessToken = req.header('Authorization');
-
+  const accessToken = req.header('Authorization')
   try {
-    const user = await User.findOne({ accessToken });
+    const user = await User.findOne({ accessToken })
     if (user) {
       next()
     } else {
-      res.status(401).json({ message: "Not authenticated" });
+      res.status(401).json({ message: "Not authenticated" })
     }
   } catch (error) {
     res.status(400).json({ message: "Invalid request", error})
@@ -48,28 +42,18 @@ const authenticateUser = async (req, res, next) => {
 const port = process.env.PORT || 8080
 const app = express()
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(bodyParser.json())
 
-// Start defining your routes here
 app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
-// app.get('/thoughts', authenticateUser);
-// app.get('/thoughts', async (req, res) => {
-//   const thoughts = await Thought.find();
-//   res.json(thoughts)
-// });
-
-app.get('/thoughts', authenticateUser)
-app.get('/thoughts', async (req, res) => {
+app.get('/secret', authenticateUser)
+app.get('/secret', async (req, res) => {
   const { message } = req.body;
   try {
-    // const newThought = await new Thought({ message }).save();
-    // res.json(newThought)
-    res.json({ message: "here is a message :D" })
+    res.json({ message: "here is the secret message :D" })
   } catch (error) {
     res.status(400).json({ message: "Invalid Request", error })
   }
@@ -77,14 +61,12 @@ app.get('/thoughts', async (req, res) => {
 
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body; // We separated username and password from the body
-
   try {
     const salt = bcrypt.genSaltSync();
     const newUser = await new User ({
       username, 
       password: bcrypt.hashSync(password, salt)
     }).save();
-
     if (newUser) {
       res.json({
         success: true,
@@ -93,7 +75,6 @@ app.post('/signup', async (req, res) => {
         accessToken: newUser.accessToken
       });
     }
-    
   } catch(error) {
     if(error.code===11000){
       res.status(400).json({ success: false, error: 'Username already exists', field: error.keyValue })
@@ -104,13 +85,12 @@ app.post('/signup', async (req, res) => {
 
 app.post('/signin', async (req, res) => {
   const { username, password } = req.body;
-
   try {
     const user = await User.findOne({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
         success: true,
-        userID: user._id, // lägg till success true etc
+        userID: user._id,
         username: user.username,
         accessToken: user.accessToken
       });
@@ -124,9 +104,5 @@ app.post('/signin', async (req, res) => {
 })
 
 app.listen(port, () => {
-  // eslint-disable-next-line
   console.log(`Server running on http://localhost:${port}`)
 })
-
-
-// Crypto is used to generate internal identification 
