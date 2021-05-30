@@ -1,4 +1,5 @@
 # Project Auth
+This project was made by Malin Göthe and Felicia Liabäck Löwstedt.
 This week we have learned to authenticate users and handle passwords.
 
 - How to authenticate users using tokens
