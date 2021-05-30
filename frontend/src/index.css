@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap');
 
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,7 +7,7 @@
 }
 
 body {
-  margin: 0 auto;
+  margin: 0;
   font-family: 'Noto', monospace;
   background: pink;
   display: flex;
@@ -21,13 +20,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 .boxes-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .input-box {
@@ -61,20 +63,8 @@ body {
   margin-bottom: 15px;
 }
 
-.happy-thoughts-site {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 100px;
-}
-
 @media (min-width: 768px){
   .main-wrapper{
     width: 400px;
   }
 }
-
-@media (min-width: 768px){
-  
-}
-
