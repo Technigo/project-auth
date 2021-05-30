@@ -26,7 +26,7 @@ export const App = () => {
       <Provider store={store}>
         <Switch>
           {/* <Route exact path='/' component={RegistrationForm} /> */}
-          <Route exact path='/registration' component={RegistrationForm} />
+          <Route  exact path='/' component={RegistrationForm} />
           <Route path='/thoughts' component={Thoughts} /> 
         </Switch>
       </Provider>
