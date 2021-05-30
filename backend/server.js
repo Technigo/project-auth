@@ -1,8 +1,12 @@
+/* eslint-disable linebreak-style */
+import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+
+dotenv.config();
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, {
@@ -12,7 +16,7 @@ mongoose.connect(mongoUrl, {
 });
 mongoose.Promise = Promise;
 
-const Thought = mongoose.model("Thought", {
+const Note = mongoose.model("Note", {
   message: String,
 });
 
@@ -40,7 +44,7 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next();
     } else {
-      res.status(401).json({ message: "Not authorized" });
+      res.status(401).json({ message: "Not authenticated" });
     }
   } catch (error) {
     res.status(400).json({ message: "Invalid request", error });
@@ -50,32 +54,34 @@ const authenticateUser = async (req, res, next) => {
 const port = process.env.PORT || 8080;
 const app = express();
 
+// Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
 
+// Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thought.find();
-  res.json({ success: true, thoughts });
+app.get("/notes", authenticateUser);
+app.get("/notes", async (req, res) => {
+  const notes = await Note.find();
+  res.json(notes);
 });
 
-app.post("/thoughts", authenticateUser);
-app.post("/thoughts", async (req, res) => {
+app.get("/notes", authenticateUser);
+app.post("/notes", async (req, res) => {
   const { message } = req.body;
 
   try {
-    const newThought = await new Thought({ message }).save();
-    res.json({ success: true, newThought });
+    const newNote = await new Note({ message }).save();
+
+    res.json(newNote);
   } catch (error) {
-    res.status(400).json({ success: false, message: "Invalid request", error });
+    res.status(400).json({ message: "Invalid request", error });
   }
 });
 
-// or '/users' or '/register'
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
 
@@ -94,17 +100,15 @@ app.post("/signup", async (req, res) => {
       accessToken: newUser.accessToken,
     });
   } catch (error) {
-    res.status(400).json({ message: "Invalid request", error });
+    res.status(400).json({ success: false, message: "Invalid request", error });
   }
 });
 
-// or '/session' or '/login'
 app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
 
   try {
     const user = await User.findOne({ username });
-
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
         success: true,
@@ -115,11 +119,12 @@ app.post("/signin", async (req, res) => {
     } else {
       res.status(404).json({ success: false, message: "User not found" });
     }
-  } catch (error) {
+  } catch {
     res.status(400).json({ success: false, message: "Invalid request", error });
   }
 });
 
+// Start the server
 app.listen(port, () => {
   // eslint-disable-next-line
   console.log(`Server running on http://localhost:${port}`);

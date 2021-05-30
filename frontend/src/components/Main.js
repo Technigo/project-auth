@@ -1,47 +1,51 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+/* eslint-disable linebreak-style */
 
-import thoughts from "reducers/thoughts";
-import { API_URL } from "reusable/url";
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+
+import { API_URL } from '../reusable/urls'
+
+import notes from '../reducers/notes'
+
+import './main.css'
 
 const Main = () => {
-  const accessToken = useSelector((store) => store.user.accessToken);
-  const thoughtsItems = useSelector((store) => store.thoughts.items);
-  const history = useHistory();
-  const dispatch = useDispatch();
+  const accessToken = useSelector((store) => store.user.accessToken)
+  const notesItems = useSelector((store) => store.notes.items)
+
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
     if (!accessToken) {
-      history.push("./login");
+      history.push('/login')
     }
-  }, [accessToken, history]);
+  }, [accessToken, history])
 
   useEffect(() => {
     if (accessToken) {
       const options = {
-        method: "GET",
+        method: 'GET',
         headers: {
-          Authorization: accessToken,
-        },
-      };
-
-      fetch(API_URL("thoughts"), options)
+          Authorization: accessToken
+        }
+      }
+      fetch(API_URL('notes'), options)
         .then((res) => res.json())
-        .then((data) => dispatch(thoughts.actions.setThoughts(data)));
+        .then((data) => dispatch(notes.actions.setNotes(data)))
     }
-  }, [accessToken, dispatch]);
+  }, [accessToken, dispatch])
 
   return (
     <div>
-      main
-      <Link to="/login">Login</Link>
-      {thoughtsItems &&
-        thoughtsItems.map((thought) => (
-          <p key={thought._id}>{thought.message}</p>
-        ))}
-    </div>
-  );
-};
+      <h2>Very secret notes</h2>
+      {notesItems.map((note) => (
+        <div className="notes" key={note._id}>{note.message}</div>
+      ))}
 
-export default Main;
+    </div>
+  )
+}
+
+export default Main

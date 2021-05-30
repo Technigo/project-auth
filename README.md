@@ -1,13 +1,11 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This is a pair programming project which I did with Ati Takrami in the framework of Technigo bootcamp for front-end development. The project aim was to create login function for the registered users and sign-in option for the new users. The user and encrypted passwords are stored in MongoDB Atlas in a cloud. Upon successful login user will see some secret information. The technology used: Javascript, React, Redux, Node.js, styling was done with CSS
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+Main problem was connection to cloud MongoDB database
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+The application is alive on Netlify server: https://kind-knuth-2345f5.netlify.app

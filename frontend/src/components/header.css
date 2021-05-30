@@ -1,0 +1,31 @@
+.btn-logout {
+    margin: 20px;
+    text-decoration: none;
+    color: rgb(39, 80, 155);
+    border: 3px solid rgb(121, 96, 161);
+    border-radius: 4px;
+    position: relative;
+    transition: all 1s;
+    overflow: hidden;
+}
+
+.btn-logout:before {
+    content: "sure?";
+    color: white;
+    position: absolute;
+    left: 0;
+    top:0;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(231, 3, 3);
+    transform: translateX(-100%);
+    transition: all 1s;
+}
+
+.btn-logout:hover:before {
+    transform: translateX(0);
+}
+
+.btn-logout:hover {
+    color:white;
+}
