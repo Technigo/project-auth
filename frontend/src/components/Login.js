@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector, batch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 import user from '../reducers/user'
 
@@ -68,7 +68,7 @@ const Login = () => {
             />
             <button className="button" type='submit' onClick={() => setMode('signin')}>Log in</button>
         </form>
-        <h3 className="login-title">You are not a member yet? Register <a href="https://project-auth-week20.netlify.app/signup"> here</a></h3>    
+        <h3 className="login-title">You are not a member yet? Register <Link to="/signup"> here</Link></h3>    
     </div>
     )
 }
