@@ -1,33 +1,60 @@
 body {
-    margin: auto;
-    background-color: rgb(237, 248, 247);
+  margin: auto;
+  background-color: rgb(237, 248, 247);
+}
+
+.add-form {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.add-input {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: rgb(238, 238, 248);
+  box-shadow: 2px 2px 0px 0px rgb(202, 202, 228);
+  outline: none;
+}
+
+.add-btn {
+  background: papayawhip;
+  border-radius: 5px;
+  border: 1px solid rgb(16, 16, 49);
+  padding: 0 25px;
+}
+
+.add-btn:hover {
+  background: rgb(28, 246, 28);
+  transition: 0.7s;
 }
 
 .notes {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
-    border-radius: 4px;
-    padding: 20px;
-    background-color: rgb(238, 238, 248); 
-    margin: 10px;
-    margin-left: 25%;
-    margin-right: 25%;
-    box-shadow: 2px 2px 0px 0px rgb(202, 202, 228);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: rgb(238, 238, 248);
+  margin: 10px;
+  margin-left: 25%;
+  margin-right: 25%;
+  box-shadow: 2px 2px 0px 0px rgb(202, 202, 228);
 }
 
 h2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    color: rgb(98, 36, 156);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  color: rgb(98, 36, 156);
 }
 
 /****************** MEDIA QUERIES **********/
 @media (min-width: 780px) {
-    body {
-        max-width: 600px;
-    }
+  body {
+    max-width: 600px;
+  }
 }
