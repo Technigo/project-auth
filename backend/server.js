@@ -11,9 +11,6 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.set('useCreateIndex', true); //added due to deprecation error 26868
 mongoose.Promise = Promise
 
-const Thought = mongoose.model('Thought', {
-  greeting: String
-})
 
 const User = mongoose.model('User', {
   username: {
@@ -46,7 +43,7 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 9000
 const app = express()
 
 // Add middlewares to enable cors and json body parsing
