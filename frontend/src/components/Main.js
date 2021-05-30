@@ -51,7 +51,7 @@ const Main = () => {
 
     return (
         <div className="main-wrapper">
-            <iframe className="happy-thoughts-site" width="350" height="240" src="https://happy-thoughts-app-estefania.netlify.app/" title="Happy Thoughts site"></iframe>
+            <iframe className="happy-thoughts-site" width="100%" height="100%" src="https://happy-thoughts-app-estefania.netlify.app/" title="Happy Thoughts site"></iframe>
             <button className="button" onClick={logout}>Logout</button>
         </div>
     )
