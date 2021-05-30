@@ -1,18 +1,25 @@
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { API_URL } from '../reusable/urls'
 
 import thoughts from '../reducers/thoughts'
+import user from '../reducers/user'
 
 
 const Main = () => {
     const accessToken = useSelector(store => store.user.accessToken)
-    const thoughtsItems = useSelector(store => store.thoughts.items)
 
     const dispatch = useDispatch()
     const history = useHistory()
+
+    const logout = () => {
+        batch(() => {
+            dispatch(user.actions.setUsername(null))
+            dispatch(user.actions.setAccessToken(null))
+        })
+    }
 
     useEffect(() => {
         if (!accessToken) {
@@ -24,11 +31,11 @@ const Main = () => {
         const options = {
             method: 'GET',
             headers: {
-                Authorization: 'accessToken'//added quotations to accessToken
+                Authorization: accessToken //added quotations to accessToken
             }
         }
 
-        fetch(API_URL('thoughts'), options) //in the lesson it's done with /signin instead
+        fetch(API_URL('thoughts'), options) 
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -41,14 +48,11 @@ const Main = () => {
                 }
             })
     }, [accessToken, dispatch])
-
+    
     return (
-        <div>
-            <div>It is working! YAY!</div>
-            <Link to='/login'>Let's login it's fun!</Link>
-            {thoughtsItems.map(thought => (
-                <div key={thought._id}>{thought.message}</div>
-            ))}
+        <div className="main-wrapper">
+            <iframe title="Cool-gif" src="https://giphy.com/embed/3o6YgibKajXglSfqbC" width="350" height="240" frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
+            <button className="button" onClick={logout}>Logout</button>
         </div>
     )
 }
