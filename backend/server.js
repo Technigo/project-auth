@@ -82,7 +82,7 @@ app.post('/signup', async (req, res) => {
 })
 
 //ENDPOINT TO AUTHENTICATE THE USER
-app.post('/signin', async (req, res) => {
+app.post('/login', async (req, res) => {
   const { username, password } = req.body
 
   try {
