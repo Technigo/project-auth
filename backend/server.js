@@ -94,7 +94,7 @@ app.post('/registration', async (req, res) => {
   }
 });
 
-// or '/session' or '/login'
+
 app.post('/signin', async (req, res) => {
   const { username, password } = req.body;
 
@@ -117,6 +117,6 @@ app.post('/signin', async (req, res) => {
 });
 
 app.listen(port, () => {
-  // eslint-disable-next-line
+
   console.log(`Server running on http://localhost:${port}`)
 });

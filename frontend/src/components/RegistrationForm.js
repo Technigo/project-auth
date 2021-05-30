@@ -1,9 +1,9 @@
 import { useSelector, useDispatch, batch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { useHistory} from 'react-router-dom';
+import styled from 'styled-components';
 
 import {user} from '../reducers/user';
-import styled from 'styled-components';
 import { THOUGHTS_URL } from '../reusable/Urls';
 
 
