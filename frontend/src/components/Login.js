@@ -68,7 +68,7 @@ const Login = () => {
             />
             <button className="button" type='submit' onClick={() => setMode('signin')}>Log in</button>
         </form>
-        <h3 className="login-title">You are not a member yet? Register <a href="/signup"> here</a></h3>    
+        <h3 className="login-title">You are not a member yet? Register <a href="https://dreamy-clarke-6f52df.netlify.app/signup"> here</a></h3>    
     </div>
     )
 }
