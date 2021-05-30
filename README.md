@@ -1,4 +1,4 @@
-🔐🔐 Project Auth 🔐🔐
+<h1>🔐🔐 Project Auth 🔐🔐</h1>
 
 Pair-programming project developed by Noemi Frischknecht and Estefanía Quevedo.
 
