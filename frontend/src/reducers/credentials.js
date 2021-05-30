@@ -25,6 +25,7 @@ const credentials = createSlice({
             store.accessToken = null
         },
         setSecret: (store, action) => {
+            console.log(action.payload)
             store.secret = action.payload
         }
     }
@@ -33,14 +34,24 @@ const credentials = createSlice({
 export const authenticate = (username, password, mode) => {
     return (dispatch, getState) => {
         const state = getState()
-        fetch(API_URL(mode), {
+        //const method = mode === 'secret' ? 'GET' : 'POST'
+        const options = mode === 'secret' 
+        ? {
+            method: 'GET',
+            headers: {
+            'Content-type' : 'application/json',
+            'Authorization' : state.credentials.accessToken
+            }
+        }
+        : {
             method: 'POST',
             headers: {
-                'Content-type' : 'application/json',
-                'Authorization' : state.credentials.accessToken
+            'Content-type' : 'application/json',
+            'Authorization' : state.credentials.accessToken
             },
             body: JSON.stringify({ username, password })
-        })
+        }
+        fetch(API_URL(mode), options)
         .then(res => res.json())
         .then(data => {
             if (data.success) {

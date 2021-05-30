@@ -21,6 +21,8 @@ const Main = () => {
     const onLogOut = () => {
         dispatch(credentials.actions.logOut())
     }
+    
+    dispatch(authenticate( null, null, 'secret'))
 
     return (
         <>
