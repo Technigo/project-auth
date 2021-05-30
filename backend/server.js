@@ -70,7 +70,7 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(bodyParser.json());
-app.use("/thoughts", authenticateUser);
+app.post("/thoughts", authenticateUser);
 
 // This is a GET endpoint that will return all the thougut that are available in the database and if there are no thoughts the API will throw and error
 app.get("/thoughts", async (req, res) => {

@@ -59,6 +59,7 @@ const Index = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        accessToken: accessToken,
       },
       body: JSON.stringify({ message }),
     };
@@ -72,32 +73,32 @@ const Index = () => {
 
   return (
     <>
-      <div className='logout-button-container'>
-        <button className='logout-button' onClick={onLogout}>
+      <div className="logout-button-container">
+        <button className="logout-button" onClick={onLogout}>
           Logout
         </button>
       </div>
-      <div className='thought-wrapper'>
-        <div className='thought-pink-circle'></div>
-        <div className='thought-blue-circle'></div>
-        <div className='thought-green-circle'></div>
-        <div className='thought-purple-circle'></div>
-        <div className='thought-dark-purple-circle'></div>
-        <form className='thought-form'>
+      <div className="thought-wrapper">
+        <div className="thought-pink-circle"></div>
+        <div className="thought-blue-circle"></div>
+        <div className="thought-green-circle"></div>
+        <div className="thought-purple-circle"></div>
+        <div className="thought-dark-purple-circle"></div>
+        <form className="thought-form">
           <textarea
-            className='thought-input'
+            className="thought-input"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="What's on your mind?"
             maxLength={145}
           />
-          <button className='thought-button' onClick={onButtonClick}>
+          <button className="thought-button" onClick={onButtonClick}>
             Send
           </button>
         </form>
         {thoughtsItems.map((thought) => (
-          <div className='thought-container' key={thought._id}>
-            <p className='thought-p'>{thought.message}</p>
+          <div className="thought-container" key={thought._id}>
+            <p className="thought-p">{thought.message}</p>
           </div>
         ))}
       </div>
