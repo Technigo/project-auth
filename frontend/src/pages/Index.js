@@ -46,7 +46,7 @@ const Index = () => {
           dispatch(thoughts.actions.setErrors(data));
         }
       });
-  }, [accessToken, dispatch]);
+  }, [message, accessToken, dispatch]);
 
   const onLogout = (e) => {
     e.preventDefault();
@@ -59,6 +59,7 @@ const Index = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: accessToken,
       },
       body: JSON.stringify({ message }),
     };
