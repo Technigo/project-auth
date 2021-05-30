@@ -70,7 +70,7 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(bodyParser.json());
-// app.use(authenticateUser);
+app.use(authenticateUser);
 
 // Start defining your routes here
 app.get("/", (req, res) => {
@@ -79,7 +79,6 @@ app.get("/", (req, res) => {
 
 // This is a GET endpoint that will return all the thougut that are available in the database and if there are no thoughts the API will throw and error
 app.get("/thoughts", async (req, res) => {
-  authenticateUser();
   try {
     const thoughts = await Thought.find();
     res.json(thoughts);
@@ -91,7 +90,6 @@ app.get("/thoughts", async (req, res) => {
 // This is a POST endpoint and it will allow the used to submit a new thought that will be stored in the database. The post request takes a message in the json body.
 app.post("/thoughts", async (req, res) => {
   const { message } = req.body;
-  authenticateUser();
   try {
     const newThought = await new Thought({ message }).save();
     res.json(newThought);
