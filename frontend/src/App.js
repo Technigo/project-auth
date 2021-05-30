@@ -8,10 +8,12 @@ import Signin from "./components/Signin";
 import Signup from "./components/Signup";
 
 import user from "./reducers/user";
+import thoughts from "./reducers/thoughts";
 
 
 const reducer = combineReducers({
   user: user.reducer,
+  thoughts: thoughts.reducer
  
 });
 
