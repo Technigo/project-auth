@@ -1,13 +1,12 @@
 # Project Auth
+I started building the project requirement based on the happy Thoughts project, but in this case, I couldn't use the repo for this week, instead of that, I created new branches in the original projects. 
 
-Replace this readme with your own information about your project.
+These are the link of the backend and frontend, both have been built without affecting the previous project that is still opened to approval. 
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+https://github.com/Technigo/project-happy-thoughts-api/pull/196
 
-## The problem
+https://github.com/Technigo/project-happy-thoughts/pull/208
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
-
-## View it live
-
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+# live site
+https://happy-thoughts-api-mongodb-aut.herokuapp.com/
+https://happy-thoughts-auth-feature.netlify.app/
