@@ -29,7 +29,7 @@ const Index = () => {
     const API_THOUGHTS = "https://week20-project-auth.herokuapp.com/thoughts";
     const options = {
       method: "GET",
-      header: {
+      headers: {
         Authorization: accessToken,
       },
     };
@@ -46,7 +46,7 @@ const Index = () => {
           dispatch(thoughts.actions.setErrors(data));
         }
       });
-  }, [thoughtsItems, accessToken, dispatch]);
+  }, [accessToken, dispatch]);
 
   const onLogout = (e) => {
     e.preventDefault();
