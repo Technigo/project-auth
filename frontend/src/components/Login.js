@@ -17,7 +17,6 @@ const Login = () => {
 
     useEffect(() => {
         // redirect user to '/' path
-        console.log('Checking access token', accessToken);
         if (accessToken) {
             history.push('/');
         }
@@ -36,7 +35,6 @@ const Login = () => {
         fetch(API_URL(mode), options)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.success) {
                     batch(() => {
                         dispatch(user.actions.setUsername(data.username));

@@ -42,17 +42,18 @@ const Main = () => {
             });
     }, [accessToken, dispatch]);
 
-    console.log(listitemsItems)
     return (
         
         <div className="wrapper">
         <div className="shoppinglist">
             
-            <h1>Your shopping list</h1>
+            <h1>Your shopping list
+            <Logout />
+            </h1>
             {listitemsItems.map(list => (
-                <div key={list._id}>{list.message}</div>
+                <div className="listitem" key={list._id}>{list.message}</div>
             ))}
-             <Logout />
+             
         </div>
        
         <div className="photo"></div>

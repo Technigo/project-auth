@@ -53,14 +53,18 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  res.send('Welcome to the Grocery shopping list API')
 });
+
+//endpoint to get items from shopping list, with authentication control
 
 app.get('/listitems', authenticateUser);
 app.get('/listitems', async (req, res) => {
   const listitems = await List.find();
   res.json({ success: true, listitems});
 });
+
+//endpoint to post items to shopping list, with authentication control
 
 app.post('/listitems', authenticateUser);
 app.post('/listitems', async (req, res) => {
@@ -122,6 +126,5 @@ app.post('/signin', async (req, res) => {
 });
 
 app.listen(port, () => {
-  // eslint-disable-next-line
-  console.log(`Server running on http://localhost:${port}`)
+  
 });
