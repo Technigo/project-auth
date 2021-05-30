@@ -24,7 +24,7 @@ const Thought = mongoose.model("Thought", {
 
 // This function will check if the user is logged in before the user is allowed to perform actions on the website. This middleware will always be checked before any endpoint.
 const authenticateUser = async (req, res, next) => {
-  const accessToken = req.headers("Authorization");
+  const accessToken = req.header("Authorization");
 
   try {
     const user = await User.findOne({ accessToken });

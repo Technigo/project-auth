@@ -29,7 +29,7 @@ const Index = () => {
     const API_THOUGHTS = "https://week20-project-auth.herokuapp.com/thoughts";
     const options = {
       method: "GET",
-      headers: {
+      header: {
         Authorization: accessToken,
       },
     };
@@ -59,7 +59,6 @@ const Index = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        accessToken: accessToken,
       },
       body: JSON.stringify({ message }),
     };
