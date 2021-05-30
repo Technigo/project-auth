@@ -41,7 +41,7 @@ const Main = () => {
             }
         })
     }
-  }, [accessToken], dispatch)
+  }, [accessToken, dispatch])
     return (
         <div>
             <div>Main</div>
