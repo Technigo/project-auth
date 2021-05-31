@@ -10,6 +10,7 @@ import { user } from './reducers/user'
 
 import {Thoughts} from './components/Thoughts'
 import {RegistrationForm} from './components/RegistrationForm'
+// import {Start} from './components/Start'
 
 
 const reducer = combineReducers ({
@@ -25,7 +26,7 @@ export const App = () => {
     <BrowserRouter>
       <Provider store={store}>
         <Switch>
-          <Route exact path='/' component={RegistrationForm} />
+           <Route exact path='/' component={RegistrationForm} /> 
           <Route path='/registration' component={RegistrationForm} />
           <Route path='/thoughts' component={Thoughts} /> 
         </Switch>
