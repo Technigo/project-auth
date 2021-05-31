@@ -66,7 +66,7 @@ const Login = () => {
                value={password}
                onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="button" type='submit' onClick={() => setMode('signin')}>Log in</button>
+            <button className="button" type='submit' onClick={() => setMode('login')}>Log in</button>
         </form>
         <h3 className="login-title">You are not a member yet? Register <Link to="/signup"> here</Link></h3>    
     </div>
