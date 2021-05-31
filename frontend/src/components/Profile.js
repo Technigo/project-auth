@@ -34,7 +34,6 @@ const Profile = () => {
         }
       })
       .catch()
-    console.log('fetch done')
   }
 
   return (

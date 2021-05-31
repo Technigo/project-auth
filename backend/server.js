@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/flatEarthers"
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/projectAuth"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: false })
 mongoose.Promise = Promise
 
@@ -117,18 +117,13 @@ app.post('/signup', async (req, res) => {
       password: bcrypt.hashSync(password, salt)
     }).save()
     
-      res.status(201).json({success: true, id: user._id, username: user.username, email: user.email, accessToken: user.accessToken})
+    res.status(201).json({success: true, id: user._id, username: user.username, email: user.email, accessToken: user.accessToken})
     
     
     
   } catch (error) {
     res.status(400).json({success: false, message: 'Could not create user', error})
   }
-})
-
-app.get('/secrets', authenticateUser)
-app.get('/secrets', (req, res) => {
-  res.json({secret: 'This is a super secret message.'})
 })
 
 app.post('/sessions', async (req, res) => {

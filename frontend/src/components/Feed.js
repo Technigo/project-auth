@@ -35,8 +35,6 @@ const Feed = () => {
       })
   }, [])
 
-  console.log(thoughtsItems)
-
   return (
     <section className="feed-section">
       <div className="feed-card-wrapper">

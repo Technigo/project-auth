@@ -27,8 +27,6 @@ const LoginForm = () => {
   const onFormSubmit = (event) => {
     event.preventDefault()
 
-    console.log(username, password)
-
     const options = {
       method: 'POST',
       headers: {
