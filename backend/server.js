@@ -6,7 +6,7 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/projectAuth"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: false })
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: false, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
 const User = mongoose.model('User', {
@@ -76,7 +76,7 @@ const app = express()
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
-app.use(bodyParser.json())
+app.use(express.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
@@ -98,31 +98,37 @@ app.post('/thoughts', (req, res) => {
       message
     })
     newThought.save()
-    res.status(201).json({success: true, id: newThought._id, username: newThought.username, createdAt: newThought.createdAt, message: newThought.message})
+    res.status(201).json({ success: true, id: newThought._id, username: newThought.username, createdAt: newThought.createdAt, message: newThought.message })
   } catch (error) {
-    res.status(400).json({success: false, message: 'Could not post thought', error})
+    res.status(400).json({ success: false, message: 'Could not post thought', error })
   }
   
 })
 
 app.post('/signup', async (req, res) => {
-  const { username, email, password } = req.body
+  const { username, password, email } = req.body
 
-  try {  
+  try {
     const salt = bcrypt.genSaltSync()
 
-    const user = new User({
+    const newUser = await new User({ 
       username, 
-      email, 
-      password: bcrypt.hashSync(password, salt)
+      password: bcrypt.hashSync(password, salt),
+      email 
     }).save()
     
-    res.status(201).json({success: true, id: user._id, username: user.username, email: user.email, accessToken: user.accessToken})
-    
-    
-    
+    res.status(201).json({ 
+      success: true,
+      id: newUser._id, 
+      username: newUser.username, 
+      email: newUser.email,
+      accessToken: newUser.accessToken 
+    })
   } catch (error) {
-    res.status(400).json({success: false, message: 'Could not create user', error})
+    if (error.code === 11000) {
+      res.status(400).json({ message: 'User already exists', fields: error.keyValue })
+    }
+    res.status(400).json({ success: false, message: 'Could not create user', error })
   }
 })
 
@@ -133,9 +139,9 @@ app.post('/sessions', async (req, res) => {
     const user = await User.findOne({ username })
 
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.json({success: true, id: user._id, username: user.username, email: user.email,accessToken: user.accessToken})
+      res.json({ success: true, id: user._id, username: user.username, email: user.email,accessToken: user.accessToken })
     } else {
-      res.json({success: false, notFound: true})
+      res.json({ success: false, notFound: true })
     }
   } catch (error) {
     res.status(400).json({ success: false, message: 'Invalid request', error });
@@ -149,7 +155,7 @@ app.patch('/sessions/:id', async (req, res) => {
     const updateUser = await User.findByIdAndUpdate(id, { fullName: req.body.fullName, age: req.body.age, location: req.body.location, description: req.body.description })
 
     if (updateUser) {
-      res.json({success: true, updateUser})
+      res.json({ success: true, updateUser })
     } else {
       res.status(404).json({ success: false, message: 'Not found' })
     }
