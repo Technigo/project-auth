@@ -12,15 +12,17 @@ const Feed = () => {
 
   const dispatch = useDispatch()
 
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `${account.accessToken}` 
-    }
-  }
+  
 
   useEffect(() => {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${account.accessToken}` 
+      }
+    }
+
     fetch(API_URL(THOUGHTS), options)
       .then(res => res.json())
       .then(data => {
@@ -33,7 +35,7 @@ const Feed = () => {
           dispatch(thoughts.actions.setErrors(data))
         }
       })
-  }, [])
+  }, [account.accessToken, dispatch])
 
   return (
     <section className="feed-section">
