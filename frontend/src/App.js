@@ -24,8 +24,6 @@ const MainContainer = styled.main`
   background-color: #f2f3ff;
 `;
 
-const store = configureStore({ reducer });
-
 const reducer = combineReducers({
   user: user.reducer,
 });
@@ -34,8 +32,8 @@ const persistedStateJSON = localStorage.getItem("reduxState");
 let persistedState = {};
 
 if (persistedStateJSON) {
-  persistedState = JSON.parse(persistedStateJSON)
-};
+  persistedState = JSON.parse(persistedStateJSON);
+}
 
 const store = createStore(
   reducer,
