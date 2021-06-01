@@ -24,26 +24,27 @@ const accessToken = useSelector(store => store.user.accessToken)
 useEffect(() => {
   if (!accessToken) {
     history.push('/')
-  }
-},[accessToken, history])
-
-useEffect(() => {
-
-  const options = {
-    method: 'GET',
-    headers: {
-      Authorization: accessToken
     }
-  }
-  fetch(API_URL('session'), options)
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        setImgsrc(data.images[0].url)
-      } else {
-        dispatch(user.actions.setErrors(data))
+  },[accessToken, history])
+
+  useEffect(() => {
+    if (accessToken) {
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: accessToken
       }
-    })
+    }
+    fetch(API_URL('session'), options)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setImgsrc(data.images[0].url)
+        } else {
+          dispatch(user.actions.setErrors(data))
+        }
+      })
+    }
   },[accessToken, dispatch])
 
   const onLogOut = () => {
