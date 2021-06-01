@@ -52,6 +52,7 @@ useEffect(() => {
       dispatch(user.actions.setAccessToken(null))
       dispatch(user.actions.setErrors(null))
     })
+    localStorage.clear()
     history.push('/')
   }
 

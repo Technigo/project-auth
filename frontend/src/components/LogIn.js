@@ -70,10 +70,11 @@ export const LogIn = () => {
             dispatch(user.actions.setAccessToken(data.accessToken))
             dispatch(user.actions.setErrors(null))
           })
-          setUsername('')
-          setPassword('')
+         
         } else {
           dispatch(user.actions.setErrors(data))
+          setUsername('')
+          setPassword('')
         }
       })
       .catch()
