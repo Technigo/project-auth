@@ -10,5 +10,5 @@ The user can both create a user and sign in with existing user credentials.
 
 ## View it live
 
-Link to frontend: https://project-auth-mj.netlify.app/login
+Link to frontend: https://project-auth-mj.netlify.app/
 Link to backend: https://project-auth-mj.herokuapp.com/
