@@ -8,6 +8,6 @@ Express, React, React Router, Redux, MogoDB/Mongoose, Styled Components, Node.
 
 ## View it live
 Frontend:
-https://practical-wozniak-d60eff.netlify.app/Login 
+https://practical-wozniak-d60eff.netlify.app 
 Backend: 
 https://project-auth-paan.herokuapp.com 
