@@ -73,8 +73,8 @@ const Login = () => {
           className="password-input"
           placeholder="Password"
         /> 
-      </div>
         {errorMsg ?<p>{errorMsg.message}</p> :null}          
+      </div>
       <button 
         
         type="submit" 
