@@ -74,7 +74,6 @@ const Login = () => {
   useEffect(() => {
     // redirect user to '/' path
     // everytime access token is changed, it will be pushed '/'
-    console.log("Checking access token", accessToken);
     if (accessToken) {
       history.push("/questions");
     }
@@ -93,13 +92,18 @@ const Login = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           // updating dispatch at the same time
           batch(() => {
             dispatch(user.actions.setUsername(data.username));
             dispatch(user.actions.setAccessToken(data.accessToken));
             dispatch(user.actions.setErrors(null));
+
+            localStorage.setItem('user', JSON.stringify({
+              username: data.username,
+              accessToken: data.accessToken
+            }));
+
           });
         } else {
           dispatch(user.actions.setErrors(data));
