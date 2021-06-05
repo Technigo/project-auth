@@ -20,7 +20,10 @@ const User = mongoose.model('User', {
   email: {
     type: String,
     unique: true,
-    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+    match: [
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      'Please fill a valid email address',
+    ],
   },
   password: {
     type: String,
@@ -86,7 +89,10 @@ app.post('/signup', async (req, res) => {
       email,
     });
     if (user) {
-      res.status(403).json({ errorCode: 'email-exists', message: 'A user with that email already exists' });
+      res.status(403).json({
+        errorCode: 'email-exists',
+        message: 'A user with that email already exists',
+      });
       return;
     }
 
@@ -94,12 +100,14 @@ app.post('/signup', async (req, res) => {
       email,
       password: bcrypt.hashSync(password, salt),
     });
-    console.log(user);
     user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (error) {
-    console.log(error);
-    res.status(400).json({ errorCode: 'uknown-error', message: 'Could not create user', error });
+    res.status(400).json({
+      errorCode: 'uknown-error',
+      message: 'Could not create user',
+      error,
+    });
   }
 });
 
@@ -109,12 +117,18 @@ app.post('/signin', async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      res.status(401).json({ errorCode: 'invalid-credentials', message: 'Invalid credentials' });
+      res.status(401).json({
+        errorCode: 'invalid-credentials',
+        message: 'Invalid credentials',
+      });
       return;
     }
 
     if (!bcrypt.compareSync(password, user.password)) {
-      res.status(401).json({ errorCode: 'invalid-credentials', message: 'Invalid credentials' });
+      res.status(401).json({
+        errorCode: 'invalid-credentials',
+        message: 'Invalid credentials',
+      });
       return;
     }
 
@@ -124,7 +138,9 @@ app.post('/signin', async (req, res) => {
       accessToken: user.accessToken,
     });
   } catch (error) {
-    res.status(400).json({ errorCode: 'uknown-error', message: 'Invalid request', error });
+    res
+      .status(400)
+      .json({ errorCode: 'uknown-error', message: 'Invalid request', error });
   }
 });
 
