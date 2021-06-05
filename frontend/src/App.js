@@ -12,7 +12,6 @@ import Register from './components/Register'
 
 const reducer = combineReducers({
   user: user.reducer,
-
 })
 
 const store = configureStore({ reducer })

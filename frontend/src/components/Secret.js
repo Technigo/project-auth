@@ -45,8 +45,10 @@ const Secret = () => {
 
     const onButtonClick = () => {
       batch(() => {
-          dispatch(user.actions.setUsername(null));
-          dispatch(user.actions.setAccessToken(null))
+        // remove user from localStorage
+        localStorage.removeItem('user')
+        dispatch(user.actions.setUsername(null));
+        dispatch(user.actions.setAccessToken(null))
       })
     }
 
