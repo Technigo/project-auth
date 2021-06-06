@@ -26,7 +26,7 @@ const Main = () => {
 
       fetch(API_URL('mypage'), options)
         .then((res) => res.json())
-        .then((data) => setSecretMessage(data));
+        .then((data) => console.log(data));
     }
   }, [accessToken]);
 
