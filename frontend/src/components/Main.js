@@ -5,18 +5,14 @@ import { useHistory } from 'react-router-dom';
 import { API_URL } from '../reusable/urls';
 
 const Main = () => {
-  const [secretMessage, setSecretMessage] = useState('')
+  const [secretMessage, setSecretMessage] = useState('');
   const accessToken = useSelector((store) => store.user.accessToken);
   const history = useHistory();
 
   useEffect(() => {
     if (!accessToken) {
       history.push('/login');
-    }
-  }, [accessToken, history]);
-
-  useEffect(() => {
-    if (accessToken) {
+    } else {
       const options = {
         method: 'GET',
         headers: {
@@ -28,7 +24,7 @@ const Main = () => {
         .then((res) => res.json())
         .then((data) => setSecretMessage(data));
     }
-  }, [accessToken]);
+  }, [accessToken, history]);
 
   return (
     <div>
