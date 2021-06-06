@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { API_URL } from '../reusable/urls';
 
 const Main = () => {
+  const [secretMessage, setSecretMessage] = useState('')
+
   const accessToken = useSelector((store) => store.user.accessToken);
   const history = useHistory();
 
@@ -25,13 +27,13 @@ const Main = () => {
 
       fetch(API_URL('mypage'), options)
         .then((res) => res.json())
-        .then((data) => console.log(data));
+        .then((data) => setSecretMessage(data));
     }
   }, [accessToken]);
 
   return (
     <div>
-      <div>Here is a very secret message!</div>
+      <div>{secretMessage}</div>
     </div>
   );
 };

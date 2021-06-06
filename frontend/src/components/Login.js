@@ -44,7 +44,7 @@ const Login = () => {
               onChange={(e) => setName(e.target.value)}
               placeholder='Name'
             />
-            <Label htlFor='name'>Name</Label>
+            <Label htmlFor='name'>Name</Label>
           </Container>
           <CountLine>
             <CharCount>{name.length}/20</CharCount>
@@ -60,7 +60,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder='Email'
             />
-            <Label htlFor='email'>Email</Label>
+            <Label htmlFor='email'>Email</Label>
           </Container>
         </Wrapper>
         <Wrapper>
