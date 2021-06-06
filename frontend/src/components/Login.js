@@ -45,6 +45,11 @@ const Login = () => {
             dispatch(user.actions.setUsername(data.username))
             dispatch(user.actions.setAccessToken(data.accessToken))
             dispatch(user.actions.setErrors(null))
+
+            localStorage.setItem('user', JSON.stringify({
+              username: data.username,
+              accessToken: data.accessToken
+          }))
           })
         } else {
           Swal.fire(data.message)
