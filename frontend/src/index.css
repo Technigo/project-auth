@@ -1,22 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: 'Prata', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: 'Prata', serif;
 }
 
-.form {
+button {
+  font-family: inherit;
+  font-size: 16px;
+  text-transform: uppercase;
+  background-color: #434343;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 16px 24px;
+  width: 50%;  
+  max-width: 300px;
+}
+
+button:hover {
+  animation: button-change 0.5s forwards;
+}
+
+@keyframes button-change {
+  from {background-color: #434343;}
+  to {background-color: #000;}
+}
+
+.path-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(./assets/double-bubble-dark.png);
+  min-height: 100vh;
 }
 
-.button {
-  width: 140px;
+.registration-form,
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+  background-color: #fff;
+  width: 90%;
+}
+
+.registration-form label,
+.main-container label,
+p {
+  align-self: flex-start;
+  margin: 8px 0 0;
+  font-size: 16px;
+}
+
+.registration-form p {
+  color: red;
+}
+
+.registration-form input,
+.main-container input {
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid black;
+  font-family: inherit;
+  font-size: 20px;
+  width: 100%;
+  padding: 8px;
+}
+
+.registration-form button {
+  margin: 20px 20px 0 0;  
+  align-self: flex-end;
+}
+
+.registration-form a {
+  margin-top: 40px;
+  color: black;
+  text-decoration: none;
+}
+
+.registration-form a:hover {
+  text-decoration: underline;
+}
+
+.logout-button {
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 16px;
+  align-self: flex-end;
+  max-width: 200px;
+}
+
+.main-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.submit-button {
+  margin: 24px;
+  width: 70%;
+}
+
+.secret-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 24px 0;
+}
+
+.secret {
+  background-color: #727272;
+  color: #727272;
+  width: 100px;
+  padding: 8px;
+  margin: 8px;
+  box-shadow: 0 0 3px #434343;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.secret:hover {
+  animation: secret-change 2s forwards;
+}
+
+@keyframes secret-change {
+  from {color: #727272;}
+  to {color: #fff;}
+}
+
+@media (min-width: 667px) {
+  .submit-button {
+    width: 50%;
+  }
+  .secret {
+    width: 120px;
+    margin: 16px;
+    padding: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .registration-form,
+  .main-container {
+  width: 60%;
+  padding: 40px;
+  }
+  .secret-container {
+    padding: 24px;
+  }
+  .secret {
+    width: 160px;
+    margin: 16px;
+    padding: 16px;
+  }
 }

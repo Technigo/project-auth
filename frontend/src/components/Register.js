@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import Form from './Form'
 
@@ -9,7 +8,7 @@ const Register = () => {
   const [password, setPassword] = useState('')
 
   return (
-    <>
+    <div className="path-container">
       <Form
         username={username}
         setUsername={setUsername}
@@ -19,9 +18,10 @@ const Register = () => {
         setPassword={setPassword}
         mode="users"
         title="Register"
+        link="/login"
+        linkDescription="Already signed up? Log in here!"
       />
-      <Link to="/login">Already signed up? Log in here!</Link>
-    </>
+    </div>
   )
 }
 export default Register

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import Form from './Form'
 
@@ -9,7 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
 
   return (
-    <>
+    <div className="path-container">
       <Form
         username={username}
         setUsername={setUsername}
@@ -19,9 +18,10 @@ const Login = () => {
         setPassword={setPassword}
         mode="sessions"
         title="Login"
+        link="/register"
+        linkDescription="Not a user yet? Sign up here!"
       />
-      <Link to="/register">Not a user yet? Sign up here!</Link>
-    </>
+    </div>
   )
 }
 export default Login

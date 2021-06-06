@@ -43,6 +43,15 @@ const Main = () => {
       })
   }, [accessToken, dispatch])
 
+  const onLogoutButtonClick = () => {
+    batch(() => {
+      dispatch(user.actions.setUsername(null))
+      dispatch(user.actions.setAccessToken(null))
+      dispatch(secrets.actions.setSecrets([]))
+    })
+    localStorage.removeItem("user")
+  }
+
   const onSecretSubmit = (e) => {
     e.preventDefault()
 
@@ -67,22 +76,27 @@ const Main = () => {
   }
 
   return (
-    <div>
-      <button onClick={() => dispatch(user.actions.setAccessToken(null))}>
-        Log out
+    <div className="path-container">
+      <div className="main-container">
+        <button onClick={onLogoutButtonClick} className="logout-button">
+          Log out
       </button>
-      <form>
-        <label>My secret</label>
-        <input
-          type="text"
-          value={newSecret}
-          onChange={(e) => setNewSecret(e.target.value)}
-        />
-        <button onClick={onSecretSubmit}>Post new secret</button>
-      </form>
-      {secretItems.map(secret => (
-        <div key={secret._id}>{secret.message}</div>
-      ))}
+        <form>
+          <label>What's your secret?</label>
+          <input
+            type="text"
+            value={newSecret}
+            onChange={(e) => setNewSecret(e.target.value)}
+          />
+          <button onClick={onSecretSubmit} className="submit-button">Share your secret</button>
+        </form>
+        <p>Hover on each box to unveil the secret!</p>
+        <div className="secret-container">
+          {secretItems.map(secret => (
+            <div key={secret._id} className="secret">{secret.message}</div>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
