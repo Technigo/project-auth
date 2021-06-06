@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -25,13 +25,13 @@ const Main = () => {
 
       fetch(API_URL('mypage'), options)
         .then((res) => res.json())
-        .then((data) => console.log(data));
+        .then((data) => setSecretMessage(data));
     }
   }, [accessToken]);
 
   return (
     <div>
-      <div>Secret message</div>
+      <div>{secretMessage}</div>
     </div>
   );
 };
