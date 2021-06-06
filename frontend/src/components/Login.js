@@ -77,7 +77,7 @@ const Login = () => {
           </Container>
         </Wrapper>
         <ButtonWrapper>
-          <Button type='submit' onClick={() => setMode('signin')}>
+          <Button type='submit' onClick={() => setMode('login')}>
             Sign in
           </Button>
           <Button type='submit' onClick={() => setMode('signup')}>
