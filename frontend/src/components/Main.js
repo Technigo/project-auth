@@ -6,7 +6,6 @@ import { API_URL } from '../reusable/urls';
 
 const Main = () => {
   const [secretMessage, setSecretMessage] = useState('')
-
   const accessToken = useSelector((store) => store.user.accessToken);
   const history = useHistory();
 

@@ -65,7 +65,7 @@ app.get('/', (req, res) => {
 
 app.get('/mypage', authenticateUser)
 app.get('/mypage', (req, res) => {
-  res.json('This is a secret message')
+  res.send('This is a secret message')
 })
 
 app.post('/signup', async (req, res) => {
