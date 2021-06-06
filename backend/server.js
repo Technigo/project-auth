@@ -92,7 +92,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-app.post('/signin', async (req,res) => {
+app.post('/login', async (req,res) => {
   const { email, password } = req.body
 
   try {
