@@ -22,6 +22,7 @@ const SecretPage = () => {
     batch(()=> {
       dispatch(user.actions.setUsername(null))
       dispatch(user.actions.setAccessToken(null))
+      localStorage.removeItem('user')
     })
   }
 
