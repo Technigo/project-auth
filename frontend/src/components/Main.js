@@ -18,6 +18,8 @@ const Main = () => {
         batch(() => {
             dispatch(user.actions.setUsername(null))
             dispatch(user.actions.setAccessToken(null))
+
+            localStorage.removeItem('user')
         })
     }
 
@@ -51,7 +53,7 @@ const Main = () => {
 
     return (
         <div className="main-wrapper">
-            <div style="width:100%;height:0;padding-bottom:102%;position:relative;"><iframe src="https://giphy.com/embed/Z9b3BbCPSGMmZuMy7v" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen><a href="https://happy-thoughts-app-estefania.netlify.app/" alt="a link to the happy thoughts site"/></iframe></div>
+            <h1>So now you can either logout or hop over <a href="https://happy-thoughts-app-estefania.netlify.app/"> here</a>for some single-fun.</h1>
             <button className="button" onClick={logout}>Logout</button>
         </div>
     )
