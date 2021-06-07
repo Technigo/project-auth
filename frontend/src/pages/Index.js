@@ -19,7 +19,8 @@ const Index = () => {
 
   // This useEffect will check is the accessToken in the redux state is null. If it is null then the user will be sent to /login page.
   useEffect(() => {
-    if (!accessToken) {
+    const accessTokenLocalStorage = localStorage.getItem("accessToken");
+    if (!accessTokenLocalStorage) {
       history.push("/login");
     }
   });
@@ -51,6 +52,7 @@ const Index = () => {
   const onLogout = (e) => {
     e.preventDefault();
     dispatch(user.actions.setAccessToken(""));
+    localStorage.removeItem("accessToken");
   };
 
   const onButtonClick = (e) => {
