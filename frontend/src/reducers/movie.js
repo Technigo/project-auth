@@ -15,7 +15,6 @@ export const movie = createSlice({
 export const fetchMovies = () => {
   return (dispatch, getState) => {
     const { user } = getState();
-    console.log(user.accessToken);
     fetch('https://hannahmalin-authentication.herokuapp.com/netflix', {
       method: 'GET',
       headers: {

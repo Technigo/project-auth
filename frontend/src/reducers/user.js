@@ -2,13 +2,21 @@ import { batch } from 'react-redux';
 import { createSlice } from '@reduxjs/toolkit';
 import { API_URL } from 'reusable/urls';
 
+const initialState = localStorage.getItem('user')
+  ? {
+      email: JSON.parse(localStorage.getItem('user')).email,
+      accessToken: JSON.parse(localStorage.getItem('user')).accessToken,
+      errors: null,
+    }
+  : {
+      email: null,
+      accessToken: null,
+      errors: null,
+    };
+
 export const user = createSlice({
   name: 'user',
-  initialState: {
-    email: null,
-    accessToken: null,
-    errors: null,
-  },
+  initialState,
   reducers: {
     setEmail: (store, action) => {
       store.email = action.payload;
@@ -37,6 +45,14 @@ export const signIn = (email, password) => {
             dispatch(user.actions.setAccessToken(data.accessToken));
             dispatch(user.actions.setErrors(null));
           });
+
+          localStorage.setItem(
+            'user',
+            JSON.stringify({
+              email: data.email,
+              accessToken: data.accessToken,
+            })
+          );
         } else {
           dispatch(user.actions.setErrors(data));
         }
@@ -73,6 +89,14 @@ export const signUp = (email, password) => {
             dispatch(user.actions.setAccessToken(data.accessToken));
             dispatch(user.actions.setErrors(null));
           });
+
+          localStorage.setItem(
+            'user',
+            JSON.stringify({
+              email: data.email,
+              accessToken: data.accessToken,
+            })
+          );
         } else {
           dispatch(user.actions.setErrors(data));
         }
