@@ -37,12 +37,16 @@ const SignInForm = () => {
     fetch(API_URL(status), options)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUsername(data.username))
             dispatch(user.actions.setAccessToken(data.accessToken))
             dispatch(user.actions.setErrors(null))
+
+            localStorage.setItem('user', JSON.stringify({
+              username: data.username,
+              accessToken: data.accessToken
+            }))
           })
         } else {
           dispatch(user.actions.setErrors(data))
