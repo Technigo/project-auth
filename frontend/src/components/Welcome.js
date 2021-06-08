@@ -44,7 +44,7 @@ const Welcome = () => {
         <div>
             <div className="main-wrapper">
                 <iframe title="Welcome-gif" src="https://giphy.com/embed/l0MYC0LajbaPoEADu" width="350" height="240" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-                <p className="text">Congratulation to becoming a member of the coolest crowd there is!</p>
+                <p className="text">Congratulations to becoming a member of the coolest crowd there is!</p>
                 <p className="text">Don't get confused by the missing content on here. We are cool silently and inactively.</p>
                 <h3 className="welcome-title">Now enter the memberarea <Link to="/login">here</Link></h3>
             </div>
