@@ -5,7 +5,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #f0f8ff;
+  background-color: #F1F0F2;
   font-family: 'Inter', sans-serif;
 }
 
@@ -30,7 +30,7 @@ body {
 }
 
 .form-heading {
-  color: #CF0568;
+  color: #3A2B49;
   font-size: 34px;
   margin-top: 50px;
 }
@@ -72,7 +72,7 @@ body {
   margin: 0 5px 10px 5px;
   border-radius: 7px;
   border: none;
-  background-color: #CF0568;
+  background-color: #5C5D97;
   color: #f0f8ff;
   font-family: 'Inter', sans-serif;
   cursor: pointer;
@@ -94,6 +94,12 @@ body {
   width: 100%;
 }
 
+.form-box-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .profile-container {
   text-align: center;
   padding: 10px;
@@ -105,7 +111,7 @@ body {
 }
 
 .feelings {
-  border: 2px solid #cf0567ae;
+  border: 2px solid #5C5D97;
   border-radius: 7px;
 }
 
@@ -120,6 +126,10 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
   text-align: left;
   padding: 0 15px;
+}
+
+.feelings-list {
+  list-style: none;
 }
 
 @media (max-width: 450px) {

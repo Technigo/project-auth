@@ -81,9 +81,9 @@ const Page = () => {
           <h2 className="form-heading">{onFeelingsRegistred(feelings)}</h2>
           <div className="feelings">
             <p className="feelings-header">All of your feelings so far:</p>
-            <div className="feelings-container">
-              {feelingsHistory.map((feeling, index) => <p key={`key-${index}`}>{feeling}</p>)}
-            </div>
+            <ul className="feelings-container">
+              {feelingsHistory.map((feeling, index) => <li className="feelings-list" key={`key-${index}`}>{feeling}</li>)}
+            </ul>
             </div>
         </div>
 

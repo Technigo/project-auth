@@ -96,7 +96,7 @@ const LogIn = () => {
         </div>
       </form>
       <div className="form-box-right">
-        <img src="./assets/moody.jpeg" alt="feeling bubbles" />
+        <img src="./assets/moody.jpeg" alt="feeling bubbles" /> 
       </div>
     </section>
   )

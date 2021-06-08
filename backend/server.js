@@ -122,8 +122,8 @@ app.post('/sessions', async (req, res) => {
   }
 })
 
-app.post('/users/:id/feelings', authenticateUser)
-app.post('/users/:id/feelings', async (req, res) => {
+// app.post('/users/:id/feelings', authenticateUser)
+app.post('/users/:id/feelings', authenticateUser, async (req, res) => {
   const { id } = req.params
   const { feelings } = req.body
   
