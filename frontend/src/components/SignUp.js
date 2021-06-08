@@ -26,6 +26,7 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 10px;
 `
 
 const Input = styled.input`
@@ -70,11 +71,21 @@ export const SignUp = () => {
     <h2>Sign up</h2>
       <label>
         Username
-        <Input onChange={(e) => setUsername(e.target.value)} value={username} type="text" />
+        <Input 
+          onChange={(e) => setUsername(e.target.value)} 
+          value={username} 
+          type="text"
+          required 
+          minlength = '3'
+          />
       </label>
       <label>
         Password 
-        <Input onChange={(e) => setPassword(e.target.value)} value={password} type="password" />
+        <Input 
+          onChange={(e) => setPassword(e.target.value)} 
+          value={password} 
+          type="password" 
+          required />
       </label>
       {errorMessage ? <p>{errorMessage.message}</p> : ''}
       <StyledButton onClick={onFormSubmit} type="submit">Submit</StyledButton>

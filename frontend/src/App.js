@@ -12,16 +12,16 @@ import { StartPage } from './components/StartPage'
 import user from './reducers/user'
 
 const Main = styled.main`
-display: flex;
-flex-direction: column;
-height: 100vh;
-width: 100vw;
-justify-content: center;
-align-items: center;
-background-image: linear-gradient(#CBC7FE, #B9DEFF);
-box-sizing: border-box;
-font-family: "Now Bold";
-color: #6A7885;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(#CBC7FE, #B9DEFF);
+  box-sizing: border-box;
+  font-family: "Now Bold";
+  color: #6A7885;
 `
 
 const reducer = combineReducers({

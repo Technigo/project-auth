@@ -17,7 +17,8 @@ const User = mongoose.model('User', {
   },
   password: {
     type: String, 
-    required: true
+    required: true,
+    minLength: 4
   },
   accessToken: {
     type: String, 

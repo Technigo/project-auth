@@ -24,11 +24,7 @@ const accessToken = useSelector(store => store.user.accessToken)
 useEffect(() => {
   if (!accessToken) {
     history.push('/')
-    }
-  },[accessToken, history])
-
-  useEffect(() => {
-    if (accessToken) {
+  } else {
     const options = {
       method: 'GET',
       headers: {
@@ -44,23 +40,23 @@ useEffect(() => {
           dispatch(user.actions.setErrors(data))
         }
       })
-    }
-  },[accessToken, dispatch])
+  }
+}, [accessToken, dispatch, history])
 
-  const onLogOut = () => {
-    batch(() => {
-      dispatch(user.actions.setUsername(null))
-      dispatch(user.actions.setAccessToken(null))
-      dispatch(user.actions.setErrors(null))
-    })
-    localStorage.clear()
-    history.push('/')
+const onLogOut = () => {
+  batch(() => {
+    dispatch(user.actions.setUsername(null))
+    dispatch(user.actions.setAccessToken(null))
+    dispatch(user.actions.setErrors(null))
+  })
+  localStorage.clear()
+  history.push('/')
   }
 
-  return (
-    <>
+return (
+  <>
     {imgsrc ? <Image src={imgsrc} alt="cat" /> : <p>Loading image...</p>}
     <StyledButton onClick={onLogOut}>Log out</StyledButton>
-    </>
+  </>
   )
 }
