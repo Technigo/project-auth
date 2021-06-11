@@ -25,22 +25,38 @@ const Form = () => {
   }
 
   return (
-    <form onSubmit={onFormSubmit}>
-      <label>Username</label>
-      <input type='text' value={username} onChange={onUsernameChange} />
-      <label>Password</label>
-      <input type='password' value={password} onChange={onPasswordChange} />
-      <Button 
-        text='Sign in'
-        type='submit'
-        onClick={() => setMode('signin')}
-      />
-      <Button 
-        text='Sign Up'
-        type='submit'
-        onClick={() => setMode('signup')}
-      />
-    </form>
+    <section className="container">
+      <form className="form" onSubmit={onFormSubmit}>
+        <div>
+          <label>Username</label>
+          <div className="input-field">
+            <input type='text' value={username} onChange={onUsernameChange} />
+          </div>
+        </div>
+        <div>
+          <label>Password</label>
+          <div className="input-field">
+            <input type='password' value={password} onChange={onPasswordChange} />
+          </div>
+        </div>
+        <div className="signin">
+          <Button 
+            text='Sign in'
+            type='submit'
+            onClick={() => setMode('signin')}
+          />
+        </div>
+        <div className="signup">
+          <p>Not having an account yet? Sign up! </p>
+          <Button 
+            text='Sign Up'
+            type='submit'
+            onClick={() => setMode('signup')}
+          />
+        </div>
+      </form>
+
+    </section>
   )
 }
 

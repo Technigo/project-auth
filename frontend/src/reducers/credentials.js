@@ -2,22 +2,44 @@ import { createSlice } from '@reduxjs/toolkit'
 import { batch } from 'react-redux'
 import { API_URL } from '../reusables/urls'
 
-const credentials = createSlice({
-    name: 'credentials',
-    initialState: {
+const initialItems = localStorage.getItem('credentials')
+    ? JSON.parse(localStorage.getItem('credentials'))
+    : {
         username: null,
         accessToken: null,
         error: null,
         secret: ''
-    },
+    }
+
+const credentials = createSlice({
+    name: 'credentials',
+    initialState: initialItems,
     reducers: {
         setUsername: (store, action) => {
+            localStorage.setItem('credentials', JSON.stringify({ 
+                username: action.payload, 
+                accessToken: store.accessToken, 
+                error: store.error,
+                secret: store.secret
+            }))
             store.username = action.payload
         },
         setAccessToken: (store, action) => {
+            localStorage.setItem('credentials', JSON.stringify({ 
+                username: store.username, 
+                accessToken: action.payload, 
+                error: store.error,
+                secret: store.secret
+            }))
             store.accessToken = action.payload
         },
         setError: (store, action) => {
+            localStorage.setItem('credentials', JSON.stringify({ 
+                username: store.username, 
+                accessToken: store.accessToken, 
+                error: action.payload,
+                secret: store.secret
+            }))
             store.error = action.payload
         },
         logOut: (store, action) => {
