@@ -1,4 +1,4 @@
-const BASE_URL = 'https://sandra-project-authentication.herokuapp.com'
+const BASE_URL = 'https://sandra-project-authentication.herokuapp.com/'
 
 export const SIGNIN = 'sessions'
 

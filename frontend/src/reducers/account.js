@@ -1,15 +1,34 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const initialState = localStorage.getItem('user') ? { 
+  id: JSON.parse(localStorage.getItem('user')).id,
+  username: JSON.parse(localStorage.getItem('user')).username,
+  email: JSON.parse(localStorage.getItem('user')).email,
+  fullName: JSON.parse(localStorage.getItem('user')).fullName,
+  age: JSON.parse(localStorage.getItem('user')).age,
+  location: JSON.parse(localStorage.getItem('user')).location,
+  desc: JSON.parse(localStorage.getItem('user')).desc,
+  accessToken: JSON.parse(localStorage.getItem('user')).accessToken,
+  errors: null, 
+  signup: false
+}
+:
+{
+  id: null,
+  username: null,
+  email: null,
+  fullName: null,
+  age: null,
+  location: null,
+  desc: null,
+  accessToken: null,
+  errors: null, 
+  signup: false
+}
+
 export const account = createSlice({
   name: 'account',
-  initialState: { 
-    id: null,
-    username: null,
-    email: null,
-    accessToken: null,
-    errors: null, 
-    signup: false
-  },
+  initialState,
   reducers: {
     setID: (store, action) => {
       store.id = action.payload
@@ -25,6 +44,13 @@ export const account = createSlice({
 
     setAccessToken: (store, action) => {
       store.accessToken = action.payload
+    },
+
+    setProfileInfo: (store, action) => {
+      store.fullName = action.payload.fullName
+      store.age = action.payload.age
+      store.location = action.payload.location
+      store.desc = action.payload.description
     },
 
     setErrors: (store, action) => {

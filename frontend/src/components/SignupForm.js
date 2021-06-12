@@ -12,6 +12,7 @@ const SignupForm = () => {
   const [password, setPassword] = useState('')
 
   const accessToken = useSelector(store => store.account.accessToken)
+  const error = useSelector(store => store.account.errors)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -39,20 +40,30 @@ const SignupForm = () => {
     fetch(API_URL(SIGNUP), options)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         if (data.success) {
           batch(() => {
             dispatch(account.actions.setID(data.id))
             dispatch(account.actions.setUsername(data.username))
             dispatch(account.actions.setEmail(data.email))
             dispatch(account.actions.setAccessToken(data.accessToken))
+            dispatch(account.actions.setProfileInfo(data))
             dispatch(account.actions.setErrors(null))
+
+            localStorage.setItem('user', JSON.stringify({
+              id: data.id,
+              username: data.username,
+              accessToken: data.accessToken,
+              email: data.email,
+              fullName: data.fullName,
+              age: data.age,
+              location: data.location,
+              desc: data.description
+            }))
           })
         } else {
           dispatch(account.actions.setErrors(data))
         }
       })
-      .catch()
   }
 
   return (
@@ -81,6 +92,7 @@ const SignupForm = () => {
             value={password} 
             onChange={(event) => setPassword(event.target.value)} 
           />
+          {error && <p className="error-msg">{error.message}</p>}
           <button className="btn signup-button" type="submit">Sign Up</button>
         </form>
         <div>
