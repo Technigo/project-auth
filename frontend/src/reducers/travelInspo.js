@@ -9,6 +9,9 @@ const travelInspo = createSlice ({
     setTravelInspo: (store, action) => {
       store.inspo = action.payload
     },
+    setErrors: (store, action) => {
+      store.errors = action.payload
+    },
     setSignOut: (store, action) => {
       store.inspo = null
     }

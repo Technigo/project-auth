@@ -89,7 +89,14 @@ const MainPage = () => {
     fetch(API_URL('travelinspo'), options)
       .then(res => res.json())
       .then(data => {
-        dispatch(travelInspo.actions.setTravelInspo(data[0].urls.small))
+        if (data.success) {
+          batch(() => {
+            dispatch(travelInspo.actions.setTravelInspo(data[0].urls.small))
+            dispatch(travelInspo.actions.setErrors(null))
+          })
+        } else {
+          dispatch(travelInspo.actions.setErrors(data))
+        }
       })
   }, [accessToken, dispatch])
   

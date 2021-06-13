@@ -105,7 +105,7 @@ const SignInForm = ({ onFormSubmit, username, setUsername, password, setPassword
       <RegisterText>
         Not a user? <RegisterLink to="/signup">Register here</RegisterLink> 
       </RegisterText>
-  </Form>
+    </Form>
   )
 }
 
