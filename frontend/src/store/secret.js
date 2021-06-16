@@ -12,7 +12,6 @@ export const getSecret = createAsyncThunk(
         headers: { Authorization: `Bearer ${accessToken}` }
       });
       const data = await response.json();
-      console.log('response', data);
       if (response.status === 200) {
         return data.secret;
       } else {

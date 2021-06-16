@@ -14,7 +14,6 @@ export const registerUser = createAsyncThunk(
         body: JSON.stringify({ ...userData })
       });
       const data = await response.json();
-      console.log('response', data);
       if (response.status === 201) {
         thunkAPI.dispatch(setUser({ ...data.user }));
         return data.accessToken;
@@ -38,7 +37,6 @@ export const loginUser = createAsyncThunk(
         body: JSON.stringify({ ...loginData })
       });
       const data = await response.json();
-      console.log('response', data);
       if (response.status === 200) {
         thunkAPI.dispatch(setUser({ ...data.user }));
         return data.accessToken;
