@@ -1,3 +1,5 @@
+Project week 20 of Technigo bootcamp
+
 # Project Auth
 
 The project was to build a backend and a frontend with authentication where a user can sign up and log in.
