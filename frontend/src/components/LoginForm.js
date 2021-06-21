@@ -16,7 +16,6 @@ export const LoginForm = () => {
   
   const dispatch = useDispatch()
   const statusMessage = useSelector((store) => store.user.login.statusMessage)
-  const loggedIn = useSelector((store) => store.user.login.loggedIn)
   const accessToken = useSelector((store) => store.user.login.accessToken)
 
   const handleLoginSuccess = (loginResponse) => {

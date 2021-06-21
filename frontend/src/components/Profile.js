@@ -7,7 +7,6 @@ import { ProfileSection } from '../styling/profile'
 export const Profile = () => {
     const dispatch = useDispatch()
     const userId = useSelector((store) => store.user.login.userId)
-    const loggedIn = useSelector((store) => store.user.login.loggedIn)
     const accessToken = useSelector((store) => store.user.login.accessToken)
   
     const logout = () => {
