@@ -21,13 +21,13 @@ export const LoginForm = () => {
   const handleLoginSuccess = (loginResponse) => {
     dispatch(user.actions.setAccessToken({ accessToken: loginResponse.accessToken }))
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }))
-    dispatch(user.actions.setStatusMessage({ statusMessage: "Login Success" }))
+    dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }))
     dispatch(user.actions.toggleLoggedState(true))
   }
 
   const handleLoginFailed = (loginError) => {
     dispatch(user.actions.setAccessToken({ accessToken: null }))
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }))
+    dispatch(user.actions.setStatusMessage({ statusMessage: loginError  }))
   }
 
   // SING UP
@@ -41,7 +41,7 @@ export const LoginForm = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw "Signup Failed"
+          throw new Error('Login Failed')
         }
         return res.json()
       })
@@ -60,7 +60,7 @@ export const LoginForm = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw 'Login Failed'
+          throw new Error('Login Failed')
         }
         return res.json()
       })
