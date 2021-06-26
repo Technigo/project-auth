@@ -48,7 +48,7 @@ const Login = () => {
 
   useEffect(() => {
     if (accessToken) {
-      history.push('/secret')
+      history.push('/')
     }
   }, [accessToken, history])
 

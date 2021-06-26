@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -9,6 +9,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 
 import Header from './Header'
+
+import { API_URL } from '../reusable/urls'
+import user from '../reducers/user'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,12 +37,31 @@ const Main = () => {
   const classes = useStyles()
   const accessToken = useSelector(store => store.user.accessToken)
   const history = useHistory()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (!accessToken) {
       history.push('/login')
     }
   }, [accessToken, history])
+
+  useEffect(() => {
+    const config = {
+      method: 'GET',
+      headers: {
+        'Authorization': accessToken
+      }
+    }
+    fetch(API_URL('secret'), config)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          dispatch(user.actions.setErrors(null))
+        } else {
+          dispatch(user.actions.setErrors(data))
+        }
+      })
+  }, [accessToken, dispatch])
 
   return (
     <>

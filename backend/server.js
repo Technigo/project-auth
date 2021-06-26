@@ -3,7 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
-// import listEndpoints from 'express-list-endpoints'
+import listEndpoints from 'express-list-endpoints'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
@@ -46,9 +46,9 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-// app.get('/', (_, res) => {
-//   res.send(listEndpoints(app))
-// })
+app.get('/', (_, res) => {
+  res.send(listEndpoints(app))
+})
 
 app.get('/secret', authenticateUser)
 app.get('/secret', async (_, res) => {
