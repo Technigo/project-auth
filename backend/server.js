@@ -57,9 +57,9 @@ app.use(cors());
 app.use(express.json());
 
 // list endpoints
-app.get("/", (_, res) => {
-  res.send(listEndpoints(app));
-});
+// app.get("/", (_, res) => {
+//   res.send(listEndpoints(app));
+// });
 
 // endpoint - get thoughts
 app.get("/thoughts", authenticateUser);
