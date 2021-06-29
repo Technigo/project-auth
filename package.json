@@ -4,5 +4,7 @@
   "scripts": {
     "postinstall": "npm install --prefix backend"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^10.0.0"
+  }
 }
