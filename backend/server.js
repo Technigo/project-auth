@@ -84,7 +84,7 @@ app.post("/thoughts", async (req, res) => {
   }
 });
 
-// endpoint - get request for signup
+// POST - signup
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -95,7 +95,7 @@ app.post("/signup", async (req, res) => {
     }).save();
     res.json({
       success: true,
-      userID: newUser._id,
+      userId: newUser._id,
       username: newUser.username,
       accessToken: newUser.accessToken,
     });
@@ -104,7 +104,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-// endpoint - post request for signing in (add erro messages for user/ password)
+// POST sign in
 app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
   try {
