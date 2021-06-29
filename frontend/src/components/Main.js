@@ -44,7 +44,7 @@ const Main = () => {
   }, [accessToken, dispatch])
     return (
         <div>
-            <div>Main</div>
+            <div>The hidden page</div>
             {thoughtsItems.map(thought => (
                 <div key={thought._id}>
                     {thought.message}

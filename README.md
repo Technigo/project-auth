@@ -13,6 +13,5 @@ Our project consists of two parts, a backend API, and a React frontend. In the b
 
 ## View it live
 
-https://project-auth-mg-fll.netlify.app/login
-https://project-auth-mg.herokuapp.com/
+https://project-auth-fl-mg.herokuapp.com
 
