@@ -1,14 +1,14 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React from "react"
+import { Provider } from "react-redux"
+import { configureStore, combineReducers } from "@reduxjs/toolkit"
+import { BrowserRouter, Switch, Route } from "react-router-dom"
 
-import Main from "./components/Main";
-import Signin from "./components/Signin";
-import Signup from "./components/Signup";
+import Main from "./components/Main"
+import Signin from "./components/Signin"
+import Signup from "./components/Signup"
 
-import user from "./reducers/user";
-import thoughts from "./reducers/thoughts";
+import user from "./reducers/user"
+import thoughts from "./reducers/thoughts"
 
 
 const reducer = combineReducers({
@@ -17,7 +17,7 @@ const reducer = combineReducers({
  
 });
 
-const store = configureStore({ reducer });
+const store = configureStore({ reducer })
 
 export const App = () => {
   return (
@@ -30,5 +30,5 @@ export const App = () => {
         </Switch>
       </Provider>
     </BrowserRouter>
-  );
-};
+  )
+}

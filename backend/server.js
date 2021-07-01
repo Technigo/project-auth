@@ -94,14 +94,14 @@ app.post('/signup', async (req, res) => {
     }).save()
 
     res.json({
-     success: true,  // new
+     success: true,
      userID: newUser._id,
      username: newUser.username,
      accessToken: newUser.accessToken
     })
   } catch (error) {
     res.status(400).json({ success: false, message: 'Invalid request', error })
-  }                          // new
+  }
 })
 
 //An endpoint to signin
@@ -113,16 +113,16 @@ app.post('/signin', async (req, res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
-        success:true,  // new
+        success:true,
         userId: user._id,
         username: user.username,
         accessToken: user.accessToken
       })
     } else {
-      res.status(404).json({ success:false, message: 'User not found' });
-    }                          // new
+      res.status(404).json({ success:false, message: 'User not found' })
+    } 
   } catch (error) {
-    res.status(400).json({ success:false, message: 'Invalid request', error });
+    res.status(400).json({ success:false, message: 'Invalid request', error })
   }
 })
 

@@ -8,12 +8,12 @@ const thoughts = createSlice({
   },
   reducers: {
     setThoughts: (store, action) => {
-      store.items = action.payload;  
+      store.items = action.payload; 
     }, 
     setErrors: (store, action) => {
-      store.errors = action.payload;
+      store.errors = action.payload
     }
   }
 })
 
-export default thoughts;
+export default thoughts

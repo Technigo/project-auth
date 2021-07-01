@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch, batch } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { useSelector, useDispatch, batch } from "react-redux"
+import { useHistory, Link } from "react-router-dom"
 import styled from 'styled-components/macro'
 
 import { API_URL } from '../reusable/urls'
 
-import user from "../reducers/user";
+import user from "../reducers/user"
 
 const SignupWrapper = styled.div`
   background-color: #4838a8;
@@ -86,16 +86,16 @@ const Signup = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const accessToken = useSelector((store) => store.user.accessToken);
-  const errorMessage = useSelector(store => store.user.errors);
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const accessToken = useSelector((store) => store.user.accessToken)
+  const errorMessage = useSelector(store => store.user.errors)
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
     if (accessToken) {
       history.push("/");
     }
-  }, [accessToken, history]);
+  }, [accessToken, history])
 
   const onFormSubmit = (e) => {
     e.preventDefault()
@@ -113,15 +113,15 @@ const Signup = () => {
     .then((data) => {
       if (data.success) {
         batch(() => {
-          dispatch(user.actions.setUsername(data.username));
-          dispatch(user.actions.setAccessToken(data.accessToken));
-          dispatch(user.actions.setErrors(null));
+          dispatch(user.actions.setUsername(data.username))
+          dispatch(user.actions.setAccessToken(data.accessToken))
+          dispatch(user.actions.setErrors(null))
         });
       } else {
-        dispatch(user.actions.setErrors(data));
+        dispatch(user.actions.setErrors(data))
       }
     })
-    .catch();
+    .catch()
   }
 
   return (
@@ -133,14 +133,14 @@ const Signup = () => {
       </WelcomeMessage>
       <FormWrapper>
         <InputForm onSubmit={onFormSubmit}>
-          <Username for="username">Username</Username>
+          <Username htmlFor="username">Username</Username>
           <InputField
             id="username" 
             type="text" 
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <Password for="password">Password</Password>
+          <Password htmlFor="password">Password</Password>
           <InputField 
             type="password"
             value={password}

@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch, batch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React, { useEffect } from "react"
+import { useSelector, useDispatch, batch } from "react-redux"
+import { useHistory } from "react-router-dom"
 import styled from "styled-components/macro"
 
-import { API_URL } from "../reusable/urls";
+import { API_URL } from "../reusable/urls"
 
-import thoughts from "../reducers/thoughts";
+import thoughts from "../reducers/thoughts"
 
 
 const ThoughtsContainer = styled.div`
@@ -38,19 +38,17 @@ const Thought = styled.text`
 `
 
 const Main = () => {
-  const accessToken = useSelector((store) => store.user.accessToken);
+  const accessToken = useSelector((store) => store.user.accessToken)
   const thoughtsItems = useSelector(store => store.thoughts.items)
   
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
     if (!accessToken) {
-      history.push("/signin");
+      history.push("/signin")
     }
-  }, [accessToken, history]);
 
-  useEffect(() => {
     const options = {
       method:'GET',
       headers: {
@@ -63,16 +61,15 @@ const Main = () => {
        .then(data => {
           if (data.success) {
             batch(() => {
-              dispatch(thoughts.actions.setThoughts(data.thoughts));
-              dispatch(thoughts.actions.setErrors(null));
+              dispatch(thoughts.actions.setThoughts(data.thoughts))
+              dispatch(thoughts.actions.setErrors(null))
             });
           } else {
-              dispatch(thoughts.actions.setErrors(data));
+            dispatch(thoughts.actions.setErrors(data))
           }
       });
-  }, [accessToken, dispatch]); // I added the second arg because of an error suggesting that
+  }, [accessToken, dispatch, history]) // I added the second arg because of an error suggesting that
 
-  console.log(thoughtsItems) 
   return (
     <ThoughtsContainer>
      <Title>Happy Thoughts for your daily life</Title>
@@ -87,4 +84,4 @@ const Main = () => {
   )  
 };
 
-export default Main;
+export default Main

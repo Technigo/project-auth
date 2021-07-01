@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch, batch } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { useSelector, useDispatch, batch } from "react-redux"
+import { useHistory, Link } from "react-router-dom"
 import styled from 'styled-components/macro'
 
-import { API_URL } from "../reusable/urls";
+import { API_URL } from "../reusable/urls"
 
-import user from "../reducers/user";
+import user from "../reducers/user"
 
 
 const SigninWrapper = styled.div`
@@ -79,27 +79,27 @@ const Password = styled.label`
 `
 
 const StyledLink = styled(Link)`
-    text-decoration: none;
-    color: #fff;
+  text-decoration: none;
+  color: #fff;
 `
 
 const Signin = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
 
-  const accessToken = useSelector((store) => store.user.accessToken);
-  const errorMessage = useSelector(store => store.user.errors);
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const accessToken = useSelector((store) => store.user.accessToken)
+  const errorMessage = useSelector(store => store.user.errors)
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
     if (accessToken) {
-      history.push("/");
+      history.push("/")
     }
-  }, [accessToken, history]);
+  }, [accessToken, history])
 
   const onFormSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const options = {
       method: "POST",
@@ -114,15 +114,20 @@ const Signin = () => {
       .then((data) => {
         if (data.success) {
           batch(() => {
-            dispatch(user.actions.setUsername(data.username));
-            dispatch(user.actions.setAccessToken(data.accessToken));
-            dispatch(user.actions.setErrors(null));
+            dispatch(user.actions.setUsername(data.username))
+            dispatch(user.actions.setAccessToken(data.accessToken))
+            dispatch(user.actions.setErrors(null))
+
+            localStorage.setItem('user', JSON.stringify({
+              username: data.username,
+              accessToken: data.accessToken
+            }))
           });
         } else {
-          dispatch(user.actions.setErrors(data));
+          dispatch(user.actions.setErrors(data))
         }
       })
-      .catch();
+      .catch()
   };
 
   return (
@@ -134,14 +139,14 @@ const Signin = () => {
       </WelcomeMessage>
       <FormWrapper>
         <InputForm onSubmit={onFormSubmit}>
-          <Username for="username">Username</Username>
+          <Username htmlFor="username">Username</Username>
           <InputField
             id="username" 
             type="text" 
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <Password for="password">Password</Password>
+          <Password htmlFor="password">Password</Password>
           <InputField 
             type="password"
             value={password}
@@ -155,4 +160,4 @@ const Signin = () => {
   )
 };
 
-export default Signin;
+export default Signin
