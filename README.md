@@ -17,3 +17,5 @@ Our main problem was time management because it was difficult to find a time we 
 
 The project is deployed in Heroku and Netlify, and the database is set up in Mongo Cloud Atlas.
 See the deployed frontend here:  https://fervent-allen-86afba.netlify.app/
+
+AIP: https://auth-updated.herokuapp.com/ 
