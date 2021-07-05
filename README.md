@@ -1,13 +1,14 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+A fullstack project. A frontend to register and sign in. Backend, API with authentication and MongoDB to store the users.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+REACT, EXPRESS, API, JSX, STYLED COMPONENTS, NODE.JS, MONGO DB
 
-## The problem
-
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+Endpoints:
+path: "/registration" - POST request to sign up
+path: "/signin" - POST request to sign in
 
 ## View it live
 
-https://beepage.netlify.app/
+Frontend: https://beepage.netlify.app/
+Backend: https://auth-secret-message.herokuapp.com
