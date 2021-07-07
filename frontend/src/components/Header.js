@@ -14,6 +14,7 @@ const Header = () => {
             dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setAccessToken(null));
         });
+        localStorage.removeItem("user")
     };
 
     return (
