@@ -11,31 +11,46 @@ const SignUp = () => {
   //       .then(data => setUsername(data));
   //   };
 
-  //   const options = {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ username, password }),
-  //   };
-  //   console.log(username, password);
-  //   fetch('https://user-signup-sofia-aleksa.herokuapp.com/signup', options)
-  //     .then(res => res.json())
-  //     .then(data => fetchUser(data));
+  const onFormSubmit = event => {
+    event.preventDefault();
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    };
+
+    fetch('https://user-signup-sofia-aleksa.herokuapp.com/signup', options)
+      .then(res => res.json())
+      .then(data => setUsername(data));
+  };
 
   return (
     <div>
       <h1>sign up</h1>
-      <form>
+      <form onSubmit={onFormSubmit}>
         <label>username</label>
-        <input type='text' placeholder='enter username' />
+        <input
+          type='text'
+          placeholder='enter username'
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+        />
         <label>password</label>
-        <input type='password' placeholder='enter password' />
-        <button>register</button>
+        <input
+          type='password'
+          placeholder='enter password'
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+        <button type='submit'>register</button>
       </form>
       <p>already a member?</p>
       <Link to='/'>Sign in</Link>
     </div>
   );
 };
+
 export default SignUp;
