@@ -40,7 +40,7 @@ app.use(cors());
 // app.use(cors({
 //   origin: 'https://mypage-frontend.com'
 // }))
-// // v3 several ok domains - watch maks lesson monday
+// // v3 several ok domains - watch the end of maks lesson monday
 
 app.use(express.json());
 
