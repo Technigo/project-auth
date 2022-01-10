@@ -29,16 +29,6 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema)
 
-//const authenticateUser = async (req, res, next) => {
-//  const user = await User.findOne({accessToken: req.header('Authorization') })
-//  if(user) {
-//    req.user = user;
-//    next()
-//  } else {
-//    res.status(401).json({loggedOut: true})
-//  }
-//}
-
 // this function is like a shild between frontend and backend, 
 // if you have accessToken you will procded to the secret page, otherwise no
 const authenticateUser = async (req, res, next) => {
@@ -82,8 +72,6 @@ app.get('/thoughts', authenticateUser)
 app.get('/thoughts', (req, res) => {
   res.send('Here a the secret page, only for users')
 })
-
-
 
 // request to create a user 
 app.post('/signup', async (req, res) => {
@@ -145,40 +133,19 @@ app.post('/signin', async (req, res) => {
   }
 })
 
-
-
-
-
-
-
-
-//app.get('/secrets', authenticateUser)
-//app.get('/secrets', (req, res) => {
-//  res.json({secret: "This is super secret"})
-//})
-
-//app.post('/users', async (req, res) => {
-//  try {
-//    const { name, email, password } = req.body;
-//    const user = await new User({ name, email, password: bcrypt.hashSync(password) })
-//    user.save()
-//    res.status(200).json({ id: user._id, accessToken: user.accessToken })
-//  } catch (error) {
-//    res.status(400).json({ message: 'ERROR' })
-//  }
-//})
-
-//app.post('/sessions', async (req, res) => {
-//  const user = await User.findOne({ email: req.body.email})
-//  if(user && bcrypt.compareSync(req.body.password, user.password)) {
-//    res.json({userId: user._id, accessToken: user.accessToken})
-//  } else {
-//    res.json({notFound: true})
-//  }
-//})
-
 // Start the server
 app.listen(port, () => {
   // eslint-disable-next-line
   console.log(`Server running on http://localhost:${port}`)
 })
+
+//const authenticateUser = async (req, res, next) => {
+//  const user = await User.findOne({accessToken: req.header('Authorization') })
+//  if(user) {
+//    req.user = user;
+//    next()
+//  } else {
+//    res.status(401).json({loggedOut: true})
+//  }
+//}
+
