@@ -11,11 +11,6 @@ mongoose.connect(mongoUrl, {
   useCreateIndex: true
 });
 mongoose.Promise = Promise;
-
-// Defines the port the app will run on. Defaults to 8080, but can be
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -23,8 +18,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Add middlewares to enable cors and json body parsing
+app.use(cors());
+app.use(express.json());
+
 const userSchema = new mongoose.Schema({
-  mail: {
+  username: {
     type: String,
     unique: true,
     required: true
@@ -50,61 +49,53 @@ const authenticalUser = async (req, res, next) => {
       req.user = user;
       next();
     } else {
-      res.status(401).json({ response: "Please, log in", success: false });
+      res.status(400).json({ loggedout: true });
     }
-  } catch {
-    res.status(401).json({ response: error, success: false });
+  } catch (error) {
+    res.status(400).json({ response: "error", success: false });
   }
 };
 
-// Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Welcome to this API");
-});
-
-app.post("/signup", async (req, res) => {
-  const { mail, password } = req.body;
-  try {
-    const salt = bcrypt.genSaltSync();
-
-    if (password.length < 5) {
-      throw "Password need to be 5 characters or longer";
-    }
-
-    const user = new User({
-      mail,
-      password: bcrypt.hashSync(password, salt)
-    });
-    user.save();
-    res.status(201).json({
-      response: { id: user._id, accessToken: user.accessToken },
-      success: true
-    });
-  } catch (error) {
-    res.status(400).json({ response: error, success: false });
-  }
+  res.send("Hello world");
 });
 
 app.get("/secret", authenticalUser);
 app.get("/secret", (req, res) => {
-  res.send({ secret: "This is secret" });
+  res.send({ secret: "This is a secret" });
 });
 
-app.post("/signin", async (req, res) => {
-  const { mail } = req.body;
+app.post("/singup", async (req, res) => {
   try {
-    const user = await User.findOne({ mail });
+    const { username, password } = req.body;
+    const salt = bcrypt.genSaltSync();
+    const user = new User({
+      username,
+      password: bcrypt.hashSync(password, salt)
+    });
+    user.save();
+    res.status(200).json({ id: user._id, accessToken: user.accessToken });
+  } catch {
+    res
+      .status(400)
+      .json({ message: "could not create user", errors: err.errors });
+  }
+});
 
-    if (user && bcrypt.compareSync(req.body.password, user.password)) {
-      res.json({ id: user._id, accessToken: user.accessToken });
-    } else {
-      res.json({
-        message: "Mailadress or password doesn't match",
-        success: false
+app.post("/singin", async (req, res) => {
+  const user = await User.findOne({ username: req.body.username });
+
+  try {
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(200).json({
+        response: { id: user._id, accessToken: user.accessToken },
+        success: true
       });
+    } else {
+      res.status(400).json({ message: "no user found", success: false });
     }
-  } catch (error) {
-    res.status(400).json({ response: error, success: false });
+  } catch {
+    res.status(400).json({ message: "could not create user", success: false });
   }
 });
 
