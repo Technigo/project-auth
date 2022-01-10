@@ -56,7 +56,7 @@ app.use(express.json());
 
 // Start defining your routes here
 // app.get('/thoughts', authenticateUser); // we first have to authenticate the user before we get the thoughts
-app.get('/thoughts', (req, res) => {
+app.get('/', (req, res) => {
   // thoughts is just an example
   res.send('Here are your thoughts');
 });
