@@ -1,0 +1,12 @@
+To summarise, your API needs:
+
+- Registration endpoint, to create a new user.
+- Sign-in endpoint, to authenticate a returning user.
+- An authenticated endpoint which only returns content if the `Authorization` header with the user's token was correct.
+
+Your frontend needs:
+
+- A registration form.
+- A sign-in form.
+- A page to show the authenticated content from the API.
+- A 'sign out' button that removes the saved access token and redirects the user to the login form.
