@@ -1,9 +1,17 @@
 import React from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import SigninPage from './pages/SigninPage'
+import SignupPage from './pages/SignupPage'
 
 export const App = () => {
   return (
-    <div>
-      Find me in src/app.js!
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" exact element={<SigninPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        {/* <Route path="/404" component={NotFound} />
+        <Navigate to="/404" /> */}
+      </Routes>
+    </BrowserRouter>
   )
 }
