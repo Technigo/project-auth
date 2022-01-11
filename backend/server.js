@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  userName: {
     type: String,
     unique: true,
   },
@@ -65,7 +65,7 @@ app.get("/users", async (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { userName, email, password } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
 
@@ -74,7 +74,7 @@ app.post("/signup", async (req, res) => {
     }
 
     const user = await new User({
-      name,
+      userName,
       email,
       password: bcrypt.hashSync(password, salt),
     }).save();
