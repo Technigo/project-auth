@@ -76,6 +76,7 @@ const authenticateUser = async (req, res, next) => {
 // });
 
 // What you see when you are logged in added here
+// add async await to secrets endpoint
 app.get('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
   res.send('Top secret message'); // only shows if you are logged in
@@ -87,24 +88,29 @@ app.post('/signup', async (req, res) => {
 
   try {
     const salt = bcrypt.genSaltSync(); // Create a randomizer to prevent to unhash it
+    const strongPassword =
+      /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,20}$/;
+    // if (password.length < 5) {
+    //   throw 'Password must be at least 5 characters long';
+    // }
 
-    // Here you can add requirements for password. Throw redirects to the catch-block
-    if (password.length < 5) {
-      throw 'Password must be at least 5 characters long';
+    // checking if password match strongPassword = regex
+    if (password.match(strongPassword)) {
+      const newUser = await new User({
+        username,
+        password: bcrypt.hashSync(password, salt)
+      }).save();
+      res.status(201).json({
+        response: {
+          userId: newUser._id,
+          username: newUser.username,
+          accessToken: newUser.accessToken
+        },
+        sucess: true
+      });
+    } else {
+      throw 'Password must contains a minimum eight characters, at least one letter, one number and one special character';
     }
-
-    const newUser = await new User({
-      username,
-      password: bcrypt.hashSync(password, salt)
-    }).save();
-    res.status(201).json({
-      response: {
-        userId: newUser._id,
-        username: newUser.username,
-        accessToken: newUser.accessToken
-      },
-      sucess: true
-    });
   } catch (error) {
     res.status(400).json({ response: error, success: false });
   }
@@ -128,7 +134,10 @@ app.post('/signin', async (req, res) => {
         success: true
       });
     } else {
-      res.status(404).json({ response: 'User not found', success: false });
+      res.status(404).json({
+        response: "Username or password doesn't match.",
+        success: false
+      });
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false });
