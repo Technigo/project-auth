@@ -51,20 +51,14 @@ app.use(
 );
 
 // v3 - Allow multiple domains
-
 const allowedDomains = [
 	'https://my-project-frontend.com',
 	'http://localhost:3000',
-  'http://localhost:8080'
 ];
 app.use(
 	cors({
 		origin: (origin, callback) => {
-      if(origin === undefined) //this I added to not get error message in browswer
-      {
-        return callback(null, true);
-      }
-			if (allowedDomains.includes(origin) ) {
+			if (allowedDomains.includes(origin)) {
 				return callback(null, true);
 			} else {
 				return callback(new Error('This domain is not allowed'), false);
