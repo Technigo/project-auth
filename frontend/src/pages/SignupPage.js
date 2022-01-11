@@ -26,6 +26,8 @@ const SignupPage = () => {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data)
+                setUsername('')
+                setPassword('')
             })
     }
 

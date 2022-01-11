@@ -8,10 +8,11 @@ const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI'
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-// const validatePassword = () => {
-//   const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&.]{6, 20}/
+// const validatePassword = (password) => {
+//   const re = /^(?=.*?[A-Z])$/
 //   return re.test(password)
 // }
+
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -22,9 +23,20 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    validate: {
+      validator: (value) => {
+        let re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/
+        const result = re.test(value)
+        console.log(result)
+        // if (result === false) {
+        //   throw 'Password not valid'
+        // }
+      },
+      message: 'Please fill in a valid password'
+    },
     // validate: [validatePassword, 'Please fill a valid password'],
     // match: [
-    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&.]{6, 20}/,
+    //   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
     //   'Please fill a valid password',
     // ],
   },
@@ -86,6 +98,7 @@ app.post('/signup', async (req, res) => {
       username,
       password: bcrypt.hashSync(password, salt),
     }).save()
+    console.log(password)
 
     res.status(201).json({
       response: {
