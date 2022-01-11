@@ -1,0 +1,4 @@
+1. get the POST request in the fetch to work 
+2. connect the store to the components (dispatch, useSelector)
+3. show the SignedInContent conditionally when the user is logged in 
+4. styling (secret cat society)
