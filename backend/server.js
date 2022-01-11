@@ -42,30 +42,31 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 // v1 - Allow all domains
 app.use(cors());
+app.use(express.json());
 
-// v2 - Allow only one specific domain
-app.use(
-	cors({
-		origin: 'https://my-project-frontend.com',
-	})
-);
+// // v2 - Allow only one specific domain
+// app.use(
+// 	cors({
+// 		origin: 'https://my-project-frontend.com',
+// 	})
+// );
 
-// v3 - Allow multiple domains
-const allowedDomains = [
-	'https://my-project-frontend.com',
-	'http://localhost:3000',
-];
-app.use(
-	cors({
-		origin: (origin, callback) => {
-			if (allowedDomains.includes(origin)) {
-				return callback(null, true);
-			} else {
-				return callback(new Error('This domain is not allowed'), false);
-			}
-		},
-	})
-);
+// // v3 - Allow multiple domains
+// const allowedDomains = [
+// 	'http://localhost:3000',
+//   'https://week20-auth-backend.herokuapp.com/'
+// ];
+// app.use(
+// 	cors({
+// 		origin: (origin, callback) => {
+// 			if (allowedDomains.includes(origin)) {
+// 				return callback(null, true);
+// 			} else {
+// 				return callback(new Error('This domain is not allowed'), false);
+// 			}
+// 		},
+// 	})
+// );
 
 app.use(express.json());
 
@@ -94,7 +95,7 @@ const authenticateUser = async (req, res, next) => { //next it's being injected 
 
 app.get('/profile', authenticateUser);
 app.get('/profile', (req, res) => {
-	res.send('Here isthe profile page, only for users');
+	res.send('Here is the profile page, only for users');
 });
 
 //POST Request
