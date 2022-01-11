@@ -82,13 +82,13 @@ const authenticateUser = async (req, res, next) => {
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  res.send('Welcome to this very secret page')
 })
 
 // Authenticate user
-app.get('/secretcontent', authenticateUser)
-app.get('/secretcontent', (req, res) => {
-  res.send('Welcome to this very secret page!')
+app.get('/mypage', authenticateUser)
+app.get('/mypage', (req, res) => {
+  res.send('This is your secret page')
 })
 
 // POST method for signing up user with hashed password
