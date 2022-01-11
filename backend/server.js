@@ -59,8 +59,6 @@ app.use(cors())
 // }))
 
 
-
-
 app.use(express.json())
 
 const authenticateUser = async (req, res, next) => {
@@ -83,14 +81,14 @@ const authenticateUser = async (req, res, next) => {
 
 
 // Start defining your routes here
-app.get('/secretcontent', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
 // Authenticate user
 app.get('/secretcontent', authenticateUser)
 app.get('/secretcontent', (req, res) => {
-  res.send('This is your secret content')
+  res.send('Welcome to this very secret page!')
 })
 
 // POST method for signing up user with hashed password
