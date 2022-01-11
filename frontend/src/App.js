@@ -1,18 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { RegistrationForm } from 'Components/RegistrationForm';
 import { Header } from 'Components/Header';
 import { Footer } from 'Components/Footer';
+import { LoginForm } from 'Components/LoginForm';
+import { SecretContent } from 'Components/SecretContent';
 
 export const App = () => {
   return (
-    <Container>
-      <Header />
-      <InnerContainer>
-        <RegistrationForm />
-      </InnerContainer>
-      <Footer />
-    </Container>
+    <BrowserRouter>
+      <Container>
+        <Header />
+        <InnerContainer>
+          <Routes>
+            <Route path='/' element={<RegistrationForm />} />
+
+            <Route path='/login' element={<LoginForm />} />
+            <Route path='/secret' element={<SecretContent />} />
+          </Routes>
+        </InnerContainer>
+        <Footer />
+      </Container>
+    </BrowserRouter>
   );
 };
 
@@ -32,10 +42,6 @@ const InnerContainer = styled.div`
   height: 100%;
   background-color: #92dea0;
   padding: 30px;
-
-  :hover {
-    background-color: #92dea0;
-  }
 
   @media (min-width: 0px) and (max-width: 767px) {
     min-width: 200px;

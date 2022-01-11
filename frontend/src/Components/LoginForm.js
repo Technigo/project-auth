@@ -1,20 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-export const RegistrationForm = () => {
+export const LoginForm = () => {
   return (
     <>
-      <Link to={`/login`} className='Link'>
-        Go to the Login page
+      <Link to={`/`} className='Link'>
+        Go to the Register page
       </Link>
+
       <Form>
         <label>
-          <h2>Register a new account</h2>
+          <h2>Login</h2>
         </label>
         <Input type='text' placeholder='Username'></Input>
         <Input type='password' placeholder='Password'></Input>
-        <Button>Register</Button>
+        <Button>Login</Button>
       </Form>
     </>
   );
