@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, batch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 // import { API_URL } from "../utils/constants";
-import userprofile from "../reducers/userprofile";
+// import userprofile from "../reducers/userprofile";
+
+import user from "../reducers/user";
 
 const Main = () => {
   //   const userProfile = useSelector((store) => store.userprofile.profile);
   const accessToken = useSelector((store) => store.user.accessToken);
 
   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!accessToken) {
@@ -17,10 +19,25 @@ const Main = () => {
     }
   }, [accessToken, navigate]);
 
+  const onButtonClick = () => {
+    batch(() => {
+      dispatch(user.actions.setUsername(null));
+      dispatch(user.actions.setUserId(null));
+      dispatch(user.actions.setAccessToken(null));
+    });
+  };
+
   return (
     <>
-      <Link to="/signin">log out</Link>
+      <Link to="/signin"></Link>
       <h1>WELCOME TO THE FUTURE!</h1>
+      <div>
+        {accessToken && (
+          <button className="logout-button" onClick={onButtonClick}>
+            Logout
+          </button>
+        )}
+      </div>
     </>
   );
 };
@@ -48,4 +65,4 @@ export default Main;
 //           dispatch(userprofile.actions.setError(data.response));
 //         }
 //       });
-//   }, [accessToken]);
+//   }, [accessToken])

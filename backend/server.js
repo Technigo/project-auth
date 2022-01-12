@@ -84,7 +84,7 @@ app.post("/signup", async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      response: error,
+      response: "Please choose a username and password!",
       success: false,
     });
   }
@@ -112,7 +112,7 @@ app.post("/signin", async (req, res) => {
       });
     } else {
       res.status(404).json({
-        response: "username or password doesn't match",
+        response: "Username or password is incorrect! Try again!",
         success: false,
       });
     }

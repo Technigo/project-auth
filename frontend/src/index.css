@@ -1,11 +1,12 @@
 body {
+  height: 100vh;
   font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  /* background-image: url("assets/background.jpg"); */
+  /* background-image: url("../public/assets/background.jpg"); */
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
