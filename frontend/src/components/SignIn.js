@@ -1,34 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signinUser, riddles } from "../reducers/users";
+import { useNavigate, Link } from "react-router-dom";
+import { userSignUpOrLogIn } from "../reducers/users";
 
 export const SignIn = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [mode, setMode] = useState("signup");
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.users.accessToken);
 
+  useEffect(() => {
+    if (token) {
+      navigate("/riddles");
+    }
+  }, [token, navigate]);
   const onUserSubmit = (event) => {
     event.preventDefault();
-    dispatch(signinUser(name, password));
+    dispatch(userSignUpOrLogIn(name, password, mode));
   };
-  const token = useSelector((state) => state.users.accessToken);
-  console.log(token);
-  const getRiddles = () => {
-    dispatch(riddles(token));
-  };
-
-  // const auth = () => {
-  //   let navigate = useNavigate();
-  //   if (accessToken) {
-  //     navigate("/riddles");
-  //   } else {
-  //     throw error;
-  //   }
-  // };
 
   return (
     <>
+      <div>
+        <Link to="/">To '/' !</Link>
+      </div>
+      <label htmlFor="signup">Signup</label>
+      <input
+        id="signup"
+        type="radio"
+        checked={mode === "signup"}
+        onChange={() => setMode("signup")}
+      />
+      <label htmlFor="signin">Signin</label>
+      <input
+        id="signin"
+        type="radio"
+        checked={mode === "signin"}
+        onChange={() => setMode("signin")}
+      />
       <form onSubmit={onUserSubmit}>
         <h1>This is the sign in page</h1>
         <input
@@ -45,7 +57,6 @@ export const SignIn = () => {
         />
         <button type="submit">Submit</button>
       </form>
-      <button onClick={getRiddles}>This is the riddles</button>
     </>
   );
 };

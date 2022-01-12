@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { riddles } from "../reducers/users";
 
 export const Riddles = () => {
+  let navigate = useNavigate();
+  const token = useSelector((state) => state.users.accessToken);
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
+  const dispatch = useDispatch();
+  console.log(token);
+  const getRiddles = () => {
+    dispatch(riddles(token));
+  };
+
   return (
     <>
-      <h1>Here are the riddles</h1>
+      <button onClick={getRiddles}>This is the riddles</button>
     </>
   );
 };

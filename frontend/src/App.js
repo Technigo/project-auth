@@ -9,6 +9,8 @@ import { users } from "../src/reducers/users";
 import { SignIn } from "./components/SignIn";
 import { SignUp } from "./components/SignUp";
 import { Riddles } from "./components/Riddles";
+import { NotFound } from "./components/NotFound";
+import { Start } from "./components/Start";
 
 const reducer = combineReducers({
   users: users.reducer,
@@ -34,14 +36,13 @@ export const App = () => {
       <Router>
         <Link to="/">Start</Link>
         <Link to="/signin">Sign in</Link>
-        <Link to="/signup">Sign up</Link>
         <Link to="/riddles">Secret riddles</Link>
 
         <Routes>
-          <Route index path="/" />
-
+          <Route index path="/" element={<Start />} />
+          <Route index path="*" element={<NotFound />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
+
           {/* commented out riddles as it's empty for now */}
           <Route path="/riddles" element={<Riddles />} />
         </Routes>

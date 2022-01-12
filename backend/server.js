@@ -131,7 +131,7 @@ app.post("/signin", async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({
-      response: "something else happened",
+      response: error,
       success: false,
     });
   }
