@@ -14,6 +14,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const error = useSelector((store) => store.user.error);
 
   useEffect(() => {
     if (accessToken) {
@@ -88,6 +89,7 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {error && <p>Whoops! Something went wrong. Try again!</p>}
         <button type='submit'>Submit</button>
       </form>
     </>

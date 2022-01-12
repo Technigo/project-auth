@@ -106,10 +106,10 @@ app.post('/signup', async (req, res) => {
           username: newUser.username,
           accessToken: newUser.accessToken
         },
-        sucess: true
+        success: true
       });
     } else {
-      throw 'Password must contains a minimum eight characters, at least one letter, one number and one special character';
+      throw 'Password must contain at least 8 characters, at least one letter, one number and one special character';
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false });
