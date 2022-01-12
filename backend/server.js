@@ -53,10 +53,10 @@ const authenticateUser = async (req, res, next) => {
 };
 
 //can use it like this:
-// app.get("/thougths", authenticateUser);
-// app.get("/thoughts", (req, res) => {
-//   res.send("here are your thoughts");
-// });
+app.get("/thoughts", authenticateUser);
+app.get("/thoughts", (req, res) => {
+  res.send("here are your thoughts");
+})
 
 // Start defining your routes here
 app.get("/", (req, res) => {
@@ -81,7 +81,7 @@ app.post("/signup", async (req, res) => {
       response: {
         userId: newUser._id,
         username: newUser.username,
-        accessToke: newUser.accessToken,
+        accessToken: newUser.accessToken,
       },
       success: true,
     });
