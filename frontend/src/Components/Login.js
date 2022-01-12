@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, UseEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -7,15 +7,15 @@ import { API_URL } from 'utils/url';
 import user from '../reducers/user';
 
 export const Login = () => {
-  const [username, setUsername] = UseState('');
-  const [password, setPassword] = UseState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [mode, setMode] = useState('signup');
 
   const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  UseEffect(() => {
     if (accessToken) {
       navigate('/');
     }
@@ -25,7 +25,7 @@ export const Login = () => {
     event.preventDefault();
 
     const options = {
-      method: POST,
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -55,17 +55,31 @@ export const Login = () => {
 
   return (
     <>
-      <Link to={`/`} className="Link">
+      <Link to={`/`} className='Link'>
         Go to the Register page
       </Link>
 
       <Form>
-        <label>
-          <h2>Login</h2>
+        <label htmlFor='username'>
+          <h2>Username</h2>
         </label>
-        <Input type="text" placeholder="Username"></Input>
-        <Input type="password" placeholder="Password"></Input>
-        <Button>Login</Button>
+        <Input
+          id='username'
+          type='text'
+          placeholder='Username'
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        ></Input>
+        <label htmlFor='password'>
+          <h2>Password</h2>
+        </label>
+        <Input
+          id='password'
+          type='password'
+          placeholder='Password'
+          value={(e) => setPassword(e.target.value)}
+        ></Input>
+        <Button type='submit'>Login</Button>
       </Form>
     </>
   );

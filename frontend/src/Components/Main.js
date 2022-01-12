@@ -5,7 +5,7 @@ import { API_URL } from 'utils/url';
 import thoughts from '../reducers/thoughts';
 
 const Main = () => {
-  const thoughtsItems = useSelector((store) => store.thoughs.items);
+  const thoughtsItems = useSelector((store) => store.thoughts.items);
   const accessToken = useSelector((store) => store.user.accessToken);
 
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const Main = () => {
   return (
     <div>
       <div>
-        <Link to="/login">to '/login' !</Link>
+        <Link to='/login'>to '/login' !</Link>
       </div>
       <h1>protected Happy thoughts: </h1>
       {thoughtsItems.map((item) => (

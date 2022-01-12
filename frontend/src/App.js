@@ -9,37 +9,37 @@ import { Login } from 'Components/Login';
 import { Header } from 'Components/Header';
 import { Footer } from 'Components/Footer';
 import { SecretContent } from 'Components/SecretContent';
+import NotFound from 'Components/NotFound';
 
 // added two reducers
 import user from './reducers/user';
 import thoughts from './reducers/thoughts'; // thoughts is the hidden content
 
 const reducer = combineReducers({
-
-  user = user.reducer, 
-  thoughts = thoughts.reducer
+  user: user.reducer,
+  thoughts: thoughts.reducer,
 });
 
-const store = configureStore({ reducer })
+const store = configureStore({ reducer });
 
 // added provider
 export const App = () => {
   return (
     <Provider store={store}>
-    <BrowserRouter>
-      <Container>
-        <Header />
-        <InnerContainer>
-          <Routes>
-            <Route path='/' element={<RegistrationForm />} />
-
-            <Route path='/login' element={<LoginForm />} />
-            <Route path='/secret' element={<SecretContent />} />
-          </Routes>
-        </InnerContainer>
-        <Footer />
-      </Container>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Container>
+          <Header />
+          <InnerContainer>
+            <Routes>
+              <Route path='/' element={<RegistrationForm />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/secret' element={<SecretContent />} />
+              <Route path='*' element={<NotFound />} />
+            </Routes>
+          </InnerContainer>
+          <Footer />
+        </Container>
+      </BrowserRouter>
     </Provider>
   );
 };
@@ -51,6 +51,7 @@ const Container = styled.div`
   align-items: center;
   min-height: 100vh;
   background-color: #017c80;
+  margin: 0;
 `;
 const InnerContainer = styled.div`
   border: 5px dotted black;

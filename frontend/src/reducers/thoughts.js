@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-const user = createSlice({
+const thoughts = createSlice({
   name: 'thoughts',
   initialState: {
     items: [],
@@ -7,11 +7,11 @@ const user = createSlice({
   },
   reducers: {
     setItems: (store, action) => {
-      store.Items = acion.payload;
+      store.Items = action.payload;
     },
 
     setError: (store, action) => {
-      store.error = acion.payload;
+      store.error = action.payload;
     },
   },
 });

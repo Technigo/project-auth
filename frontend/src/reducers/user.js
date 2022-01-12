@@ -9,17 +9,17 @@ const user = createSlice({
   },
   reducers: {
     setUserId: (store, action) => {
-      store.userID = acion.payload;
+      store.userID = action.payload;
     },
     setUsername: (store, action) => {
-      store.username = acion.payload;
+      store.username = action.payload;
     },
     setAccessToken: (store, action) => {
-      store.accessToken = acion.payload;
+      store.accessToken = action.payload;
     },
 
     setError: (store, action) => {
-      store.error = acion.payload;
+      store.error = action.payload;
     },
   },
 });
