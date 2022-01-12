@@ -79,9 +79,20 @@ app.get('/', (req, res) => {
 app.get('/thoughts', authenticateUser)
 // if the user is allowed to visit the page, passing the authenticateUser(), then this request will trigger 
 app.get('/thoughts', async (req, res) => {
-	const thoughts = await User.find({})
-  res.status(201).json({ response: thoughts, success: true })
-})
+	const thoughts = await Thought.find({});
+	res.status(201).json({ response: thoughts, success: true });
+});
+
+//app.post('/thoughts', async (req, res) => {
+//	const { message } = req.body;
+
+//	try {
+//		const newThought = await new Thought({ message }).save();
+//		res.status(201).json({ response: newThought, success: true });
+//	} catch (error) {
+//		res.status(400).json({ response: error, success: false });
+//	}
+//});
 
 // request to create a user 
 app.post('/signup', async (req, res) => {
