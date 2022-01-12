@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { API_URL } from '../utils/constants';
 import secrets from '../reducers/secrets';
+import users from '../reducers/users';
 
 const Main = () => {
-	const secretItems = useSelector((store) => store.secret.items)
-	const accessToken = useSelector((store) => store.user.accessToken)
+	const secretItems = useSelector((store) => store.secrets.items)
+	const accessToken = useSelector((store) => store.users.accessToken)
 
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
@@ -41,9 +42,9 @@ const Main = () => {
 
 	return (
 		<div>
-			<div>
-				<Link to="/login">To '/login' !</Link>
-			</div>
+            <div>
+                <button onClick={() => {dispatch(users.actions.logout())}}>Logout</button>
+            </div>
 			<h1>Protected happy thoughts:</h1>
 			{secretItems.map((item) => (
 				<div key={item._id}>{item.message}</div>

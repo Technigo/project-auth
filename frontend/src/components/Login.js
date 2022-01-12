@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { API_URL } from '../utils/constants';
 import user from '../reducers/users';
@@ -25,7 +25,7 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 	const [mode, setMode] = useState('signup');
 
-	const accessToken = useSelector((store) => store.user.accessToken);
+	const accessToken = useSelector((store) => store.users.accessToken);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -71,9 +71,6 @@ const Login = () => {
 
 	return (
 		<PageWrapper>
-			<div>
-				<Link to="/">To '/' !</Link>
-			</div>
             <div>
                 <H1>Hello! Sign up!</H1>
                 <H2> Already a user? - Sign in!</H2>
@@ -122,7 +119,7 @@ const Login = () => {
 				<Button type="submit">Submit</Button>
 			</Form>
 		</PageWrapper>
-	);
-};
+	)
+}
 
 export default Login;
