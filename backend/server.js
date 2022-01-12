@@ -10,7 +10,7 @@ mongoose.Promise = Promise;
 
 // create a user schema with mongoose and use crypto for accessToken
 const userSchema = new mongoose.Schema({
-  username: {
+  email: {
     type: String,
     unique: true,
     required: true
@@ -84,7 +84,7 @@ app.get('/secrets', (req, res) => {
 
 // POST request for creating a user
 app.post('/signup', async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     const salt = bcrypt.genSaltSync(); // Create a randomizer to prevent to unhash it
@@ -97,13 +97,13 @@ app.post('/signup', async (req, res) => {
     // checking if password match strongPassword = regex
     if (password.match(strongPassword)) {
       const newUser = await new User({
-        username,
+        email,
         password: bcrypt.hashSync(password, salt)
       }).save();
       res.status(201).json({
         response: {
           userId: newUser._id,
-          username: newUser.username,
+          email: newUser.email,
           accessToken: newUser.accessToken
         },
         sucess: true
@@ -116,26 +116,26 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-// POST request for signing in, match username and password
+// POST request for signing in, match email and password
 // if you include accessToken in your request = you are logged in
 app.post('/signin', async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
         response: {
           userId: user._id,
-          username: user.username,
+          email: user.email,
           accessToken: user.accessToken
         },
         success: true
       });
     } else {
       res.status(404).json({
-        response: "Username or password doesn't match.",
+        response: "Email or password doesn't match.",
         success: false
       });
     }

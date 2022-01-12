@@ -12,7 +12,7 @@ const Main = () => {
 
   const logout = () => {
     batch(() => {
-      dispatch(user.actions.setUsername(null));
+      dispatch(user.actions.setEmail(null));
       dispatch(user.actions.setAccessToken(null));
 
       localStorage.removeItem('user');

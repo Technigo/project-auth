@@ -6,7 +6,7 @@ import { API_URL } from '../utils/constants';
 import user from '../reducers/user';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState('signup');
 
@@ -29,7 +29,7 @@ const Login = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ email, password })
     };
 
     fetch(API_URL(mode), options)
@@ -39,14 +39,14 @@ const Login = () => {
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId));
-            dispatch(user.actions.setUsername(data.response.username));
+            dispatch(user.actions.setEmail(data.response.email));
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setError(null));
           });
         } else {
           batch(() => {
             dispatch(user.actions.setUserId(null));
-            dispatch(user.actions.setUsername(null));
+            dispatch(user.actions.setEmail(null));
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
           });
@@ -74,12 +74,12 @@ const Login = () => {
         onChange={() => setMode('signin')}
       />
       <form onSubmit={onFormSubmit}>
-        <label htmlFor='username'>Username</label>
+        <label htmlFor='email'>Email</label>
         <input
-          id='username'
+          id='email'
           type='text'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <label htmlFor='password'>Password</label>
         <input
