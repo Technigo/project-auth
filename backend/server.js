@@ -26,11 +26,20 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema)
 
+const SecretSchema = new mongoose.Schema({
+	message: {
+		type: String,
+		required: true,
+	},
+});
+
+const Secret = mongoose.model('Secret', SecretSchema)
+
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
 //
 //   PORT=9000 npm start
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 9090
 const app = express()
 
 // Add middlewares to enable cors and json body parsing
@@ -81,15 +90,22 @@ const authenticateUser = async (req, res, next) => {
 
 
 // Start defining your routes here
-app.get('/', (req, res) => {
-  res.send('Welcome to this very secret page')
-})
+app.get('/secrets', authenticateUser);
+app.get('/secrets', async (req, res) => {
+	const secrets = await Secret.find({});
+	res.status(201).json({ response: secrets, success: true });
+});
 
-// Authenticate user
-app.get('/mypage', authenticateUser)
-app.get('/mypage', (req, res) => {
-  res.send('This is your secret page')
-})
+app.post('/secrets', async (req, res) => {
+	const { message } = req.body;
+
+	try {
+		const newSecret = await new Secret({ message }).save();
+		res.status(201).json({ response: newSecret, success: true });
+	} catch (error) {
+		res.status(400).json({ response: error, success: false });
+	}
+});
 
 // POST method for signing up user with hashed password
 app.post('/signup', async (req, res) => {
