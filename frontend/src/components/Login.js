@@ -48,6 +48,7 @@ const Login = () => {
                 dispatch(user.actions.setUserName(null))
                 dispatch(user.actions.setAccessToken(null))
                 dispatch(user.actions.setError(data.response))
+                alert('Username already taken!')
             })
         }
     })}
@@ -72,10 +73,14 @@ const Login = () => {
             <form onSubmit={onFormSubmit}>
             <label htmlFor="username">Username</label>
                 <input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-                
                 <label htmlFor="password">Password</label>
-                <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                <button type="submit">submit</button>
+                <input 
+                id="password" 
+                type="password" 
+                
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} />
+                <button type="submit" disabled={password.length < 5} onClick={onFormSubmit}>submit</button>
             </form>
         </>
     )
