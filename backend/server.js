@@ -29,6 +29,15 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema)
 
+const ThoughtSchema = new mongoose.Schema({
+	message: {
+		type: String,
+		required: true,
+	},
+});
+
+const Thought = mongoose.model('Thought', ThoughtSchema);
+
 // this function is like a shild between frontend and backend, 
 // if you have accessToken you will procded to the secret page, otherwise no
 const authenticateUser = async (req, res, next) => {
