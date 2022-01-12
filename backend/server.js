@@ -45,18 +45,30 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next();
     } else {
-      res.status(404).json({ response: "Please login", success: false });
+      res.status(401).json({ response: "Please login", success: false });
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false });
   }
 };
 
-//can use it like this:
+// can use it like this:
 app.get("/thoughts", authenticateUser);
 app.get("/thoughts", (req, res) => {
   res.send("here are your thoughts");
-})
+});
+
+app.post('/thoughts', async (req, res) => {
+	const { message } = req.body;
+
+	try {
+		const newThought = await new Thought({ message }).save();
+		res.status(201).json({ response: newThought, success: true });
+	} catch (error) {
+		res.status(400).json({ response: error, success: false });
+	}
+});
+
 
 // Start defining your routes here
 app.get("/", (req, res) => {
@@ -81,7 +93,7 @@ app.post("/signup", async (req, res) => {
       response: {
         userId: newUser._id,
         username: newUser.username,
-        accessToken: newUser.accessToken,
+        accessToke: newUser.accessToken,
       },
       success: true,
     });
@@ -106,7 +118,7 @@ app.post("/signin", async (req, res) => {
         success: true,
       });
     } else {
-      res.status(404).json({ response: "User not found", success: false });
+      res.status(401).json({ response: "User not found", success: false });
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false });
