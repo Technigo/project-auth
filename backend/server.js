@@ -37,6 +37,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+// function to make sure the user has a correct accesstoken to access signed in mode and can see the "inside" of the application
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization")
 
@@ -55,9 +56,21 @@ const authenticateUser = async (req, res, next) => {
 // Start defining your routes here
 
 app.get("/thoughts", authenticateUser)
-app.get("/thoughts", (req, res) => {
-  res.send("Here is the sign in page when user is signed in correctly")
+app.get("/thoughts", async (req, res) => {
+  const thoughts = await Thought.find({})
+  res.status(201).json({ response: thoughts, success: true })
 })
+
+// app.post('/thoughts', async (req, res) => {
+// 	const { message } = req.body;
+
+// 	try {
+// 		const newThought = await new Thought({ message }).save();
+// 		res.status(201).json({ response: newThought, success: true });
+// 	} catch (error) {
+// 		res.status(400).json({ response: error, success: false });
+// 	}
+// });
 
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body
