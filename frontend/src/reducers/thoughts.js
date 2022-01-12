@@ -7,7 +7,7 @@ const thoughts = createSlice({
   },
   reducers: {
     setItems: (store, action) => {
-      store.Items = action.payload;
+      store.items = action.payload;
     },
 
     setError: (store, action) => {

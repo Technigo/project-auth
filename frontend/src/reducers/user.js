@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 const user = createSlice({
   name: 'user',
   initialState: {
-    usedId: null,
+    userId: null,
     username: null,
     accessToken: null,
     error: null,
   },
   reducers: {
     setUserId: (store, action) => {
-      store.userID = action.payload;
+      store.userId = action.payload;
     },
     setUsername: (store, action) => {
       store.username = action.payload;

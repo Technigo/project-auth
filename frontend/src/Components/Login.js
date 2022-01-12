@@ -1,4 +1,4 @@
-import React, { useState, UseEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -15,7 +15,7 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  UseEffect(() => {
+  useEffect(() => {
     if (accessToken) {
       navigate('/');
     }
@@ -33,7 +33,7 @@ export const Login = () => {
     };
 
     fetch(API_URL('mode'), options)
-      .then((res) => res.json)
+      .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           batch(() => {
@@ -58,8 +58,22 @@ export const Login = () => {
       <Link to={`/`} className='Link'>
         Go to the Register page
       </Link>
+      <label htmlFor='signup'>Signup</label>
+      <input
+        id='signup'
+        type='radio'
+        checked={mode === 'signup'}
+        onChange={() => setMode('signup')}
+      ></input>
+      <label htmlFor='signin'>Sign in</label>
+      <input
+        id='signin'
+        type='radio'
+        checked={mode === 'signin'}
+        onChange={() => setMode('signin')}
+      ></input>
 
-      <Form>
+      <Form onSubmit={onFormSubmit}>
         <label htmlFor='username'>
           <h2>Username</h2>
         </label>
