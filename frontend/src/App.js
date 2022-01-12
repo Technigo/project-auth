@@ -8,11 +8,9 @@ import Login from './components/Login';
 import NotFound from './components/NotFound';
 
 import user from './reducers/user';
-import secrets from './reducers/secrets';
 
 const reducer = combineReducers({
-  user: user.reducer,
-  secrets: secrets.reducer
+  user: user.reducer
 });
 
 const store = configureStore({ reducer });
