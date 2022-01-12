@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, batch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
 import user from '../reducers/user';
+import Alert from './Alert';
 
 import { SIGNUP_URL } from '../utils/urls';
 
@@ -17,46 +19,43 @@ const Wrapper = styled.div`
 `;
 
 const SignUp = () => {
-  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  //   const fetchUser = () => {
-  //     fetch('https://user-signup-sofia-aleksa.herokuapp.com/signup')
-  //       .then(res => res.json())
-  //       .then(data => setUsername(data));
-  //   };
-  const handleLoginSuccess = loginResponse => {
-    dispatch(
-      user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
-    );
-    dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }));
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleLoginFailed = loginError => {
-    dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setStatusMessage({ statusMessage: loginError }));
-  };
-
-  const onSignUpSubmit = event => {
+  const onFormSubmit = event => {
     event.preventDefault();
 
-    fetch(SIGNUP_URL, {
+    const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ username, password }),
-    })
+    };
+
+    fetch(SIGNUP_URL, options)
       .then(res => res.json())
-      .then(data => setUsername(data));
+      .then(data => {
+        if (data.success) {
+          navigate('/signin');
+        } else {
+          batch(() => {
+            dispatch(user.actions.setUserId(null));
+            dispatch(user.actions.setUsername(null));
+            dispatch(user.actions.setAccessToken(null));
+            dispatch(user.actions.setError(data.response));
+          });
+        }
+      });
   };
 
   return (
     <Wrapper>
       <Title>sign up</Title>
-      <form onSubmit={onSignUpSubmit}>
+      <form onSubmit={onFormSubmit}>
         <label>username</label>
         <input
           type='text'
@@ -73,8 +72,14 @@ const SignUp = () => {
         />
         <button type='submit'>register</button>
       </form>
+      <div>
+        <p>
+          You're now a member! 🎉 Click <Link to='/signin'> here </Link> to
+          login
+        </p>
+      </div>
       <p>already a member?</p>
-      <Link to='/'>Sign in</Link>
+      <Link to='/signin'>Sign in</Link>
     </Wrapper>
   );
 };

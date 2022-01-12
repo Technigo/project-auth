@@ -1,32 +1,42 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  login: {
-    accessToken: localStorage.accessToken || null,
-    username: null,
-    statusMessage: null,
-  },
-};
+// const initialState = {
+//   login: {
+//     accessToken: localStorage.accessToken || null,
+//     username: null,
+//     statusMessage: null,
+//   },
+// };
+
+// initialState: {userId: null, username: null, accessToken: null, error: null}
 
 const user = createSlice({
   name: 'user',
-  initialState,
+  initialState: {
+    userId: null,
+    username: null,
+    accessToken: null,
+    error: null,
+  },
   reducers: {
+    setUserId: (store, action) => {
+      store.userId = action.payload;
+    },
     setUsername: (store, action) => {
       store.username = action.payload;
     },
     setAccessToken: (store, action) => {
-      const { accessToken } = action.payload;
+      // const { accessToken } = action.payload;
       store.accessToken = action.payload;
-      localStorage.setItem('accessToken', accessToken);
+      // localStorage.setItem('accessToken', accessToken);
     },
-    // setErrors: (store, action) => {
-    //   store.errors = action.payload;
-    // },
+    setError: (store, action) => {
+      store.error = action.payload;
+    },
     logout: (store, action) => {
-      store.login.username = null;
-      store.login.accessToken = null;
-      store.login.statusMessage = '';
+      store.userId = null;
+      store.username = null;
+      store.accessToken = null;
       localStorage.removeItem('accessToken');
     },
   },
