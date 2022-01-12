@@ -7,7 +7,6 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { users } from "../src/reducers/users";
 
 import { SignIn } from "./components/SignIn";
-import { SignUp } from "./components/SignUp";
 import { Riddles } from "./components/Riddles";
 import { NotFound } from "./components/NotFound";
 import { Start } from "./components/Start";

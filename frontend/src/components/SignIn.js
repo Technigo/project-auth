@@ -11,6 +11,7 @@ export const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.users.accessToken);
+  const error = useSelector((state) => state.users.error);
 
   useEffect(() => {
     if (token) {
@@ -57,6 +58,7 @@ export const SignIn = () => {
         />
         <button type="submit">Submit</button>
       </form>
+      {error && <h1>{error.response}</h1>}
     </>
   );
 };

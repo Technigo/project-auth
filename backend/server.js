@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  securityLevel: {
+    type: Number,
+    default: 1,
+  },
   accessToken: {
     type: String,
     required: true,
@@ -26,6 +30,28 @@ const UserSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", UserSchema);
+
+const Riddle = mongoose.model("Riddle", {
+  riddleId: Number,
+  riddle: String,
+  answer: String,
+});
+
+if (process.env.RESET_DB) {
+  Riddle.deleteMany().then(
+    new Riddle({
+      riddleId: 1,
+      riddle: "Riddle 1: What needs to be broken before you can use it?",
+      answer: "Egg",
+    }).save(),
+    new Riddle({
+      riddleId: 2,
+      riddle:
+        "Riddle 2: What is black when it’s clean and white when it’s dirty?",
+      answer: "Chalkboard",
+    }).save()
+  );
+}
 
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
@@ -46,21 +72,6 @@ const authenticateUser = async (req, res, next) => {
   } else {
     res.status(401).json({ response: "Please log in", success: false });
   }
-  //   const { accessToken } = req.header("Authorization");
-  //   try {
-  //     const user = await User.findOne({ accessToken });
-  //     if (user) {
-  //       req.user = user;
-  //       next();
-  //     } else {
-  //       res.status(401).json({ response: "Please log in", success: false });
-  //     }
-  //   } catch (error) {
-  //     res.status(400).json({
-  //       response: error,
-  //       success: false,
-  //     });
-  //   }
 };
 
 // Start defining your routes here
@@ -70,12 +81,52 @@ app.get("/", (req, res) => {
 
 // authenticate on an endpoint
 app.get("/riddles", authenticateUser);
-app.get("/riddles", (req, res) => {
-  res.send({
-    response: { securityLevel: 13, riddles: "this is riddles" },
-    success: true,
-  });
+app.get("/riddles", async (req, res) => {
+  // console.log("user security level", req.user.securityLevel)
+  try {
+    const riddle = await Riddle.findOne({ riddleId: req.user.securityLevel });
+    console.log(riddle);
+    res.send({
+      response: {
+        riddles: riddle.riddle,
+        securityLevel: req.user.securityLevel,
+      },
+      success: true,
+    });
+  } catch (error) {
+    res.status(400).json({
+      response: "Something went wrong with riddles",
+      error: error,
+      success: false,
+    });
+  }
 });
+// if (req.user.securityLevel === 0) {
+//   res.send({
+//     response: {
+//       riddles: "Riddle 1: What needs to be broken before you can use it?",
+//       securityLevel: 0,
+//     },
+//     success: true,
+//   });
+// } else if (req.user.securityLevel === 13) {
+//   res.send({
+//     response: {
+//       riddles:
+//         "Riddle 2: What is black when it’s clean and white when it’s dirty?",
+//       securityLevel: 1,
+//     },
+//     success: true,
+//   });
+// } else {
+//   res.send({
+//     response: {
+//       riddles: "Riddle 3: help",
+//       securityLevel: 2,
+//     },
+//     success: true,
+//   });
+// }
 
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
@@ -102,7 +153,8 @@ app.post("/signup", async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      response: "something happened",
+      response: "Something went wrong",
+      error: error,
       success: false,
     });
   }
@@ -131,7 +183,8 @@ app.post("/signin", async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({
-      response: error,
+      response: "Something went wrong",
+      error: error,
       success: false,
     });
   }

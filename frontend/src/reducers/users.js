@@ -7,7 +7,7 @@ export const users = createSlice({
   initialState: {
     username: null,
     accessToken: null,
-    securityLevel: 0,
+    securityLevel: 1,
     riddle: null,
     error: null,
   },
@@ -28,7 +28,7 @@ export const users = createSlice({
     setUserToLoggedOut: (store) => {
       store.username = null;
       store.accessToken = null;
-      store.securityLevel = 0;
+      store.securityLevel = 1;
       store.riddle = null;
     },
   },
