@@ -22,10 +22,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
-  email: {
-    type: String,
-    unique: true,
-  },
   password: {
     type: String,
     required: true,
@@ -65,24 +61,24 @@ app.get("/users", async (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
-  const { userName, email, password } = req.body;
+  const { userName, password } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
 
     if (password.length < 5) {
-      throw "Password must be at least 5 characters long";
+      throw { message: "Password must be at least 5 characters long" };
     }
 
-    const user = await new User({
+    const newUser = await new User({
       userName,
-      email,
       password: bcrypt.hashSync(password, salt),
     }).save();
 
     res.status(201).json({
       response: {
-        id: user._id,
-        accessToken: user.accessToken,
+        id: newUser._id,
+        username: newUser.userName,
+        accessToken: newUser.accessToken,
       },
       success: true,
     });
@@ -94,8 +90,8 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.get("/secrets", authenticateUser);
-app.get("/secrets", (req, res) => {
+app.get("/userprofile", authenticateUser);
+app.get("/userprofile", (req, res) => {
   res.json({ secret: "This is a super secret message" });
 });
 
