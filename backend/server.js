@@ -90,6 +90,11 @@ const authenticateUser = async (req, res, next) => {
 
 
 // Start defining your routes here
+
+app.get('/', (req, res) => {
+  res.send('Wanna see some secrets?')
+})
+
 app.get('/secrets', authenticateUser);
 app.get('/secrets', async (req, res) => {
 	const secrets = await Secret.find({});
