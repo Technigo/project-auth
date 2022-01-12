@@ -1,13 +1,60 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookDead } from "@fortawesome/free-solid-svg-icons";
 import backgroundImage from "../images/police.jpg";
 import { useMediaQuery } from "react-responsive";
+import { API_URL } from "../utils/urls";
+import user from "reducers/user";
 
-export const Login = ({ onSetCurrentScreen }) => {
+export const Login = () => {
+  const dispatch = useDispatch();
   const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
   const isMobile = useMediaQuery({ query: "(max-width: 420px)" });
+  const navigate = useNavigate();
+
+  const onSignUpButtonClick = () => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: loginDetails.email,
+        password: loginDetails.password,
+      }),
+    };
+
+    fetch(API_URL("signup"), options)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(user.actions.setUser(data.response));
+        navigate("/game");
+      });
+  };
+
+  const onLoginButtonClick = () => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: loginDetails.email,
+        password: loginDetails.password,
+      }),
+    };
+
+    fetch(API_URL("signin"), options)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(user.actions.setUser(data.response));
+        navigate("/game");
+      });
+  };
+
   return (
     <Main>
       {!isMobile && <Image></Image>}
@@ -30,22 +77,27 @@ export const Login = ({ onSetCurrentScreen }) => {
 
           <LoginDetails>
             <EmailInput
+              type="text"
               placeholder="Email"
               onChange={(event) =>
-                setLoginDetails({ email: event.target.value })
+                setLoginDetails({ ...loginDetails, email: event.target.value })
               }
             ></EmailInput>
             <PasswordInput
+              type="password"
               placeholder="Password"
               onChange={(event) =>
-                setLoginDetails({ password: event.target.value })
+                setLoginDetails({
+                  ...loginDetails,
+                  password: event.target.value,
+                })
               }
             ></PasswordInput>
           </LoginDetails>
           <ButtonContainer>
-            <SignUpButton>Sign up</SignUpButton>
+            <SignUpButton onClick={onSignUpButtonClick}>Sign up</SignUpButton>
             <GuestButton>Guest</GuestButton>
-            <LoginButton>Login</LoginButton>
+            <LoginButton onClick={onLoginButtonClick}>Login</LoginButton>
           </ButtonContainer>
         </Container>
       </RightColumn>

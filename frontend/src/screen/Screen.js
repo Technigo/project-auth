@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import { Login } from "components/Login";
 import { LoggedIn } from "components/LoggedIn";
 
 export const Screen = () => {
-  const [currentScreen, setCurrentScreen] = useState("login");
+  const token = useSelector((store) => store.user.user.accessToken);
+  console.log(token);
+
   return (
-    <>
-      {currentScreen === "login" && (
-        <Login onSetCurrentScreen={setCurrentScreen} />
-      )}
-      {currentScreen === "loggedIn" && <LoggedIn />}
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="*" element={<Login />} />
+        {token && <Route path="/game" element={<LoggedIn />} />}
+      </Routes>
+    </BrowserRouter>
   );
 };
