@@ -74,7 +74,7 @@ const Login = () => {
         onChange={() => setMode('signin')}
       />
       <form onSubmit={onFormSubmit}>
-        <label htmlFor='username'>Username</label>
+        <label htmlFor=''>Username</label>
         <input
           id='username'
           type='text'
