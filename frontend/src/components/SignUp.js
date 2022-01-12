@@ -21,6 +21,7 @@ const Wrapper = styled.div`
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -49,8 +50,11 @@ const SignUp = () => {
             dispatch(user.actions.setError(data.response));
           });
         }
-      });
+      })
+      .catch(data => setError(data));
   };
+
+  //  disabled={password.length < 5}, add this in the button?
 
   return (
     <Wrapper>
@@ -70,6 +74,10 @@ const SignUp = () => {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
+
+        {password && password.length < 5 && <div>password to short</div>}
+        {password && password.length > 4 && <div>password OK</div>}
+
         <button type='submit'>register</button>
       </form>
       <div>
