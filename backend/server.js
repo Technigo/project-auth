@@ -38,28 +38,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// const authenticateUser = async (req, res, next) => {
-//   const accessToken = req.header('Authorization');
-
-//   try {
-//     const user = await User.findOne({ accessToken });
-//     if (user) {
-//       next(); // built in function for express that makes the app move along if there's for example an user
-//     } else {
-//       res.status(401).json({ response: 'Please log in', success: false });
-//     }
-//   } catch (error) {
-//     res.status(400).json({ response: error, success: false });
-//   }
-// };
-
-// check happy thoughts project for the header
-
 // Start defining your routes here
-// app.get('/thoughts', authenticateUser); // we first have to authenticate the user before we get the thoughts
-app.get('/', (req, res) => {
+app.get('/cats', authenticateUser); // we first have to authenticate the user before we get the thoughts
+app.get('/cats', (req, res) => {
   // thoughts is just an example
-  res.send('Here are your thoughts');
+  const cats = await cats.find({});
+  res.status(201).json({ response: cats, success: true });
 });
 
 app.post('/signup', async (req, res) => {
