@@ -60,11 +60,17 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
+// Authentication - 401 (Unauthorized) But should be unauthenticated
+// Authorization - 403 (Forbidden) But should be unauthorized
+
 // Start defining your routes here
 
 app.get('/thoughts', authenticateUser);
 app.get('/thoughts', (req, res) => {
-  res.send('Here are your thoughts');
+  const thoughts = await Thought.find({});
+  req.status(201).json({ response: thoughts, success: true });
+
+  // res.send('Here are your thoughts');
 });
 
 app.post('/signup', async (req, res) => {
