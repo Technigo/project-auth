@@ -5,7 +5,7 @@ import { faBookDead } from "@fortawesome/free-solid-svg-icons";
 import backgroundImage from "../images/police.jpg";
 import { useMediaQuery } from "react-responsive";
 
-export const Login = () => {
+export const Login = ({ onSetCurrentScreen }) => {
   const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
   const isMobile = useMediaQuery({ query: "(max-width: 420px)" });
   return (
