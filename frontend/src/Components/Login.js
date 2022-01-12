@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { API_URL } from 'utils/url';
-import user from './reducers/user';
+import user from '../reducers/user';
 
-const Login = () => {
+export const Login = () => {
   const [username, setUsername] = UseState('');
   const [password, setPassword] = UseState('');
   const [mode, setMode] = useState('signup');
@@ -50,46 +51,66 @@ const Login = () => {
       });
   };
 
+  //har ej implementerat formuläret från lektionen
+
   return (
     <>
-      <div>
-        <Link to="/main">to '/main' !</Link>
-      </div>
-      <label htmlFor="signup">Sign up</label>
-      <input
-        id="signup"
-        type="radio"
-        checked={mode === 'signup'}
-        onChange={() => setMode(signup)}
-      />
-      <label htmlFor="signin">Sign in</label>
-      <input
-        id="signin"
-        type="radio"
-        checked={mode === 'signin'}
-        onChange={() => setMode(signin)}
-      />
+      <Link to={`/`} className="Link">
+        Go to the Register page
+      </Link>
 
-      <form onSubmit={onFormSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <button type="submit">Submit</button>
-      </form>
+      <Form>
+        <label>
+          <h2>Login</h2>
+        </label>
+        <Input type="text" placeholder="Username"></Input>
+        <Input type="password" placeholder="Password"></Input>
+        <Button>Login</Button>
+      </Form>
     </>
   );
 };
 
-export default Login;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Input = styled.input`
+  background-color: #92dea0;
+  padding: 5px;
+  margin: 15px;
+  border: none;
+  border-bottom: 2px solid black;
+  width: 300px;
+  text-transform: uppercase; 
+
+  ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;s
+    opacity: 1; /* Firefox */
+    font-family: var(--font);
+  }
+`;
+
+const Button = styled.button`
+  background-color: #92dea0;
+  align-self: center;
+  width: fit-content;
+  padding: 5px 15px;
+  margin: 10px;
+  font-size: 1em;
+  padding: 5px;
+  border: 2px solid black;
+  text-transform: uppercase;
+
+  :hover {
+    background-color: #1e9086;
+    transform: rotate(360deg);
+    transition: 0.5s ease;
+  }
+
+  /* Small laptop */
+  @media (min-width: 992px) {
+  }
+`;

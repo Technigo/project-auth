@@ -1,14 +1,31 @@
 import React from 'react';
-import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import styled from 'styled-components';
+
 import { RegistrationForm } from 'Components/RegistrationForm';
+import { Login } from 'Components/Login';
 import { Header } from 'Components/Header';
 import { Footer } from 'Components/Footer';
-import { LoginForm } from 'Components/LoginForm';
 import { SecretContent } from 'Components/SecretContent';
 
+// added two reducers
+import user from './reducers/user';
+import thoughts from './reducers/thoughts'; // thoughts is the hidden content
+
+const reducer = combineReducers({
+
+  user = user.reducer, 
+  thoughts = thoughts.reducer
+});
+
+const store = configureStore({ reducer })
+
+// added provider
 export const App = () => {
   return (
+    <Provider store={store}>
     <BrowserRouter>
       <Container>
         <Header />
@@ -23,6 +40,7 @@ export const App = () => {
         <Footer />
       </Container>
     </BrowserRouter>
+    </Provider>
   );
 };
 

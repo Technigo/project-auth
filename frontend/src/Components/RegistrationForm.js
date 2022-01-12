@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 export const RegistrationForm = () => {
   return (
     <>
-      <Link to={`/login`} className='Link'>
+      <Link to={`/login`} className="Link">
         Go to the Login page
       </Link>
       <Form>
         <label>
           <h2>Register a new account</h2>
         </label>
-        <Input type='text' placeholder='Username'></Input>
-        <Input type='password' placeholder='Password'></Input>
+        <Input type="text" placeholder="Username"></Input>
+        <Input type="password" placeholder="Password"></Input>
         <Button>Register</Button>
       </Form>
     </>

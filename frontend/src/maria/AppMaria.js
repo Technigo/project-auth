@@ -4,12 +4,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-import Main from './Main';
+import Main from '../Components/Main';
 import Login from './Login';
-import NotFound from './NotFound';
+import NotFound from '../Components/NotFound';
 
-import user from './reducers/user';
-import thoughts from './reducers/thoughts';
+import user from '../reducers/user';
+import thoughts from '../reducers/thoughts';
 
 const reducer = combineReducers({
 
