@@ -77,8 +77,13 @@ export const riddles = (accessToken) => {
     })
       .then((res) => res.json())
       .then((json) => {
+        if (json.success) {
+          dispatch(users.actions.setRiddles(json));
+          dispatch(users.actions.setError(null));
+        } else {
+          dispatch(users.actions.setError(json));
+        }
         console.log("WE made it", accessToken);
-        dispatch(users.actions.setRiddles(json));
       });
     // turn the loading state back off
     // .finally(setTimeout(() => dispatch(ui.actions.setLoading(false)), 2000));
