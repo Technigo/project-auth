@@ -24,41 +24,56 @@ export const SignIn = () => {
   };
 
   return (
-    <>
-      <div>
-        <Link to="/">To '/' !</Link>
+    <div className="container">
+      <div className="button-align">
+        <div>
+          <label htmlFor="signup">Signup</label>
+          <input
+            id="signup"
+            type="radio"
+            checked={mode === "signup"}
+            onChange={() => setMode("signup")}
+          />
+        </div>
+        <div>
+          <label htmlFor="signin">Signin</label>
+          <input
+            id="signin"
+            type="radio"
+            checked={mode === "signin"}
+            onChange={() => setMode("signin")}
+          />
+        </div>
       </div>
-      <label htmlFor="signup">Signup</label>
-      <input
-        id="signup"
-        type="radio"
-        checked={mode === "signup"}
-        onChange={() => setMode("signup")}
-      />
-      <label htmlFor="signin">Signin</label>
-      <input
-        id="signin"
-        type="radio"
-        checked={mode === "signin"}
-        onChange={() => setMode("signin")}
-      />
-      <form onSubmit={onUserSubmit}>
-        <h1>This is the sign in page</h1>
+      <form onSubmit={onUserSubmit} className="signin-form">
+        {mode === "signin" && <h2>Sign in</h2>}
+        {mode === "signup" && <h2>Sign up</h2>}
         <input
           type="text"
           placeholder="username"
+          className="input-field"
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
         <input
           type="password"
           placeholder="password"
+          className="input-field"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <button type="submit">Submit</button>
+        {mode === "signin" && (
+          <button className="submit-button" type="submit">
+            Sign in
+          </button>
+        )}
+        {mode === "signup" && (
+          <button className="submit-button" type="submit">
+            Sign up
+          </button>
+        )}
       </form>
       {error && <h1>{error.response}</h1>}
-    </>
+    </div>
   );
 };

@@ -34,19 +34,21 @@ export const Riddles = () => {
   };
 
   return (
-    <>
-      <button onClick={onSignOut}>Sign out</button>
-      <h1>{riddle}</h1>
-      <p>Answer</p>
-      <form onSubmit={onAnswerSumbit}>
-        <input
-          placeholder="Answer"
-          type="text"
-          value={answer}
-          onChange={(event) => setAnswer(event.target.value)}
-        />
-        <button type="submit">Answer</button>
-      </form>
-    </>
+    <div className="container">
+      <div className="riddle-align">
+        <h3>{riddle}</h3>
+        <form onSubmit={onAnswerSumbit}>
+          <input
+            placeholder="Answer"
+            type="text"
+            value={answer}
+            className="input-field"
+            onChange={(event) => setAnswer(event.target.value)}
+          />
+          <button type="submit">Answer</button>
+        </form>
+        <button onClick={onSignOut}>Sign out</button>
+      </div>
+    </div>
   );
 };

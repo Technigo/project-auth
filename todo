@@ -2,16 +2,16 @@ BLUE REQ
 
 ☀️ Your API should have routes to register and login, and finally an authenticated endpoint.
 
-- The authenticated endpoint should return a 401 or 403 (see [401 vs. 403 on SO](https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses)) with an error message if you try to access it without an `Authentication` access token or with an invalid token.
+  ☀️ The authenticated endpoint should return a 401 or 403 (see [401 vs. 403 on SO](https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses)) with an error message if you try to access it without an `Authentication` access token or with an invalid token.
   ☀️ Your frontend should have a registration form which POSTs to the API to create a new user
   ☀️ Your passwords in the database should be encrypted with bcrypt
-- Your API should validate the user input when creating a new user, and return error messages which could be shown by the frontend (displaying the errors in a nice way in the frontend is a stretch goal - its fine to just show 'Something went wrong' on the frontend if you run out of time)
+ ☀️ Your API should validate the user input when creating a new user, and return error messages which could be shown by the frontend (displaying the errors in a nice way in the frontend is a stretch goal - its fine to just show 'Something went wrong' on the frontend if you run out of time)
 
 ## **🔴 Red Level (Intermediary Goals)**
 
 **\*Remember**:\* For any new feature you add to the backend, be mindful of how that will require the frontend to change, and vice-versa.
 
-- Store data in the database for your authenticated data routes.
+  ☀️ Store data in the database for your authenticated data routes.
 - When registering, display error messages from the API next to the field which has the error. For example, if the email address is invalid, show an error message next to the email input
 
 ## **⚫ Black Level (Advanced Goals)**

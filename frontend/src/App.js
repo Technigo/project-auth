@@ -10,6 +10,7 @@ import { SignIn } from "./components/SignIn";
 import { Riddles } from "./components/Riddles";
 import { NotFound } from "./components/NotFound";
 import { Start } from "./components/Start";
+import { Header } from "./components/Header";
 
 const reducer = combineReducers({
   users: users.reducer,
@@ -33,10 +34,10 @@ export const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Link to="/">Start</Link>
+        {/* <Link to="/">Start</Link>
         <Link to="/signin">Sign in</Link>
-        <Link to="/riddles">Secret riddles</Link>
-
+        <Link to="/riddles">Secret riddles</Link> */}
+        <Header />
         <Routes>
           <Route index path="/" element={<Start />} />
           <Route index path="*" element={<NotFound />} />
