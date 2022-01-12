@@ -44,7 +44,7 @@ const authenticateUser = async (req, res, next) => {
       next()
     } else {
       // if we dont have a user with that particular accessToken
-      res.status(404).json({response: 'Please, log in', success: false})
+      res.status(401).json({response: 'Please, log in', success: false})
     }
   } catch (err) {
     res.status(404).json({ response: err, success: false})
@@ -69,8 +69,9 @@ app.get('/', (req, res) => {
 
 app.get('/thoughts', authenticateUser)
 // if the user is allowed to visit the page, passing the authenticateUser(), then this request will trigger 
-app.get('/thoughts', (req, res) => {
-  res.send('Here a the secret page, only for users')
+app.get('/thoughts', async (req, res) => {
+	const thoughts = await User.find({})
+  res.status(201).json({ response: thoughts, success: true })
 })
 
 // request to create a user 
