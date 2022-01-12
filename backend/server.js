@@ -23,6 +23,16 @@ const UserSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('User', UserSchema);
+
+const ThoughtSchema = new mongoose.Schema({
+  message: {
+    type: String,
+    required: true,
+  },
+});
+
+const Thought = mongoose.model('Thought', ThoughtSchema);
+
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
 //
@@ -50,9 +60,21 @@ const authenticateUser = async (req, res, next) => {
 };
 
 // Start defining your routes here
-app.get('/hello', authenticateUser);
-app.get('/hello', (req, res) => {
-  res.send('Hello world');
+app.get('/thoughts', authenticateUser);
+app.get('/thoughts', async (req, res) => {
+  const thoughts = await Thought.find({});
+  res.status(201).json({ response: thoughts, success: true });
+});
+
+app.post('/thoughts', async (req, res) => {
+  const { message } = req.body;
+
+  try {
+    const newThought = await new Thought({ message }).save();
+    res.status(201).json({ response: newThought, success: true });
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
 });
 
 app.post('/signup', async (req, res) => {
@@ -62,7 +84,7 @@ app.post('/signup', async (req, res) => {
     const salt = bcrypt.genSaltSync();
 
     if (password.length < 6) {
-      throw 'Password must be at least 6 characters long';
+      throw { message: 'Password must be at least 6 characters long' };
     }
 
     const newUser = await new User({
