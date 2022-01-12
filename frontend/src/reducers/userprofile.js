@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const userprofile = createSlice({
   name: "userprofile",
   initialState: {
-    profile: [],
+    profile: "",
     error: null,
   },
   reducers: {

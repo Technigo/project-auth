@@ -3,7 +3,6 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-// import req from 'express/lib/request';
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -18,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 const UserSchema = new mongoose.Schema({
-  userName: {
+  username: {
     type: String,
     unique: true,
   },
@@ -43,7 +42,12 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next();
     } else {
-      res.status(401).json({ loggedOut: true });
+      res.status(401).json({
+        response: {
+          message: "Please, log in",
+        },
+        success: false,
+      });
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false });
@@ -55,13 +59,9 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-app.get("/users", async (req, res) => {
-  const users = await User.find();
-  res.status(401).json(users);
-});
-
 app.post("/signup", async (req, res) => {
-  const { userName, password } = req.body;
+  const { username, password } = req.body;
+
   try {
     const salt = bcrypt.genSaltSync();
 
@@ -70,14 +70,14 @@ app.post("/signup", async (req, res) => {
     }
 
     const newUser = await new User({
-      userName,
+      username,
       password: bcrypt.hashSync(password, salt),
     }).save();
 
     res.status(201).json({
       response: {
         id: newUser._id,
-        username: newUser.userName,
+        username: newUser.username,
         accessToken: newUser.accessToken,
       },
       success: true,
@@ -92,16 +92,38 @@ app.post("/signup", async (req, res) => {
 
 app.get("/userprofile", authenticateUser);
 app.get("/userprofile", (req, res) => {
-  res.json({ secret: "This is a super secret message" });
+  res.json({ message: "This is your profile!" });
 });
 
 app.post("/signin", async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.status(201).json({ userID: user._id, accessToken: user.accessToken });
-  } else {
-    res.status(401).json({ message: "access denied", notFound: true });
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username });
+
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(200).json({
+        response: {
+          userId: user._id,
+          username: user.username,
+          accessToken: user.accessToken,
+        },
+        success: true,
+      });
+    } else {
+      res.status(404).json({
+        response: "username or password doesn't match",
+        success: false,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
   }
+});
+
+app.get("/users", async (req, res) => {
+  const users = await User.find();
+  res.status(401).json(users);
 });
 
 // Start the server
