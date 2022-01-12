@@ -80,6 +80,7 @@ app.get("/", (req, res) => {
 
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;
+  console.log("Creating user", req.body);
   try {
     const salt = bcrypt.genSaltSync();
 
@@ -92,10 +93,13 @@ app.post("/signup", async (req, res) => {
       password: bcrypt.hashSync(password, salt),
     });
 
-    console.log(newUser);
     await newUser.save();
     res.status(201).json({
-      response: { id: newUser._id, accessToken: newUser.accessToken },
+      response: {
+        id: newUser._id,
+        accessToken: newUser.accessToken,
+        email: newUser.email,
+      },
       success: true,
     });
   } catch (error) {
@@ -105,10 +109,20 @@ app.post("/signup", async (req, res) => {
 
 app.post("/signin", async (req, res) => {
   const { email, password } = req.body;
+
+  console.log("signin", req.body);
+
   try {
     const user = await User.findOne({ email });
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(200).json({ userId: user._id, accessToken: user.accessToken });
+      res.status(200).json({
+        response: {
+          Id: user._id,
+          email: email,
+          accessToken: user.accessToken,
+        },
+        success: true,
+      });
     } else {
       res.status(404).json({
         response: "User email or password doesn't match",
@@ -121,7 +135,7 @@ app.post("/signin", async (req, res) => {
 });
 
 app.get("/game", authenticateUser);
-app.get("/game", (req, res) => {
+app.get("/game", async (req, res) => {
   res.json({ message: "The game is under construction" });
 });
 
