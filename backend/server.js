@@ -26,6 +26,15 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
+const OrderSchema = new mongoose.Schema({
+  message: {
+    type: String,
+    required: true,
+  },
+});
+
+const Order = mongoose.model("Order", OrderSchema);
+
 const port = process.env.PORT || 8080;
 const app = express();
 
