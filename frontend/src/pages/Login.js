@@ -22,6 +22,7 @@ const BackgroundImage = styled.main`
 `
 
 const StyledForm = styled.div`
+  width: 60%;
   background-color: white;
   padding: 40px;
   border-radius: 10px;
@@ -29,6 +30,9 @@ const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (min-width: 992px) {
+    width: auto;
+  }
 `
 
 const StyledFieldset = styled.fieldset`
@@ -53,10 +57,12 @@ const StyledInputField = styled.input`
 `
 const StyledLinkText = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  text-align: center;
   margin: 0 auto;
   p {
-    margin-right: 5px;
+    margin: 5px;
   }
 `
 
@@ -143,7 +149,9 @@ const Login = () => {
     <>
       <BackgroundImage>
         <StyledForm>
-          <h1 style={{ color: '#4a3b61' }}>NASA: Space Nerd Facts</h1>
+          <h1 style={{ color: '#4a3b61', textAlign: 'center' }}>
+            NASA: Space Nerd Facts
+          </h1>
 
           <span role="img" aria-label="sheep" style={{ fontSize: 40 }}>
             🚀

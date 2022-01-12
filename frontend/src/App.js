@@ -20,7 +20,7 @@ export const App = () => {
         <Routes>
           <Route path="/" exact element={<Main />} />
           <Route path="/login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </BrowserRouter>
     </Provider>
