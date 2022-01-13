@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
-import styled from 'styled-components/macro';
+import { useNavigate } from 'react-router-dom';
+// import styled from 'styled-components/macro';
 
 import { API_URL } from '../utils/constants';
 import user from '../reducers/user';
 
-const FormWrapper = styled.div`
+/* const FormWrapper = styled.div`
   width: 320px;
   display: flex;
-`;
+`; */
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -62,7 +62,7 @@ const Login = () => {
   };
 
   return (
-    <FormWrapper>
+    <>
       {/*   <div>
         <Link to='/'>To '/' !</Link>
       </div> */}
@@ -98,7 +98,7 @@ const Login = () => {
         {error && <p>Whoops! Something went wrong. Try again!</p>}
         <button type='submit'>Submit</button>
       </form>
-    </FormWrapper>
+    </>
   );
 };
 
