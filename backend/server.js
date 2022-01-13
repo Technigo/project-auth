@@ -60,9 +60,9 @@ app.get("/", (req, res) => {
 
 // not used endpoint but set up for authentication
 app.get("/memes", authenticateUser);
-app.get("/memes", async (req, res) => {
-	res.status(201).json({ response: memes, success: true });
-});
+// app.get("/memes", async (req, res) => {
+// 	res.status(201).json({ response: memes, success: true });
+// });
 
 // endpoint for signing up
 app.post("/signup", async (req, res) => {

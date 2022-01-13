@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 
 import { API_URL } from "utils/urls";
+import programmingMeme from '../utils/programmingMeme.jpeg'
 
 const Main = () => {
 	const accessToken = useSelector((store) => store.user.accessToken);
@@ -32,7 +33,7 @@ const Main = () => {
 				<Link to="/login">To '/login'</Link>
 			</div>
 			<h1>Protected coding meme:</h1>
-			<img src="../public/programmingMeme.jpeg" alt="programming meme" />
+			<img src={programmingMeme} alt="programming meme" />
 		</div>
 	);
 };
