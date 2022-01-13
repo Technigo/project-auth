@@ -2,6 +2,22 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+import { API_URL } from "../utils/constants";
+
+const StyledForm = styled.form`
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background-color: #0066cc;
+  padding: 20px;
+  border-radius: 5px;
+  font-weight: 500;
+`;
+
 export const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -15,7 +31,7 @@ export const SignUp = () => {
   };
 
   const createUser = () => {
-    fetch("http://localhost:8080/signup", {
+    fetch(API_URL("signup"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +41,6 @@ export const SignUp = () => {
       .then((response) => response.json())
       .then((json) => {
         setUserData(json.response);
-        console.log(json);
         setUserCreated(true);
       });
   };
@@ -33,17 +48,15 @@ export const SignUp = () => {
   return (
     <>
       {userCreated ? (
-        <div>
-          <p>
-            User {userData.name} created with an id {userData.id}!
-          </p>
+        <StyledForm>
+          <p>User {userData.name} created!</p>
           <p>
             Click <Link to="/login">here</Link> to login!
           </p>
-        </div>
+        </StyledForm>
       ) : (
         <div>
-          <form onSubmit={(event) => handleSubmit(event)}>
+          <StyledForm onSubmit={(event) => handleSubmit(event)}>
             <label htmlFor="usernameInput">username:</label>
             <input
               id="usernameInput"
@@ -68,7 +81,7 @@ export const SignUp = () => {
               onChange={(event) => setPassword(event.target.value)}
             />
             <button type="submit">Create user</button>
-          </form>
+          </StyledForm>
         </div>
       )}
     </>

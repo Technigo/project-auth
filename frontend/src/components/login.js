@@ -1,7 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
-import user from "../reducers/user";
 import { useNavigate, Link } from "react-router-dom";
+import styled from "styled-components";
+
+import user from "../reducers/user";
+import { API_URL } from "../utils/constants";
+
+const StyledForm = styled.form`
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background-color: #0066cc;
+  padding: 20px;
+  border-radius: 5px;
+  font-weight: 500;
+`;
+
+const StyledButton = styled.button`
+  width: auto;
+  height: 35px;
+  padding: 10px;
+  background-color: #fff;
+  color: #000;
+
+  border-radius: 4px;
+  border: none;
+`;
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -15,7 +43,7 @@ export const Login = () => {
     if (accessToken) {
       navigate("/");
     }
-  }, [accessToken]);
+  }, [accessToken, navigate]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,7 +51,7 @@ export const Login = () => {
   };
 
   const login = () => {
-    fetch("http://localhost:8080/login", {
+    fetch(API_URL("login"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +60,6 @@ export const Login = () => {
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
         if (json.success) {
           batch(() => {
             dispatch(user.actions.setUserId(json.response.userId));
@@ -54,8 +81,8 @@ export const Login = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={(event) => handleSubmit(event)}>
+    <>
+      <StyledForm onSubmit={(event) => handleSubmit(event)}>
         <label htmlFor="usernameInput">username:</label>
         <input
           id="usernameInput"
@@ -70,14 +97,14 @@ export const Login = () => {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <button type="submit">Log in</button>
-      </form>
+        <StyledButton type="submit">Log in</StyledButton>
+      </StyledForm>
       <p>
         {" "}
         Don't have the username? Please signup <Link to="/signup">
           here!{" "}
         </Link>{" "}
       </p>
-    </div>
+    </>
   );
 };

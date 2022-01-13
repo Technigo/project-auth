@@ -28,16 +28,29 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
+const ImageSchema = new mongoose.Schema({
+  image: String,
+});
+
+const Image = mongoose.model("Image", ImageSchema);
 const User = mongoose.model("User", UserSchema);
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
-
-  const loggedUser = await User.findOne({ accessToken });
-  if (loggedUser) {
-    next();
-  } else {
-    res.status(401).json({ response: "Please log in", success: false });
+  try {
+    const loggedUser = await User.findOne({ accessToken });
+    if (loggedUser) {
+      next();
+    } else {
+      res.status(401).json({
+        response: {
+          message: "Please, log in",
+        },
+        success: false,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
   }
 };
 
@@ -51,8 +64,19 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", authenticateUser);
-app.get("/", (req, res) => {
-  res.send("Hello world");
+app.get("/", async (req, res) => {
+  try {
+    const data = await Image.find();
+    if (data) {
+      res
+        .status(200)
+        .json({ response: { image: data[0].image }, success: true });
+    } else {
+      res.status(400).json({ response: "No image found", success: false });
+    }
+  } catch (error) {
+    res.status(401).json({ response: error, success: false });
+  }
 });
 
 app.post("/signup", async (req, res) => {
@@ -67,6 +91,22 @@ app.post("/signup", async (req, res) => {
 
     res.status(201).json({
       response: { name: newUser.username, id: newUser._id },
+      success: true,
+    });
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+});
+
+app.post("/image", async (req, res) => {
+  const { image } = req.body;
+  try {
+    const newImage = await new Image({
+      image,
+    }).save();
+
+    res.status(201).json({
+      response: { image: newImage.image },
       success: true,
     });
   } catch (error) {
