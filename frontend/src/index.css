@@ -28,7 +28,7 @@ code {
 .form-container {
   display: flex;
   flex-direction: column;
-  margin: 10%;
+  margin: 12%;
 }
 
 .form-container input[type='radio'] {
@@ -46,7 +46,7 @@ code {
   -o-border-radius: 25px;
   display: flex;
   font-size: 12px;
-  margin-left: 62%;
+  margin-left: 60%;
   padding: 5%;
   justify-content: center;
   width: 20%;
@@ -100,6 +100,10 @@ button {
   width: 38%;
 }
 
+label {
+  margin-bottom: 1%;
+}
+
 .button-logout {
   font-size: 14px;
 }
@@ -109,4 +113,60 @@ button {
   flex-direction: column;
   align-items: center;
   padding: 20%;
+}
+
+/* ----------------------------------------------- */
+/*                MEDIA QUERIES                    */
+/* ----------------------------------------------- */
+
+@media only screen and (min-width: 350px) {
+  body {
+    padding-left: 10%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    width: 80%;
+    padding-left: 15%;
+  }
+
+  .form-container .label-button {
+    font-size: 16px;
+    padding: 4%;
+  }
+
+  .fields-container input {
+    font-size: 18px;
+  }
+
+  button {
+    font-size: 16px;
+  }
+
+  label {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .form-container .label-button {
+    padding: 2%;
+    width: 18%;
+  }
+
+  .fields-container input {
+    font-size: 18px;
+    padding: 3%;
+  }
+
+  label {
+    font-size: 18px;
+  }
+
+  button,
+  .button-logout {
+    padding: 3%;
+    width: 25%;
+  }
 }
