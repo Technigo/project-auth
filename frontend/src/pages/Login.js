@@ -277,7 +277,7 @@ const StyledButton = styled.button`
 
 const StyledErrorMessage = styled.h6`
   color: red;
-  font-size: 11px;
+  font-size: 13px;
   margin: 0;
   text-align: center;
 `

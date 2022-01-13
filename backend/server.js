@@ -8,10 +8,6 @@ const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI'
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-// const validatePassword = (password) => {
-//   const re = /^(?=.*?[A-Z])$/
-//   return re.test(password)
-// }
 
 const UserSchema = new mongoose.Schema({
   username: {

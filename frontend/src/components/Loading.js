@@ -22,7 +22,7 @@ const Loading = () => {
                 height={300}
                 width={300}
             />
-        </MainWrapperLoading>
+        </MainWrapperLoading >
     );
 }
 
