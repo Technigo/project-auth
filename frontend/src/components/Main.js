@@ -8,7 +8,7 @@ import profile from '../reducers/profile';
 const Main = () => {
 	const profileMessage = useSelector((store) => store.profile.message);
 	const accessToken = useSelector((store) => store.user.accessToken);
-	const username = useSelector((store) => store.user.username);
+	const email = useSelector((store) => store.user.email);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -40,9 +40,9 @@ const Main = () => {
 	return (
 		<div>
 			<div>
-				<Link to="/signin">To '/signin' !</Link>
+				{/* <Link to="/signin">To '/signin' !</Link> */}
 			</div>
-			<h1>Welcome {username} to your personal profile page:</h1>
+			<h1>Welcome to your personal profile page:</h1>
 			{profileMessage}
 		</div>
 	);
