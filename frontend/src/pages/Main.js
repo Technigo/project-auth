@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { API_URL } from "../utils/urls";
 import secrets from "../reducers/secrets";
@@ -8,7 +8,6 @@ import user from "../reducers/user";
 import { YodaAnimation } from "components/YodaAnimation";
 
 const Main = () => {
-  const secretsItems = useSelector((store) => store.secrets.items);
   const accessToken = useSelector((store) => store.user.accessToken);
 
   const dispatch = useDispatch();
@@ -39,7 +38,7 @@ const Main = () => {
           dispatch(secrets.actions.setError(data.response));
         }
       });
-  }, [accessToken]);
+  }, [accessToken, dispatch]);
 
   return (
     <>
