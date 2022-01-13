@@ -22,23 +22,21 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
     validate: {
-      validator: (value) => {
+      validator: (v) => {
         let re =
-          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/
-        const result = re.test(value)
-        console.log(result)
-        // if (result === false) {
-        //   throw 'Password not valid'
-        // }
+          /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+        const result = re.test(v)
+        return result
       },
-      message: 'Please fill in a valid password',
-    },
-    // validate: [validatePassword, 'Please fill a valid password'],
-    // match: [
-    //   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
-    //   'Please fill a valid password',
-    // ],
+      message: 'Please fill a valid email address',
+    }
   },
   accessToken: {
     type: String,
@@ -81,13 +79,13 @@ app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
-app.get('/thoughts', authenticateUser)
-app.get('/thoughts', (req, res) => {
-  res.send('Here are your thoughts')
-})
+// app.get('/thoughts', authenticateUser)
+// app.get('/thoughts', (req, res) => {
+//   res.send('Here are your thoughts')
+// })
 
 app.post('/signup', async (req, res) => {
-  const { username, password } = req.body
+  const { username, email, password } = req.body
 
   try {
     const salt = bcrypt.genSaltSync()
@@ -96,9 +94,9 @@ app.post('/signup', async (req, res) => {
     }
     const newUser = await new User({
       username,
+      email,
       password: bcrypt.hashSync(password, salt),
     }).save()
-    console.log(password)
 
     res.status(201).json({
       response: {
