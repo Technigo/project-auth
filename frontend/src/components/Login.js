@@ -12,14 +12,22 @@ import user from "reducers/user";
 export const Login = () => {
   const dispatch = useDispatch();
   const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
+  const [actionType, setActionType] = useState("");
   const isMobile = useMediaQuery({ query: "(max-width: 420px)" });
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  console.log(error);
   const handleSubmitForm = (event) => {
     event.preventDefault();
-    onLoginButtonClick();
+
+    if (actionType === "login") {
+      onLoginButtonClick();
+    }
+    if (actionType === "signup") {
+      onSignUpButtonClick();
+    }
+
+    setActionType("");
   };
 
   const onSignUpButtonClick = () => {
@@ -141,11 +149,17 @@ export const Login = () => {
               }
             ></PasswordInput>
             <ButtonContainer>
-              <LoginButton>Log in</LoginButton>
-              <SignUpButton onClick={onSignUpButtonClick}>Sign up</SignUpButton>
-              <GuestButton onClick={onGuestButtonClick}>Guest</GuestButton>
+              <LoginButton onClick={() => setActionType("login")}>
+                Log in
+              </LoginButton>
+              <SignUpButton onClick={() => setActionType("signup")}>
+                Sign up
+              </SignUpButton>
             </ButtonContainer>
           </LoginDetails>
+          <GuestButton onClick={onGuestButtonClick}>
+            Log in as guest
+          </GuestButton>
           {error && <ErrorContainer>{error}</ErrorContainer>}
         </Container>
       </RightColumn>

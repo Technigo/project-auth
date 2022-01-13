@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import user from "reducers/user";
 import { useNavigate } from "react-router-dom";
 
 export const LoggedIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const loggedInUser = useSelector((store) => store.user.user);
 
   const onLogOutButtonClick = () => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
@@ -16,7 +17,9 @@ export const LoggedIn = () => {
   return (
     <Container>
       <InfoContainer>
-        <span>Welcome, the game is under construction!</span>
+        <span>
+          Welcome {loggedInUser.email}, the game is under construction!
+        </span>
         <LogOutButton onClick={onLogOutButtonClick}>Log out</LogOutButton>
       </InfoContainer>
     </Container>

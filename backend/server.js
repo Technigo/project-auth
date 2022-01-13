@@ -3,7 +3,6 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt-nodejs";
-import { getMaxListeners } from "process";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, {

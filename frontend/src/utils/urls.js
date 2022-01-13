@@ -1,3 +1,3 @@
-const Base_URL = "http://localhost:8080";
+const Base_URL = "https://zancotti-project-auth.herokuapp.com";
 
 export const API_URL = (slug) => `${Base_URL}/${slug}`;
