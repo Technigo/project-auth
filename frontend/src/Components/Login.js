@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate /* Link  */ } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { API_URL } from 'utils/url';
@@ -12,6 +12,7 @@ export const Login = () => {
   const [mode, setMode] = useState('signup');
 
   const accessToken = useSelector((store) => store.user.accessToken);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -32,7 +33,7 @@ export const Login = () => {
       body: JSON.stringify({ username, password }),
     };
 
-    fetch(API_URL('mode'), options)
+    fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -55,9 +56,9 @@ export const Login = () => {
 
   return (
     <>
-      <Link to={`/`} className='Link'>
+      {/*  <Link to={`/`} className='Link'>
         Go to the Register page
-      </Link>
+      </Link> */}
       <label htmlFor='signup'>Signup</label>
       <input
         id='signup'
@@ -91,7 +92,8 @@ export const Login = () => {
           id='password'
           type='password'
           placeholder='Password'
-          value={(e) => setPassword(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         ></Input>
         <Button type='submit'>Login</Button>
       </Form>

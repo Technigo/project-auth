@@ -1,7 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate, Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 export const SecretContent = () => {
+  const navigate = useNavigate();
+
+  const Cake = styled.h1`
+    font-size: 4em;
+    margin: 0px;
+  `;
+
+  const H1 = styled.h2`
+    font-size: 1.7em;
+  `;
+
+  const H2 = styled.h2`
+    color: #d4426e;
+    text-align: center;
+  `;
+
+  const accessToken = useSelector((store) => store.user.accessToken);
+
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/login');
+    }
+  }, [accessToken, navigate]);
+
   return (
     <>
       <Cake>
@@ -9,14 +36,17 @@ export const SecretContent = () => {
           🧁
         </span>
       </Cake>
-      <h1>
+      <Link className='Link' to='/login'>
+        To Login page!
+      </Link>
+      <H1>
         This is super secret
         <span role='img' aria-label='eyes'>
           👀
         </span>{' '}
         ... for some reason
-      </h1>
-      <h2>I love cakes</h2>
+      </H1>
+      <H2>I love cakes</H2>
       <p>
         Topping muffin marzipan carrot cake icing. Powder sesame snaps gummi
         bears oat cake candy canes.{' '}
@@ -146,8 +176,3 @@ export const SecretContent = () => {
     </>
   );
 };
-
-const Cake = styled.h1`
-  font-size: 4em;
-  margin: 0px;
-`;

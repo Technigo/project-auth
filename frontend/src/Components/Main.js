@@ -42,7 +42,9 @@ const Main = () => {
   return (
     <div>
       <div>
-        <Link to='/login'>to '/login' !</Link>
+        <Link className='Link' to='/login'>
+          to '/login' !
+        </Link>
       </div>
       <h1>protected Happy thoughts: </h1>
       {thoughtsItems.map((item) => (
