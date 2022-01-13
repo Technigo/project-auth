@@ -7,12 +7,13 @@ import thoughts from "../reducers/thoughts";
 
 const Main = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items);
-  const accessToken = useSelector((store) => store.user.accessToken);
+  const accessToken = useSelector((store) => store.user.accessToken); // getting accessToken from reducer to send it back to backend when trying to log in
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
+    // if the user is not signed in, navigate to the login page
     if (!accessToken) {
       navigate("/login");
     }
@@ -22,7 +23,7 @@ const Main = () => {
     const options = {
       method: "GET",
       headers: {
-        Authorization: accessToken,
+        Authorization: accessToken, // sending accessToken to backend to log in
       },
     };
 
@@ -37,7 +38,7 @@ const Main = () => {
           dispatch(thoughts.actions.setError(data.response));
         }
       });
-  }, [accessToken, dispatch]); // For the useEffect to happen when the component gets mounte as the second argument we need to have an empty array as a dependency
+  }, [accessToken, dispatch]); // For the useEffect to happen when the component gets mounted as the second argument we need to have an empty array as a dependency
 
   return (
     <div>
@@ -47,7 +48,7 @@ const Main = () => {
       <h1>Protected happy thoughts:</h1>
       {thoughtsItems.map(
         (
-          item // If we use curly brackets here we need do write return, it can be condensed by using paranthesis
+          item // If we use curly brackets here we need do write return, it can be condensed by using parenthesis
         ) => (
           <div key={item._id}>{item.message}</div>
         )
