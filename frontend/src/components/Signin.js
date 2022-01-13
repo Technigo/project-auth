@@ -76,6 +76,7 @@ const SubmitButton = styled.button`
 `;
 
 
+
 const Signin = () => {
   const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
@@ -93,17 +94,17 @@ const Signin = () => {
   }, [accessToken, navigate])
 
 const onFormSubmit = (event) => {
-  event.preventDeault()
+  event.preventDefault()
 
   const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringifgy({ username, password })
+    body: JSON.stringify({ username, password })
   }
 
-  fetch(API_URL('signup'), options)
+  fetch(API_URL(mode), options)
   .then((res) => res.json())
   .then((data) => {
     console.log(data)
@@ -165,4 +166,4 @@ const onFormSubmit = (event) => {
   )
 }
 
-export default Signin
+export default Signin;

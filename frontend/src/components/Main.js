@@ -13,7 +13,7 @@ const Main = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-  useEffect(() => {
+	useEffect(() => {
 		if (!accessToken) {
 			navigate('/signin');
 		}
@@ -31,8 +31,8 @@ const Main = () => {
 			.then((res) => res.text())
 			.then((data) => {
 				console.log(data)
-					dispatch(profile.actions.setMessage(data));
-					dispatch(profile.actions.setError(null));
+				dispatch(profile.actions.setMessage(data));
+				dispatch(profile.actions.setError(null));
 			});
 	}, [accessToken, dispatch]);
 
