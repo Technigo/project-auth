@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { API_URL } from '../utils/constant';
-import thoughts from '../reducers/thought';
+import thoughts from '../reducers/thoughts';
 
 const Main = () => {
-  const thoughtItems = useSelector((store) => store.thoughts.items);
+  const thoughtsItems = useSelector((store) => store.thoughts.items);
   const accessToken = useSelector((store) => store.user.accessToken);
 
   const dispatch = useDispatch();
@@ -21,10 +21,11 @@ const Main = () => {
   useEffect(() => {
     const options = {
       method: 'GET',
-      header: {
+      headers: {
         Authorization: accessToken,
       },
     };
+
     fetch(API_URL('thoughts'), options)
       .then((res) => res.json())
       .then((data) => {
@@ -44,7 +45,7 @@ const Main = () => {
         <Link to="/login">To '/login' !</Link>
       </div>
       <h1>Protected happy thoughts:</h1>
-      {thoughtItems.map((item) => (
+      {thoughtsItems.map((item) => (
         <div key={item._id}>{item.message}</div>
       ))}
     </div>

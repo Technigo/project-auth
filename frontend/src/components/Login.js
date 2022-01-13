@@ -11,6 +11,7 @@ const Login = () => {
   const [mode, setMode] = useState('signup');
 
   const accessToken = useSelector((store) => store.user.accessToken);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -34,6 +35,7 @@ const Login = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId));
@@ -72,14 +74,14 @@ const Login = () => {
         onChange={() => setMode('signin')}
       />
       <form onSubmit={onFormSubmit}>
-        <label htmlFor="username"> User name:</label>
+        <label htmlFor="username">Username</label>
         <input
           id="username"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label htmlFor="password"> Password:</label>
+        <label htmlFor="password">Password</label>
         <input
           id="password"
           type="password"

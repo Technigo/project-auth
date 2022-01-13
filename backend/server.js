@@ -1,9 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import crypto from 'crypto';
+import bcrypt from 'bcrypt';
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI';
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
 mongoose.Promise = Promise;
 
 const UserSchema = new mongoose.Schema({
