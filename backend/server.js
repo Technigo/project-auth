@@ -30,6 +30,20 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema)
 
+const PoemSchema = new mongoose.Schema({
+  title: {
+    type: String
+  },
+  author: {
+    type: String
+  },
+  poem: {
+    type: String
+  }
+})
+
+const Poem = mongoose.model('Poem', PoemSchema)
+
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
 //
@@ -63,7 +77,14 @@ app.get('/', (req, res) => {
 
 app.get('/poems', authenticateUser)
 app.get('/poems', (req, res) => {
-  res.send('Here are your poems')
+  res.status(200).json('Here are your poems')
+  // res.status(200).json({
+  //   response: {
+  //     title: 'A Smile',
+  //     author: 'Malak Meleka',
+  //     poem: ''
+  //   }
+  // })
 })
 
 app.post('/signup', async (req, res) => {
