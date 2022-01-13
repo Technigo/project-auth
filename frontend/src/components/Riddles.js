@@ -46,7 +46,6 @@ export const Riddles = () => {
           />
           <button type="submit">Answer</button>
         </form>
-        <SignOut />
       </div>
     </div>
   );
