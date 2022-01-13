@@ -11,6 +11,12 @@ const SigninContainer = styled.section`
 	text-align: center;
 `;
 
+const Heading = styled.h1`
+	text-align: center;
+  font-family: 'PT Sans', sans-serif;
+  padding-top: 20px;
+`;
+
 const LinkText = styled.div`
 	text-align: center;
   font-family: 'PT Sans', sans-serif;
@@ -163,7 +169,7 @@ const onFormSubmit = (event) => {
 
   return (
   <SigninContainer>
-  <h1>Join our club today!</h1>
+  <Heading>Welcome to *****! </Heading>
     {/* <Label htmlFor="signup">Signup</Label>
     <Radiobutton
     id="signup"
@@ -199,8 +205,8 @@ const onFormSubmit = (event) => {
         <Checkbox type="checkbox" name="checkboxRememberme" value="RememberMe"/>
         <span>Remember me</span> 
       </CheckboxContainer>
-      <SubmitButton type="submit"><span>Submit</span></SubmitButton>
-      <p>Already a member? <Link to="/">Log In</Link>.</p>
+      <SubmitButton type="submit"><span>Sign In</span></SubmitButton>
+      <p>Not a member yet? <Link to="/">Sign up</Link>.</p>
     </Form>
   </SigninContainer>
   )
