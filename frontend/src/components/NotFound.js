@@ -5,14 +5,12 @@ const NotFound = () => {
   const navigate = useNavigate()
 
   return (
-    <>
-      <div>
-        <h2>Service unavailable</h2>
-      </div>
+    <section className='notfound-section'>
+      <h2>Service unavailable</h2>
       <button type='button' onClick={() => navigate('/login')}>
         Back
       </button>
-    </>
+    </section>
   )
 }
 
