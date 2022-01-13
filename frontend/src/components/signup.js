@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const SignUpForm = () => {
+export const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,6 +36,9 @@ export const SignUpForm = () => {
         <div>
           <p>
             User {userData.name} created with an id {userData.id}!
+          </p>
+          <p>
+            Click <Link to="/login">here</Link> to login!
           </p>
         </div>
       ) : (

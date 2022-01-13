@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
+    required: true,
   },
   password: {
     type: String,
@@ -81,6 +82,7 @@ app.post("/login", async (req, res) => {
       res.status(200).json({
         response: {
           username: loggedUser.username,
+          userId: loggedUser._id,
           accessToken: loggedUser.accessToken,
         },
         success: true,
