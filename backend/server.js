@@ -1,10 +1,30 @@
-import express from 'express'
-import cors from 'cors'
-import mongoose from 'mongoose'
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import crypto from 'crypto';
+import bcrypt from 'bcrypt';
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
+
+const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  accessToken: {
+    type: String,
+    default: () => crypto.randomBytes(128).toString('hex'),
+  },
+});
+
+const User = mongoose.model('User', UserSchema);
 
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
@@ -15,12 +35,118 @@ const app = express()
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
+
+// v2 - Allow only one specific domain
+app.use(
+	cors({
+		origin: 'https://my-project-frontend.com',
+	})
+);
+
+// v3 - Allow multiple domains
+
+const allowedDomains = [
+	'https://my-project-frontend.com',
+	'http://localhost:3000',
+];
+app.use(
+	cors({
+		origin: (origin, callback) => {
+			if (allowedDomains.includes(origin)) {
+				return callback(null, true);
+			} else {
+				return callback(new Error('This domain is not allowed'), false);
+			}
+		},
+	})
+);
+
 app.use(express.json())
 
+const authenticateUser = async (req, res, next) => {
+	const accessToken = req.header('Authorization');
+
+	try {
+		const user = await User.findOne({ accessToken });
+		if (user) {
+			next();
+		} else {
+			res.status(401).json({ response: 'Please, log in', success: false });
+		}
+	} catch (error) {
+		res.status(400).json({ response: error, success: false });
+	}
+};
+
+// Authentication - 401 (Unauthorized) But should be unauthenticated
+// Authorization - 403 (Forbidden) But should be unauthorized
+
 // Start defining your routes here
-app.get('/', (req, res) => {
-  res.send('Hello world')
-})
+app.get('/thoughts', authenticateUser);
+app.get('/thoughts', (req, res) => {
+	res.send('Here are your thoughts');
+});
+
+
+// sign up to to the site
+app.post('/signup', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const salt = bcrypt.genSaltSync(); // Create a randomizer to prevent to unhash it
+    const strongPassword =  "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
+    // if (password.length < 5) {
+    //   throw 'Password must be at least 5 characters long';
+    // }
+
+    // checking if password match strongPassword
+    if (password.match(strongPassword)) {
+      const newUser = await new User({
+        username,
+        password: bcrypt.hashSync(password, salt)
+      }).save();
+      res.status(201).json({
+        response: {
+          userId: newUser._id,
+          username: newUser.username,
+          accessToken: newUser.accessToken
+        },
+        success: true
+      });
+    } else {
+      throw 'Minimum eight characters, at least one uppercase letter, one lowercase letter and one number:';
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+});
+
+// sign in to your account
+app.post('/signin', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username });
+
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(200).json({
+        response: {
+          userId: user._id,
+          username: user.username,
+          accessToken: user.accessToken
+        },
+        success: true
+      });
+    } else {
+      res.status(404).json({
+        response: "Username or password doesn't match.",
+        success: false
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+});
 
 // Start the server
 app.listen(port, () => {
