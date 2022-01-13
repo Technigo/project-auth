@@ -177,7 +177,7 @@ const Signup = () => {
           </button>
         </FormBox>
         <p>Already a member?</p>
-        <Link to="/signin">
+        <Link to="/login">
             Sign in here!
         </Link>   
       </InputBox>
