@@ -6,6 +6,7 @@ const user = createSlice({
     userId: null,
     username: null,
     accessToken: null,
+    email: null,
     error: null,
   },
   reducers: {
@@ -21,6 +22,9 @@ const user = createSlice({
     setError: (store, action) => {
       store.error = action.payload;
     },
+    setEmail: (store, action) => {
+      store.email = action.payload;
+    },    
   },
 });
 

@@ -31,7 +31,7 @@ const Login = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, email }),
     };
 
     fetch(API_URL(mode), options)
@@ -42,6 +42,7 @@ const Login = () => {
             dispatch(user.actions.setUserId(data.response.userId));
             dispatch(user.actions.setUsername(data.response.username));
             dispatch(user.actions.setAccessToken(data.response.accessToken));
+            dispatch(user.actions.setEmail(data.response.email));
             dispatch(user.actions.setError(null));
           });
         } else {
@@ -49,6 +50,7 @@ const Login = () => {
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setAccessToken(null));
+            dispatch(user.actions.setEmail(null));
             dispatch(user.actions.setError(data.response));
           });
         }
