@@ -25,7 +25,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onFormSubmit = event => {
+  const onFormSubmit = (event) => {
     event.preventDefault();
 
     const options = {
@@ -37,8 +37,9 @@ const SignUp = () => {
     };
 
     fetch(SIGNUP_URL, options)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
         if (data.success) {
           navigate('/signin');
         } else {
@@ -61,14 +62,14 @@ const SignUp = () => {
           type='text'
           placeholder='enter username'
           value={username}
-          onChange={e => setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <label>password</label>
         <input
           type='password'
           placeholder='enter password'
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type='submit'>register</button>
       </form>
