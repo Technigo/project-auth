@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt-nodejs";
+import { getMaxListeners } from "process";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, {
@@ -31,6 +32,7 @@ const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
     const user = await User.findOne({ accessToken });
+
     if (user) {
       next();
     } else {
@@ -41,6 +43,18 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
+const initGuest = async () => {
+  const guest = await User.findOne({ email: "guest@guest.com" });
+  if (!guest) {
+    const guest = new User({
+      email: "guest@guest.com",
+      password: "guest",
+    });
+    await guest.save();
+  }
+};
+
+initGuest();
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
 //
@@ -80,16 +94,15 @@ app.get("/", (req, res) => {
 
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;
-  console.log("Creating user", req.body);
   try {
     const salt = bcrypt.genSaltSync();
 
     if (password.length < 5) {
       throw "Password must be at least 5 characters long";
     }
-
-    const newUser = await new User({
-      email,
+    console.log("Creating user", req.body);
+    const newUser = new User({
+      email: email.toLowerCase(),
       password: bcrypt.hashSync(password, salt),
     });
 
@@ -109,13 +122,23 @@ app.post("/signup", async (req, res) => {
 
 app.post("/signin", async (req, res) => {
   const { email, password } = req.body;
-
   console.log("signin", req.body);
-
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email.toLowerCase() });
+
+    if (user.email === "guest@guest.com") {
+      return res.status(200).json({
+        response: {
+          Id: user._id,
+          email: email,
+          accessToken: user.accessToken,
+        },
+        success: true,
+      });
+    }
+
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(200).json({
+      return res.status(200).json({
         response: {
           Id: user._id,
           email: email,
