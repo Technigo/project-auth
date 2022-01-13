@@ -5,11 +5,12 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
 import Main from './components/Main'
 import Login from './components/Login'
+import Footer from './components/Footer'
 
 import user from './reducers/user'
 
 const reducer = combineReducers({
-  user: user.reducer
+  user: user.reducer,
 })
 
 const store = configureStore({ reducer })
@@ -18,11 +19,12 @@ export const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main/>}/>
-        <Route path="/login" element={<Login/>}/>
-      </Routes>
-    </BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route path='/login' element={<Login />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </Provider>
   )
 }

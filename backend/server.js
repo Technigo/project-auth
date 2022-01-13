@@ -30,20 +30,6 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema)
 
-const PoemSchema = new mongoose.Schema({
-  title: {
-    type: String
-  },
-  author: {
-    type: String
-  },
-  poem: {
-    type: String
-  }
-})
-
-const Poem = mongoose.model('Poem', PoemSchema)
-
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
 //
@@ -63,10 +49,18 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next()
     } else {
-      res.status(401).json({ response: 'Please, log in', success: false })
+      res.status(401).json({
+        message: 'Please, log in',
+        response: 'Please, log in',
+        success: false,
+      })
     }
   } catch (error) {
-    res.status(400).json({ response: error, success: false })
+    res.status(400).json({
+      message: 'ERROR',
+      response: error,
+      success: false,
+    })
   }
 }
 
@@ -77,14 +71,33 @@ app.get('/', (req, res) => {
 
 app.get('/poems', authenticateUser)
 app.get('/poems', (req, res) => {
-  res.status(200).json('Here are your poems')
-  // res.status(200).json({
-  //   response: {
-  //     title: 'A Smile',
-  //     author: 'Malak Meleka',
-  //     poem: ''
-  //   }
-  // })
+  // res.status(200).json('Here are your poems')
+  // try {
+  res.status(200).json({
+    response: {
+      title: 'A Smile',
+      author: 'Malak Meleka',
+      poem: `When someone's having a bad day, 
+      A smile could go a long way, 
+      So make sure to put one on 
+      And keep it until the day is gone.
+      You don't know what this deed
+      Could do for a friend in need.
+      It might save them from the pain
+      Of a sadness they cannot contain.
+      Don't ask what a smile can do
+      Because I'm sure it once helped you.`,
+      source: 'https://www.familyfriendpoems.com/poem/a-smile-3',
+    },
+    success: true,
+  })
+  // } catch (error) {
+  //   res.status(404).json({
+  //     message: 'Poem not found',
+  //     response: error,
+  //     success: false,
+  //   })
+  // }
 })
 
 app.post('/signup', async (req, res) => {
@@ -107,7 +120,7 @@ app.post('/signup', async (req, res) => {
     })
   } catch (error) {
     res.status(400).json({
-      message: 'Could not create user',
+      message: 'Please provide username and password',
       response: error,
       success: false,
     })
@@ -130,13 +143,32 @@ app.post('/login', async (req, res) => {
         success: true,
       })
     } else {
-      res.status(404).json({
-        response: 'Login failed: username or password did not match',
-        success: false,
-      })
+      if (username === '') {
+        res.status(404).json({
+          message: 'Login failed: fill in username',
+          response: 'Login failed: fill in username',
+          success: false,
+        })
+      } else if (password === '') {
+        res.status(404).json({
+          message: 'Login failed: fill in password',
+          response: 'Login failed: fill in password',
+          success: false,
+        })
+      } else {
+        res.status(404).json({
+          message: 'Login failed: wrong username or password',
+          response: 'Login failed: wrong username or password',
+          success: false,
+        })
+      }
     }
   } catch (error) {
-    res.status(400).json({ response: error, success: false })
+    res.status(400).json({
+      message: 'Invalid entry',
+      response: error,
+      success: false,
+    })
   }
 })
 
