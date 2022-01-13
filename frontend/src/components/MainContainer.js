@@ -6,6 +6,7 @@ const MainContainer = styled.main`
   max-width:500px;
   background-color: #fff;
   margin: 50px auto;
+  border-radius: 10px;
   padding-bottom: 20px;
 `;
 

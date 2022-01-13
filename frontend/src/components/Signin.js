@@ -22,7 +22,10 @@ const Radiobutton = styled.input`
 `;
 
 const Form = styled.form`
-	text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-align: center;
   font-family: 'PT Sans', sans-serif;
 `;
 
@@ -32,14 +35,20 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  max-width: 58%;
+  max-width: 100%;
   margin: 20px auto;
   padding: 7px;
-  border-radius: unset;
   background-color: transparent;
-  border-bottom: 2px solid #000046;
+  border-radius: 4px;
+  outline: 0;
+  border: 1px solid rgba(245, 245, 245, 0.7);
   font-size: 22px;
   font-family: 'PT Sans', sans-serif;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1);
+  :focus,
+  :hover {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
+  }
     ::placeholder {
       font-size: 16px;
       color: #cccccc;
@@ -47,16 +56,21 @@ const Input = styled.input`
 `;
 
 const SubmitButton = styled.button`
+  display: flex;
+  justify-content: center;
   background-color: #D9AFD9;
   margin: 20px 0 0 20px;
   border:none;
   border-radius: 8px;
   height: 40px;
-  width: 101px;
   font-weight: 700;
   font-size:18px;
-  color: black;
-  box-shadow: 3px 3px #000046;
+  cursor: pointer;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1);
+  :focus,
+  :hover {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
+  }
   font-family: 'PT Sans', sans-serif;
   padding:0;
 `;
