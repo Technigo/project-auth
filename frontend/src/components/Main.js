@@ -26,11 +26,11 @@ const Main = () => {
 
   return (
     <div>
-      <div>
+      {/*  <div>
         <Link to="/login">To '/login' !</Link>
-      </div>
+      </div> */}
       <h1>It's a secret!</h1>
-      <button className="button" onClick={logout}>
+      <button className='button' onClick={logout}>
         Logout
       </button>
     </div>
