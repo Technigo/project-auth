@@ -1,60 +1,60 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
-import styled from 'styled-components/macro'
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import styled from "styled-components/macro";
 
-import { API_URL } from '../utils/constants';
-import thoughts from '../reducers/thoughts';
+import { API_URL } from "../utils/constants";
+import thoughts from "../reducers/thoughts";
 
 const Main = () => {
-	const thoughtsItems = useSelector((store) => store.thoughts.items);
-	const accessToken = useSelector((store) => store.user.accessToken);
+  const thoughtsItems = useSelector((store) => store.thoughts.items);
+  const accessToken = useSelector((store) => store.user.accessToken);
 
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-	useEffect(() => {
-		if (!accessToken) {
-			navigate('/login');
-		}
-	}, [accessToken, navigate]);
+  useEffect(() => {
+    if (!accessToken) {
+      navigate("/login");
+    }
+  }, [accessToken, navigate]);
 
-	useEffect(() => {
-		const options = {
-			method: 'GET',
-			headers: {
-				Authorization: accessToken,
-			},
-		};
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        Authorization: accessToken,
+      },
+    };
 
-		fetch(API_URL('thoughts'), options)
-			.then((res) => res.json())
-			.then((data) => {
-				if (data.success) {
-					dispatch(thoughts.actions.setItems(data.response));
-					dispatch(thoughts.actions.setError(null));
-				} else {
-					dispatch(thoughts.actions.setItems([]));
-					dispatch(thoughts.actions.setError(data.response));
-				}
-			});
-        }, [accessToken, dispatch]);
+    fetch(API_URL("thoughts"), options)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(thoughts.actions.setItems(data.response));
+          dispatch(thoughts.actions.setError(null));
+        } else {
+          dispatch(thoughts.actions.setItems([]));
+          dispatch(thoughts.actions.setError(data.response));
+        }
+      });
+  }, [accessToken, dispatch]);
 
-	return (
-		<div>
-			<div>
-				<Link to="/login">To '/login' !</Link>
-			</div>
-			<Logintitle>Welcome to the logged in stage</Logintitle>
-			{thoughtsItems.map((item) => (
-				<div key={item._id}>{item.message}</div>
-			))}
-		</div>
-	);
+  return (
+    <div>
+      <div>
+        <Link to="/login">To '/login' !</Link>
+      </div>
+      <Logintitle>Welcome to the logged in stage</Logintitle>
+      {thoughtsItems.map((item) => (
+        <div key={item._id}>{item.message}</div>
+      ))}
+    </div>
+  );
 };
 
 export default Main;
 
 const Logintitle = styled.h1`
-    text-align: center;
-`
+  text-align: center;
+`;

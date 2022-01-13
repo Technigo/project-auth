@@ -86,25 +86,30 @@ app.post("/signup", async (req, res) => {
 
   try {
     const salt = bcrypt.genSaltSync(); // Create a randomizer to prevent to unhash it
-    const strongPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)[a-zA-Zd]{8,}$";
-
+    // const strongPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)[a-zA-Zd]{8,}$";
     // checking if password match strongPassword
-    if (password.match(strongPassword)) {
-      const newUser = await new User({
-        username,
-        password: bcrypt.hashSync(password, salt),
-      }).save();
-      res.status(201).json({
-        response: {
-          userId: newUser._id,
-          username: newUser.username,
-          accessToken: newUser.accessToken,
-        },
-        success: true,
-      });
-    } else {
-      throw "Minimum eight characters, at least one uppercase letter, one lowercase letter and one number:";
+    // if (password.match(strongPassword)) {
+
+    if (password.length < 5) {
+      throw { message: "Password must be at least 5 characters long" };
     }
+
+    const newUser = await new User({
+      username,
+      password: bcrypt.hashSync(password, salt),
+    }).save();
+
+    res.status(201).json({
+      response: {
+        userId: newUser._id,
+        username: newUser.username,
+        accessToken: newUser.accessToken,
+      },
+      success: true,
+    });
+    // } else {
+    //   throw "Minimum eight characters, at least one uppercase letter, one lowercase letter and one number:";
+    // }
   } catch (error) {
     res.status(400).json({ response: error, success: false });
   }
