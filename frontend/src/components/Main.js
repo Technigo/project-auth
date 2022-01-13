@@ -39,7 +39,7 @@ export const Main = () => {
           dispatch(secrets.actions.setError(data.response));
         }
       });
-  }, [accessToken]);
+  }, [accessToken, dispatch]);
 
   const [mode] = useState("signin");
   const [username] = useState("");
@@ -63,7 +63,7 @@ export const Main = () => {
           dispatch(user.actions.setUsername(null));
           dispatch(user.actions.setAccessToken(null));
         });
-      });
+      },[dispatch]);
   };
 
   return (
