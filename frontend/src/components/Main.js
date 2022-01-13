@@ -26,7 +26,7 @@ const Background = styled.div`
 
 const HeaderBox = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 97vw;
   padding: 10px 20px;
 
@@ -126,7 +126,7 @@ const Main = () => {
     <Background>
       <div>
         <HeaderBox>
-          <Link to="/login">To '/login'!</Link>
+          {/* <Link to="/login">To '/login'!</Link> */}
           <button onClick={logout}>Sign out!</button>
         </HeaderBox>
         <h1>Protected happy thoughts:</h1>
