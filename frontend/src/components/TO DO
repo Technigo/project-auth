@@ -1,4 +1,11 @@
-1. get the POST request in the fetch to work 
-2. connect the store to the components (dispatch, useSelector)
-3. show the SignedInContent conditionally when the user is logged in 
+1. get the POST request in the fetch to work --> DONE
+2. connect the store to the components (dispatch, useSelector)-->DONE
+3. show the SignedInContent conditionally when the user is logged in -->DONE
 4. styling (secret cat society)
+5. Sweet alert--> DONE
+6. Email input --> DONE
+7. Local storage 
+
+
+
+
