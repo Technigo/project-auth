@@ -15,7 +15,7 @@ const Main = () => {
 
   useEffect(() => {
 		if (!accessToken) {
-			navigate('/login');
+			navigate('/signin');
 		}
 	}, [accessToken, navigate]);
 
@@ -34,13 +34,13 @@ const Main = () => {
 					dispatch(profile.actions.setMessage(data));
 					dispatch(profile.actions.setError(null));
 			});
-	}, [accessToken]);
+	}, [accessToken, dispatch]);
 
 
 	return (
 		<div>
 			<div>
-				<Link to="/login">To '/login' !</Link>
+				<Link to="/signin">To '/signin' !</Link>
 			</div>
 			<h1>Welcome {username} to your personal profile page:</h1>
 			{profileMessage}

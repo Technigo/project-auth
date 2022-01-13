@@ -1,10 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
+import styled from "styled-components";
 
 import { API_URL } from '../utils/constants';
 import user from '../reducers/user';
 
+//styled components
+const SigninContainer = styled.section`
+	text-align: center;
+`;
+
+const LinkText = styled.div`
+	text-align: center;
+  font-family: 'PT Sans', sans-serif;
+`;
+
+const Radiobutton = styled.input`
+	text-align: center;
+  font-family: 'PT Sans', sans-serif;
+`;
+
+const Form = styled.form`
+	text-align: center;
+  font-family: 'PT Sans', sans-serif;
+`;
+
+const Label = styled.label`
+	text-align: center;
+  font-family: 'PT Sans', sans-serif;
+`;
+
+const Input = styled.input`
+  max-width: 58%;
+  margin: 20px auto;
+  padding: 7px;
+  border-radius: unset;
+  background-color: transparent;
+  border-bottom: 2px solid #000046;
+  font-size: 22px;
+  font-family: 'PT Sans', sans-serif;
+    ::placeholder {
+      font-size: 16px;
+      color: #cccccc;
+    }
+`;
+
+const SubmitButton = styled.button`
+  background-color: #D9AFD9;
+  margin: 20px 0 0 20px;
+  border:none;
+  border-radius: 8px;
+  height: 40px;
+  width: 101px;
+  font-weight: 700;
+  font-size:18px;
+  color: black;
+  box-shadow: 3px 3px #000046;
+  font-family: 'PT Sans', sans-serif;
+  padding:0;
+`;
 
 
 const Signin = () => {
@@ -57,42 +112,42 @@ const onFormSubmit = (event) => {
 }
 
   return (
-  <div>
-    <div>
-      <Link to='/'> To '/' !</Link>
-    </div>
-    <label htmlFor="signup">Signup</label>
-    <input
+  <SigninContainer>
+    <LinkText>
+      <Link to='/'> To SignIn'/' !</Link>
+    </LinkText>
+    <Label htmlFor="signup">Signup</Label>
+    <Radiobutton
     id="signup"
     type="radio"
     checked={mode === 'signup'}
     onChange={() => setMode ('signup')}
     />
-    <label htmlFor="signin">Signin</label>
-    <input
+    <Label htmlFor="signin">Signin</Label>
+    <Radiobutton
     id="signin"
     type="radio"
     checked={mode === 'signin'}
     onChange={() => setMode ('signin')}
     />
-    <form onSubmit={onFormSubmit}>
-      <label htmlFor="username">Username</label>
-      <input
+    <Form onSubmit={onFormSubmit}>
+      <Label htmlFor="username">Username</Label>
+      <Input
         id="username" 
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <label htlmFor="password">Password</label>
-      <input 
+      <Label htmlFor="password">Password</Label>
+      <Input 
         id="password"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit">Submit</button>
-    </form>
-  </div>
+      <SubmitButton type="submit">Submit</SubmitButton>
+    </Form>
+  </SigninContainer>
   )
 }
 
