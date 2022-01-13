@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -36,9 +36,10 @@ export const SecretContent = () => {
           🧁
         </span>
       </Cake>
-      {/* <Link className='Link' to='/login'>
-        To Login page!
-      </Link> */}
+
+      <Link className="Link" to="/login">
+        <button type="submit">Log out</button>
+      </Link>
       <H1>
         This is super secret
         <span role="img" aria-label="eyes">
