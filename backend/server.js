@@ -84,7 +84,7 @@ const authenticateUser = async (req, res, next) => {
       res.status(401).json({ response: 'Please, log in', success: false})
     }
   } catch (error) {
-    res.status(400).json({ message: 'error', response: error, success: false })
+    res.status(400).json({ message: 'Invalid request', response: error, success: false })
   }
 }
 
@@ -111,7 +111,7 @@ app.post('/secrets', async (req, res) => {
 		const newSecret = await new Secret({ message, text }).save();
 		res.status(201).json({ response: newSecret, success: true })
 	} catch (error) {
-		res.status(400).json({ message: 'error', response: error, success: false })
+		res.status(400).json({ message: 'Invalid request', response: error, success: false })
 	}
 })
 
@@ -123,7 +123,8 @@ app.post('/signup', async (req, res) => {
     const salt = bcrypt.genSaltSync()
 
     if (password.length < 5) {
-      throw 'Password must be at least 5 charachters long'
+      // throw 'Password must be at least 5 charachters long'
+      res.status(400).json({ message: 'Password must be at least 5 charachters long'})
     } 
 
     const newUser = await new User({
@@ -140,7 +141,7 @@ app.post('/signup', async (req, res) => {
       success: true,
     })
   } catch (error) {
-    res.status(400).json({ message: 'error', response: error, success: false })
+    res.status(400).json({ message: 'Invalid request', response: error, success: false })
   }
 })
 
@@ -164,7 +165,7 @@ app.post('/signin', async (req, res) => {
       res.status(404).json({ message: 'Username or password is incorrect', success: false })
     }
   } catch (error){
-    res.status(400).json({ message: 'error', response: error, success: false})
+    res.status(400).json({ message: 'Invalid request', response: error, success: false})
   }
 })
 // Start the server
