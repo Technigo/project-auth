@@ -46,7 +46,7 @@ const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
   try {
     // find user by accesstoken 
-    const user = await Thought.findOne({ accessToken })
+    const user = await User.findOne({ accessToken })
     // if there is a user with that token, we going 
     if(user) {
       // next function, inbuilt express function, which simply says move along and going to access get request /thoughts in this case
