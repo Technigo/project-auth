@@ -81,7 +81,7 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next()
     } else {
-      res.status(404).json({ response: 'Please, log in', success: false})
+      res.status(401).json({ response: 'Please, log in', success: false})
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false })
