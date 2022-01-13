@@ -33,8 +33,7 @@ const SecretSchema = new mongoose.Schema({
 	},
   text: {
     type: String,
-    required: true,
-  }
+  },
 });
 
 const Secret = mongoose.model('Secret', SecretSchema)
@@ -101,20 +100,20 @@ app.get('/', (req, res) => {
 
 app.get('/secrets', authenticateUser);
 app.get('/secrets', async (req, res) => {
-	const secrets = await Secret.find({});
-	res.status(201).json({ response: secrets, success: true });
-});
+	const secrets = await Secret.find({})
+	res.status(201).json({ response: secrets, success: true })
+})
 
 app.post('/secrets', async (req, res) => {
-	const { message } = req.body;
+	const { message, text } = req.body;
 
 	try {
 		const newSecret = await new Secret({ message }).save();
-		res.status(201).json({ response: newSecret, success: true });
+		res.status(201).json({ response: newSecret, success: true })
 	} catch (error) {
-		res.status(400).json({ response: error, success: false });
+		res.status(400).json({ response: error, success: false })
 	}
-});
+})
 
 // POST method for signing up user with hashed password
 app.post('/signup', async (req, res) => {
