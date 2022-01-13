@@ -10,6 +10,7 @@ export const users = createSlice({
     securityLevel: null,
     riddle: null,
     error: null,
+    answer: null,
   },
   reducers: {
     setUser: (store, action) => {
@@ -23,6 +24,7 @@ export const users = createSlice({
     setRiddles: (store, action) => {
       store.securityLevel = action.payload.response.securityLevel;
       store.riddle = action.payload.response.riddles;
+      store.answer = action.payload.response.correct;
     },
     setUserToLoggedOut: (store) => {
       store.username = null;
@@ -73,7 +75,6 @@ export const riddles = (accessToken) => {
         "Content-Type": "application/json",
         Authorization: accessToken,
       },
-
     })
       .then((res) => res.json())
       .then((json) => {
@@ -102,7 +103,6 @@ export const checkAnswer = (accessToken, answer) => {
         Authorization: accessToken,
       },
       body: JSON.stringify({ answer }),
-
     })
       .then((res) => res.json())
       .then((json) => {
