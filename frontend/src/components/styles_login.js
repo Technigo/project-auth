@@ -1,11 +1,18 @@
-// import styled from 'styled-components/macro'
 import styled from 'styled-components'
-// import { HeartFillIcon, MailIcon, KeyIcon } from '@primer/octicons-react'
+import { HeartFillIcon, MailIcon, KeyIcon } from '@primer/octicons-react'
 
+
+// HEADER
+
+export const Header = styled.div`
+max-width: 343px;
+margin: 5rem auto;
+`
 
 export const H1 = styled.h1`
 font-size: 2rem;
 margin-bottom: 0;
+margin-top: 0;
 color: #F3EFCC;
 `
 
@@ -15,27 +22,7 @@ margin-top: 0.5rem;
 color: #F3EFCC;
 `
 
-export const PageWrapper = styled.div`
-display: flex;
-flex-direction: column;
-max-width: 300px;
-background-color: #406343;
-border-radius: 10px;
-// padding: 20px;
-margin:  10rem auto;
-padding: 2rem;
-}
-`
-
-export const Wrapper = styled.div`
-display: flex;
-flex-direction: column;
-`
-
-export const Form = styled.form`
-width: 100%;
-padding-top: 1rem;
-`
+//RADIO BUTTONS
 
 export const Radios = styled.div`
 display: flex;
@@ -49,153 +36,148 @@ display: flex;
 justify-content: center;
 align-items: center;
 padding: 0 0.5rem;
-background-color: #F3EFCC;;
+// background-color: #F3EFCC;
 height: 32px;
 border-radius: 8px;
 width: 100%;
-
-
 `
 
 export const RadioButton = styled.input`
-margin-right: 0.5rem;
+// margin-right: 0.5rem;
 margin-top: 0;
+// display: none;
 `
 
-
-// export const Heart = styled(HeartFillIcon)`
-// // position: absolute;
-// top: 50%;
-// left: 16px;
-// right: initial;
-// transform: translateY(-50%);
-// color: #505050;
-// font-size: 24px;
-// line-height: 1;
-// letter-spacing: normal;
-// text-transform: none;
-// display: inline-block;
-// white-space: nowrap;
-// word-wrap: normal;
-// `
-
-// export const Mail = styled(MailIcon)`
-// // position: absolute;
-// top: 50%;
-// left: 16px;
-// right: initial;
-// transform: translateY(-50%);
-// color: #505050;
-// font-size: 24px;
-// line-height: 1;
-// letter-spacing: normal;
-// text-transform: none;
-// display: inline-block;
-// white-space: nowrap;
-// word-wrap: normal;
-// `
-
-// export const Key = styled(KeyIcon)`
-// // position: absolute;
-// top: 50%;
-// left: 16px;
-// right: initial;
-// transform: translateY(-50%);
-// color: #505050;
-// font-size: 24px;
-// line-height: 1;
-// letter-spacing: normal;
-// text-transform: none;
-// display: inline-block;
-// white-space: nowrap;
-// word-wrap: normal;
-// `
-
-export const Input = styled.input`
+export const Radiogroup = styled.div`
+border: 1px solid #F3EFCC;
+display: inline-block;
+margin: 0 auto;;
+height: 32px;
 border-radius: 8px;
-font-family: Roboto, sans-serif;
-font-size: 1rem;
-font-weight: 400;
-text-decoration: inherit;
-text-transform: inherit;
-box-sizing: border-box;
-width: 100%;
-height: 3rem;
-margin-bottom: 1rem;
-border: 1px solid #F3EFCC;;
-background-color: inherit;
-outline: none;
-:focus {
-  ::placeholder {
-    opacity: 0;
-  }
-  padding: 1rem;
-  background-color: #F3EFCC;
-  border-bottom: 2px solid indigo;
-  ::placeholder {
-    color: #1a1a1a;
-  }
-  :focus + label {
-    padding: 1rem;
-    bottom: 20px;
-    opacity: 1;
-    color: #1a1a1a;
-    font-size: 12px;
-    z-index: 1;
-  }
-}
-`
-
-export const Label = styled.label`
-width: 100%;
-transition: 0.2s;
-font-family: Roboto, sans-serif;
-font-size: 1rem;
-font-weight: 400;
-text-decoration: inherit;
-text-transform: inherit;
-margin-bottom: 0.5rem;
-color: #F3EFCC;
+// overflow: hidden;
+max-width: 343px;
+display: flex;
+align-items: center;
+text-align: center;
 `
 
 export const Radiolabel = styled.label`
 width: 100%;
-color: #1a1a1a;
+color: #F3EFCC;
 transition: 0.2s;
 font-family: Roboto, sans-serif;
 font-size: 1rem;
 font-weight: 400;
-text-decoration: inherit;
-text-transform: inherit;
-margin-bottom: 0;
+font-family: Roboto;
+font-size: 1.175rem;
+cursor: pointer;
 `
 
-// export const CountLine = styled.div`
-// display: flex;
-// padding-top: 5px;
-// padding-right: 16px;
-// padding-left: 16px;
-// justify-content: space-between;
-// box-sizing: border-box;
-// `
+export const HiddenRadioButton = styled.input.attrs({
+  type: 'radio',
+})`
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+`
 
-// export const CharCount = styled.div`
-// color: rgba(0, 0, 0, 0.6);
-// font-family: Roboto, sans-serif;
-// font-size: 0.75rem;
-// font-weight: 400;
-// letter-spacing: 0.0333333333em;
-// text-decoration: inherit;
-// text-transform: inherit;
-// display: block;
-// margin-top: 0;
-// line-height: normal;
-// margin-left: auto;
-// margin-right: 0;
-// padding-left: 16px;
-// padding-right: 0;
-// white-space: nowrap;
-// `
+export const RadioButtonTest = styled.span`
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background-color: white;
+  pointer-events: none;
+
+  ${HiddenRadioButton}:checked + && {
+    background-color: red;
+  }
+`
+
+// SIGNUP & SIGNIN FORM
+
+export const Form = styled.form`
+padding: 2rem;
+
+@media (max-width: 767px) {
+  padding: 1rem;
+}
+`
+
+export const FormWrapper = styled.div`
+max-width: 343px;
+background-color: #406343;
+border-radius: 10px;
+margin:  5rem auto;
+box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+`
+
+export const Label = styled.label`
+  color: #F3EFCC;
+  width: 100%;
+  transition: 0.2s;
+  font-family: Roboto, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+`
+
+export const Flexboxinput = styled.div`
+position: relative;
+margin-top: 0.5rem;
+display: flex;
+align-items; center;
+`
+
+export const Heart = styled(HeartFillIcon)`
+position: absolute;
+left: 16px;
+top: 1rem;
+color: #F3EFCC;
+`
+
+export const Key = styled(KeyIcon)`
+position: absolute;
+left: 16px;
+top: 1rem;
+color: #F3EFCC;
+`
+
+export const Input = styled.input`
+border-radius: 8px;
+font-family: Roboto, sans-serif;
+color: #F3EFCC;
+font-size: 1rem;
+font-weight: 400;
+text-decoration: inherit;
+text-transform: inherit;
+// align-self: flex-end;
+box-sizing: border-box;
+width: 100%;
+height: 3rem;
+padding: 16px 48px;
+border: 1px solid #F3EFCC;
+background-color: inherit;
+margin-bottom: 1rem;
+outline: none;
+:focus {
+  ::placeholder {
+    color: #F3EFCC
+  }
+  padding: 16px 48px;
+  background-color: #32502E;
+  border: none;
+  ::placeholder {
+    color: #F3EFCC;
+  }
+  :focus {
+    color: #F3EFCC;
+    font-size: 12px;
+  }
+}
+`
+
+// BUTTON
 
 export const ButtonWrapper = styled.div`
 display: flex;
@@ -208,13 +190,16 @@ display: inline-block;
 padding: 1rem;
 border-radius: 8px;
 text-decoration: none;
-color: #ffffff;
+color: #ECE7B4;
+font-family: Roboto;
+font-size: 1rem;
+font-weight: 500;
 transition: 0.4s;
 border: none;
 width: 100%;
 background-color: #32502E;
 :hover {
   background-color: #ECE7B4;
-  color: #1a1a1a;
+  color: #32502E;
 }
 `

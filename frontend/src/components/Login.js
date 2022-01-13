@@ -6,9 +6,9 @@ import { API_URL } from '../utils/constants';
 import user from '../reducers/users';
 
 import { 
-  PageWrapper,
+  Header,
+  FormWrapper,
   Form,
-  Wrapper,
   Radiowrapper,
   RadioButton,
   H1,
@@ -18,6 +18,11 @@ import {
   Input,
   Label,
   Button,
+  Heart,
+  Key,
+  Flexboxinput,
+  RadioButtonTest,
+  HiddenRadioButton,
 } from './styles_login'
 
 const Login = () => {
@@ -70,12 +75,25 @@ const Login = () => {
 	};
 
 	return (
-		<PageWrapper>
-            <div>
-                <H1>Hello! Sign up!</H1>
-                <H2> Already a user? - Sign in!</H2>
+        <>
+        <div>
+            <RadioButtonTest 
+                id="signup"
+                type="radio"
+                checked={mode === 'signup'}
+                onChange={() => setMode('signup')}
+            />
+            <RadioButtonTest 
+                id="signin"
+                type="radio"
+                checked={mode === 'signin'}
+                onChange={() => setMode('signin')}
+            />
             </div>
-            <Radios>
+        <Header>
+        <H1>Hello! Hej! Moi! Ciao! Bonjour! Hola! Zdravo! Namaste! Olá! </H1>
+        <H2> Already a user? - Sign in!</H2>
+        <Radios>
                 <Radiowrapper>
                     <RadioButton
                         id="signup"
@@ -95,31 +113,38 @@ const Login = () => {
                     <Radiolabel htmlFor="signin">Sign in</Radiolabel>
                 </Radiowrapper>
             </Radios>
+            
+    </Header>
+
+		<FormWrapper>
 			<Form onSubmit={onFormSubmit}>
-                <Wrapper>
                         <Label htmlFor="username">Username</Label>
-                        <Input
-                            id="username"
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                </Wrapper>
-                
-                <Wrapper>
+                        <Flexboxinput>
+                            <Heart />
+                            <Input
+                                id="username"
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </Flexboxinput>
+
                         <Label htmlFor="password">Password</Label>
-                        <Input
-                            id="password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                </Wrapper>
+                        <Flexboxinput>
+                            <Key />
+                            <Input
+                                id="password"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </Flexboxinput>
 
 				<Button type="submit">Submit</Button>
 			</Form>
-		</PageWrapper>
+		</FormWrapper>
+        </>
 	)
 }
 
-export default Login;
+export default Login
