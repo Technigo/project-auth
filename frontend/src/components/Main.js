@@ -1,55 +1,51 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
 
-import { API_URL } from '../utils/constants'
-import profiles from '../reducers/profiles'
-
+import { API_URL } from '../utils/constants';
+import profile from '../reducers/profile';
 
 const Main = () => {
-  const profilesItems = useSelector((store) => store.profiles.items)
-  const accessToken = useSelector((store) => store.user.accessToken)
+	const profileMessage = useSelector((store) => store.profile.message);
+	const accessToken = useSelector((store) => store.user.accessToken);
+	const username = useSelector((store) => store.user.username);
 
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!accessToken) {
-      navigate('/signin')
-    }
-  }, [accessToken, navigate])
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
   useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: accessToken,
-      },
-    }
+		if (!accessToken) {
+			navigate('/login');
+		}
+	}, [accessToken, navigate]);
 
-    fetch(API_URL('profiles'), options)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.success) {
-        dispatch(profiles.actions.setItems(data.response))
-        dispatch(profiles.actions.setError(null))
-      } else {
-        dispatch(profiles.actions.setItems([]))
-        dispatch(profiles.actions.setError(data.response))
-      }
-    })
-    }, [accessToken])
+	useEffect(() => {
+		const options = {
+			method: 'GET',
+			headers: {
+				Authorization: accessToken,
+			},
+		};
 
-  return (
-    <div>
-      <div>
-        <Link to="/signin">To 'signin' !</Link>
-      </div>
-      <h1>Profile</h1>
-      {/* {profilesItems.map(item => (
-        <div key={item._id}>{item.message}</div>
-      ))} */}
-    </div>
-  )
-}  
+		fetch(API_URL('profile'), options)
+			.then((res) => res.text())
+			.then((data) => {
+				console.log(data)
+					dispatch(profile.actions.setMessage(data));
+					dispatch(profile.actions.setError(null));
+			});
+	}, [accessToken]);
 
-export default Main
+
+	return (
+		<div>
+			<div>
+				<Link to="/login">To '/login' !</Link>
+			</div>
+			<h1>Welcome {username} to your personal profile page:</h1>
+			{profileMessage}
+		</div>
+	);
+};
+
+export default Main;

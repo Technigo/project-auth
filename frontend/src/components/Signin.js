@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react"
-import { useDispatch, batch, useSelector } from 'react-redux'
-import { API_URL } from '../utils/constants'
-import user from '../reducers/user'
-import { Navigate, useNavigate, Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch, batch } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+
+import { API_URL } from '../utils/constants';
+import user from '../reducers/user';
+
 
 
 const Signin = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [mode, setMode] = useState('signup')
+  const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+	const [mode, setMode] = useState('signup');
 
   const accessToken = useSelector((store) => store.user.accessToken)
 
