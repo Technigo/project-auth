@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import user from '../reducers/user';
 
@@ -25,12 +25,12 @@ const Main = () => {
   }, [accessToken, navigate]);
 
   return (
-    <div>
+    <div className='secret-page'>
       {/*  <div>
         <Link to="/login">To '/login' !</Link>
       </div> */}
       <h1>It's a secret!</h1>
-      <button className='button' onClick={logout}>
+      <button className='button-logout' onClick={logout}>
         Logout
       </button>
     </div>
