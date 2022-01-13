@@ -8,7 +8,7 @@ import user from "../reducers/user";
 const Login = () => {
   const [username, setUsername] = useState(""); // default value empty string
   const [password, setPassword] = useState(""); // default value empty string
-  const [mode, setMode] = (useState = "signup"); // default value string signup
+  const [mode, setMode] = useState("signup"); // default value string signup
 
   const accessToken = useSelector((store) => store.user.accessToken);
 
@@ -93,7 +93,7 @@ const Login = () => {
         onChange={() => setMode("signin")}
       />
       <form onSubmit={onFormSubmit}>
-        <label htmlFor="username"></label>
+        <label htmlFor="username">Username</label>
         <input
           id="username"
           type="text"

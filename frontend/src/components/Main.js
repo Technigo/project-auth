@@ -38,6 +38,7 @@ const Main = () => {
         }
       });
   }, [accessToken, dispatch]); // For the useEffect to happen when the component gets mounte as the second argument we need to have an empty array as a dependency
+
   return (
     <div>
       <div>
@@ -54,4 +55,5 @@ const Main = () => {
     </div>
   );
 };
+
 export default Main;

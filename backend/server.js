@@ -36,6 +36,15 @@ const UserSchema = new mongoose.Schema({
 // User model that uses the UserSchema
 const User = mongoose.model("User", UserSchema);
 
+const ThoughtSchema = new mongoose.Schema({
+  message: {
+    type: String,
+    required: true,
+  },
+});
+
+const Thought = mongoose.model("Thought", ThoughtSchema);
+
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
 //
@@ -60,7 +69,12 @@ const authenticateUser = async (req, res, next) => {
       next();
       // If not, the user is prompted to sign in
     } else {
-      res.status(401).json({ response: "Please sign in", success: false });
+      res.status(401).json({
+        response: {
+          message: "Please, log in",
+        },
+        success: false,
+      });
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false });
@@ -80,6 +94,17 @@ app.get("/thoughts", async (req, res) => {
   res.status(201).json({ response: thoughts, success: true });
 });
 
+app.post("/thoughts", async (req, res) => {
+  const { message } = req.body;
+
+  try {
+    const newThought = await new Thought({ message }).save();
+    res.status(201).json({ response: newThought, success: true });
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+});
+
 // Endpoint to sign up
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
@@ -89,7 +114,7 @@ app.post("/signup", async (req, res) => {
     const salt = bcrypt.genSaltSync();
 
     if (password.length < 5) {
-      throw "Password must be at least 5 characters long";
+      throw { message: "Password must be at least 5 characters long" };
     }
     // Creating a new user and generating an _id: "shshj5k4773sddf"
     const newUser = await new User({
@@ -101,7 +126,7 @@ app.post("/signup", async (req, res) => {
       // Instead of sending the whole newUser model, we refer to them by key value as to leave out the password for security reasons.
       response: {
         userId: newUser._id,
-        username: newUser.username,
+        username: newUser.userName,
         accessToken: newUser.accessToken,
       },
       success: true,
