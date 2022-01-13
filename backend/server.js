@@ -48,6 +48,16 @@ if (process.env.RESET_DB) {
             riddleId: 2,
             riddle: "Riddle 2: What is black when it’s clean and white when it’s dirty?",
             answer: "chalkboard",
+        }).save(),
+        new Riddle({
+            riddleId: 3,
+            riddle: "Riddle 3: What begins with a T, ends with a T and has T in it?",
+            answer: "teapot",
+        }).save(),
+        new Riddle({
+            riddleId: 4,
+            riddle: "Riddle 4: There are no more riddles",
+            answer: "no more riddles",
         }).save()
     );
 }
@@ -108,8 +118,8 @@ app.get("/riddles", async (req, res) => {
 app.post("/answer", authenticateUser);
 app.post("/answer", async (req, res) => {
     try {
-        const { answer } = req.body
-        console.log(answer)
+        const { answer } = req.body;
+        console.log(answer);
 
         const riddle = await Riddle.findOne({
             riddleId: req.user.securityLevel,
