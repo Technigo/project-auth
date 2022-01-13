@@ -4,7 +4,7 @@ import mongoose from "mongoose"
 import crypto from "crypto"
 import bcrypt from "bcrypt"
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPIproject"
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPInew"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
@@ -26,6 +26,15 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema)
 
+const ThoughtSchema = new mongoose.Schema({
+  message: {
+    type: String,
+    required: true,
+  },
+})
+
+const Thought = mongoose.model("Thought", ThoughtSchema)
+
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
 //
@@ -34,10 +43,11 @@ const port = process.env.PORT || 8080
 const app = express()
 
 // Add middlewares to enable cors and json body parsing
+// v1 - Allow all domains
 app.use(cors())
+
 app.use(express.json())
 
-// function to make sure the user has a correct accesstoken to access signed in mode and can see the "inside" of the application
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization")
 
@@ -46,7 +56,12 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next()
     } else {
-      res.status(404).json({ response: "please, log in.", success: false })
+      res.status(401).json({
+        response: {
+          message: "Please, log in",
+        },
+        success: false,
+      })
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false })
@@ -61,16 +76,16 @@ app.get("/thoughts", async (req, res) => {
   res.status(201).json({ response: thoughts, success: true })
 })
 
-// app.post('/thoughts', async (req, res) => {
-// 	const { message } = req.body;
+app.post("/thoughts", async (req, res) => {
+  const { message } = req.body
 
-// 	try {
-// 		const newThought = await new Thought({ message }).save();
-// 		res.status(201).json({ response: newThought, success: true });
-// 	} catch (error) {
-// 		res.status(400).json({ response: error, success: false });
-// 	}
-// });
+  try {
+    const newThought = await new Thought({ message }).save()
+    res.status(201).json({ response: newThought, success: true })
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
 
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body
@@ -79,7 +94,7 @@ app.post("/signup", async (req, res) => {
     const salt = bcrypt.genSaltSync()
 
     if (password.length < 5) {
-      throw "Password must be at least 5 characters long"
+      throw { message: "Password must be at least 5 characters long" }
     }
 
     const newUser = await new User({
@@ -116,7 +131,10 @@ app.post("/signin", async (req, res) => {
         success: true,
       })
     } else {
-      res.status(404).json({ response: "user not found", success: false })
+      res.status(404).json({
+        response: "Username or password doesn't match",
+        success: false,
+      })
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false })
