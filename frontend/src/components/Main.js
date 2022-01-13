@@ -6,7 +6,7 @@ import { API_URL } from '../utils/urls'
 import user from '../reducers/user'
 
 const Main = () => {
-  const [poem, setPoem] = useState([])
+  const [poem, setPoem] = useState(null)
 
   const accessToken = useSelector((store) => store.user.accessToken)
 
@@ -43,7 +43,7 @@ const Main = () => {
         <p>Here's a little poem treat from us</p>
       </div>
       <fieldset>
-        {poem.length > 0 ? (
+        {poem ? (
           <div className='poem-container'>
             <>
               <h2>{poem.title}</h2>

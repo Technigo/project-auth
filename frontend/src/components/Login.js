@@ -42,16 +42,16 @@ const Login = () => {
             dispatch(user.actions.setUsername(data.response.username))
             dispatch(user.actions.setAccessToken(data.response.accessToken))
             dispatch(user.actions.setError(null))
+            setHasError(null)
           })
-          setHasError(null)
         } else {
           batch(() => {
             dispatch(user.actions.setUserId(null))
             dispatch(user.actions.setUsername(null))
             dispatch(user.actions.setAccessToken(null))
             dispatch(user.actions.setError(data.response))
+            setHasError(data.message)
           })
-          setHasError(data.message)
         }
       })
   }
@@ -94,7 +94,8 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {hasError ? <p className='error-message'>{hasError}</p> : null}
+          {/* if we have error -> display it */}
+          {hasError !== null && <p className='error-message'>{hasError}</p>}
           <button type='submit'>Submit</button>
         </form>
       </>

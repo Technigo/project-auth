@@ -15,6 +15,7 @@ body {
 .radio-container {
   padding: 1rem;
 }
+
 input[type='radio'] {
   margin: 0 20px 0 10px;
 }
@@ -25,8 +26,18 @@ form {
   flex-direction: column;
 }
 
+input[type='text'],
+input[type='password'] {
+  width: 150px;
+  /* margin: auto; */
+}
+
 button {
-  margin-top: 2rem;
+  width: 100px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 1.5rem auto 0 auto;
 }
 
 .error-message {

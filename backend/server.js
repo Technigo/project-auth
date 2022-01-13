@@ -78,15 +78,15 @@ app.get('/poems', (req, res) => {
       title: 'A Smile',
       author: 'Malak Meleka',
       poem: `When someone's having a bad day, 
-      A smile could go a long way, 
-      So make sure to put one on 
-      And keep it until the day is gone.
-      You don't know what this deed
-      Could do for a friend in need.
-      It might save them from the pain
-      Of a sadness they cannot contain.
-      Don't ask what a smile can do
-      Because I'm sure it once helped you.`,
+A smile could go a long way, 
+So make sure to put one on 
+And keep it until the day is gone.
+You don't know what this deed
+Could do for a friend in need.
+It might save them from the pain
+Of a sadness they cannot contain.
+Don't ask what a smile can do
+Because I'm sure it once helped you.`,
       source: 'https://www.familyfriendpoems.com/poem/a-smile-3',
     },
     success: true,
