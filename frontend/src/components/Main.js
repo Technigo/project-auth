@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { API_URL } from "../utils/constants";
-import thoughts from "../reducers/thoughts";
+// import { API_URL } from "../utils/constants";
+// import thoughts from "../reducers/thoughts";
 import user from "../reducers/user";
 
 const Background = styled.div`
@@ -46,11 +46,17 @@ const HeaderBox = styled.div`
 `;
 
 const Main = () => {
-  const thoughtsItems = useSelector((store) => store.thoughts.items);
+  // const thoughtsItems = useSelector((store) => store.thoughts.items);
   const accessToken = useSelector((store) => store.user.accessToken);
+
+  const [thoughts, setThoughts] = useState([]) 
+  const [newName, setNewName] = useState('')
+  const [newThought, setNewThought] = useState('')
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const THOUGHTS_URL = `https://intehon-happy-thoughts.herokuapp.com/thoughts`
 
   const logout = () => {
     // event.preventDefault()
@@ -59,30 +65,62 @@ const Main = () => {
   };
 
   useEffect(() => {
+    fetchThoughts()
+  })
+
+  const fetchThoughts = () => {
+    fetch(THOUGHTS_URL)
+    .then((res) => res.json())
+    .then((data) => setThoughts(data.response))
+  }
+
+  useEffect(() => {
     if (!accessToken) {
       navigate("/login");
     }
   }, [accessToken, navigate]);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   const options = {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: accessToken,
+  //     },
+  //   };
+  //   fetch(THOUGHTS_URL, options)
+  //     .then((res) => res.json)
+  //     .then((data) => {
+  //       if (data.success) {
+  //         dispatch(thoughts.actions.setItems(data.response));
+  //         dispatch(thoughts.actions.setError(null));
+  //       } else {
+  //         dispatch(thoughts.actions.setError(data.response));
+  //         dispatch(thoughts.actions.setItems([]));
+  //       }
+  //     });
+  // }, [accessToken, dispatch, message]);
+
+  const onFormSubmit = (e) => {
+    e.preventDefault()
+    
     const options = {
-      method: "GET",
+      method: 'POST',
       headers: {
-        Authorization: accessToken,
+        "Content-Type": "application/json",
+        Authorization: accessToken
       },
-    };
-    fetch(API_URL("thoughts"), options)
-      .then((res) => res.json)
-      .then((data) => {
-        if (data.success) {
-          dispatch(thoughts.actions.setItems(data.response));
-          dispatch(thoughts.actions.setError(null));
-        } else {
-          dispatch(thoughts.actions.setError(data.response));
-          dispatch(thoughts.actions.setItems([]));
-        }
-      });
-  }, [accessToken]);
+      body: JSON.stringify({ name: newName, message: newThought })
+    }
+
+    fetch(THOUGHTS_URL, options)
+    .then((res) => res.json())
+    .then((data) => {
+      fetchThoughts()
+    })
+
+    setNewThought('')
+    setNewName('')
+  }
 
   return (
     <Background>
@@ -92,8 +130,30 @@ const Main = () => {
           <button onClick={logout}>Sign out!</button>
         </HeaderBox>
         <h1>Protected happy thoughts:</h1>
-        {thoughtsItems.map((item) => (
-          <div key={item._id}>{item.message}</div>
+        <form>
+        <label 
+          id='newName'
+          htmlFor='newName'>What's your name? <span className="optional-text">(optional)</span></label>
+          <input 
+          type="text" 
+          id="name"
+          value={newName} 
+          onChange={(e) => setNewName(e.target.value)}/>
+          <label htmlFor='newThought'>What's on your mind?</label>
+          <textarea
+            value={newThought}
+            onChange={(e) => setNewThought(e.target.value)}
+            maxLength={145}
+          />
+          <button className="thought-button" onClick={onFormSubmit}>
+            Send
+          </button>
+        </form>
+        {thoughts.map((thought) => (
+          <div key={thought._id}>
+            <p>{thought.name}</p>
+            <p>{thought.message}</p>
+            </div>
         ))}
       </div>
     </Background>

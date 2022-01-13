@@ -18,11 +18,17 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
   },
 });
+
 
 const User = mongoose.model("User", UserSchema);
 

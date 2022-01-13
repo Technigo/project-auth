@@ -11,6 +11,7 @@ import NotFound from './components/NotFound'
 
 import user from './reducers/user'
 import thoughts from './reducers/thoughts'
+import Signup from 'components/Signup'
 
 const reducer = combineReducers({
   user: user.reducer,
@@ -26,6 +27,7 @@ export const App = () => {
         <Routes>
           <Route path='/' element={<Main />}/>
           <Route path='/login' element={<Login />}/>
+          <Route path='/signup' element={<Signup />}/>
           <Route path='*' element={<NotFound />}/>
         </Routes>
       </BrowserRouter>

@@ -20,16 +20,16 @@ const Background = styled.div`
   font-family: Helvetica Neue;
 `;
 
-const BackLink = styled.div`
-  background: black;
-  color: white;
-  align-self: start;
-  padding-left: 20px;
+// const BackLink = styled.div`
+//   background: black;
+//   color: white;
+//   align-self: start;
+//   padding-left: 20px;
 
-  a {
-    color: white;
-  }
-`;
+//   a {
+//     color: white;
+//   }
+// `;
 
 const Title = styled.h1`
   text-align: center;
@@ -72,20 +72,20 @@ const InputBox = styled.div`
   }
 `;
 
-const RadioBox = styled.div`
-  margin: 5px;
-  padding: 5px;
-`;
+// const RadioBox = styled.div`
+//   margin: 5px;
+//   padding: 5px;
+// `;
 
 const FormBox = styled.form`
   display: flex;
   flex-direction: column;
 `;
 
-const Login = () => {
+const Signup = () => {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [mode, setMode] = useState("signup");
 
   const accessToken = useSelector((store) => store.user.accessToken);
 
@@ -106,16 +106,17 @@ const Login = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, email }),
     };
 
-    fetch(API_URL('signin'), options)
+    fetch(API_URL('signup'), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId));
             dispatch(user.actions.setUserName(data.response.username));
+            dispatch(user.actions.setEmail(data.response.email));
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setError(null));
           });
@@ -123,12 +124,17 @@ const Login = () => {
           batch(() => {
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setUserName(null));
+            dispatch(user.actions.setEmail(null))
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
             // alert("Username already taken!");
           });
         }
       });
+
+      setUsername('')
+      setEmail('')
+      setPassword('')
   };
 
   return (
@@ -137,26 +143,9 @@ const Login = () => {
         <Link to="/">To '/'!</Link>
       </BackLink> */}
       <Title>
-        Welcome to our special site, please log in to access the
-        secret information.
+        <p>Become a member of our secret society to take part of the secret information.</p>
       </Title>
       <InputBox>
-        {/* <RadioBox>
-          <label htmlFor="signup">Sign up</label>
-          <input
-            id="signup"
-            type="radio"
-            checked={mode === "signup"}
-            onChange={() => setMode("signup")}
-          />
-          <label htmlFor="signin">Log in</label>
-          <input
-            id="signin"
-            type="radio"
-            checked={mode === "signin"}
-            onChange={() => setMode("signin")}
-          />
-        </RadioBox> */}
         <FormBox onSubmit={onFormSubmit}>
           <label htmlFor="username">Username</label>
           <input
@@ -164,6 +153,13 @@ const Login = () => {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <label htmlFor="password">Password</label>
           <input
@@ -177,16 +173,16 @@ const Login = () => {
             disabled={password.length < 5}
             onClick={onFormSubmit}
           >
-            Login
+            Submit
           </button>
         </FormBox>
-          <p>Not a member?</p>
-          <Link to="/signup">
-            Sign up here!
-          </Link>
+        <p>Already a member?</p>
+        <Link to="/signin">
+            Sign in here!
+        </Link>   
       </InputBox>
     </Background>
   );
 };
 
-export default Login;
+export default Signup
