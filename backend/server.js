@@ -6,7 +6,7 @@ import crypto from 'crypto';
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI';
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.set('useCreateIndex', true); //added due to deprecation error 26868
+// mongoose.set('useCreateIndex', true); //added due to deprecation error 26868
 mongoose.Promise = Promise;
 
 const userSchema = new mongoose.Schema({
@@ -37,14 +37,27 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header('Authorization');
 
+  try {
+    const user = await User.findOne({ accessToken });
+    if (user) {
+      next(); // built in function for express that makes the app move along if there's for example an user
+    } else {
+      res.status(401).json({ response: 'Please log in', success: false });
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+};
 // Start defining your routes here
-app.get('/cats', authenticateUser); // we first have to authenticate the user before we get the thoughts
-app.get('/cats', (req, res) => {
-  // thoughts is just an example
-  const cats = await cats.find({});
-  res.status(201).json({ response: cats, success: true });
-});
+// app.get('/cats', authenticateUser); // we first have to authenticate the user before we get the thoughts
+// app.get('/cats', async (req, res) => {
+//   // thoughts is just an example
+//   const cats = await cats.find({});
+//   res.status(201).json({ response: cats, success: true });
+// });
 
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body;
@@ -53,7 +66,7 @@ app.post('/signup', async (req, res) => {
     const salt = bcrypt.genSaltSync(); // this creates a randomizer to randomise the password string
 
     if (password.length < 5) {
-      throw 'Password must be at least 5 characters'; // this throws the user the message and redirect user to the catch block
+      throw { message: 'Password must be at least 5 characters' }; // this throws the user the message and redirect user to the catch block
     }
 
     const newUser = await new User({
