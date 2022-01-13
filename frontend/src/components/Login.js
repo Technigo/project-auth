@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-// import styled from 'styled-components/macro';
 
 import { API_URL } from '../utils/constants';
 import user from '../reducers/user';
-
-/* const FormWrapper = styled.div`
-  width: 320px;
-  display: flex;
-`; */
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -42,7 +36,7 @@ const Login = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId));
@@ -63,25 +57,41 @@ const Login = () => {
   // console.log(error);
 
   return (
-    <>
-      {/*   <div>
-        <Link to='/'>To '/' !</Link>
-      </div> */}
-      <label htmlFor="signup">Signup</label>
-      <input
-        id="signup"
-        type="radio"
-        checked={mode === 'signup'}
-        onChange={() => setMode('signup')}
-      />
-      <label htmlFor="signin">Signin</label>
-      <input
-        id="signin"
-        type="radio"
-        checked={mode === 'signin'}
-        onChange={() => setMode('signin')}
-      />
-      <form onSubmit={onFormSubmit}>
+    <div className="form-container">
+      {mode === 'signin' && (
+        <div>
+          <div className="label-container">
+            <label className="label-button" htmlFor="signup">
+              Sign up
+            </label>
+            <input
+              id="signup"
+              type="radio"
+              checked={mode === 'signup'}
+              onChange={() => setMode('signup')}
+            />
+          </div>
+          <h1>Sign In</h1>
+        </div>
+      )}
+      {mode === 'signup' && (
+        <div>
+          <div className="label-container">
+            <label className="label-button" htmlFor="signin">
+              Sign in
+            </label>
+            <input
+              id="signin"
+              type="radio"
+              checked={mode === 'signin'}
+              onChange={() => setMode('signin')}
+            />
+          </div>
+          <h1>Sign Up</h1>
+        </div>
+      )}
+
+      <form className="fields-container" onSubmit={onFormSubmit}>
         <label htmlFor="username">Username</label>
         <input
           id="username"
@@ -97,11 +107,12 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         {error && <p>Whoops! Something went wrong. Try again!</p>}
-        {/* {error ? <p>{error}</p> : ''}  denna fungerar endast för att visa medellandet om lösen, inte andra fel*/}
+        {/* {error ? <p>{error}</p> : ''}  denna fungerar endast för att visa medellandet
+        om lösen, inte andra fel */}
 
         <button type="submit">Submit</button>
       </form>
-    </>
+    </div>
   );
 };
 

@@ -50,7 +50,7 @@ const Main = () => {
   // }, [accessToken]);
 
   return (
-    <div>
+    <div className="secret-page">
       {/*  <div>
         <Link to="/login">To '/login' !</Link>
       </div> */}
@@ -63,7 +63,7 @@ const Main = () => {
         <div key={item.id}>{item}</div>
       ))} */}
 
-      <button className="button" onClick={logout}>
+      <button className="button-logout" onClick={logout}>
         Logout
       </button>
     </div>
