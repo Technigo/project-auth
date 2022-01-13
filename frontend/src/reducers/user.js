@@ -8,6 +8,7 @@ const user = createSlice({
     accessToken: null,
     error: null,
     mode: "signin",
+    loading: false,
   },
   reducers: {
     setUserId: (store, action) => {
@@ -24,6 +25,9 @@ const user = createSlice({
     },
     setMode: (store, action) => {
       store.mode = action.payload;
+    },
+    setLoading: (store, action) => {
+      store.loading = action.payload;
     },
   },
 });
