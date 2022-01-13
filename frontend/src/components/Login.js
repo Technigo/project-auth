@@ -14,6 +14,13 @@ export const Login = () => {
   const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
   const isMobile = useMediaQuery({ query: "(max-width: 420px)" });
   const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+  console.log(error);
+  const handleSubmitForm = (event) => {
+    event.preventDefault();
+    onLoginButtonClick();
+  };
 
   const onSignUpButtonClick = () => {
     const options = {
@@ -30,8 +37,14 @@ export const Login = () => {
     fetch(API_URL("signup"), options)
       .then((res) => res.json())
       .then((data) => {
-        dispatch(user.actions.setUser(data.response));
-        navigate("/game");
+        if (data.success) {
+          dispatch(user.actions.setUser(data.response));
+          navigate("/game");
+        } else {
+          setError(
+            "Could not sign in. If you like to log in using an existing account please press log in!"
+          );
+        }
       });
   };
 
@@ -44,6 +57,34 @@ export const Login = () => {
       body: JSON.stringify({
         email: loginDetails.email,
         password: loginDetails.password,
+      }),
+    };
+
+    fetch(API_URL("signin"), options)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("svar", data);
+
+        if (data.success) {
+          dispatch(user.actions.setUser(data.response));
+          navigate("/game");
+        } else {
+          setError(
+            "Could not log in. If you like to create a new account please press sign up!"
+          );
+        }
+      });
+  };
+
+  const onGuestButtonClick = () => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: "guest@guest.com",
+        password: "guest",
       }),
     };
 
@@ -69,21 +110,27 @@ export const Login = () => {
               <SecondaryLogo>Mystery</SecondaryLogo>
             </Logotype>
             <IntroText>
-              MurderMystery is an online game where you are put in the shoes of
-              a criminal investigator tasked with solving a fictional crime. Log
-              in to the police network to start the investigation.
+              MurderMystery is an online game where you are put into the shoes
+              of a criminal investigator tasked with solving a fictional crime.
+              Log in to the police network to start the investigation.
             </IntroText>
           </LogotypeContainer>
 
-          <LoginDetails>
+          <LoginDetails onSubmit={handleSubmitForm}>
             <EmailInput
-              type="text"
+              required={true}
+              type="email"
               placeholder="Email"
               onChange={(event) =>
-                setLoginDetails({ ...loginDetails, email: event.target.value })
+                setLoginDetails({
+                  ...loginDetails,
+                  email: event.target.value.toLowerCase(),
+                })
               }
             ></EmailInput>
             <PasswordInput
+              required={true}
+              minLength={5}
               type="password"
               placeholder="Password"
               onChange={(event) =>
@@ -93,17 +140,24 @@ export const Login = () => {
                 })
               }
             ></PasswordInput>
+            <ButtonContainer>
+              <LoginButton>Log in</LoginButton>
+              <SignUpButton onClick={onSignUpButtonClick}>Sign up</SignUpButton>
+              <GuestButton onClick={onGuestButtonClick}>Guest</GuestButton>
+            </ButtonContainer>
           </LoginDetails>
-          <ButtonContainer>
-            <SignUpButton onClick={onSignUpButtonClick}>Sign up</SignUpButton>
-            <GuestButton>Guest</GuestButton>
-            <LoginButton onClick={onLoginButtonClick}>Login</LoginButton>
-          </ButtonContainer>
+          {error && <ErrorContainer>{error}</ErrorContainer>}
         </Container>
       </RightColumn>
     </Main>
   );
 };
+
+const ErrorContainer = styled.div`
+  background-color: #f4f6f8;
+  width: 100%;
+  padding 10px;
+`;
 
 const Main = styled.main`
   height: 100vh;
@@ -170,7 +224,7 @@ const IntroText = styled.div`
   margin-top: 10px;
 `;
 
-const LoginDetails = styled.div`
+const LoginDetails = styled.form`
   display: flex;
   flex-direction: column;
 `;
