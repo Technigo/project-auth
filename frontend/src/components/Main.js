@@ -34,7 +34,7 @@ const Main = () => {
         dispatch(cats.actions.setItems(data));
         dispatch(cats.actions.setErrors(null));
       });
-  }, []);
+  }, [URL_CATS]);
 
   const handleLogout = () => {
     dispatch(user.actions.logout());

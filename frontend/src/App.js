@@ -10,6 +10,7 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import NotFound from './components/NotFound';
 import Main from './components/Main';
+import Start from './components/Start';
 
 const reducer = combineReducers({
   user: user.reducer,
@@ -22,7 +23,8 @@ export const App = () => {
     <BrowserRouter>
       <Provider store={store}>
         <Routes>
-          <Route path='/' element={<SignUp />} />
+          <Route path='/' element={<Start />} />
+          <Route path='/signup' element={<SignUp />} />
           <Route path='/signin' element={<SignIn />} />
           <Route path='/main' element={<Main />} />
           <Route path='*' element={<NotFound />} />
