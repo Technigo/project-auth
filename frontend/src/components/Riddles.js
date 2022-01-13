@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { users, riddles } from "../reducers/users";
-
-import { SignOut } from "./SignOut";
+import { users, riddles, checkAnswer } from "../reducers/users";
 
 export const Riddles = () => {
   const [answer, setAnswer] = useState("");
@@ -27,16 +25,16 @@ export const Riddles = () => {
     dispatch(riddles(token));
   };
 
-  const onAnswerSumbit = (event) => {
+  const onAnswerSubmit = (event) => {
     event.preventDefault();
-    // dispatch();
+    dispatch(checkAnswer(token, answer))
   };
 
   return (
     <div className="container">
       <div className="riddle-align">
         <h3>{riddle}</h3>
-        <form onSubmit={onAnswerSumbit}>
+        <form onSubmit={onAnswerSubmit}>
           <input
             placeholder="Answer"
             type="text"

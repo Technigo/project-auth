@@ -42,12 +42,12 @@ if (process.env.RESET_DB) {
         new Riddle({
             riddleId: 1,
             riddle: "Riddle 1: What needs to be broken before you can use it?",
-            answer: "Egg",
+            answer: "egg",
         }).save(),
         new Riddle({
             riddleId: 2,
             riddle: "Riddle 2: What is black when it’s clean and white when it’s dirty?",
-            answer: "Chalkboard",
+            answer: "chalkboard",
         }).save()
     );
 }
@@ -104,32 +104,54 @@ app.get("/riddles", async (req, res) => {
         });
     }
 });
-// if (req.user.securityLevel === 0) {
-//   res.send({
-//     response: {
-//       riddles: "Riddle 1: What needs to be broken before you can use it?",
-//       securityLevel: 0,
-//     },
-//     success: true,
-//   });
-// } else if (req.user.securityLevel === 13) {
-//   res.send({
-//     response: {
-//       riddles:
-//         "Riddle 2: What is black when it’s clean and white when it’s dirty?",
-//       securityLevel: 1,
-//     },
-//     success: true,
-//   });
-// } else {
-//   res.send({
-//     response: {
-//       riddles: "Riddle 3: help",
-//       securityLevel: 2,
-//     },
-//     success: true,
-//   });
-// }
+
+app.post("/answer", authenticateUser);
+app.post("/answer", async (req, res) => {
+    try {
+        const { answer } = req.body
+        console.log(answer)
+
+        const riddle = await Riddle.findOne({
+            riddleId: req.user.securityLevel,
+        });
+
+        if (!answer) {
+            throw "You didn't provide an answer, please try again";
+        }
+
+        if (answer === riddle.answer) {
+            req.user.securityLevel = riddle.riddleId + 1;
+            await req.user.save();
+
+            const newRiddle = await Riddle.findOne({
+                riddleId: req.user.securityLevel,
+            });
+            res.status(200).json({
+                response: {
+                    riddles: newRiddle.riddle,
+                    correct: true,
+                    securityLevel: req.user.securityLevel,
+                },
+                success: true,
+            });
+        } else {
+            res.status(200).json({
+                response: {
+                    riddles: riddle.riddle,
+                    correct: false,
+                    securityLevel: req.user.securityLevel,
+                },
+                success: true,
+            });
+        }
+    } catch (error) {
+        res.status(400).json({
+            response: "Something went wrong with answers",
+            error: error,
+            success: false,
+        });
+    }
+});
 
 app.post("/signup", async (req, res) => {
     try {
