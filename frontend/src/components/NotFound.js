@@ -6,7 +6,7 @@ export const NotFound = () => {
   return (
     <article className="notFoundContainer">
       <section className="imgContainer">
-        <img src={background} alt='background image' />
+        <img src={background} alt="background image"/>
       </section>
       <section className="notFoundContent">
         <h1>Sorry, page not found</h1>

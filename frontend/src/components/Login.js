@@ -54,7 +54,7 @@ export const Login = () => {
   return (
     <article>
       <section className="imageContainer">
-        <img src={background} alt='background image' />
+        <img src={background} alt="background image"/>
       </section>
 
       <section className="contentContainer">
