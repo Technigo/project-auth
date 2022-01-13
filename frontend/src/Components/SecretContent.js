@@ -36,9 +36,9 @@ export const SecretContent = () => {
           🧁
         </span>
       </Cake>
-      <Link className='Link' to='/login'>
+      {/* <Link className='Link' to='/login'>
         To Login page!
-      </Link>
+      </Link> */}
       <H1>
         This is super secret
         <span role='img' aria-label='eyes'>

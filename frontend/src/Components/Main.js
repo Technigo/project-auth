@@ -26,6 +26,7 @@ const Main = () => {
       },
     };
 
+    // what is this egentligen?
     fetch(API_URL('thoughts'), options)
       .then((res) => res.json())
       .then((data) => {

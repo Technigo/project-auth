@@ -14,11 +14,11 @@ import NotFound from 'Components/NotFound';
 
 // added two reducers
 import user from './reducers/user';
-import thoughts from './reducers/thoughts'; // thoughts is the hidden content
+/* import thoughts from './reducers/thoughts'; */ // thoughts is the hidden content
 
 const reducer = combineReducers({
   user: user.reducer,
-  thoughts: thoughts.reducer,
+  /* thoughts: thoughts.reducer, */
 });
 
 const store = configureStore({ reducer });
@@ -35,7 +35,7 @@ export const App = () => {
               {/*   <Route path='/' element={<RegistrationForm />} /> */}
               <Route path='/' element={<SecretContent />} />
               <Route path='/login' element={<Login />} />
-              <Route path='/secret' element={<SecretContent />} />
+              {/*    <Route path='/secret' element={<SecretContent />} /> */}
               <Route path='*' element={<NotFound />} />
             </Routes>
           </InnerContainer>
