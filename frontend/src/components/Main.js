@@ -47,7 +47,7 @@ const Main = () => {
           <div className='poem-container'>
             <>
               <h2>{poem.title}</h2>
-              <p>Author: {poem.author}</p>
+              <p className='author-name'>Author: {poem.author}</p>
               <p className='poem-text'>{poem.poem}</p>
               <p className='source-link'>Source: {poem.source}</p>
             </>

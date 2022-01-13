@@ -13,7 +13,7 @@ body {
 }
 
 .radio-container {
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 input[type='radio'] {
@@ -24,12 +24,24 @@ form {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
 }
 
 input[type='text'],
 input[type='password'] {
   width: 150px;
   /* margin: auto; */
+}
+
+.required {
+  color: red;
 }
 
 button {
@@ -42,6 +54,8 @@ button {
 
 .error-message {
   color: red;
+  font-style: italic;
+  font-size: 14px;
 }
 
 .logout-btn {
@@ -73,6 +87,10 @@ fieldset {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.author-name {
+  margin: 0;
 }
 
 .poem-text {

@@ -41,6 +41,15 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+// unreachable database -> status 503
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState === 1) {
+    next()
+  } else {
+    res.status(503).json({ error: 'Service unavailable' })
+  }
+})
+
 const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({
@@ -104,7 +113,14 @@ app.post('/signup', async (req, res) => {
   const { username, password } = req.body
 
   try {
+    // salt -> randomizer
     const salt = bcrypt.genSaltSync()
+
+    // // stop the executing of try block with throw
+    if (password === '') {
+      throw 'Please provide password'
+    }
+
     const newUser = await new User({
       username,
       password: bcrypt.hashSync(password, salt),
@@ -119,11 +135,31 @@ app.post('/signup', async (req, res) => {
       success: true,
     })
   } catch (error) {
-    res.status(400).json({
-      message: 'Please provide username and password',
-      response: error,
-      success: false,
-    })
+    if (username === '') {
+      res.status(400).json({
+        message: 'Validation failed: provide username',
+        response: error,
+        success: false,
+      })
+    } else if (error.code === 11000 && error.keyPattern.username) {
+      res.status(400).json({
+        message: 'Validation failed: username already exist',
+        response: error,
+        success: false,
+      })
+    } else if (password === '') {
+      res.status(400).json({
+        message: 'Validation failed: provide password',
+        response: error,
+        success: false,
+      })
+    } else {
+      res.status(400).json({
+        message: 'Validation failed: please provide username and password',
+        response: error,
+        success: false,
+      })
+    }
   }
 })
 
