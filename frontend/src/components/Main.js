@@ -28,6 +28,7 @@ export const Main = () => {
     };
 
     fetch(API_URL("secrets"), options)
+    
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
