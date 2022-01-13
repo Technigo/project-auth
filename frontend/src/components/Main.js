@@ -6,7 +6,6 @@ import user from '../reducers/user';
 
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,10 +27,10 @@ const Main = () => {
   return (
     <div>
       <div>
-        <Link to='/login'>To '/login' !</Link>
+        <Link to="/login">To '/login' !</Link>
       </div>
       <h1>It's a secret!</h1>
-      <button className='button' onClick={logout}>
+      <button className="button" onClick={logout}>
         Logout
       </button>
     </div>
