@@ -97,6 +97,9 @@ const authenticateUser = async (req, res, next) => {
 //? Authorization - 403 ( Forbidden) but should be unauthorized
 
 // Start defining your routes here
+app.get("/", (req, res) => {
+  res.send("Hello from dark side!!")
+})
 
 // protected endpoint for the authenticated user
 app.get("/thoughts", authenticateUser)
