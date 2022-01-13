@@ -71,9 +71,11 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 // Start defining routes here
-// app.get('/', (req, res) => {
-//   res.send('Hello world');
-// });
+app.get('/', (req, res) => {
+  res.send(
+    'This is the backend of Project-auth by Isabel González and Ida Aspen. Please visit <a href="https://ida-and-isabel-secrets.netlify.app/login">frontend</a> for the main page!'
+  );
+});
 
 // What you see when you are logged in added here
 // add async await to secrets endpoint
