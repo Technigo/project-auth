@@ -11,12 +11,83 @@ import user from '../reducers/user';
 
 import { SIGNUP_URL } from '../utils/urls';
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  input {
+    width: 60%;
+    border-radius: 8px;
+    border: 1px solid grey;
+    padding: 8px;
+    align-items: center;
+  }
+
+  label {
+    padding-top: 8px;
+
+    width: 63%;
+    font-size: 22px;
+  }
+
+  button {
+    width: 150px;
+    border-radius: 8px;
+    border: 2px solid grey;
+    height: 37px;
+    margin-top: 40px;
+    box-shadow: 2px 2px #000;
+    text-transform: uppercase;
+    background: red;
+    color: lavenderblush;
+    font-weight: 700;
+  }
+
+  button:hover {
+    cursor: pointer;
+    box-shadow: none;
+    background: lavenderblush;
+    color: red;
+    border: 2px solid red;
+  }
+
+  p {
+    margin: 2px;
+    font-size: 10px;
+  }
+`;
+
 const Title = styled.h1`
   color: red;
+  width: 63%;
+  padding-top: 20px;
+  text-transform: uppercase;
+  font-size: 44px;
 `;
 
 const Wrapper = styled.div`
-  background-color: pink;
+  border: red solid 4px;
+  border-radius: 8px;
+  max-width: 70%;
+  width: 60%;
+  margin: 60px auto 0 auto;
+  font-family: 'Dongle', sans-serif;
+  background: lavenderblush;
+  p {
+    margin: 5px;
+  }
+  div {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 35px;
+    font-size: 22px;
+    line-height: 14px;
+  }
+  div a {
+    color: red;
+    margin: 0;
+  }
 `;
 
 const SignUp = () => {
@@ -44,7 +115,7 @@ const SignUp = () => {
         console.log(data);
         if (data.success) {
           new Swal({
-            title: 'User created',
+            title: 'Congratulations! User created 🎉',
             content: 'el',
           }).then(function () {
             navigate('/signin');
@@ -63,40 +134,52 @@ const SignUp = () => {
 
   return (
     <Wrapper>
-      <Title>sign up</Title>
-      <form onSubmit={onFormSubmit}>
-        <label>username</label>
+      <Form onSubmit={onFormSubmit}>
+        <Title>sign up</Title>
+        <label>username*</label>
         <input
           type='text'
           placeholder='enter username'
           value={username}
           onChange={e => setUsername(e.target.value)}
         />
-        <label>email</label>
+
+        <label>email*</label>
         <input
-          type='text'
+          type='email'
           placeholder='enter email'
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
 
-        <label>password</label>
+        <label>password*</label>
         <input
           type='password'
           placeholder='enter password'
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
+        {/* {password && password.length < 5 && (
+          <span>password must be over 5 characters</span>
+        )} */}
+
+        {password && password.length < 5
+          ? 'password must be over 5 characters'
+          : ''}
+
         <button type='submit'>register</button>
-      </form>
+        <p>*required fields</p>
+      </Form>
       {/* <div>
         <p>
           You're now a member! 🎉 Click <Link to='/signin'> here </Link> to
           login
         </p>
       </div> */}
-      <p>Already a member?</p>
-      <Link to='/signin'>Sign in</Link>
+      <div>
+        <p>Already a member?</p>
+        <Link to='/signin'>Sign in</Link>
+      </div>
     </Wrapper>
   );
 };

@@ -7,6 +7,81 @@ import { SIGNIN_URL } from '../utils/urls';
 
 import user from '../reducers/user';
 
+import styled from 'styled-components';
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  input {
+    width: 60%;
+    border-radius: 8px;
+    border: 1px solid grey;
+    padding: 8px;
+    align-items: center;
+  }
+
+  label {
+    padding-top: 8px;
+    font-size: 22px;
+    width: 63%;
+  }
+
+  button {
+    width: 150px;
+    border-radius: 8px;
+    border: 1px solid grey;
+    height: 37px;
+    margin-top: 40px;
+    box-shadow: 2px 2px #000;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    background: red;
+    color: lavenderblush;
+    font-weight: 700;
+  }
+
+  button:hover {
+    cursor: pointer;
+    box-shadow: none;
+    background: lavenderblush;
+    color: red;
+    border: 2px solid red;
+  }
+
+  p {
+    margin: 2px;
+    font-size: 10px;
+  }
+`;
+
+const Wrapper = styled.div`
+  border: red solid 4px;
+  border-radius: 8px;
+  max-width: 70%;
+  width: 60%;
+  margin: 60px auto 0 auto;
+  font-family: 'Dongle', sans-serif;
+  background: lavenderblush;
+  p {
+    margin: 5px;
+  }
+  div {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 35px;
+  }
+`;
+
+const Title = styled.h1`
+  color: red;
+  width: 63%;
+  padding-top: 20px;
+  text-transform: uppercase;
+  font-size: 44px;
+`;
+
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -58,10 +133,10 @@ const SignIn = () => {
   };
 
   return (
-    <div>
-      <h1>Please sign in</h1>
-      <form onSubmit={onFormSubmit}>
-        <label htmlFor='username'>username</label>
+    <Wrapper>
+      <Form onSubmit={onFormSubmit}>
+        <Title>sign in</Title>
+        <label htmlFor='username'>username*</label>
         <input
           id='username'
           type='text'
@@ -69,7 +144,7 @@ const SignIn = () => {
           value={username}
           onChange={e => setUsername(e.target.value)}
         />
-        <label htmlFor='password'>password</label>
+        <label htmlFor='password'>password*</label>
         <input
           id='password'
           type='password'
@@ -77,9 +152,10 @@ const SignIn = () => {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
+        <p>*required fields</p>
         <button type='submit'>sign in</button>
-      </form>
-    </div>
+      </Form>
+    </Wrapper>
   );
 };
 export default SignIn;
