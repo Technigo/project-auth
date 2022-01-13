@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, batch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 
 import { API_URL } from "../utils/constants";
 import thoughts from "../reducers/thoughts";
+
+import user from "../reducers/user";
 
 const Main = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items);
@@ -39,6 +41,16 @@ const Main = () => {
       });
   }, [dispatch, accessToken]);
 
+  const onButtonClick = () => {
+    batch(() => {
+      dispatch(user.actions.setUserId(null));
+      dispatch(user.actions.setUsername(null));
+      dispatch(user.actions.setEmail(null));
+      dispatch(user.actions.setAccessToken(null));
+    });
+    localStorage.removeItem("user");
+  };
+
   return (
     <div>
       <div>
@@ -48,6 +60,9 @@ const Main = () => {
       {thoughtsItems.map((item) => (
         <div key={item._id}>{item.message}</div>
       ))}
+      <button type="button" onClick={() => onButtonClick()}>
+        Log out
+      </button>
     </div>
   );
 };

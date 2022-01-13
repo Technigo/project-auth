@@ -9,6 +9,7 @@ const thoughts = createSlice({
   reducers: {
     setItems: (store, action) => {
       store.items = action.payload;
+      console.log("set items", store.items);
     },
     setError: (store, action) => {
       store.error = action.payload;
