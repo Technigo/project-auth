@@ -25,7 +25,6 @@ const UserSchema = new mongoose.Schema({
 })
 
 // mongoose.model
-
 const User = mongoose.model("User", UserSchema)
 
 const ThoughtSchema = new mongoose.Schema({
@@ -99,35 +98,20 @@ const authenticateUser = async (req, res, next) => {
 
 // Start defining your routes here
 
+// protected endpoint for the authenticated user
 app.get("/thoughts", authenticateUser)
 app.get("/thoughts", async (req, res) => {
   const thoughts = await Thought.find({})
   res.status(201).json({ response: thoughts, success: true })
 })
 
-app.post("/thoughts", async (req, res) => {
-  const { message } = req.body
-
-  try {
-    const newThought = await new Thought({ message }).save()
-    res.status(201).json({ response: newThought, success: true })
-  } catch (error) {
-    res.status(400).json({ response: error, success: false })
-  }
-})
-
-app.get("/", (req, res) => {
-  res.send("Hello world")
-})
-
-//
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body
 
   try {
     const salt = bcrypt.genSaltSync()
     if (password.length < 6) {
-      throw "Password must be at least 6 characters long"
+      throw "Password must be at least 6 character long"
     }
 
     const newUser = await new User({
