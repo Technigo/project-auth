@@ -3,9 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
-import Login from "./components/Login";
-import Main from "./components/Main";
-import NotFound from "./components/NotFound";
+import Login from "./pages/Login";
+import Main from "./pages/Main";
+import NotFound from "./pages/NotFound";
 
 import user from "./reducers/user";
 import secrets from "./reducers/secrets";

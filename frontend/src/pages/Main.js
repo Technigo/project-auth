@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 
 import { API_URL } from "../utils/urls";
 import secrets from "../reducers/secrets";
+import user from "../reducers/user";
+import { YodaAnimation } from "components/YodaAnimation";
 
 const Main = () => {
   const secretsItems = useSelector((store) => store.secrets.items);
@@ -40,15 +42,15 @@ const Main = () => {
   }, [accessToken]);
 
   return (
-    <div>
-      <div>
-        <Link to="/login">To '/login' !</Link>
-      </div>
-      <h1>Secrets</h1>
-      {secretsItems.map((item) => (
-        <div key={item._id}>{item.message}</div>
-      ))}
-    </div>
+    <>
+      <button className="logout"
+        type="button"
+        onClick={() => dispatch(user.actions.setAccessToken(null))}
+        >Log Out</button>
+      <div className="animation"> 
+        <YodaAnimation /> 
+      </div>  
+    </>
   );
 };
 
