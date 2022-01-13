@@ -1,5 +1,6 @@
-import React, { useState, UseState } from "react";
-import { useDispatch, batch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch, batch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 
 import { API_URL } from "../utils/urls";
 import user from "../reducers/user";
@@ -9,7 +10,16 @@ const Login = () => {
   const [password, setPassword] = useState(""); // default value empty string
   const [mode, setMode] = (useState = "signup"); // default value string signup
 
+  const accessToken = useSelector((store) => store.user.accessToken);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/");
+    }
+  }, [accessToken, navigate]);
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -28,9 +38,9 @@ const Login = () => {
       body: JSON.stringify({ username, password }),
     };
 
-    // the argument string signup travels to urls.js and API_URL as a slug
+    // the argument mode travels to urls.js and API_URL as a slug
     // The options variable should to be passed as the second argument in the fetch method
-    fetch(API_URL("signup"), options)
+    fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -63,13 +73,17 @@ const Login = () => {
   };
 
   return (
+    // label is just informative, htmlFor so that we can connect to the input
     <>
+      <div>
+        <Link to="/">To '/' !</Link>
+      </div>
       <label htmlFor="signup">Sign Up</label>
       <input
-        id="signup"
+        id="signup" // connects to label so we can also click the text and not only radio button
         type="radio"
-        checked={mode === "signup"}
-        onChange={() => setMode("signup")}
+        checked={mode === "signup"} // this input should be checked/selected only if the mode is equal to signup
+        onChange={() => setMode("signup")} // change handler to change the mode to signup when we click on it
       />
       <label htmlFor="signin">Sign In</label>
       <input
