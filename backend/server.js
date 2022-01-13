@@ -77,6 +77,7 @@ app.post('/signup', async (req, res) => {
 
     const newUser = await new User({
       username,
+      email,
       password: bcrypt.hashSync(password, salt), // the "salt" passes the randomizer to the password
     }).save();
 
