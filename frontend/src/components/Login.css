@@ -1,0 +1,149 @@
+article {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+.imageContainer {
+  position: absolute;
+  z-index: -1;
+  height: 100vh;
+  width: 100vw;
+}
+.imageContainer img{
+
+height: 100vh;
+
+}
+
+.contentContainer {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color:rgb(214, 250, 255); 
+
+  margin-left: 50vw;
+}
+
+form {
+  width: 30vw;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(20, 87, 99);
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.radioBtnContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  color: rgb(214,250,255); 
+}
+
+.radioBtnContainer input{
+
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+
+  border: 1.5px solid rgb(214,250,255); 
+  transition: 0.2s all linear;
+  margin-right: 15px;
+
+  position: relative;
+  top: 4px;
+
+}
+
+.radioBtnContainer input:checked {
+  border: 6px solid rgb(4, 61, 63);
+  background-color: rgb(255, 255, 255);
+  width: 15px;
+  height: 15px;
+}
+
+     
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputContainer input {
+  width: 40%;
+  max-width: 250px;
+  padding: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fcfcfc;
+}
+
+
+
+.inputContainer input:focus {
+  outline: none;
+  color: rgb(214,250,255); 
+  background-color: rgba(0, 32, 33, 0.479);
+}
+
+.inputContainer input:focus::placeholder {
+  color: rgb(214,250,255); 
+}
+
+.btnContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.btnContainer button {
+  width: 100px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 5px;
+  background-color: #fcfcfc;
+}
+
+.btnContainer button:hover{
+  
+  color: rgb(214,250,255); 
+  background-color: rgba(0, 32, 33, 0.479);
+
+}
+
+@media (max-width:768px) {
+  
+.contentContainer {
+  width: 70vw;
+ 
+
+  margin-left: 30vw;
+}
+  
+  form {
+    width: 55vw;
+    
+  }
+  
+  
+
+
+}

@@ -6,21 +6,25 @@ const User = createSlice({
   initialState: {
     username: null,
     password: null,
-    accessToken:null,
+   accessToken:null,
    userId:null
   },
 
   reducers: {
-    
-    setUserId:(store, action) => {
-      store.username = action.payload
-    }
-  }
+    setUserId: (store, action) => {
+      store.userId = action.payload
+    },
+    setUsername: (store, action) => {
+      store.username = action.payload;
+    },
+    setAccessToken: (store, action) => {
+      store.accessToken = action.payload;
+    },
+    setError: (store, action) => {
+      store.error = action.payload;
+    },
+  },
 });
 
-/* Fetch fungerar lös att lägga in sökresultat i hotels */
 
-
-export const { user } = User.actions;
-
-export default User.reducer;
+export default User;

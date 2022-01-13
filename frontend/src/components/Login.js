@@ -1,66 +1,115 @@
-import React, {useState} from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import { API_URL } from 'utils/constants'
+import { useNavigate, Link } from 'react-router-dom';
+import user from '../reducer/user';
+import space from '../images/space.jpg'
+import './Login.css'
 
 export const Login = () => {
 
 const [username, setUsername] = useState('')
 const [password, setPassword] = useState('')
-const [mode, setMode] = useState('signup')
+const [mode, setMode] = useState('signin')
 
-const 
+const accessToken = useSelector((store) => store.user.accessToken);
+
 const dispatch = useDispatch();
-const onFormSubmit = (event) =>{
+const navigate = useNavigate();
 
+useEffect(() => {
+  if (accessToken) {
+    navigate('/');
+  }
+}, [accessToken, navigate]);
+
+const onFormSubmit = (event) =>{
 event.preventDefault();
 
 const options = {
-method:'POST',
-headers:{
-
-'Content-Type':'application/json'
-
-},
-body:JSON.stringfy({}),
-
-}
-
-fetch(API_URL('mode'), options)
-.then(res => res.json())
-.then(data =>{
-  
-  if(data.success){
-    dispatch(username.actions.setUsername(data.response.username))
-
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ username, password }),
+};
+fetch(API_URL(mode), options)
+			.then((res) => res.json())
+			.then((data) => {
+				
+				if (data.success) {
+    batch(() => {
+      dispatch(user.actions.setUserId(data.response.userId));
+      dispatch(user.actions.setUsername(data.response.username));
+      dispatch(user.actions.setAccessToken(data.response.accessToken));
+			dispatch(user.actions.setError(null));
+    })
+  } else {
+      batch(() => {
+        dispatch(user.actions.setUserId(null));
+        dispatch(user.actions.setUsername(null));
+        dispatch(user.actions.setAccessToken(null));
+        dispatch(user.actions.setError(data.response));
+      });
   }
-  else{
-    
-    dispatch(username.actions.setUsername(null))
-    dispatch(username.actions.errors())
-
-  }
-
-})
-
-
-
+});
 }
-
 
   return (
-    <div>
-      <input type='radio' checked={mode === 'signup'} onChange={() => setMode('signup')} />
-      <input type='radio' checked={mode === 'signin'} onChange={() => setMode('signin')} />
-      <h1>LOGIN</h1>
+<article> 
+
+  <section className='imageContainer'>
+
+<img src={space} alt='background image' className='image' />
+  </section>
+
+    <section className='contentContainer'>
+      
       <form onSubmit={onFormSubmit}>
-<input type="text" value={username}
-onChange={e => setUsername(e.target.value)}> </input>
-<input type="password" value={password}
-onChange={e => setPassword(e.target.value)}> </input>
+   <section className='radioBtnContainer'> 
+   <label htmlFor="signup">Sign up</label>
+			<input
+				id="signup"
+				type="radio"
+				checked={mode === 'signup'}
+				onChange={() => setMode('signup')}
+			/>
+			<label htmlFor="signin">Sign in</label>
+			<input
+				id="signin"
+				type="radio"
+				checked={mode === 'signin'}
+				onChange={() => setMode('signin')}
+			/>
+    </section>
+    
+      <section className='inputContainer'>
+      
+      <input
+       id="username"
+       type="text"
+       value={username}
+       onChange={(e) => setUsername(e.target.value)}
+        placeholder='Username'
+      />
+    
+      <input
+       id="password"
+       type="password"
+       value={password}
+       onChange={(e) => setPassword(e.target.value)}
+        placeholder='Password'
+      />
+      </section>
+      <section className='btnContainer'> 
+      <button type="submit">Submit</button>
+      </section>
+    </form>
+  </section>
 
 
-      </form>
 
-    </div>
+  </article>
+
   )
 }
