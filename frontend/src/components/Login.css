@@ -5,6 +5,7 @@ article {
   width: 100vw;
   position: relative;
   overflow: hidden;
+
 }
 
 .imageContainer {
@@ -12,6 +13,7 @@ article {
   z-index: -1;
   height: 100vh;
   width: 100vw;
+  
 }
 .imageContainer img{
 
@@ -26,7 +28,7 @@ height: 100vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color:rgb(214, 250, 255); 
+  background-color:rgb(172,215,223);
 
   margin-left: 50vw;
 }
@@ -38,7 +40,7 @@ form {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(20, 87, 99);
+  background-color: rgb(25,90,119);
   padding: 15px;
   border-radius: 15px;
 }
@@ -47,7 +49,7 @@ form {
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  color: rgb(214,250,255); 
+  color: rgb(172,215,223);
 }
 
 .radioBtnContainer input{
@@ -62,7 +64,7 @@ form {
   width: 15px;
   height: 15px;
 
-  border: 1.5px solid rgb(214,250,255); 
+  border: 1.5px solid rgb(172,215,223);
   transition: 0.2s all linear;
   margin-right: 15px;
 
@@ -72,8 +74,8 @@ form {
 }
 
 .radioBtnContainer input:checked {
-  border: 6px solid rgb(4, 61, 63);
-  background-color: rgb(255, 255, 255);
+  border: 6px solid rgb(14, 51, 68);
+  background-color: rgb(217, 236, 240);
   width: 15px;
   height: 15px;
 }
@@ -92,7 +94,7 @@ form {
   padding: 10px 5px;
   border: none;
   border-radius: 5px;
-  background-color: #fcfcfc;
+  background-color: rgb(172,215,223);
 }
 
 
@@ -100,7 +102,7 @@ form {
 .inputContainer input:focus {
   outline: none;
   color: rgb(214,250,255); 
-  background-color: rgba(0, 32, 33, 0.479);
+  background-color: rgb(14, 51, 68);
 }
 
 .inputContainer input:focus::placeholder {
@@ -119,13 +121,13 @@ form {
   border: none;
   border-radius: 5px;
   padding: 10px 5px;
-  background-color: #fcfcfc;
+  background-color: rgb(172,215,223);
 }
 
 .btnContainer button:hover{
   
   color: rgb(214,250,255); 
-  background-color: rgba(0, 32, 33, 0.479);
+  background-color: rgb(14, 51, 68);
 
 }
 

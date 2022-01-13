@@ -34,8 +34,8 @@ img {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-color:  rgba(20, 87, 99, 0.925);
-  color: rgb(214, 250, 255);
+  background-color: rgba(25, 89, 119, 0.945);
+  color: rgb(172,215,223);
   border-radius: 15px;
   
 }
@@ -45,7 +45,7 @@ img {
   border: none;
   border-radius: 5px;
   padding: 10px 5px;
-  background-color: #fcfcfc;
+  background-color: rgb(172,215,223);
 align-items: center;
 
 
@@ -54,7 +54,7 @@ align-items: center;
 .btnContainerMain button:hover{
   
   color: rgb(225, 244, 247); 
-  background-color: rgb(112, 147, 148);
+  background-color:  rgb(119, 161, 168);
 
 }
 
