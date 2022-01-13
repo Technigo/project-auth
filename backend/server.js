@@ -108,7 +108,7 @@ app.post('/secrets', async (req, res) => {
 	const { message, text } = req.body;
 
 	try {
-		const newSecret = await new Secret({ message }).save();
+		const newSecret = await new Secret({ message, text }).save();
 		res.status(201).json({ response: newSecret, success: true })
 	} catch (error) {
 		res.status(400).json({ response: error, success: false })
