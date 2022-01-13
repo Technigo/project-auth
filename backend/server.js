@@ -60,14 +60,8 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-app.get("/", (req, res, next) => {
-  res.status(200).json({
-    status: "success",
-    data: {
-      name: "Project Auth",
-      version: "0.1.0",
-    },
-  });
+app.get("/", (req, res) => {
+  res.send(listEndpoints(app));
 });
 
 app.get("/secrets", authenticateUser);
