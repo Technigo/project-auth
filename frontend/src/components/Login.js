@@ -43,11 +43,13 @@ const InputBox = styled.div`
   border: 1px solid white;
   border-radius: 40px;
   height: 300px;
-  width: 300px;
+  width: 400px;
   display: flex;
   align-items: center;
   flex-direction: column;
   color: white;
+  background: black;
+  box-shadow: 2px 2px 15px #6e6e6e;
 
   input {
     padding: 10px;
@@ -69,6 +71,23 @@ const InputBox = styled.div`
     border: 1px solid white;
     color: white;
     background: black;
+  }
+
+  button:hover {
+    background: white;
+    color: black;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  a:hover {
+    font-weight: bold;
+    transition: 0.3s;
   }
 `;
 
@@ -109,7 +128,7 @@ const Login = () => {
       body: JSON.stringify({ username, password }),
     };
 
-    fetch(API_URL('signin'), options)
+    fetch(API_URL("signin"), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -137,8 +156,8 @@ const Login = () => {
         <Link to="/">To '/'!</Link>
       </BackLink> */}
       <Title>
-        Welcome to our special site, please log in to access the
-        secret information.
+        Welcome to our special site, please log in to access the secret
+        information.
       </Title>
       <InputBox>
         {/* <RadioBox>
@@ -180,10 +199,10 @@ const Login = () => {
             Login
           </button>
         </FormBox>
-          <p>Not a member?</p>
-          <Link to="/signup">
-            Sign up here!
-          </Link>
+        <p>
+          <i>Not a member?</i>
+        </p>
+        <Link to="/signup">Sign up here!</Link>
       </InputBox>
     </Background>
   );
