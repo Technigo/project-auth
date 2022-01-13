@@ -84,7 +84,7 @@ const authenticateUser = async (req, res, next) => {
       res.status(401).json({ response: 'Please, log in', success: false})
     }
   } catch (error) {
-    res.status(400).json({ response: "error", success: false, error })
+    res.status(400).json({ message: 'error', response: error, success: false })
   }
 }
 
@@ -111,7 +111,7 @@ app.post('/secrets', async (req, res) => {
 		const newSecret = await new Secret({ message, text }).save();
 		res.status(201).json({ response: newSecret, success: true })
 	} catch (error) {
-		res.status(400).json({ response: "error", success: false, error })
+		res.status(400).json({ message: 'error', response: error, success: false })
 	}
 })
 
@@ -140,7 +140,7 @@ app.post('/signup', async (req, res) => {
       success: true,
     })
   } catch (error) {
-    res.status(400).json({ response: "error", success: false, error })
+    res.status(400).json({ message: 'error', response: error, success: false })
   }
 })
 
@@ -161,10 +161,10 @@ app.post('/signin', async (req, res) => {
         success: true
       })
     } else {
-      res.status(404).json({ response: 'Username or password is incorrect, please try again', success: false })
+      res.status(404).json({ message: 'Username or password is incorrect', success: false })
     }
   } catch (error){
-    res.status(400).json({ response: "error", success: false, error})
+    res.status(400).json({ message: 'error', response: error, success: false})
   }
 })
 // Start the server
