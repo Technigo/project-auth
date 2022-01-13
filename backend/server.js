@@ -8,7 +8,7 @@ const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI';
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-//Schema
+//Schema for user
 const UserSchema = new mongoose.Schema({
 	name: {
 		type: String,
@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema({
 	},
 	password: {
 		type: String,
-		//minlength: [6, 'You need at least 6 letters for your password'],
+		// Should not add a minlength bc the password will be encrypted
 		unique: true,
 	},
 	accessToken: {
@@ -34,8 +34,27 @@ const UserSchema = new mongoose.Schema({
 	},
 });
 
-//Here we create a model for creating user via schema
+//Model for creating user
 const User = mongoose.model('User', UserSchema);
+
+//Scehma for secrets
+const SecretSchema = new mongoose.Schema({
+	message: {
+		type: String,
+		required: true,
+	},
+});
+
+//Model for creating secret
+const Secret = mongoose.model('Secret', SecretSchema);
+
+//PORT=9000 npm start
+const port = process.env.PORT || 8080;
+const app = express();
+
+//Middleware to enable cors and json body parsing
+app.use(cors());
+app.use(express.json());
 
 //A shield asking for accessToken
 const authenticateUser = async (req, res, next) => {
@@ -52,14 +71,6 @@ const authenticateUser = async (req, res, next) => {
 	}
 };
 
-//PORT=9000 npm start
-const port = process.env.PORT || 8080;
-const app = express();
-
-// Middleware to enable cors and json body parsing
-app.use(cors());
-app.use(express.json());
-
 //--------------ENDPOINTS--------------
 
 app.get('/', (req, res) => {
@@ -68,13 +79,26 @@ app.get('/', (req, res) => {
 
 //--------------Authentication test--------------
 app.get('/secrets', authenticateUser);
-app.get('/secrets', (req, res) => {
-	res.json({ secret: 'This is a super secret message' });
+app.get('/secrets', async (req, res) => {
+	const secrets = await Secret.find({});
+	res.status(201).json({ response: secrets, success: true });
+});
+
+//--------------Post secrets--------------
+app.post('/secrets', async (req, res) => {
+	const { message } = req.body;
+
+	try {
+		const newSecret = await new Secret({ message }).save();
+		res.status(201).json({ response: newSecret, success: true });
+	} catch (error) {
+		res.status(400).json({ response: error, success: false });
+	}
 });
 
 //--------------Register--------------
 app.post('/signup', async (req, res) => {
-	const { name, username, email, password } = req.body;
+	const { name, email, username, password } = req.body;
 	try {
 		const salt = bcrypt.genSaltSync();
 		//a conditon for creating a password
