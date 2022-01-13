@@ -19,6 +19,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
+    trim: true,
   },
   password: {
     type: String,
@@ -72,10 +73,11 @@ app.get("/", (req, res) => {
 });
 
 // Executes authenticateUser function
-app.get("/user", authenticateUser);
+app.get("/thoughts", authenticateUser);
 // If accessToken is found the user is signed in
-app.get("/user", (req, res) => {
-  res.send("Here is your profile");
+app.get("/thoughts", async (req, res) => {
+  const thoughts = await Thought.find({});
+  res.status(201).json({ response: thoughts, success: true });
 });
 
 // Endpoint to sign up
