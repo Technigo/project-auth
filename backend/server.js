@@ -13,20 +13,23 @@ const UserSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		unique: true,
+		trim: true,
 	},
 	username: {
 		type: String,
-		//minlength: [5, 'You need at least 5 letters for your username'],
+		minlength: [5, 'You need at least 5 letters for your username'],
 		unique: true,
+		trim: true,
 	},
 	email: {
 		type: String,
 		unique: true,
+		trim: true,
 	},
 	password: {
 		type: String,
 		// Should not add a minlength bc the password will be encrypted
-		unique: true,
+		required: true,
 	},
 	accessToken: {
 		type: String,
@@ -37,7 +40,7 @@ const UserSchema = new mongoose.Schema({
 //Model for creating user
 const User = mongoose.model('User', UserSchema);
 
-//Scehma for secrets
+//Schema for secrets
 const SecretSchema = new mongoose.Schema({
 	message: {
 		type: String,
@@ -74,7 +77,9 @@ const authenticateUser = async (req, res, next) => {
 //--------------ENDPOINTS--------------
 
 app.get('/', (req, res) => {
-	res.send('Hello world');
+	res.send(
+		'Hello world, welcome to our secret login app - see this API live at 👉:'
+	);
 });
 
 //--------------Authentication test--------------

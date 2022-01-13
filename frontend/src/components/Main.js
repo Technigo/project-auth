@@ -3,6 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { API_URL } from '../utils/constants';
 import secrets from '../reducers/secrets';
+import styled from 'styled-components';
+
+//Styled components
+const MainWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: 90vh;
+`;
+const Title = styled.h1`
+	font-family: 'Poppins', sans-serif;
+`;
+
+const SecretMessges = styled.div`
+	justify-content: space-between;
+	font-family: 'Poppins', sans-serif;
+`;
 
 const Main = () => {
 	const secretsItems = useSelector((store) => store.secrets.items);
@@ -12,7 +30,6 @@ const Main = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		//don't need to add '/' before secrets, already added in endpoint
 		if (!accessToken) {
 			navigate('/login');
 		}
@@ -41,15 +58,15 @@ const Main = () => {
 	}, [accessToken, dispatch]);
 
 	return (
-		<div>
+		<MainWrapper>
 			<div>
 				<Link to="/login"> To '/login' ! </Link>
 			</div>
-			<h1>Super Secret information:</h1>
+			<Title>Super Secret information:</Title>
 			{secretsItems.map((item) => (
-				<div key={item._id}>{item.message} </div>
+				<SecretMessges key={item._id}>{item.message} </SecretMessges>
 			))}
-		</div>
+		</MainWrapper>
 	);
 };
 
