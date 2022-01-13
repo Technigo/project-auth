@@ -31,6 +31,10 @@ const SecretSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+  text: {
+    type: String,
+    required: true,
+  }
 });
 
 const Secret = mongoose.model('Secret', SecretSchema)
@@ -39,7 +43,7 @@ const Secret = mongoose.model('Secret', SecretSchema)
 // overridden when starting the server. For example:
 //
 //   PORT=9000 npm start
-const port = process.env.PORT || 9090
+const port = process.env.PORT || 9000
 const app = express()
 
 // Add middlewares to enable cors and json body parsing
