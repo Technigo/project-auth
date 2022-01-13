@@ -4,13 +4,23 @@ import user from "../reducers/user";
 import { API_URL } from "../utils/constants";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
+import Main from "./Main";
 
 const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   gap: 25px;
+  background-color: #f7e793bf;
+  padding: 50px;
+  width: 250px;
+  border-radius: 15px;
+  box-shadow: 6px 6px 12px #f7e793bf, -6px -6px 12px #f7e793bf;
+`;
+
+const ModeTitle = styled.h1`
+  margin: 0;
 `;
 
 const Form = styled.form`
@@ -20,17 +30,79 @@ const Form = styled.form`
   gap: 15px;
 `;
 
+const Input = styled.input`
+  border: 3px solid #f7e79380;
+  outline: none;
+  border-radius: 5px;
+  width: 200px;
+  height: 25px;
+  background-color: #ffffffd9;
+  ::placeholder {
+    font-style: italic;
+    font-family: inherit;
+  }
+  :focus {
+    border: 3px solid #75ceabcc;
+  }
+`;
+
+export const Button = styled.button`
+  border: transparent;
+  font-family: inherit;
+  width: 150px;
+  height: 30px;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 5px;
+  background-color: #75ceabe6;
+`;
+
 const SignUpInContainer = styled.div`
   display: flex;
   gap: 5px;
 `;
 
+const MainContainer = styled.div`
+  display: none;
+`;
+
+// const StyledRadiobutton = styled.input`
+//   &.radio {
+//     grid-column: 1;
+//     appearance: none;
+//     background-color: #fff;
+//     margin: 0;
+//     font: inherit;
+//     color: black;
+//     width: 1.5em;
+//     height: 1.5em;
+//     border: 0.15em solid #3f739b;
+//     border-radius: 1em;
+//     transform: translateY(-0.05em);
+//     display: grid;
+//     place-content: center;
+//   }
+//   &.radio::before {
+//     content: "";
+//     width: 1em;
+//     height: 1em;
+//     border-radius: 1em;
+//     transform: scale(0);
+//     transition: 120ms transform ease-in-out;
+//     box-shadow: inset 1em 1em #3f739b;
+//   }
+//   &.radio:checked::before {
+//     transform: scale(1);
+//   }
+// `;
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [mode, setMode] = useState("signin");
+  // const [mode, setMode] = useState("signin");
 
   const accessToken = useSelector((store) => store.user.accessToken);
+  const mode = useSelector((store) => store.user.mode);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -78,32 +150,32 @@ const Login = () => {
     <LoginContainer>
       <Link to="/"></Link>
       <Form onSubmit={onFormSubmit}>
-        <h1>{mode === "signup" ? "Create Account" : "Log in"}</h1>
+        <ModeTitle>{mode === "signup" ? "Create Account" : "Log in"}</ModeTitle>
         <label htmlFor="username">Username:</label>
-        <input
+        <Input
           id="username"
           type="text"
           value={username}
           autoComplete="off"
           placeholder={mode === "signup" && "JaneDoe"}
           onChange={(e) => setUsername(e.target.value)}
-        ></input>
+        ></Input>
 
         <label htmlFor="password">Password: </label>
-        <input
+        <Input
           id="password"
           type="password"
           value={password}
           placeholder={mode === "signup" && "Minimum 5 characters"}
           onChange={(e) => setPassword(e.target.value)}
-        ></input>
+        ></Input>
 
-        <button
+        <Button
           type="submit"
           disabled={password.length < 5 && mode === "signup"}
         >
-          Submit
-        </button>
+          {mode === "signup" ? "Sign Up" : "Log in"}
+        </Button>
       </Form>
 
       <SignUpInContainer>
@@ -112,7 +184,7 @@ const Login = () => {
           id="signin"
           type="radio"
           checked={mode === "signin"}
-          onChange={() => setMode("signin")}
+          onChange={() => dispatch(user.actions.setMode("signin"))}
         />
 
         <label htmlFor="signup">Sign Up</label>
@@ -120,7 +192,7 @@ const Login = () => {
           id="signup"
           type="radio"
           checked={mode === "signup"}
-          onChange={() => setMode("signup")}
+          onChange={() => dispatch(user.actions.setMode("signup"))}
         />
       </SignUpInContainer>
     </LoginContainer>
@@ -128,5 +200,3 @@ const Login = () => {
 };
 
 export default Login;
-
-// lägga till not yet an account innan signup-radiobutton?

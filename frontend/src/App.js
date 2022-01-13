@@ -1,22 +1,32 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { combineReducers, createStore } from "@reduxjs/toolkit";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import user from "./reducers/user";
 import Main from "./components/Main";
 import Login from "./components/Login";
 import NotFound from "./components/NotFound";
-import { ui } from "./reducers/ui";
-import userprofile from "./reducers/userprofile";
+// import { ui } from "./reducers/ui";
 
 const reducer = combineReducers({
   user: user.reducer,
-  ui: ui.reducer,
-  userprofile: userprofile.reducer,
+  // ui: ui.reducer,
 });
 
-const store = configureStore({ reducer });
+//creating local storage
+const persistedStateJSON = localStorage.getItem("userReduxState");
+let persistedState = {};
+
+if (persistedStateJSON) {
+  persistedState = JSON.parse(persistedStateJSON);
+}
+
+const store = createStore(reducer, persistedState);
+
+store.subscribe(() => {
+  localStorage.setItem("userReduxState", JSON.stringify(store.getState()));
+});
 
 export const App = () => {
   return (

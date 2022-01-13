@@ -84,12 +84,13 @@ app.post("/signup", async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      response: "Please choose a username and password!",
+      response: "Please choose another username and password!",
       success: false,
     });
   }
 });
 
+//endpoint prepared to get data that can be displayed for a logged in user
 app.get("/userprofile", authenticateUser);
 app.get("/userprofile", (req, res) => {
   res.json({ message: "This is your profile!" });
