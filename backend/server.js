@@ -1,12 +1,12 @@
-import express from 'express';
-import cors from 'cors';
-import mongoose from 'mongoose';
-import crypto from 'crypto';
-import bcrypt from 'bcrypt';
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import crypto from "crypto";
+import bcrypt from "bcrypt";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-mongoose.Promise = Promise
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/hbauthAPI";
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.Promise = Promise;
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -20,101 +20,90 @@ const UserSchema = new mongoose.Schema({
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString('hex'),
+    default: () => crypto.randomBytes(128).toString("hex"),
   },
 });
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model("User", UserSchema);
 
-// Defines the port the app will run on. Defaults to 8080, but can be 
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
-const port = process.env.PORT || 8080
-const app = express()
-
-// Add middlewares to enable cors and json body parsing
-app.use(cors())
-
-// v2 - Allow only one specific domain
-app.use(
-	cors({
-		origin: 'https://my-project-frontend.com',
-	})
-);
-
-// v3 - Allow multiple domains
-
-const allowedDomains = [
-	'https://my-project-frontend.com',
-	'http://localhost:3000',
-];
-app.use(
-	cors({
-		origin: (origin, callback) => {
-			if (allowedDomains.includes(origin)) {
-				return callback(null, true);
-			} else {
-				return callback(new Error('This domain is not allowed'), false);
-			}
-		},
-	})
-);
-
-app.use(express.json())
-
-const authenticateUser = async (req, res, next) => {
-	const accessToken = req.header('Authorization');
-
-	try {
-		const user = await User.findOne({ accessToken });
-		if (user) {
-			next();
-		} else {
-			res.status(401).json({ response: 'Please, log in', success: false });
-		}
-	} catch (error) {
-		res.status(400).json({ response: error, success: false });
-	}
-};
-
-// Authentication - 401 (Unauthorized) But should be unauthenticated
-// Authorization - 403 (Forbidden) But should be unauthorized
-
-// Start defining your routes here
-app.get('/thoughts', authenticateUser);
-app.get('/thoughts', (req, res) => {
-	res.send('Here are your thoughts');
+const ThoughtSchema = new mongoose.Schema({
+  message: {
+    type: String,
+    required: true,
+  },
 });
 
+const Thought = mongoose.model("Thought", ThoughtSchema);
 
+const port = process.env.PORT || 8080;
+const app = express();
+
+// Add middlewares to enable cors and json body parsing
+app.use(cors());
+
+app.use(express.json());
+
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header("Authorization");
+
+  try {
+    const user = await User.findOne({ accessToken });
+    if (user) {
+      next();
+    } else {
+      res.status(401).json({
+        response: {
+          message: "Please, log in",
+        },
+        success: false,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+};
+
+// Start defining your routes here
+app.get("/thoughts", authenticateUser);
+app.get("/thoughts", async (req, res) => {
+  const thoughts = await Thought.find({});
+  res.status(201).json({ response: thoughts, success: true });
+});
+
+app.post("/thoughts", async (req, res) => {
+  const { message } = req.body;
+
+  try {
+    const newThought = await new Thought({ message }).save();
+    res.status(201).json({ response: newThought, success: true });
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+});
 // sign up to to the site
-app.post('/signup', async (req, res) => {
+app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
 
   try {
     const salt = bcrypt.genSaltSync(); // Create a randomizer to prevent to unhash it
-    const strongPassword =  "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
-    // if (password.length < 5) {
-    //   throw 'Password must be at least 5 characters long';
-    // }
+    const strongPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)[a-zA-Zd]{8,}$";
 
     // checking if password match strongPassword
     if (password.match(strongPassword)) {
       const newUser = await new User({
         username,
-        password: bcrypt.hashSync(password, salt)
+        password: bcrypt.hashSync(password, salt),
       }).save();
       res.status(201).json({
         response: {
           userId: newUser._id,
           username: newUser.username,
-          accessToken: newUser.accessToken
+          accessToken: newUser.accessToken,
         },
-        success: true
+        success: true,
       });
     } else {
-      throw 'Minimum eight characters, at least one uppercase letter, one lowercase letter and one number:';
+      throw "Minimum eight characters, at least one uppercase letter, one lowercase letter and one number:";
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false });
@@ -122,7 +111,7 @@ app.post('/signup', async (req, res) => {
 });
 
 // sign in to your account
-app.post('/signin', async (req, res) => {
+app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -133,14 +122,14 @@ app.post('/signin', async (req, res) => {
         response: {
           userId: user._id,
           username: user.username,
-          accessToken: user.accessToken
+          accessToken: user.accessToken,
         },
-        success: true
+        success: true,
       });
     } else {
       res.status(404).json({
         response: "Username or password doesn't match.",
-        success: false
+        success: false,
       });
     }
   } catch (error) {
@@ -151,5 +140,5 @@ app.post('/signin', async (req, res) => {
 // Start the server
 app.listen(port, () => {
   // eslint-disable-next-line
-  console.log(`Server running on http://localhost:${port}`)
-})
+  console.log(`Server running on http://localhost:${port}`);
+});
