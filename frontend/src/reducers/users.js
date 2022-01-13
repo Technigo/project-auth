@@ -7,7 +7,7 @@ export const users = createSlice({
   initialState: {
     username: null,
     accessToken: null,
-    securityLevel: 1,
+    securityLevel: null,
     riddle: null,
     error: null,
   },
