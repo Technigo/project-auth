@@ -81,10 +81,10 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next()
     } else {
-      res.status(401).json({ response: 'Please, log in', success: false})
+      res.status(401).json({ message: 'Please, log in', success: false})
     }
   } catch (error) {
-    res.status(400).json({ response: "Invalid request", success: false, error })
+    res.status(400).json({ message: "Invalid request", success: false, error })
   }
 }
 
@@ -101,7 +101,7 @@ app.get('/', (req, res) => {
 app.get('/secrets', authenticateUser);
 app.get('/secrets', async (req, res) => {
 	const secrets = await Secret.find({})
-	res.status(201).json({ response: secrets, success: true })
+	res.status(201).json({ message: secrets, success: true })
 })
 
 app.post('/secrets', async (req, res) => {
@@ -109,9 +109,9 @@ app.post('/secrets', async (req, res) => {
 
 	try {
 		const newSecret = await new Secret({ message, text }).save();
-		res.status(201).json({ response: newSecret, success: true })
+		res.status(201).json({ message: newSecret, success: true })
 	} catch (error) {
-		res.status(400).json({ response: error, success: false })
+		res.status(400).json({ message: error, success: false })
 	}
 })
 
@@ -132,7 +132,7 @@ app.post('/signup', async (req, res) => {
     }).save()
 
     res.status(201).json({
-      response: {
+      message: {
         userId: newUser._id,
         username: newUser.username,
         accessToken: newUser.accessToken
@@ -140,7 +140,7 @@ app.post('/signup', async (req, res) => {
       success: true,
     })
   } catch (error) {
-    res.status(400).json({ response: "Invalid request", success: false, error })
+    res.status(400).json({ message: "Invalid request", success: false, error })
   }
 })
 
@@ -153,7 +153,7 @@ app.post('/signin', async (req, res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
-        response: {
+        message: {
         userId: user._id,
         username: user.username,
         accessToken: user.accessToken
@@ -161,10 +161,10 @@ app.post('/signin', async (req, res) => {
         success: true
       })
     } else {
-      res.status(404).json({ response: 'Username or password is incorrect', success: false })
+      res.status(404).json({ message: 'Username or password is incorrect', success: false })
     }
   } catch (error){
-    res.status(400).json({ response: "Invalid request", success: false, error})
+    res.status(400).json({ message: "Invalid request", success: false, error})
   }
 })
 // Start the server
