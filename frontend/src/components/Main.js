@@ -8,7 +8,7 @@ import secrets from "reducer/secrets";
 import user from "../reducer/user";
 
 export const Main = () => {
-  const secretsItems = useSelector((store) => store.secrets.items);
+ 
   const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,9 +40,9 @@ export const Main = () => {
       });
   }, [accessToken]);
 
-  const [mode, setMode] = useState("signin");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [mode] = useState("signin");
+  const [username] = useState("");
+  const [password] = useState("");
 
   const onClick = (event) => {
     event.preventDefault();
