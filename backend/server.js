@@ -3,7 +3,6 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.set("useFindAndModify", false);
@@ -60,10 +59,6 @@ const authenticateUser = async (req, res, next) => {
     res.status(400).json({ response: error, success: false });
   }
 };
-
-app.get("/", (req, res) => {
-  res.send(listEndpoints(app));
-});
 
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
