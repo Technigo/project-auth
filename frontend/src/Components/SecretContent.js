@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -32,7 +32,7 @@ export const SecretContent = () => {
   return (
     <>
       <Cake>
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🧁
         </span>
       </Cake>
@@ -41,7 +41,7 @@ export const SecretContent = () => {
       </Link> */}
       <H1>
         This is super secret
-        <span role='img' aria-label='eyes'>
+        <span role="img" aria-label="eyes">
           👀
         </span>{' '}
         ... for some reason
@@ -50,13 +50,13 @@ export const SecretContent = () => {
       <p>
         Topping muffin marzipan carrot cake icing. Powder sesame snaps gummi
         bears oat cake candy canes.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🧁
         </span>
         Lollipop tart cheesecake cotton candy gingerbread tootsie roll. Topping
         dragée jujubes bonbon icing. Jujubes lollipop cupcake pastry gummi bears
         macaroon danish sesame snaps gummies.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🍪
         </span>
         Sweet jelly dessert soufflé candy canes. Cupcake soufflé icing jelly-o
@@ -67,19 +67,19 @@ export const SecretContent = () => {
         cotton candy. Topping candy carrot cake cake gingerbread candy. Candy
         canes marzipan brownie lemon drops dessert fruitcake biscuit brownie
         soufflé. Chupa chups gummies tart chocolate bar muffin{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🧁
         </span>
         brownie brownie soufflé sugar plum. Brownie topping tiramisu oat cake
         dessert tootsie roll jelly beans. Dragée tart tiramisu liquorice
         croissant cupcake tart tart. Jelly beans apple pie gummies brownie
         dessert. Pie marzipan cotton candy jelly caramels.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🍪
         </span>
         Donut topping icing danish sweet ice cream sweet ice cream. Cake jelly-o
         lollipop croissant sugar plum.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🧁
         </span>
         Bear claw shortbread marshmallow brownie jelly beans fruitcake sugar
@@ -91,20 +91,20 @@ export const SecretContent = () => {
         marzipan chocolate bar jujubes. Cookie sweet roll jelly beans cotton
         candy cookie. Apple pie jelly chocolate cupcake sweet roll marzipan
         gummi bears marshmallow.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🍪
         </span>
         Jelly beans cake chupa chups chocolate tiramisu dessert candy. Cookie
         toffee liquorice topping lemon drops. Chocolate bar sweet tart chocolate
         bar chocolate cake wafer sweet roll. Pie jelly beans gummi bears dragée
         croissant soufflé cake.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🧁
         </span>
         Donut toffee icing dessert chocolate. Powder ice cream shortbread
         lollipop tart chocolate bar dragée cake. Bonbon carrot cake icing
         jelly-o jelly pudding jelly biscuit.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🍪
         </span>
         Dessert soufflé donut sugar plum dessert biscuit. Jujubes shortbread
@@ -115,7 +115,7 @@ export const SecretContent = () => {
         chocolate cake. Marzipan fruitcake jujubes sweet roll candy biscuit
         tiramisu ice cream ice cream. Gingerbread cheesecake oat cake dragée
         chocolate bar.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🧁
         </span>
         Cheesecake biscuit topping oat cake chupa chups.
@@ -124,12 +124,12 @@ export const SecretContent = () => {
         Cotton candy tart oat cake bear claw cheesecake topping jelly-o cotton
         candy powder. Cake jelly beans marshmallow powder toffee cheesecake.
         Jelly macaroon powder sesame snaps oat cake tart dragée.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🍪
         </span>
         Chocolate cake bear claw jujubes macaroon gummi bears marshmallow.
         Shortbread croissant cotton candy candy tiramisu jelly beans.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🍩
         </span>
         Oat cake candy danish danish chocolate bar cheesecake jelly beans
@@ -137,7 +137,7 @@ export const SecretContent = () => {
         gummi bears marshmallow candy. Cookie candy canes shortbread dragée bear
         claw oat cake cookie sweet dessert. Donut muffin sugar plum caramels
         carrot cake cotton candy caramels jelly-o. Soufflé soufflé{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🍩
         </span>
         caramels soufflé liquorice danish. Marshmallow bonbon sugar plum halvah
@@ -146,7 +146,7 @@ export const SecretContent = () => {
         tootsie roll ice cream tiramisu gingerbread. Liquorice pudding jelly-o
         danish caramels. Croissant lollipop topping chocolate dessert oat cake
         muffin jelly beans.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🍩
         </span>
         Candy canes fruitcake gummi bears candy sweet chocolate. Wafer dessert
@@ -156,19 +156,19 @@ export const SecretContent = () => {
         Pastry shortbread halvah lemon drops gummi bears cotton candy pie candy.
         Carrot cake liquorice jujubes oat cake caramels. Danish cake cake
         gummies cheesecake croissant cheesecake jelly beans.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🧁
         </span>
         Jelly-o icing carrot cake powder fruitcake soufflé biscuit liquorice.
         Wafer cake sweet cake lollipop. Brownie chupa chups chocolate bar halvah
         oat cake. Brownie toffee apple pie bear claw jelly lemon drops sweet pie
         tart.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🍩
         </span>
         Macaroon topping caramels cake liquorice topping candy canes
         marshmallow. Powder muffin candy canes bonbon jelly dessert.{' '}
-        <span role='img' aria-label='cupcake'>
+        <span role="img" aria-label="cupcake">
           🧁
         </span>
         Toffee sweet roll danish bonbon wafer bear claw.
