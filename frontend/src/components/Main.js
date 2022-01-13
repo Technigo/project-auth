@@ -70,6 +70,7 @@ const Main = () => {
 			</SecretWrapper>
 			
 			<Button onClick={() => {dispatch(users.actions.logout())}}>Logout</Button>
+			
 		</PageWrapper>
 	)
 }

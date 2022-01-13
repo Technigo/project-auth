@@ -24,7 +24,7 @@ export const App = () => {
       <Routes>
         <Route exact path='/' element={<Main />} />
         <Route path='/login' element={<LogIn />} />
-        <Route path='/notfound' element={<NotFound />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       </BrowserRouter>
   </Provider>

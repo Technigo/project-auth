@@ -1,12 +1,12 @@
 import styled from 'styled-components'
-import { HeartFillIcon, MailIcon, KeyIcon } from '@primer/octicons-react'
+import { HeartFillIcon, KeyIcon } from '@primer/octicons-react'
 
 
 // HEADER
 
 export const Header = styled.div`
 max-width: 343px;
-margin: 5rem auto;
+margin: 7rem auto 2rem auto;
 `
 
 export const H1 = styled.h1`
@@ -18,7 +18,9 @@ color: #F3EFCC;
 
 export const H2 = styled.h2`
 font-size: 1rem;
-margin-top: 0.5rem;
+line-height: 1.5rem;
+margin-top: 2rem;
+font-weight: 400;
 color: #F3EFCC;
 `
 
@@ -109,7 +111,7 @@ export const FormWrapper = styled.div`
 max-width: 343px;
 background-color: #406343;
 border-radius: 10px;
-margin:  5rem auto;
+margin:  2rem auto;
 box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 `
 
@@ -182,7 +184,7 @@ outline: none;
 export const ButtonWrapper = styled.div`
 display: flex;
 justify-content: center;
-margin-top: 1rem;
+gap: 1rem;
 `
 
 export const Button = styled.button`

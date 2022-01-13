@@ -4,25 +4,21 @@ import { useNavigate } from 'react-router-dom';
 
 import { API_URL } from '../utils/constants';
 import user from '../reducers/users';
+import { Footer } from './Footer'
 
 import { 
   Header,
   FormWrapper,
   Form,
-  Radiowrapper,
-  RadioButton,
   H1,
   H2,
-  Radios,
-  Radiolabel,
   Input,
   Label,
   Button,
   Heart,
   Key,
   Flexboxinput,
-  RadioButtonTest,
-  HiddenRadioButton,
+  ButtonWrapper,
 } from './styles_login'
 
 const Login = () => {
@@ -31,6 +27,8 @@ const Login = () => {
 	const [mode, setMode] = useState('signup');
 
 	const accessToken = useSelector((store) => store.users.accessToken);
+	const errors = useSelector(store => store.user.errors)
+
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -76,73 +74,48 @@ const Login = () => {
 
 	return (
         <>
-        <div>
-            <RadioButtonTest 
-                id="signup"
-                type="radio"
-                checked={mode === 'signup'}
-                onChange={() => setMode('signup')}
-            />
-            <RadioButtonTest 
-                id="signin"
-                type="radio"
-                checked={mode === 'signin'}
-                onChange={() => setMode('signin')}
-            />
-            </div>
         <Header>
-        <H1>Hello! Hej! Moi! Ciao! Bonjour! Hola! Zdravo! Namaste! Olá! </H1>
-        <H2> Already a user? - Sign in!</H2>
-        <Radios>
-                <Radiowrapper>
-                    <RadioButton
-                        id="signup"
-                        type="radio"
-                        checked={mode === 'signup'}
-                        onChange={() => setMode('signup')}
-                    />
-                    <Radiolabel htmlFor="signup">Sign up</Radiolabel>
-                </Radiowrapper>
-                <Radiowrapper>
-                    <RadioButton
-                        id="signin"
-                        type="radio"
-                        checked={mode === 'signin'}
-                        onChange={() => setMode('signin')}
-                    />
-                    <Radiolabel htmlFor="signin">Sign in</Radiolabel>
-                </Radiowrapper>
-            </Radios>
-            
-    </Header>
+            <H1>Hello! Hej! Moi! Ciao! Bonjour! Hola! Zdravo! Namaste! Olá! </H1>
+            <H2>Ever been asked to share some of your most secret secrets? Psst... don't tell anyone, but if you log in I will give you some advice! Not a user yet? Just sign up!</H2>
+        </Header>
 
 		<FormWrapper>
 			<Form onSubmit={onFormSubmit}>
-                        <Label htmlFor="username">Username</Label>
-                        <Flexboxinput>
-                            <Heart />
-                            <Input
-                                id="username"
-                                type="text"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </Flexboxinput>
+                <Label htmlFor="username">Username</Label>
+                <Flexboxinput>
+                    <Heart />
+                    <Input
+                        id="username"
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </Flexboxinput>
 
-                        <Label htmlFor="password">Password</Label>
-                        <Flexboxinput>
-                            <Key />
-                            <Input
-                                id="password"
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </Flexboxinput>
+                <Label htmlFor="password">Password</Label>
+                <Flexboxinput>
+                    <Key />
+                    <Input
+                        id="password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </Flexboxinput>
 
-				<Button type="submit">Submit</Button>
+				{/* <Button type="submit">Submit</Button> */}
+                <ButtonWrapper>
+				{errors && <p>{errors.response}</p>}
+                    <Button type='submit' onClick={() => setMode('signin')}>
+                        Sign in
+                    </Button>
+                    <Button type='submit' onClick={() => setMode('signup')}>
+                        Sign up
+                    </Button>
+                </ButtonWrapper>
 			</Form>
 		</FormWrapper>
+        <Footer />
         </>
 	)
 }
