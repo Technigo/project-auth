@@ -7,11 +7,11 @@ import Main from './components/Main'
 import LogIn from './components/Login'
 import NotFound from './components/NotFound'
 
-import users from './reducers/users'
+import user from './reducers/user'
 import secrets from './reducers/secrets'
 
 const reducer = combineReducers({
-  users: users.reducer,
+  user: user.reducer,
   secrets: secrets.reducer,
 })
 

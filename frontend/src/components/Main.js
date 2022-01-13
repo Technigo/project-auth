@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { API_URL } from '../utils/constants';
-import secrets from '../reducers/secrets';
-import users from '../reducers/users';
+import { API_URL } from '../utils/constants'
+import secrets from '../reducers/secrets'
+import user from '../reducers/user'
 
 import { 
 	PageWrapper,
@@ -20,7 +20,7 @@ import {
 
 const Main = () => {
 	const secretItems = useSelector((store) => store.secrets.items)
-	const accessToken = useSelector((store) => store.users.accessToken)
+	const accessToken = useSelector((store) => store.user.accessToken)
 
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
@@ -69,7 +69,7 @@ const Main = () => {
 				))}
 			</SecretWrapper>
 			
-			<Button onClick={() => {dispatch(users.actions.logout())}}>Logout</Button>
+			<Button onClick={() => {dispatch(user.actions.logout())}}>Logout</Button>
 			
 		</PageWrapper>
 	)

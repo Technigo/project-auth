@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch, batch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch, batch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { API_URL } from '../utils/constants';
-import user from '../reducers/users';
+import { API_URL } from '../utils/constants'
+import user from '../reducers/user'
 import { Footer } from './Footer'
 
 import { 
@@ -19,19 +19,23 @@ import {
   Key,
   Flexboxinput,
   ButtonWrapper,
+  P,
 } from './styles_login'
 
 const Login = () => {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
-	const [mode, setMode] = useState('signup');
+	const [username, setUsername] = useState('')
+	const [password, setPassword] = useState('')
+	const [mode, setMode] = useState('signup')
 
-	const accessToken = useSelector((store) => store.users.accessToken);
-	const errors = useSelector(store => store.user.errors)
+	const [errorMessage, setErrorMessage] = useState(null)
 
 
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	const accessToken = useSelector((store) => store.user.accessToken)
+	// const errors = useSelector((store) => store.user.error)
+
+
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		if (accessToken) {
@@ -56,21 +60,23 @@ const Login = () => {
 				console.log(data);
 				if (data.success) {
 					batch(() => {
-						dispatch(user.actions.setUserId(data.response.userId));
-						dispatch(user.actions.setUsername(data.response.username));
-						dispatch(user.actions.setAccessToken(data.response.accessToken));
+						dispatch(user.actions.setUserId(data.response.userId))
+						dispatch(user.actions.setUsername(data.response.username))
+						dispatch(user.actions.setAccessToken(data.response.accessToken))
 						dispatch(user.actions.setError(null));
+						setErrorMessage(null)
 					});
 				} else {
 					batch(() => {
-						dispatch(user.actions.setUserId(null));
-						dispatch(user.actions.setUsername(null));
-						dispatch(user.actions.setAccessToken(null));
-						dispatch(user.actions.setError(data.response));
-					});
+						dispatch(user.actions.setUserId(null))
+						dispatch(user.actions.setUsername(null))
+						dispatch(user.actions.setAccessToken(null))
+						dispatch(user.actions.setError(data.response))
+						setErrorMessage(data.message)
+					})
 				}
-			});
-	};
+			})
+	}
 
 	return (
         <>
@@ -104,8 +110,11 @@ const Login = () => {
                 </Flexboxinput>
 
 				{/* <Button type="submit">Submit</Button> */}
+				{setErrorMessage !== null && (
+            		<P>{errorMessage}</P>
+          			)}
                 <ButtonWrapper>
-				{errors && <p>{errors.response}</p>}
+				
                     <Button type='submit' onClick={() => setMode('signin')}>
                         Sign in
                     </Button>

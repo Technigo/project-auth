@@ -24,6 +24,12 @@ font-weight: 400;
 color: #F3EFCC;
 `
 
+export const P = styled.p`
+  font-size: 1rem;
+  color: #F3EFCC;
+  margin-top: 0;
+`
+
 //RADIO BUTTONS
 
 export const Radios = styled.div`
