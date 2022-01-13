@@ -1,2 +1,2 @@
-export const API_BASE = "http://localhost:8080/";
-export const API_URL = (slug) => `http://localhost:8080/${slug}`;
+export const API_BASE = "https://caretologin.herokuapp.com/";
+export const API_URL = (slug) => `https://caretologin.herokuapp.com/${slug}`;
