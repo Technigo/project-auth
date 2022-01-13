@@ -20,6 +20,13 @@ Isabel González and Ida Aspen
 - Database deployed using mongo cloud.
 - Deployed to Netlify.
 
+## Challenges and lessons learned
+
+- We used a password generator to test strong passwords. Not noticing that the generator added white spaces resulted in false results on the test.
+- A request in the backend was not passing through because of a typo ("sucess" instead of "success").
+- Deployment was particularly challenging. We had to make sure the frontend was fetching from the right URL (all characters included. A slash was missing).
+- Las but not least, missing the \_redirects file inside the public frontend folder was causing deployment issues as well.
+
 ## View it live
 
 Backend
