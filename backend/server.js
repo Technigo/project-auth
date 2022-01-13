@@ -66,7 +66,7 @@ app.get('/secrets', (req, res) => {
 });
 
 app.post('/signup', async (req, res) => {
-	const { username, password } = req.body;
+	const { username, password, email } = req.body;
 
 	try {
 		const salt = bcrypt.genSaltSync();
@@ -77,6 +77,7 @@ app.post('/signup', async (req, res) => {
 
 		const newUser = await new User({
 			username,
+      email,
 			password: bcrypt.hashSync(password, salt),
 		}).save();
 
@@ -84,6 +85,7 @@ app.post('/signup', async (req, res) => {
 			response: {
 				userId: newUser._id,
 				username: newUser.username,
+        email: newUser.email,
 				accessToken: newUser.accessToken,
 			},
 			success: true,
