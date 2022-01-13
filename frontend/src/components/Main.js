@@ -13,6 +13,8 @@ const MainContainer = styled.div`
   top: 0;
   left: 0;
   right: 0;
+  display: flex;
+  justify-content: space-between;
   gap: 25px;
   background-color: #f7e793bf;
   padding: 20px;
@@ -25,7 +27,7 @@ const MainTitle = styled.h1`
 `;
 
 const ButtonContainer = styled.div`
-  text-align: right;
+  align-self: center;
 `;
 
 const Main = () => {
@@ -33,14 +35,12 @@ const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const mode = useSelector((store) => store.user.mode);
   const loading = useSelector((store) => store.user.loading);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const jsConfetti = new JSConfetti();
 
   useEffect(() => {
-    setTimeout(() => dispatch(user.actions.setLoading(false)), 1500);
+    setTimeout(() => dispatch(user.actions.setLoading(false)), 2000);
     if (!accessToken) {
       navigate("/signin");
     } else if (mode === "signup") {
@@ -63,6 +63,12 @@ const Main = () => {
         <LoadingSpinner />
       ) : (
         <MainContainer>
+          <MainTitle>
+            {mode === "signin"
+              ? "Welcome back to the future, "
+              : "Welcome to the future, "}
+            {username}!
+          </MainTitle>
           <ButtonContainer>
             {accessToken && (
               <Button className="logout-button" onClick={onButtonClick}>
@@ -70,12 +76,6 @@ const Main = () => {
               </Button>
             )}
           </ButtonContainer>
-          <MainTitle>
-            {mode === "signin"
-              ? "WELCOME BACK TO THE FUTURE, "
-              : "WELCOME TO THE FUTURE, "}
-            {username}!
-          </MainTitle>
         </MainContainer>
       )}
     </>

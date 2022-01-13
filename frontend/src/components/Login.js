@@ -70,17 +70,14 @@ export const Button = styled.button`
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [mode, setMode] = useState("signin");
-
   const accessToken = useSelector((store) => store.user.accessToken);
   const mode = useSelector((store) => store.user.mode);
   const loading = useSelector((store) => store.user.loading);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => dispatch(user.actions.setLoading(false)), 1500);
+    setTimeout(() => dispatch(user.actions.setLoading(false)), 2000);
     if (accessToken) {
       navigate("/");
     }
