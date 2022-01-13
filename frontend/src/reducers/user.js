@@ -17,8 +17,13 @@ const user = createSlice({
     username: null,
     accessToken: null,
     error: null,
+    email: null,
   },
   reducers: {
+    setEmail: (store, action) => {
+      store.email = action.payload;
+    },
+
     setUserId: (store, action) => {
       store.userId = action.payload;
     },

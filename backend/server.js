@@ -10,6 +10,11 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
 const userSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   username: {
     type: String,
     unique: true,
@@ -59,8 +64,9 @@ const authenticateUser = async (req, res, next) => {
 //   res.status(201).json({ response: cats, success: true });
 // });
 
+// app.post('/signup', authenticateUser); /// how do we solve authentication?
 app.post('/signup', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
 
   try {
     const salt = bcrypt.genSaltSync(); // this creates a randomizer to randomise the password string
@@ -79,6 +85,7 @@ app.post('/signup', async (req, res) => {
         userId: newUser._id,
         username: newUser.username,
         accessToken: newUser.accessToken,
+        email: newUser.email,
       },
       success: true,
     });
