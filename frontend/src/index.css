@@ -18,13 +18,16 @@ code {
 }
 
 .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   text-align: center;
   height: 80px;
   background-color: steelblue;
   color: white;
   margin: 0px;
   font-family: "Helvetica Neue";
-  padding-top: 25px;
+  padding: 20px;
 }
 h1 {
   font-weight: 200;
@@ -72,7 +75,7 @@ h3 {
 }
 
 button {
-  margin: 10px auto;
+  margin: 10px 0;
   border-radius: 35px;
   border: 2px solid steelblue;
   color: steelblue;
@@ -100,5 +103,5 @@ form {
 
 .container {
   max-width: 500px;
-  margin: 0 auto;
+  margin: 10px auto;
 }

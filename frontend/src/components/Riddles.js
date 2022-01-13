@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { users, riddles } from "../reducers/users";
 
+import { SignOut } from "./SignOut";
+
 export const Riddles = () => {
   const [answer, setAnswer] = useState("");
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.users.accessToken);
@@ -25,9 +27,6 @@ export const Riddles = () => {
     dispatch(riddles(token));
   };
 
-  const onSignOut = () => {
-    dispatch(users.actions.setUserToLoggedOut());
-  };
   const onAnswerSumbit = (event) => {
     event.preventDefault();
     // dispatch();
@@ -47,7 +46,7 @@ export const Riddles = () => {
           />
           <button type="submit">Answer</button>
         </form>
-        <button onClick={onSignOut}>Sign out</button>
+        <SignOut />
       </div>
     </div>
   );
