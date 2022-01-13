@@ -47,6 +47,12 @@ h3 {
   text-align: center;
   margin: 20px;
 }
+h4 {
+  margin: 10px 0px;
+}
+h5 {
+  margin: 10px 0px;
+}
 
 .button-align {
   display: flex;
