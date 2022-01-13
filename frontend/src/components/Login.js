@@ -60,43 +60,46 @@ const Login = () => {
         }
       });
   };
+  // console.log(error);
 
   return (
     <>
       {/*   <div>
         <Link to='/'>To '/' !</Link>
       </div> */}
-      <label htmlFor='signup'>Signup</label>
+      <label htmlFor="signup">Signup</label>
       <input
-        id='signup'
-        type='radio'
+        id="signup"
+        type="radio"
         checked={mode === 'signup'}
         onChange={() => setMode('signup')}
       />
-      <label htmlFor='signin'>Signin</label>
+      <label htmlFor="signin">Signin</label>
       <input
-        id='signin'
-        type='radio'
+        id="signin"
+        type="radio"
         checked={mode === 'signin'}
         onChange={() => setMode('signin')}
       />
       <form onSubmit={onFormSubmit}>
-        <label htmlFor='username'>Username</label>
+        <label htmlFor="username">Username</label>
         <input
-          id='username'
-          type='text'
+          id="username"
+          type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label htmlFor='password'>Password</label>
+        <label htmlFor="password">Password</label>
         <input
-          id='password'
-          type='password'
+          id="password"
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         {error && <p>Whoops! Something went wrong. Try again!</p>}
-        <button type='submit'>Submit</button>
+        {/* {error ? <p>{error}</p> : ''}  denna fungerar endast för att visa medellandet om lösen, inte andra fel*/}
+
+        <button type="submit">Submit</button>
       </form>
     </>
   );

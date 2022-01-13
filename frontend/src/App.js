@@ -8,9 +8,11 @@ import Login from './components/Login';
 import NotFound from './components/NotFound';
 
 import user from './reducers/user';
+import secrets from './reducers/secrets';
 
 const reducer = combineReducers({
-  user: user.reducer
+  user: user.reducer,
+  secrets: secrets.reducer
 });
 
 const store = configureStore({ reducer });
@@ -20,9 +22,9 @@ export const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Main />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='*' element={<NotFound />} />
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </Provider>
