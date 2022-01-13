@@ -30,10 +30,6 @@ const SignUp = () => {
   const onFormSubmit = event => {
     event.preventDefault();
 
-    const dataToSubmit = {
-      email,
-    };
-
     const options = {
       method: 'POST',
       headers: {
@@ -83,13 +79,7 @@ const SignUp = () => {
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
-        <label>email</label>
-        <input
-          type='text'
-          placeholder='enter email'
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
+
         <label>password</label>
         <input
           type='password'

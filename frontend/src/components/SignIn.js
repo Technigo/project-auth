@@ -15,7 +15,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const accessToken = useSelector((store) => store.user.accessToken);
+  const accessToken = useSelector(store => store.user.accessToken);
 
   useEffect(() => {
     if (accessToken) {
@@ -23,7 +23,7 @@ const SignIn = () => {
     }
   }, [accessToken, navigate]);
 
-  const onFormSubmit = (event) => {
+  const onFormSubmit = event => {
     event.preventDefault();
 
     const options = {
@@ -35,8 +35,8 @@ const SignIn = () => {
     };
 
     fetch(SIGNIN_URL, options)
-      .then((res) => res.json())
-      .then((data) => {
+      .then(res => res.json())
+      .then(data => {
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId));
@@ -67,7 +67,7 @@ const SignIn = () => {
           type='text'
           placeholder='enter username'
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={e => setUsername(e.target.value)}
         />
         <label htmlFor='password'>password</label>
         <input
@@ -75,7 +75,7 @@ const SignIn = () => {
           type='password'
           placeholder='enter password'
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
         />
         <button type='submit'>sign in</button>
       </form>

@@ -11,7 +11,7 @@ import { URL_CATS } from '../utils/urls';
 const Main = () => {
   const [cat, setCat] = useState({});
   // const catItems = useSelector((store) => store.cats.items);
-  const accessToken = useSelector((store) => store.user.accessToken);
+  const accessToken = useSelector(store => store.user.accessToken);
   // const logOut = useSelector((store) => store.user.logout);
 
   const navigate = useNavigate();
@@ -26,15 +26,15 @@ const Main = () => {
 
   useEffect(() => {
     fetch(URL_CATS)
-      .then((res) => res.json())
-      .then((data) => {
+      .then(res => res.json())
+      .then(data => {
         console.log(data);
         setCat(data);
 
         dispatch(cats.actions.setItems(data));
         dispatch(cats.actions.setErrors(null));
       });
-  }, [accessToken]);
+  }, []);
 
   const handleLogout = () => {
     dispatch(user.actions.logout());
