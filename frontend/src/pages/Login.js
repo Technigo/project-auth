@@ -133,6 +133,7 @@ const Login = () => {
                 <StyledInputField
                   type={visible ? 'text' : 'password'}
                   value={password}
+                  minLength='5'
                   onChange={onPasswordChange}
                 />
                 {visible ? (
