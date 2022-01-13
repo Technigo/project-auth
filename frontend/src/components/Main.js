@@ -69,7 +69,7 @@ export const Main = () => {
   return (
     <article className="mainContainer">
       <section className="imgContainer">
-        <img src={background} alt="background image" />
+        <img src={background} alt='background image' />
       </section>
       <section className="mainContent">
         <h1>Welcome in to our secret little world!</h1>
