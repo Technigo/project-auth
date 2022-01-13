@@ -1,15 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// const secretData = [
-//   { id: 1, text: 'Super ' },
-//   { id: 2, text: 'secret ' },
-//   { id: 3, text: 'message!' }
-// ];
-// const secrets = createSlice({
-//   name: 'secrets',
-//   initialState: secretData
-// });
-
 const secrets = createSlice({
   name: 'secrets',
   initialState: {

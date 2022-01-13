@@ -54,7 +54,6 @@ const Login = () => {
         }
       });
   };
-  // console.log(error);
 
   return (
     <div className="form-container">
@@ -107,8 +106,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         {error && <p>Whoops! Something went wrong. Try again!</p>}
-        {/* {error ? <p>{error}</p> : ''}  denna fungerar endast för att visa medellandet
-        om lösen, inte andra fel */}
+        {/* {error ? <p>{error}</p> : ''} */}
 
         <button type="submit">Submit</button>
       </form>
