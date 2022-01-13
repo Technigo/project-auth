@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    minlength: [5, 'Password must be at least 5 characters long']
   },
   email: {
     type: String,
@@ -89,9 +90,9 @@ app.post('/signup', async (req, res) => {
 
   try {
     const salt = bcrypt.genSaltSync()
-    if (password.length < 5) {
-      throw 'Password mush be at least 5 characters long'
-    }
+    // if (password.length < 5) {
+    //   throw 'Password mush be at least 5 characters long'
+    // }
     const newUser = await new User({
       username,
       email,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { NASA_URL } from '../utils/urls'
 import user from '../reducers/user'
 import styled from 'styled-components'
@@ -35,7 +35,7 @@ const Main = () => {
         console.log(data)
         setDailySpace(data)
       })
-  }, [])
+  }, [accessToken])
   const onRestartClick = () => {
     dispatch(user.actions.restart())
   }
@@ -87,7 +87,6 @@ const StyledContainer = styled.div`
   margin-bottom: 10px;
   border-radius: 30px;
   padding: 10px 10px;
-  /* left: 10%; */
   width: 80%;
 `
 const StyledTitle = styled.h1`
