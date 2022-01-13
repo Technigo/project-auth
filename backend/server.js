@@ -8,7 +8,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		unique: true,
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
 	},
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", UserSchema);
 
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
@@ -59,8 +59,10 @@ app.get("/", (req, res) => {
 });
 
 // not used endpoint but set up for authentication
-app.get("/", authenticateUser);
-app.get("/", async (req, res) => {});
+app.get("/memes", authenticateUser);
+app.get("/memes", async (req, res) => {
+	res.status(201).json({ response: memes, success: true });
+});
 
 // endpoint for signing up
 app.post("/signup", async (req, res) => {
@@ -103,9 +105,9 @@ app.post("/signin", async (req, res) => {
 		if (user && bcrypt.compareSync(password, user.password)) {
 			res.status(200).json({
 				response: {
-					userId: newUser._id,
-					username: newUser.username,
-					accessToken: newUser.accessToken,
+					userId: user._id,
+					username: user.username,
+					accessToken: user.accessToken,
 				},
 				success: true,
 			});

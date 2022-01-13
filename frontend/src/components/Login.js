@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { batch, useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, batch, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 
 import { API_URL } from "../utils/urls";
 import user from "../reducers/user";
@@ -9,7 +10,16 @@ const Login = () => {
 	const [password, setPassword] = useState("");
 	const [mode, setMode] = useState("signup");
 
+	const accessToken = useSelector((store) => store.user.accessToken);
+
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (accessToken) {
+			navigate("/");
+		}
+	}, [accessToken, navigate]);
 
 	const onFormSubmit = (event) => {
 		event.preventDefault();
@@ -22,7 +32,7 @@ const Login = () => {
 			body: JSON.stringify({ username, password }),
 		};
 
-		fetch(API_URL("signup"), options)
+		fetch(API_URL(mode), options)
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.success) {
@@ -42,9 +52,11 @@ const Login = () => {
 				}
 			});
 	};
-
 	return (
 		<>
+			<div>
+				<Link to="/">To '/'</Link>
+			</div>
 			<label htmlFor="signup">Signup</label>
 			<input
 				id="signup"
