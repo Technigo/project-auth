@@ -11,8 +11,11 @@ import {
 	SecretWrapper,
 	Header,
 	H1,
+	H2,
 	Button,
 	Secret,
+	HeadingSpan,
+	TextSpan,
 } from './styles_main'
 
 const Main = () => {
@@ -54,11 +57,15 @@ const Main = () => {
 
 			<Header>
 				<H1>Psst... don't tell ANYONE!</H1>
+				<H2>Have you ever been asked to share one of your secrets while playing truth or dare game with your friends at a slumber party or at some hangout with colleagues? When it comes to sharing, we often find ourselves confused about the extent to which we want to disclose ourselves to others. Secrets are considered to be very personal thus revealing them to someone is tough yet it can be fun at times as well as a source to develop a stronger bond with them.</H2>
 			</Header>
 
 			<SecretWrapper>
 				{secretItems.map((item) => (
-					<Secret key={item._id}>{item.message}</Secret>
+					<Secret key={item._id}>
+						<HeadingSpan>{item.message}</HeadingSpan>
+						<TextSpan>{item.text}</TextSpan>
+					</Secret>
 				))}
 			</SecretWrapper>
 			

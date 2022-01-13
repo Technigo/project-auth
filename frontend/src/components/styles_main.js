@@ -13,8 +13,10 @@ justify-content: center;
 // HEADER
 
 export const Header = styled.div`
-padding-top: 5rem;
+padding-top: 3rem;
 margin: 0 auto;
+max-width: 767px;
+text-align: center;
 `
 
 export const H1 = styled.h1`
@@ -25,6 +27,8 @@ color: #F3EFCC;
 
 export const H2 = styled.h2`
 font-size: 1rem;
+font-weight: 400;
+line-height: 1.5rem;
 margin-top: 0.5rem;
 color: #F3EFCC;
 `
@@ -43,14 +47,26 @@ padding-bottom: 2rem;
 export const Secret = styled.div`
 box-sizing: border-box;
 padding: 1rem;
-color: #F3EFCC;
-background-color: #406343;
+color: #406343;
+background-color: #F3EFCC;
 width: 343px;
-height: 150px;
+height: 220px;
 box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 border-radius: 8px;
-font-weight: 400;
+display: flex;
+flex-wrap: wrap;
+`
+
+export const HeadingSpan = styled.span`
+font-weight: 700;
 font-size: 1.5rem;
+margin: 0;
+`
+
+export const TextSpan = styled.span`
+font-weight: 400;
+font-size: 14px;
+margin: 0;
 `
 
 // BUTTON LOGOUT
