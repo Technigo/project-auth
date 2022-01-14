@@ -94,7 +94,6 @@ app.get("/", (req, res) => {
 // authenticate on an endpoint
 app.get("/riddles", authenticateUser);
 app.get("/riddles", async (req, res) => {
-  // console.log("user security level", req.user.securityLevel)
   try {
     const riddle = await Riddle.findOne({
       riddleId: req.user.securityLevel,

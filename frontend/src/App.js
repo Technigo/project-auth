@@ -34,9 +34,6 @@ export const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        {/* <Link to="/">Start</Link>
-        <Link to="/signin">Sign in</Link>
-        <Link to="/riddles">Secret riddles</Link> */}
         <Header />
         <Routes>
           <Route index path="/" element={<Start />} />

@@ -14,7 +14,6 @@ export const users = createSlice({
   },
   reducers: {
     setUser: (store, action) => {
-      console.log(action.payload);
       store.username = action.payload.response.username;
       store.accessToken = action.payload.response.accessToken;
     },
@@ -37,10 +36,8 @@ export const users = createSlice({
 
 export const userSignUpOrLogIn = (username, password, mode) => {
   return (dispatch) => {
-    // we'll probably want a loader of some kind, I'm keeping this line as a reminder
     //   dispatch(ui.actions.setLoading(true));
 
-    // using localhost as the api url now, will become the heroku backend url
     fetch(URL + mode, {
       method: "POST",
       headers: {
@@ -58,17 +55,15 @@ export const userSignUpOrLogIn = (username, password, mode) => {
           dispatch(users.actions.setUserToLoggedOut());
         }
       });
-    // turn the loading state back off
+
     // .finally(setTimeout(() => dispatch(ui.actions.setLoading(false)), 2000));
   };
 };
 
 export const riddles = (accessToken) => {
   return (dispatch) => {
-    // we'll probably want a loader of some kind, I'm keeping this line as a reminder
     //   dispatch(ui.actions.setLoading(true));
 
-    // using localhost as the api url now, will become the heroku backend url
     fetch(URL + "riddles", {
       method: "GET",
       headers: {
@@ -85,17 +80,14 @@ export const riddles = (accessToken) => {
           dispatch(users.actions.setError(json));
         }
       });
-    // turn the loading state back off
     // .finally(setTimeout(() => dispatch(ui.actions.setLoading(false)), 2000));
   };
 };
 
 export const checkAnswer = (accessToken, answer) => {
   return (dispatch) => {
-    // we'll probably want a loader of some kind, I'm keeping this line as a reminder
     //   dispatch(ui.actions.setLoading(true));
 
-    // using localhost as the api url now, will become the heroku backend url
     fetch(URL + "answer", {
       method: "POST",
       headers: {
@@ -113,7 +105,6 @@ export const checkAnswer = (accessToken, answer) => {
           dispatch(users.actions.setError(json));
         }
       });
-    // turn the loading state back off
     // .finally(setTimeout(() => dispatch(ui.actions.setLoading(false)), 2000));
   };
 };

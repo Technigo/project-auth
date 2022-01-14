@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { users, riddles, checkAnswer } from "../reducers/users";
+import { riddles, checkAnswer } from "../reducers/users";
 
 export const Riddles = () => {
   const [answer, setAnswer] = useState("");
@@ -13,7 +13,6 @@ export const Riddles = () => {
   const token = useSelector((state) => state.users.accessToken);
   const riddle = useSelector((state) => state.users.riddle);
   const riddleAnswer = useSelector((state) => state.users.answer);
-  console.log(riddleAnswer);
 
   useEffect(() => {
     if (!token) {
