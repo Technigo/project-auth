@@ -57,7 +57,7 @@ const authenticateUser = async (req, res, next) => {
 // Start defining your routes here
 app.get("/", (req, res) => {
 	res.send(
-		`Welcome to authorization API - by Maria Sjögren and Linnéa Wilhelmsson. See full documentation here 👉 https://github.com/Skrosen/project-auth/blob/master/Documentation.md`,
+		`Welcome to authorization API - by Maria Sjögren (https://github.com/molbimien/) and Linnéa Wilhelmsson (https://github.com/Skrosen). See full documentation here 👉 https://github.com/Skrosen/project-auth/blob/master/Documentation.md`,
 		listEndpoints(app)
 	);
 });
