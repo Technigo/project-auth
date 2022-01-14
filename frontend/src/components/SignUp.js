@@ -107,7 +107,7 @@ const SignUp = (props) => {
     event.preventDefault();
     dispatch(user.actions.setLoading(true));
 
-    fetch("http://localhost:8080/signup", {
+    fetch("https://technigo-project-auth.herokuapp.com/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
