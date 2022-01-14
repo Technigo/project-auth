@@ -61,22 +61,20 @@ export const SecretContent = () => {
       },
     };
 
-    console.log('dags att fetcha hemligheter!!!');
-
     fetch(API_URL('secrets'), options)
       .then((res) => res.json())
       .then((data) => {
         console.log('den här koden körs väl');
-        // if (data.success) {
-        dispatch(secrets.actions.setItems(data.response));
-        // dispatch(secrets.actions.setError(null));
-        //        } else {
-        //        dispatch(secrets.actions.setItems([]));
-        //      dispatch(secrets.actions.setError(data.response));
-        //  }
+        if (data.success) {
+          dispatch(secrets.actions.setItems(data.response));
+          dispatch(secrets.actions.setError(null));
+        } else {
+          dispatch(secrets.actions.setItems([]));
+          dispatch(secrets.actions.setError(data.response));
+        }
       });
   }, [accessToken]);
-  console.log('secrets', typeof secretItems);
+
   return (
     <>
       <Cake>
@@ -85,9 +83,6 @@ export const SecretContent = () => {
         </span>
       </Cake>
 
-      {/* <Link className="Link" to="/login">
-        <button type="submit">Log out</button>
-      </Link> */}
       <LogoutButton onClick={logout}>Log out</LogoutButton>
       <H1>
         This is super secret
