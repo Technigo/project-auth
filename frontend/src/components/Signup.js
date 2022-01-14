@@ -20,17 +20,6 @@ const Background = styled.div`
   font-family: Helvetica Neue;
 `;
 
-// const BackLink = styled.div`
-//   background: black;
-//   color: white;
-//   align-self: start;
-//   padding-left: 20px;
-
-//   a {
-//     color: white;
-//   }
-// `;
-
 const Title = styled.h1`
   text-align: center;
   width: 700px;
@@ -71,11 +60,6 @@ const InputBox = styled.div`
     background: black;
   }
 `;
-
-// const RadioBox = styled.div`
-//   margin: 5px;
-//   padding: 5px;
-// `;
 
 const FormBox = styled.form`
   display: flex;
@@ -127,7 +111,7 @@ const Signup = () => {
             dispatch(user.actions.setEmail(null))
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
-            // alert("Username already taken!");
+            alert("Username already taken!");
           });
         }
       });
@@ -139,9 +123,6 @@ const Signup = () => {
 
   return (
     <Background>
-      {/* <BackLink>
-        <Link to="/">To '/'!</Link>
-      </BackLink> */}
       <Title>
         <p>Become a member of our secret society to take part of the secret information.</p>
       </Title>

@@ -20,16 +20,6 @@ const Background = styled.div`
   font-family: Helvetica Neue;
 `;
 
-const BackLink = styled.div`
-  background: black;
-  color: white;
-  align-self: start;
-  padding-left: 20px;
-
-  a {
-    color: white;
-  }
-`;
 
 const Title = styled.h1`
   text-align: center;
@@ -91,11 +81,6 @@ const InputBox = styled.div`
   }
 `;
 
-const RadioBox = styled.div`
-  margin: 5px;
-  padding: 5px;
-`;
-
 const FormBox = styled.form`
   display: flex;
   flex-direction: column;
@@ -152,9 +137,6 @@ const Login = () => {
 
   return (
     <Background>
-      {/* <BackLink>
-        <Link to="/">To '/'!</Link>
-      </BackLink> */}
       <Title>
         Welcome to our special site, please log in to access the secret
         information.

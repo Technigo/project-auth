@@ -1,13 +1,11 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This week we're learnt how to authenticate users and handle passwords with an API. We built the backend to be able to register and login users to access "secret" information. We also built a frontend to match and use the backend.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+The challenge was to later use an existing API in out project to fetch and post info to - only accessible when loged in. But that was solved by fetching in the frontend.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+https://secret-thoughts-w20.herokuapp.com/
