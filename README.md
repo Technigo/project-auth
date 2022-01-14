@@ -1,6 +1,6 @@
 # Project Auth
 
-Pair-programming project developed by Noemi Frischknecht and Estefanía Quevedo.
+Pair-programming project developed by Jessica Falk and Naushin Malik
 
 This project's goal was developing an API with authentication in order to implement a sign-in/sign-up interface with authentication.
 
