@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -55,7 +56,7 @@ const authenticateUser = async (req, res, next) => {
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-	res.send("Hello world");
+	res.send(listEndpoints(app));
 });
 
 // endpoint not used in project currently but required to
