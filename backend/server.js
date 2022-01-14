@@ -79,7 +79,7 @@ const authenticateUser = async (req, res, next) => {
 
 app.get('/', (req, res) => {
 	res.send(
-		'Hello world, welcome to our login app - see this API live at 👉:https://serene-rosalind-938b12.netlify.app'
+		'Hello world, welcome to our login app - see this API live at 👉:login-for-secrets.netlify.app'
 	);
 });
 

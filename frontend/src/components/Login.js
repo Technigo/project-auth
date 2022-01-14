@@ -13,6 +13,15 @@ const WholeWrapper = styled.div`
 	display: flex;
 `;
 
+const Title = styled.h1`
+	font-family: 'Poppins', sans-serif;
+	font
+`;
+
+const Subtitle = styled.h2`
+	font-family: 'Poppins', sans-serif;
+`;
+
 const BackgroundImg = styled.div`
 	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
 		url(${img});
@@ -157,6 +166,8 @@ const Login = () => {
 			<WholeWrapper>
 				<BackgroundImg></BackgroundImg>
 				<Wrapper>
+					<Title>Secrets...</Title>
+
 					<RadioWrapper>
 						<Label htmlFor="signup">Sign Up</Label>
 						<input
