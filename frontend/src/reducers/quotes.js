@@ -16,7 +16,7 @@ const secrets = createSlice({
       {
         id: 4,
         message:
-          "ttitude is a little thing that makes a big difference - Winston Churchill",
+          "Attitude is a little thing that makes a big difference - Winston Churchill",
       },
     ],
     error: null,
