@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { createStore, combineReducers } from "@reduxjs/toolkit";
 
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
@@ -15,7 +15,28 @@ const reducer = combineReducers({
   user: user.reducer,
 });
 
-const store = configureStore({ reducer });
+// Retrieve localstorage as initial state
+const persistedStateJSON = localStorage.getItem("userReduxState");
+let persistedState = {};
+
+if (persistedStateJSON) {
+  persistedState = JSON.parse(persistedStateJSON);
+}
+
+const store = createStore(
+  reducer,
+  persistedState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ &&
+    window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+// Store the state in localstorage when Redux state change
+store.subscribe(() => {
+  localStorage.setItem(
+    "userReduxState",
+    JSON.stringify(store.getState())
+  );
+});
 
 export const App = () => {
   const [nameInput, setNameInput] = useState("");
