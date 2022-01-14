@@ -91,7 +91,7 @@ const Main = () => {
     } else if (mode === "signup") {
       setTimeout(() => jsConfetti.addConfetti(), 2000);
     }
-  }, [accessToken, navigate]);
+  }, [accessToken, navigate, dispatch, jsConfetti, mode]);
 
   const onButtonClick = () => {
     dispatch(user.actions.setLoading(true));

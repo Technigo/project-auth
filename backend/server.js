@@ -140,11 +140,6 @@ app.post("/signin", async (req, res) => {
   }
 });
 
-app.get("/users", async (req, res) => {
-  const users = await User.find();
-  res.status(401).json(users);
-});
-
 // Start the server
 app.listen(port, () => {
   // eslint-disable-next-line
