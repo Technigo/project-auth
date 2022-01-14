@@ -1,34 +1,17 @@
 import React from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 
 import { useNavigate, Link } from 'react-router-dom';
 
-/////-------------------styling---------------------------------///
-const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: green;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    padding-top:20px;
-    overflow: scroll;
-  }`;
-const Container = styled.div`
+const ThoughtsContainer = styled.div`
+  background-color: #2e925b;
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
-  align-items: center;
   justify-content: center;
-  align-content: center;
-`;
-const Message = styled.h1`
-  line-height: 4rem;
-  font-family: 'Rosarivo', serif;
-  font-size: 1.5rem;
-  margin: 2rem 0;
-  padding: 0 24px;
-  color: white;
+  align-items: center;
+  font-size: 30px;
 `;
 const StyledLink = styled(Link)`
   color: white;
@@ -38,11 +21,11 @@ const StyledLink = styled(Link)`
   margin: 0;
 
   cursor: pointer;
-
+  width: 200px;
   border-radius: 4px;
   background-color: #505168;
   border: none;
-  padding: 10px 25px;
+  padding: 10px 15px;
   transition-duration: 0.4s;
   overflow: hidden;
 
@@ -52,25 +35,12 @@ const StyledLink = styled(Link)`
     color: #000;
   }
 `;
-
-/////-------------------styling---------------------------------///
 const NotFound = () => {
-  const navigate = useNavigate();
-
-  const onGoBack = () => {
-    navigate('/login');
-  };
-
   return (
-    <>
-      <GlobalStyle />
-      <Container>
-        <Message>Page not found...</Message>
-        <StyledLink to="/" onClick={onGoBack}>
-          Go Back
-        </StyledLink>
-      </Container>
-    </>
+    <ThoughtsContainer>
+      Page not found...
+      <StyledLink to="/">Please sign in</StyledLink>
+    </ThoughtsContainer>
   );
 };
 
