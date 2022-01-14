@@ -14,5 +14,5 @@ With this project I tied all the skills I've learnt so far to build an API with 
 ## View it live
 
 Backend: https://project-auth-heroku.herokuapp.com/
-Frontend: 
+Frontend: https://registration-form-full-stack.netlify.app/login
 
