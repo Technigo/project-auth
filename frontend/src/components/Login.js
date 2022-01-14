@@ -8,24 +8,60 @@ import user from "../reducers/user";
 
 const MainContainer = styled.main`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+`;
+
+const HeaderContainer = styled.div`
+  @media (min-width: 768px) {
+    width: 400px;
+    margin-bottom: 40px;
+  }
+`;
+
+const Header = styled.h1`
+  color: #e55b13;
+  font-family: "Eater", cursive;
+  font-size: 75px;
+  text-align: center;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+  text-shadow: 4px 4px #ffd68a;
+  line-height: 90px;
+  @media (min-width: 768px) {
+    line-height: 120px;
+  }
+`;
+
+const SubHeader = styled.p`
+  color: #ffd68a;
+  font-size: 30px;
+  text-align: center;
+  text-transform: capitalize;
+  font-family: "Eater", cursive;
+  margin-top: 0px;
+  text-shadow: 4px 4px #e55b13;
 `;
 
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 80%;
   padding: 20px;
+  margin-bottom: 20px;
   /* border: solid black 2px; */
   background-color: rgba(255, 255, 255, 0.063);
   backdrop-filter: blur(12px);
   --webkit-backdrop-filter: blur(12px);
 
-  @media (min-width: 200px) {
+  @media (min-width: 1024px) {
+    justify-content: center;
     margin: 0 auto;
-    max-width: 300px;
+    width: 400px;
+    height: 400px;
+    font-size: 1.8rem;
   }
 `;
 
@@ -65,6 +101,12 @@ const Form = styled.form`
     text-transform: uppercase;
     transition: all 0.3s ease;
     margin-top: 30px;
+    @media (min-width: 1024px) {
+      width: 150px;
+      padding: 10px 15px;
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
 
     :hover {
       background-color: orange;
@@ -89,6 +131,15 @@ const InputWrapper = styled.div`
     border-radius: 50px;
     border: none;
     text-align: center;
+
+    @media (min-width: 1024px) {
+      padding: 20px;
+      font-size: 18px;
+      ::-webkit-input-placeholder {
+        font-size: 20px;
+        line-height: 3;
+      }
+    }
   }
 `;
 
@@ -162,10 +213,15 @@ const Login = () => {
   return (
     // label is just informative, htmlFor so that we can connect to the input
     <MainContainer>
+      <HeaderContainer>
+        <Header>insider jokes</Header>
+        <SubHeader>Programmer Edition</SubHeader>
+      </HeaderContainer>
+
       <Wrapper>
-        <div>
-          <Link to="/">To '/' !</Link>
-        </div>
+        {/* <div>
+        <Link to="/">To '/' !</Link>
+        </div> */}
         <RadioWrapper>
           <RadioButtons>
             <label htmlFor="signup">Sign Up</label>

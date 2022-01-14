@@ -11,7 +11,7 @@ import NotFound from "./components/NotFound";
 
 // Imported reducers
 import user from "./reducers/user";
-import thoughts from "./reducers/thoughts";
+import jokes from "./reducers/jokes";
 
 import img from "./assets/background.png";
 
@@ -26,7 +26,7 @@ const MainWrapper = styled.div`
 // Combining reducers: user & thoughts
 const reducer = combineReducers({
   user: user.reducer,
-  thoughts: thoughts.reducer,
+  jokes: jokes.reducer,
 });
 
 const store = configureStore({ reducer });

@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { API_URL } from "../utils/urls";
-import thoughts from "../reducers/thoughts";
+import jokes from "../reducers/jokes";
 
 const Wrapper = styled.main`
   display: grid;
@@ -13,6 +13,15 @@ const Wrapper = styled.main`
   align-items: center;
   flex-direction: column;
   height: 100%;
+  @media (min-width: 768px) {
+    height: 100vh;
+  }
+`;
+
+const Container = styled.div`
+  @media (min-width: 1024px) {
+    height: 80%;
+  }
 `;
 
 const Header = styled.h1`
@@ -36,7 +45,15 @@ const SubHeader = styled.p`
 `;
 
 const JokesWrapper = styled.section`
+  display: grid;
+  grid-template-columns: 1fr;
   justify-content: center;
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 1024px) {
+    margin-top: 80px;
+  }
 `;
 
 const Joke = styled.div`
@@ -47,6 +64,7 @@ const Joke = styled.div`
   padding: 30px;
   max-width: 400px;
   color: #e55b13;
+  font-family: "Source Code Pro", monospace;
   /* text-shadow: 2px 2px #e55b13; */
   font-weight: bold;
   background-color: rgba(255, 255, 255, 0.063);
@@ -54,13 +72,12 @@ const Joke = styled.div`
   --webkit-backdrop-filter: blur(12px);
 
   @media (min-width: 400px) {
-    margin: 0 auto;
     max-width: 300px;
   }
 `;
 
 const Main = () => {
-  const thoughtsItems = useSelector((store) => store.thoughts.items);
+  const jokesItems = useSelector((store) => store.jokes.items);
   const accessToken = useSelector((store) => store.user.accessToken); // getting accessToken from reducer to send it back to backend when trying to log in
 
   const dispatch = useDispatch();
@@ -81,35 +98,37 @@ const Main = () => {
       },
     };
 
-    fetch(API_URL("thoughts"), options)
+    fetch(API_URL("jokes"), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          dispatch(thoughts.actions.setItems(data.response));
-          dispatch(thoughts.actions.setError(null));
+          dispatch(jokes.actions.setItems(data.response));
+          dispatch(jokes.actions.setError(null));
         } else {
-          dispatch(thoughts.actions.setItems([]));
-          dispatch(thoughts.actions.setError(data.response));
+          dispatch(jokes.actions.setItems([]));
+          dispatch(jokes.actions.setError(data.response));
         }
       });
   }, [accessToken, dispatch]); // For the useEffect to happen when the component gets mounted as the second argument we need to have an empty array as a dependency
 
   return (
     <Wrapper>
-      <div>
+      {/* <div>
         <Link to="/login">To '/login' !</Link>
-      </div>
-      <Header>insider jokes</Header>
-      <SubHeader>Programmer Edition</SubHeader>
-      <JokesWrapper>
-        {thoughtsItems.map(
-          (
-            item // If we use curly brackets here we need do write return, it can be condensed by using parenthesis
-          ) => (
-            <Joke key={item._id}>{item.message}</Joke>
-          )
-        )}
-      </JokesWrapper>
+      </div> */}
+      <Container>
+        <Header>insider jokes</Header>
+        <SubHeader>Programmer Edition</SubHeader>
+        <JokesWrapper>
+          {jokesItems.map(
+            (
+              item // If we use curly brackets here we need do write return, it can be condensed by using parenthesis
+            ) => (
+              <Joke key={item._id}>{item.message}</Joke>
+            )
+          )}
+        </JokesWrapper>
+      </Container>
     </Wrapper>
   );
 };

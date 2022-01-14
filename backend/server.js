@@ -36,14 +36,15 @@ const UserSchema = new mongoose.Schema({
 // User model that uses the UserSchema
 const User = mongoose.model("User", UserSchema);
 
-const ThoughtSchema = new mongoose.Schema({
+const JokeSchema = new mongoose.Schema({
   message: {
     type: String,
     required: true,
+    trim: true,
   },
 });
 
-const Thought = mongoose.model("Thought", ThoughtSchema);
+const Joke = mongoose.model("Joke", JokeSchema);
 
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
@@ -87,19 +88,19 @@ app.get("/", (req, res) => {
 });
 
 // Executes authenticateUser function
-app.get("/thoughts", authenticateUser);
+app.get("/jokes", authenticateUser);
 // If accessToken is found the user is signed in
-app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thought.find({});
-  res.status(201).json({ response: thoughts, success: true });
+app.get("/jokes", async (req, res) => {
+  const jokes = await Joke.find({});
+  res.status(201).json({ response: jokes, success: true });
 });
 
-app.post("/thoughts", async (req, res) => {
+app.post("/jokes", async (req, res) => {
   const { message } = req.body;
 
   try {
-    const newThought = await new Thought({ message }).save();
-    res.status(201).json({ response: newThought, success: true });
+    const newJoke = await new Joke({ message }).save();
+    res.status(201).json({ response: newJoke, success: true });
   } catch (error) {
     res.status(400).json({ response: error, success: false });
   }
