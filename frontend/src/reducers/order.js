@@ -3,12 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const order = createSlice({
   name: "order",
   initialState: {
-    items: [],
+    message: null,
     error: null,
   },
   reducers: {
-    setItems: (store, action) => {
-      store.items = action.payload;
+    setMessage: (store, action) => {
+      store.message = action.payload;
     },
     setError: (store, action) => {
       store.error = action.payload;

@@ -24,35 +24,26 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  order: {
+    type: String,
+    required: true,
+  },
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
   },
-
-  // adress: {
-  //   type: String,
-  //   required: true,
-  //   unique: true,
-  //   trim: true,
-  // },
-  // zipCode: {
-  //   type: Number,
-  //   required: true,
-  //   unique: true,
-  //   trim: true,
-  // },
 });
 
 const User = mongoose.model("User", UserSchema);
 
-const OrderSchema = new mongoose.Schema({
-  message: {
-    type: String,
-    required: true,
-  },
-});
+// const OrderSchema = new mongoose.Schema({
+//   message: {
+//     type: String,
+//     required: true,
+//   },
+// });
 
-const Order = mongoose.model("Order", OrderSchema);
+// const Order = mongoose.model("Order", OrderSchema);
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -66,6 +57,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ accessToken });
     if (user) {
+      req.user = user;
       next();
     } else {
       res.status(401).json({ response: "Please log in", success: false });
@@ -76,12 +68,15 @@ const authenticateUser = async (req, res, next) => {
 };
 // Start defining your routes here
 app.get("/order", authenticateUser);
-app.get("/order", (req, res) => {
-  res.send("Here are your order");
+app.get("/order", async (req, res) => {
+  res.json({
+    response: req.user.order,
+    success: true,
+  });
 });
 
 app.post("/signup", async (req, res) => {
-  const { username, password, email } = req.body;
+  const { username, password, email, order } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
 
@@ -91,6 +86,7 @@ app.post("/signup", async (req, res) => {
 
     const newUser = await new User({
       username,
+      order,
       email,
       password: bcrypt.hashSync(password, salt),
     }).save();
@@ -99,6 +95,7 @@ app.post("/signup", async (req, res) => {
       response: {
         userId: newUser._id,
         username: newUser.username,
+        order: newUser.order,
         email: newUser.email,
         accessToken: newUser.accessToken,
       },
@@ -110,7 +107,7 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  const { username, password, email } = req.body;
+  const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
