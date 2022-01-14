@@ -11,4 +11,4 @@ Describe how you approached to problem, and what tools and techniques you used t
 ## View it live
 
 Deployed frontend on Netlify: https://proj-auth-rephili-bine.netlify.app/login
-Deployed backend on heroku: https://proj-auth-rephili-bine.herokuapp.com/
+Deployed backend on heroku: https://proj-auth-rephili-bine.herokuapp.com/secrets
