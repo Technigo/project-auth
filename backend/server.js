@@ -57,11 +57,11 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-//Start defining your routes here
+//Start defining your routes here--->can sign in with out any info(response: user was small?)
 app.get('/content', authenticateUser); // we first have to authenticate the user before we get the main content
 app.get('/content', async (req, res) => {
   const main = await User.find({});
-  res.status(200).json({ response: user, success: true });
+  res.status(200).json({ response: User, success: true });
 });
 
 // app.get('/cats', authenticateUser);
