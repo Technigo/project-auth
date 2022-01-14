@@ -26,15 +26,6 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-const ThoughtSchema = new mongoose.Schema({
-  message: {
-    type: String,
-    required: true,
-  },
-});
-
-const Thought = mongoose.model("Thought", ThoughtSchema);
-
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -64,22 +55,11 @@ const authenticateUser = async (req, res, next) => {
 };
 
 // Start defining your routes here
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thought.find({});
-  res.status(201).json({ response: thoughts, success: true });
+app.get("/quotes", authenticateUser);
+app.get("/quotes", (req, res) => {
+  res.send("Secrete Quotes Page");
 });
 
-app.post("/thoughts", async (req, res) => {
-  const { message } = req.body;
-
-  try {
-    const newThought = await new Thought({ message }).save();
-    res.status(201).json({ response: newThought, success: true });
-  } catch (error) {
-    res.status(400).json({ response: error, success: false });
-  }
-});
 // sign up to to the site
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
