@@ -113,9 +113,6 @@ const Main = () => {
 
   return (
     <Wrapper>
-      {/* <div>
-        <Link to="/login">To '/login' !</Link>
-      </div> */}
       <Container>
         <Header>insider jokes</Header>
         <SubHeader>Programmer Edition</SubHeader>
@@ -132,5 +129,9 @@ const Main = () => {
     </Wrapper>
   );
 };
+
+/* <div>
+        <Link to="/login">To '/login' !</Link>
+      </div> */
 
 export default Main;

@@ -219,9 +219,6 @@ const Login = () => {
       </HeaderContainer>
 
       <Wrapper>
-        {/* <div>
-        <Link to="/">To '/' !</Link>
-        </div> */}
         <RadioWrapper>
           <RadioButtons>
             <label htmlFor="signup">Sign Up</label>
@@ -270,4 +267,9 @@ const Login = () => {
     </MainContainer>
   );
 };
+
+/* <div>
+        <Link to="/">To '/' !</Link>
+        </div> */
+
 export default Login;
