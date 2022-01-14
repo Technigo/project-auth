@@ -55,6 +55,12 @@ const authenticateUser = async (req, res, next) => {
 };
 
 // Start defining your routes here
+app.get("/", (req, res) => {
+  res.send(
+    "This is the backend of Project-auth create by Bruna Santos Araujo and Harry Bäcklin"
+  );
+});
+
 app.get("/quotes", authenticateUser);
 app.get("/quotes", (req, res) => {
   res.send("Secrete Quotes Page");

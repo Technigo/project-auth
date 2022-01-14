@@ -1,13 +1,22 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+The project consists in a sign in/ sign up form. Once logged, the user has acess to a restricted page. In the backend, we built an API with user authentication.
+Created by Bruna Santos Araujo and Harry Bäcklin
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+## Features
 
-## The problem
+- Registration form to create a new user and log in
+- Restricted content
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+## Production Process
+
+- We started by creating the post request in the backend to create the new users (username + password).
+- We created also a sign in endpoint for sign in registered users.
+- We created a simple frontend form and connected it to our backend.
+- There is also a restricted page accessible only for registered users.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend https://bruna-harry-project-auth.netlify.app/login
+
+Backend https://bruna-harry-project-auth.herokuapp.com/
