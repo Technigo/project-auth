@@ -7,7 +7,6 @@ import styled from 'styled-components/macro'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import Loading from '../components/Loading'
 
-
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -50,31 +49,33 @@ const Login = () => {
       body: JSON.stringify({ username, password, email }),
     }
 
-    setTimeout(() =>
-      fetch(API_URL(mode), options)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data)
-          if (data.success) {
-            batch(() => {
-              dispatch(user.actions.setUserId(data.response.userId))
-              dispatch(user.actions.setUsername(data.response.username))
-              dispatch(user.actions.setEmail(data.response.email))
-              dispatch(user.actions.setAccessToken(data.response.accessToken))
-              dispatch(user.actions.setError(null))
-            })
-          } else {
-            batch(() => {
-              dispatch(user.actions.setUserId(null))
-              dispatch(user.actions.setEmail(null))
-              dispatch(user.actions.setUsername(null))
-              dispatch(user.actions.setAccessToken(null))
-              dispatch(user.actions.setError(data.response))
-              // console.log(data.response.errors.email.message)
-            })
-          }
-          setLoading(false)
-        }), 1500)
+    setTimeout(
+      () =>
+        fetch(API_URL(mode), options)
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data)
+            if (data.success) {
+              batch(() => {
+                dispatch(user.actions.setUserId(data.response.userId))
+                dispatch(user.actions.setUsername(data.response.username))
+                dispatch(user.actions.setEmail(data.response.email))
+                dispatch(user.actions.setAccessToken(data.response.accessToken))
+                dispatch(user.actions.setError(null))
+              })
+            } else {
+              batch(() => {
+                dispatch(user.actions.setUserId(null))
+                dispatch(user.actions.setEmail(null))
+                dispatch(user.actions.setUsername(null))
+                dispatch(user.actions.setAccessToken(null))
+                dispatch(user.actions.setError(data.response))
+              })
+            }
+            setLoading(false)
+          }),
+      1500,
+    )
   }
 
   const toggleVisible = () => {
@@ -98,27 +99,41 @@ const Login = () => {
               🚀
             </span>
             <h3 style={{ color: 'grey' }}>
-              {mode === 'signup' ? 'Create new account' : 'Login to your account'}
+              {mode === 'signup'
+                ? 'Create new account'
+                : 'Login to your account'}
             </h3>
             <form onSubmit={handleFormSubmit}>
               <StyledFieldset>
                 <legend>Username:</legend>
-                <StyledInputField
+                <StyledInputFieldWidth
                   type="text"
                   value={username}
                   onChange={onUsernameChange}
                 />
               </StyledFieldset>
               <StyledErrorMessage>
-                {errorText ? errorText.code ? errorText.code === 11000 ? 'Username is not unique' : '' : '' : ''}
+                {errorText
+                  ? errorText.code
+                    ? errorText.code === 11000
+                      ? 'Username is not unique'
+                      : ''
+                    : ''
+                  : ''}
               </StyledErrorMessage>
               <StyledErrorMessage>
-                {errorText ? errorText.errors ? errorText.errors.username ? errorText.errors.username.message : '' : '' : ''}
+                {errorText
+                  ? errorText.errors
+                    ? errorText.errors.username
+                      ? errorText.errors.username.message
+                      : ''
+                    : ''
+                  : ''}
               </StyledErrorMessage>
               {mode === 'signup' && (
                 <StyledFieldset>
                   <legend>Email:</legend>
-                  <StyledInputField
+                  <StyledInputFieldWidth
                     type="email"
                     value={email}
                     onChange={onEmailChange}
@@ -126,14 +141,20 @@ const Login = () => {
                 </StyledFieldset>
               )}
               <StyledErrorMessage>
-                {errorText ? errorText.errors ? errorText.errors.email ? errorText.errors.email.message : '' : '' : ''}
+                {errorText
+                  ? errorText.errors
+                    ? errorText.errors.email
+                      ? errorText.errors.email.message
+                      : ''
+                    : ''
+                  : ''}
               </StyledErrorMessage>
               <StyledFieldset>
                 <legend>Password:</legend>
                 <StyledInputField
                   type={visible ? 'text' : 'password'}
                   value={password}
-                  minLength='5'
+                  minLength="5"
                   onChange={onPasswordChange}
                 />
                 {visible ? (
@@ -178,6 +199,7 @@ const Login = () => {
                       dispatch(user.actions.setError(null))
                       setUsername('')
                       setPassword('')
+                      setEmail('')
                     }}
                     style={{
                       fontWeight: '700',
@@ -197,7 +219,6 @@ const Login = () => {
 }
 
 export default Login
-
 
 const BackgroundImage = styled.main`
   background-image: url('/assets/space_background2.png');
@@ -246,9 +267,17 @@ const StyledInputField = styled.input`
   outline: none;
   font-size: 20px;
   font-family: inherit;
-  &:active {
-  }
 `
+const StyledInputFieldWidth = styled.input`
+  border: 1px solid transparent;
+  width: 100%;
+  height: 100%;
+  border: none transparent;
+  outline: none;
+  font-size: 20px;
+  font-family: inherit;
+`
+
 const StyledLinkText = styled.div`
   display: flex;
   flex-direction: column;
