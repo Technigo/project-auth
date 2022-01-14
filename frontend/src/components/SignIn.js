@@ -115,6 +115,7 @@ const SignIn = () => {
     fetch(SIGNIN_URL, options)
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId));
@@ -122,10 +123,18 @@ const SignIn = () => {
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setEmail(data.response.email));
             dispatch(user.actions.setError(null));
+            localStorage.setItem(
+              'user',
+              JSON.stringify({
+                userId: data.response.userId,
+                username: data.response.username,
+                email: data.response.email,
+                accessToken: data.response.accessToken,
+              })
+            );
           });
         } else {
           batch(() => {
-            console.log(validationError);
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setAccessToken(null));
@@ -136,6 +145,7 @@ const SignIn = () => {
         }
       });
   };
+  console.log(validationError);
 
   return (
     <Wrapper>
@@ -165,8 +175,10 @@ const SignIn = () => {
           onChange={e => setPassword(e.target.value)}
         />
         <p>*required fields</p>
+        {validationError !== null && (
+          <p style={{ fontSize: '21px', color: 'red' }}>{validationError}</p>
+        )}
         <button type='submit'>sign in</button>
-        {validationError !== null && <p>{validationError}</p>}
       </Form>
     </Wrapper>
   );
