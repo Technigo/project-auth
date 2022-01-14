@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 
-import { API_URL } from "utils/urls";
+// import { API_URL } from "utils/urls";
 import programmingMeme from '../utils/programmingMeme.jpeg'
 
 const Main = () => {
@@ -16,16 +16,16 @@ const Main = () => {
 		}
 	}, [accessToken, navigate]);
 
-	useEffect(() => {
-		const options = {
-			method: "GET",
-			headers: {
-				Authorization: accessToken,
-			},
-		};
+	// useEffect(() => {
+	// 	const options = {
+	// 		method: "GET",
+	// 		headers: {
+	// 			Authorization: accessToken,
+	// 		},
+	// 	};
 
-		fetch(API_URL("memes"), options).then((res) => res.json());
-	}, [accessToken]);
+	// 	fetch(API_URL("memes"), options).then((res) => res.json());
+	// // }, [accessToken]);
 
 	return (
 		<div>
