@@ -7,7 +7,7 @@ import user from "../reducers/user";
 
 const Login = () => {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState("signup");
 
@@ -59,51 +59,62 @@ const Login = () => {
 
   return (
     <>
-      <h1>Welcome to our secret API!</h1>
-      <h2>Log in or sign up for an account on the secret API</h2>
-      <label htmlFor="signup">Create a new account</label>
-      <input
-        id="signup"
-        type="radio"
-        checked={mode === "signup"}
-        onChange={() => setMode("signup")}
-      />
-      <label htmlFor="signin">&nbsp;&nbsp;<u>or</u>&nbsp;&nbsp; LogIn to an existing account</label>
-      <input
-        id="signin"
-        type="radio"
-        checked={mode === "signin"}
-        onChange={() => setMode("signin")}
-      />
-  
-      <form onSubmit={onFormSubmit}>
-        {/* The Emailaddress only needs to be submitted in signup-mode */}
-        {mode === 'signup' && <>
-          <label htmlFor="email">Email address</label>
+      <section>
+        <h1>Welcome to our secret API!</h1>
+        <h3>Log in or sign up for an account on the secret API</h3>
+        <div className="signup-login-container">
+          <div>
+            <label htmlFor="signup">Create a new account</label>
+            <input
+              id="signup"
+              type="radio"
+              checked={mode === "signup"}
+              onChange={() => setMode("signup")}
+            />
+          </div>
+          <div>
+            <label htmlFor="signin">Log in to your account</label>
+            <input
+              id="signin"
+              type="radio"
+              checked={mode === "signin"}
+              onChange={() => setMode("signin")}
+            />
+          </div>
+        </div>
+        <form onSubmit={onFormSubmit}>
+          {/* The Emailaddress only needs to be submitted in signup-mode */}
+          {mode === "signup" && (
+            <>
+              <label htmlFor="email">Email address</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </>
+          )}
+          <label htmlFor="username">Username</label>
           <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            id="username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
-        </>}
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">{mode === 'signup'? 'Sign Up' : 'Log In'}</button>
-      </form>
-      {error && <p className="error">{error}</p>}
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">
+            {mode === "signup" ? "Sign Up" : "Log In"}
+          </button>
+        </form>
+        {error && <p className="error">{error}</p>}
+      </section>
     </>
   );
 };

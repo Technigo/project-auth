@@ -42,13 +42,18 @@ const Main = () => {
 
   return (
     <>
-      <button className="logout"
-        type="button"
-        onClick={() => dispatch(user.actions.setAccessToken(null))}
-        >Log Out</button>
-      <div className="animation"> 
-        <YodaAnimation /> 
-      </div>  
+      <section className="animation-button-container">
+        <div className="animation">
+          <YodaAnimation />
+        </div>
+        <button
+          className="logout"
+          type="button"
+          onClick={() => dispatch(user.actions.setAccessToken(null))}
+        >
+          Log Out
+        </button>
+      </section>
     </>
   );
 };
