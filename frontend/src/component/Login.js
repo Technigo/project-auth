@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import styled from "styled-components";
 
 import { API_URL } from "../utils/url";
 import user from "../reducers/user";
 
 const Login = () => {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState("signup");
   const [errorMessage, setErrorMessage] = useState(null);
 
+  // const email = useSelector((store) => store.user.email)
   const accessToken = useSelector((store) => store.user.accessToken);
   const error = useSelector((store) => store.user.error);
   console.log(error);
@@ -32,7 +35,7 @@ const Login = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, email }),
     };
 
     fetch(API_URL(mode), options)
@@ -43,6 +46,7 @@ const Login = () => {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId));
             dispatch(user.actions.setUsername(data.response.username));
+            dispatch(user.actions.setEmail(data.response.email));
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setError(null));
           });
@@ -50,6 +54,7 @@ const Login = () => {
           batch(() => {
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setUsername(null));
+            dispatch(user.actions.setEmail(null));
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
             setErrorMessage(data.message);
@@ -75,17 +80,26 @@ const Login = () => {
         onChange={() => setMode("signin")}
       />
       <form onSubmit={onFormSubmit}>
+        <p> User Name </p>
         <input
           id="username"
           type="text"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
         />
+        <p> Password </p>
         <input
           id="password"
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+        />
+        <p> email </p>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
         />
         <button type="submit">Submit</button>
         {errorMessage !== null && <p>{error.message}</p>}

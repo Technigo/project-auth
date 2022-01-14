@@ -14,6 +14,12 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+  },
   password: {
     type: String,
     required: true,
@@ -22,6 +28,19 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
   },
+
+  // adress: {
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  //   trim: true,
+  // },
+  // zipCode: {
+  //   type: Number,
+  //   required: true,
+  //   unique: true,
+  //   trim: true,
+  // },
 });
 
 const User = mongoose.model("User", UserSchema);
@@ -62,7 +81,7 @@ app.get("/order", (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
 
@@ -72,6 +91,7 @@ app.post("/signup", async (req, res) => {
 
     const newUser = await new User({
       username,
+      email,
       password: bcrypt.hashSync(password, salt),
     }).save();
 
@@ -79,6 +99,7 @@ app.post("/signup", async (req, res) => {
       response: {
         userId: newUser._id,
         username: newUser.username,
+        email: newUser.email,
         accessToken: newUser.accessToken,
       },
       success: true,
@@ -89,7 +110,7 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
   try {
     const user = await User.findOne({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
@@ -98,12 +119,13 @@ app.post("/login", async (req, res) => {
           userId: user._id,
           username: newUser.username,
           accessToken: newUser.accessToken,
+          email: newUser.email,
         },
         success: true,
       });
     } else {
       res.status(404).json({
-        response: "Username or password dosent match",
+        response: "Username, email or password dosent match",
         success: false,
       });
     }
