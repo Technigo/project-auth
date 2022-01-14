@@ -65,7 +65,7 @@ const Login = () => {
     <section className="container">
       <div className="header">
         <h1>Sign up or Sign in </h1>
-        <h3>to see the hidden message! </h3>
+        <h3>to see the message! </h3>
       </div>
 
       <div className="radioButtons">

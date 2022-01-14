@@ -86,6 +86,12 @@ app.get("/", (req, res) => {
 //   res.status(201).json({ response: thoughts, success: true })
 // })
 
+// protected endpoint for the authenticated user
+app.get("/userprofile", authenticateUser)
+app.get("/userprofile", (req, res) => {
+  res.json({ message: "You are logged in!" })
+})
+
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body
 
@@ -93,10 +99,7 @@ app.post("/signup", async (req, res) => {
     const salt = bcrypt.genSaltSync()
 
     if (password.length < 5) {
-      throw "Password must be at least 5 character long"
-      // res
-      //   .status(400)
-      //   .json({ message: "Password must be at least 6 character long" })
+      throw { message: "Password must be at least 5 character long" }
     }
 
     const newUser = await new User({
