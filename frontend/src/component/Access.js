@@ -9,6 +9,9 @@ import { StyledButton } from './StyledButton'
 
 const ProfileCard = styled.div`
   display: flex;
+  padding: 40px;
+  text-align: center;
+  align-items: center;
   flex-direction: column;
   background-color: #fff;
   border-radius: 10px;
@@ -18,6 +21,16 @@ const ProfileCard = styled.div`
   width: 768px;
   max-width: 100%;
   min-height: 480px;
+  label {
+    padding: 20px;
+  }
+  input {
+    width: 200px;
+    padding: 20px;
+  }
+  button {
+    margin: 20px;
+  }
 `
 
 export const Access = () => {
@@ -87,9 +100,10 @@ export const Access = () => {
       <h1>Hi {username} this is your profile page</h1>
 
       <form onSubmit={onProfilePicUpload}>
-        <label htmlFor='image'>Upload Image</label>
+        <label htmlFor='image'>Upload image to customize your profile</label>
         <input
           type='file'
+          lang='eng'
           id='image'
           name='image'
           value={profileImg}

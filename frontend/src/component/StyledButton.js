@@ -12,6 +12,8 @@ export const StyledButton = styled.button`
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
+  width: 158px;
+  height: 40px;
   &:active {
     transform: scale(0.95);
   }
