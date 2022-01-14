@@ -87,19 +87,18 @@ app.post("/signup", async (req, res) => {
       success: true,
     });
   } catch (error) {
-    if (error.code === 11000) {
-      res.status(400).json({
-        response: "Username already exists, please choose another username",
-        error: error,
-        success: false,
-      });
-    } else {
-      res.status(400).json({
-        response: "Something went wrong",
-        error: error,
-        success: false,
-      });
-    }
+    // if (error.code === 11000) {
+    //   res.status(400).json({
+    //     response: "Username already exists, please choose another username!",
+    //     error: error,
+    //     success: false,
+    //   });
+    // } else {
+    res.status(400).json({
+      response: "Something went wrong",
+      error: error,
+      success: false,
+    });
   }
 });
 
