@@ -10,6 +10,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
+// Schema for database items (users)
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -26,8 +27,10 @@ const UserSchema = new mongoose.Schema({
   }
 })
 
+// Model for database items (users)
 const User = mongoose.model('User', UserSchema)
 
+// Schema for database items (secrets)
 const SecretSchema = new mongoose.Schema({
 	message: {
 		type: String,
@@ -38,6 +41,7 @@ const SecretSchema = new mongoose.Schema({
   },
 });
 
+// Model for database items (secrets)
 const Secret = mongoose.model('Secret', SecretSchema)
 
 // Defines the port the app will run on. Defaults to 8080, but can be 
@@ -48,31 +52,8 @@ const port = process.env.PORT || 9000
 const app = express()
 
 // Add middlewares to enable cors and json body parsing
-//v1 - Allow all domains
+// (Allow all domains)
 app.use(cors())
-
-// v2 - Allow only one specific domain
-// app.use(cors({
-//   origin: 'http://my-project-frontend.com'
-// }))
-  
-// v3 - Allow multiple domains
-// const allowedDomains = [
-//   'http://my-project-frontend.com',
-//   'http://mysecond-project-frontend.com',
-//   'http://localhost:3000'
-// ]
-// app.use(cors({
-//   origin: (origin, callback) => {
-//     if (allowedDomains.includes(origin)) {
-//       return callback(null, true)
-//     } else {
-//       return callback(new Error('This domain is not allowed'), false)
-//     }
-//   }
-// }))
-
-
 app.use(express.json())
 
 const authenticateUser = async (req, res, next) => {
@@ -90,26 +71,25 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-// Authentication - 401 (Unauthorized) But should be unauthenticated
-// Authentication - 403 (Forbidden) But should be unauthorized
-
-
-// Start defining your routes here
+// Start, lists endpoints
 app.get('/', (req, res) => {
   res.send(listEndpoints(app))
 })
 
-app.get('/secrets', authenticateUser);
+// GET method for database content that needs authorization
+app.get('/secrets', authenticateUser)
 app.get('/secrets', async (req, res) => {
 	const secrets = await Secret.find({})
 	res.status(201).json({ response: secrets, success: true })
 })
 
+// POST method for posting content to the database needs authorization
+app.post('/secrets', authenticateUser)
 app.post('/secrets', async (req, res) => {
 	const { message, text } = req.body;
 
 	try {
-		const newSecret = await new Secret({ message, text }).save();
+		const newSecret = await new Secret({ message, text }).save()
 		res.status(201).json({ response: newSecret, success: true })
 	} catch (error) {
 		res.status(400).json({ message: 'Invalid request', response: error, success: false })
@@ -124,8 +104,7 @@ app.post('/signup', async (req, res) => {
     const salt = bcrypt.genSaltSync()
 
     if (password.length < 5) {
-      /* res.status(400).json({ message: 'Password must be at least 5 charachters long'}) */
-      throw 'Password must be at least 5 charachters long'
+      throw { message: 'Password must be at least 5 charachters long'}
     } 
 
     const newUser = await new User({
