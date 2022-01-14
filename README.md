@@ -1,13 +1,18 @@
 # Project Auth
+With this project I tied all the skills I've learnt so far to build an API with authentication to implement a registration flow, and a frontend with forms to register, sign in, and view some content once you're logged in. 
 
-Replace this readme with your own information about your project.
+## What I learned
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
-
-## The problem
-
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+- How to authenticate users using tokens
+- How to securely store passwords in your databases
+- How to think about security and defensive design when building frontend or backend code
+- Some common attacks which are used against sites and how to protect against them
+- How to build a registration flow
+- How to handle authentication, both in the frontend and in the backend
+- How to build a frontend and backend at the same time
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Backend: https://project-auth-heroku.herokuapp.com/
+Frontend: 
+
