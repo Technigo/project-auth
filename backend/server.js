@@ -58,8 +58,9 @@ app.get("/", (req, res) => {
 	res.send("Hello world");
 });
 
-// not used endpoint but set up for authentication
-app.get("/memes", authenticateUser);
+// endpoint not used in project currently but required to
+// return content from backend with Authorization header
+// app.get("/memes", authenticateUser);
 // app.get("/memes", async (req, res) => {
 // 	res.status(201).json({ response: memes, success: true });
 // });

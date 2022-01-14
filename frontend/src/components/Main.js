@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import user from "../reducers/user";
 import programmingMeme from '../utils/programmingMeme.jpeg'
@@ -28,9 +28,6 @@ const Main = () => {
 		<div>
 			<div>
 				<button onClick={signOut}>Sign out</button>
-			</div>
-			<div>
-				<Link to="/login">To '/login'</Link>
 			</div>
 			<h1>Protected coding meme:</h1>
 			<img src={programmingMeme} alt="programming meme" />
