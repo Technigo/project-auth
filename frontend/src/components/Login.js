@@ -6,7 +6,14 @@ import styled from "styled-components";
 import { API_URL } from "../utils/urls";
 import user from "../reducers/user";
 
-const Wrapper = styled.main`
+const MainContainer = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   width: 90%;
@@ -154,55 +161,57 @@ const Login = () => {
 
   return (
     // label is just informative, htmlFor so that we can connect to the input
-    <Wrapper>
-      <div>
-        <Link to="/">To '/' !</Link>
-      </div>
-      <RadioWrapper>
-        <RadioButtons>
-          <label htmlFor="signup">Sign Up</label>
-          <input
-            id="signup" // connects to label so we can also click the text and not only radio button
-            type="radio"
-            checked={mode === "signup"} // this input should be checked/selected only if the mode is equal to signup
-            onChange={() => setMode("signup")} // change handler to change the mode to signup when we click on it
-          />
-        </RadioButtons>
-        <RadioButtons>
-          <label htmlFor="signin">Sign In</label>
-          <input
-            id="signin"
-            type="radio"
-            checked={mode === "signin"}
-            onChange={() => setMode("signin")}
-          />
-        </RadioButtons>
-      </RadioWrapper>
+    <MainContainer>
+      <Wrapper>
+        <div>
+          <Link to="/">To '/' !</Link>
+        </div>
+        <RadioWrapper>
+          <RadioButtons>
+            <label htmlFor="signup">Sign Up</label>
+            <input
+              id="signup" // connects to label so we can also click the text and not only radio button
+              type="radio"
+              checked={mode === "signup"} // this input should be checked/selected only if the mode is equal to signup
+              onChange={() => setMode("signup")} // change handler to change the mode to signup when we click on it
+            />
+          </RadioButtons>
+          <RadioButtons>
+            <label htmlFor="signin">Sign In</label>
+            <input
+              id="signin"
+              type="radio"
+              checked={mode === "signin"}
+              onChange={() => setMode("signin")}
+            />
+          </RadioButtons>
+        </RadioWrapper>
 
-      <Form onSubmit={onFormSubmit}>
-        <InputWrapper>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            placeholder="enter your username..."
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            placeholder="enter your password..."
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </InputWrapper>
-        <button type="submit">Submit</button>
-      </Form>
-    </Wrapper>
+        <Form onSubmit={onFormSubmit}>
+          <InputWrapper>
+            <label htmlFor="username">Username</label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              placeholder="enter your username..."
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              placeholder="enter your password..."
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </InputWrapper>
+          <button type="submit">Submit</button>
+        </Form>
+      </Wrapper>
+    </MainContainer>
   );
 };
 export default Login;
