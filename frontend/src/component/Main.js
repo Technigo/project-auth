@@ -40,9 +40,6 @@ const Main = () => {
 
   return (
     <div>
-      <div>
-        <Link to="/login">Login</Link>
-      </div>
       <h1>Here is your order</h1>
       {orderItems.map((item) => (
         <div key={item._id}>{item.message}</div>

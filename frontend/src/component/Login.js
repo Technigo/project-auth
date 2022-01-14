@@ -9,8 +9,11 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState("signup");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const accessToken = useSelector((store) => store.user.accessToken);
+  const error = useSelector((store) => store.user.error);
+  console.log(error);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,6 +52,7 @@ const Login = () => {
             dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
+            setErrorMessage(data.message);
           });
         }
       });
@@ -56,9 +60,6 @@ const Login = () => {
 
   return (
     <>
-      <div>
-        <Link to="/"> To '/'! </Link>
-      </div>
       <label htmlFor="signup">Signup</label>
       <input
         id="signup"
@@ -87,6 +88,7 @@ const Login = () => {
           onChange={(event) => setPassword(event.target.value)}
         />
         <button type="submit">Submit</button>
+        {errorMessage !== null && <p>{error.message}</p>}
       </form>
     </>
   );
