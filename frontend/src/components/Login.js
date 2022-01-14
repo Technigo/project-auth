@@ -50,7 +50,7 @@ const Wrapper = styled.section`
   flex-direction: column;
   width: 80%;
   padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   /* border: solid black 2px; */
   background-color: rgba(255, 255, 255, 0.063);
   backdrop-filter: blur(12px);

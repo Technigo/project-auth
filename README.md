@@ -19,4 +19,8 @@ Our frontend has:
 
 ## View it live
 
+Backend:
 https://amanda-fatima-insider-jokes.herokuapp.com/
+
+Frontend:
+https://amanda-fatima-insider-jokes.netlify.app/

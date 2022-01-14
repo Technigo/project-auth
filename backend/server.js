@@ -84,7 +84,9 @@ const authenticateUser = async (req, res, next) => {
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.send(
+    "Hello world, this is an API created by Amanda Tilly and Fatima Gamero Romero. See it live here: https://amanda-fatima-insider-jokes.netlify.app/"
+  );
 });
 
 // Executes authenticateUser function
