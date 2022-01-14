@@ -1,13 +1,19 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+We built our first fullstack pair-programming project, API with authentication to implement a registration flow, and a simple frontend with forms to register, sign in, and view a secret poem once you're logged in.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+Backend: node,js, Express, Mongoose, MongoDB, Heroku \
+Frontend: React, React Router, React Redux, Redux Toolkit, Netlify
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We used mongoose to create a user model and built a registration form that POSTs to the API, and we make use of the access token to authenticate users. We put the effort on error handling so we can provide the user useful error messages.
+We also have a login opportunity when the users have already signed up on our page.
+We tried to make everything work locally first with Postman and MongoDB Compass, and then deploy it to Heroku and Netlify. Created a database in MongoDB.
+
+For improvement we can store the data in a local storage (so the user don't loose the access to the page for example when refreshing the browser) and put more styling on the frontend.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Heroku (API): https://kriss-katie-auth.herokuapp.com/ \
+Netlify (frontend): https://kriss-katie-auth.netlify.app/
