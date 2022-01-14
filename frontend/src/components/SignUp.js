@@ -94,6 +94,7 @@ const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [validationError, setValidationError] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -121,17 +122,20 @@ const SignUp = () => {
             navigate('/signin');
           });
         }
-        if (!data.success) {
-          new Swal({
-            title: 'Something went wrong 🙀',
-          });
-        } else {
+        // if (!data.success) {
+        //   new Swal({
+        //     title: 'Something went wrong 🙀',
+        //   });
+        // }
+        else {
           batch(() => {
-            dispatch(user.actions.setEmail(null));
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setAccessToken(null));
+            dispatch(user.actions.setEmail(null));
             dispatch(user.actions.setError(data.response));
+            setValidationError(data.message);
+            console.log('DATA MESSAGE', data.response);
           });
         }
       });
@@ -174,6 +178,9 @@ const SignUp = () => {
 
         <button type='submit'>register</button>
         <p>*required fields</p>
+        {validationError !== null && (
+          <p style={{ fontSize: '21px', color: 'red' }}>{validationError}</p>
+        )}
       </Form>
 
       <div>

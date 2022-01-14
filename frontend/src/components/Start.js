@@ -33,6 +33,7 @@ const LottieDiv = styled.div`
   padding-top: 20px;
   position: absolute;
   width: 100%;
+  align-items: center;
 `;
 
 const EnterText = styled.p`
@@ -50,6 +51,16 @@ const EnterText = styled.p`
   a:hover {
     text-decoration: underline;
   }
+`;
+
+const Gif = styled.iframe`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  height: 300px;
+  width: auto;
 `;
 
 const Start = () => {
@@ -73,9 +84,8 @@ const Start = () => {
             </textPath>
           </text>
         </Svg>
-        <LottieDiv>
-          <Lottie />
-        </LottieDiv>
+        <Gif src='https://embed.lottiefiles.com/animation/57071'></Gif>
+        <LottieDiv>{/* <Lottie /> */}</LottieDiv>
       </TextContainer>
       <EnterText>
         click <Link to='/signup'>here </Link> to sign up or sign in

@@ -72,9 +72,11 @@ app.post('/signup', async (req, res) => {
     const salt = bcrypt.genSaltSync(); // this creates a randomizer to randomise the password string
 
     if (password.length < 5) {
-      throw { message: 'Password must be at least 5 characters' }; // this throws the user the message and redirect user to the catch block
+      throw 'Password must be at least 5 characters'; // this throws the user the message and redirect user to the catch block
     }
-
+    // if (password === '') {
+    //   throw 'Please provide password';
+    // }
     const newUser = await new User({
       username,
       email,
@@ -91,9 +93,35 @@ app.post('/signup', async (req, res) => {
       success: true,
     });
   } catch (error) {
-    res.status(400).json({ response: error, success: false });
+    if (username === '') {
+      res.status(400).json({
+        message: 'Validation failed: provide username',
+        response: error,
+        success: false,
+      });
+    } else if (error.code === 11000 && error.keyPattern.username) {
+      res.status(400).json({
+        message: 'Validation failed: username already exist',
+        response: error,
+        success: false,
+      });
+    } else if (password === '') {
+      res.status(400).json({
+        message: 'Validation failed: provide password',
+        response: error,
+        success: false,
+      });
+    } else {
+      res.status(400).json({
+        message: 'Validation failed: please provide username and password',
+        response: error,
+        success: false,
+      });
+    }
   }
 });
+
+//  res.status(400).json({ response: error, success: false }); OUR ORIGINAL CODE INSIDE THE CATCH
 
 app.post('/signin', async (req, res) => {
   const { username, password, email } = req.body;
