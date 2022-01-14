@@ -49,6 +49,7 @@ export const Login = () => {
           dispatch(user.actions.setUser(data.response));
           navigate("/game");
         } else {
+          dispatch(user.actions.setInitialUser());
           setError(
             "Could not sign in. If you like to log in using an existing account please press log in!"
           );
