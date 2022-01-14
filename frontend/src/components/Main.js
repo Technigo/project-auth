@@ -8,10 +8,8 @@ import secrets from "reducer/secrets";
 import user from "../reducer/user";
 
 export const Main = () => {
-  const [mode] = useState("signin");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const accessToken = useSelector((store) => store.user.accessToken);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

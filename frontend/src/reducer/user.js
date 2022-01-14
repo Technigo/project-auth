@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-const User = createSlice({
+const user = createSlice({
   name: "user",
   initialState: {
     userId: null,
     username: null,
-    /* password: null, */
     accessToken:null,
     error: null,
   },
@@ -28,4 +27,4 @@ const User = createSlice({
 });
 
 
-export default User;
+export default user;

@@ -13,6 +13,7 @@ article {
   height: 100vh;
   width: 100vw;
 }
+
 .imageContainer img {
   height: 100vh;
 }
@@ -25,7 +26,6 @@ article {
   justify-content: center;
   align-items: center;
   background-color: rgb(172, 215, 223);
-
   margin-left: 50vw;
 }
 
@@ -52,15 +52,12 @@ form {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-
   border-radius: 50%;
   width: 15px;
   height: 15px;
-
   border: 1.5px solid rgb(172, 215, 223);
   transition: 0.2s all linear;
   margin-right: 15px;
-
   position: relative;
   top: 4px;
 }
@@ -125,7 +122,6 @@ form {
 @media (max-width: 768px) {
   .contentContainer {
     width: 70vw;
-
     margin-left: 30vw;
   }
 
