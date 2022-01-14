@@ -1,4 +1,4 @@
-# Project Auth
+# Project Auth 🗝️
 
 This was a pair project by Jessica Nordahl and Madelene Trang.
 The aim of this week was to build a fullstack app by using Nodejs for backend and react, redux and styled components for frontend. We also learned how to securely store encrypted passwords, authenticate users using tokens. We built our API with a security and a defensive design in mind.
