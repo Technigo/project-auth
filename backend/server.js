@@ -147,7 +147,7 @@ app.post('/signin', async (req, res) => {
           success: true,
         })
     } else { 
-      res.status(404).json({ response: 'User pr password does not match', success: false})
+      res.status(404).json({ response: 'User password or name does not match', success: false})
     }
   } catch (err) {
     res.status(400).json({ response: err, success: false })
