@@ -13,7 +13,6 @@ const user = createSlice({
   },
   reducers: {
     setUser: (store, action) => {
-      console.log(action.payload);
       store.user = action.payload;
     },
     setError: (store, action) => {

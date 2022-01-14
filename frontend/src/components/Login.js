@@ -19,18 +19,10 @@ export const Login = () => {
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
-
-    if (actionType === "login") {
-      onLoginButtonClick();
-    }
-    if (actionType === "signup") {
-      onSignUpButtonClick();
-    }
-
-    setActionType("");
+    onSignUpLogInButtonClick();
   };
 
-  const onSignUpButtonClick = () => {
+  const onSignUpLogInButtonClick = () => {
     const options = {
       method: "POST",
       headers: {
@@ -42,45 +34,26 @@ export const Login = () => {
       }),
     };
 
-    fetch(API_URL("signup"), options)
+    fetch(API_URL(actionType), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           dispatch(user.actions.setUser(data.response));
+          setActionType("");
           navigate("/game");
         } else {
           dispatch(user.actions.setInitialUser());
-          setError(
-            "Could not sign in. If you like to log in using an existing account please press log in!"
-          );
-        }
-      });
-  };
-
-  const onLoginButtonClick = () => {
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: loginDetails.email,
-        password: loginDetails.password,
-      }),
-    };
-
-    fetch(API_URL("signin"), options)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("svar", data);
-
-        if (data.success) {
-          dispatch(user.actions.setUser(data.response));
-          navigate("/game");
-        } else {
-          setError(
-            "Could not log in. If you like to create a new account please press sign up!"
-          );
+          if (actionType === "login") {
+            setError(
+              "Could not sign up. If you like to log in using an existing account please press log in!"
+            );
+            setActionType("");
+          } else {
+            setError(
+              "Could not log in. If you like to create a new account please press sign up!"
+            );
+            setActionType("");
+          }
         }
       });
   };
@@ -100,8 +73,13 @@ export const Login = () => {
     fetch(API_URL("signin"), options)
       .then((res) => res.json())
       .then((data) => {
-        dispatch(user.actions.setUser(data.response));
-        navigate("/game");
+        if (data.success) {
+          dispatch(user.actions.setUser(data.response));
+          navigate("/game");
+        } else {
+          dispatch(user.actions.setInitialUser());
+          setError("Could not log in as a guest right now, try again later!");
+        }
       });
   };
 
@@ -150,7 +128,7 @@ export const Login = () => {
               }
             ></PasswordInput>
             <ButtonContainer>
-              <LoginButton onClick={() => setActionType("login")}>
+              <LoginButton onClick={() => setActionType("signin")}>
                 Log in
               </LoginButton>
               <SignUpButton onClick={() => setActionType("signup")}>
