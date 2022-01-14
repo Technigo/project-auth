@@ -1,3 +1,11 @@
+html,
+body {
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
 body {
   color: rgb(61, 56, 56);
   margin: 0;
@@ -117,17 +125,17 @@ label {
 
 .notfound-container {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
   width: 100vw;
-  background-image: url('./assets/notfound.jpg');
+  /* background-image: url('./assets/notfound.jpg'); */
 }
 
 .notfound-text {
-  color: white;
+  /* color: white; */
   font-size: 42px;
   margin-bottom: 20%;
   display: flex;

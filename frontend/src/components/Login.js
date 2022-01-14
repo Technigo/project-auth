@@ -58,16 +58,16 @@ const Login = () => {
   };
 
   return (
-    <div className='form-container'>
+    <div className="form-container">
       {mode === 'signin' && (
         <div>
-          <div className='label-container'>
-            <label className='label-button' htmlFor='signup'>
+          <div className="label-container">
+            <label className="label-button" htmlFor="signup">
               Sign up
             </label>
             <input
-              id='signup'
-              type='radio'
+              id="signup"
+              type="radio"
               checked={mode === 'signup'}
               onChange={() => setMode('signup')}
             />
@@ -77,13 +77,13 @@ const Login = () => {
       )}
       {mode === 'signup' && (
         <div>
-          <div className='label-container'>
-            <label className='label-button' htmlFor='signin'>
+          <div className="label-container">
+            <label className="label-button" htmlFor="signin">
               Sign in
             </label>
             <input
-              id='signin'
-              type='radio'
+              id="signin"
+              type="radio"
               checked={mode === 'signin'}
               onChange={() => setMode('signin')}
             />
@@ -92,25 +92,33 @@ const Login = () => {
         </div>
       )}
 
-      <form className='fields-container' onSubmit={onFormSubmit}>
-        <label htmlFor='username'>Username</label>
+      <form className="fields-container" onSubmit={onFormSubmit}>
+        <label htmlFor="username">Username</label>
         <input
-          id='username'
-          type='text'
+          id="username"
+          type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label htmlFor='password'>Password</label>
+        <label htmlFor="password">Password</label>
         <input
-          id='password'
-          type='password'
+          id="password"
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {mode === 'signup' && (
+          <p className="password-text">
+            Password needs to consist of at least 8 characters, a mixture of
+            both uppercase and lowercase letters, a mixture of letters and
+            numbers and inclusion of at least one special character, e.g., ! @ #
+            ?
+          </p>
+        )}
         {/*  {error && <p>Whoops! Something went wrong. Try again!</p>} */}
         {/* {error ? <p>{error}</p> : ''} */}
 
-        <button type='submit'>Submit</button>
+        <button type="submit">Submit</button>
         <p> {error}</p>
       </form>
     </div>
