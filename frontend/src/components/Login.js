@@ -10,7 +10,10 @@ export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState("signin");
+
   const accessToken = useSelector((store) => store.user.accessToken);
+  const error = useSelector((store) => store.user.error)
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -97,6 +100,7 @@ export const Login = () => {
             <button type="submit">Submit</button>
           </section>
         </form>
+        {error && <p className="error">Something went wrong</p>}
       </section>
     </article>
   );

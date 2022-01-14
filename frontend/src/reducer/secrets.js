@@ -19,10 +19,3 @@ const secrets = createSlice({
 });
 
 export default secrets;
-
-
-/* 
-
-export const { user } = User.actions;
-
-export default Tought.reducer; */

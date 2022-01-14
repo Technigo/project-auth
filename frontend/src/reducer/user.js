@@ -4,10 +4,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const User = createSlice({
   name: "user",
   initialState: {
+    userId: null,
     username: null,
-    password: null,
-   accessToken:null,
-   userId:null
+    /* password: null, */
+    accessToken:null,
+    error: null,
   },
 
   reducers: {
