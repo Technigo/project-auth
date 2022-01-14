@@ -14,17 +14,19 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: red solid 2px;
+  border: red solid 4px;
   border-radius: 8px;
   max-width: 70%;
   width: 60%;
   margin: 60px auto 0 auto;
   font-family: 'Dongle', sans-serif;
   padding: 20px;
+  background: lavenderblush;
 
   img {
     width: 100%;
     object-fit: contain;
+    border-radius: 8px;
   }
   button {
     width: 150px;
@@ -88,8 +90,30 @@ const Main = () => {
 
   return (
     <Wrapper>
-      <h1>Meet your new meowster</h1>
-      <img src={cat.file} />
+      <svg viewBox='0 0 100 100' width='100' height='100'>
+        <defs>
+          <path
+            id='circle'
+            d='
+        M 50, 50
+        m -37, 0
+        a 37,37 0 1,1 74,0
+        a 37,37 0 1,1 -74,0'
+          />
+        </defs>
+        <text fontSize='26'>
+          <textPath xlinkHref='#circle'>
+            The - secret - cat - society -
+          </textPath>
+        </text>
+      </svg>
+      <h1>
+        Meet your new meowster{' '}
+        <span role='img' aria-label='paws'>
+          🐾
+        </span>
+      </h1>
+      <img alt='random cat' src={cat.file} />
       <button onClick={handleLogout}>SIGN OUT</button>
     </Wrapper>
   );

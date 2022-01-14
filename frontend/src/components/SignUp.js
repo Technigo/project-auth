@@ -115,15 +115,6 @@ const SignUp = () => {
         console.log(data);
 
         if (data.success) {
-          // localStorage.setItem(
-          //   'user',
-          //   JSON.stringify({
-          //     userId: data.response.userId,
-          //     username: data.response.username,
-          //     email: data.response.email,
-          //     accessToken: data.response.accessToken,
-          //   })
-          // );
           new Swal({
             title: 'Congratulations! User created 😻',
           }).then(function () {

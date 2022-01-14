@@ -67,7 +67,7 @@ const Start = () => {
         a 37,37 0 1,1 -74,0'
             />
           </defs>
-          <text font-size='24'>
+          <text fontSize='24'>
             <textPath xlinkHref='#circle'>
               The - secret - cat - society -
             </textPath>

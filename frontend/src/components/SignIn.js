@@ -93,7 +93,6 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const accessToken = useSelector(store => store.user.accessToken);
-  const errorMess = useSelector(store => store.user.error);
 
   useEffect(() => {
     if (accessToken) {
