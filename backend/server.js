@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("User", UserSchema);
+const Person = mongoose.model("Person", UserSchema);
 
 const Riddle = mongoose.model("Riddle", {
   riddleId: Number,
@@ -75,7 +75,7 @@ app.use(cors());
 app.use(express.json());
 
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({
+  const user = await Person.findOne({
     accessToken: req.header("Authorization"),
   });
   if (user) {
@@ -175,7 +175,7 @@ app.post("/signup", async (req, res) => {
     }
     const salt = bcrypt.genSaltSync();
 
-    const newUser = await new User({
+    const newUser = await new Person({
       username,
       password: bcrypt.hashSync(password, salt),
     }).save();
@@ -209,7 +209,7 @@ app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const user = await User.findOne({ username });
+    const user = await Person.findOne({ username });
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
