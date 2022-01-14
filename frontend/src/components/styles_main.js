@@ -9,7 +9,6 @@ flex-direction: column;
 justify-content: center;
 `
 
-
 // HEADER
 
 export const Header = styled.div`

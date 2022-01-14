@@ -1,13 +1,15 @@
-# Project Auth
+# Project Auth - Pair project - Jessica Nygren Walhed & Daniel Vestin
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This week's project was all about tie the skills we've learnt so far to build an API with authentication to implement a registration flow, and a frontend with forms to register, sign in, and view some content once the user is logged in. 
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+It was a  bit of a struggle to remember Redux 😅. Needed to freshen up our minds a bit. But think we really implemented something that we understand now. This project will really come in handy to go back to for the Final projects. 
 
-## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+
+### Link to Frontend
+
+### Link to Backend on Heroku
+https://jes-secret-api.herokuapp.com/
+

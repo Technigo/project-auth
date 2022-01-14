@@ -25,82 +25,9 @@ color: #F3EFCC;
 `
 
 export const P = styled.p`
-  font-size: 1rem;
-  color: #F3EFCC;
-  margin-top: 0;
-`
-
-//RADIO BUTTONS
-
-export const Radios = styled.div`
-display: flex;
-justify-content: space-between;
-gap: 1rem;
-align-items: center;
-`
-
-export const Radiowrapper = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 0 0.5rem;
-// background-color: #F3EFCC;
-height: 32px;
-border-radius: 8px;
-width: 100%;
-`
-
-export const RadioButton = styled.input`
-// margin-right: 0.5rem;
-margin-top: 0;
-// display: none;
-`
-
-export const Radiogroup = styled.div`
-border: 1px solid #F3EFCC;
-display: inline-block;
-margin: 0 auto;;
-height: 32px;
-border-radius: 8px;
-// overflow: hidden;
-max-width: 343px;
-display: flex;
-align-items: center;
-text-align: center;
-`
-
-export const Radiolabel = styled.label`
-width: 100%;
-color: #F3EFCC;
-transition: 0.2s;
-font-family: Roboto, sans-serif;
 font-size: 1rem;
-font-weight: 400;
-font-family: Roboto;
-font-size: 1.175rem;
-cursor: pointer;
-`
-
-export const HiddenRadioButton = styled.input.attrs({
-  type: 'radio',
-})`
-  height: 25px;
-  width: 25px;
-  cursor: pointer;
-  position: absolute;
-  opacity: 0;
-`
-
-export const RadioButtonTest = styled.span`
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background-color: white;
-  pointer-events: none;
-
-  ${HiddenRadioButton}:checked + && {
-    background-color: red;
-  }
+color: #F3EFCC;
+margin-top: 0;
 `
 
 // SIGNUP & SIGNIN FORM
@@ -122,12 +49,12 @@ box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 `
 
 export const Label = styled.label`
-  color: #F3EFCC;
-  width: 100%;
-  transition: 0.2s;
-  font-family: Roboto, sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
+color: #F3EFCC;
+width: 100%;
+transition: 0.2s;
+font-family: Roboto, sans-serif;
+font-size: 1rem;
+font-weight: 400;
 `
 
 export const Flexboxinput = styled.div`
@@ -159,7 +86,6 @@ font-size: 1rem;
 font-weight: 400;
 text-decoration: inherit;
 text-transform: inherit;
-// align-self: flex-end;
 box-sizing: border-box;
 width: 100%;
 height: 3rem;

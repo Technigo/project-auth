@@ -104,7 +104,7 @@ app.post('/signup', async (req, res) => {
     const salt = bcrypt.genSaltSync()
 
     if (password.length < 5) {
-      throw { message: 'Password must be at least 5 charachters long'}
+      throw 'Password must be at least 5 charachters long'
     } 
 
     const newUser = await new User({

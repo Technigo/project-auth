@@ -26,25 +26,22 @@ const Login = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [mode, setMode] = useState('signup')
-
 	const [errorMessage, setErrorMessage] = useState(null)
 
-
 	const accessToken = useSelector((store) => store.user.accessToken)
-	// const errors = useSelector((store) => store.user.error)
-
-
+	
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
+	// if user is authorized (we have an accesstoken) navigate to the Main
 	useEffect(() => {
 		if (accessToken) {
-			navigate('/');
+			navigate('/')
 		}
-	}, [accessToken, navigate]);
+	}, [accessToken, navigate])
 
 	const onFormSubmit = (event) => {
-		event.preventDefault();
+		event.preventDefault()
 
 		const options = {
 			method: 'POST',
@@ -52,12 +49,11 @@ const Login = () => {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({ username, password }),
-		};
+		}
 
 		fetch(API_URL(mode), options)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
 				if (data.success) {
 					batch(() => {
 						dispatch(user.actions.setUserId(data.response.userId))
@@ -65,12 +61,12 @@ const Login = () => {
 						dispatch(user.actions.setAccessToken(data.response.accessToken))
 						dispatch(user.actions.setError(null))
 						setErrorMessage(null)
+						//Save user items in localStorage for preventing browser refresh remove token
 						localStorage.setItem(
 							"user",
 							JSON.stringify({
 							  userId: data.response.userId,
 							  username: data.response.username,
-							  email: data.response.email,
 							  accessToken: data.response.accessToken,
 							})
 						  )
@@ -118,12 +114,11 @@ const Login = () => {
                     />
                 </Flexboxinput>
 
-				{/* <Button type="submit">Submit</Button> */}
 				{setErrorMessage !== null && (
             		<P>{errorMessage}</P>
           			)}
+
                 <ButtonWrapper>
-				
                     <Button type='submit' onClick={() => setMode('signin')}>
                         Sign in
                     </Button>

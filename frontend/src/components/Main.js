@@ -29,7 +29,7 @@ const Main = () => {
 		if (!accessToken) {
 			navigate('/login')
 		}
-	}, [accessToken, navigate]);
+	}, [accessToken, navigate])
 
 	useEffect(() => {
 		const options = {
@@ -44,22 +44,23 @@ const Main = () => {
 			.then((data) => {
 				if (data.success) {
 					dispatch(secrets.actions.setItems(data.response))
-					dispatch(secrets.actions.setError(null));
+					dispatch(secrets.actions.setError(null))
 				} else {
-					dispatch(secrets.actions.setItems([]));
+					dispatch(secrets.actions.setItems([]))
 					dispatch(secrets.actions.setError(data.response))
 				}
-			});
+			})
 	}, [accessToken, dispatch])
 
-	const onButtonClick = () => {
+	// Logout function setting store state to null and removes localStorage
+	const logout = () => {
 		batch(() => {
-		  dispatch(user.actions.setUserId(null));
-		  dispatch(user.actions.setUsername(null));
-		  dispatch(user.actions.setAccessToken(null));
-		});
-		localStorage.removeItem("user");
-	  };
+		  dispatch(user.actions.setUserId(null))
+		  dispatch(user.actions.setUsername(null))
+		  dispatch(user.actions.setAccessToken(null))
+		})
+		localStorage.removeItem("user")
+	  }
 
 	return (
 		<PageWrapper>
@@ -78,7 +79,7 @@ const Main = () => {
 				))}
 			</SecretWrapper>
 			
-			<Button onClick={() => onButtonClick()}>Logout</Button>
+			<Button onClick={() => logout()}>Logout</Button>
 			
 		</PageWrapper>
 	)

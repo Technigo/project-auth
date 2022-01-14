@@ -11,7 +11,7 @@ const initialState = localStorage.getItem("user")
       username: null,
       accessToken: null,
       error: null,
-    };
+    }
 
 const user = createSlice({
     name: 'user',
@@ -28,9 +28,6 @@ const user = createSlice({
         },
         setError: (store, action) => {
             store.error = action.payload
-        },
-        logout: () => {
-            return initialState
         },
     },
 })
