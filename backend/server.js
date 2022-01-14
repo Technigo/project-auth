@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import crypto from 'crypto';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI';
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -26,21 +26,11 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
-// Defines the port the app will run on. Defaults to 8080, but can be
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
-
-// // v2
-// app.use(cors({
-//   origin: 'https://mypage-frontend.com'
-// }))
-// // v3 several ok domains - watch the end of maks lesson monday
 
 app.use(express.json());
 
@@ -53,15 +43,12 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next();
     } else {
-      res.status(401).json({ response: 'Please log in', success: false });
+      res.status(401).json({ response: 'Please, log in', success: false });
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false });
   }
 };
-
-// Authentication - 401 (Unauthorized) But should be unauthenticated
-// Authorization - 403 (Forbidden) But should be unauthorized
 
 // Start defining your routes here
 app.get('/', (req, res) => {
@@ -74,9 +61,6 @@ app.get('/', (req, res) => {
 app.get('/thoughts', async (req, res) => {
   const thoughts = await Thought.find({});
   res.status(201).json({ response: thoughts, success: true }); */
-
-// res.send('Here are your thoughts');
-/* }); */
 
 app.get('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
@@ -107,7 +91,7 @@ app.post('/signup', async (req, res) => {
       success: true
     });
   } catch (error) {
-    res.status(400).json({ response: error, success: false });
+    res.status(400).json({ response: 'Could not create user', success: false });
   }
 });
 
