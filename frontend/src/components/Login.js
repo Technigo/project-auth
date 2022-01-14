@@ -84,7 +84,7 @@ const Login = () => {
     if (accessToken) {
       navigate("/");
     }
-  }, [accessToken, navigate, dispatch]);
+  }, [accessToken, navigate]);
 
   const onFormSubmit = (event) => {
     event.preventDefault();
