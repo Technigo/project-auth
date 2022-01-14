@@ -1,12 +1,13 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+Fullstack application that authenticates users and handles passwords. Backend consists of an API with authentication and a frontend with forms to register, sign in and view certain content when signed in, in order to get the full registration flow.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+This was a pair-programming project, so we started to make a plan how to structure the project and our working hours.
+We installed all dependencies in order to build a backend with Mongo express and Mongoose, and a frontend in React and Redux, then began building the API to store users. We built a Mongoose Schema and Model, then created endpoints to store new users in the database. In order to save user passwords securely, an access token is stored with each user. This token is later being checked and if it is correct, you are logged in and can access another endpoint.
+
+If you had more time, what would be next?
 
 ## View it live
 

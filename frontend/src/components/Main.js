@@ -53,7 +53,14 @@ const BodyContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 150px;
+  margin-top: 140px;
+`;
+
+const BodyTitle = styled.h2`
+  background-color: #f7e793bf;
+  padding: 10px;
+  box-shadow: 2px 2px 12px #f7e793bf, -2px -2px 12px #f7e793bf;
+  border-radius: 15px;
 `;
 
 const GifsContainer = styled.div`
@@ -117,7 +124,7 @@ const Main = () => {
             </ButtonContainer>
           </HeaderContainer>
           <BodyContainer>
-            <h2>Your spacy gifs 🚀</h2>
+            <BodyTitle>🚀 Your spacy gifs 🚀</BodyTitle>
             <GifsContainer>
               <GifImg src={spaceGif1} />
 

@@ -65,6 +65,9 @@ export const Button = styled.button`
   border-radius: 5px;
   background-color: #75ceabe6;
   cursor: pointer;
+  :hover {
+    box-shadow: 2px 2px 12px #75ceabbf, -2px -2px 12px #75ceabbf;
+  }
 `;
 
 const Login = () => {
@@ -73,7 +76,6 @@ const Login = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const mode = useSelector((store) => store.user.mode);
   const loading = useSelector((store) => store.user.loading);
-  //   const error = useSelector((store) => store.user.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -83,15 +85,6 @@ const Login = () => {
       navigate("/");
     }
   }, [accessToken, navigate]);
-
-  //   const checkError = () => {
-  //     if (typeof error.error === "string") {
-  //       return error.error;
-  //     } else {
-  //       return error.response;
-  //     }
-  //   };
-  //   console.log(checkError());
 
   const onFormSubmit = (event) => {
     event.preventDefault();

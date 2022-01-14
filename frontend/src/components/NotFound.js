@@ -9,11 +9,15 @@ const LottieContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: -100px;
+  min-width: 200px;
+  min-height: 200px;
 `;
 
 const Button = styled.button`
   border: transparent;
   font-family: inherit;
+  color: #2d4858;
   width: 150px;
   height: 30px;
   font-size: 18px;
@@ -24,6 +28,9 @@ const Button = styled.button`
   cursor: pointer;
   margin: -10vh;
   z-index: 1;
+  :hover {
+    box-shadow: 2px 2px 12px #2d4858bf, -2px -2px 12px #2d4858bf;
+  }
 `;
 
 const NotFound = () => {
@@ -44,7 +51,7 @@ const NotFound = () => {
 
   return (
     <LottieContainer>
-      <Lottie options={defaultOptions} height={800} width={800} />
+      <Lottie options={defaultOptions} />
       <Button className="gobackButton" onClick={onButtonClick}>
         Go back
       </Button>
