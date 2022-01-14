@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch, batch } from "react-redux"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import { API_URL } from "../utils/constants"
 import user from "../reducers/user"
@@ -56,32 +56,20 @@ const Login = () => {
       })
   }
 
+  console.log(mode)
+
   return (
     <>
-      <div>
-        <Link to="/">To '/' !</Link>
-      </div>
+      {mode === "signin" ? (
+        <button type="submit" onClick={() => setMode("signup")}>
+          Sign up
+        </button>
+      ) : (
+        <button type="submit" onClick={() => setMode("signin")}>
+          Sign in
+        </button>
+      )}
 
-      <button type="submit" onClick={() => setMode("signin")}>
-        Sign in
-      </button>
-      <button type="submit" onClick={() => setMode("signup")}>
-        Sign up
-      </button>
-      {/* <label htmlFor="signup">Signup</label>
-      <input
-        id="signup"
-        type="radio"
-        checked={mode === "signup"}
-        onChange={() => setMode("signup")}
-      />
-      <label htmlFor="signin">Signin</label>
-      <input
-        id="signin"
-        type="radio"
-        checked={mode === "signin"}
-        onChange={() => setMode("signin")}
-      /> */}
       <form onSubmit={onFormSubmit}>
         <label htmlFor="username">Username</label>
         <input

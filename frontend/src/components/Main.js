@@ -1,9 +1,10 @@
 import React, { useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector, useDispatch, batch } from "react-redux"
 import { useNavigate, Link } from "react-router-dom"
 
 import { API_URL } from "../utils/constants"
 import thoughts from "../reducers/thoughts"
+import user from "reducers/user"
 
 const Main = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items)
@@ -39,16 +40,30 @@ const Main = () => {
       })
   }, [accessToken, dispatch])
 
+  const logOutUser = () => {
+    batch(() => {
+      dispatch(user.actions.setUsername(null))
+      dispatch(user.actions.setAccessToken(null))
+
+      localStorage.removeItem("user")
+    })
+  }
+
   return (
-    <div>
+    <section className="secrets-container">
       <div>
-        <Link to="/login">To "/login" !</Link>
+        <div>
+          <Link to="/login"> Back to Sign in page</Link>
+        </div>
+        <h1>welcome to the chamber of secrets..</h1>
+        {thoughtsItems.map((item) => (
+          <div key={item._id}>{item.message}</div>
+        ))}
       </div>
-      <h1>welcome to the chamber of secrets..</h1>
-      {thoughtsItems.map((item) => (
-        <div key={item._id}>{item.message}</div>
-      ))}
-    </div>
+      <button className="logout-btn" onClick={logOutUser}>
+        Log out
+      </button>
+    </section>
   )
 }
 
