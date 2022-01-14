@@ -100,7 +100,7 @@ export const Login = () => {
             <button type="submit">Submit</button>
           </section>
         </form>
-        {error && <p className="error">Something went wrong</p>}
+        {error && <p className="error">Password needs to be 5 characters or longer</p>}
       </section>
     </article>
   );
