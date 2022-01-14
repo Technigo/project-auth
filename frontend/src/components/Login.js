@@ -9,12 +9,13 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState('signup');
+  const [error, setError] = useState('');
 
   const accessToken = useSelector((store) => store.user.accessToken);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const error = useSelector((store) => store.user.error);
+  /* const error = useSelector((store) => store.user.error); */
 
   useEffect(() => {
     if (accessToken) {
@@ -51,21 +52,22 @@ const Login = () => {
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
           });
+          setError('Invalid login or password');
         }
       });
   };
 
   return (
-    <div className="form-container">
+    <div className='form-container'>
       {mode === 'signin' && (
         <div>
-          <div className="label-container">
-            <label className="label-button" htmlFor="signup">
+          <div className='label-container'>
+            <label className='label-button' htmlFor='signup'>
               Sign up
             </label>
             <input
-              id="signup"
-              type="radio"
+              id='signup'
+              type='radio'
               checked={mode === 'signup'}
               onChange={() => setMode('signup')}
             />
@@ -75,13 +77,13 @@ const Login = () => {
       )}
       {mode === 'signup' && (
         <div>
-          <div className="label-container">
-            <label className="label-button" htmlFor="signin">
+          <div className='label-container'>
+            <label className='label-button' htmlFor='signin'>
               Sign in
             </label>
             <input
-              id="signin"
-              type="radio"
+              id='signin'
+              type='radio'
               checked={mode === 'signin'}
               onChange={() => setMode('signin')}
             />
@@ -90,25 +92,26 @@ const Login = () => {
         </div>
       )}
 
-      <form className="fields-container" onSubmit={onFormSubmit}>
-        <label htmlFor="username">Username</label>
+      <form className='fields-container' onSubmit={onFormSubmit}>
+        <label htmlFor='username'>Username</label>
         <input
-          id="username"
-          type="text"
+          id='username'
+          type='text'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label htmlFor="password">Password</label>
+        <label htmlFor='password'>Password</label>
         <input
-          id="password"
-          type="password"
+          id='password'
+          type='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {error && <p>Whoops! Something went wrong. Try again!</p>}
+        {/*  {error && <p>Whoops! Something went wrong. Try again!</p>} */}
         {/* {error ? <p>{error}</p> : ''} */}
 
-        <button type="submit">Submit</button>
+        <button type='submit'>Submit</button>
+        <p> {error}</p>
       </form>
     </div>
   );
