@@ -5,7 +5,6 @@ article {
   width: 100vw;
   position: relative;
   overflow: hidden;
-
 }
 
 .imageContainer {
@@ -13,12 +12,9 @@ article {
   z-index: -1;
   height: 100vh;
   width: 100vw;
-  
 }
-.imageContainer img{
-
-height: 100vh;
-
+.imageContainer img {
+  height: 100vh;
 }
 
 .contentContainer {
@@ -28,7 +24,7 @@ height: 100vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color:rgb(172,215,223);
+  background-color: rgb(172, 215, 223);
 
   margin-left: 50vw;
 }
@@ -40,7 +36,7 @@ form {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(25,90,119);
+  background-color: rgb(25, 90, 119);
   padding: 15px;
   border-radius: 15px;
 }
@@ -49,28 +45,24 @@ form {
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  color: rgb(172,215,223);
+  color: rgb(172, 215, 223);
 }
 
-.radioBtnContainer input{
-
-
+.radioBtnContainer input {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  
 
   border-radius: 50%;
   width: 15px;
   height: 15px;
 
-  border: 1.5px solid rgb(172,215,223);
+  border: 1.5px solid rgb(172, 215, 223);
   transition: 0.2s all linear;
   margin-right: 15px;
 
   position: relative;
   top: 4px;
-
 }
 
 .radioBtnContainer input:checked {
@@ -79,8 +71,6 @@ form {
   width: 15px;
   height: 15px;
 }
-
-     
 
 .inputContainer {
   width: 100%;
@@ -94,19 +84,17 @@ form {
   padding: 10px 5px;
   border: none;
   border-radius: 5px;
-  background-color: rgb(172,215,223);
+  background-color: rgb(172, 215, 223);
 }
-
-
 
 .inputContainer input:focus {
   outline: none;
-  color: rgb(214,250,255); 
+  color: rgb(214, 250, 255);
   background-color: rgb(14, 51, 68);
 }
 
 .inputContainer input:focus::placeholder {
-  color: rgb(214,250,255); 
+  color: rgb(214, 250, 255);
 }
 
 .btnContainer {
@@ -121,31 +109,27 @@ form {
   border: none;
   border-radius: 5px;
   padding: 10px 5px;
-  background-color: rgb(172,215,223);
+  background-color: rgb(172, 215, 223);
 }
 
-.btnContainer button:hover{
-  
-  color: rgb(214,250,255); 
+.errorContainer {
+  display: flex;
+  text-align: center;
+}
+
+.btnContainer button:hover {
+  color: rgb(214, 250, 255);
   background-color: rgb(14, 51, 68);
-
 }
 
-@media (max-width:768px) {
-  
-.contentContainer {
-  width: 70vw;
- 
+@media (max-width: 768px) {
+  .contentContainer {
+    width: 70vw;
 
-  margin-left: 30vw;
-}
-  
+    margin-left: 30vw;
+  }
+
   form {
     width: 55vw;
-    
   }
-  
-  
-
-
 }

@@ -12,7 +12,7 @@ export const Login = () => {
   const [mode, setMode] = useState("signin");
 
   const accessToken = useSelector((store) => store.user.accessToken);
-  const error = useSelector((store) => store.user.error)
+  const error = useSelector((store) => store.user.error);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ export const Login = () => {
   return (
     <article>
       <section className="imageContainer">
-        <img src={background} alt="background" aria-hidden="true"/>
+        <img src={background} alt="background" aria-hidden="true" />
       </section>
 
       <section className="contentContainer">
@@ -100,7 +100,12 @@ export const Login = () => {
             <button type="submit">Submit</button>
           </section>
         </form>
-        {error && <p className="error">Password needs to be 5 characters or longer</p>}
+
+        <section className="errorContainer">
+          {error && mode === "signup"
+            ? `Password needs to be 5 characters or longer`
+            : ``}
+        </section>
       </section>
     </article>
   );
