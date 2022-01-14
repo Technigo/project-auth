@@ -9,6 +9,7 @@ const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [mode, setMode] = useState("signup")
+  const [error, setError] = useState("")
 
   const accessToken = useSelector((store) => store.user.accessToken)
 
@@ -50,6 +51,7 @@ const Login = () => {
             dispatch(user.actions.setAccessToken(null))
             dispatch(user.actions.setError(data.response))
           })
+          setError("Sorry, this is an invalid username or password")
         }
       })
   }
@@ -59,7 +61,14 @@ const Login = () => {
       <div>
         <Link to="/">To '/' !</Link>
       </div>
-      <label htmlFor="signup">Signup</label>
+
+      <button type="submit" onClick={() => setMode("signin")}>
+        Sign in
+      </button>
+      <button type="submit" onClick={() => setMode("signup")}>
+        Sign up
+      </button>
+      {/* <label htmlFor="signup">Signup</label>
       <input
         id="signup"
         type="radio"
@@ -72,7 +81,7 @@ const Login = () => {
         type="radio"
         checked={mode === "signin"}
         onChange={() => setMode("signin")}
-      />
+      /> */}
       <form onSubmit={onFormSubmit}>
         <label htmlFor="username">Username</label>
         <input
@@ -88,6 +97,9 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        <p>{error}</p>
+
         <button type="submit">Submit</button>
       </form>
     </>

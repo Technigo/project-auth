@@ -44,10 +44,7 @@ const Main = () => {
       <div>
         <Link to="/login">To "/login" !</Link>
       </div>
-      <h1>
-        Protected happy thoughts that will be shown when you are logged in
-        successfully:
-      </h1>
+      <h1>welcome to the chamber of secrets..</h1>
       {thoughtsItems.map((item) => (
         <div key={item._id}>{item.message}</div>
       ))}
