@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector, batch } from 'react-redux';
 import styled from 'styled-components';
-import { useNavigate, Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+
+import user from 'reducers/user';
 
 export const SecretContent = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const accessToken = useSelector((store) => store.user.accessToken);
 
+  // const logout = () => {
+  //   batch(() => {
+  //     dispatch(user.actions.setUsername(null));
+  //     dispatch(user.actions.setAccessToken(null));
+  //   });
+  // };
+
+  // Styled components
   const Cake = styled.h1`
     font-size: 4em;
     margin: 0px;
@@ -20,9 +31,19 @@ export const SecretContent = () => {
     color: #d4426e;
     text-align: center;
   `;
+  const LogoutButton = styled.button`
+    background-color: #92dea0;
+    align-self: center;
+    width: fit-content;
+    padding: 5px 15px;
+    margin: 10px;
+    font-size: 1em;
+    padding: 5px;
+    border: 2px solid black;
+    text-transform: uppercase;
+  `;
 
-  const accessToken = useSelector((store) => store.user.accessToken);
-
+  // redirect user to login if they are not logged in
   useEffect(() => {
     if (!accessToken) {
       navigate('/login');
@@ -37,9 +58,10 @@ export const SecretContent = () => {
         </span>
       </Cake>
 
-      <Link className="Link" to="/login">
+      {/* <Link className="Link" to="/login">
         <button type="submit">Log out</button>
-      </Link>
+      </Link> */}
+      {/* <LogoutButton onClick={logout}>Log out</LogoutButton> */}
       <H1>
         This is super secret
         <span role="img" aria-label="eyes">
