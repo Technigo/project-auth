@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { useNavigate /* Link  */ } from 'react-router-dom';
 import styled from 'styled-components';
-
 import { API_URL } from 'utils/url';
 import user from '../reducers/user';
 
@@ -57,43 +56,43 @@ export const Login = () => {
       {/*  <Link to={`/`} className='Link'>
         Go to the Register page
       </Link> */}
-      <label htmlFor="signup">Signup</label>
+      <label htmlFor='signup'>Signup</label>
       <input
-        id="signup"
-        type="radio"
+        id='signup'
+        type='radio'
         checked={mode === 'signup'}
         onChange={() => setMode('signup')}
       ></input>
-      <label htmlFor="signin">Sign in</label>
+      <label htmlFor='signin'>Sign in</label>
       <input
-        id="signin"
-        type="radio"
+        id='signin'
+        type='radio'
         checked={mode === 'signin'}
         onChange={() => setMode('signin')}
       ></input>
 
       <Form onSubmit={onFormSubmit}>
-        <label htmlFor="username">
+        <label htmlFor='username'>
           <h2>Username</h2>
         </label>
         <Input
-          id="username"
-          type="text"
-          placeholder="Username"
+          id='username'
+          type='text'
+          placeholder='Username'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         ></Input>
-        <label htmlFor="password">
+        <label htmlFor='password'>
           <h2>Password</h2>
         </label>
         <Input
-          id="password"
-          type="password"
-          placeholder="Password"
+          id='password'
+          type='password'
+          placeholder='Password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         ></Input>
-        <Button type="submit">Login</Button>
+        <Button type='submit'>Login</Button>
       </Form>
     </>
   );

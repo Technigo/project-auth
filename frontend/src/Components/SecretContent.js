@@ -61,20 +61,22 @@ export const SecretContent = () => {
       },
     };
 
+    console.log('dags att fetcha hemligheter!!!');
+
     fetch(API_URL('secrets'), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log('DATA', data);
-        if (data.success) {
-          dispatch(secrets.actions.setItems(data.response));
-          dispatch(secrets.actions.setError(null));
-        } else {
-          dispatch(secrets.actions.setItems([]));
-          dispatch(secrets.actions.setError(data.response));
-        }
+        console.log('den här koden körs väl');
+        // if (data.success) {
+        dispatch(secrets.actions.setItems(data.response));
+        // dispatch(secrets.actions.setError(null));
+        //        } else {
+        //        dispatch(secrets.actions.setItems([]));
+        //      dispatch(secrets.actions.setError(data.response));
+        //  }
       });
   }, [accessToken]);
-
+  console.log('secrets', typeof secretItems);
   return (
     <>
       <Cake>
@@ -95,8 +97,11 @@ export const SecretContent = () => {
         ... for some reason
         {/* Fetching this h2 from the secret endpoint in the backend */}
       </H1>
-      {secretItems.map((item) => (
-        <H2 key={item._id}>{item.message}</H2>
+
+      {secretItems.map((items) => (
+        <div key={items.id}>
+          <H2>{items.text}</H2>
+        </div>
       ))}
       <p>
         Topping muffin marzipan carrot cake icing. Powder sesame snaps gummi
