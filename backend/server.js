@@ -1,4 +1,5 @@
 import express from 'express';
+import listEndPoints from 'express-list-endpoints'; // for listing all routes
 import cors from 'cors';
 import mongoose from 'mongoose';
 import crypto from 'crypto';
@@ -66,6 +67,15 @@ const authenticateUser = async (req, res, next) => {
 };
 
 // Start defining your routes here
+app.get('/', async (req, res) => {
+  res.send('welcome to the authentication API. For all end points visit:  : ');
+});
+
+// this will list all routes
+app.get('/endpoints', async (req, res) => {
+  res.send(listEndPoints(app));
+});
+
 app.get('/thoughts', authenticateUser);
 app.get('/thoughts', async (req, res) => {
   const thoughts = await Thought.find({});
