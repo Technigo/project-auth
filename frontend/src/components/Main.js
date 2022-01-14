@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 import user from "../reducers/user";
 import programmingMeme from "../utils/programmingMeme.jpeg";
@@ -31,10 +32,23 @@ const Main = () => {
 			<div>
 				<button onClick={signOut}>Sign out</button>
 			</div>
-			<h1>Protected coding meme:</h1>
-			<img src={programmingMeme} alt="programming meme" />
+			<MemeContainer>
+				<h1>Meme just for you:</h1>
+				<Meme src={programmingMeme} alt="programming meme" />
+			</MemeContainer>
 		</div>
 	);
 };
 
 export default Main;
+
+const MemeContainer = styled.div`
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+`;
+
+const Meme = styled.img`
+	max-width: 70%;
+`;

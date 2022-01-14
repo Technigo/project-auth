@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, batch, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 import { API_URL } from "../utils/urls";
 import user from "../reducers/user";
@@ -60,40 +61,69 @@ const Login = () => {
 	};
 
 	return (
-		<>
-			<label htmlFor="signup">Signup</label>
-			<input
-				id="signup"
-				type="radio"
-				checked={mode === "signup"}
-				onChange={() => setMode("signup")}
-			/>
-			<label htmlFor="signin">Signin</label>
-			<input
-				id="signin"
-				type="radio"
-				checked={mode === "signin"}
-				onChange={() => setMode("signin")}
-			/>
-			<form onSubmit={onFormSubmit}>
-				<label htmlFor="username">Username</label>
+		<LoginContainer>
+			<ModeContainer>
+				<label htmlFor="signup">Sign-up</label>
 				<input
+					id="signup"
+					type="radio"
+					checked={mode === "signup"}
+					onChange={() => setMode("signup")}
+				/>
+				<label htmlFor="signin">Sign-in</label>
+				<input
+					id="signin"
+					type="radio"
+					checked={mode === "signin"}
+					onChange={() => setMode("signin")}
+				/>
+			</ModeContainer>
+			<Form onSubmit={onFormSubmit}>
+				<label htmlFor="username"></label>
+				<TextInput
 					id="username"
 					type="text"
+					placeholder="Username"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 				/>
-				<label htmlFor="password">Password</label>
-				<input
+				<label htmlFor="password"></label>
+				<TextInput
 					id="password"
 					type="password"
+					placeholder="Password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
 				<button type="submit">Submit</button>
-			</form>
-		</>
+			</Form>
+		</LoginContainer>
 	);
 };
 
 export default Login;
+
+const LoginContainer = styled.div`
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+`;
+
+const ModeContainer = styled.form`
+	display: flex;
+`;
+
+const Form = styled.form`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 10px;
+`;
+
+const TextInput = styled.input`
+	padding: 5px;
+	border-radius: 5px;
+`;

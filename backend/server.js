@@ -74,7 +74,13 @@ app.post("/signup", async (req, res) => {
 	const { username, password } = req.body;
 
 	try {
+		const user = await User.findOne({ username });
 		const salt = bcrypt.genSaltSync();
+
+		// checks if user already exists, if user exists - asks user to sign-in instead
+		if (user) {
+			throw "Change to sign-in and well, sign-in 🚪";
+		}
 
 		// ensures the username length is minimum 2 characters
 		if (username.length < 2) {
