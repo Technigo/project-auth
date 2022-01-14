@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { API_URL } from '../utils/constants';
@@ -12,7 +12,6 @@ import img from '../assets/background1.jpg';
 const WholeWrapper = styled.div`
 	display: flex;
 `;
-
 const BackgroundImg = styled.div`
 	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
 		url(${img});
@@ -22,7 +21,16 @@ const BackgroundImg = styled.div`
 	height: auto;
 	width: 100%;
 `;
-
+const H1 = styled.h1`
+font-family: 'Poppins', sans-serif;
+font-weight: 800;
+letter-spacing: 1.5px;
+`;
+const H2 = styled.h2`
+font-family: 'Poppins', sans-serif;
+font-weight: 800;
+letter-spacing: 1px;
+`;
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -33,28 +41,18 @@ const Wrapper = styled.div`
 	height: 90vh;
 	gap: 20px;
 `;
-
 const RadioWrapper = styled.div`
 	display: flex;
 	width: 200px;
 	justify-content: space-between;
 	align-items: center;
 `;
-
-const Username = styled.div`
+const UserInput = styled.div`
 	display: flex;
 	width: 200px;
 	align-items: center;
 	flex-direction: column;
 `;
-
-const Password = styled.div`
-	display: flex;
-	width: 200px;
-	align-items: center;
-	flex-direction: column;
-`;
-
 const Input = styled.input`
 	::placeholder {
 		text-align: center;
@@ -68,7 +66,6 @@ const Input = styled.input`
 	height: 30px;
 	padding-left: 15px;
 `;
-
 const Label = styled.label`
 	font-family: 'Poppins', sans-serif;
 	font-weight: 600;
@@ -79,9 +76,9 @@ const Form = styled.form`
 	gap: 10px;
 	width: 200px;
 `;
-
 const Button = styled.button`
 	height: 40px;
+	margin-top: 20px;
 	border-radius: 20px;
 	font-family: 'Poppins', sans-serif;
 	font-size: 16px;
@@ -93,7 +90,9 @@ const Button = styled.button`
 `;
 
 const Login = () => {
+	const [name, setName] = useState('');
 	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [mode, setMode] = useState('signin'); //default signup
 
@@ -109,7 +108,7 @@ const Login = () => {
 	}, [accessToken, navigate]);
 
 	const onFormSubmit = (event) => {
-		//prevents a default behaviour
+		//prevents a default behavior
 		event.preventDefault();
 
 		const options = {
@@ -155,7 +154,9 @@ const Login = () => {
 				<BackgroundImg></BackgroundImg>
 				<Wrapper>
 					<div>
-						<Link to="/"> To '/' ! </Link>{' '}
+						{/*<Link to="/"> To '/' ! </Link>{' '}*/}
+						<H1>Your secrets will be safe with us</H1>
+						<H2>Sign up to  store your secrets</H2>
 					</div>
 					<RadioWrapper>
 						<Label htmlFor="signup">Sign Up</Label>
@@ -167,7 +168,6 @@ const Login = () => {
 							checked={mode === 'signup'}
 							onChange={() => setMode('signup')}
 						/>
-
 						<Label htmlFor="signin">Sign In</Label>
 						<input
 							id="signin"
@@ -176,8 +176,18 @@ const Login = () => {
 							onChange={() => setMode('signin')}
 						/>
 					</RadioWrapper>
+
 					<Form onSubmit={onFormSubmit}>
-						<Username>
+						<UserInput>
+							<Label htmlFor="name">Name</Label>
+							<Input
+								id="name"
+								type="text"
+								value={name}
+								onChange={(e) => setName(e.target.value)}
+							/>
+						</UserInput>
+						<UserInput>
 							<Label htmlFor="username">Username</Label>
 							<Input
 								id="username"
@@ -185,8 +195,17 @@ const Login = () => {
 								value={username}
 								onChange={(e) => setUsername(e.target.value)}
 							/>
-						</Username>
-						<Password>
+						</UserInput>
+						<UserInput>
+							<Label htmlFor="email">Email</Label>
+							<Input
+								id="email"
+								type="text"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+							/>
+						</UserInput>
+						<UserInput>
 							<Label htmlFor="password">Password</Label>
 							<Input
 								id="password"
@@ -194,7 +213,7 @@ const Login = () => {
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
 							/>
-						</Password>
+						</UserInput>
 						<Button type="submit">Submit</Button>
 					</Form>
 				</Wrapper>

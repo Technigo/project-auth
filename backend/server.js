@@ -106,7 +106,7 @@ app.post('/signup', async (req, res) => {
 	const { name, email, username, password } = req.body;
 	try {
 		const salt = bcrypt.genSaltSync();
-		//a conditon for creating a password
+		//a condition for creating a password
 		if (password.length < 6 && username.length < 5) {
 			//redirecting to catch
 			throw 'Password must be at least 6 characters long and username must be longer than 5 characters';
@@ -122,7 +122,7 @@ app.post('/signup', async (req, res) => {
 			response: {
 				userId: newUser._id,
 				username: newUser.userName,
-				acccessToken: newUser.accessToken,
+				accessToken: newUser.accessToken,
 			},
 			success: true,
 		});

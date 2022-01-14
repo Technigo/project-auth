@@ -17,7 +17,7 @@ const Title = styled.h1`
 	font-family: 'Poppins', sans-serif;
 `;
 
-const SecretMessges = styled.div`
+const SecretMessages = styled.div`
 	justify-content: space-between;
 	font-family: 'Poppins', sans-serif;
 `;
@@ -64,8 +64,12 @@ const Main = () => {
 			</div>
 			<Title>Super Secret information:</Title>
 			{secretsItems.map((item) => (
-				<SecretMessges key={item._id}>{item.message} </SecretMessges>
+				<SecretMessages key={item._id}>{item.message} </SecretMessages>
 			))}
+			{/*<link onClick={() => {
+            	dispatch(accessToken.actions.logOut())
+            	localStorage.removeItem('user')
+            }}>Log out</link>*/}
 		</MainWrapper>
 	);
 };
