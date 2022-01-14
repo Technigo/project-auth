@@ -2,20 +2,17 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-// import { configureStore, combineReducers } from '@reduxjs/toolkit'
-
 
 import Main from './components/Main'
 import Login from './components/Login'
 import NotFound from './components/NotFound'
-
-import user from './reducers/user'
-import thoughts from './reducers/thoughts'
 import Signup from 'components/Signup'
 
+import user from './reducers/user'
+
+
 const reducer = combineReducers({
-  user: user.reducer,
-  thoughts: thoughts.reducer
+  user: user.reducer
 })
 
 const store = configureStore({ reducer })

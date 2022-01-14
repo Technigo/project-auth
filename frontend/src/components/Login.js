@@ -89,7 +89,6 @@ const FormBox = styled.form`
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [mode, setMode] = useState("signup");
 
   const accessToken = useSelector((store) => store.user.accessToken);
 
@@ -129,7 +128,6 @@ const Login = () => {
             dispatch(user.actions.setUserName(null));
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
-            // alert("Username already taken!");
           });
         }
       });
@@ -142,22 +140,6 @@ const Login = () => {
         information.
       </Title>
       <InputBox>
-        {/* <RadioBox>
-          <label htmlFor="signup">Sign up</label>
-          <input
-            id="signup"
-            type="radio"
-            checked={mode === "signup"}
-            onChange={() => setMode("signup")}
-          />
-          <label htmlFor="signin">Log in</label>
-          <input
-            id="signin"
-            type="radio"
-            checked={mode === "signin"}
-            onChange={() => setMode("signin")}
-          />
-        </RadioBox> */}
         <FormBox onSubmit={onFormSubmit}>
           <label htmlFor="username">Username</label>
           <input

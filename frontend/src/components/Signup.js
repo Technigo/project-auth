@@ -37,6 +37,8 @@ const InputBox = styled.div`
   align-items: center;
   flex-direction: column;
   color: white;
+  background: black;
+  box-shadow: 2px 2px 15px #6e6e6e;
 
   input {
     padding: 10px;
@@ -58,6 +60,18 @@ const InputBox = styled.div`
     border: 1px solid white;
     color: white;
     background: black;
+  }
+
+  button:hover {
+    background: white;
+    color: black;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
   }
 `;
 
@@ -157,7 +171,7 @@ const Signup = () => {
             Submit
           </button>
         </FormBox>
-        <p>Already a member?</p>
+        <p><i>Already a member?</i></p>
         <Link to="/login">
             Sign in here!
         </Link>   

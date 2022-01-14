@@ -3,9 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import moment from "moment";
-
-// import { API_URL } from "../utils/constants";
-// import thoughts from "../reducers/thoughts";
 import user from "../reducers/user";
 
 const Background = styled.div`
@@ -126,7 +123,6 @@ const ThoughtTime = styled.p`
 `;
 
 const Main = () => {
-  // const thoughtsItems = useSelector((store) => store.thoughts.items);
   const accessToken = useSelector((store) => store.user.accessToken);
 
   const [thoughts, setThoughts] = useState([]);
@@ -139,13 +135,20 @@ const Main = () => {
   const THOUGHTS_URL = `https://intehon-happy-thoughts.herokuapp.com/thoughts`;
 
   const logout = () => {
-    // event.preventDefault()
     dispatch(user.actions.setAccessToken(""));
-    // localStorage.clear()
   };
+
+
+  // useEffect(() => {
+  //   fetch(THOUGHTS_URL)
+  //     .then((res) => res.json())
+  //     .then((data) => setThoughts(data));
+  // }, []);
+
 
   useEffect(() => {
     fetchThoughts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchThoughts = () => {
@@ -159,26 +162,6 @@ const Main = () => {
       navigate("/login");
     }
   }, [accessToken, navigate]);
-
-  // useEffect(() => {
-  //   const options = {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: accessToken,
-  //     },
-  //   };
-  //   fetch(THOUGHTS_URL, options)
-  //     .then((res) => res.json)
-  //     .then((data) => {
-  //       if (data.success) {
-  //         dispatch(thoughts.actions.setItems(data.response));
-  //         dispatch(thoughts.actions.setError(null));
-  //       } else {
-  //         dispatch(thoughts.actions.setError(data.response));
-  //         dispatch(thoughts.actions.setItems([]));
-  //       }
-  //     });
-  // }, [accessToken, dispatch, message]);
 
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -195,7 +178,7 @@ const Main = () => {
     fetch(THOUGHTS_URL, options)
       .then((res) => res.json())
       .then((data) => {
-        fetchThoughts();
+        fetchThoughts()
       });
 
     setNewThought("");
