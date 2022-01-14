@@ -138,14 +138,6 @@ const Main = () => {
     dispatch(user.actions.setAccessToken(""));
   };
 
-
-  // useEffect(() => {
-  //   fetch(THOUGHTS_URL)
-  //     .then((res) => res.json())
-  //     .then((data) => setThoughts(data));
-  // }, []);
-
-
   useEffect(() => {
     fetchThoughts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
