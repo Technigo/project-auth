@@ -166,6 +166,7 @@ app.post("/answer", async (req, res) => {
 app.post("/signup", async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log(req.body, "this is the body");
     if (!username) {
       throw "Username is required";
     }
@@ -179,7 +180,7 @@ app.post("/signup", async (req, res) => {
       username,
       password: bcrypt.hashSync(password, salt),
     }).save();
-
+    console.log(newUser, "newuser");
     res.status(201).json({
       response: {
         userId: newUser._id,
