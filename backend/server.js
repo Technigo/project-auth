@@ -164,8 +164,8 @@ app.post("/answer", async (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
+  const { username, password } = req.body;
   try {
-    const { username, password } = req.body;
     console.log(req.body, "this is the body");
     if (!username) {
       throw "Username is required";
