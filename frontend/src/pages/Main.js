@@ -5,7 +5,7 @@ import { NASA_URL } from '../utils/urls'
 import user from '../reducers/user'
 import styled from 'styled-components'
 import { FaPowerOff } from 'react-icons/fa'
-import Lottie from 'react-lottie';
+import Lottie from 'react-lottie'
 import animationData from '../components/lotties/spaceman'
 
 const Main = () => {
@@ -49,8 +49,8 @@ const Main = () => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
+      preserveAspectRatio: 'xMidYMid slice',
+    },
   }
 
   return (
@@ -67,11 +67,7 @@ const Main = () => {
             <StyledDescriptionText>
               {dailySpace.explanation}
             </StyledDescriptionText>
-            <Lottie
-              options={defaultOptions}
-              height={300}
-              width={300}
-            />
+            <Lottie options={defaultOptions} height={300} width={300} />
           </StyledDescription>
         </StyledContainer>
       </StyledWrapper>
@@ -98,7 +94,6 @@ const StyledDescription = styled.div`
   @media (min-width: 992px) {
     overflow: none;
     height: auto;
-
   }
 `
 
@@ -110,6 +105,7 @@ const StyledImage = styled.img`
   justify-content: center;
   position: relative;
   @media (min-width: 992px) {
+    height: 65%;
     max-height: 700px;
     width: auto;
   }
@@ -132,10 +128,11 @@ const StyledContainer = styled.div`
   }
   @media (min-width: 992px) {
     width: 500px;
-    height: 800px;
+    height: 70%;
+    max-height: 800px;
     position: relative;
     top: 0;
-    left: -75px;
+    left: -60px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -182,9 +179,9 @@ const StyledIconContainer = styled.div`
 `
 
 const StyledWrapper = styled.div`
-  @media (min-width: 992px) {  
+  @media (min-width: 992px) {
     display: flex;
-  align-items: center;
-  justify-content: space-around;
+    align-items: center;
+    justify-content: space-around;
   }
 `
