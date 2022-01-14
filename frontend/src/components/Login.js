@@ -63,8 +63,17 @@ const Login = () => {
 						dispatch(user.actions.setUserId(data.response.userId))
 						dispatch(user.actions.setUsername(data.response.username))
 						dispatch(user.actions.setAccessToken(data.response.accessToken))
-						dispatch(user.actions.setError(null));
+						dispatch(user.actions.setError(null))
 						setErrorMessage(null)
+						localStorage.setItem(
+							"user",
+							JSON.stringify({
+							  userId: data.response.userId,
+							  username: data.response.username,
+							  email: data.response.email,
+							  accessToken: data.response.accessToken,
+							})
+						  )
 					});
 				} else {
 					batch(() => {
