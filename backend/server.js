@@ -20,6 +20,7 @@ const UserSchema = new mongoose.Schema({
 		minlength: [5, 'You need at least 5 letters for your username'],
 		unique: true,
 		trim: true,
+		required: true,
 	},
 	email: {
 		type: String,
@@ -78,7 +79,7 @@ const authenticateUser = async (req, res, next) => {
 
 app.get('/', (req, res) => {
 	res.send(
-		'Hello world, welcome to our secret login app - see this API live at 👉:'
+		'Hello world, welcome to our login app - see this API live at 👉:https://serene-rosalind-938b12.netlify.app'
 	);
 });
 
@@ -121,7 +122,7 @@ app.post('/signup', async (req, res) => {
 		res.status(201).json({
 			response: {
 				userId: newUser._id,
-				username: newUser.userName,
+				username: newUser.username,
 				acccessToken: newUser.accessToken,
 			},
 			success: true,

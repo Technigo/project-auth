@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { API_URL } from '../utils/constants';
@@ -81,7 +81,10 @@ const Form = styled.form`
 `;
 
 const Button = styled.button`
+	background-color: #9a9483;
+	color: white;
 	height: 40px;
+	margin-top: 20px;
 	border-radius: 20px;
 	font-family: 'Poppins', sans-serif;
 	font-size: 16px;
@@ -95,7 +98,7 @@ const Button = styled.button`
 const Login = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const [mode, setMode] = useState('signin'); //default signup
+	const [mode, setMode] = useState('signup'); //default signup
 
 	const accessToken = useSelector((store) => store.user.accessToken);
 
@@ -154,9 +157,6 @@ const Login = () => {
 			<WholeWrapper>
 				<BackgroundImg></BackgroundImg>
 				<Wrapper>
-					<div>
-						<Link to="/"> To '/' ! </Link>{' '}
-					</div>
 					<RadioWrapper>
 						<Label htmlFor="signup">Sign Up</Label>
 						<input
@@ -195,6 +195,7 @@ const Login = () => {
 								onChange={(e) => setPassword(e.target.value)}
 							/>
 						</Password>
+
 						<Button type="submit">Submit</Button>
 					</Form>
 				</Wrapper>
