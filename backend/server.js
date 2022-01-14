@@ -68,7 +68,9 @@ const authenticateUser = async (req, res, next) => {
 
 // Start defining your routes here
 app.get('/', async (req, res) => {
-  res.send('welcome to the authentication API. For all end points visit:  : ');
+  res.send(
+    'welcome to the authentication API. For all end points visit: https://user-autherisation.herokuapp.com/endpoints '
+  );
 });
 
 // this will list all routes
