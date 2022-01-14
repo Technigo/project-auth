@@ -42,29 +42,29 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
-// const authenticateUser = async (req, res, next) => {
-//   const accessToken = req.header('Authorization');
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header('Authorization');
 
-//   try {
-//     const user = await User.findOne({ accessToken });
-//     if (user) {
-//       next(); // built in function for express that makes the app move along if there's for example an user
-//     } else {
-//       res.status(401).json({ response: 'Please log in', success: false });
-//     }
-//   } catch (error) {
-//     res.status(400).json({ response: error, success: false });
-//   }
-// };
+  try {
+    const user = await User.findOne({ accessToken });
+    if (user) {
+      next(); // built in function for express that makes the app move along if there's for example an user
+    } else {
+      res.status(401).json({ response: 'Please log in', success: false });
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+};
+
 //Start defining your routes here
-// app.get('/main', authenticateUser); // we first have to authenticate the user before we get the thoughts
-// app.get('/main', async (req, res) => {
-//   // thoughts is just an example
-//   const main = await User.find({});
-//   res.status(200).json({ response: user, success: true });
-// });
+app.get('/main', authenticateUser); // we first have to authenticate the user before we get the thoughts
+app.get('/main', async (req, res) => {
+  // thoughts is just an example
+  const main = await User.find({});
+  res.status(200).json({ response: user, success: true });
+});
 
-// app.post('/signup', authenticateUser);
 app.post('/signup', async (req, res) => {
   const { username, password, email } = req.body;
 
