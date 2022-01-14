@@ -36,7 +36,10 @@ const Main = () => {
   return (
     <div>
       <h3>Here is the secret message! </h3>
-      <img src="https://c.tenor.com/wPwsT9YWDfQAAAAC/kermit-darkside.gif"></img>
+      <img
+        alt="doit"
+        src="https://c.tenor.com/wPwsT9YWDfQAAAAC/kermit-darkside.gif"
+      ></img>
 
       <div>
         {accessToken && (
