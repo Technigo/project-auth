@@ -14,6 +14,7 @@ const Main = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    // accessToken === null
     if (!accessToken) {
       navigate('/login')
     }
@@ -57,6 +58,7 @@ const Main = () => {
         )}
       </fieldset>
       <div className='logout-btn'>
+        {/* add button for log out - set accestoken to null */}
         <button
           type='button'
           onClick={() => dispatch(user.actions.setAccessToken(null))}

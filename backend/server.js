@@ -80,8 +80,6 @@ app.get('/', (req, res) => {
 
 app.get('/poems', authenticateUser)
 app.get('/poems', (req, res) => {
-  // res.status(200).json('Here are your poems')
-  // try {
   res.status(200).json({
     response: {
       title: 'A Smile',
@@ -100,13 +98,6 @@ Because I'm sure it once helped you.`,
     },
     success: true,
   })
-  // } catch (error) {
-  //   res.status(404).json({
-  //     message: 'Poem not found',
-  //     response: error,
-  //     success: false,
-  //   })
-  // }
 })
 
 app.post('/signup', async (req, res) => {

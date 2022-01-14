@@ -59,6 +59,7 @@ const Login = () => {
           })
         } else {
           batch(() => {
+            //  wipe out the prev. saved information, and save only the errors
             dispatch(user.actions.setUserId(null))
             dispatch(user.actions.setUsername(null))
             dispatch(user.actions.setAccessToken(null))
@@ -70,8 +71,6 @@ const Login = () => {
       })
       .catch(() => setIsUnavailable(true))
   }
-
-  //   console.log('validationError: ', validationError)
 
   return (
     <section className='login-section'>
