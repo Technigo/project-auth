@@ -108,10 +108,15 @@ const Login = () => {
             />
 
             <p>{error}</p>
-
-            <button className="submit-btn" type="submit">
-              Submit
-            </button>
+            {mode === "signin" ? (
+              <button className="submit-btn" type="submit">
+                Sign in
+              </button>
+            ) : (
+              <button className="submit-btn" type="submit">
+                Sign up
+              </button>
+            )}
           </form>
         </div>
       </div>
