@@ -146,7 +146,7 @@ const Main = () => {
 
   useEffect(() => {
     fetchThoughts();
-  });
+  }, []);
 
   const fetchThoughts = () => {
     fetch(THOUGHTS_URL)
@@ -235,7 +235,7 @@ const Main = () => {
             <ThoughtCard key={thought._id}>
               <ThoughtMessage>{thought.message}</ThoughtMessage>
               <p>
-                <i>{thought.name ? `from ${thought.name}` : ""}</i>
+                <i>{thought.name ? `from ${thought.name}` : "from aa"}</i>
               </p>
               <ThoughtTime>{moment(thought.createdAt).fromNow()}</ThoughtTime>
             </ThoughtCard>
