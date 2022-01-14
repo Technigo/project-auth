@@ -56,10 +56,10 @@ const authenticateUser = async (req, res, next) => {
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-	res.send({
-		"Welcome to authorization API - by Maria Sjögren and Linnéa Wilhelmsson. See full documentation here 👉 https://github.com/Skrosen/project-auth/blob/master/Documentation.md":
-			listEndpoints(app),
-	});
+	res.send(
+		`Welcome to authorization API - by Maria Sjögren and Linnéa Wilhelmsson. See full documentation here 👉 https://github.com/Skrosen/project-auth/blob/master/Documentation.md`,
+		listEndpoints(app)
+	);
 });
 
 // endpoint not used in project currently but required to
