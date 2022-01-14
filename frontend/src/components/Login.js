@@ -20,7 +20,6 @@ const Background = styled.div`
   font-family: Helvetica Neue;
 `;
 
-
 const Title = styled.h1`
   text-align: center;
   width: 700px;
