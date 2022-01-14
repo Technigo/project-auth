@@ -18,10 +18,6 @@ const Title = styled.h1`
 	font
 `;
 
-const Subtitle = styled.h2`
-	font-family: 'Poppins', sans-serif;
-`;
-
 const BackgroundImg = styled.div`
 	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
 		url(${img});
