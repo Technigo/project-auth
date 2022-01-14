@@ -17,7 +17,7 @@ const MainContainer = styled.main`
 const HeaderContainer = styled.div`
   @media (min-width: 768px) {
     width: 400px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 `;
 
@@ -136,7 +136,7 @@ const InputWrapper = styled.div`
       padding: 20px;
       font-size: 18px;
       ::-webkit-input-placeholder {
-        font-size: 10px;
+        font-size: 15px;
         line-height: 3;
       }
     }

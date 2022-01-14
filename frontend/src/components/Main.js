@@ -14,7 +14,7 @@ const Wrapper = styled.main`
   flex-direction: column;
   height: 100%;
   @media (min-width: 768px) {
-    height: 100vh;
+    min-height: 100vh;
   }
 `;
 
