@@ -47,24 +47,8 @@ export const Main = () => {
   
 
   const onClick = (event) => {
-    event.preventDefault();
-
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ username, password })
-    };
-    fetch(API_URL(mode), options)
-      .then((res) => res.json())
-      .then((data) => {
-        batch(() => {
-          dispatch(user.actions.setUserId(null));
-          dispatch(user.actions.setUsername(null));
-          dispatch(user.actions.setAccessToken(null));
-        });
-      },[dispatch]);
+    event.preventDefault();   
+   dispatch(user.actions.setAccessToken(null));    
   };
 
   return (
