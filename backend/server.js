@@ -31,28 +31,7 @@ const port = process.env.PORT || 8080;
 const app = express();
 
 // Add middlewares to enable cors and json body parsing
-// v1 - allow all domains
 app.use(cors());
-
-// v2 - allow only one domain
-// app.use(cors({
-//   origin: 'https://my-frontend-page'
-// }))
-
-// v3 - allow multiple domains
-// const allowedDomains = [webpage1, webpage2, webpage3];
-
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       if (allowedDomains.includes(origin)) {
-//         return callback(null, true)
-//       } else {
-//         return callback(new Error('This domian is not allowed'), false)
-//       }
-//     }
-//   })
-// );
 app.use(express.json());
 
 // Function for checking if user is logged in
@@ -70,6 +49,7 @@ const authenticateUser = async (req, res, next) => {
     res.status(400).json({ response: error, success: false });
   }
 };
+
 // Start defining routes here
 app.get('/', (req, res) => {
   res.send(
@@ -78,10 +58,9 @@ app.get('/', (req, res) => {
 });
 
 // What you see when you are logged in added here
-// add async await to secrets endpoint
 app.get('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
-  res.send('Top secret message'); // only shows if you are logged in
+  res.send('Top secret message');
 });
 
 // POST request for creating a user
@@ -92,9 +71,6 @@ app.post('/signup', async (req, res) => {
     const salt = bcrypt.genSaltSync(); // Create a randomizer to prevent to unhash it
     const strongPassword =
       /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,20}$/;
-    // if (password.length < 5) {
-    //   throw 'Password must be at least 5 characters long';
-    // }
 
     // checking if password match strongPassword = regex
     if (password.match(strongPassword)) {

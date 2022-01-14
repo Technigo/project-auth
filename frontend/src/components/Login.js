@@ -15,7 +15,6 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  /* const error = useSelector((store) => store.user.error); */
 
   useEffect(() => {
     if (accessToken) {
@@ -34,10 +33,10 @@ const Login = () => {
       body: JSON.stringify({ username, password })
     };
 
+    // Doing a fetch and using slug(=mode), depending on Login/Signup
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId));
@@ -57,6 +56,7 @@ const Login = () => {
       });
   };
 
+  // Returning a signup form or a logib form depending on mode, set by radiobuttons
   return (
     <div className="form-container">
       {mode === 'signin' && (
@@ -115,11 +115,15 @@ const Login = () => {
             ?
           </p>
         )}
-        {/*  {error && <p>Whoops! Something went wrong. Try again!</p>} */}
-        {/* {error ? <p>{error}</p> : ''} */}
 
-        <button type="submit">Submit</button>
-        <p> {error}</p>
+        <button
+          className="submit-button"
+          type="submit"
+          disabled={password.length < 8 || password.length > 20}
+        >
+          Submit
+        </button>
+        <p className="error-message"> {error}</p>
       </form>
     </div>
   );
