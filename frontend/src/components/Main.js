@@ -3,7 +3,6 @@ import { useSelector, useDispatch, batch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 
-import { API_URL } from "../utils/constants";
 import user from "../reducers/user";
 
 const Main = () => {
@@ -47,7 +46,7 @@ export default Main;
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding-top:10%;
+  padding-top: 10%;
   width: 100%;
 `;
 
@@ -71,7 +70,6 @@ const Container = styled.div`
     width: 20%;
     padding: 30px 25px;
   }
-
 `;
 
 const Logintitle = styled.h1`
