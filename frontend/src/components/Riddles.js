@@ -20,13 +20,19 @@ export const Riddles = () => {
     }
   }, [token, navigate]);
 
-  useEffect(() => {
-    getRiddles();
-  }, []);
-
   const getRiddles = () => {
     dispatch(riddles(token));
   };
+  useEffect(() => {
+    getRiddles();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // useEffect(() => {
+  //   const getRiddles = () => {
+  //     dispatch(riddles(token));
+  //   };
+  //   getRiddles();
+  // }, []);
 
   const delayRiddle = useMemo(() => {
     setTimeout(() => riddle, 2000);
