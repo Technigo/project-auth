@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 import styled from 'styled-components';
 
 import user from '../reducers/user';
-// import Alert from './Alert';
 
 import { SIGNUP_URL } from '../utils/urls';
 
@@ -121,13 +120,7 @@ const SignUp = () => {
           }).then(function () {
             navigate('/signin');
           });
-        }
-        // if (!data.success) {
-        //   new Swal({
-        //     title: 'Something went wrong 🙀',
-        //   });
-        // }
-        else {
+        } else {
           batch(() => {
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setUsername(null));
@@ -168,9 +161,6 @@ const SignUp = () => {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        {/* {password && password.length < 5 && (
-          <span>password must be over 5 characters</span>
-        )} */}
 
         {password && password.length < 5
           ? 'password must be over 5 characters'

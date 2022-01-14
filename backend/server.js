@@ -58,9 +58,8 @@ const authenticateUser = async (req, res, next) => {
 };
 
 //Start defining your routes here
-app.get('/main', authenticateUser); // we first have to authenticate the user before we get the thoughts
+app.get('/main', authenticateUser); // we first have to authenticate the user before we get the main content
 app.get('/main', async (req, res) => {
-  // thoughts is just an example
   const main = await User.find({});
   res.status(200).json({ response: user, success: true });
 });
@@ -69,14 +68,12 @@ app.post('/signup', async (req, res) => {
   const { username, password, email } = req.body;
 
   try {
-    const salt = bcrypt.genSaltSync(); // this creates a randomizer to randomise the password string
+    const salt = bcrypt.genSaltSync(); // this creates a randomizer to randomize the password string
 
     if (password.length < 5) {
       throw 'Password must be at least 5 characters'; // this throws the user the message and redirect user to the catch block
     }
-    // if (password === '') {
-    //   throw 'Please provide password';
-    // }
+
     const newUser = await new User({
       username,
       email,
@@ -130,28 +127,45 @@ app.post('/signin', async (req, res) => {
     const user = await User.findOne({ username });
 
     if (user && bcrypt.compareSync(password, user.password)) {
-      // the compareSync compares two hashed versions of the password
-
       res.status(200).json({
         response: {
           userId: user._id,
           username: user.username,
           accessToken: user.accessToken,
-          email: user.email,
         },
         success: true,
       });
     } else {
-      res.status(404).json({
-        message: 'User not found',
-        response: 'User not found',
-        success: false,
-      });
+      if (username === '') {
+        res.status(404).json({
+          message: 'Login failed: fill in username',
+          response: 'Login failed: fill in username',
+          success: false,
+        });
+      } else if (password === '') {
+        res.status(404).json({
+          message: 'Login failed: fill in password',
+          response: 'Login failed: fill in password',
+          success: false,
+        });
+      } else {
+        res.status(404).json({
+          message: 'Login failed: wrong username or password',
+          response: 'Login failed: wrong username or password',
+          success: false,
+        });
+      }
     }
   } catch (error) {
-    res.status(403).json({ message: 'error', response: error, success: false });
+    res.status(400).json({
+      message: 'Invalid entry',
+      response: error,
+      success: false,
+    });
   }
 });
+
+//   res.status(403).json({ message: 'error', response: error, success: false });
 
 // Start the server
 app.listen(port, () => {

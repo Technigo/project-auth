@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, batch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -71,6 +71,12 @@ const Wrapper = styled.div`
     text-align: center;
     padding-top: 20px;
     padding-bottom: 35px;
+  }
+
+  div a {
+    color: red;
+    margin: 0;
+    font-size: 22px;
   }
 `;
 
@@ -179,6 +185,9 @@ const SignIn = () => {
         )}
         <button type='submit'>sign in</button>
       </Form>
+      <div>
+        <Link to='/signup'>Back to sign up</Link>
+      </div>
     </Wrapper>
   );
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Lottie from './Cat';
 
 import styled from 'styled-components';
 
@@ -27,13 +26,6 @@ const Svg = styled.svg`
   text-transform: uppercase;
   z-index: 1;
   transform: rotate(20deg);
-`;
-
-const LottieDiv = styled.div`
-  padding-top: 20px;
-  position: absolute;
-  width: 100%;
-  align-items: center;
 `;
 
 const EnterText = styled.p`
@@ -85,7 +77,6 @@ const Start = () => {
           </text>
         </Svg>
         <Gif src='https://embed.lottiefiles.com/animation/57071'></Gif>
-        <LottieDiv>{/* <Lottie /> */}</LottieDiv>
       </TextContainer>
       <EnterText>
         click <Link to='/signup'>here </Link> to sign up or sign in
