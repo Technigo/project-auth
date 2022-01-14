@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import moment from "moment";
 
@@ -206,7 +206,6 @@ const Main = () => {
     <Background>
       <div>
         <HeaderBox>
-          {/* <Link to="/login">To '/login'!</Link> */}
           <button onClick={logout}>Sign out!</button>
         </HeaderBox>
         <h1>Protected happy thoughts:</h1>
@@ -234,9 +233,9 @@ const Main = () => {
           {thoughts.map((thought) => (
             <ThoughtCard key={thought._id}>
               <ThoughtMessage>{thought.message}</ThoughtMessage>
-              <p>
-                <i>{thought.name ? `from ${thought.name}` : "from aa"}</i>
-              </p>
+              
+                {thought.name ? <p><i>- {thought.name}</i></p> : ""}
+             
               <ThoughtTime>{moment(thought.createdAt).fromNow()}</ThoughtTime>
             </ThoughtCard>
           ))}
