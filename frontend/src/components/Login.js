@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch, batch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
-import { API_URL } from "../utils/constants"
+import { API_URL } from "../utils/urls"
 import user from "../reducers/user"
 
 const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [mode, setMode] = useState("signup") // either for signup or signin
+  const [validationError, setValidationError] = useState(null)
 
   const accessToken = useSelector((store) => store.user.accessToken)
 
@@ -46,6 +47,7 @@ const Login = () => {
             dispatch(user.actions.setUsername(data.response.username))
             dispatch(user.actions.setAccessToken(data.response.accessToken))
             dispatch(user.actions.setError(null))
+            setValidationError(null)
           })
         } else {
           batch(() => {
@@ -54,6 +56,7 @@ const Login = () => {
             dispatch(user.actions.setAccessToken(null))
             dispatch(user.actions.setError(data.response))
           })
+          setValidationError(data.message)
         }
       })
   }
@@ -61,8 +64,8 @@ const Login = () => {
   return (
     <section className="container">
       <div className="header">
-        <h1>Register or Signin </h1>
-        <h3>to see the DarkSide </h3>
+        <h1>Sign up or Sign in </h1>
+        <h3>to see the hidden message! </h3>
       </div>
 
       <div className="radioButtons">
@@ -103,7 +106,20 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Submit</button>
+        {/* if we have error -> display it */}
+        {validationError !== null && (
+          <p className="error-message">{validationError}</p>
+        )}
+        {/* <button type="submit">Submit</button> */}
+        {mode === "signup" ? (
+          <button disabled={username.length < 5} type="submit">
+            Create user
+          </button>
+        ) : (
+          <button disabled={username.length < 5} type="submit">
+            Login
+          </button>
+        )}
       </form>
     </section>
   )

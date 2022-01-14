@@ -44,41 +44,11 @@ const port = process.env.PORT || 8080
 const app = express()
 
 // Add middlewares to enable cors and json body parsing
-
-// v1 - Allow all domains
 app.use(cors())
-
-// v2 - Allow only one spesific domain
-// app.use(
-//   cors({
-//     origin: "https://my-prject-frontend.com",
-//   })
-// )
-
-//v3 - Allow multiple domains
-// const allowedDomains = [
-//   "https://my-prject-frontend.com",
-//   "https://localhost:3000",
-// ]
-// app.use(
-//   cors({
-//     origin:
-//       (origin,
-//       (callback) => {
-//         if (allowedDomains.includes(origin)) {
-//           return callback(null, true)
-//         } else {
-//           return callback(new Error("This domain is not allowed"), false)
-//         }
-//       }),
-//   })
-// )
-
 app.use(express.json())
 
 // before execuating the thoughts to check if the user is allowed
 const authenticateUser = async (req, res, next) => {
-  // will see this on postman header
   const accessToken = req.header("Authorization")
   try {
     const user = await User.findOner({ accessToken })
@@ -86,10 +56,18 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next()
     } else {
-      res.status(401).json({ response: "Please, login", success: false })
+      res.status(401).json({
+        message: "Please, login",
+        response: "Please, login",
+        success: false,
+      })
     }
   } catch (error) {
-    res.status(400).json({ response: error, success: false })
+    res.status(400).json({
+      message: "Ops! something went wrong!",
+      response: error,
+      success: false,
+    })
   }
 }
 
@@ -102,19 +80,23 @@ app.get("/", (req, res) => {
 })
 
 // protected endpoint for the authenticated user
-app.get("/thoughts", authenticateUser)
-app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thought.find({})
-  res.status(201).json({ response: thoughts, success: true })
-})
+// app.get("/thoughts", authenticateUser)
+// app.get("/thoughts", async (req, res) => {
+//   const thoughts = await Thought.find({})
+//   res.status(201).json({ response: thoughts, success: true })
+// })
 
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body
 
   try {
     const salt = bcrypt.genSaltSync()
-    if (password.length < 6) {
-      throw "Password must be at least 6 character long"
+
+    if (password.length < 5) {
+      throw "Password must be at least 5 character long"
+      // res
+      //   .status(400)
+      //   .json({ message: "Password must be at least 6 character long" })
     }
 
     const newUser = await new User({
@@ -131,7 +113,31 @@ app.post("/signup", async (req, res) => {
       success: true,
     })
   } catch (error) {
-    res.status(404).json({ response: error, success: false })
+    if (username === "") {
+      res.status(400).json({
+        message: "Please enter your username!",
+        response: error,
+        success: false,
+      })
+    } else if (error.code === 11000) {
+      res.status(400).json({
+        message: "Username already exists!",
+        response: error,
+        success: false,
+      })
+    } else if (password === "") {
+      res.status(400).json({
+        message: "Please enter your password!",
+        response: error,
+        success: false,
+      })
+    } else {
+      res.status(400).json({
+        message: "Please provide username and password",
+        response: error,
+        success: false,
+      })
+    }
   }
 })
 

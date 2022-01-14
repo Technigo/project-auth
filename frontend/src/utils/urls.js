@@ -1,4 +1,5 @@
-const BASE_URL = "https://project-auth-pde-el.herokuapp.com/"
+const BASE_URL = "https://project-auth-pde-el.herokuapp.com"
+// const BASE_URL = "http://localhost:8080"
 
 // slug approach
 // slug will be the argument that we call API_URL

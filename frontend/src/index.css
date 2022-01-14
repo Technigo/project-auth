@@ -1,6 +1,6 @@
 body {
-  font-family: "Poiret One", cursive;
-  /* font-family: "Roboto Mono", monospace; */
+  /* font-family: "Poiret One", cursive; */
+  font-family: "Roboto Mono", monospace;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11,19 +11,23 @@ body {
   background: rgb(0, 0, 0);
   color: azure;
   font-size: 16px;
+  background-image: url("https://images.unsplash.com/photo-1507400492013-162706c8c05e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=659&q=80");
 }
 
+p {
+  padding: 10px;
+}
 button {
   height: 40px;
   width: 270px;
   border-radius: 5px;
   padding: 8px;
-  font-family: "Poiret One", cursive;
+  font-family: "Roboto Mono", monospace;
   border: 1px solid #fd00de;
   color: white;
   font-weight: bolder;
   font-size: 18px;
-  margin: 100px 10px 0;
+  margin: 40px 10px 0;
   cursor: pointer;
   background: rgb(195, 34, 64);
   background: linear-gradient(
@@ -42,17 +46,24 @@ button:hover {
     rgba(195, 34, 64, 1) 100%
   );
 }
+
+.logout-button {
+  display: flex;
+  margin: 10px auto;
+  justify-content: center;
+}
 .container {
   margin: auto;
-  border: 1px solid rgb(189, 189, 189);
-  padding: 30px;
+  border: 1px solid rgb(1 112 193 / 47%);
+  padding: 40px;
   height: 400px;
   width: 300px;
+  background-color: #07223380;
 }
 h1,
 h3 {
   text-align: center;
-  color: #9f9e9f;
+  color: #dcdcdc;
   margin: 10px;
 }
 
@@ -66,7 +77,7 @@ h3 {
   background-color: #101010;
   border: 1px solid #282728;
   color: #fb0055;
-  font-family: "Poiret One", cursive;
+  font-family: "Roboto Mono", monospace;
   font-size: 14px;
 }
 
