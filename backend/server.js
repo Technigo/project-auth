@@ -64,7 +64,7 @@ app.get('/thoughts', async (req, res) => {
 
 app.get('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
-  res.send('Here are your secrets');
+  res.send('I LOOOOOVE Cake!');
 });
 
 app.post('/signup', async (req, res) => {

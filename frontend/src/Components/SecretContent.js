@@ -2,13 +2,16 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import styled from 'styled-components';
-
+import { API_URL } from 'utils/url';
 import user from 'reducers/user';
+import secrets from '../reducers/secrets';
 
 export const SecretContent = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.accessToken);
+  const secretItems = useSelector((store) => store.secrets.items);
+
+  const dispatch = useDispatch();
 
   const logout = () => {
     batch(() => {
@@ -50,6 +53,28 @@ export const SecretContent = () => {
     }
   }, [accessToken, navigate]);
 
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: accessToken,
+      },
+    };
+
+    fetch(API_URL('secrets'), options)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('DATA', data);
+        if (data.success) {
+          dispatch(secrets.actions.setItems(data.response));
+          dispatch(secrets.actions.setError(null));
+        } else {
+          dispatch(secrets.actions.setItems([]));
+          dispatch(secrets.actions.setError(data.response));
+        }
+      });
+  }, [accessToken]);
+
   return (
     <>
       <Cake>
@@ -68,8 +93,11 @@ export const SecretContent = () => {
           👀
         </span>{' '}
         ... for some reason
+        {/* Fetching this h2 from the secret endpoint in the backend */}
       </H1>
-      <H2>I love cakes</H2>
+      {secretItems.map((item) => (
+        <H2 key={item._id}>{item.message}</H2>
+      ))}
       <p>
         Topping muffin marzipan carrot cake icing. Powder sesame snaps gummi
         bears oat cake candy canes.{' '}

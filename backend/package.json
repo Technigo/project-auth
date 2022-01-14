@@ -11,8 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.16.7",
-    "@babel/node": "^7.16.7",
-    "@babel/preset-env": "^7.16.7",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.8",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -22,7 +22,7 @@
     "nodemon": "^2.0.15"
   },
   "devDependencies": {
-    "@babel/parser": "^7.16.7",
+    "@babel/parser": "^7.16.8",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.2.1",
