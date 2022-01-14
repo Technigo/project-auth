@@ -7,11 +7,9 @@ import user from "./reducers/user";
 import Main from "./components/Main";
 import Login from "./components/Login";
 import NotFound from "./components/NotFound";
-// import { ui } from "./reducers/ui";
 
 const reducer = combineReducers({
   user: user.reducer,
-  // ui: ui.reducer,
 });
 
 //creating local storage

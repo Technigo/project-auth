@@ -50,7 +50,11 @@ const authenticateUser = async (req, res, next) => {
       });
     }
   } catch (error) {
-    res.status(400).json({ response: error, success: false });
+    res.status(400).json({
+      response: "Oh no, something went wrong!",
+      error: error,
+      success: false,
+    });
   }
 };
 
@@ -83,10 +87,19 @@ app.post("/signup", async (req, res) => {
       success: true,
     });
   } catch (error) {
-    res.status(400).json({
-      response: "Please choose another username and password!",
-      success: false,
-    });
+    if (error.code === 11000) {
+      res.status(400).json({
+        response: "Username already exists, please choose another username",
+        error: error,
+        success: false,
+      });
+    } else {
+      res.status(400).json({
+        response: "Something went wrong",
+        error: error,
+        success: false,
+      });
+    }
   }
 });
 
@@ -114,11 +127,16 @@ app.post("/signin", async (req, res) => {
     } else {
       res.status(404).json({
         response: "Username or password is incorrect! Try again!",
+        error: error,
         success: false,
       });
     }
   } catch (error) {
-    res.status(400).json({ response: error, success: false });
+    res.status(400).json({
+      response: "Oh no, something went wrong!",
+      error: error,
+      success: false,
+    });
   }
 });
 
