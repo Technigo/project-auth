@@ -31,31 +31,31 @@ const UserSchema = new mongoose.Schema({
 
 const Person = mongoose.model("Person", UserSchema);
 
-const Riddle = mongoose.model("Riddle", {
+const RiddleBase = mongoose.model("RiddleBase", {
   riddleId: Number,
   riddle: String,
   answer: String,
 });
 
 if (process.env.RESET_DB) {
-  Riddle.deleteMany().then(
-    new Riddle({
+  RiddleBase.deleteMany().then(
+    new RiddleBase({
       riddleId: 1,
       riddle: "Riddle 1: What needs to be broken before you can use it?",
       answer: "egg",
     }).save(),
-    new Riddle({
+    new RiddleBase({
       riddleId: 2,
       riddle:
         "Riddle 2: What is black when it’s clean and white when it’s dirty?",
       answer: "chalkboard",
     }).save(),
-    new Riddle({
+    new RiddleBase({
       riddleId: 3,
       riddle: "Riddle 3: What begins with a T, ends with a T and has T in it?",
       answer: "teapot",
     }).save(),
-    new Riddle({
+    new RiddleBase({
       riddleId: 4,
       riddle: "Riddle 4: There are no more riddles",
       answer: "no more riddles",
@@ -95,7 +95,7 @@ app.get("/", (req, res) => {
 app.get("/riddles", authenticateUser);
 app.get("/riddles", async (req, res) => {
   try {
-    const riddle = await Riddle.findOne({
+    const riddle = await RiddleBase.findOne({
       riddleId: req.user.securityLevel,
     });
     console.log(riddle);
@@ -121,7 +121,7 @@ app.post("/answer", async (req, res) => {
     const { answer } = req.body;
     console.log(answer);
 
-    const riddle = await Riddle.findOne({
+    const riddle = await RiddleBase.findOne({
       riddleId: req.user.securityLevel,
     });
 
@@ -133,7 +133,7 @@ app.post("/answer", async (req, res) => {
       req.user.securityLevel = riddle.riddleId + 1;
       await req.user.save();
 
-      const newRiddle = await Riddle.findOne({
+      const newRiddle = await RiddleBase.findOne({
         riddleId: req.user.securityLevel,
       });
       res.status(200).json({
