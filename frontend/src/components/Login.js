@@ -58,7 +58,6 @@ const Wrapper = styled.section`
 
   @media (min-width: 1024px) {
     justify-content: center;
-    margin: 0 auto;
     width: 400px;
     height: 400px;
     font-size: 1.8rem;
