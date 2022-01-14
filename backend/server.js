@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.set("useFindAndModify", false);
@@ -59,6 +60,23 @@ const authenticateUser = async (req, res, next) => {
     res.status(400).json({ response: error, success: false });
   }
 };
+
+
+app.get('/', (req, res) => {
+  res.send({
+    Welcome: "Welcome to our secret API. This is a project to learn about user authentification",
+    Contributers: "Birgit Nehrwein, Rebecca Philipson",
+    Endpoints: 'https://proj-auth-rephili-bine.herokuapp.com/endpoints'
+  })
+})
+
+// route provides all endpoints
+app.get('/endpoints', (req, res) => {
+  res.json({
+    response: listEndpoints(app),
+    success: true
+  })
+})
 
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
