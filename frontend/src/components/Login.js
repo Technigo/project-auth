@@ -15,6 +15,7 @@ const Login = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	// checks if user is authorized, otherwise sends user to login page
 	useEffect(() => {
 		if (accessToken) {
 			navigate("/");
@@ -42,6 +43,10 @@ const Login = () => {
 						dispatch(user.actions.setAccessToken(data.response.accessToken));
 						dispatch(user.actions.setError(null));
 					});
+					mode === "signup" &&
+						alert(
+							`Welcome ${data.response.username}, your account has been created and you are now logged in!`
+						); // welcomes new users who just signed up
 				} else {
 					batch(() => {
 						dispatch(user.actions.setUserId(null));
@@ -49,14 +54,13 @@ const Login = () => {
 						dispatch(user.actions.setAccessToken(null));
 						dispatch(user.actions.setError(data.response));
 					});
+					alert(data.response); // returns error message
 				}
 			});
 	};
+
 	return (
 		<>
-			<div>
-				<Link to="/">To '/'</Link>
-			</div>
 			<label htmlFor="signup">Signup</label>
 			<input
 				id="signup"

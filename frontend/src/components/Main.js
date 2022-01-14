@@ -3,21 +3,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import user from "../reducers/user";
-import programmingMeme from '../utils/programmingMeme.jpeg'
+import programmingMeme from "../utils/programmingMeme.jpeg";
 
 const Main = () => {
 	const accessToken = useSelector((store) => store.user.accessToken);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	
+
+	// function to sign out user
 	const signOut = () => {
 		dispatch(user.actions.setUserId(null));
 		dispatch(user.actions.setUsername(null));
 		dispatch(user.actions.setAccessToken(null));
 		dispatch(user.actions.setError(null));
-	}
+	};
 
+	// checks if user is authorized, if yes - sends user to main page
 	useEffect(() => {
 		if (!accessToken) {
 			navigate("/login");

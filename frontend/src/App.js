@@ -8,11 +8,9 @@ import Login from "./components/Login";
 import NotFound from "./components/NotFound";
 
 import user from "./reducers/user";
-// import memes from "./reducers/memes";
 
 const reducer = combineReducers({
 	user: user.reducer,
-	// memes: memes.reducer,
 });
 
 const store = configureStore({ reducer });

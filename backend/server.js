@@ -73,6 +73,11 @@ app.post("/signup", async (req, res) => {
 	try {
 		const salt = bcrypt.genSaltSync();
 
+		// ensures the username length is minimum 2 characters
+		if (username.length < 2) {
+			throw "Username has to be at least 2 characters";
+		}
+
 		// ensures the password length is minimum 5 characters
 		if (password.length < 5) {
 			throw "Password has to be at least 5 characters";
