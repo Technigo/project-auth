@@ -58,8 +58,8 @@ const authenticateUser = async (req, res, next) => {
 };
 
 //Start defining your routes here
-app.get('/main', authenticateUser); // we first have to authenticate the user before we get the main content
-app.get('/main', async (req, res) => {
+app.get('/content', authenticateUser); // we first have to authenticate the user before we get the main content
+app.get('/content', async (req, res) => {
   const main = await User.find({});
   res.status(200).json({ response: user, success: true });
 });
