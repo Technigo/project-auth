@@ -136,7 +136,7 @@ const InputWrapper = styled.div`
       padding: 20px;
       font-size: 18px;
       ::-webkit-input-placeholder {
-        font-size: 20px;
+        font-size: 10px;
         line-height: 3;
       }
     }
