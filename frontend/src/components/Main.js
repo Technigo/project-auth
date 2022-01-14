@@ -1,14 +1,22 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 
-// import { API_URL } from "utils/urls";
+import user from "../reducers/user";
 import programmingMeme from '../utils/programmingMeme.jpeg'
 
 const Main = () => {
 	const accessToken = useSelector((store) => store.user.accessToken);
 
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	
+	const signOut = () => {
+		dispatch(user.actions.setUserId(null));
+		dispatch(user.actions.setUsername(null));
+		dispatch(user.actions.setAccessToken(null));
+		dispatch(user.actions.setError(null));
+	}
 
 	useEffect(() => {
 		if (!accessToken) {
@@ -16,19 +24,11 @@ const Main = () => {
 		}
 	}, [accessToken, navigate]);
 
-	// useEffect(() => {
-	// 	const options = {
-	// 		method: "GET",
-	// 		headers: {
-	// 			Authorization: accessToken,
-	// 		},
-	// 	};
-
-	// 	fetch(API_URL("memes"), options).then((res) => res.json());
-	// // }, [accessToken]);
-
 	return (
 		<div>
+			<div>
+				<button onClick={signOut}>Sign out</button>
+			</div>
 			<div>
 				<Link to="/login">To '/login'</Link>
 			</div>
