@@ -14,7 +14,6 @@ If we had more time we would implement a POST endpoint to add a comment on today
 Backend technologies:
 
 - Mongoose to create a User's schema and a model based on the schema
-- CORS to restrict what domains have access to the API
 - Bcrypt method for salt to safely hash and store passwords
 - Async/await was used for promises
 - Regex to validate that the e-mail address provided by the user follows the correct format

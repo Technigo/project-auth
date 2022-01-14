@@ -49,11 +49,7 @@ const app = express()
 
 // Add middlewares to enable cors and json body parsing
 
-app.use(
-  cors({
-    origin: 'https://space-a-day.netlify.app/',
-  }),
-)
+app.use(cors())
 
 app.use(express.json())
 
