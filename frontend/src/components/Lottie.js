@@ -1,5 +1,5 @@
-import React from 'react'
-import Lottie from 'react-lottie';
+import React from 'react';
+import Lottie from 'react-lottie-player';
 import animationData from './lotties/57071-cat-is-sleeping-and-rolling';
 
 const Cat = () => {
