@@ -115,10 +115,14 @@ const SignUp = () => {
         console.log(data);
         if (data.success) {
           new Swal({
-            title: 'Congratulations! User created 🎉',
-            content: 'el',
+            title: 'Congratulations! User created 😻',
           }).then(function () {
             navigate('/signin');
+          });
+        }
+        if (!data.success) {
+          new Swal({
+            title: 'Something went wrong 🙀',
           });
         } else {
           batch(() => {
@@ -170,12 +174,7 @@ const SignUp = () => {
         <button type='submit'>register</button>
         <p>*required fields</p>
       </Form>
-      {/* <div>
-        <p>
-          You're now a member! 🎉 Click <Link to='/signin'> here </Link> to
-          login
-        </p>
-      </div> */}
+
       <div>
         <p>Already a member?</p>
         <Link to='/signin'>Sign in</Link>

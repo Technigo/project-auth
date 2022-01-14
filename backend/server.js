@@ -56,13 +56,13 @@ const authenticateUser = async (req, res, next) => {
     res.status(400).json({ response: error, success: false });
   }
 };
-// Start defining your routes here
-// app.get('/cats', authenticateUser); // we first have to authenticate the user before we get the thoughts
-// app.get('/cats', async (req, res) => {
-//   // thoughts is just an example
-//   const cats = await cats.find({});
-//   res.status(201).json({ response: cats, success: true });
-// });
+//Start defining your routes here
+app.get('/main', authenticateUser); // we first have to authenticate the user before we get the thoughts
+app.get('/main', async (req, res) => {
+  // thoughts is just an example
+  const main = await User.find({});
+  res.status(200).json({ response: user, success: true });
+});
 
 // app.post('/signup', authenticateUser); /// how do we solve authentication?
 app.post('/signup', async (req, res) => {
@@ -96,7 +96,7 @@ app.post('/signup', async (req, res) => {
 });
 
 app.post('/signin', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
 
   try {
     const user = await User.findOne({ username });
@@ -109,14 +109,19 @@ app.post('/signin', async (req, res) => {
           userId: user._id,
           username: user.username,
           accessToken: user.accessToken,
+          email: newUser.email,
         },
         success: true,
       });
     } else {
-      res.status(404).json({ response: 'User not found', success: false });
+      res.status(404).json({
+        response: 'User not found',
+        success: false,
+        message: 'User not found',
+      });
     }
   } catch (error) {
-    res.status(400).json({ response: error, success: false });
+    res.status(403).json({ message: 'error', response: error, success: false });
   }
 });
 

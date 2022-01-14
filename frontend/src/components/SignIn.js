@@ -85,12 +85,15 @@ const Title = styled.h1`
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // const [email, setEmail] = useState;
+  const [email, setEmail] = useState('');
+  //  const [error, setError] = useState(null);
+  const [validationError, setValidationError] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const accessToken = useSelector(store => store.user.accessToken);
+  const errorMess = useSelector(store => store.user.error);
 
   useEffect(() => {
     if (accessToken) {
@@ -106,7 +109,7 @@ const SignIn = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, email }),
     };
 
     fetch(SIGNIN_URL, options)
@@ -117,16 +120,18 @@ const SignIn = () => {
             dispatch(user.actions.setUserId(data.response.userId));
             dispatch(user.actions.setUsername(data.response.username));
             dispatch(user.actions.setAccessToken(data.response.accessToken));
-            // dispatch(user.actions.setEmail(data.response.email));
+            dispatch(user.actions.setEmail(data.response.email));
             dispatch(user.actions.setError(null));
           });
         } else {
           batch(() => {
+            console.log(validationError);
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setAccessToken(null));
-            // dispatch(user.actions.setEmail(null));
+            dispatch(user.actions.setEmail(null));
             dispatch(user.actions.setError(data.response));
+            setValidationError(data.message);
           });
         }
       });
@@ -144,6 +149,13 @@ const SignIn = () => {
           value={username}
           onChange={e => setUsername(e.target.value)}
         />
+        <label>email*</label>
+        <input
+          type='email'
+          placeholder='enter email'
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
         <label htmlFor='password'>password*</label>
         <input
           id='password'
@@ -154,6 +166,7 @@ const SignIn = () => {
         />
         <p>*required fields</p>
         <button type='submit'>sign in</button>
+        {validationError !== null && <p>{validationError}</p>}
       </Form>
     </Wrapper>
   );

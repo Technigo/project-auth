@@ -30,7 +30,7 @@ const Svg = styled.svg`
 `;
 
 const LottieDiv = styled.div`
-padding-top:20px;
+  padding-top: 20px;
   position: absolute;
   width: 100%;
 `;
@@ -44,7 +44,6 @@ const EnterText = styled.p`
   a {
     color: red;
     font-weight: bold;
-
     text-decoration: none;
   }
 
