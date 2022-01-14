@@ -9,4 +9,5 @@ The challenge was to later use an existing API in out project to fetch and post 
 ## View it live
 
 https://secret-thoughts-w20.herokuapp.com/
+
 https://secret-thoughts-w20.netlify.app/
