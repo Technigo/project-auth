@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch, batch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch, batch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { API_URL } from "../utils/constants";
-import user from "../reducers/user";
+import { API_URL } from '../utils/constants'
+import user from '../reducers/user'
 
 import {
   MainSection,
@@ -12,87 +12,90 @@ import {
   LegendStyle,
   TextField,
   LoginButton,
-} from "./StyledComponents";
+  RadioDiv,
+} from './StyledComponents'
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [mode, setMode] = useState("signup");
-  const [error, setError] = useState(false);
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [mode, setMode] = useState('signin')
+  const [error, setError] = useState(false)
 
-  const accessToken = useSelector((store) => store.user.accessToken);
+  const accessToken = useSelector((store) => store.user.accessToken)
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (accessToken) {
-      navigate("/");
+      navigate('/')
     }
-  }, [accessToken, navigate]);
+  }, [accessToken, navigate])
 
   const onFormSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ username, password, email }),
-    };
+    }
 
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           batch(() => {
-            dispatch(user.actions.setUserId(data.response.userId));
-            dispatch(user.actions.setUsername(data.response.username));
-            dispatch(user.actions.setAccessToken(data.response.accessToken));
-            dispatch(user.actions.setEmail(data.response.email));
-            dispatch(user.actions.setError(null));
+            dispatch(user.actions.setUserId(data.response.userId))
+            dispatch(user.actions.setUsername(data.response.username))
+            dispatch(user.actions.setAccessToken(data.response.accessToken))
+            dispatch(user.actions.setEmail(data.response.email))
+            dispatch(user.actions.setError(null))
             //specify the data that we want to save in localStorage 'user' here
             localStorage.setItem(
-              "user",
+              'user',
               JSON.stringify({
                 userId: data.response.userId,
                 username: data.response.username,
                 email: data.response.email,
                 accessToken: data.response.accessToken,
-              })
-            );
-          });
+              }),
+            )
+          })
         } else {
           batch(() => {
-            dispatch(user.actions.setUserId(null));
-            dispatch(user.actions.setUsername(null));
-            dispatch(user.actions.setAccessToken(null));
-            dispatch(user.actions.setEmail(null));
-            dispatch(user.actions.setError(data.response));
-          });
-          setError(true);
+            dispatch(user.actions.setUserId(null))
+            dispatch(user.actions.setUsername(null))
+            dispatch(user.actions.setAccessToken(null))
+            dispatch(user.actions.setEmail(null))
+            dispatch(user.actions.setError(data.response))
+          })
+          setError(true)
         }
-      });
-  };
+      })
+  }
 
   return (
     <MainSection>
-      <label htmlFor="signup">Signup</label>
-      <input
-        id="signup"
-        type="radio"
-        checked={mode === "signup"}
-        onChange={() => setMode("signup")}
-      />
-      <label htmlFor="signin">Signin</label>
-      <input
-        id="signin"
-        type="radio"
-        checked={mode === "signin"}
-        onChange={() => setMode("signin")}
-      />
+      <RadioDiv>
+        <label htmlFor="signin">Signin</label>
+        <input
+          id="signin"
+          type="radio"
+          checked={mode === 'signin'}
+          onChange={() => setMode('signin')}
+        />
+        <label htmlFor="signup">Signup</label>
+        <input
+          id="signup"
+          type="radio"
+          checked={mode === 'signup'}
+          onChange={() => setMode('signup')}
+        />
+      </RadioDiv>
       <FormDiv onSubmit={onFormSubmit}>
         <Field>
           <LegendStyle>
@@ -117,7 +120,7 @@ const Login = () => {
           />
         </Field>
 
-        {mode === "signup" && (
+        {mode === 'signup' && (
           <>
             <Field>
               <LegendStyle>
@@ -137,7 +140,7 @@ const Login = () => {
         {error && <p>Username or password is incorrect!</p>}
       </FormDiv>
     </MainSection>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
