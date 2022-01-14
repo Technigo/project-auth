@@ -47,18 +47,8 @@ export default Main;
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: 80%;
-  padding-top: 10%;
-
-  @media (min-width: 768px) {
-    width: 50%;
-    padding: 30px 25px;
-  }
-
-  @media (min-width: 1025px) {
-    width: 20%;
-    padding: 30px 25px;
-  }
+  padding-top:10%;
+  width: 100%;
 `;
 
 const Container = styled.div`
@@ -71,6 +61,17 @@ const Container = styled.div`
   /* background-color: #984ba4; */
   border-radius: 10px;
   border: 2px solid #984ba4;
+
+  @media (min-width: 768px) {
+    width: 50%;
+    padding: 30px 25px;
+  }
+
+  @media (min-width: 1025px) {
+    width: 20%;
+    padding: 30px 25px;
+  }
+
 `;
 
 const Logintitle = styled.h1`
