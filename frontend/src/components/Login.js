@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { API_URL } from '../utils/constant';
@@ -59,10 +58,7 @@ const InputField = styled.input`
   border-radius: 5px;
   min-width: 200px;
 `;
-const InputField2 = styled.input`
-  margin-bottom: 30px;
-  position: relative;
-`;
+
 const Username = styled.label`
   align-self: flex-start;
   margin-left: 130px;
