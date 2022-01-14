@@ -1,13 +1,13 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+Created a sign in/sign up form in react with POST requests. Bulding our backend with MongoDB, Mongoose schemas & model, bcrypted/hashed & salted passwords. We authenticate our users before reaching logged in pages.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We used Redux to dispatch actions for our users accessToken, username and errors. We also created reducers to clear accessToken, redirecting them from logged in to logged out. React Router to navigate from sign in/sign up to logged in page. In the backend we used Mongoose Schema and authenticated our users with bcrypt.
+
+Stretch goal: To let the authenticated user upload a profile pic by posting it to Mongo DB. Still in progress.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+jakob-lovisa-authorization.netlify.app
