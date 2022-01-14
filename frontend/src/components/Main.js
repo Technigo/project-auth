@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -6,17 +6,47 @@ import { API_URL } from "../utils/constants";
 import thoughts from "../reducers/thoughts";
 
 import {
-  MainMessage,
-  MessageContainer,
+  FlexItem,
+  FormDiv,
   MessageDiv,
   LogoutButton,
+  Field,
+  MessageBox,
 } from "./StyledComponents";
 
 import user from "../reducers/user";
 
 const Main = () => {
+  const [message, setMessage] = useState("");
+
   const thoughtsItems = useSelector((store) => store.thoughts.items);
   const accessToken = useSelector((store) => store.user.accessToken);
+
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message }),
+    };
+    fetch(API_URL("thoughts"), options)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          batch(() => {
+            dispatch(thoughts.actions.setNewItems(data.response));
+            dispatch(thoughts.actions.setError(null));
+          });
+        } else {
+          batch(() => {
+            dispatch(thoughts.actions.setError(data.response));
+          });
+        }
+      });
+  };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -59,17 +89,30 @@ const Main = () => {
   };
 
   return (
-    <MainMessage>
+    <FlexItem>
       <h1>Protected happy thoughts:</h1>
-      <MessageContainer>
-        {thoughtsItems.map((item) => (
-          <MessageDiv key={item._id}>{item.message}</MessageDiv>
-        ))}
-      </MessageContainer>
-      <LogoutButton type="button" onClick={() => onButtonClick()}>
-        Log out
-      </LogoutButton>
-    </MainMessage>
+      <Field>
+        <FormDiv onSubmit={onFormSubmit}>
+          <MessageDiv>
+            <input
+              type="text"
+              id="text"
+              placeholder="write your message here"
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
+            />
+            <LogoutButton type="submit">Send</LogoutButton>
+
+            {thoughtsItems.map((item) => (
+              <MessageBox key={item._id}>{item.message}</MessageBox>
+            ))}
+          </MessageDiv>
+          <LogoutButton type="button" onClick={() => onButtonClick()}>
+            Log out
+          </LogoutButton>
+        </FormDiv>
+      </Field>
+    </FlexItem>
   );
 };
 

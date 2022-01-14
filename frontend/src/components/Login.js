@@ -12,9 +12,8 @@ import {
   LegendStyle,
   TextField,
   LoginButton,
-  RadioDiv,
   ChangeModeBtn,
-  EmptyTodoDiv,
+  Logo,
 } from "./StyledComponents";
 
 const Login = () => {
@@ -84,22 +83,22 @@ const Login = () => {
 
   return (
     <MainSection>
-      <EmptyTodoDiv>
+      <Logo>
         <img
-          src="https://i.ibb.co/vDY4RQR/burger.png"
-          alt="burger"
+          src="https://i.ibb.co/s2sJvVB/morty.gif"
+          alt="morty"
           className="empty-image"
         />
-      </EmptyTodoDiv>
-      <RadioDiv>
-        {/* <label htmlFor="signup">Signup</label>
+      </Logo>
+      {/* <RadioDiv>
+        <label htmlFor="signup">Signup</label>
         <input
           id="signup"
           type="radio"
           checked={mode === "signup"}
           onChange={() => setMode("signup")}
-        /> */}
-      </RadioDiv>
+        />
+      </RadioDiv> */}
       <FormDiv onSubmit={onFormSubmit}>
         <Field>
           <LegendStyle>

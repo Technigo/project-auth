@@ -1,13 +1,35 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+This project's goal is to build an API with authentication.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+- authenticate users using tokens and securely store passwords in database
+
+Create a Frontend with forms restricted content once logged in
+
+Made in pair programming Patrik Mattsson and Elin Diczfalusy
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+The Backend is an Express API using mongoose and MongoDB for our database.
+
+Made with 4 endpoints
+
+- A GET to show existing messages
+- A POST to add new messages
+- A POST for sign up
+- A POST for sign in
+
+Tech-stack
+
+- MongoDB
+- Mongoose
+- Express
+- Bcrypt & crypto
+- React
+- Redux
+- Styled Components
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend: https://flamboyant-hopper-a9db2b.netlify.app/
+Backend: https://auth-elin-patrik.herokuapp.com/
