@@ -3,7 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-import listEndpoints from 'express-list-endpoints';
+import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -29,7 +29,6 @@ const UserSchema = new mongoose.Schema({
     default: () => crypto.randomBytes(128).toString("hex"),
   },
 });
-
 
 const User = mongoose.model("User", UserSchema);
 
@@ -65,21 +64,20 @@ app.get("/thoughts", (req, res) => {
   res.send("here are your thoughts");
 });
 
-app.post('/thoughts', async (req, res) => {
-	const { message } = req.body;
+app.post("/thoughts", async (req, res) => {
+  const { message } = req.body;
 
-	try {
-		const newThought = await new Thought({ message }).save();
-		res.status(201).json({ response: newThought, success: true });
-	} catch (error) {
-		res.status(400).json({ response: error, success: false });
-	}
+  try {
+    const newThought = await new Thought({ message }).save();
+    res.status(201).json({ response: newThought, success: true });
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
 });
-
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send(listEndpoints(app))
+  res.send(listEndpoints(app));
 });
 
 app.post("/signup", async (req, res) => {
