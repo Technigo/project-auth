@@ -1,9 +1,16 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { API_URL } from "../utils/constants";
 import thoughts from "../reducers/thoughts";
+
+import {
+  MainMessage,
+  MessageContainer,
+  MessageDiv,
+  LogoutButton,
+} from "./StyledComponents";
 
 import user from "../reducers/user";
 
@@ -52,18 +59,17 @@ const Main = () => {
   };
 
   return (
-    <div>
-      <div>
-        <Link to="/login">To '/login' !</Link>
-      </div>
+    <MainMessage>
       <h1>Protected happy thoughts:</h1>
-      {thoughtsItems.map((item) => (
-        <div key={item._id}>{item.message}</div>
-      ))}
-      <button type="button" onClick={() => onButtonClick()}>
+      <MessageContainer>
+        {thoughtsItems.map((item) => (
+          <MessageDiv key={item._id}>{item.message}</MessageDiv>
+        ))}
+      </MessageContainer>
+      <LogoutButton type="button" onClick={() => onButtonClick()}>
         Log out
-      </button>
-    </div>
+      </LogoutButton>
+    </MainMessage>
   );
 };
 
