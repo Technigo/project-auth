@@ -99,7 +99,6 @@ app.post("/signup", async (req, res) => {
     if (password.length < 5) {
       throw "Password must be at least 5 characters long";
     }
-    console.log("Creating user", req.body);
     const newUser = new User({
       email: email.toLowerCase(),
       password: bcrypt.hashSync(password, salt),
@@ -121,7 +120,6 @@ app.post("/signup", async (req, res) => {
 
 app.post("/signin", async (req, res) => {
   const { email, password } = req.body;
-  console.log("signin", req.body);
   try {
     const user = await User.findOne({ email: email.toLowerCase() });
 
