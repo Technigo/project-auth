@@ -79,7 +79,7 @@ app.post("/signup", async (req, res) => {
     if (password.length < 5) {
       throw "Password need to be 5 characters or longer";
     }
-
+else{
     const newUser = await new User({
 			username,
 			password: bcrypt.hashSync(password, salt),
@@ -92,9 +92,14 @@ app.post("/signup", async (req, res) => {
 				accessToken: newUser.accessToken,
 			},
 			success: true,
-		});
+		});}
 	} catch (error) {
-		res.status(400).json({ response: error, success: false });
+		res.status(400).json({
+			response: {
+				error
+			},
+			success: false,
+		});
 	}
 });
 
