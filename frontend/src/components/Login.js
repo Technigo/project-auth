@@ -102,9 +102,7 @@ export const Login = () => {
         </form>
 
         <section className="errorContainer">
-          {error && mode === "signup"
-            ? `Password needs to be 5 characters or longer`
-            : ``}
+            {error ? `Password must be 5 characters or longer` : ``}
         </section>
       </section>
     </article>
