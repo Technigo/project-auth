@@ -9,6 +9,7 @@ export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState('signup');
+  const [error, setError] = useState('');
 
   const accessToken = useSelector((store) => store.user.accessToken);
 
@@ -43,10 +44,13 @@ export const Login = () => {
             dispatch(user.actions.setError(null));
           });
         } else {
-          dispatch(user.actions.setUserId(null));
-          dispatch(user.actions.setUsername(null));
-          dispatch(user.actions.setAccessToken(null));
-          dispatch(user.actions.setError(data.response));
+          batch(() => {
+            dispatch(user.actions.setUserId(null));
+            dispatch(user.actions.setUsername(null));
+            dispatch(user.actions.setAccessToken(null));
+            dispatch(user.actions.setError(data.response));
+          });
+          setError('Sorry, invalid login or password.');
         }
       });
   };
@@ -93,6 +97,7 @@ export const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         ></Input>
         <Button type="submit">Login</Button>
+        <Error> {error}</Error>
       </Form>
     </>
   );
@@ -140,4 +145,8 @@ const Button = styled.button`
   /* Small laptop */
   @media (min-width: 992px) {
   }
+`;
+const Error = styled.p`
+  font-size: 18px;
+  text-align: center;
 `;
