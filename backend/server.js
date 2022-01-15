@@ -84,10 +84,10 @@ const authenticateUser = async (req, res, next) => {
 
 // Start defining your routes here
 
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", (req, res) => {
-	res.send("Here are your thoughts");
-});
+// app.get("/thoughts", authenticateUser);
+// app.get("/thoughts", (req, res) => {
+// 	res.send("Here are your thoughts");
+// });
 
 app.post("/signup", async (req, res) => {
 	const { username, password } = req.body;

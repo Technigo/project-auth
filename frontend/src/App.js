@@ -8,11 +8,11 @@ import Login from "./components/Login";
 import NotFound from "./components/NotFound";
 
 import user from "./reducers/user";
-import thoughts from "./reducers/thoughts";
+// import thoughts from "./reducers/thoughts";
 
 const reducer = combineReducers({
 	user: user.reducer,
-	thoughts: thoughts.reducer,
+	// thoughts: thoughts.reducer,
 });
 
 const persistedStateJSON = localStorage.getItem("userReduxState");

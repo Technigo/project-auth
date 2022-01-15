@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Logout } from "./Logout";
 
 const Main = () => {
-	const thoughtsItems = useSelector((store) => store.thoughts.items);
+	// const thoughtsItems = useSelector((store) => store.thoughts.items);
 	const accessToken = useSelector((store) => store.user.accessToken);
 
 	const navigate = useNavigate();
@@ -20,10 +20,10 @@ const Main = () => {
 			<div>
 				<Link to="/login">To '/login' !</Link>
 			</div>
-			<h1>Protected happy thoughts:</h1>
-			{thoughtsItems.map((item) => (
+			<h1>Secret heading:</h1>
+			{/* {thoughtsItems.map((item) => (
 				<div key={item._id}>{item.message}</div>
-			))}
+			))} */}
 			<Logout />
 		</div>
 	);
