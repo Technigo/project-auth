@@ -9,11 +9,11 @@ import "./Login.css";
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState(false);
+
   const [mode, setMode] = useState("signin");
 
   const accessToken = useSelector((store) => store.user.accessToken);
-  const error = useSelector((store) => store.user.error);
+  
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,10 +54,10 @@ export const Login = () => {
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setAccessToken(null));
-            dispatch(user.actions.setError(true));
+            dispatch(user.actions.setError(ata.response.error));
 
           });
-          setErrors(true)
+          
         }
       })
   };
@@ -110,7 +110,7 @@ export const Login = () => {
         </form>
 
         <section className="errorContainer">
-            {errors ? `Password must be 5 characters or longer` : ``}
+            {error ? `Password must be 5 characters or longer` : ``}
         </section>
       </section>
     </article>
