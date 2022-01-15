@@ -9,6 +9,7 @@ import "./Login.css";
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState(false);
   const [mode, setMode] = useState("signin");
 
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -20,8 +21,12 @@ export const Login = () => {
   useEffect(() => {
     if (accessToken) {
       navigate("/");
+     
     }
   }, [accessToken, navigate]);
+
+
+
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -34,7 +39,7 @@ export const Login = () => {
       body: JSON.stringify({ username, password })
     };
     fetch(API_URL(mode), options)
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
 
         if (data.success) {
@@ -42,17 +47,19 @@ export const Login = () => {
             dispatch(user.actions.setUserId(data.response.userId));
             dispatch(user.actions.setUsername(data.response.username));
             dispatch(user.actions.setAccessToken(data.response.accessToken));
-            dispatch(user.actions.setError(null));
+            dispatch(user.actions.setError(false));
           });
         } else {
           batch(() => {
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setAccessToken(null));
-            dispatch(user.actions.setError(data.response.error));
+            dispatch(user.actions.setError(true));
+
           });
+          setErrors(true)
         }
-      });
+      })
   };
 
   return (
@@ -103,7 +110,7 @@ export const Login = () => {
         </form>
 
         <section className="errorContainer">
-            {error ? `Password must be 5 characters or longer` : ``}
+            {errors ? `Password must be 5 characters or longer` : ``}
         </section>
       </section>
     </article>

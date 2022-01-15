@@ -7,7 +7,7 @@ const user = createSlice({
     userId: null,
     username: null,
     accessToken:null,
-    error: null,
+    error: false,
   },
 
   reducers: {
