@@ -5,7 +5,8 @@
 	"scripts": {
 		"start": "babel-node server.js",
 		"dev": "nodemon server.js --exec babel-node",
-		"lint": "eslint ."
+		"lint": "eslint .",
+		"debug": "DEBUG=express:* nodemon ./server.js — exec babel-node -e js"
 	},
 	"author": "",
 	"license": "ISC",
