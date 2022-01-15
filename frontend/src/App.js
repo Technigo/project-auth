@@ -9,7 +9,6 @@ import { Header } from 'Components/Header';
 import { Footer } from 'Components/Footer';
 import { SecretContent } from 'Components/SecretContent';
 import NotFound from 'Components/NotFound';
-import Main from 'Components/Main';
 import user from './reducers/user';
 import secrets from 'reducers/secrets';
 
@@ -29,10 +28,10 @@ export const App = () => {
           <Header />
           <InnerContainer>
             <Routes>
-              <Route path='/' element={<SecretContent />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/main' element={<Main />} />
-              <Route path='*' element={<NotFound />} />
+              <Route path="/" element={<SecretContent />} />
+              <Route path="/login" element={<Login />} />
+              {/* <Route path='/main' element={<Main />} /> */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </InnerContainer>
           <Footer />
@@ -53,7 +52,7 @@ const Container = styled.div`
 `;
 const InnerContainer = styled.div`
   border: 5px dotted black;
-  min-width: 334px;
+  min-width: 300px;
   max-width: 500px;
   margin: 0 auto;
   height: 100%;

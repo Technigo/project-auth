@@ -38,12 +38,15 @@ export const SecretContent = () => {
     background-color: #92dea0;
     align-self: center;
     width: fit-content;
-    padding: 5px 15px;
     margin: 10px;
     font-size: 1em;
-    padding: 5px;
+    padding: 5px 10px;
     border: 1px solid black;
+    border-radius: 6px;
     text-transform: uppercase;
+    :hover {
+      background-color: #1e9086;
+    }
   `;
 
   // redirect user to login if they are not logged in
@@ -64,7 +67,6 @@ export const SecretContent = () => {
     fetch(API_URL('secrets'), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log('den här koden körs väl');
         if (data.success) {
           dispatch(secrets.actions.setItems(data.response));
           dispatch(secrets.actions.setError(null));
