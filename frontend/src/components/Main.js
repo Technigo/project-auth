@@ -82,7 +82,7 @@ const Main = () => {
         dispatch(cats.actions.setItems(data));
         dispatch(cats.actions.setErrors(null));
       });
-  }, [dispatch]);
+  }, [dispatch, accessToken]);
 
   const handleLogout = () => {
     dispatch(user.actions.logout());
