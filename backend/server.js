@@ -43,10 +43,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const authenticateUser = async (req, res, next) => {
-  const accessToken = req.header('Authorization');
-
   try {
-    const user = await User.findOne({ accessToken });
+    const user = await User.findOne({
+      accessToken: req.header('Authorization'),
+    });
     if (user) {
       next(); // built in function for express that makes the app move along if there's for example an user
     } else {
@@ -64,10 +64,10 @@ const authenticateUser = async (req, res, next) => {
 //   res.status(200).json({ response: User, success: true });
 // });
 
-app.get('/cats', authenticateUser);
-app.get('/cats', async (req, res) => {
-  const main = await User.find({});
-  res.status(200).json({ response: main, success: true });
+app.get('/secret', authenticateUser);
+app.get('/secret', async (req, res) => {
+  // const main = await User.find({});
+  res.json({ response: main, success: true, message: 'our secret page' });
 });
 
 app.post('/signup', async (req, res) => {
