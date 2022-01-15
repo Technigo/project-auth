@@ -13,7 +13,7 @@ export const Login = () => {
   const [mode, setMode] = useState("signin");
 
   const accessToken = useSelector((store) => store.user.accessToken);
-  
+  const error = useSelector((store) => store.user.error);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ export const Login = () => {
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setAccessToken(null));
-            dispatch(user.actions.setError(ata.response.error));
+            dispatch(user.actions.setError(data.response.error));
 
           });
           
