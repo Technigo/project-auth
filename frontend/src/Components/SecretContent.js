@@ -10,12 +10,12 @@ export const SecretContent = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.accessToken);
 
-  // const logout = () => {
-  //   batch(() => {
-  //     dispatch(user.actions.setUsername(null));
-  //     dispatch(user.actions.setAccessToken(null));
-  //   });
-  // };
+  const logout = () => {
+    batch(() => {
+      dispatch(user.actions.setUsername(null));
+      dispatch(user.actions.setAccessToken(null));
+    });
+  };
 
   // Styled components
   const Cake = styled.h1`
@@ -61,7 +61,7 @@ export const SecretContent = () => {
       {/* <Link className="Link" to="/login">
         <button type="submit">Log out</button>
       </Link> */}
-      {/* <LogoutButton onClick={logout}>Log out</LogoutButton> */}
+      <LogoutButton onClick={logout}>Log out</LogoutButton>
       <H1>
         This is super secret
         <span role="img" aria-label="eyes">

@@ -10,7 +10,7 @@ import { Header } from 'Components/Header';
 import { Footer } from 'Components/Footer';
 import { SecretContent } from 'Components/SecretContent';
 import NotFound from 'Components/NotFound';
-/* import Main from 'Components/Main'; */
+import Main from 'Components/Main';
 
 // added two reducers
 import user from './reducers/user';
@@ -33,10 +33,10 @@ export const App = () => {
           <InnerContainer>
             <Routes>
               {/*   <Route path='/' element={<RegistrationForm />} /> */}
-              <Route path='/' element={<SecretContent />} />
-              <Route path='/login' element={<Login />} />
-              {/*    <Route path='/secret' element={<SecretContent />} /> */}
-              <Route path='*' element={<NotFound />} />
+              <Route path="/" element={<SecretContent />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/main" element={<Main />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </InnerContainer>
           <Footer />
