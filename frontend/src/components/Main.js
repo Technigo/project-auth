@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import { Logout } from "./Logout";
 
 import { API_URL } from "../utils/constants";
 import thoughts from "../reducers/thoughts";
@@ -48,6 +49,7 @@ const Main = () => {
 			{thoughtsItems.map((item) => (
 				<div key={item._id}>{item.message}</div>
 			))}
+			<Logout />
 		</div>
 	);
 };

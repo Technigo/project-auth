@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const user = createSlice({
+export const user = createSlice({
 	name: "user",
 	initialState: {
 		userId: null,
@@ -20,6 +20,10 @@ const user = createSlice({
 		},
 		setError: (store, action) => {
 			store.error = action.payload;
+		},
+		setLogOut: (store) => {
+			store.username = null;
+			store.accessToken = null;
 		},
 	},
 });
