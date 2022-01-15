@@ -70,7 +70,7 @@ const Main = () => {
     if (!accessToken) {
       navigate('/');
     }
-  }, [accessToken, navigate]);
+  }, [navigate]); // accessToken,
 
   useEffect(() => {
     fetch(URL_CATS)
