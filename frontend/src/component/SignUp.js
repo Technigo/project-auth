@@ -63,7 +63,7 @@ export const SignUp = () => {
           dispatch(user.actions.setAccessToken(null))
           dispatch(user.actions.setError(data.response))
         }
-        alert(data.response.error)
+        // alert(data.response.error)
       })
   }
 
@@ -127,7 +127,7 @@ export const SignUp = () => {
           </div>
           <div className='overlay-panel overlay-right'>
             <h1>Hi there, Friend!</h1>
-            <p>Enter your personal details and start journey with us</p>
+            <p>Enter your personal details and start journey your with us</p>
             <StyledButton className='ghost' id='signUp' onClick={onToggleClick}>
               Sign Up
             </StyledButton>
