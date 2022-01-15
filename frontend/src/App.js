@@ -30,7 +30,6 @@ export const App = () => {
             <Routes>
               <Route path="/" element={<SecretContent />} />
               <Route path="/login" element={<Login />} />
-              {/* <Route path='/main' element={<Main />} /> */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </InnerContainer>
