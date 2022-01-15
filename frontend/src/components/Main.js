@@ -70,7 +70,8 @@ const Main = () => {
     if (!accessToken) {
       navigate('/');
     }
-  }, [navigate]); // accessToken,
+  }, [accessToken, navigate]);
+  console.log('ACCESS TOKEN', accessToken);
 
   useEffect(() => {
     fetch(URL_CATS)
