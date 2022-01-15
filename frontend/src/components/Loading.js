@@ -27,9 +27,9 @@ const LoadingSpinner = styled.div`
     rgb(0, 0, 0) 51%
   );
   border-radius: 50%;
-  width: 350px;
-  height: 350px;
-  animation: ${spin} 2s linear infinite;
+  width: 50px;
+  height: 50px;
+  animation: ${spin} 3s linear infinite;
 `;
 
 const Loading = () => {

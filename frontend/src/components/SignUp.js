@@ -119,7 +119,6 @@ const SignUp = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("signup response", data);
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId));
@@ -133,6 +132,7 @@ const SignUp = (props) => {
           });
           setNameInput("");
           setPasswordInput("");
+          dispatch(user.actions.setLoading(false));
         } else {
           batch(() => {
             dispatch(user.actions.setUserId(null));
@@ -141,11 +141,9 @@ const SignUp = (props) => {
             dispatch(user.actions.setError(data.response));
           });
           alert(data.message);
+          dispatch(user.actions.setLoading(false));
         }
-      })
-      // .then(setNameInput(""))
-      // .then(setPasswordInput(""))
-      .finally(dispatch(user.actions.setLoading(false)));
+      });
   };
 
   return (

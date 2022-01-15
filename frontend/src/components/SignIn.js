@@ -128,6 +128,7 @@ const SignIn = (props) => {
           });
           setNameInput("");
           setPasswordInput("");
+          dispatch(user.actions.setLoading(false));
         } else {
           batch(() => {
             dispatch(user.actions.setUserId(null));
@@ -136,9 +137,10 @@ const SignIn = (props) => {
             dispatch(user.actions.setError(data.response));
           });
           alert(data.message);
+          dispatch(user.actions.setLoading(false));
         }
-      })
-      .finally(dispatch(user.actions.setLoading(false)));
+      });
+    // .finally(dispatch(user.actions.setLoading(false)));
   };
 
   return (
