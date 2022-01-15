@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { createStore, combineReducers } from "@reduxjs/toolkit";
 
 import Main from "./components/Main";
 import Login from "./components/Login";
@@ -15,8 +15,18 @@ const reducer = combineReducers({
 	thoughts: thoughts.reducer,
 });
 
-const store = configureStore({ reducer });
+const persistedStateJSON = localStorage.getItem("userReduxState");
+let persistedState = {};
 
+if (persistedStateJSON) {
+	persistedState = JSON.parse(persistedStateJSON);
+}
+
+const store = createStore(reducer, persistedState);
+
+store.subscribe(() => {
+	localStorage.setItem("userReduxState", JSON.stringify(store.getState()));
+});
 export const App = () => {
 	return (
 		<Provider store={store}>

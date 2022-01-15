@@ -37,7 +37,7 @@ const LoginBox = styled.div`
 
 const Wrapper = styled.div`
 	border: solid 1px red;
-	width: 280px;
+	width: 300px;
 `;
 
 const LoginHeadline = styled.h1`
@@ -62,6 +62,15 @@ const TextInput = styled.input`
 
 const SubmitButton = styled.button`
 	border: none;
+	padding: 8px;
+	border-radius: 3px;
+	font-size: 16px;
+`;
+
+const ErrorH1 = styled.h1`
+	color: red;
+	font-size: 0.9em;
+	font-style: italic;
 `;
 
 const Login = () => {
@@ -72,7 +81,7 @@ const Login = () => {
 	const accessToken = useSelector((store) => store.user.accessToken);
 	const error = useSelector((store) => store.user.error);
 
-	console.log(error);
+	// console.log(error);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -124,7 +133,7 @@ const Login = () => {
 					<LoginHeadline>
 						{mode === "signin" ? "Welcome back" : "Create account"}
 					</LoginHeadline>
-					{error && <h1>{error}</h1>}
+					{error && <ErrorH1>{error}</ErrorH1>}
 					<LoginForm onSubmit={onFormSubmit}>
 						<label htmlFor="username">Username</label>
 						<TextInput
@@ -167,7 +176,3 @@ const Login = () => {
 };
 
 export default Login;
-
-// <div>
-// 				<Link to="/">To '/' !</Link>
-// 			</div>
