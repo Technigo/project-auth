@@ -23,4 +23,4 @@ To learn how to authenticate users by using accesstokens and understand the flow
 
 ## View it live
 
-https://login-for-secrets.netlify.app/login
+https://login-for-secrets.netlify.app/
