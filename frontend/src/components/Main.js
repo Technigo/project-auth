@@ -5,6 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../utils/constants';
 import profile from '../reducers/profile';
 import LogoutButton from './LogoutButton';
+import styled from "styled-components";
+
+// styled components
+
+const Text = styled.p`
+  text-align: center;
+`;
+
+const Heading = styled.h1`
+	text-align: center;
+  font-size: 22px;
+  font-family: 'PT Sans', sans-serif;
+  padding-top: 20px;
+`;
 
 const Main = () => {
 	const profileMessage = useSelector((store) => store.profile.message);
@@ -37,11 +51,13 @@ const Main = () => {
 
 
 	return (
-		<div>
-			<h1>Welcome to your personal profile page:</h1>
-			{profileMessage}
+    <>
+    	<Heading>Welcome to your personal profile page:</Heading>
+      <Text>Here is the profile page, only for users</Text>
+			{/* {profileMessage} */}
       <LogoutButton/>
-		</div>
+    </>
+	
 	);
 };
 

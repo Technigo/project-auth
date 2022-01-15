@@ -107,7 +107,7 @@ const SubmitButton = styled.button`
   height: 40px;
   width: 50%;
   font-weight: 700;
-  font-size:18px;
+  font-size: 18px;
   cursor: pointer;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1);
   :focus,
@@ -173,14 +173,14 @@ const onFormSubmit = (event) => {
     <SigninContainer>
       <Heading>Welcome to RJ! </Heading>
       <div>
-        <Label htmlFor="signin">Signin</Label>
+        <Label htmlFor="signin">Sign In</Label>
         <Radiobutton
         id="signin"
         type="radio"
         checked={mode === 'signin'}
         onChange={() => setMode ('signin')}
         />
-        <Label htmlFor="signup">Signup</Label>
+        <Label htmlFor="signup">Sign Up</Label>
         <Radiobutton
         id="signup"
         type="radio"
@@ -211,7 +211,7 @@ const onFormSubmit = (event) => {
           <span>Remember me</span> 
         </CheckboxContainer>
         <SubmitButton type="submit"><span>Submit</span></SubmitButton>
-        <p>Not a member yet? <Link to="/">Sign up</Link>.</p>
+        {/* <p>Not a member yet? <Link to="/">Sign up</Link>.</p> */}
       </Form>
     </SigninContainer>
   );
