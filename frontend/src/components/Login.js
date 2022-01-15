@@ -81,8 +81,6 @@ const Login = () => {
 	const accessToken = useSelector((store) => store.user.accessToken);
 	const error = useSelector((store) => store.user.error);
 
-	// console.log(error);
-
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -107,7 +105,6 @@ const Login = () => {
 		fetch(API_URL(mode), options)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
 				if (data.success) {
 					batch(() => {
 						dispatch(user.actions.setUserId(data.response.userId));
