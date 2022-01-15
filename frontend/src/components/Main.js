@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { API_URL } from '../utils/constants';
 import profile from '../reducers/profile';
@@ -38,9 +38,6 @@ const Main = () => {
 
 	return (
 		<div>
-			{/* <div>
-				{<Link to="/signin">To '/signin' !</Link>}
-			</div> */}
 			<h1>Welcome to your personal profile page:</h1>
 			{profileMessage}
       <LogoutButton/>

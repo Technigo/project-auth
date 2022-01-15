@@ -8,6 +8,9 @@ import user from '../reducers/user';
 
 //styled components
 const SigninContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 	text-align: center;
 `;
 
@@ -30,7 +33,7 @@ const Radiobutton = styled.input`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   position: relative;
   text-align: center;
   font-family: 'PT Sans', sans-serif;
@@ -43,8 +46,7 @@ const Label = styled.label`
 
 const InputEmail = styled.input`
   max-width: 100%;
-  margin: 20px auto;
-  margin-top: 0px;
+  margin: 20px 0 0 0;
   padding: 7px;
   background-color: transparent;
   border-radius: 4px;
@@ -65,7 +67,7 @@ const InputEmail = styled.input`
 
 const InputPassword = styled.input`
   max-width: 100%;
-  margin: 0 20px auto;
+  margin: 20px 0px;
   padding: 7px;
   background-color: transparent;
   border-radius: 4px;
@@ -86,8 +88,7 @@ const InputPassword = styled.input`
 
 const CheckboxContainer = styled.div`
   max-width: 100%;
-  margin: 0 20px auto;
-  padding: 7px;
+  padding: 0 7px 7px 0;
   `;
 
 const Checkbox = styled.input`
@@ -97,6 +98,7 @@ const Checkbox = styled.input`
 const SubmitButton = styled.button`
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: #D9AFD9;
   margin: 0 auto;
   margin-top: 10px;
@@ -121,21 +123,21 @@ const SubmitButton = styled.button`
 const Signin = () => {
   const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [mode, setMode] = useState('signup');
+	const [mode, setMode] = useState('signin');
 
-  const accessToken = useSelector((store) => store.user.accessToken)
+  const accessToken = useSelector((store) => store.user.accessToken);
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (accessToken) {
-      navigate('/')
+      navigate('/');
     }
-  }, [accessToken, navigate])
+  }, [accessToken, navigate]);
 
 const onFormSubmit = (event) => {
-  event.preventDefault()
+  event.preventDefault();
 
   const options = {
     method: 'POST',
@@ -143,73 +145,76 @@ const onFormSubmit = (event) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ email, password })
-  }
+  };
 
   fetch(API_URL(mode), options)
   .then((res) => res.json())
   .then((data) => {
-    console.log(data)
+    console.log(data);
     if (data.success) {
       batch(() => { //instead of updating store for each dispatch it will only update ones for all with batch
-        dispatch(user.actions.setUserId(data.response.userId))
-        dispatch(user.actions.setEmail(data.response.email))
-        dispatch(user.actions.setAccessToken(data.response.accessToken))
-        dispatch(user.actions.setError(null))
-      })
+        dispatch(user.actions.setUserId(data.response.userId));
+        dispatch(user.actions.setEmail(data.response.email));
+        dispatch(user.actions.setAccessToken(data.response.accessToken));
+        dispatch(user.actions.setError(null));
+      });
     } else {
       batch(() => {
-        dispatch(user.actions.setUserId(null))
-        dispatch(user.actions.setEmail(null))
-        dispatch(user.actions.setAccessToken(null))
-        dispatch(user.actions.setError(data.response))
-      })
+        dispatch(user.actions.setUserId(null));
+        dispatch(user.actions.setEmail(null));
+        dispatch(user.actions.setAccessToken(null));
+        dispatch(user.actions.setError(data.response));
+      });
     }
-  })
-}
+  });
+};
 
   return (
-  <SigninContainer>
-  <Heading>Welcome to *****! </Heading>
-    {/* <Label htmlFor="signup">Signup</Label>
-    <Radiobutton
-    id="signup"
-    type="radio"
-    checked={mode === 'signup'}
-    onChange={() => setMode ('signup')}
-    />
-    <Label htmlFor="signin">Signin</Label>
-    <Radiobutton
-    id="signin"
-    type="radio"
-    checked={mode === 'signin'}
-    onChange={() => setMode ('signin')}
-    /> */}
-    <Form onSubmit={onFormSubmit}>
-      {/* <Label htmlFor="email">E-mail</Label> */}
-      <InputEmail
-        id="email" 
-        type="text"
-        placeholder="E-mail*"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      {/* <Label htmlFor="password">Password</Label> */}
-      <InputPassword 
-        id="password"
-        type="password"
-        placeholder="Password*" required
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <CheckboxContainer>
-        <Checkbox type="checkbox" name="checkboxRememberme" value="RememberMe"/>
-        <span>Remember me</span> 
-      </CheckboxContainer>
-      <SubmitButton type="submit"><span>Sign In</span></SubmitButton>
-      <p>Not a member yet? <Link to="/">Sign up</Link>.</p>
-    </Form>
-  </SigninContainer>
-  )
-}
+    <SigninContainer>
+      <Heading>Welcome to RJ! </Heading>
+      <div>
+        <Label htmlFor="signin">Signin</Label>
+        <Radiobutton
+        id="signin"
+        type="radio"
+        checked={mode === 'signin'}
+        onChange={() => setMode ('signin')}
+        />
+        <Label htmlFor="signup">Signup</Label>
+        <Radiobutton
+        id="signup"
+        type="radio"
+        checked={mode === 'signup'}
+        onChange={() => setMode ('signup')}
+        />
+      </div>
+  
+      <Form onSubmit={onFormSubmit}>
+        {/* <Label htmlFor="email">E-mail</Label> */}
+        <InputEmail
+          id="email" 
+          type="text"
+          placeholder="E-mail*" required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        {/* <Label htmlFor="password">Password</Label> */}
+        <InputPassword 
+          id="password"
+          type="password"
+          placeholder="Password*" required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <CheckboxContainer>
+          <Checkbox type="checkbox" name="checkboxRememberme" value="RememberMe"/>
+          <span>Remember me</span> 
+        </CheckboxContainer>
+        <SubmitButton type="submit"><span>Submit</span></SubmitButton>
+        <p>Not a member yet? <Link to="/">Sign up</Link>.</p>
+      </Form>
+    </SigninContainer>
+  );
+};
 
 export default Signin;
