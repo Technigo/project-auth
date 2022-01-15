@@ -2,12 +2,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { user } from "../reducers/user";
+import user from "../reducers/user";
 
-const Logout = () => {
+const LogoutButton = () => {
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
+  const Logout = () => {
     dispatch(user.actions.deleteAccessToken());
     dispatch(user.actions.deleteUserId());
   };
