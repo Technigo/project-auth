@@ -111,6 +111,7 @@ export const Login = () => {
 
         <section className="errorContainer">
             {error && mode === "signup" ? `Password must be 5 characters or longer` : `` }
+            {error && mode === "signin" ? `Password or username dosent match` : `` }
         </section>
       </section>
     </article>
