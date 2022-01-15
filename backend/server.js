@@ -31,7 +31,6 @@ const app = express();
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
-
 app.use(express.json());
 
 // checking if user is logged in
@@ -57,12 +56,7 @@ app.get('/', (req, res) => {
   );
 });
 
-/* app.get('/secrets', authenticateUser);
-app.get('/secrets', async (req, res) => {
-  const thoughts = await Thought.find({});
-  res.status(201).json({ response: thoughts, success: true }); */
-
-/* app.get('/secrets', authenticateUser); */
+app.get('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
   console.log('I love cake in the console in server.js');
   res.json({ response: [{ id: 1, text: 'I LOOOOOVE CAKE!' }] });

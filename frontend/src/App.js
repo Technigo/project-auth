@@ -4,18 +4,14 @@ import { Provider } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import styled from 'styled-components';
 
-/* import { RegistrationForm } from 'Components/RegistrationForm'; */
 import { Login } from 'Components/Login';
 import { Header } from 'Components/Header';
 import { Footer } from 'Components/Footer';
 import { SecretContent } from 'Components/SecretContent';
 import NotFound from 'Components/NotFound';
 import Main from 'Components/Main';
-
-// added two reducers
 import user from './reducers/user';
 import secrets from 'reducers/secrets';
-/* import thoughts from './reducers/thoughts'; */ // thoughts is the hidden content
 
 const reducer = combineReducers({
   user: user.reducer,
@@ -33,11 +29,10 @@ export const App = () => {
           <Header />
           <InnerContainer>
             <Routes>
-              {/*   <Route path='/' element={<RegistrationForm />} /> */}
-              <Route path="/" element={<SecretContent />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/main" element={<Main />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path='/' element={<SecretContent />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/main' element={<Main />} />
+              <Route path='*' element={<NotFound />} />
             </Routes>
           </InnerContainer>
           <Footer />
