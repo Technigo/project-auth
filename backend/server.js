@@ -6,14 +6,14 @@ import crypto from 'crypto';
 //hashing the password 
 import bcrypt from 'bcrypt';
 
-const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authAPI';
+const mongoUrl = process.env.MONGO_URL || 'mongodb://127.0.0.1/authAPI';
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-const UserSchema = new mongoose.Schema({ //schema takes 3 properties: username, password and acessToken
-	username: {
+const UserSchema = new mongoose.Schema({ //schema takes 3 properties: email, password and acessToken
+	email: {
 		type: String,
-		unique: true, //not allowed users with same username
+		unique: true, //not allowed users with same email
 		required: true, //should be required
 	},
 	password: {
@@ -100,7 +100,7 @@ app.get('/profile', (req, res) => {
 
 //POST Request
 app.post('/signup', async (req, res) => { //always use request and response callback
-	const { username, password } = req.body; //the required values
+	const { email, password } = req.body; //the required values
 
 	try {
 		const salt = bcrypt.genSaltSync();  //add a string randomizer called salt
@@ -110,14 +110,14 @@ app.post('/signup', async (req, res) => { //always use request and response call
 		}
 
 		const newUser = await new User({ 
-			username,
+			email,
 			password: bcrypt.hashSync(password, salt), //hash the password then add the randomizer as the second argument (salt)
 		}).save();
 
 		res.status(201).json({ //send back information about the user. 201 stands for the created http status. 
 			response: {
 				userId: newUser._id,
-				username: newUser.username,
+				email: newUser.email,
 				accessToken: newUser.accessToken,
 			},
 			success: true,
@@ -127,24 +127,24 @@ app.post('/signup', async (req, res) => { //always use request and response call
 	}
 });
 
-app.post('/signin', async (req, res) => { //send username & password and request to the body
-	const { username, password } = req.body;
+app.post('/signin', async (req, res) => { //send email & password and request to the body
+	const { email, password } = req.body;
 
 	try {
-		const user = await User.findOne({ username });
+		const user = await User.findOne({ email });
 
 		if (user && bcrypt.compareSync(password, user.password)) {
 			res.status(200).json({ 
 				response: {
 					userId: user._id,
-					username: user.username,
+					email: user.email,
 					accessToken: user.accessToken,
 				},
 				success: true,
 			});
 		} else {
 			res.status(404).json({
-				response: "Username or password doesn't match",
+				response: "Email or password doesn't match",
 				success: false,
 			});
 		}
