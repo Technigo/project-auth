@@ -42,7 +42,7 @@ export const SecretContent = () => {
     margin: 10px;
     font-size: 1em;
     padding: 5px;
-    border: 2px solid black;
+    border: 1px solid black;
     text-transform: uppercase;
   `;
 

@@ -56,43 +56,43 @@ export const Login = () => {
       {/*  <Link to={`/`} className='Link'>
         Go to the Register page
       </Link> */}
-      <label htmlFor='signup'>Signup</label>
+      <label htmlFor="signup">Signup</label>
       <input
-        id='signup'
-        type='radio'
+        id="signup"
+        type="radio"
         checked={mode === 'signup'}
         onChange={() => setMode('signup')}
       ></input>
-      <label htmlFor='signin'>Sign in</label>
+      <label htmlFor="signin">Sign in</label>
       <input
-        id='signin'
-        type='radio'
+        id="signin"
+        type="radio"
         checked={mode === 'signin'}
         onChange={() => setMode('signin')}
       ></input>
 
       <Form onSubmit={onFormSubmit}>
-        <label htmlFor='username'>
+        <label htmlFor="username">
           <h2>Username</h2>
         </label>
         <Input
-          id='username'
-          type='text'
-          placeholder='Username'
+          id="username"
+          type="text"
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         ></Input>
-        <label htmlFor='password'>
+        <label htmlFor="password">
           <h2>Password</h2>
         </label>
         <Input
-          id='password'
-          type='password'
-          placeholder='Password'
+          id="password"
+          type="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         ></Input>
-        <Button type='submit'>Login</Button>
+        <Button type="submit">Login</Button>
       </Form>
     </>
   );
@@ -128,13 +128,13 @@ const Button = styled.button`
   margin: 10px;
   font-size: 1em;
   padding: 5px;
-  border: 2px solid black;
+  border: 1px solid black;
   text-transform: uppercase;
 
   :hover {
     background-color: #1e9086;
-    transform: rotate(360deg);
-    transition: 0.5s ease;
+    // transform: rotate(360deg);
+    // transition: 0.5s ease;
   }
 
   /* Small laptop */
