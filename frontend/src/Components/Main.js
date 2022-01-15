@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { API_URL } from 'utils/url';
-import thoughts from '../reducers/thoughts';
+import thoughts from '../reducers/secrets';
 
 const Main = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items);

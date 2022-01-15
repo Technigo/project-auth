@@ -57,14 +57,15 @@ app.get('/', (req, res) => {
   );
 });
 
-/* app.get('/thoughts', authenticateUser);
-app.get('/thoughts', async (req, res) => {
+/* app.get('/secrets', authenticateUser);
+app.get('/secrets', async (req, res) => {
   const thoughts = await Thought.find({});
   res.status(201).json({ response: thoughts, success: true }); */
 
-app.get('/secrets', authenticateUser);
+/* app.get('/secrets', authenticateUser); */
 app.get('/secrets', (req, res) => {
-  res.send('Here are your secrets');
+  console.log('I love cake in the console in server.js');
+  res.json({ response: [{ id: 1, text: 'I LOOOOOVE CAKE!' }] });
 });
 
 app.post('/signup', async (req, res) => {

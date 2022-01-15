@@ -14,11 +14,12 @@ import Main from 'Components/Main';
 
 // added two reducers
 import user from './reducers/user';
+import secrets from 'reducers/secrets';
 /* import thoughts from './reducers/thoughts'; */ // thoughts is the hidden content
 
 const reducer = combineReducers({
   user: user.reducer,
-  /* thoughts: thoughts.reducer, */
+  secrets: secrets.reducer,
 });
 
 const store = configureStore({ reducer });

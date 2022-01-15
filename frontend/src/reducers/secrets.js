@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-const thoughts = createSlice({
-  name: 'thoughts',
+
+const secrets = createSlice({
+  name: 'secrets',
   initialState: {
     items: [],
     error: null,
@@ -16,4 +17,4 @@ const thoughts = createSlice({
   },
 });
 
-export default thoughts;
+export default secrets;
