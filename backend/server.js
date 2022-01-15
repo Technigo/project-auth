@@ -99,6 +99,14 @@ app.post("/signup", async (req, res) => {
 			throw "Password must be at least 5 characters long";
 		}
 
+		if (!username) {
+			throw "Please enter a username";
+		}
+
+		if (!username.unique) {
+			throw "Username already exists";
+		}
+
 		const newUser = await new User({
 			username,
 			password: bcrypt.hashSync(password, salt),
