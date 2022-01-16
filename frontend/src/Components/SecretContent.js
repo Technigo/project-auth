@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, batch } from 'react-redux';
-import { API_URL } from 'utils/url';
+// import { API_URL } from 'utils/url';
 import styled from 'styled-components';
 import user from 'reducers/user';
-import secrets from '../reducers/secrets';
+// import secrets from '../reducers/secrets';
 
 export const SecretContent = () => {
   const navigate = useNavigate();
@@ -56,26 +56,26 @@ export const SecretContent = () => {
     }
   }, [accessToken, navigate]);
 
-  useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: accessToken,
-      },
-    };
+  // useEffect(() => {
+  //   const options = {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: accessToken,
+  //     },
+  //   };
 
-    fetch(API_URL('secrets'), options)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          dispatch(secrets.actions.setItems(data.response));
-          dispatch(secrets.actions.setError(null));
-        } else {
-          dispatch(secrets.actions.setItems([]));
-          dispatch(secrets.actions.setError(data.response));
-        }
-      });
-  }, [accessToken]);
+  //   fetch(API_URL('secrets'), options)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data.success) {
+  //         dispatch(secrets.actions.setItems(data.response));
+  //         dispatch(secrets.actions.setError(null));
+  //       } else {
+  //         dispatch(secrets.actions.setItems([]));
+  //         dispatch(secrets.actions.setError(data.response));
+  //       }
+  //     });
+  // }, [accessToken]);
 
   return (
     <>
