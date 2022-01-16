@@ -20,15 +20,70 @@ const Heading = styled.h1`
   padding-top: 20px;
 `;
 
-const LinkText = styled.div`
+const Radiobutton1 = styled.input`
+  margin-right: 10px;
 	text-align: center;
   font-family: 'PT Sans', sans-serif;
+  :after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+  }
+  :checked:after {
+   width: 15px;
+   height: 15px;
+   border-radius: 15px;
+   top: -2px;
+   left: -1px;
+   position: relative;
+   background-color: #D9AFD9;
+   content: '';
+   display: inline-block;
+   visibility: visible;
+   border: 2px solid white;
+    }
 `;
 
-const Radiobutton = styled.input`
+const Radiobutton2 = styled.input`
+  margin-left: 5px;
 	text-align: center;
   font-family: 'PT Sans', sans-serif;
+  :after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+  }
+  :checked:after {
+   width: 15px;
+   height: 15px;
+   border-radius: 15px;
+   top: -2px;
+   left: -1px;
+   position: relative;
+   background-color: #D9AFD9;
+   content: '';
+   display: inline-block;
+   visibility: visible;
+   border: 2px solid white;
+    }
 `;
+
 
 const Form = styled.form`
   display: flex;
@@ -90,6 +145,8 @@ const CheckboxContainer = styled.div`
   max-width: 100%;
   padding: 0 7px 7px 0;
   `;
+
+  
 
 const Checkbox = styled.input`
     margin-right: 4px;
@@ -171,17 +228,17 @@ const onFormSubmit = (event) => {
 
   return (
     <SigninContainer>
-      <Heading>Welcome to RJ! </Heading>
+      <Heading>Welcome! </Heading>
       <div>
         <Label htmlFor="signin">Sign In</Label>
-        <Radiobutton
+        <Radiobutton1
         id="signin"
         type="radio"
         checked={mode === 'signin'}
         onChange={() => setMode ('signin')}
         />
         <Label htmlFor="signup">Sign Up</Label>
-        <Radiobutton
+        <Radiobutton2
         id="signup"
         type="radio"
         checked={mode === 'signup'}
@@ -194,7 +251,7 @@ const onFormSubmit = (event) => {
         <InputEmail
           id="email" 
           type="text"
-          placeholder="E-mail*" required
+          placeholder="E-mail or username* " required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />

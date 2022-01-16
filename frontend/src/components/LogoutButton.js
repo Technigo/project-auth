@@ -14,10 +14,10 @@ const Button = styled.button`
   margin-top: 10px;
   border:none;
   border-radius: 5px;
-  height: 20px;
-  width: 20%;
+  height: 50px;
+  width: 100px;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 16px;
   cursor: pointer;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1);
   :focus,
@@ -38,7 +38,7 @@ const LogoutButton = () => {
 
   return (
     <div>
-      <Button onClick={Logout}>Logout</Button>
+      <Button onClick={Logout}>Sign out</Button>
     </div>
 
   );
