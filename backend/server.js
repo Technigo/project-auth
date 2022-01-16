@@ -103,8 +103,12 @@ app.post("/signup", async (req, res) => {
 			throw "Please enter a username";
 		}
 
-		if (!username.unique) {
-			throw "Username already exists";
+		// if (!username.unique) {
+		// 	throw "Username already exists";
+		// }
+
+		if (username.unique === false) {
+			throw "Username is not available";
 		}
 
 		const newUser = await new User({
