@@ -39,7 +39,11 @@ const SecretSchema = new mongoose.Schema({
   text: {
     type: String,
   },
-});
+  createdAt: {
+    type: Number,
+    default: () => Date.now()
+  }
+})
 
 // Model for database items (secrets)
 const Secret = mongoose.model('Secret', SecretSchema)
