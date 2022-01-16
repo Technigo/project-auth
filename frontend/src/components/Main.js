@@ -54,7 +54,6 @@ const Main = () => {
     <>
     	<Heading>Welcome to your personal profile page:</Heading>
       <Text>Here is the profile page, only for users</Text>
-			{/* {profileMessage} */}
       <LogoutButton/>
     </>
 	

@@ -268,7 +268,6 @@ const onFormSubmit = (event) => {
           <span>Remember me</span> 
         </CheckboxContainer>
         <SubmitButton type="submit"><span>Submit</span></SubmitButton>
-        {/* <p>Not a member yet? <Link to="/">Sign up</Link>.</p> */}
       </Form>
     </SigninContainer>
   );
