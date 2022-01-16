@@ -21,7 +21,6 @@ const Heading = styled.h1`
 `;
 
 const Main = () => {
-	const profileMessage = useSelector((store) => store.profile.message);
 	const accessToken = useSelector((store) => store.user.accessToken);
 
 	const dispatch = useDispatch();

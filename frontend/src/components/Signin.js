@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
 import { API_URL } from '../utils/constants';
@@ -247,7 +247,6 @@ const onFormSubmit = (event) => {
       </div>
   
       <Form onSubmit={onFormSubmit}>
-        {/* <Label htmlFor="email">E-mail</Label> */}
         <InputEmail
           id="email" 
           type="text"
@@ -255,7 +254,6 @@ const onFormSubmit = (event) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        {/* <Label htmlFor="password">Password</Label> */}
         <InputPassword 
           id="password"
           type="password"
