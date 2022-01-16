@@ -96,7 +96,7 @@ margin-bottom: 1rem;
 outline: none;
 :focus {
   ::placeholder {
-    color: #F3EFCC
+    color: #32502E
   }
   padding: 16px 48px;
   background-color: #32502E;
