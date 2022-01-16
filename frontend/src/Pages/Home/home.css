@@ -1,0 +1,6 @@
+.mainContainer{
+    display: flex;
+    background-color: rgb(236, 217, 176);
+    width: 100%;
+    margin: 0 auto;
+}

@@ -1,0 +1,502 @@
+[
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/2/2f/Mr._Principal_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200401120805",
+        "name": "Nezu",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Nezu"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/6/68/Recovery_Girl_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200401120905",
+        "name": "Recovery Girl",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Chiyo_Shuzenji"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/5/53/Lunch_Rush_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200401120950",
+        "name": "Lunch Rush",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Lunch_Rush"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/2/26/Thirteen_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200401121447",
+        "name": "Thirteen",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Thirteen"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/8/8b/Hound_Dog_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200321202014",
+        "name": "Hound Dog",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Ryo_Inui"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/e/ec/All_Might_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200511210525",
+        "name": "All Might",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Toshinori_Yagi"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/b/ba/Eraser_Head_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200606161947",
+        "name": "Eraser Head",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Shota_Aizawa"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/4/47/Present_Mic_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200401121633",
+        "name": "Present Mic",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Hizashi_Yamada"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/3/32/Cementoss_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200401121847",
+        "name": "Cementoss",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Ken_Ishiyama"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/1/1e/Midnight_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200401121928",
+        "name": "Midnight",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Nemuri_Kayama"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/9/93/Snipe_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200401121956",
+        "name": "Snipe",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Snipe"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/7c/Ectoplasm_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200401122044",
+        "name": "Ectoplasm",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Ectoplasm"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/0/07/Power_Loader_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180321030554",
+        "name": "Power Loader",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Higari_Maijima"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/b/ba/Vlad_King_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180503220954",
+        "name": "Vlad King",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Sekijiro_Kan"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/77/Gran_Torino_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180503181559",
+        "name": "Gran Torino",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Sorahiko_Torino"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/b/b9/Yuga_Aoyama_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619043516",
+        "name": "Yuga Aoyama",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Yuga_Aoyama"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/f/fd/Mina_Ashido_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619043731",
+        "name": "Mina Ashido",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Mina_Ashido"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/7c/Tsuyu_Asui_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619043915",
+        "name": "Tsuyu Asui",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Tsuyu_Asui"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/c/ca/Tenya_Ida_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619044125",
+        "name": "Tenya Ida",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Tenya_Ida"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/78/Ochaco_Uraraka_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619044306",
+        "name": "Ochaco Uraraka",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Ochaco_Uraraka"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/1/16/Mashirao_Ojiro_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619044553",
+        "name": "Mashirao Ojiro",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Mashirao_Ojiro"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/b/b0/Denki_Kaminari_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619044711",
+        "name": "Denki Kaminari",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Denki_Kaminari"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/0/04/Eijiro_Kirishima_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619044805",
+        "name": "Eijiro Kirishima",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Eijiro_Kirishima"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/5/5e/Koji_Koda_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619044919",
+        "name": "Koji Koda",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Koji_Koda"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/e/eb/Rikido_Sato_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619044952",
+        "name": "Rikido Sato",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Rikido_Sato"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/8/8b/Mezo_Shoji_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619045335",
+        "name": "Mezo Shoji",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Mezo_Shoji"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/3/32/Kyoka_Jiro_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619045418",
+        "name": "Kyoka Jiro",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Kyoka_Jiro"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/c/ca/Hanta_Sero_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619045536",
+        "name": "Hanta Sero",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Hanta_Sero"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/6/6c/Fumikage_Tokoyami_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619045620",
+        "name": "Fumikage Tokoyami",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Fumikage_Tokoyami"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/7f/Shoto_Todoroki_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619045658",
+        "name": "Shoto Todoroki",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Shoto_Todoroki"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/b/be/Toru_Hagakure_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619045903",
+        "name": "Toru Hagakure",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Toru_Hagakure"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/c/cd/Katsuki_Bakugo_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619050033",
+        "name": "Katsuki Bakugo",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Katsuki_Bakugo"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/2/25/Izuku_Midoriya_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619050117",
+        "name": "Izuku Midoriya",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Izuku_Midoriya"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/6/6a/Minoru_Mineta_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619050156",
+        "name": "Minoru Mineta",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Minoru_Mineta"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/8/8d/Momo_Yaoyorozu_Portrait.png/revision/latest/scale-to-width-down/135?cb=20160619050232",
+        "name": "Momo Yaoyorozu",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Momo_Yaoyorozu"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/e/e6/Yosetsu_Awase_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125070427",
+        "name": "Yosetsu Awase",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Yosetsu_Awase"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/b/b2/Sen_Kaibara_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125070109",
+        "name": "Sen Kaibara",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Sen_Kaibara"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/1/1a/Togaru_Kamakiri_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125070743",
+        "name": "Togaru Kamakiri",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Togaru_Kamakiri"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/d/d1/Shihai_Kuroiro_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125070408",
+        "name": "Shihai Kuroiro",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Shihai_Kuroiro"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/e/ef/Itsuka_Kendo_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125065832",
+        "name": "Itsuka Kendo",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Itsuka_Kendo"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/f/fe/Yui_Kodai_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125070700",
+        "name": "Yui Kodai",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Yui_Kodai"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/2/29/Kinoko_Komori_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125071520",
+        "name": "Kinoko Komori",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Kinoko_Komori"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/a/ac/Ibara_Shiozaki_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125070135",
+        "name": "Ibara Shiozaki",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Ibara_Shiozaki"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/3/35/Jurota_Shishida_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125071459",
+        "name": "Jurota Shishida",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Jurota_Shishida"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/a/a9/Nirengeki_Shoda_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125070843",
+        "name": "Nirengeki Shoda",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Nirengeki_Shoda"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/74/Pony_Tsunotori_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125071441",
+        "name": "Pony Tsunotori",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Pony_Tsunotori"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/8/83/Kosei_Tsuburaba_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125070523",
+        "name": "Kosei Tsuburaba",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Kosei_Tsuburaba"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/8/83/Tetsutetsu_Tetsutetsu_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125070020",
+        "name": "Tetsutetsu Tetsutetsu",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Tetsutetsu_Tetsutetsu"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/d/dd/Setsuna_Tokage_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125071213",
+        "name": "Setsuna Tokage",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Setsuna_Tokage"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/1/13/Manga_Fukidashi_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125071305",
+        "name": "Manga Fukidashi",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Manga_Fukidashi"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/a/a4/Juzo_Honenuki_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125070202",
+        "name": "Juzo Honenuki",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Juzo_Honenuki"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/b/be/Kojiro_Bondo_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125071240",
+        "name": "Kojiro Bondo",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Kojiro_Bondo"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/6/6f/Neito_Monoma_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125065627",
+        "name": "Neito Monoma",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Neito_Monoma"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/4/41/Reiko_Yanagi_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125071031",
+        "name": "Reiko Yanagi",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Reiko_Yanagi"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/9/93/Hiryu_Rin_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125070941",
+        "name": "Hiryu Rin",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Hiryu_Rin"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/6/67/Mirio_Togata_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180923214326",
+        "name": "Mirio Togata",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Mirio_Togata"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/5/57/Nejire_Hado_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181226180105",
+        "name": "Nejire Hado",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Nejire_Hado"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/2/21/Tamaki_Amajiki_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180923215237",
+        "name": "Tamaki Amajiki",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Tamaki_Amajiki"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/0/0f/Mawata_Fuwa_%28anime%29.png/revision/latest/scale-to-width-down/240?cb=20210814114750",
+        "name": "Mawata Fuwa",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Mawata_Fuwa"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/1/19/Hitoshi_Shinso_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125071658",
+        "name": "Hitoshi Shinso",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Hitoshi_Shinso"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/2/2d/Tsutsutaka_Agoyamato_Portrait_Anime.png/revision/latest/scale-to-width-down/135?cb=20210323221403",
+        "name": "Tsutsutaka Agoyamato",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Tsutsutaka_Agoyamato"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/b/bf/Chikuchi_Togeike_Portrait_Anime.png/revision/latest/scale-to-width-down/135?cb=20210323222521",
+        "name": "Chikuchi Togeike",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Chikuchi_Togeike"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/0/07/Mei_Hatsume_Portrait.png/revision/latest/scale-to-width-down/135?cb=20181125071902",
+        "name": "Mei Hatsume",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Mei_Hatsume"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/6/6f/Bibimi_Kenranzaki_%28anime%29.png/revision/latest/scale-to-width-down/240?cb=20200301070617",
+        "name": "Bibimi Kenranzaki",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Bibimi_Kenranzaki"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/9/95/Yuyu_Haya_Portrait_%28anime%29.png/revision/latest/scale-to-width-down/135?cb=20210325081531",
+        "name": "Yuyu Haya",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Yuyu_Haya"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/e/ec/All_Might_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200511210525",
+        "name": "All Might",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Toshinori_Yagi"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/0/01/Best_Jeanist_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180522171129",
+        "name": "Best Jeanist",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Tsunagu_Hakamada"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/0/08/Endeavor_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200519224034",
+        "name": "Endeavor",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Enji_Todoroki"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/b/ba/Eraser_Head_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200606161947",
+        "name": "Eraser Head",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Shota_Aizawa"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/d/d4/Loud_Cloud_Portrait.png/revision/latest/scale-to-width-down/135?cb=20190915114024",
+        "name": "Loud Cloud",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Oboro_Shirakumo"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/1/1e/Midnight_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200401121928",
+        "name": "Midnight",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Nemuri_Kayama"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/75/Mister_Blaster_Portrait.png/revision/latest/scale-to-width-down/135?cb=20191006210031",
+        "name": "Mister Blaster",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Sensoji"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/4/47/Present_Mic_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200401121633",
+        "name": "Present Mic",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Hizashi_Yamada"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/72/Ms_Joke_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200511211615",
+        "name": "Ms. Joke",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Emi_Fukukado"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/3/38/Yo_Shindo_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200511211834",
+        "name": "Yo Shindo",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Yo_Shindo"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/d/d9/Tatami_Nakagame_Anime_Portrait.png/revision/latest/scale-to-width-down/136?cb=20200511212020",
+        "name": "Tatami Nakagame",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Tatami_Nakagame"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/4/49/Shikkui_Makabe_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200511212141",
+        "name": "Shikkui Makabe",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Shikkui_Makabe"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/d/d5/Itejiro_Toteki_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200511212347",
+        "name": "Itejiro Toteki",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Itejiro_Toteki"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/4/4e/Shiketsu_Teacher.png/revision/latest/scale-to-width-down/135?cb=20180822223729",
+        "name": "Unnamed Shiketsu Teacher",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Shiketsu_High_School"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/b/bf/Inasa_Yoarashi_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180709180406",
+        "name": "Inasa Yoarashi",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Inasa_Yoarashi"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/2/28/Nagamasa_Mora_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200511212859",
+        "name": "Nagamasa Mora",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Nagamasa_Mora"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/b/b1/Seiji_Shishikura_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200511212835",
+        "name": "Seiji Shishikura",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seiji_Shishikura"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/b/b5/Camie_Utsushimi_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180709180515",
+        "name": "Camie Utsushimi",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Camie_Utsushimi"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/7f/Kashiko_Sekigai_Portrait.png/revision/latest/scale-to-width-down/136?cb=20200512142645",
+        "name": "Kashiko Sekigai",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Kashiko_Sekigai"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/f/fc/Romero_Fujimi_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200512142608",
+        "name": "Romero Fujimi",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Romero_Fujimi"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/1/16/Dadan_Tadan_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200512142715",
+        "name": "Dadan Tadan",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Dadan_Tadan"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/79/Habuko_Mongoose_Anime_Portrait.png/revision/latest/scale-to-width-down/135?cb=20200512142740",
+        "name": "Habuko Mongoose",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Habuko_Mongoose"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/c/c4/Red_Seijin_Student_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180805104728",
+        "name": "????",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seijin_High_School"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/0/00/Blue_Seijin_Student_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180805104706",
+        "name": "????",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seijin_High_School"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/e/e1/Black_Seijin_Student_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180805104657",
+        "name": "????",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seijin_High_School"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/2/24/Green_Seijin_Student_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180805104719",
+        "name": "????",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seijin_High_School"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/71/Yellow_Seijin_Student_Left_Eye_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180805104739",
+        "name": "????",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seijin_High_School"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/a/a2/Yellow_Seijin_Student_Right_Eye_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180805104751",
+        "name": "????",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seijin_High_School"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/75/Saiko_Intelli_headshot.png/revision/latest/scale-to-width-down/135?cb=20180804144519",
+        "name": "Saiko Intelli",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Saiko_Intelli"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/70/Pink_Haired_Seiai_Student_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180805211139",
+        "name": "????",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seiai_Academy"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/f/ff/Glasses_Wearing_Seiai_Student_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180805232329",
+        "name": "????",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seiai_Academy"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/f/f4/White_Haired_Seiai_Student_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180805205944",
+        "name": "????",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seiai_Academy"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/c/c2/Slingshot_Seiai_Student_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180806232918",
+        "name": "????",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seiai_Academy"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/1/12/Maroon_Haired_Seiai_Student_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180805212837",
+        "name": "????",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seiai_Academy"
+    },
+    {
+        "avatar": "https://static.wikia.nocookie.net/bokunoheroacademia/images/7/79/Short_Seiai_Student_Portrait.png/revision/latest/scale-to-width-down/135?cb=20180805225947",
+        "name": "????",
+        "wiki": "https://myheroacademia.fandom.com/wiki/Seiai_Academy"
+    }
+]
