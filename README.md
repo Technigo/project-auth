@@ -1,13 +1,18 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+This project's goal was to build an API with authentication using acces token and securly save passwords in database. Also create a frontend with form where users can register, sign in and only then see restricted content.
+This was a pair programming project made by Sofia Wallerberg and Aleksandra Safranko.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+# How we built it and what we learned
 
-## The problem
+The backend was made with Express API using mongoose and MongoDB for our user database. We used one main "User" model to store our users in the database with different validation properties so we make sure that data is stored properly or is unique.In the frontend we are using a combination of Redux and local state to keep track of signup and signin flow.
+Our main endpoints are:
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+- A POST endpoint to create new user.
+- A POST endpoint for existing users to sign in.
+- A GET endpoint that is restricted with authentication middleware so it is only accessible with a valid access token that we receive from the database.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend: https://sofia-aleksa-cat-society.netlify.app/
+Backend: https://user-signup-sofia-aleksa.herokuapp.com

@@ -120,7 +120,6 @@ const SignIn = () => {
     fetch(SIGNIN_URL, options)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId));
@@ -150,7 +149,6 @@ const SignIn = () => {
         }
       });
   };
-  console.log(validationError);
 
   return (
     <Wrapper>

@@ -71,13 +71,11 @@ const Main = () => {
       navigate('/');
     }
   }, [accessToken, navigate]);
-  console.log('ACCESS TOKEN', accessToken);
 
   useEffect(() => {
     fetch(URL_CATS)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         setCat(data);
 
         dispatch(cats.actions.setItems(data));

@@ -112,8 +112,6 @@ const SignUp = () => {
     fetch(SIGNUP_URL, options)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-
         if (data.success) {
           new Swal({
             title: 'Congratulations! User created 😻',
@@ -128,7 +126,6 @@ const SignUp = () => {
             dispatch(user.actions.setEmail(null));
             dispatch(user.actions.setError(data.response));
             setValidationError(data.message);
-            console.log('DATA MESSAGE', data.response);
           });
         }
       });
