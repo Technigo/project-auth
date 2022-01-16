@@ -23,4 +23,6 @@ We decided to go for a simple but clean front end. A simle modal where you can e
 - How to build a frontend and backend at the same time
 
 ## View it live
+https://rosanna-jenny-auth-app.netlify.app/
 
+https://week20-auth-backend.herokuapp.com/
