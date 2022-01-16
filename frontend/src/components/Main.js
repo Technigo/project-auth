@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { API_URL } from '../utils/constants'
+import thoughts from '../reducers/thoughts'
 
 const Main = () => {
     
@@ -10,12 +11,13 @@ const Main = () => {
     const accessToken = useSelector((store) => store.user.accessToken)
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (!accessToken) {
             navigate('/login')
         }
-    }, [accessToken])
+    }, [accessToken, navigate])
 
     useEffect(() => {
         const options = {
@@ -27,8 +29,10 @@ const Main = () => {
 
         fetch(API_URL('thoughts'), options)
             .then((response) => response.json())
-            .then((data) => console.log(data))
-    }, [])
+            .then((data) => {
+                dispatch(thoughts.actions.setItems(data.response))
+            })
+    }, [accessToken])
 
     return (
         <section>

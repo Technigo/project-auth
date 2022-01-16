@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { useDispatch, batch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch, batch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import { API_URL } from '../utils/constants'
 import user from '../reducers/user'
@@ -10,7 +11,16 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [mode, setMode] = useState('signup')
 
+    const accessToken = useSelector((store) => store.user.accessToken)
+
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (accessToken) {
+            navigate('/')
+        }
+    }, [accessToken, navigate])
 
     const onFormSubmit = (event) => {
         event.preventDefault()
