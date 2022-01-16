@@ -88,7 +88,7 @@ app.get('/secrets', async (req, res) => {
 })
 
 // POST method for posting content to the database needs authorization
-// app.post('/secrets', authenticateUser)
+app.post('/secrets', authenticateUser)
 app.post('/secrets', async (req, res) => {
 	const { message, text } = req.body;
 
