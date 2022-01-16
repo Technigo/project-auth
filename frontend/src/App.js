@@ -3,16 +3,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
-import Main from "./component/Main";
-import Login from "./component/Login";
-import NotFound from "./component/NotFound";
+import Main from "./components/Main";
+import Login from "./components/Login";
+import NotFound from "./components/NotFound";
 
 import user from "./reducers/user";
-import order from "./reducers/order";
+// import order from "./reducers/order";
 
 const reducer = combineReducers({
   user: user.reducer,
-  order: order.reducer,
+  // order: order.reducer,
 });
 
 const store = configureStore({ reducer });

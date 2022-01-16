@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 import { API_URL } from "../utils/url";
 import user from "../reducers/user";
-import order from "../reducers/order";
+// import order from "../reducers/order";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   // const [order, setOrder] = useState("");
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState("signup");
@@ -39,7 +39,7 @@ const Login = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password, email, message }),
+      body: JSON.stringify({ username, password, email }),
     };
 
     fetch(API_URL(mode), options)
@@ -51,7 +51,6 @@ const Login = () => {
             dispatch(user.actions.setUserId(data.response.userId));
             dispatch(user.actions.setUsername(data.response.username));
             dispatch(user.actions.setEmail(data.response.email));
-            dispatch(user.actions.setMessage(data.message));
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setError(null));
           });
@@ -59,7 +58,6 @@ const Login = () => {
           batch(() => {
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setUsername(null));
-            dispatch(user.actions.setMessage(null));
             dispatch(user.actions.setEmail(null));
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
@@ -107,13 +105,13 @@ const Login = () => {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
-        <p> order </p>
+        {/* <p> order </p>
         <input
           id="order"
           type="text"
           value={message}
           onChange={(event) => setMessage(event.target.value)}
-        />
+        /> */}
         <button type="submit">Submit</button>
         {errorMessage !== null && <p>{error.message}</p>}
       </form>

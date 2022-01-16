@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -24,10 +25,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  order: {
-    type: String,
-    required: true,
-  },
+  // order: {
+  //   type: String,
+  //   required: true,
+  // },
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
@@ -48,7 +49,7 @@ const User = mongoose.model("User", UserSchema);
 const port = process.env.PORT || 8080;
 const app = express();
 
-// Add middlewares to enable cors and json body parsing
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
@@ -66,17 +67,22 @@ const authenticateUser = async (req, res, next) => {
     res.status(400).json({ response: error, success: false });
   }
 };
-// Start defining your routes here
-app.get("/order", authenticateUser);
-app.get("/order", async (req, res) => {
-  res.json({
-    response: req.user.order,
-    success: true,
-  });
+
+// Routes
+app.get("/", (req, res) => {
+  res.json(listEndpoints(app));
 });
 
+// app.get("/order", authenticateUser);
+// app.get("/order", async (req, res) => {
+//   res.json({
+//     response: req.user.order,
+//     success: true,
+//   });
+// });
+
 app.post("/signup", async (req, res) => {
-  const { username, password, email, order } = req.body;
+  const { username, password, email } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
 
@@ -86,7 +92,6 @@ app.post("/signup", async (req, res) => {
 
     const newUser = await new User({
       username,
-      order,
       email,
       password: bcrypt.hashSync(password, salt),
     }).save();
@@ -95,7 +100,6 @@ app.post("/signup", async (req, res) => {
       response: {
         userId: newUser._id,
         username: newUser.username,
-        order: newUser.order,
         email: newUser.email,
         accessToken: newUser.accessToken,
       },
@@ -134,7 +138,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Start the server
 app.listen(port, () => {
   // eslint-disable-next-line
   console.log(`Server running on http://localhost:${port}`);
