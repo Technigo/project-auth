@@ -32,7 +32,7 @@ const Main = () => {
 	return (
 		<ContentWrapper>
 			<MemeContainer>
-				<h1>Meme just for you:</h1>
+				<h1>A meme for you:</h1>
 				<Meme src={programmingMeme} alt="programming meme" />
 				<Button
 					onClick={signOut}>
@@ -56,10 +56,10 @@ const MemeContainer = styled.div`
 `;
 
 const Meme = styled.img`
-	max-width: 80%;
+	max-width: 250px;
 
 	@media (min-width: 768px) {
-		max-width: 90%;
+		max-width: 100%;
 		max-height: 70vh;
 	}
 `;

@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const ContentWrapper = styled.div`
+    width: 340px;
     margin: 0 auto;
-    width: 325px;
 
     @media (min-width: 768px) {
         min-width: 600px;
