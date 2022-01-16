@@ -1,0 +1,20 @@
+.notFoundContainer {
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    margin: 2rem auto;
+}
+
+.header-back{
+    text-decoration: none;
+    cursor: pointer;
+    color: green;
+    position: absolute;
+    left: 2%;
+    top: 2%;
+}
+
+
+.lottie{
+    margin: 5rem auto;
+}

@@ -1,0 +1,24 @@
+.aside {
+  font-size: 1rem;
+  border: 1px solid rgb(65, 206, 52);
+  background-color: rgb(71, 147, 71);
+  text-align: center;
+  padding: 1rem;
+  border-radius: 15px;
+  color: aliceblue;
+  width: 60%;
+  margin: 2rem auto;
+}
+
+@media screen and (min-width: 768px){
+  .aside {
+    width: 50%;
+    margin: 2rem;
+  }
+}
+
+@media screen and (min-width: 991px){
+  .aside  {
+    width: 30%;
+  }
+}

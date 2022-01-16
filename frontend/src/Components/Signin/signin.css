@@ -42,20 +42,6 @@
   display: block;
 }
 
-.radio-type{
-  display: flex;
-  justify-content: center;
-  padding: 15px;
-}
-
-.check-type{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
-  gap: 5px;
-}
-
 .submit-type{
   width: 100%;
   display: flex;
@@ -84,6 +70,12 @@ input[type="radio"]{
 
 input[type="checkbox"]{
  filter: hue-rotate(45deg);
+}
+
+.error{
+  font-size: 15px;
+  font-style: italic;
+  color: red;
 }
 
 @media screen and (min-width: 768px){

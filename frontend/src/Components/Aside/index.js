@@ -1,10 +1,10 @@
 import React from 'react'
-import './formAside.css'
+import './aside.css'
 
-export const FormAside = () => {
+export const Aside = ({ render }) => {
     return (
         <section class="aside">
-            Aside text
+            {render}
         </section>
     )
 }

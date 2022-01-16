@@ -9,7 +9,6 @@ import { Profile } from 'Pages/Profile';
 import { NotFound } from 'Pages/NotFound';
 import { Manga } from 'Pages/Manga';
 
-
 export const App = () => {
 
   return (

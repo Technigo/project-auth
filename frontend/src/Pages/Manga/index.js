@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react'
-import './manga.css'
-import { Item } from '../../Components/Item'
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
+
 import { API_URL } from '../../utils/url';
 import { manga } from '../../Reducers/manga';
+import { Header } from 'Components/Header';
+import { Footer } from 'Components/Footer';
+import { Item } from '../../Components/Item';
+import { Logout } from '../../Components/Logout';
+
+import './manga.css'
 
 export const Manga = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const mangaItems = useSelector(store => store.manga.items);
-    console.log(mangaItems)
     const accessToken = useSelector((store) => store.user.accessToken);
 
     useEffect(() => {
@@ -44,12 +48,23 @@ export const Manga = () => {
     }, [accessToken]);
 
     return (
-        <section className='mainContainer'>
-            <Link to="/signup"> Please sign up first to have access to info</Link>
-            <h1>Manga information</h1>
-            {mangaItems && mangaItems.map((item) => (
-                <Item key={item.name} item={item} />
-            ))}
-        </section>
+        <>
+            <Header />
+            <section className='mangaMainContainer'>
+                <div className="returnHome" >
+                    <Link to="/" className="back">
+                        <i className="fas fa-chevron-circle-left"></i>Home
+                    </Link>
+                </div>
+                <Logout />
+                <h1 className='mangaText'>My hero Academy Characters</h1>
+                <div className='mangaContainer'>
+                    {mangaItems && mangaItems.map((item) => (
+                        <Item key={item._id} item={item} />
+                    ))}
+                </div>
+            </section>
+            <Footer />
+        </>
     )
 }

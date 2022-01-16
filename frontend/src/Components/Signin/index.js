@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import './signin.css'
+
 import { useDispatch, batch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 import { user } from '../../Reducers/user'
 import { API_URL } from 'utils/url';
+
+import './signin.css'
 
 export const Signin = () => {
     const dispatch = useDispatch();
@@ -11,6 +14,7 @@ export const Signin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const accessToken = useSelector((store) => store.user.accessToken);
+    const error = useSelector((store) => store.user.error);
 
     useEffect(() => {
         if (accessToken) {
@@ -81,6 +85,8 @@ export const Signin = () => {
                             onChange={e => setPassword(e.target.value)}
                         />
                     </label>
+                    {error && <p className="error">{error}</p>}
+
                 </div>
                 <div className="submit-type">
                     <button type="submit" className="form-button" >SUBMIT</button>

@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from 'react'
-import './signup.css'
+
 import { useDispatch, batch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 import { user } from '../../Reducers/user'
 import { API_URL } from 'utils/url';
+
+import './signup.css'
 
 export const Signup = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const accessToken = useSelector((store) => store.user.accessToken);
+    const error = useSelector((store) => store.user.error);
+
 
     useEffect(() => {
         if (accessToken) {
             navigate('/manga');
         }
+
     }, [accessToken, navigate]);
+
 
     const onFormSubmit = (event) => {
         event.preventDefault();
@@ -56,7 +64,7 @@ export const Signup = () => {
 
     return (
         <section className="form">
-            <h2>Sign up your class</h2>
+            <h2>Sign up</h2>
 
             <form className="form-item" onSubmit={onFormSubmit}>
 
@@ -84,31 +92,21 @@ export const Signup = () => {
                     </label>
 
                     <label htmlFor="passsword">
-                        Password
+                        Password (Min length 5 characters)
                         <input
                             id="passsword"
                             type="password"
                             value={password}
+                            minlength="5"
                             required
                             onChange={e => setPassword(e.target.value)}
                         />
                     </label>
                 </div>
 
+                {error && error.keyValue.name && <p className="error">Name {error.keyValue.name} already exists</p>}
+                {error && error.keyValue.email && <p className="error">Email {error.keyValue.email} already exists</p>}
 
-                {/* <!-- checkboxes --> */}
-                <div className="check-type">
-                    <label htmlFor="terms&Conditions">
-                        <input
-                            type="checkbox"
-                            id="terms&Conditions"
-                            required
-                        />
-                        I accept the <a href="www.google.com">Terms and Conditions</a>
-                    </label>
-                </div>
-
-                {/* <!-- submit button--> */}
                 <div className="submit-type">
                     <button type="submit" className="form-button">SUBMIT</button>
                 </div>

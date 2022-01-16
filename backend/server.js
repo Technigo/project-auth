@@ -98,7 +98,7 @@ const authenticateUser = async (req, res, next) => {
       console.log(req.user)
       next();
     } else {
-      res.status(401).json({ message: "Please log in", loggetOut: true, success: false })
+      res.status(401).json({ response: "Please log in", loggetOut: true, success: false })
     }
   } catch (error) {
     res.status(400).json({ errors: error, success: false })
@@ -159,7 +159,7 @@ app.post('/signin', async (req, res) => {
     } else {
       //user does not exist
       //encripted password does not match
-      res.status(404).json({ message: "Email or password doesn't match", success: false })
+      res.status(404).json({ response: "Email or password doesn't match", success: false })
     }
   } catch (error) {
     res.status(500).json({ errors: error });
@@ -173,7 +173,7 @@ app.get('/manga', async (req, res) => {
     if (mangas) {
       res.status(201).json({ response: mangas, success: true });
     } else {
-      res.status(404).json({ message: 'no info', success: false });
+      res.status(404).json({ response: 'no info', success: false });
     }
   } catch (error) {
     res.status(500).json({

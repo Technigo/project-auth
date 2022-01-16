@@ -1,5 +1,32 @@
-.mainContainer{
+.mangaMainContainer{
     display: flex;
+    background-image: url("https://wallpaperaccess.com/full/548869.jpg");
+    width: 100%;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mangaText{
+    color:white;
+}
+
+.mangaContainer{
+    display: flex;
+    width: 90%;
     margin: 0 auto;
     flex-wrap: wrap;
+}
+
+.back{
+    text-decoration: none;
+    cursor: pointer;
+    color: green;
+    position: absolute;
+    left: 2%;
+    top: 2%;
+}
+
+.returnHome{
+    margin: 1rem;
 }

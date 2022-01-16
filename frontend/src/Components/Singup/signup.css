@@ -1,14 +1,12 @@
 .form {
   font-size: 1rem;
-  border: 1px solid gray;
-  background-color: grey;
+  background-color: lightcoral;
   text-align: center;
   padding: 1rem;
   border-radius: 5%;
   color: aliceblue;
   width: 80%;
-  margin: 2rem auto;
-
+  margin: 5rem auto;
 }
 
 .form h2{
@@ -19,7 +17,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: lightcoral;
+  height: 350px;
+  justify-content: center;
 }
 
 .text-type{
@@ -33,27 +32,13 @@
   display: block;
   width: 80%;
   border: 1px solid rgb(109, 108, 108);
-  background-color: lawngreen;
   border-radius: 5px;
 }
 
 .text-type label{
   width: 100%;
   display: block;
-}
-
-.radio-type{
-  display: flex;
-  justify-content: center;
-  padding: 15px;
-}
-
-.check-type{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
-  gap: 5px;
+  margin: 20px auto;
 }
 
 .submit-type{
@@ -65,9 +50,10 @@
 
 .submit-type button{
   border-radius: 10%;
-  background-color: green;
+  background-color: rgb(25, 84, 85);
   color: honeydew;
   padding: 10px;
+  
 }
 
 label{
@@ -86,18 +72,24 @@ input[type="checkbox"]{
  filter: hue-rotate(45deg);
 }
 
-@media screen and (min-width: 768px){
-.form {
-  width: 40%;
-  margin: 2rem;
+.error{
+  font-size: 15px;
+  font-style: italic;
+  color: red;
 }
+
+@media screen and (min-width: 768px){
+  .form {
+    width: 40%;
+    margin: 2rem;
+  }
 
 }
 
 
 @media screen and (min-width: 991px){
-.form {
-  width: 30%;
+  .form {
+    width: 30%;
 
-}
+  }
 }

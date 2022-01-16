@@ -5,20 +5,36 @@
     align-items: center;
     margin: 0 auto;
 
+
 }
 
 .buttonSingUp, .buttonSingIn{
+    background-color: rgb(19, 117, 128);
     color: white;
-    background-color: violet;
     margin: 10px auto;
-    padding: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
 }
 
+.returnHome{
+    margin: 20px;
+}
+.ancor-back{
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    left: 2%;
+} 
 
+.fa-chevron-circle-left{
+   padding-right: 5px;
+}
 
 @media screen and (min-width: 768px){
-.mainContainer{
- justify-content: center;
-}
+    .mainContainer{
+    justify-content: center;
+    }
 
 }

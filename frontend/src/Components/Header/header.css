@@ -1,7 +1,7 @@
 .header-content{
     width: 100%;
-    background: rgb(135, 170, 170);
-    height: 200px;
+    background: rgb(238, 221, 87);
+    height: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,8 +11,8 @@
 }
 
 .header-text{
-    color: rgb(246, 215, 167);
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    color: rgb(33, 134, 222);
+    text-shadow: -1px 0 rgb(241, 235, 235), 0 1px rgb(245, 243, 243), 1px 0 rgb(250, 247, 247), 0 -1px black;
     margin: 10px;
     text-align: center;
 } 
@@ -22,4 +22,8 @@
     right: 5%;
     text-decoration: none;
     color: white;
+}
+
+.active{
+    color: brown;
 }

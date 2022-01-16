@@ -1,6 +1,24 @@
 .mainContainer{
     display: flex;
-    background-color: rgb(236, 217, 176);
+    background-image: url("https://wallpaperaccess.com/full/548869.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     width: 100%;
     margin: 0 auto;
+    flex-direction: column;
+}
+
+.mainImage{
+    width: 70%;
+    margin:1rem auto;
+    border-radius: 20px;
+}
+
+@media screen and (min-width: 768px){
+    .mainImage{
+        width: 50%;
+    
+    }
+
 }

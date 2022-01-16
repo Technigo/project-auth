@@ -9,7 +9,7 @@ export const Item = (props) => {
             <img className="card-image" src={image[0]} alt={props.item.name} />
             <div className="paragraph-container">
                 <h1 className="card-title">{props.item.name}</h1>
-                <button className="button"><a href={props.item.wiki} target="_blank">Learn more</a></button>
+                <button className="button"><a href={props.item.wiki} target="_blank" rel="noopener noreferrer">Learn more</a></button>
             </div>
 
         </div>

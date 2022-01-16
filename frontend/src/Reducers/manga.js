@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+    items: [],
+    error: null,
+};
+
 export const manga = createSlice({
     name: 'manga',
-    initialState: {
-        items: [],
-        error: null,
-    },
+    initialState,
+
     reducers: {
         setItems: (store, action) => {
             store.items = action.payload;
@@ -13,6 +16,9 @@ export const manga = createSlice({
         setError: (store, action) => {
             store.error = action.payload;
         },
+        setclearManga: () => {
+            return initialState
+        }
     },
 });
 
