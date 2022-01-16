@@ -10,7 +10,7 @@ const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Function for logout
+  // Function for logout using local storage
   const logout = () => {
     batch(() => {
       dispatch(user.actions.setUsername(null));

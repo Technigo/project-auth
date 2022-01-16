@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+const Secret = mongoose.model('Secret', {
+  message: String
+});
+
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -59,8 +63,9 @@ app.get('/', (req, res) => {
 
 // What you see when you are logged in added here
 app.get('/secrets', authenticateUser);
-app.get('/secrets', (req, res) => {
-  res.send('Top secret message');
+app.get('/secrets', async (req, res) => {
+  const secrets = await Secret.find({});
+  res.status(201).json({ response: secrets, success: true });
 });
 
 // POST request for creating a user
