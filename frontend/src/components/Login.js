@@ -8,6 +8,7 @@ const Login = () => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [mode, setMode] = useState('signup')
 
     const dispatch = useDispatch()
 
@@ -22,7 +23,7 @@ const Login = () => {
             body: JSON.stringify({ username, password })
         }
 
-        fetch(API_URL('signup'), options)
+        fetch(API_URL(mode), options)
             .then(response => response.json)
             .then(data => {
                 if (data.success) {
@@ -44,25 +45,42 @@ const Login = () => {
     }
 
     return (
-        <form
-            onSubmit={onFormSubmit}
-        >
-            <label htmlFor="username">Username</label>
+        <>
+            <label htmlFor="signup">Signup</label>
             <input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
+                id="signup"
+                type="radio"
+                checked={mode === 'signup'}
+                onChange={() => setMode('signup')}    
             />
-            <label htmlFor="password">Password</label>
+
+            <label htmlFor="signin">Sign in</label>
             <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
+                id="signin"
+                type="radio"
+                checked={mode === 'signin'}
+                onChange={() => setMode('signin')}    
             />
-            <button type="submit">Submit</button>
-        </form>
+
+            <form onSubmit={onFormSubmit}>
+                <label htmlFor="username">Username</label>
+                <input
+                    id="username"
+                    type="text"
+                    value={username}
+                    onChange={(event) => setUsername(event.target.value)}
+                />
+
+                <label htmlFor="password">Password</label>
+                <input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                />
+                <button type="submit">Submit</button>
+            </form>
+        </>
     )
 }
 
