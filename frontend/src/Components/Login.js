@@ -57,20 +57,20 @@ export const Login = () => {
 
   return (
     <>
-      <label htmlFor="signup">Signup</label>
-      <input
+      <label htmlFor="signup">Sign up</label>
+      <InputRadio
         id="signup"
         type="radio"
         checked={mode === 'signup'}
         onChange={() => setMode('signup')}
-      ></input>
+      ></InputRadio>
       <label htmlFor="signin">Sign in</label>
-      <input
+      <InputRadio
         id="signin"
         type="radio"
         checked={mode === 'signin'}
         onChange={() => setMode('signin')}
-      ></input>
+      ></InputRadio>
 
       <Form onSubmit={onFormSubmit}>
         <label htmlFor="username">
@@ -112,14 +112,17 @@ const Input = styled.input`
   border: none;
   border-bottom: 1px solid black;
   width: 280px;
-  text-transform: uppercase; 
+  text-transform: uppercase;
 
   ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: black;s
-    opacity: 1; /* Firefox */
-    font-family: var(--font);
+    color: #000;
   }
+`;
+
+const InputRadio = styled.input`
+  font-size: 1em;
+  margin-right: 15px;
 `;
 
 const Button = styled.button`
