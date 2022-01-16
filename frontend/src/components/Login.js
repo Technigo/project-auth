@@ -24,8 +24,8 @@ const Login = () => {
         }
 
         fetch(API_URL(mode), options)
-            .then(response => response.json)
-            .then(data => {
+            .then((response) => response.json())
+            .then((data) => {
                 if (data.success) {
                     batch(() => {
                         dispatch(user.actions.setUserId(data.response.userId))
