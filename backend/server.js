@@ -83,7 +83,7 @@ app.get('/', (req, res) => {
 // GET method for database content that needs authorization
 app.get('/secrets', authenticateUser)
 app.get('/secrets', async (req, res) => {
-	const secrets = await Secret.find({})
+	const secrets = await Secret.find({}).sort({ createdAt: 'desc' })
 	res.status(201).json({ response: secrets, success: true })
 })
 
