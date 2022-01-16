@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-
 import user from "../reducers/user";
 import programmingMeme from "../utils/programmingMeme.jpeg";
+
+// Styling
+import { ContentWrapper, Button } from '../styling/GlobalStyling'
+import styled from "styled-components";
 
 const Main = () => {
 	const accessToken = useSelector((store) => store.user.accessToken);
@@ -28,15 +30,19 @@ const Main = () => {
 	}, [accessToken, navigate]);
 
 	return (
-		<div>
-			<div>
-				<button onClick={signOut}>Sign out</button>
-			</div>
+		<ContentWrapper>
 			<MemeContainer>
 				<h1>Meme just for you:</h1>
 				<Meme src={programmingMeme} alt="programming meme" />
+				<Button
+					onClick={signOut}>
+						Sign out
+				</Button>
 			</MemeContainer>
-		</div>
+			<div>
+				
+			</div>
+		</ContentWrapper>
 	);
 };
 

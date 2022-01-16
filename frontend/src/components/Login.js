@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, batch, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 
 import { API_URL } from "../utils/urls";
 import user from "../reducers/user";
+
+// Styling
+import { ContentWrapper, Button } from '../styling/GlobalStyling'
+import styled from "styled-components";
 
 const Login = () => {
 	const [username, setUsername] = useState("");
@@ -61,43 +64,48 @@ const Login = () => {
 	};
 
 	return (
-		<LoginContainer>
-			<ModeContainer>
-				<label htmlFor="signup">Sign-up</label>
-				<input
-					id="signup"
-					type="radio"
-					checked={mode === "signup"}
-					onChange={() => setMode("signup")}
-				/>
-				<label htmlFor="signin">Sign-in</label>
-				<input
-					id="signin"
-					type="radio"
-					checked={mode === "signin"}
-					onChange={() => setMode("signin")}
-				/>
-			</ModeContainer>
-			<Form onSubmit={onFormSubmit}>
-				<label htmlFor="username"></label>
-				<TextInput
-					id="username"
-					type="text"
-					placeholder="Username"
-					value={username}
-					onChange={(e) => setUsername(e.target.value)}
-				/>
-				<label htmlFor="password"></label>
-				<TextInput
-					id="password"
-					type="password"
-					placeholder="Password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-				/>
-				<button type="submit">Submit</button>
-			</Form>
-		</LoginContainer>
+		<ContentWrapper>
+			<LoginContainer>
+				<ModeContainer>
+					<label htmlFor="signup">Sign-up</label>
+					<input
+						id="signup"
+						type="radio"
+						checked={mode === "signup"}
+						onChange={() => setMode("signup")}
+					/>
+					<label htmlFor="signin">Sign-in</label>
+					<input
+						id="signin"
+						type="radio"
+						checked={mode === "signin"}
+						onChange={() => setMode("signin")}
+					/>
+				</ModeContainer>
+				<Form onSubmit={onFormSubmit}>
+					<label htmlFor="username"></label>
+					<TextInput
+						id="username"
+						type="text"
+						placeholder="Username"
+						value={username}
+						onChange={(e) => setUsername(e.target.value)}
+					/>
+					<label htmlFor="password"></label>
+					<TextInput
+						id="password"
+						type="password"
+						placeholder="Password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+					/>
+					<Button 
+						type="submit">
+							Submit
+					</Button>
+				</Form>
+			</LoginContainer>
+		</ContentWrapper>
 	);
 };
 
