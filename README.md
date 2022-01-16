@@ -23,7 +23,9 @@ Your frontend needs:
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+This is the last week of the small weekly projects, and in this case, I built a complete application with BE and FE. I followed the videos on the Technigo page and lectures to get all details possible. I developed a sign-up and sign-in page, and also some content from the database to show when the user is authenticated. I also included some error messages also to let the user know the error during the authentication process. 
+
+I worked alone, and this week has been very interesting and challenging about how to use some libraries like crypto, and how to mix react-redux, react-router, the API with the database, and the frontend.  
 
 ## View it live
 
