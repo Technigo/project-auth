@@ -47,7 +47,8 @@ app.use(
 // v3 - Allow multiple domains
 
 const allowedDomains = [
-	"https://my-project-frontend.com",
+	"https://project-authentication.netlify.app/login",
+	"https://authentication-signup-project.herokuapp.com/",
 	"http://localhost:3000",
 ];
 app.use(
