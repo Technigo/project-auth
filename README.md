@@ -30,4 +30,4 @@ I worked alone, and this week has been very interesting and challenging about ho
 ## View it live
 
 See backend: https://project-auth-backend.herokuapp.com/
-See frontend: 
+See frontend: https://project-auth-priscilaalfaro.netlify.app/
