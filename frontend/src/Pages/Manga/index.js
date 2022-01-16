@@ -45,7 +45,7 @@ export const Manga = () => {
                     dispatch(manga.actions.setError(data.response));
                 }
             })
-    }, [accessToken]);
+    }, [accessToken, dispatch]);
 
     return (
         <>
