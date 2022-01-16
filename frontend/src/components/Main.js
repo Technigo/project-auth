@@ -56,7 +56,7 @@ const MemeContainer = styled.div`
 `;
 
 const Meme = styled.img`
-	max-width: 250px;
+	max-width: 100%;
 
 	@media (min-width: 768px) {
 		max-width: 100%;
