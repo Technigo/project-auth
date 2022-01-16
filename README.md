@@ -29,5 +29,5 @@ I worked alone, and this week has been very interesting and challenging about ho
 
 ## View it live
 
-See backend: 
+See backend: https://project-auth-backend.herokuapp.com/
 See frontend: 

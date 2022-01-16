@@ -5,7 +5,6 @@ import { store } from 'store';
 
 import { Home } from 'Pages/Home';
 import { Register } from 'Pages/Register';
-import { Profile } from 'Pages/Profile';
 import { NotFound } from 'Pages/NotFound';
 import { Manga } from 'Pages/Manga';
 
