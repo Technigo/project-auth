@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import { API_URL } from '../utils/constants'
 import user from '../reducers/user'
@@ -56,6 +56,9 @@ const Login = () => {
 
     return (
         <>
+            <section>
+            <Link to="/">To '/'!</Link>
+            </section>
             <label htmlFor="signup">Signup</label>
             <input
                 id="signup"

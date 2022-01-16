@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import { API_URL } from '../utils/constants'
 import thoughts from '../reducers/thoughts'
@@ -30,12 +30,21 @@ const Main = () => {
         fetch(API_URL('thoughts'), options)
             .then((response) => response.json())
             .then((data) => {
-                dispatch(thoughts.actions.setItems(data.response))
+                if (data.success) {
+                    dispatch(thoughts.actions.setItems(data.response))
+                    dispatch(thoughts.actions.setError(null))
+                } else {
+                    dispatch(thoughts.actions.setItems([]))
+                    dispatch(thoughts.actions.setError(data.response))
+                }
             })
     }, [accessToken])
 
     return (
         <section>
+            <div>
+                <Link to="/login">To '/login'!</Link>
+            </div>
             <h1>Protected Happy Thoughts:</h1>
             {thoughtsItems.map((item) => (
                 <article key={item._id}>{item.message}</article>
