@@ -6,6 +6,8 @@ import { API_URL } from '../utils/constants'
 import secrets from '../reducers/secrets'
 import user from '../reducers/user'
 
+import { Footer } from './Footer'
+
 import { 
 	PageWrapper,
 	SecretWrapper,
@@ -50,6 +52,8 @@ const Main = () => {
 					batch(() => {
 						dispatch(secrets.actions.setNewItems(data.response))
 						dispatch(secrets.actions.setError(null))
+						setMessage("")
+						setText("")
 					})
 					} else {
 						dispatch(secrets.actions.setError(data.response))
@@ -95,6 +99,7 @@ const Main = () => {
 	  }
 
 	return (
+		<>
 		<PageWrapper>
 
 			<Header>
@@ -134,6 +139,8 @@ const Main = () => {
 			</SecretWrapper>
 						
 		</PageWrapper>
+		<Footer />
+		</>
 	)
 }
 

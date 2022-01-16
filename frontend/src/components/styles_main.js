@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import { HeartFillIcon, KeyIcon } from '@primer/octicons-react'
-
 
 
 // WRAPPER
@@ -84,7 +82,7 @@ text-transform: inherit;
 box-sizing: border-box;
 width: 100%;
 height: 3rem;
-padding: 16px 48px;
+padding: 16px 16px;
 border: 1px solid #F3EFCC;
 background-color: inherit;
 margin-bottom: 1rem;
@@ -93,7 +91,7 @@ outline: none;
   ::placeholder {
     color: #32502E
   }
-  padding: 16px 48px;
+  padding: 16px 16px;
   background-color: #32502E;
   border: none;
   ::placeholder {
@@ -156,16 +154,22 @@ flex-direction: column;
 flex-wrap: wrap;
 `
 
-export const HeadingSpan = styled.span`
+export const HeadingSpan = styled.div`
 font-weight: 700;
 font-size: 1.5rem;
 margin: 0;
+word-wrap: break-word;
+white-space: pre-wrap;
+width: 311px;
 `
 
-export const TextSpan = styled.span`
+export const TextSpan = styled.div`
 font-weight: 400;
 font-size: 14px;
-margin-top: 1rem;;
+margin-top: 1rem;
+word-wrap: break-word;
+white-space: pre-wrap;
+width: 311px;
 `
 
 // BUTTON LOGOUT
