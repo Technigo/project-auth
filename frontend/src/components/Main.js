@@ -50,5 +50,10 @@ const MemeContainer = styled.div`
 `;
 
 const Meme = styled.img`
-	max-width: 70%;
+	max-width: 80%;
+
+	@media (min-width: 768px) {
+		max-width: 90%;
+		max-height: 70vh;
+	}
 `;
