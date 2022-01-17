@@ -1,12 +1,13 @@
 # Project Auth
-
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
-
+ We built an API with authentication to implement a registration flow, and a frontend with forms to register, sign in, and view some content once you're logged in.
+ 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+Our project consists of two parts; a backend API, and a React frontend. We created a `User` model using mongoose, with properties to registered users, and to store a user's access token.
+
+On the frontend side of things, we created a registration form that POSTs an API. We had to store the access token that we got back in the browser using local storage, and then we used that token when making other requests to our API.
+When you signin you will see the 20 most popular movies, right know.
+
 
 ## View it live
 
