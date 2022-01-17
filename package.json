@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "postinstall": "npm install --prefix backend"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.16.7"
   }
 }
