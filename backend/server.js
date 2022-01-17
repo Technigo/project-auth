@@ -35,40 +35,10 @@ const ThoughtSchema = new mongoose.Schema({
 
 const Thought = mongoose.model("Thought", ThoughtSchema);
 
-// Defines the port the app will run on. Defaults to 8080, but can be
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
 
-// Add middlewares to enable cors and json body parsing
-// v1 - Allow all domains
 app.use(cors());
-
-// v2 - Allow only one specific domain
-// app.use(
-// 	cors({
-// 		origin: 'https://my-project-frontend.com',
-// 	})
-// );
-
-// v3 - Allow multiple domains
-// const allowedDomains = [
-// 	'https://my-project-frontend.com',
-// 	'http://localhost:3000',
-// ];
-// app.use(
-// 	cors({
-// 		origin: (origin, callback) => {
-// 			if (allowedDomains.includes(origin)) {
-// 				return callback(null, true);
-// 			} else {
-// 				return callback(new Error('This domain is not allowed'), false);
-// 			}
-// 		},
-// 	})
-// );
 
 app.use(express.json());
 
@@ -91,11 +61,6 @@ const authenticateUser = async (req, res, next) => {
     res.status(400).json({ response: error, success: false });
   }
 };
-
-// Authentication - 401 (Unauthorized) But should be unauthenticated
-// Authorization - 403 (Forbidden) But should be unauthorized
-
-// Start defining your routes here
 
 app.get("/thoughts", authenticateUser);
 app.get("/thoughts", async (req, res) => {
@@ -168,7 +133,6 @@ app.post("/signin", async (req, res) => {
   }
 });
 
-// Start the server
 app.listen(port, () => {
   // eslint-disable-next-line
   console.log(`Server running on http://localhost:${port}`);
