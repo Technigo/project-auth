@@ -12,7 +12,6 @@ export const SignUp = () => {
   const [isContainerActive, setIsContainerActive] = useState('')
 
   const accessToken = useSelector((store) => store.user.accessToken)
-  // const error = useSelector((store) => store.user.error)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -63,7 +62,6 @@ export const SignUp = () => {
           dispatch(user.actions.setAccessToken(null))
           dispatch(user.actions.setError(data.response))
         }
-        // alert(data.response.error)
       })
   }
 

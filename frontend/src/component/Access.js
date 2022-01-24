@@ -37,7 +37,6 @@ export const Access = () => {
   const [profileImg, setProfileImg] = useState('')
   const accessToken = useSelector((store) => store.user.accessToken)
   const username = useSelector((store) => store.user.username)
-  // const profilePic = useSelector((store) => store.user.profilePic)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -73,7 +72,6 @@ export const Access = () => {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      // body: JSON.stringify({ profilePic }),
     }
 
     fetch(API_URL('home'), options)
@@ -82,7 +80,6 @@ export const Access = () => {
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setProfilePic(data.response.profilePic))
-            // dispatch(user.actions.setError(null))
           })
         } else {
           dispatch(user.actions.setError(data.response))
@@ -91,12 +88,7 @@ export const Access = () => {
   }
 
   return (
-    // We have a stretchgoal to let the user upload a profile pic, not getting it to work just yet
     <ProfileCard>
-      {/* <img
-        src="data:image/<%=image.img.contentType%>;base64,
-                     <%=image.img.data.toString('base64')%>"
-      /> */}
       <h1>Hi {username} this is your profile page</h1>
 
       <form onSubmit={onProfilePicUpload}>

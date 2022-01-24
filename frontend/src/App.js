@@ -8,11 +8,9 @@ import { NotFound } from 'component/NotFound'
 import { Access } from 'component/Access'
 import '../src/index.css'
 import user from 'reducers/user'
-import info from 'reducers/info'
 
 const reducer = combineReducers({
   user: user.reducer,
-  info: info.reducer,
 })
 
 const store = configureStore({ reducer })
