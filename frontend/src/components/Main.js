@@ -1,58 +1,34 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { Logout } from "./Logout";
-
-// import { API_URL } from "../utils/constants";
-// import thoughts from "../reducers/thoughts";
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+import { Logout } from './Logout';
 
 const Main = () => {
-	const thoughtsItems = useSelector((store) => store.thoughts.items);
-	const accessToken = useSelector((store) => store.user.accessToken);
+  const username = useSelector((store) => store.user.username);
+  const accessToken = useSelector((store) => store.user.accessToken);
 
-	// const dispatch = useDispatch();
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
-	useEffect(() => {
-		if (!accessToken) {
-			navigate("/login");
-		}
-	}, [accessToken, navigate]);
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/login');
+    }
+  }, [accessToken, navigate]);
 
-	// useEffect(() => {
-	// 	const options = {
-	// 		method: "GET",
-	// 		headers: {
-	// 			Authorization: accessToken,
-	// 		},
-	// 	};
-
-	// 	fetch(API_URL("thoughts"), options)
-	// 		.then((res) => res.json())
-	// 		.then((data) => {
-	// 			if (data.success) {
-	// 				dispatch(thoughts.actions.setItems(data.response));
-	// 				dispatch(thoughts.actions.setError(null));
-	// 			} else {
-	// 				dispatch(thoughts.actions.setItems([]));
-	// 				dispatch(thoughts.actions.setError(data.response));
-	// 			}
-	// 		});
-	// }, [accessToken, dispatch]);
-
-	return (
-		<div>
-			<div>
-				<Link to="/login">To '/login' !</Link>
-			</div>
-			<h1>Protected happy thoughts:</h1>
-			{thoughtsItems.map((item) => (
-				<div key={item._id}>{item.message}</div>
-			))}
-			<Logout />
-		</div>
-	);
+  return (
+    <div>
+      <div>
+        <Link to='/login'>To '/login' !</Link>
+      </div>
+      <h1>Welcome {username}</h1>
+      <img
+        class='welcome-image'
+        src='https://media.giphy.com/media/GyrVlOlmCWHQzBFGPC/giphy.gif'
+        alt='welcome'
+      ></img>
+      <Logout />
+    </div>
+  );
 };
 
 export default Main;
