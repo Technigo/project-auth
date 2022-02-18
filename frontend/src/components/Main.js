@@ -38,7 +38,7 @@ const Main = () => {
                     dispatch(thoughts.actions.setError(data.response))
                 }
             })
-    }, [accessToken])
+    }, [])
 
     return (
         <section>
