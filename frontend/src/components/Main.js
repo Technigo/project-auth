@@ -15,16 +15,14 @@ const Main = () => {
       navigate('/login')
     }
   }, [accessToken, navigate])
-  
   useEffect(() => {
     const options = {
       method: 'GET',
       headers: {
-        'Authorization': accessToken,
+        'Authorization': accessToken
       }
     }
-    
-    fetch(API_URL('thoughts'), options)
+  fetch(API_URL('thoughts'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -39,14 +37,14 @@ const Main = () => {
   return (
     <section>
       <div>
-        <Link to="/login">To '/login'!</Link>
-        </div>
-        <h1>Protected Happy Thoughts:</h1>
-        {thoughtsItems.map((item) => (
-        <article key={item._id}>{item.message}</article>
-        ))}
+        <Link to="/login">To `/login`!</Link>
+      </div>
+      <h1>Protected Happy Thoughts:</h1>
+      {thoughtsItems.map((item) => (
+      <article key={item._id}>{item.message}</article>
+      ))}
     </section>
-    )
-  }
+  )
+}
 
 export default Main

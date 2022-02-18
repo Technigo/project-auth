@@ -60,36 +60,33 @@ const Login = () => {
       </section>
       <label htmlFor="signup">Signup</label>
       <input
-          id="signup"
-          type="radio"
-          checked={mode === 'signup'}
-          onChange={() => setMode('signup')} />
-        
-      <label htmlFor="signin">Sign in</label>
+        id="signup"
+        type="radio"
+        checked={mode === 'signup'}
+        onChange={() => setMode('signup')} />
+        <label htmlFor="signin">Sign in</label>
       <input
-          id="signin"
-          type="radio"
-          checked={mode === 'signin'}
-          onChange={() => setMode('signin')} />
-        
-      <form onSubmit={onFormSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)} />
-          
-      <label htmlFor="password">Password</label>
+        id="signin"
+        type="radio"
+        checked={mode === 'signin'}
+        onChange={() => setMode('signin')} />
+        <form onSubmit={onFormSubmit}>
+      <label htmlFor="username">Username</label>
       <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)} />
-      <button type="submit">Submit</button>
+          id="username"
+          type="text"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)} />
+          <label htmlFor="password">Password</label>
+      <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)} />
+        <button type="submit">Submit</button>
       </form>
     </>
-    )
-  }
+  )
+}
 
-export default Login
+  export default Login
