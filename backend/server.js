@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString('hex'),
+    default: () => crypto.randomBytes(128).toString('hex')
   }
 })
 
@@ -40,9 +40,9 @@ app.use(cors())
 // v2 - Allow only one specific domain
 app.use(
   cors({
-    origin: 'https://my-project-frontend.com',
+    origin: 'https://my-project-frontend.com'
   })
-);
+)
 
 // v3 - Allow multiple domains
 
@@ -58,7 +58,7 @@ app.use(
       } else {
         return callback(new Error('This domain is not allowed'), false)
       }
-    },
+    }
   })
 )
 
@@ -101,17 +101,17 @@ app.post('/signup', async (req, res) => {
 
     const newUser = await new User({
       username,
-      password: bcrypt.hashSync(password, salt),
+      password: bcrypt.hashSync(password, salt)
     }).save()
 
     res.status(201).json({
       response: {
-        userId: newUser._id,
+        userId: newUser.id,
         username: newUser.username,
-        accessToken: newUser.accessToken,
+        accessToken: newUser.accessToken
       },
-      success: true,
-    });
+      success: true
+    })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
   }
@@ -126,16 +126,16 @@ app.post('/signin', async (req, res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
         response: {
-          userId: user._id,
+          userId: user.id,
           username: user.username,
-          accessToken: user.accessToken,
+          accessToken: user.accessToken
         },
-        success: true,
+        success: true
       })
     } else {
       res.status(404).json({
         response: "Username or password doesn't match",
-        success: false,
+        success: false
       })
     }
   } catch (error) {
