@@ -19,21 +19,21 @@ const Main = () => {
     const options = {
       method: 'GET',
       headers: {
-        'Authorization': accessToken
+        Authorization: accessToken
       }
     }
-  fetch(API_URL('thoughts'), options)
+    fetch(API_URL('thoughts'), options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
           dispatch(thoughts.actions.setItems(data.response))
           dispatch(thoughts.actions.setError(null))
-      } else {
+        } else {
           dispatch(thoughts.actions.setItems([]))
           dispatch(thoughts.actions.setError(data.response))
         }
       })
-    }, [])
+  }, [])
   return (
     <section>
       <div>
@@ -41,7 +41,7 @@ const Main = () => {
       </div>
       <h1>Protected Happy Thoughts:</h1>
       {thoughtsItems.map((item) => (
-      <article key={item._id}>{item.message}</article>
+        <article key={item.id}>{item.message}</article>
       ))}
     </section>
   )

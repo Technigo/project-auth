@@ -64,29 +64,29 @@ const Login = () => {
         type="radio"
         checked={mode === 'signup'}
         onChange={() => setMode('signup')} />
-        <label htmlFor="signin">Sign in</label>
+      <label htmlFor="signin">Sign in</label>
       <input
         id="signin"
         type="radio"
         checked={mode === 'signin'}
         onChange={() => setMode('signin')} />
-        <form onSubmit={onFormSubmit}>
-      <label htmlFor="username">Username</label>
-      <input
-          id="username"
-          type="text"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)} />
-          <label htmlFor="password">Password</label>
-      <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)} />
+      <form onSubmit={onFormSubmit}>
+        <label htmlFor="username">Username</label>
+        <input
+        id="username"
+        type="text"
+        value={username}
+        onChange={(event) => setUsername(event.target.value)} />
+        <label htmlFor="password">Password</label>
+        <input
+        id="password"
+        type="password"
+        value={password}
+        onChange={(event) => setPassword(event.target.value)} />
         <button type="submit">Submit</button>
       </form>
     </>
   )
 }
 
-  export default Login
+export default Login
