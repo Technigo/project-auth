@@ -68,7 +68,7 @@ app.post('/signup', async (req, res) => {
 
   try {
     const salt = bcrypt.genSaltSync()
-
+/*eslint no-throw-literal: "error"*/
     if (password.length < 5) {
       throw 'Password must be at least 5 characters long'
     }
