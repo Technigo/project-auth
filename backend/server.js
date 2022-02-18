@@ -157,7 +157,7 @@ app.post("/signin", async (req, res) => {
         success: true,
       });
     } else {
-      res.status(404).jason({
+      res.status(404).json({
         response: "Username or password does not match",
         success: false,
       });
