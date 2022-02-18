@@ -36,32 +36,6 @@ const app = express()
 // Add middlewares to enable cors and json body parsing
 // v1 - Allow all domains
 app.use(cors())
-
-// v2 - Allow only one specific domain
-app.use(
-  cors({
-    origin: 'https://my-project-frontend.com'
-  })
-)
-
-// v3 - Allow multiple domains
-
-const allowedDomains = [
-  'https://my-project-frontend.com',
-  'http://localhost:3000'
-]
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (allowedDomains.includes(origin)) {
-        return callback(null, true)
-      } else {
-        return callback(new Error('This domain is not allowed'), false)
-      }
-    }
-  })
-)
-
 app.use(express.json())
 
 const authenticateUser = async (req, res, next) => {
