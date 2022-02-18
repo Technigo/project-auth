@@ -8,10 +8,8 @@ import thoughts from '../reducers/thoughts'
 const Main = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items)
   const accessToken = useSelector((store) => store.user.accessToken)
-  
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  
   useEffect(() => {
     if (!accessToken) {
       navigate('/login')
@@ -23,33 +21,32 @@ const Main = () => {
       method: 'GET',
       headers: {
         'Authorization': accessToken,
-      },
+      }
     }
     
     fetch(API_URL('thoughts'), options)
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success) {
-        dispatch(thoughts.actions.setItems(data.response))
-        dispatch(thoughts.actions.setError(null))
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(thoughts.actions.setItems(data.response))
+          dispatch(thoughts.actions.setError(null))
       } else {
-        dispatch(thoughts.actions.setItems([]))
-        dispatch(thoughts.actions.setError(data.response))
-      }
-    })
-  }, [])
-  
+          dispatch(thoughts.actions.setItems([]))
+          dispatch(thoughts.actions.setError(data.response))
+        }
+      })
+    }, [])
   return (
-  <section>
-    <div>
-      <Link to="/login">To '/login'!</Link>
-      </div>
-      <h1>Protected Happy Thoughts:</h1>
-      {thoughtsItems.map((item) => (
-      <article key={item._id}>{item.message}</article>
-      ))}
-      </section>
-      )
-    }
+    <section>
+      <div>
+        <Link to="/login">To '/login'!</Link>
+        </div>
+        <h1>Protected Happy Thoughts:</h1>
+        {thoughtsItems.map((item) => (
+        <article key={item._id}>{item.message}</article>
+        ))}
+    </section>
+    )
+  }
 
 export default Main
