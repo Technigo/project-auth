@@ -121,7 +121,7 @@ app.get('/profile', authenticateUser, async (req, res) => {
       success: true
     })
   } catch (error) {
-    res.status(500).json({ errors: error })
+    res.status(401).json({ errors: error })
   }
 })
 
