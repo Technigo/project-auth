@@ -110,13 +110,15 @@ app.post('/login', async (req, res) => {
 })
 
 //---------------------------PROFILE PROTECTED ENDPOINT---------------------------//
-app.get('/profile', authenticateUser, async (req, res) => {
+app.get('/quote', authenticateUser)
+app.get('/quote', (req, res) => {
   try {
     res.status(200).json({
       response: {
-        id: req.user._id,
-        name: req.user.name,
-        email: req.user.email
+          title: 'Continue',
+          author: 'Carrie Fisher',
+          quote: `Stay afraid, but do it anyway. What's important is the action. You don't have to wait to be confident. Just do it and eventually the confidence will follow.`,
+          source: 'https://www.snhu.edu/about-us/newsroom/education/personal-growth-quotes'
       },
       success: true
     })
