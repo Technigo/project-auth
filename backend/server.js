@@ -5,7 +5,7 @@ import crypto from "crypto";
 import bcrypt from "bcrypt-nodejs";
 import getEndpoints from "express-list-endpoints";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authie";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authy";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
