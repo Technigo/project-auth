@@ -111,7 +111,18 @@ app.post('/login', async (req, res) => {
 
 //---------------------------PROFILE PROTECTED ENDPOINT---------------------------//
 app.get('/profile', authenticateUser, async (req, res) => {
-  res.json({secret: 'This is a super secret message'})
+  try {
+    res.status(200).json({
+      response: {
+        id: req.user._id,
+        name: req.user.name,
+        email: req.user.email
+      },
+      success: true
+    })
+  } catch (error) {
+    res.status(500).json({ errors: error })
+  }
 })
 
 //---------------------------SESSIONS ENDPOINT---------------------------//
