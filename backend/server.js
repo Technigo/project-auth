@@ -63,6 +63,7 @@ app.get("/", (req, res) => {
 app.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body
+    
     // Not storing the password in plain text
     const user = new User({ 
       name, 
@@ -75,9 +76,8 @@ app.post('/signup', async (req, res) => {
   }
 })
 
-// Protected endpoint which can do anything (but right now just returns a message, user needs to be authenticated for being able to access it)
-app.get('/secrets', authenticateUser)
-app.get('/secrets', (req, res) => {
+// Protected endpoint, allow only logged-in users see this info
+app.get('/profile', authenticateUser, async (req, res) => {
   res.json({secret: 'This is a super secret message'})
 })
 
