@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt-nodejs";
+import getEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authie";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -49,7 +50,7 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send(getEndpoints(app));
 });
 
 
