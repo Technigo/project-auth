@@ -27,14 +27,9 @@ app.get("/", (req, res) => {
   res.json(listEndpoints(app))
 });
 
-// User model with validation rules: name, email, password and default accessToken with crypto library
+// User model with validation rules: username, password and default accessToken with crypto library
 const User = mongoose.model('User', {
-  name: {
-      type: String,
-      unique: true,
-      required: true
-  },
-  email: {
+  username: {
       type: String,
       unique: true,
       required: true
@@ -65,12 +60,11 @@ const authenticateUser = async (req, res, next) => {
 app.post('/signup', async (req, res) => {
 
   try {
-    const { name, email, password } = req.body
+    const { username, password } = req.body
 
     // Not storing the password in plain text
     const user = new User({ 
-      name, 
-      email, 
+      username, 
       password: bcrypt.hashSync(password)})
     user.save()
     res.status(201).json({
@@ -85,24 +79,23 @@ app.post('/signup', async (req, res) => {
 
 //---------------------------USER LOGIN ENDPOINT---------------------------//
 app.post('/login', async (req, res) => {
-  const { email, password } = req.body
+  const { username, password } = req.body
 
   try {
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ username })
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json(
         {
           response: {
             id: user._id,
-            name: user.name,
-            email: user.email,
+            username: user.username,
             accessToken: user.accessToken
           },
           success: true
         })
     } else {
       // User do not exist or encrypted password doesnt match
-      res.status(404).json({ response: "Email or password doesn't match", success: false })
+      res.status(404).json({ response: "Wrong username or password", success: false })
     }
   } catch (error) {
     res.status(500).json({ errors: error })
@@ -127,15 +120,6 @@ app.get('/quote', (req, res) => {
   }
 })
 
-//---------------------------SESSIONS ENDPOINT---------------------------//
-app.post('/sessions', async (req, res) => {
-  const user = await User.findOne({email: req.body.email})
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-      res.json({userId: user._id, accessToken: user.accessToken})
-} else {
-      res.json({notFound: true})
-}
-})
 
 // Start server
 app.listen(port, () => {
