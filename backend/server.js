@@ -22,57 +22,107 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
+// User model with validation rules: username, password and default accessToken with crypto library
+const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  accessToken: {
+    type: String,
+    default: () => crypto.randomBytes(128).toString('hex'),
+  },
+})
+
+const User = mongoose.model('User', UserSchema)
+
+// Middleware function which looks up the user based on the accessToken stored in the header, which we can test. Then calling next() which allows protected endpoint to continue execution
+const authenticateUser = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      accessToken: req.header('Authorization'),
+    })
+    if (user) {
+      next()
+    } else {
+      res.status(401).json({
+        message: 'Please, log in',
+        response: 'Please, log in',
+        success: false,
+      })
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: 'Error, could not authenticate user',
+      response: error,
+      success: false,
+    })
+  }
+}
+
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.json(listEndpoints(app))
 });
 
-// User model with validation rules: username, password and default accessToken with crypto library
-const User = mongoose.model('User', {
-  username: {
-      type: String,
-      unique: true,
-      required: true
-  },
-  password:{
-      type: String,
-      required: true
-  },
-  accessToken: {
-      type: String,
-      default: () => crypto.randomBytes(128).toString('hex')
-  }
-})
-
-// Middleware function which looks up the user based on the accessToken stored in the header, which we can test. Then calling next() which allows protected endpoint to continue execution
-const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header('Authorization') })
-
-  if (user) {
-    req.user = user
-    next()
-  } else {
-    res.status(401).json({loggedOut: true})
-  }
-}
-
 //---------------------------SIGN UP ENDPOINT---------------------------//
 app.post('/signup', async (req, res) => {
+  const { username, password } = req.body
 
   try {
-    const { username, password } = req.body
+    // salt = randomizer
+    const salt = bcrypt.genSaltSync()
 
-    // Not storing the password in plain text
-    const user = new User({ 
-      username, 
-      password: bcrypt.hashSync(password)})
-    user.save()
+    // // stop the executing of try block with throw
+    if (password === '') {
+      throw 'Provide your password please'
+    }
+
+    const newUser = await new User({
+      username,
+      password: bcrypt.hashSync(password, salt),
+    }).save()
+
     res.status(201).json({
-      id: user._id, 
-      accessToken:user.accessToken})
+      response: {
+        userId: newUser._id,
+        username: newUser.username,
+        accessToken: newUser.accessToken,
+      },
+      success: true,
+    })
 
-  } catch (err) {
-    res.status(400).json({message: 'Could not create user', errors: err.errors})
+  } catch (error) {
+    if (username === '') {
+      res.status(400).json({
+        message: 'Validation failed: provide username',
+        response: error,
+        success: false,
+      })
+    } else if (error.code === 11000 && error.keyPattern.username) {
+      res.status(400).json({
+        message: 'Validation failed: username already exist',
+        response: error,
+        success: false,
+      })
+    } else if (password === '') {
+      res.status(400).json({
+        message: 'Validation failed: provide password',
+        response: error,
+        success: false,
+      })
+    } else {
+      res.status(400).json({
+        message: 'Validation failed: please provide username and password',
+        response: error,
+        success: false,
+      })
+    }
   }
 })
 
@@ -83,22 +133,43 @@ app.post('/login', async (req, res) => {
 
   try {
     const user = await User.findOne({ username })
+
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(200).json(
-        {
-          response: {
-            id: user._id,
-            username: user.username,
-            accessToken: user.accessToken
-          },
-          success: true
-        })
+      res.status(200).json({
+        response: {
+          userId: user._id,
+          username: user.username,
+          accessToken: user.accessToken,
+        },
+        success: true,
+      })
     } else {
-      // User do not exist or encrypted password doesnt match
-      res.status(404).json({ response: "Wrong username or password", success: false })
+      if (username === '') {
+        res.status(404).json({
+          message: 'Login failed: fill in username',
+          response: 'Login failed: fill in username',
+          success: false,
+        })
+      } else if (password === '') {
+        res.status(404).json({
+          message: 'Login failed: fill in password',
+          response: 'Login failed: fill in password',
+          success: false,
+        })
+      } else {
+        res.status(404).json({
+          message: 'Login failed: wrong username or password',
+          response: 'Login failed: wrong username or password',
+          success: false,
+        })
+      }
     }
   } catch (error) {
-    res.status(500).json({ errors: error })
+    res.status(400).json({
+      message: 'Invalid entry',
+      response: error,
+      success: false,
+    })
   }
 })
 
