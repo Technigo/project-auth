@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto"
 import bcrypt from "bcrypt"
+import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -35,6 +36,21 @@ const UserSchema = new mongoose.Schema({
 })
 
 const User = mongoose.model("User", UserSchema)
+
+// Start defining your routes here
+app.get("/", (req, res) => {
+  res.send(listEndpoints(app));
+})
+
+app.get("/authenticated", async (req, res) => {
+  try {
+    const allAuthenticated = await User.find({}).limit(20)     
+    res.status(200).json(allAuthenticated)
+  }catch (error) {
+    res.status(400).json({response: error, success: false})
+  }
+  
+})
 
 // Only for registration of new user
 app.post("/register", async (req, res) => {
@@ -95,7 +111,7 @@ app.post("/login", async(req, res) => {
 })
 
 // Autheticating the user is logged in and have access to asked function
-const authenticateUser = async (req, res, next) => {
+const authorizeUser = async (req, res, next) => {
   const accessToken = req.header("Authorization")
 
   try {
@@ -104,7 +120,7 @@ const authenticateUser = async (req, res, next) => {
       next()
     } else {
       res.status(401).json({
-        respons: "Please log in",
+        respons: "You need to be logged in to proceed",
         success: false
       })
     }
@@ -117,11 +133,16 @@ const authenticateUser = async (req, res, next) => {
 }
 
 //Example text to show when authenticated
-app.get("/thoughts", authenticateUser)
-app.get("/thoughts", (req, res) => {
-  res.send("here are your thoughts")
+app.get("/profile", authorizeUser)
+app.get("/profile", (req, res) => {
+  res.send("Welcome to your profile!")
 })
 
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
 
 
 ///// CORS version1 (allows all origins)
@@ -149,13 +170,3 @@ app.get("/thoughts", (req, res) => {
 //     }
 //   }
 // }))
-
-// Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
-});
-
-// Start the server
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
