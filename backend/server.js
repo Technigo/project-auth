@@ -34,7 +34,6 @@ const User = mongoose.model("User", userSchema)
 const port = process.env.PORT || 8080
 const app = express()
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(express.json())
 const userAuthentication = async (req, res, next) => {
@@ -43,7 +42,7 @@ const userAuthentication = async (req, res, next) => {
       accessToken: req.header("Authorization"),
     })
     if (user) {
-      next() // built in function for express that makes the app move along if there's for example an user
+      next()
     } else {
       res.status(401).json({ response: "Please log in", success: false })
     }
