@@ -32,14 +32,25 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model('User', UserSchema);
 
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header('Authorization') });
-  if (user) {
-    req.user = user;
-    next();
-  } else {
-    res
-      .status(401)
-      .json({ message: 'You are not authenticated.', loggedOut: true });
+
+  const accessToken = req.header("Authorization");
+
+  try {
+    const user = await User.findOne({ accessToken: accessToken });
+    
+    if (user) {
+      next();
+    } else {
+      res.status(401).json({ 
+        response: "Please log in.",
+        success: false 
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      response: "You are logged in.", 
+      success: false
+    });
   }
 };
 
@@ -60,20 +71,38 @@ app.get('/', (req, res) => {
 
 //--------------------USER REGISTRATION ENDPOINT--------------------//
 app.post('/registration', async (req, res) => {
+  const { username, email, password } = req.body; //Maybe that we won't need email?
+  // DO NOT STORE PLAINTEXT PASSWORDS
   try {
-    const { username, email, password } = req.body;
-    // DO NOT STORE PLAINTEXT PASSWORDS
-    const user = new User({
-      username,
-      email,
-      password: bcrypt.hashSync(password),
+    
+    const salt = bcrypt.genSaltSync();
+
+    if (password.length < 8) {
+      res.status(400).json({
+        response: "Password must be at least 8 characters long",
+        success: false
+      });
+    } else {
+      const newUser = await new User({
+        username: username,
+        email: email,
+        password: bcrypt.hashSync(password, salt)
+      }).save();
+      res.status(201).json({ 
+        response: {
+          username: newUser.username,
+          userId: newUser._id, 
+          accessToken: newUser.accessToken
+        },
+        success: true
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ 
+      response: error,
+      success: false,
+      message: "Could not create user."
     });
-    user.save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
-  } catch (err) {
-    res
-      .status(400)
-      .json({ message: 'Could not create user.', errors: err.errors });
   }
 });
 
@@ -89,19 +118,63 @@ app.get('/profile', authenticateUser, async (req, res) => {
       success: true,
     });
   } catch (error) {
-    res.status(401).json({ errors: error });
+    res.status(401).json({ 
+      errors: error,
+      response: "Failed to log in." //I don't get this one. This comes upp when I use the right accessToken. It should be the other way around. 
+    });
   }
 });
 
 //--------------------USER LOGIN ENDPOINT--------------------//
 app.post('/login', async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken });
-  } else {
-    res.json({ notFound: true });
+  const { username, email, password } = req.body;
+
+
+  try {
+    const user = await User.findOne({ username });
+
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(200).json({ 
+        success: true,
+        username: user.username,
+        userId: user._id, 
+        accessToken: user.accessToken 
+      });
+    } else {
+      res.status(400).json({ 
+        reponse: "Username and password don't match.",
+        success: false    
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      response: error,
+      success: false
+    });
   }
 });
+
+///CORS - HAVEN'T DONE ANYTHING WITH THIS
+//////CORS v2
+// app.use(cors({
+//   origin: "https://my-origin.com"
+// }));
+
+/// CORS V3
+// const allowedDomains = [
+//   "http://lalala.io",
+//   "http://something.com",
+//   "https://lorem.com",
+// ];
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (allowedDomains.includes(origin)) {
+//       return callback(null, true);
+//     } else {
+//       return callback(new Error("domain not allowed"), false);
+//     }
+//   }
+// }));
 
 // Start the server
 app.listen(port, () => {
