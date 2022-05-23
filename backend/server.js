@@ -12,45 +12,108 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   username: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString('hex')
-  }
+    default: () => crypto.randomBytes(128).toString("hex"),
+  },
 })
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model("User", userSchema)
 
 const port = process.env.PORT || 8080
 const app = express()
 
-
+// Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(express.json())
-
 const userAuthentication = async (req, res, next) => {
-try {
-  const user = await User.findOne({
-    accessToken: req.header('Authorization')
-  })
+  try {
+    const user = await User.findOne({
+      accessToken: req.header("Authorization"),
+    })
+    if (user) {
+      next() // built in function for express that makes the app move along if there's for example an user
+    } else {
+      res.status(401).json({ response: "Please log in", success: false })
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
 }
-}
+// paths
+app.get("/secret", userAuthentication)
+app.get("/secret", async (req, res) => {
+  res.json({ response: main, success: true, message: "hush hush, secret :)" })
+})
 
+app.post("/signup", async (req, res) => {
+  const { username, password, email } = req.body
+
+  try {
+    const salt = bcrypt.genSaltSync()
+
+    if (password.length < 5) {
+      throw "Password must be at least 5 characters"
+    }
+
+    const newUser = await new User({
+      username,
+      email,
+      password: bcrypt.hashSync(password, salt), 
+    }).save()
+
+    res.status(201).json({
+      response: {
+        userId: newUser._id,
+        username: newUser.username,
+        accessToken: newUser.accessToken,
+        email: newUser.email,
+      },
+      success: true,
+    })
+  } catch (error) {
+    if (username === "") {
+      res.status(400).json({
+        message: "wrong username",
+        response: error,
+        success: false,
+      })
+    } else if (error.code === 11000 && error.keyPattern.username) {
+      res.status(400).json({
+        message: "username taken",
+        response: error,
+        success: false,
+      })
+    } else if (password === "") {
+      res.status(400).json({
+        message: "password missing/incorrect",
+        response: error,
+        success: false,
+      })
+    } else {
+      res.status(400).json({
+        message: "username and password missing",
+        response: error,
+        success: false,
+      })
+    }
+  }
+})
 
 app.get("/", (req, res) => {
   res.send("Hello Technigo!")
 })
-
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
