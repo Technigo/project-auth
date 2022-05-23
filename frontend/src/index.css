@@ -8,13 +8,36 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  background: #D6E5E8;
 }
 
 h1 {
 font-size: 36px;
 }
 
+.login-section {
+  padding: 1rem;
+}
 
+.radio-container {
+  padding: 1.5rem;
+}
+
+.input-field {
+  padding: 0.5rem;
+}
+
+input {
+  border-radius: 10px;
+  padding: 6px;
+  border: 0.4px solid gray;
+}
+
+button {
+  border-radius: 10px;
+  padding: 6px;
+  border: 0.4px solid gray;
+}
 
 code {
   font-family: 'Playfair Display', source-code-pro, Menlo, Monaco, Consolas, "Courier New",
