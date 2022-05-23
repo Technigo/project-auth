@@ -25,7 +25,7 @@ const Login = () => {
   }, [accessToken, navigate])
 
   useEffect(() => {
-    // if the service is unavailable navigate to NotFound
+    // if the service is unavailable, navigate to NotFound
     if (isUnavailable) {
       navigate('*')
       setIsUnavailable(false)

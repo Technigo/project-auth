@@ -1,5 +1,4 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import cors from 'cors'
 
 // Libraries
@@ -13,14 +12,6 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 
 mongoose.Promise = Promise
-
-// Defines port the app will run on
-const port = process.env.PORT || 8080
-const app = express()
-
-// Add middlewares to enable cors and json body parsing
-app.use(cors())
-app.use(bodyParser.json())
 
 // User model with validation rules: username, password and default accessToken with crypto library
 const UserSchema = new mongoose.Schema({
@@ -40,6 +31,24 @@ const UserSchema = new mongoose.Schema({
 })
 
 const User = mongoose.model('User', UserSchema)
+
+// Defines port the app will run on
+const port = process.env.PORT || 8080
+const app = express()
+
+// Add middlewares to enable cors and json body parsing
+app.use(cors())
+app.use(express.json())
+
+
+// If we can't reach the database, status 503
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState === 1) {
+    next()
+  } else {
+    res.status(503).json({ error: 'Service unavailable' })
+  }
+}) 
 
 // Middleware function which looks up the user based on the accessToken stored in the header, which we can test. Then calling next() which allows protected endpoint to continue execution
 const authenticateUser = async (req, res, next) => {
@@ -69,6 +78,21 @@ const authenticateUser = async (req, res, next) => {
 app.get("/", (req, res) => {
   res.json(listEndpoints(app))
 });
+
+//---------------------------PROFILE PROTECTED ENDPOINT---------------------------//
+app.get('/quote', authenticateUser)
+app.get('/quote', (req, res) => {
+    res.status(200).json({
+      response: {
+          title: 'Continue',
+          author: 'Carrie Fisher',
+          quote: `Stay afraid, but do it anyway. What's important is the action. You don't have to wait to be confident. Just do it and eventually the confidence will follow.`,
+          source: 'https://www.snhu.edu/about-us/newsroom/education/personal-growth-quotes',
+      },
+      success: true
+  })
+})
+
 
 //---------------------------SIGN UP ENDPOINT---------------------------//
 app.post('/signup', async (req, res) => {
@@ -170,24 +194,6 @@ app.post('/login', async (req, res) => {
       response: error,
       success: false,
     })
-  }
-})
-
-//---------------------------PROFILE PROTECTED ENDPOINT---------------------------//
-app.get('/quote', authenticateUser)
-app.get('/quote', (req, res) => {
-  try {
-    res.status(200).json({
-      response: {
-          title: 'Continue',
-          author: 'Carrie Fisher',
-          quote: `Stay afraid, but do it anyway. What's important is the action. You don't have to wait to be confident. Just do it and eventually the confidence will follow.`,
-          source: 'https://www.snhu.edu/about-us/newsroom/education/personal-growth-quotes'
-      },
-      success: true
-    })
-  } catch (error) {
-    res.status(401).json({ errors: error })
   }
 })
 
