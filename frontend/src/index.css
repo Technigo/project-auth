@@ -39,7 +39,14 @@ button {
   border: 0.4px solid gray;
 }
 
-code {
-  font-family: 'Playfair Display', source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.footer-section {
+  color: rgb(70, 63, 63);
+  margin-top: 6rem;
+  font-size: 16px;
+}
+
+.footer-section a {
+  color: #049386;
+  text-decoration: none;
+
 }
