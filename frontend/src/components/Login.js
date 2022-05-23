@@ -95,7 +95,7 @@ const Login = () => {
         <form onSubmit={onFormSubmit}>
           <div className='input-field'>
             <label htmlFor='username'>
-              Username <span className='required'>&#42;</span>
+              Username <span className='required'>&#42; </span>
             </label>
             <input
               id='username'
@@ -106,7 +106,7 @@ const Login = () => {
           </div>
           <div className='input-field'>
             <label htmlFor='password'>
-              Password <span className='required'>&#42;</span>
+              Password <span className='required'>&#42; </span>
             </label>
             <input
               id='password'

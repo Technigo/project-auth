@@ -48,5 +48,8 @@ button {
 .footer-section a {
   color: #049386;
   text-decoration: none;
+}
 
+.required {
+  color: #b93951;
 }
