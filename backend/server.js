@@ -29,12 +29,22 @@ const userSchema = new mongoose.Schema({
   }
 })
 
+const User = mongoose.model('User', userSchema)
+
 const port = process.env.PORT || 8080
 const app = express()
 
 
 app.use(cors())
 app.use(express.json())
+
+const userAuthentication = async (req, res, next) => {
+try {
+  const user = await User.findOne({
+    accessToken: req.header('Authorization')
+  })
+}
+}
 
 
 app.get("/", (req, res) => {
