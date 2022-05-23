@@ -1,40 +1,45 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-import crypto from "crypto";
-import bcrypt from "bcrypt-nodejs";
-import getEndpoints from "express-list-endpoints";
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import crypto from 'crypto';
+import bcrypt from 'bcrypt-nodejs';
+import getEndpoints from 'express-list-endpoints';
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authy";
+const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/authy';
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-const User = mongoose.model("User", {
-  name: {
+const UserSchema = new mongoose.Schema({
+  username: {
     type: String,
-    unique: true
+    unique: true,
+    required: true,
   },
   email: {
-    type: String, 
-    unique: true
+    type: String,
+    unique: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString("hex")
-  }
-})
+    default: () => crypto.randomBytes(128).toString('hex'),
+  },
+});
+
+const User = mongoose.model('User', UserSchema);
 
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({accessToken: req.header("Authorization")});
-  if(user){
+  const user = await User.findOne({ accessToken: req.header('Authorization') });
+  if (user) {
     req.user = user;
     next();
-  }else {
-    res.status(401).json({message: "You are not authenticated.", loggedOut: true});
+  } else {
+    res
+      .status(401)
+      .json({ message: 'You are not authenticated.', loggedOut: true });
   }
 };
 
@@ -49,47 +54,52 @@ app.use(cors());
 app.use(express.json());
 
 // Start defining your routes here
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.send(getEndpoints(app));
 });
 
-
 //--------------------USER REGISTRATION ENDPOINT--------------------//
-app.post("/registration", async (req, res) => {
+app.post('/registration', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
     // DO NOT STORE PLAINTEXT PASSWORDS
-    const user = new User({name, email, password: bcrypt.hashSync(password)});
+    const user = new User({
+      username,
+      email,
+      password: bcrypt.hashSync(password),
+    });
     user.save();
-    res.status(201).json({id: user._id, accessToken: user.accessToken});
+    res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (err) {
-    res.status(400).json({message: "Could not create user.", errors: err.errors});
+    res
+      .status(400)
+      .json({ message: 'Could not create user.', errors: err.errors });
   }
 });
 
 //--------------------PROFILE PROTECTED / AUTENTICATED ENDPOINT--------------------///
-app.get("/profile", authenticateUser, async (req, res) => {
+app.get('/profile', authenticateUser, async (req, res) => {
   try {
     res.status(200).json({
       response: {
         id: req.user._id,
-        name: req.user.name,
-        email: req.user.email
+        username: req.user.username,
+        email: req.user.email,
       },
-      success: true
+      success: true,
     });
   } catch (error) {
-    res.status(401).json({errors: error});
+    res.status(401).json({ errors: error });
   }
 });
 
 //--------------------USER LOGIN ENDPOINT--------------------//
-app.post("/login", async (req, res) => {
-  const user = await User.findOne({email: req.body.email});
-  if(user && bcrypt.compareSync(req.body.password, user.password)){
-    res.json({userId: user._id, accessToken: user.accessToken});
-  }else{
-    res.json({notFound: true})
+app.post('/login', async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    res.json({ userId: user._id, accessToken: user.accessToken });
+  } else {
+    res.json({ notFound: true });
   }
 });
 
