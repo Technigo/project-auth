@@ -1,19 +1,18 @@
 import React from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Provider } from "react-redux"
+import { configureStore, combineReducers } from "@reduxjs/toolkit"
 
-import user from './reducers/user';
-import Start from "/components/Start"
-import SignUp from "/components/SignUp"
+import user from "./reducers/user"
 
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-const store = configureStore({ reducer });
+import SignUp from "./components/SignUp"
+import Start from "./components/Start"
+
 const reducer = combineReducers({
-  user: user.reducer
-});
-
-
+  user: user.reducer,
+})
+const store = configureStore({ reducer })
 export const App = () => {
   return (
     <BrowserRouter>
