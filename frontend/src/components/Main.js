@@ -42,10 +42,9 @@ const Main = () => {
 return (
 
   <>
-  <div className='main-headline-text'>
     <h1>Welcome to our page</h1>
     <p>Here's a little poem treat from us</p>
-  </div>
+    
   <fieldset>
     {quote ? (
       <div className='quote-container'>
