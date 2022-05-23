@@ -115,10 +115,11 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          {/* if we have error -> display it */}
+          {/* If user gets error, then display it */}
           {validationError !== null && (
             <p className='error-message'>{validationError}</p>
           )}
+          
           <button type='submit'>Submit</button>
         </form>
       </>
