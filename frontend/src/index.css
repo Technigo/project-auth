@@ -39,6 +39,13 @@ button {
   border: 0.4px solid gray;
 }
 
+.logout-btn {
+  background:#b93951;
+  border-radius: 10px;
+  padding: 6px;
+  border: 0.4px solid gray;
+}
+
 .footer-section {
   color: rgb(70, 63, 63);
   margin-top: 6rem;
@@ -52,4 +59,9 @@ button {
 
 .required {
   color: #b93951;
+}
+
+.quote-container {
+  border: 0.4px solid gray;
+  padding: 0.5rem;
 }
