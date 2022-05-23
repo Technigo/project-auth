@@ -104,27 +104,6 @@ app.get("/thoughts", authenticateUser);
 app.get("/thoughts", (req, res,) => {res.send("here are your thoughts")})
 
 
-//cors version 2
-app.use(cors({
-  origin: "https://my-origin.com"
-}));
-
-//cors version 3
-const allowedDomains = [
-  "https://lalala.io",
-  "https://something.com",
-  "http://lorem.com"
-];
-app.use(cors({
-  origin: (origin, callback) => {
-    if(allowedDomains.includes(origin)) {
-      return callback(null, true)
-    } else {
-      return callback(new Error("domain not allowed"), false);
-    }
-  }
-}));
-
 //login
 
 app.post("/login", async (req, res) => {
@@ -163,3 +142,27 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+
+
+
+//cors version 2
+// app.use(cors({
+//   origin: "https://my-origin.com"
+// }));
+
+//cors version 3
+// const allowedDomains = [
+//   "https://lalala.io",
+//   "https://something.com",
+//   "http://lorem.com"
+// ];
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if(allowedDomains.includes(origin)) {
+//       return callback(null, true)
+//     } else {
+//       return callback(new Error("domain not allowed"), false);
+//     }
+//   }
+// }));
