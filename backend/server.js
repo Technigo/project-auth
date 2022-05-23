@@ -11,8 +11,7 @@ import listEndpoints from 'express-list-endpoints'
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth"
 mongoose.connect(mongoUrl, {
    useNewUrlParser: true, 
-   useUnifiedTopology: true,   
-   useCreateIndex: true })
+   useUnifiedTopology: true })
 
 mongoose.Promise = Promise
 
