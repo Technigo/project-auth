@@ -2,8 +2,17 @@ import React from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Provider } from "react-redux"
 
-import Start from "./components/Start"
-import SignIn from "./components/SignIn"
+import user from './reducers/user';
+import Start from "/components/Start"
+import SignUp from "/components/SignUp"
+
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+
+const store = configureStore({ reducer });
+const reducer = combineReducers({
+  user: user.reducer
+});
+
 
 export const App = () => {
   return (
