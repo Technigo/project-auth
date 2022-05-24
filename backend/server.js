@@ -11,7 +11,8 @@ import listEndpoints from 'express-list-endpoints'
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth"
 mongoose.connect(mongoUrl, {
    useNewUrlParser: true, 
-   useUnifiedTopology: true })
+   useUnifiedTopology: true,
+   useCreateIndex: true })
 
 mongoose.Promise = Promise
 
@@ -50,7 +51,7 @@ app.use((req, res, next) => {
   } else {
     res.status(503).json({ error: 'Service unavailable' })
   }
-}) 
+})
 
 // Middleware function which looks up the user based on the accessToken stored in the header, which we can test. Then calling next() which allows protected endpoint to continue execution
 const authenticateUser = async (req, res, next) => {
@@ -84,14 +85,14 @@ app.get("/", (req, res) => {
 //---------------------------PROFILE PROTECTED ENDPOINT---------------------------//
 app.get('/quote', authenticateUser)
 app.get('/quote', (req, res) => {
-    res.status(200).json({
-      response: {
-          title: 'Continue',
-          author: 'Carrie Fisher',
-          quote: `Stay afraid, but do it anyway. What's important is the action. You don't have to wait to be confident. Just do it and eventually the confidence will follow.`,
-          source: 'https://www.snhu.edu/about-us/newsroom/education/personal-growth-quotes',
-      },
-      success: true
+  res.status(200).json({
+    response: {
+      title: 'Continue',
+      author: 'Carrie Fisher',
+      poem: `Stay afraid, but do it anyway. What's important is the action. You don't have to wait to be confident. Just do it and eventually the confidence will follow`,
+      source: 'https://www.snhu.edu/about-us/newsroom/education/personal-growth-quotes',
+    },
+    success: true,
   })
 })
 
@@ -125,7 +126,7 @@ app.post('/signup', async (req, res) => {
   } catch (error) {
     if (username === '') {
       res.status(400).json({
-        message: 'Validation failed: provide username',
+        message: 'Validation failed: provide your username',
         response: error,
         success: false,
       })
@@ -143,7 +144,7 @@ app.post('/signup', async (req, res) => {
       })
     } else {
       res.status(400).json({
-        message: 'Validation failed: provide your username and password',
+        message: 'Validation failed: please provide username and password',
         response: error,
         success: false,
       })

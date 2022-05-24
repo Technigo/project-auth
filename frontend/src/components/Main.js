@@ -29,7 +29,7 @@ const Main = () => {
       },
     }
 
-    fetch(API_URL('quote'), options)
+    fetch(API_URL('quotes'), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -42,17 +42,17 @@ const Main = () => {
 return (
 
   <>
-    <h1>Welcome to our page</h1>
-    <p>Here's a little poem treat from us</p>
+    <h1>Welcome!</h1>
+    <p>Here you go, a quote</p>
     
   <fieldset>
     {quote ? (
       <div className='quote-container'>
         <>
-          <h2>{poem.title}</h2>
-          <p className='author-name'>Author: {poem.author}</p>
-          <p className='quote-text'>{poem.poem}</p>
-          <p className='source-link'>Source: {poem.source}</p>
+          <h2>{quote.title}</h2>
+          <p className='author-name'>Author: {quote.author}</p>
+          <p className='quote-text'>{quote.quote}</p>
+          <p className='source-link'>Source: {quote.source}</p>
         </>
       </div>
     ) : (
