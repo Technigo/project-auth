@@ -1,10 +1,6 @@
-import React from "react";
+import React from 'react'
 
 const Footer = () => {
-    return (
-        <div> 
-            <h2>Made by Justine & Simon @ Technigo</h2>
-        </div>
-    )
+  return <h2>Made by Justine & Simon @ Technigo 🐉 </h2>
 }
 export default Footer

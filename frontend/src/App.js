@@ -9,13 +9,13 @@ import Footer from './components/Footer'
 export const App = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
-        <Header />
         <Route path="/signin" element={<Main />} />
         <Route path="/welcome" element={<Welcome />} />
-        <Route path="notfound" element={<NotFound />} />
-        <Footer />
+        <Route path="/notfound" element={<NotFound />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }
