@@ -19,8 +19,8 @@ const Signin = () => {
 
   const userLogin = async (options) => {
     try { const fetch = await fetch("https://project-auth-asm.herokuapp.com/login", options);
-    const response = await fetch;
-    console.log(response)
+      const response = await fetch;
+      console.log(response)
     if (data.success) {
       navigate('/home')
     } else if (!data.success) {
