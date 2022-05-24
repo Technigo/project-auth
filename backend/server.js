@@ -1,10 +1,23 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import crypto from "crypto";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
+
+// Codealong with Van
+const User = mongoose.model("User", {
+  name: { type: String, unique: true },
+  email: { type: String, unique: true },
+  password: { type: String, required: true },
+  accessToken: {
+    type: String,
+    default: () => crypto.randomBytes(128).toString("hex"),
+  },
+});
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -15,10 +28,18 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
+});
+
+////// Codealong with Van
+
+// Secret
+app.get("/secrets", (req, res) => {
+  res.json({ secret: "This is a secret message" });
 });
 
 // Start the server
