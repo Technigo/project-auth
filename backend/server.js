@@ -83,6 +83,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// Authentication
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
