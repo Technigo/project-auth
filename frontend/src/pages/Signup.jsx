@@ -23,12 +23,13 @@ const Signup = () => {
 
   
 
-  if (password.match(passwordPattern)) {
+  if (password.match(passwordPattern) && username.length > 4) {
+
+    
     console.log("Password is good to go")
   } else {
     console.log("Password needs to be modified")
   }
-    
 
   }
   return (
