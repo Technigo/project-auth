@@ -3,30 +3,28 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-import { callbackify } from "util";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
 const port = process.env.PORT || 8090;
 const app = express();
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
 
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
+    // do we want to add any other here like minlength: 2,? or trim or similair?
     required: true,
     unique: true
   },
   password: {
     type: String,
+    // minlength:5,
+    // maxlength: 15, same here if we want to add properties, or do we do this in the if statement below?
     required: true
   },
   accessToken: {
@@ -85,7 +83,7 @@ app.post("/login", async (req, res) => {
       })
     } else {
       res.status(400).json({
-        response: "username and password don't match",
+        response: "username or password was incorrect, please check that you have the right login credentials!",
         success: false
       })
     }
@@ -118,14 +116,16 @@ try {
 }
 }
 
+// here we are supposed to display some content, hard-coded data or something from the database 
 //if user logged in, this is the next()
-app.get("/thoughts", authenticateUser)
-app.get("/thoughts", (req, res,) => {res.send("here are your thoughts")})
+app.get("/yourGarden", authenticateUser)
+app.get("/yourGarden", (req, res,) => {res.send("here are your plants and flowers 🌺🌹🌻👒")})
 
 //CORS V1 - allow everything
 app.use(cors())
 
 ///CORS v2 - allow one origin
+// Are we supposed to use this one and add our own frontend page?
 app.use(cors({
   origin: "https://my-origin.com"
 }))
