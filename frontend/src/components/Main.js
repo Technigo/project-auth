@@ -29,7 +29,7 @@ const Main = () => {
       },
     }
 
-    fetch(API_URL('quote'), options)
+    fetch(API_URL('quotes'), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
