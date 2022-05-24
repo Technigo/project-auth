@@ -13,9 +13,6 @@ code {
     monospace;
 }
 .welcome-container{ 
-   background-image: url(./img/Dive\ Pictures\ 035.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
   padding:20px;
   min-height:100vh;
 }
