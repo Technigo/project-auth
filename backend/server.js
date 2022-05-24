@@ -22,6 +22,12 @@ const User = mongoose.model("User", {
 
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({ accessToken: req.header("Authorization") });
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    res.status(401).json({ loggedOut: true });
+  }
 };
 
 const port = process.env.PORT || 8080;
@@ -52,6 +58,7 @@ app.post("/users", async (req, res) => {
   }
 });
 
+app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
   res.json({ secret: "This is a secret message" });
 });
