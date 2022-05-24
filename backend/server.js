@@ -89,7 +89,7 @@ app.get('/quote', (req, res) => {
     response: {
       title: 'Continue',
       author: 'Carrie Fisher',
-      poem: `Stay afraid, but do it anyway. What's important is the action. You don't have to wait to be confident. Just do it and eventually the confidence will follow`,
+      quote: `Stay afraid, but do it anyway. What's important is the action. You don't have to wait to be confident. Just do it and eventually the confidence will follow`,
       source: 'https://www.snhu.edu/about-us/newsroom/education/personal-growth-quotes',
     },
     success: true,
