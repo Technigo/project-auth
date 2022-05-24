@@ -3,7 +3,7 @@ import React from "react";
 export const Content = () => {
   return (
     <>
-      <h1>Content that requires authentication</h1>;
+      <h1>Content that requires authentication</h1>
     </>
   );
 };
