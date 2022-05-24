@@ -5,8 +5,6 @@ import LandingPage from "./pages/LandingPage";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
-const emailPattern =
-  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export const App = () => {
   return (

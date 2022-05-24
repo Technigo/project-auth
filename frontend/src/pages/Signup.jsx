@@ -13,6 +13,24 @@ import {
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSignUp = () => {
+    
+  const passwordPattern =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
+
+  
+
+  if (password.match(passwordPattern)) {
+    console.log("Password is good to go")
+  } else {
+    console.log("Password needs to be modified")
+  }
+    
+
+  }
   return (
     <>
       <Container maxWidth="xs">
@@ -49,7 +67,8 @@ const Signup = () => {
             required={true}
             autoComplete="true"
             fullWidth
-            //   onChange={typeEmail}
+            onChange={(event)=> setUsername(event.target.value)}
+            value={username}
           />
           <TextField
             label="Password"
@@ -57,7 +76,8 @@ const Signup = () => {
             type="password"
             required={true}
             fullWidth
-            //   onChange={typePassword}
+            onChange={(event)=> setPassword(event.target.value)}
+            //value={}
           />
           {/* Add text next to checkbox? */}
           {/* <FormControlLabel
@@ -70,7 +90,7 @@ const Signup = () => {
             {error}
           </Alert>
         )} */}
-          <Button variant="contained" fullWidth size="large">
+          <Button onClick={onSignUp} variant="contained" fullWidth size="large">
             SIGN UP
           </Button>
           <Divider />
