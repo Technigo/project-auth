@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
+
+import Container from 'components/Container';
 
 export const App = () => {
   return (
     <div>
-      This is the frontend
+      <Container />
     </div>
   )
 }

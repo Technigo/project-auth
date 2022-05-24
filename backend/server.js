@@ -146,6 +146,18 @@ app.listen(port, () => {
 
 
 
+
+
+
+
+
+
+
+
+
+//other ways to do cors
+
+
 //cors version 2
 // app.use(cors({
 //   origin: "https://my-origin.com"
