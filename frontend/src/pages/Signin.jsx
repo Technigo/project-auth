@@ -15,6 +15,23 @@ const Signin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState("")
+
+  const userLogin = async (options) => {
+    try { const fetch = await fetch("https://project-auth-asm.herokuapp.com/login", options);
+    const response = await fetch;
+    console.log(response)
+    if (data.success) {
+      navigate('/home')
+    } else if (!data.success) {
+      console.log(error)
+      setError(data.response)
+    }
+    } catch (error) {
+        console.log(error)
+        // setError(error.response)
+    }
+}
 
   return (
     <>
@@ -50,7 +67,6 @@ const Signin = () => {
               {error}
             </Alert>
           )} */}
-          {/* {alert.length > 0 && <Alert severity="success">{alert}</Alert>} */}
           <Button variant="contained" fullWidth size="large">
             SIGN IN
           </Button>

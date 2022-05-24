@@ -10,28 +10,52 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
+// import { useSelector, useDispatch } from "react-redux";
+// import { registerUser } from "services/helpers";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("")
+
+  // console.log(useSelector((store) => store.auth))
+
+  const registerUser = async (options) => {
+    try {
+      const response = await fetch("https://project-auth-asm.herokuapp.com/register", options);
+      const data = await response.json();
+      console.log(data);
+      if (data.success) {
+        navigate('/home')
+      } else if (!data.success) {
+        console.log(error)
+        setError(data.response)
+      }
+
+  } catch (error) {
+      console.log(error)
+      // setError(error.response)
+  }
+}
 
   const onSignUp = () => {
-    
   const passwordPattern =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
 
-  
-
   if (password.match(passwordPattern) && username.length > 4) {
-
-    
     console.log("Password is good to go")
-  } else {
-    console.log("Password needs to be modified")
+    registerUser({
+        method: 'POST', 
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+    })
+    } else {
+    setError("Password needs to be between 8 and 30 characters and contain at least one uppercase letter, one lowercase letter, one special symbol, and one number.")
+    }
   }
 
-  }
+
   return (
     <>
       <Container maxWidth="xs">
@@ -44,24 +68,6 @@ const Signup = () => {
           >
             Sign up
           </Typography>
-          <Stack spacing={2} direction="row">
-            <TextField
-              label="First Name"
-              variant="outlined"
-              required={true}
-              autoComplete="true"
-              fullWidth
-              // onChange={typeFirstname}
-            />
-            <TextField
-              label="Last Name"
-              variant="outlined"
-              required={true}
-              autoComplete="true"
-              fullWidth
-              // onChange={typeLastname}
-            />
-          </Stack>
           <TextField
             label="Username"
             variant="outlined"
@@ -69,7 +75,7 @@ const Signup = () => {
             autoComplete="true"
             fullWidth
             onChange={(event)=> setUsername(event.target.value)}
-            value={username}
+            // value={username}
           />
           <TextField
             label="Password"
@@ -80,17 +86,12 @@ const Signup = () => {
             onChange={(event)=> setPassword(event.target.value)}
             //value={}
           />
-          {/* Add text next to checkbox? */}
-          {/* <FormControlLabel
-          control={<Checkbox defaultChecked />}
-          label="Join this site's community. Read more"
-        /> */}
-          {/* {error.length > 0 && (
+          {error.length > 0 && (
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
             {error}
           </Alert>
-        )} */}
+        )}
           <Button onClick={onSignUp} variant="contained" fullWidth size="large">
             SIGN UP
           </Button>
