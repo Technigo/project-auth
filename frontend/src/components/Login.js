@@ -52,7 +52,7 @@ const Login = () => {
             dispatch(user.actions.setUserId(data.response.userId))
             dispatch(user.actions.setUsername(data.response.username))
             dispatch(user.actions.setAccessToken(data.response.accessToken))
-            // wipe out the prev. errors
+            // Remove prev. errors
             dispatch(user.actions.setError(null))
             // useState to remove error message
             setValidationError(null)
@@ -92,6 +92,7 @@ const Login = () => {
             onChange={() => setMode('login')}
           />
         </div>
+        
         <form onSubmit={onFormSubmit}>
           <div className='input-field'>
             <label htmlFor='username'>

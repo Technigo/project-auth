@@ -101,12 +101,12 @@ app.post('/signup', async (req, res) => {
   const { username, password } = req.body
 
   try {
-    // salt = randomizer
+    // salt -> randomizer
     const salt = bcrypt.genSaltSync()
 
     // // stop the executing of try block with throw
     if (password === '') {
-      throw 'Provide your password please'
+      throw 'Please provide password'
     }
 
     const newUser = await new User({
@@ -122,7 +122,6 @@ app.post('/signup', async (req, res) => {
       },
       success: true,
     })
-
   } catch (error) {
     if (username === '') {
       res.status(400).json({
@@ -144,7 +143,7 @@ app.post('/signup', async (req, res) => {
       })
     } else {
       res.status(400).json({
-        message: 'Validation failed: please provide username and password',
+        message: 'Validation failed: provide your username and password',
         response: error,
         success: false,
       })
@@ -198,6 +197,7 @@ app.post('/login', async (req, res) => {
     })
   }
 })
+
 
 
 // Start server

@@ -69,3 +69,10 @@ button {
 .notfound-section {
 margin-top: 3rem;
 }
+
+.error-message {
+  color: #b93951;
+  font-style: italic;
+  margin-top: 2rem;
+  font-size: 15px;
+}
