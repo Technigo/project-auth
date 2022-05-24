@@ -46,8 +46,7 @@ app.post("/register", async (req, res) => {
         response: "password must be at least 8 characters long",
         success: false
     })
-  }
-
+  } else {
     const newUser = await new User({
       username: username,
       password: bcrypt.hashSync(password, salt)
@@ -60,6 +59,8 @@ app.post("/register", async (req, res) => {
       },
       success: true
     })
+  }
+
   } catch (error) {
       res.status(400).json({
       response: error,
@@ -94,6 +95,31 @@ app.post("/login", async (req, res) => {
   })
 }
 })
+
+//always sent in header
+const authenticateUser = async (req, res, next) => {
+const accessToken = req.header("Authorization")
+try {
+  const user= await User.findOne({accessToken: accessToken})
+  if(user) {
+    next()
+  } else {
+    res.status(401).json({
+      response: 'please log in',
+      success: false
+    })
+  }
+} catch (error) {
+  res.status(400).json({
+  response: error,
+  success: false
+})
+}
+}
+
+//if user logged in, this is the next()
+app.get("/thoughts", authenticateUser)
+app.get("/thoughts", (req, res,) => {res.send("here are your thoughts")})
 
 // Start defining your routes here
 app.get("/", (req, res) => {
