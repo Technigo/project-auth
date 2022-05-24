@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import { callbackify } from "util";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -120,6 +121,32 @@ try {
 //if user logged in, this is the next()
 app.get("/thoughts", authenticateUser)
 app.get("/thoughts", (req, res,) => {res.send("here are your thoughts")})
+
+//CORS V1 - allow everything
+app.use(cors())
+
+///CORS v2 - allow one origin
+app.use(cors({
+  origin: "https://my-origin.com"
+}))
+
+//CORS V3 - allow multiple origins
+const allowedDomains = [
+  "https://lalala.io",
+  "https://something.com",
+  "https://lorem.com"
+]
+app.use(cors({
+  origin: (origin, callback) => {
+    if (allowedDomains.includes(origin)) {
+      return callback(null, true)
+      //null means returning a list a null for the list of errors, true that success is true
+      //in case of errors or not including origin
+    } else {
+      return callback(new Error("domain not allowed"), false)
+    }
+  }
+}))
 
 // Start defining your routes here
 app.get("/", (req, res) => {
