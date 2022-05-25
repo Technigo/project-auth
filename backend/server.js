@@ -46,21 +46,6 @@ const User = mongoose.model('User', {
   }
 })
 
-const Thought = mongoose.model('Thought', {
-  username: {
-    type: String,
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  message: {
-    type: String,
-    required: true
-  }
-})
-
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({accessToken: req.header('Authorization')})
   if (user) {
@@ -96,35 +81,6 @@ app.get('/sessions/:id', async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ message: 'Invalid request', error })
-  }
-  
-})
-
-app.get('/thoughts', authenticateUser)
-app.get('/thoughts', async (req, res) => {
-  const thoughts = await Thought.find()
-  res.json({success: true, thoughts})
-})
-
-app.post('/thoughts', authenticateUser)
-app.post('/thoughts', (req, res) => {
-  const { username, message } = req.body
-  
-  try {
-    const newThought = new Thought({
-      username, 
-      message
-    })
-    newThought.save()
-    res.status(201).json({
-      success: true, 
-      id: newThought._id, 
-      username: newThought.username, 
-      createdAt: newThought.createdAt, 
-      message: newThought.message 
-    })
-  } catch (error) {
-    res.status(400).json({ success: false, message: 'Could not post thought', error })
   }
   
 })
