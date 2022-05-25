@@ -4,7 +4,7 @@ import mongoose from "mongoose"
 import crypto from "crypto"
 import bcrypt from "bcrypt-nodejs"
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPInew"
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
@@ -14,10 +14,10 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  email: {
-    type: String,
-    required: true
-  },
+  // email: {
+  //   type: String,
+  //   required: true
+  // },
   password: {
     type: String,
     required: true,
