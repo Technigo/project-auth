@@ -16,7 +16,8 @@ const app = express();
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
-app.use(express.json());
+app.use(express.json())
+
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -67,9 +68,9 @@ app.post("/register", async (req, res) => {
         success: true
       })
     }
-  } catch(err) {
+  } catch(error) {
     res.status(400).json({
-      response: "error",
+      response: error,
       success: false
     })
   }
@@ -95,9 +96,9 @@ app.post("/login", async (req, res) => {
         success: false
       })
     }
-  } catch(err) {
+  } catch(error) {
     res.status(400).json({
-      response: "error",
+      response: error,
       success: false
     })
   }
@@ -116,30 +117,63 @@ const authenticateUser = async (req, res, next) => {
         success: false
       })
     }
-  } catch(err) {
+  } catch(error) {
     res.status(400).json({
-      response: "error",
+      response: error,
       success: false
     })
   }
 }
 
-app.get("/thoughts", authenticateUser)
-app.get("/thoughts", (req, res) => {
-  try {
-    res.send("Here are your thoughts")
-} catch(err) {
-  res.status(400).json({
-    response: "Couldn't fetch thoughts",
-    success: false
-  })
-}
+const ThoughtSchema = new mongoose.Schema({
+  message: String,
+  hearts: {
+    type: Number,
+    default: 0
+  },
+  createdAt:{
+    type: Date,
+    default: ()=> new Date()
+  } 
 })
 
+const Thought = mongoose.model("Thought", ThoughtSchema)
+
+app.get("/thoughts", authenticateUser)
+app.get("/thoughts", async (req, res) => {
+  try {
+    const thoughts = await Thought.find({})
+    res.status(200).json({
+      response: thoughts,
+      success: true
+    })
+  } catch(error) {
+    res.status(400).json({
+    response: "Couldn't fetch thoughts",
+    success: false
+    })
+  }
+})
+
+app.post("/thoughts", async (req, res) => {
+  const {message} = req.body;
+  try {
+    const newThought = await new Thought({message}).save();
+    res.status(201).json({
+      response: newThought,
+      success: true
+    })
+  } catch(error) {
+    res.status(400).json({
+      response: error, 
+      success: false
+    })
+  }
+})
 
 
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
-});
+})
