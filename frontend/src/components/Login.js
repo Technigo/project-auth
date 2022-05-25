@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector, batch } from 'react-redux'
+import { useNavigate, Link } from 'react-router-dom'
 import { API_URL } from 'utils/API'
 import user from 'reducers/user'
 
@@ -10,6 +11,14 @@ export const Login = () => {
   const [mode, setMode] = useState('register')
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const accessToken = useSelector((store) => store.user.accessToken)
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate('/')
+    }
+  }, [accessToken])
 
   const onFormSubmit = (event) => {
     event.preventDefault()
@@ -44,6 +53,7 @@ export const Login = () => {
   }
   return (
     <>
+      <Link to="/">Link to /</Link>
       <label htmlFor="register">Register</label>
       <input
         type="radio"
