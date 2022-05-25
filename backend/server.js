@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
-import bcrypt from "bcrypt-nodejs";
+import bcrypt from "bcrypt";
 
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth-laura-joanna";
@@ -45,7 +45,7 @@ app.post('/register', async (req, res) => {
     const salt = bcrypt.genSaltSync();
     if (password.length < 8) {
       res.status(400).json({
-        response: "Password is too short",
+        response: "Password is too short, must be at least 8 characters",
         success: false
       });
     } 
