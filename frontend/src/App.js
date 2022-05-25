@@ -1,17 +1,32 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
 import { Login } from './components/Login'
+import { Main } from './components/Main'
+import { NotFound } from './components/NotFound'
+
+import user from './reducers/user'
+
+const reducer = combineReducers({
+  user: user.reducer,
+})
+
+const store = configureStore({ reducer })
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Login />} />
-      </Routes>
-    </BrowserRouter>
-  );
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+  )
 }
 
-export default App;
+export default App
