@@ -1,8 +1,10 @@
 import React from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
-import Header from 'components/Header'
+
 import LoginForm from 'components/LoginForm'
-import Footer from 'components/Footer'
+import SignupForm from 'components/SignupForm'
+
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -12,11 +14,14 @@ const GlobalStyle = createGlobalStyle`
 
 export const App = () => {
   return (
-    <div>
+    <BrowserRouter>
       <GlobalStyle />
-      <Header />
-      <LoginForm />
-      <Footer />
-    </div>
+      <Routes>
+        <Route path="/" element={<LoginForm />}/>
+        <Route path="/signup" element={<SignupForm />}/>
+        {/* <Route path="/404" element={<NotFound />}/> */}
+        {/* <Route path="*" element={<Navigate to="/404" replace />} /> */}
+      </Routes>
+    </BrowserRouter>
   )
 }
