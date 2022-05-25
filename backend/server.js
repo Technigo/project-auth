@@ -17,14 +17,11 @@ app.use(express.json());
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    // do we want to add any other here like minlength: 2,? or trim or similair?
     required: true,
     unique: true
   },
   password: {
     type: String,
-    // minlength:5,
-    // maxlength: 15, same here if we want to add properties, or do we do this in the if statement below?
     required: true
   },
   accessToken: {
@@ -54,7 +51,7 @@ app.post("/register", async (req, res) => {
       response: {
         username: newUser.username,
         accesToken: newUser.accessToken, 
-        userID: newUser._id
+        userId: newUser._id
       },
       success: true
     })
@@ -99,7 +96,7 @@ app.post("/login", async (req, res) => {
 const authenticateUser = async (req, res, next) => {
 const accessToken = req.header("Authorization")
 try {
-  const user= await User.findOne({accessToken: accessToken})
+  const user = await User.findOne({accessToken: accessToken})
   if(user) {
     next()
   } else {
@@ -112,8 +109,8 @@ try {
   res.status(400).json({
   response: error,
   success: false
-})
-}
+    })
+  }
 }
 
 // here we are supposed to display some content, hard-coded data or something from the database 
@@ -121,32 +118,31 @@ try {
 app.get("/yourGarden", authenticateUser)
 app.get("/yourGarden", (req, res,) => {res.send("here are your plants and flowers 🌺🌹🌻👒")})
 
-//CORS V1 - allow everything
-app.use(cors())
+// //CORS V1 - allow everything
+// app.use(cors())
 
-///CORS v2 - allow one origin
-// Are we supposed to use this one and add our own frontend page?
-app.use(cors({
-  origin: "https://my-origin.com"
-}))
+// ///CORS v2 - allow one origin
+// app.use(cors({
+//   origin: "https://my-origin.com"
+// }))
 
-//CORS V3 - allow multiple origins
-const allowedDomains = [
-  "https://lalala.io",
-  "https://something.com",
-  "https://lorem.com"
-]
-app.use(cors({
-  origin: (origin, callback) => {
-    if (allowedDomains.includes(origin)) {
-      return callback(null, true)
-      //null means returning a list a null for the list of errors, true that success is true
-      //in case of errors or not including origin
-    } else {
-      return callback(new Error("domain not allowed"), false)
-    }
-  }
-}))
+// //CORS V3 - allow multiple origins
+// const allowedDomains = [
+//   "https://lalala.io",
+//   "https://something.com",
+//   "https://lorem.com"
+// ]
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (allowedDomains.includes(origin)) {
+//       return callback(null, true)
+//       //null means returning a list a null for the list of errors, true that success is true
+//       //in case of errors or not including origin
+//     } else {
+//       return callback(new Error("domain not allowed"), false)
+//     }
+//   }
+// }))
 
 // Start defining your routes here
 app.get("/", (req, res) => {
