@@ -1,19 +1,34 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import LandingPage from './LandingPage';
-import SignUpForm from './SignUpForm';
-import SignInForm from './SignInForm';
-import MemberPage from './MemberPage';
+import Main from './Main';
+import SignIn from './SignIn';
+import NotFound from './NotFound';
 
+import { Provider } from 'react-redux';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+
+import user from 'reducers/user';
+import thoughts from 'reducers/thought'
+
+const reducer = combineReducers({
+  user: user.reducer,
+  thoughts: thoughts.reducer
+});
+
+const store = configureStore({reducer})
 
 const Container = () => {
   return (
-    <div>
-        <LandingPage />
-        <SignUpForm />
-        <SignInForm />
-        <MemberPage />
-    </div>
+    <Provider store ={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/main' element={<Main />}></Route>
+          <Route path='/signin' element={<SignIn />}></Route>
+          <Route path='/notfound' element={<NotFound />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   )
 }
 
