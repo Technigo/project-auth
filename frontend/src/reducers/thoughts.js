@@ -1,19 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit'
 
-const thoughts = createSlice({
-  name: "thoughts",
+export const thoughts = createSlice({
+  name: 'thoughts',
   initialState: {
     items: [],
-    error: null,
+    errors: null
   },
   reducers: {
-    setItems: (store, action) => {
+    setThoughts: (store, action) => {
       store.items = action.payload
     },
-    setError: (store, action) => {
-      store.error = action.payload
-    },
-  },
+    setErrors: (store, action) => {
+      store.errors = action.payload
+    }
+  } 
 })
-
-export default thoughts

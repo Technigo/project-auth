@@ -1,32 +1,46 @@
-import React from "react"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { Provider } from "react-redux"
-import { configureStore, combineReducers } from "@reduxjs/toolkit"
+import React from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
-import Main from "./components/Main"
-import Login from './components/LogIn'
-import NotFound from "./components/NotFound"
+import LandingPage from './components/LandingPage'
+import AuthorizedPage from 'AuthorizedPage'
+import Feed from './components/Feed'
+import Profile from './components/Profile'
 
-import user from "./reducers/user"
-import thoughts from "./reducers/thoughts"
+import { thoughts } from './reducers/thoughts'
+import { account } from './reducers/account'
 
 const reducer = combineReducers({
-  user: user.reducer,
   thoughts: thoughts.reducer,
+  account: account.reducer
 })
 
-const store = configureStore({ reducer })
+const store = configureStore({ reducer: reducer})
 
 export const App = () => {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <main className="main">
+          <Switch>
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
+            <Route exact path="/authorized">
+              <AuthorizedPage />
+            </Route>
+            <Route path="/authorized/profile">
+              <AuthorizedPage />
+              <Profile />
+            </Route>
+            <Route path="/authorized/feed">
+              <AuthorizedPage />
+              <Feed />
+            </Route>
+          </Switch>
+        </main>
+      </Provider>
+    </BrowserRouter>
   )
 }

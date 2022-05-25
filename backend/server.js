@@ -1,148 +1,204 @@
-import express from "express"
-import cors from "cors"
-import mongoose from "mongoose"
-import crypto from "crypto"
-import bcrypt from "bcrypt"
+import express from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import mongoose from 'mongoose'
+import crypto from 'crypto'
+import bcrypt from 'bcrypt'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-mongoose.Promise = Promise
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.Promise = Promise;
 
-const UserSchema = new mongoose.Schema({
+const User = mongoose.model('User', {
   username: {
     type: String,
-    unique: true,
     required: true,
+    unique: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  fullName: {
+    type: String,
+    unique: false
+  },
+  age: {
+    type: Number,
+    unique: false
+  },
+  location: {
+    type: String,
+    unique: false
+  },
+  description: {
+    type: String,
+    unique: false
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString("hex"),
-  },
+    default: () => crypto.randomBytes(128).toString('hex')
+  }
 })
 
-const User = mongoose.model("User", UserSchema)
-
-const ThoughtSchema = new mongoose.Schema({
+const Thought = mongoose.model('Thought', {
+  username: {
+    type: String,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
   message: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 })
 
-const Thought = mongoose.model("Thought", ThoughtSchema)
+const authenticateUser = async (req, res, next) => {
+  const user = await User.findOne({accessToken: req.header('Authorization')})
+  if (user) {
+    req.user = user
+    next()
+  } else {
+    res.status(401).json({loggedOut: true})
+  }
+}
 
-// Defines the port the app will run on. Defaults to 8080, but can be
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
 const port = process.env.PORT || 8080
 const app = express()
 
 // Add middlewares to enable cors and json body parsing
-// v1 - Allow all domains
 app.use(cors())
-
 app.use(express.json())
 
-const authenticateUser = async (req, res, next) => {
-  const accessToken = req.header("Authorization")
+// Start defining your routes here
+app.get('/', (req, res) => {
+  res.send('Hello world')
+})
+
+app.get('/sessions/:id', authenticateUser)
+app.get('/sessions/:id', async (req, res) => {
+  const { id } = req.params
 
   try {
-    const user = await User.findOne({ accessToken })
+    const user = await User.findById(id)
     if (user) {
-      next()
+      res.status(201).json({ email: user.email, fullName: user.fullName, age: user.age, location: user.location, description: user.description })
     } else {
-      res.status(401).json({
-        response: {
-          message: "Please, log in",
-        },
-        success: false,
-      })
+      res.status(404).json({ success: false, message: 'Could not find profile information' })
     }
   } catch (error) {
-    res.status(400).json({ response: error, success: false })
+    res.status(400).json({ message: 'Invalid request', error })
   }
-}
-
-// Start defining your routes here
-
-app.get("/thoughts", authenticateUser)
-app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thought.find({})
-  res.status(201).json({ response: thoughts, success: true })
+  
 })
 
-app.post("/thoughts", async (req, res) => {
-  const { message } = req.body
+app.get('/thoughts', authenticateUser)
+app.get('/thoughts', async (req, res) => {
+  const thoughts = await Thought.find()
+  res.json({success: true, thoughts})
+})
 
+app.post('/thoughts', authenticateUser)
+app.post('/thoughts', (req, res) => {
+  const { username, message } = req.body
+  
   try {
-    const newThought = await new Thought({ message }).save()
-    res.status(201).json({ response: newThought, success: true })
+    const newThought = new Thought({
+      username, 
+      message
+    })
+    newThought.save()
+    res.status(201).json({
+      success: true, 
+      id: newThought._id, 
+      username: newThought.username, 
+      createdAt: newThought.createdAt, 
+      message: newThought.message 
+    })
   } catch (error) {
-    res.status(400).json({ response: error, success: false })
+    res.status(400).json({ success: false, message: 'Could not post thought', error })
   }
+  
 })
 
-app.post("/signup", async (req, res) => {
-  const { username, password } = req.body
+app.post('/signup', async (req, res) => {
+  const { username, password, email } = req.body
 
   try {
     const salt = bcrypt.genSaltSync()
 
-    if (password.length < 5) {
-      throw { message: "Password must be at least 5 characters long" }
-    }
-
-    const newUser = await new User({
-      username,
+    const newUser = await new User({ 
+      username, 
       password: bcrypt.hashSync(password, salt),
+      email 
     }).save()
-
-    res.status(201).json({
-      response: {
-        userId: newUser._id,
-        username: newUser.username,
-        accessToken: newUser.accessToken,
-      },
+    
+    res.status(201).json({ 
       success: true,
+      id: newUser._id, 
+      username: newUser.username, 
+      email: newUser.email,
+      accessToken: newUser.accessToken, 
     })
   } catch (error) {
-    res.status(400).json({ response: error, success: false })
+    if (error.code === 11000) {
+      res.status(400).json({ message: 'User already exists', fields: error.keyValue })
+    }
+    res.status(400).json({ success: false, message: 'Could not create user', error })
   }
 })
 
-app.post("/signin", async (req, res) => {
+app.post('/sessions', async (req, res) => {
   const { username, password } = req.body
 
   try {
     const user = await User.findOne({ username })
 
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(200).json({
-        response: {
-          userId: user._id,
-          username: user.username,
-          accessToken: user.accessToken,
-        },
-        success: true,
+      res.json({ 
+        success: true, 
+        id: user._id, 
+        username: user.username, 
+        email: user.email, 
+        accessToken: user.accessToken, 
+        fullName: user.fullName, 
+        age: user.age, 
+        location: user.location, 
+        description: user.description 
       })
     } else {
-      res.status(404).json({
-        response: "Username or password doesn't match",
-        success: false,
-      })
+      res.status(404).json({ success: false, message: 'Could not find user' })
     }
   } catch (error) {
-    res.status(400).json({ response: error, success: false })
+    res.status(400).json({ success: false, message: 'Invalid request', error })
+  }
+})
+
+app.patch('/sessions/:id', authenticateUser)
+app.patch('/sessions/:id', async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const updateUser = await User.findByIdAndUpdate(id, req.body, { new: true })
+
+    if (updateUser) {
+      res.json({ success: true, updateUser })
+    } else {
+      res.status(404).json({ success: false, message: 'Not found' })
+    }
+  } catch (error) {
+    res.status(400).json({ message: 'Invalid request', error })
   }
 })
 
 // Start the server
 app.listen(port, () => {
-  // eslint-disable-next-line
-  console.log(`Server running on http://localhost:${port}`)
 })
