@@ -4,19 +4,21 @@ import { Button } from "@mui/material";
 import background from "../assets/alper-guzeler-inQvRABkTfg-unsplash.jpg";
 // import Button from '@mui/material'
 import styled from "styled-components/macro";
+import triangle from "../assets/triangle.png";
 
 const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
     <PageContainer>
-      <NeonText>Hello! Click to sign in.</NeonText>
+      <Logo src={triangle} alt="esoteric triangle." />
+      <NeonText>ʰᵉᴸᴸᵒ ᵘˢᵉʳ ʷᴱᴸᶜᴼᴹᵉ ʰᵒᴹᵉ</NeonText>
       <Button
         variant="contained"
         size="large"
         onClick={() => navigate("signin")}
       >
-        Sign in!
+        Click me, I insist
       </Button>
     </PageContainer>
   );
@@ -35,6 +37,13 @@ const PageContainer = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: center;
+  background-position-y: center;
+`;
+
+const Logo = styled.img`
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 0 12px #fff);
 `;
 
 const NeonText = styled.h1`

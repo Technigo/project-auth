@@ -7,30 +7,36 @@ import Signup from "./pages/Signup";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "themeprovider/theme";
 
-// import { Provider } from "react-redux";
-// import { compose, createStore, combineReducers } from "@reduxjs/toolkit";
-// import persistState from "redux-localstorage";
-// import {authenticated} from './reducers/auth'
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { authenticated } from "./reducers/auth";
+import { Provider } from "react-redux";
 
-// const enhancer = compose(persistState());
+const reducer = combineReducers({
+  authenticated: authenticated.reducer,
+});
 
-// const reducer = combineReducers({
-//   authenticated: authenticated.reducer
-// })
+// #A78176
 
-// const store = createStore(reducer, enhancer)
+// import { useSelector } from "react-redux";
+
+const store = configureStore({ reducer });
 
 export const App = () => {
+  // const authToken = useSelector((store) => store.authenticated.authToken);
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/home" element={<HomePage />} />
-        </Routes>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/home" element={<HomePage />} />
+
+            {/* <Route path='*' element={<NotFound/>}></Route> */}
+          </Routes>
+        </BrowserRouter>
+      </Provider>
     </ThemeProvider>
   );
 };
