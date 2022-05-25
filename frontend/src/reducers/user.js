@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const user = createSlice({
+const user = createSlice({
     name: 'user',
     initialState: {
         userId: null,
@@ -22,4 +22,6 @@ export const user = createSlice({
             store.error = action.payload;
         }
     }
-})
+});
+
+export default user;

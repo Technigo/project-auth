@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const thought = createSlice({
-    name: 'thought',
+const thoughts = createSlice({
+    name: 'thoughts',
     initialState: {
         items: [],
         error: null
@@ -10,9 +10,10 @@ export const thought = createSlice({
         setItems: (store, action) => {
             store.items = action.payload;
         },
-        // setUserName: (store, action) => {
-        //     store.username = action.payload;
-        // },????
-
+        setError: (store, action) => {
+            store.error = action.payload;
+        }
     }
-})
+});
+
+export default thoughts;
