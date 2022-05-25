@@ -4,9 +4,9 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.Promise = Promise;
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/projectAuth"
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: false, useUnifiedTopology: true })
+mongoose.Promise = Promise
 
 const User = mongoose.model('User', {
   username: {
