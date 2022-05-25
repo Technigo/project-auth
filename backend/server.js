@@ -110,6 +110,7 @@ app.post("/login", async(req, res) => {
   }
 })
 
+
 // Autheticating the user is logged in and have access to asked function
 const authorizeUser = async (req, res, next) => {
   const accessToken = req.header("Authorization")
@@ -132,7 +133,7 @@ const authorizeUser = async (req, res, next) => {
   }
 }
 
-// Ny kod tillagd enl onsdagslektionen / Camilla
+// Should we change Thoughts?
 const ThoughtSchema = new mongoose.Schema({
   message: String,
   hearts: {
@@ -146,6 +147,7 @@ const ThoughtSchema = new mongoose.Schema({
 })
 
 const Thought = mongoose.model("Thought", ThoughtSchema)
+
 
 // Example text to show when authenticated
 app.get("/thoughts", authorizeUser)
