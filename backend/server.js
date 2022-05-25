@@ -61,7 +61,7 @@ app.post("/register", async (req, res) => {
 
     if(password.length < 8) {
       res.status(400).json({
-        respons: "Password must be at least 8 characters long",
+        response: "Password must be at least 8 characters long",
         success: false
       })
     } else {
@@ -81,7 +81,7 @@ app.post("/register", async (req, res) => {
   }
   } catch(error) {
     res.status(400).json({
-    respons: error,
+    response: error,
     success: false
     })
   }
@@ -104,7 +104,7 @@ app.post("/login", async(req, res) => {
     })
   } catch(error) {
     res.status(400).json({
-      respons: "Username and password don't match",
+      response: "Username and password don't match",
       success: false
     })
   }
@@ -120,24 +120,49 @@ const authorizeUser = async (req, res, next) => {
       next()
     } else {
       res.status(401).json({
-        respons: "You need to be logged in to proceed",
+        response: "You need to be logged in to proceed",
         success: false
       })
     }
   } catch(error) {
     res.status(400).json({
-      respons: error,
+      response: error,
       success: false
     })
   }
 }
 
-//Example text to show when authenticated
-app.get("/profile", authorizeUser)
-app.get("/profile", (req, res) => {
-  res.send("Welcome to your profile!")
+// Ny kod tillagd enl onsdagslektionen / Camilla
+const ThoughtSchema = new mongoose.Schema({
+  message: String,
+  hearts: {
+    type: Number,
+    default: 0
+  },
+  createdAt: {
+    type: Date,
+    default: () => new Date()
+  }
 })
 
+const Thought = mongoose.model("Thought", ThoughtSchema)
+
+// Example text to show when authenticated
+app.get("/thoughts", authorizeUser)
+app.get("/thoughts", async (req, res) => {
+  const thoughts = await Thought.find({})
+  res.status(200).json({response: thoughts, success: true})
+})
+
+app.post("/thoughts", async (req, res) => {
+  const {message} = req.body
+  try {
+    const newThought = await new Thought({message}).save()
+    res.status(201).json({response: newThought, success: true})
+  } catch (error) {
+    res.status(400).json({response: error, success: false})
+  }
+})
 
 // Start the server
 app.listen(port, () => {

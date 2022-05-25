@@ -1,10 +1,17 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { createGlobalStyle } from 'styled-components'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import LoginForm from 'components/LoginForm'
-import SignupForm from 'components/SignupForm'
+import { createGlobalStyle } from 'styled-components';
 
+import Login from 'components/Login';
+import Main from 'components/Main';
+import NotFound from 'components/NotFound';
+
+import { Provider } from 'react-redux';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+
+import user from 'reducers/user';
+import thoughts from 'reducers/thoughts';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -12,16 +19,23 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+const reducer = combineReducers({
+  user: user.reducer,
+  thoughts: thoughts.reducer
+});
+
+const store = configureStore({reducer});
+
 export const App = () => {
   return (
-    <BrowserRouter>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<LoginForm />}/>
-        <Route path="/signup" element={<SignupForm />}/>
-        {/* <Route path="/404" element={<NotFound />}/> */}
-        {/* <Route path="*" element={<Navigate to="/404" replace />} /> */}
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login/>}></Route>
+          <Route path="/" element={<Main/>}></Route>
+          <Route path="*" element={<NotFound/>}></Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider> 
   )
 }
