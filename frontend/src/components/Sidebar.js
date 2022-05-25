@@ -14,7 +14,6 @@ const Sidebar = () => {
       <nav className="sidebar-nav">
         <ul className="sidebar-list">
           <Link to="/authorized/profile"><li className="sidebar-list-item">Profile</li></Link>
-          <Link to="/authorized/feed"><li className="sidebar-list-item">Feed</li></Link>
           <li 
             className="sidebar-list-item" 
             onClick={() => {

@@ -5,14 +5,12 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
 import LandingPage from './components/LandingPage'
 import AuthorizedPage from 'AuthorizedPage'
-import Feed from './components/Feed'
+// import Feed from './components/Feed'
 import Profile from './components/Profile'
 
-import { thoughts } from './reducers/thoughts'
 import { account } from './reducers/account'
 
 const reducer = combineReducers({
-  thoughts: thoughts.reducer,
   account: account.reducer
 })
 
@@ -36,7 +34,7 @@ export const App = () => {
             </Route>
             <Route path="/authorized/feed">
               <AuthorizedPage />
-              <Feed />
+              {/* <Feed /> */}
             </Route>
           </Switch>
         </main>
