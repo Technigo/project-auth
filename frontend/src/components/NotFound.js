@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Home = () => {
+const NotFound = () => {
   return (
     <div>
-      <h1>Home</h1>
-      <Link to="/home" />
+      <h1>Not found page</h1>
+      <Link to="/" />
     </div>
   );
 };
 
-export default Home;
+export default NotFound;
