@@ -4,7 +4,7 @@ import { Provider } from "react-redux"
 import { configureStore, combineReducers } from "@reduxjs/toolkit"
 
 import Main from "./components/Main"
-import Login from "./components/LogIn"
+import Login from './components/LogIn'
 import NotFound from "./components/NotFound"
 
 import user from "./reducers/user"
@@ -22,7 +22,7 @@ export const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/main" element={<Main />} />
+          <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

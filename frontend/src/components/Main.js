@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom"
 import { API_URL } from "../utils/constants"
 import thoughts from "../reducers/thoughts"
 import user from "../reducers/user"
-import username from './LogIn'
 
 const Main = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items)
@@ -53,7 +52,7 @@ const Main = () => {
   return (
     <>
       <div>
-        <h1>Welcome to your page ${username}</h1>
+        <h1>welcome to the chamber of secrets..</h1>
         {thoughtsItems.map((item) => (
           <div key={item._id}>{item.message}</div>
         ))}
