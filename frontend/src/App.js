@@ -7,7 +7,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 
 import { Provider } from 'react-redux'
-import { configstore, combineReducers } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 import user from 'reducers/user'
 import thoughts from 'reducers/thoughts'
@@ -17,7 +17,7 @@ const reducer = combineReducers({
   thoughts: thoughts.reducer,
 })
 
-const store = configstore({ reducer })
+const store = configureStore({ reducer })
 
 export const App = () => {
   return (
