@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from 'bcrypt'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: false, useUnifiedTopology: true })
