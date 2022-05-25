@@ -73,6 +73,9 @@ const authenticateUser = async (req, res, next) => {
 }
 
 // Start defining your routes here
+app.get("/", (req, res) => {
+  res.send("Hello Technigo!");
+});
 
 app.get("/thoughts", authenticateUser)
 app.get("/thoughts", async (req, res) => {
