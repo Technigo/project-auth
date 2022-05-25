@@ -2,7 +2,7 @@ import express from "express"
 import cors from "cors"
 import mongoose from "mongoose"
 import crypto from "crypto"
-import bcrypt from "bcrypt-nodejs"
+import bcrypt from "bcrypt"
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -14,10 +14,6 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  // email: {
-  //   type: String,
-  //   required: true
-  // },
   password: {
     type: String,
     required: true,
@@ -73,9 +69,6 @@ const authenticateUser = async (req, res, next) => {
 }
 
 // Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
-});
 
 app.get("/thoughts", authenticateUser)
 app.get("/thoughts", async (req, res) => {
@@ -95,7 +88,7 @@ app.post("/thoughts", async (req, res) => {
 })
 
 app.post("/signup", async (req, res) => {
-  const { username, email, password } = req.body
+  const { username, password } = req.body
 
   try {
     const salt = bcrypt.genSaltSync()
@@ -106,7 +99,6 @@ app.post("/signup", async (req, res) => {
 
     const newUser = await new User({
       username,
-      email,
       password: bcrypt.hashSync(password, salt),
     }).save()
 
