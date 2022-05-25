@@ -8,9 +8,6 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -32,7 +29,6 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors());
 // app.use(cors({
 //   origin: "https://thenetlifywecreate"
@@ -54,20 +50,17 @@ app.post("/register", async (req, res) => {
         response: "password must be minimum 8 characters long",
         success: false
       })
+    } else if (err.code == '11000') {
+      res.status(409).json({
+        response: "this username is taken",
+        success: false
+      })
     } else {
       const newUser = await new User({
         username,
         password: bcrypt.hashSync(password, salt)
       }).save();
-            // here if statement if newUser already exists?
-        // if (err.code == '11000') {
-        //   res.status(409).json({
-        //     response: "this username is taken",
-        //     success: false
-        //   })
-        // }
       res.status(201).json({
-        // choose one of these two, take away accessToken?
         response: {
           username: newUser.username,
           accessToken: newUser.accessToken,
@@ -137,7 +130,6 @@ const authenticateUser = async (req, res, next) => {
 app.get("/content", authenticateUser);
 app.get("/content", (req, res) => {res.send("secret content")});
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
