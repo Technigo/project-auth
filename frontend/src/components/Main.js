@@ -3,14 +3,18 @@ import { useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { API_URL } from 'utils/utils';
-import thoughts from 'reducers/thoughts';
 import user from 'reducers/user';
+import CountdownTimer from '../Hooks/CountdownTimer';
 
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
-  const thoughtItems = useSelector((store) => store.thoughts.items);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const daysLeft = new Date().getTime();
+  const fiveDaysLeft = 29 * 24 * 60 * 60 * 1000;
+
+  const dateTimeAfterFiveDays = daysLeft + fiveDaysLeft;
 
   useEffect(() => {
     if (!accessToken) {
@@ -27,7 +31,8 @@ const Main = () => {
 
   return (
     <>
-      <h1>this is Main</h1>
+      <h1>It is the final countdown!!!</h1>
+      <CountdownTimer targetDate={dateTimeAfterFiveDays} />
       <button type='submit' onClick={() => signOut()}>
         Sign out
       </button>
