@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Main from './components/Main'
-import { Welcome } from './components/Welcome'
+import { Login } from './components/Login'
 import { NotFound } from './components/NotFound'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -11,8 +11,8 @@ export const App = () => {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/signin" element={<Main />} />
-        <Route path="/welcome" element={<Welcome />} />
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/notfound" element={<NotFound />} />
       </Routes>
       <Footer />
