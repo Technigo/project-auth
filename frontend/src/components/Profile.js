@@ -23,7 +23,7 @@ const Profile = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: accessToken,
+        'Authorization': accessToken,
       },
     };
 
@@ -35,16 +35,16 @@ const Profile = () => {
           dispatch(thoughts.actions.setItems(data.response));
           dispatch(thoughts.actions.setError(null));
         } else {
-          dispatch(thoughts.actions.setItems([]));
           dispatch(thoughts.actions.setError(data.response));
+          dispatch(thoughts.actions.setItems([]));
         }
       });
   }, []);
 
   return (
     <div>
-      <h1>Secret page</h1>
       <Link to="/login">LINK TO LOGIN</Link>
+      <h1>Secret page</h1>
       {thoughtItems.map((item) => {
         return <div key={item._id}>{item.message}</div>;
       })}

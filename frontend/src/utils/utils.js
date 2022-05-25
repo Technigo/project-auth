@@ -1,3 +1,3 @@
-const BASE_URL = 'http://localhost:8090';
+const BASE_URL = 'https://project-auth-vanhaj-joalod.herokuapp.com';
 
 export const API_URL = (slug) => `${BASE_URL}/${slug}`;

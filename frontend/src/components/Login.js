@@ -30,7 +30,7 @@ const Login = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username: username, password: password }),
     };
     fetch(API_URL(mode), options)
       .then((res) => res.json())
@@ -39,7 +39,7 @@ const Login = () => {
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.userId));
-            dispatch(user.actions.setUserame(data.username));
+            dispatch(user.actions.setUsername(data.username));
             dispatch(user.actions.setAccessToken(data.accessToken));
             dispatch(user.actions.setError(null));
           });
