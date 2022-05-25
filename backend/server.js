@@ -95,6 +95,28 @@ app.post("/login", async (req, res) =>{
   }
 });
 
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header("Authorization");
+  try {
+    const user = await User.findOne({accessToken: accessToken});
+    if (user) {
+      next()
+    } else {
+      res.status(401).json({
+        response: "Invalid - unauthorized user, please retry!",
+        sucess: false
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      response: error,
+      success: false
+    });
+  }
+}
+
+app.get("/thoughts", authenticateUser);
+app.get("/thoughts", (req, res) => {res.send("Here are your thoughts")});
 
 // Start defining your routes here
 app.get("/", (req, res) => {
