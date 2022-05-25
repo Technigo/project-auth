@@ -122,6 +122,10 @@ app.get('/main', authenticateUser)
 app.get('/main', (req, res) => {
   res.send('you are here! welcome')
 })
+app.get('/main', authenticateUser)
+app.get('/main', (req, res) => {
+  res.send('you are here! welcome')
+})
 
 // Start defining your routes here
 app.get('/', (req, res) => {
