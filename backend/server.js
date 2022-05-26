@@ -102,10 +102,21 @@ const authenticateUser = async (req, res, next) => {
     res.status(400).json({ response: error, success: false });
   }
 };
+
 app.get("/thoughts", authenticateUser);
 app.get("/thoughts", (req, res) => {
   const { username } = req.body;
   res.send(`Here are your thoughts ${username}`);
+});
+
+app.post("/thoughts", async (req, res) => {
+  const {message} = req.body;
+  try {
+    const newThought = await new Thought({message}).save();
+    res.status(201).json({response:newThought, success: true});
+  } catch (error) {
+    res.status(400).json({response:error, success: false});
+  }
 });
 
 // Start defining your routes here
