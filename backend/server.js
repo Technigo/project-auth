@@ -35,9 +35,19 @@ app.use(cors());
 // }));
 app.use(express.json());
 
-// Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  const Main = {
+    About:
+      "Backend for Sofia & Emma week 20 project",
+    Routes: [
+      {
+        "/register": "to register new user",
+        "/login": "to login existing user",
+        "/content": "content only accessible for logged in users",
+      },
+    ],
+  };
+  res.send(Main);
 });
 
 app.post("/register", async (req, res) => {
