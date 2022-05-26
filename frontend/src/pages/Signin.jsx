@@ -18,6 +18,8 @@ import triangle from "../assets/triangle_blue.png";
 const Signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  // const [login, setLogin] = useState("");
+  // const [logout, setLogout] = useState("");
   const [alert, setAlert] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,6 +34,15 @@ const Signin = () => {
   }, [authToken]);
 
   const userLogin = async (options) => {
+
+    // const options = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({username, password})
+    // };
+
     try {
       const fetch = await fetch(
         "https://project-auth-asm.herokuapp.com/login",
@@ -43,7 +54,7 @@ const Signin = () => {
         batch(() => {
           dispatch(authenticated.actions.setUserId(data.userId));
           dispatch(authenticated.actions.setError(null));
-          dispatch(authenticated.actions.login(data.login));
+          dispatch(authenticated.actions.setlogin(data.login));
           // dispatch(authenticated.actions.logout(data.logout));
         });
         //navigate("/home");
