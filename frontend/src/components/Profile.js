@@ -45,19 +45,23 @@ const Profile = () => {
             });
           } else {
             dispatch(user.actions.setError(data.response));
-            // dispatch(user.actions.setItems([]));
           }
         });
     }
   }, [accessToken, dispatch]);
 
   return (
-    <div>
-      <h1>{secretMessage}</h1>
-      <button onClick={logout}>Log out</button>
-      {/* {thoughtItems.map((item) => {
-        return <div key={item._id}>{item.message}</div>;
-      })} */}
+    <div className="container">
+      <h1 className="header">{secretMessage}</h1>
+      <iframe
+        src="https://giphy.com/embed/d2Z9QYzA2aidiWn6"
+        title="Party cats"
+        className="giphy-embed"
+        allowFullScreen
+      />
+      <button className="button" onClick={logout}>
+        Log out
+      </button>
     </div>
   );
 };

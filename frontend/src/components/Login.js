@@ -57,9 +57,10 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Login and Registration page</h1>
+      <h1 className="header">Sign in or Sign up</h1>
       <label htmlFor="registration">Registration</label>
       <input
+        className="inputRadio"
         type="radio"
         id="registration"
         checked={mode === 'registration'}
@@ -67,39 +68,36 @@ const Login = () => {
       />
       <label htmlFor="login">Login</label>
       <input
+        className="inputRadio"
         type="radio"
         id="login"
         checked={mode === 'login'}
         onChange={() => setMode('login')}
       />
 
-      <form onSubmit={onFormSubmit}>
-        <label htmlFor="username">Username</label>
+      <form className="form" onSubmit={onFormSubmit}>
+        {/* <label htmlFor="username">Username</label> */}
         <input
+          className="input"
           type="text"
           id="username"
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
-        <label htmlFor="password">Password</label>
+        {/* <label htmlFor="password">Password</label> */}
         <input
+          className="input"
           type="password"
           id="password"
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        {/* <Link to="/profile">
-          <button type="submit">Login</button>
-        </Link> */}
-        <button type="submit">Login</button>
-        <p>{error}</p>
-        {/* <button type="submit" onClick={() => setMode('login')}>Login</button> */}
-
-        {/* <Link to="/registration">
-          <button type="button">Register</button>
-        </Link> */}
+        <button className="button" type="submit">
+          Login
+        </button>
+        <p className="error">{error}</p>
       </form>
     </div>
   );
