@@ -22,7 +22,7 @@ export const Login = () => {
       navigate("/");
     }
   }, [accessToken, navigate]);
-  //lagt till torsdag (nav)
+
   const onFormSubmit = (event) => {
     event.preventDefault();
 
