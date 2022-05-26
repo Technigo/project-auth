@@ -72,7 +72,7 @@ const Login = () => {
       )}
       {mode === 'registration' && (
         <div>
-          <h1 className="header">Registration</h1>
+          <h1 className="header">REGISTRATION</h1>
           <label htmlFor="login">Login here:</label>
           <input
             className="inputRadio"
@@ -103,9 +103,16 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        <button className="button" type="submit">
-          Login
-        </button>
+        {mode === 'login' && (
+          <button className="button" type="submit">
+            Register
+          </button>
+        )}
+        {mode === 'registration' && (
+          <button className="button" type="submit">
+            Register
+          </button>
+        )}
         <p className="error">{error}</p>
       </form>
     </div>
