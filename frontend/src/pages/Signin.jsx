@@ -20,13 +20,13 @@ const Signin = () => {
   const [password, setPassword] = useState("");
   // const [login, setLogin] = useState("");
   // const [logout, setLogout] = useState("");
-  const [alert, setAlert] = useState("");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const authToken = useSelector((state) => state.authenticated.authToken);
 
-  //Use code below instead of line 49 "navigate("/home");" ?
+  // Alternative to navigating to home instead of putting it inside the function (See Signup.jsx)
   useEffect(() => {
     if (authToken) {
       navigate("/home");
@@ -60,6 +60,7 @@ const Signin = () => {
         });
         //navigate("/home");
       } else if (!data.success) {
+        setError(data.response);
         console.log(error);
         batch(() => {
           dispatch(authenticated.actions.setUserId(null));
@@ -109,12 +110,12 @@ const Signin = () => {
             color="secondary"
             onChange={(event) => setPassword(event.target.value)}
           />
-          {/* {error.length > 0 && (
+          {error.length > 0 && (
             <Alert severity="error">
               <AlertTitle>Error</AlertTitle>
               {error}
             </Alert>
-          )} */}
+          )}
           <Button
             onClick={() =>
               userLogin({
