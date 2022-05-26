@@ -13,7 +13,7 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [mode, setMode] = useState("register")
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const accessToken = useSelector((store) => store.user.accessToken)
