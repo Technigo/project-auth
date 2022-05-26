@@ -1,5 +1,9 @@
 import React from 'react'
 
 export const NotFound = () => {
-  return <h1>Not found...</h1>
+  return (
+    <div className="error-container">
+      <h1>Not found...</h1>
+    </div>
+  )
 }

@@ -6,7 +6,7 @@ import { API_URL } from 'utils/API'
 
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken)
-  const thoughtsItems = useSelector((store) => store.thoughts.items) //what do we put here?
+  const infoItems = useSelector((store) => store.info.items) //what do we put here?
   const navigate = useNavigate()
   const dispatch = useDispatch()
   useEffect(() => {
@@ -23,27 +23,29 @@ const Main = () => {
         Authorization: accessToken,
       },
     }
-    fetch(API_URL('thoughts'), options) // what do we put here??
+    fetch(API_URL('info'), options) // what do we put here??
       .then((res) => res.json)
       .then((data) => {
         if (data.success) {
-          dispatch(thoughts.actions.setItems(data.response))
-          dispatch(thoughts.actions.setError(null))
+          dispatch(info.actions.setItems(data.response))
+          dispatch(info.actions.setError(null))
         } else {
-          dispatch(thoughts.actions.setError(data.response))
-          dispatch(thoughts.actions.setItems([]))
+          dispatch(info.actions.setError(data.response))
+          dispatch(info.actions.setItems([]))
         }
       })
   }, [])
 
   return (
     <>
-      <Link to="/login">Link To /login</Link>
-      <h1>This is Main</h1>
+      <div className="main-container">
+        <Link to="/login">Link To /login</Link>
+        <h1>This is Main</h1>
 
-      {thoughtsItems.map((item) => {
-        return <div key={item._id}>{item.message}</div>
-      })}
+        {infoItems.map((item) => {
+          return <div key={item._id}>{item.message}</div>
+        })}
+      </div>
     </>
   )
 }

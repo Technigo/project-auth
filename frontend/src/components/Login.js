@@ -53,39 +53,47 @@ export const Login = () => {
   }
   return (
     <>
-      <Link to="/">Link to /</Link>
-      <label htmlFor="register">Register</label>
-      <input
-        type="radio"
-        id="register"
-        checked={mode === 'register'}
-        onChange={() => setMode('register')}
-      />
-      <label htmlFor="login">Login</label>
-      <input
-        type="radio"
-        id="login"
-        checked={mode === 'login'}
-        onChange={() => setMode('login')}
-      />
-      <form onSubmit={onFormSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+      <div className="main-container">
+        <div className="login-top">
+          <Link to="/">Link to /</Link>
+          <label htmlFor="register">Register</label>
+          <input
+            type="radio"
+            id="register"
+            checked={mode === 'register'}
+            onChange={() => setMode('register')}
+          />
+          <label htmlFor="login">Login</label>
+          <input
+            type="radio"
+            id="login"
+            checked={mode === 'login'}
+            onChange={() => setMode('login')}
+          />
+        </div>
+        <div className="form-container">
+          <form onSubmit={onFormSubmit}>
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              placeholder="enter username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
 
-        <label htmlFor="username">Username</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Submit</button>
-      </form>
+            <label htmlFor="username">Username</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
     </>
   )
 }

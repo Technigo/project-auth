@@ -3,18 +3,18 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Main from './components/Main'
 import { Login } from './components/Login'
 import { NotFound } from './components/NotFound'
-import Header from './components/Header'
-import Footer from './components/Footer'
+// import Header from './components/Header'
+// import Footer from './components/Footer'
 
 import { Provider } from 'react-redux'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 import user from 'reducers/user'
-import thoughts from 'reducers/thoughts'
+import info from 'reducers/info'
 
 const reducer = combineReducers({
   user: user.reducer,
-  thoughts: thoughts.reducer,
+  info: info.reducer,
 })
 
 const store = configureStore({ reducer })
@@ -23,13 +23,11 @@ export const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Header />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
     </Provider>
   )
