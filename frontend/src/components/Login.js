@@ -57,23 +57,32 @@ const Login = () => {
 
   return (
     <div>
-      <h1 className="header">Sign in or Sign up</h1>
-      <label htmlFor="registration">Registration</label>
-      <input
-        className="inputRadio"
-        type="radio"
-        id="registration"
-        checked={mode === 'registration'}
-        onChange={() => setMode('registration')}
-      />
-      <label htmlFor="login">Login</label>
-      <input
-        className="inputRadio"
-        type="radio"
-        id="login"
-        checked={mode === 'login'}
-        onChange={() => setMode('login')}
-      />
+      {mode === 'login' && (
+        <div>
+          <h1 className="header">LOG IN</h1>
+          <label htmlFor="registration">Register here:</label>
+          <input
+            className="inputRadio"
+            type="radio"
+            id="registration"
+            checked={mode === 'registration'}
+            onChange={() => setMode('registration')}
+          />
+        </div>
+      )}
+      {mode === 'registration' && (
+        <div>
+          <h1 className="header">Registration</h1>
+          <label htmlFor="login">Login here:</label>
+          <input
+            className="inputRadio"
+            type="radio"
+            id="login"
+            checked={mode === 'login'}
+            onChange={() => setMode('login')}
+          />
+        </div>
+      )}
 
       <form className="form" onSubmit={onFormSubmit}>
         {/* <label htmlFor="username">Username</label> */}
