@@ -11,9 +11,9 @@ const Main = () => {
       <h1>Hello User </h1>
       <h2>You are logged in </h2>
       <button
-        type="buttton"
+        type="button"
         onClick={() => {
-          navigate("/login");
+          navigate("/");
           dispatch(user.actions.setAccessToken(null));
         }}
       >

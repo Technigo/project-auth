@@ -16,7 +16,7 @@ const Login = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   useEffect(() => {
     if (accessToken) {
-      navigate("/");
+      navigate("/main");
     }
   }, [accessToken]);
   const onFormSubmit = (event) => {
