@@ -9,11 +9,9 @@ import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 import user from "reducers/user";
-import thoughtsPage from "reducers/thoughtsPage";
 
 const reducer = combineReducers({
   user: user.reducer,
-  thoughtsPage: thoughtsPage.reducer,
 });
 
 const store = configureStore({ reducer });
@@ -23,8 +21,8 @@ export const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/" element={<Main />}></Route>
+          <Route path="/loggedin" element={<Main />}></Route>
+          <Route path="/" element={<Login />}></Route>
           <Route path="*" element={<Notfound />}></Route>
         </Routes>
       </BrowserRouter>
