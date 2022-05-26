@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
+import SignIn from "./components/sign";
 
-export const App = () => {
-  return (
-    <div>
-      Find me in src/app.js!
-    </div>
-  )
-}
+export const App = ({ authService }) => {
+  const goToMyPage = () => {
+    console.log("go to my page!");
+  };
+  return <SignIn authService={authService} goToMyPage={goToMyPage} />;
+};

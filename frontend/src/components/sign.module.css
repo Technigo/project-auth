@@ -1,0 +1,97 @@
+@value colorBlack: #2A2F35;
+@value colorPrimary: #E88D6D;
+@value colorPrimaryLight: #F1BBA7;
+@value colorWhiteBckground: #F7F6F2;
+@value colorGrey: #8F91A0;
+
+@value fontsizeSmall: 0.85rem;
+@value fontsizeRegular: 1rem;
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+.form {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+}
+.checkboxContainer,
+.itemContainer {
+  margin: 0.5rem 0;
+}
+
+.itemContainer:hover .label {
+  color: colorPrimary;
+}
+
+.itemContainer:hover .input {
+  border: 1px solid colorPrimary;
+}
+
+.label {
+  display: block;
+  text-transform: uppercase;
+  color: colorGrey;
+  margin-bottom: 0.4rem;
+}
+
+.input:focus,
+.input:active,
+.input {
+  width: 26ch;
+  border: 1px solid colorGrey;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+}
+.checkboxLabel,
+.submit,
+.label,
+.input {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: fontsizeSmall;
+  color: colorBlack;
+}
+.submit,
+.input {
+  font-size: fontsizeRegular;
+}
+
+.submit {
+  padding: 0.75rem;
+  width: 260px;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  background-color: colorPrimary;
+  color: colorWhiteBckground;
+  border-radius: 5px;
+}
+
+.submit:active,
+.submit:focus {
+  background-color: colorPrimary;
+}
+.submit:hover {
+  background-color: colorPrimaryLight;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: colorBlack;
+}
+.checkboxLabel {
+  text-transform: uppercase;
+  text-size: fontsizeSmall;
+}
+.checkboxInput {
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
