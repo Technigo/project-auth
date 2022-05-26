@@ -103,20 +103,25 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
+// app.get("/thoughts", authenticateUser);
+// app.get("/thoughts", (req, res) => {
+//   const { username } = req.body;
+//   res.send(`Here are your thoughts ${username}`);
+// });
 
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", (req, res) => {
-  const { username } = req.body;
-  res.send(`Here are your thoughts ${username}`);
-});
-
-app.post("/thoughts", async (req, res) => {
-  const {message} = req.body;
+//SECRET//
+app.get('/secret', authenticateUser, async (req, res) => {
+  const secretMessage = 'Your secret is safe me!';
   try {
-    const newThought = await new Thought({message}).save();
-    res.status(201).json({response:newThought, success: true});
+    res.status(200).json({
+      success: true,
+      secretMessage,
+    });
   } catch (error) {
-    res.status(400).json({response:error, success: false});
+    res.status(401).json({
+      errors: error,
+      response: 'Failed to display the secret.',
+    });
   }
 });
 
