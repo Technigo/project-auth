@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  background-color: rgb(222, 220, 220);
 }
 
 body {
@@ -16,18 +17,36 @@ code {
     monospace;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
 .page-wrapper {
   margin: auto; 
-  padding: 1rem;
+  /* padding: 1rem; */
   max-width: 1240px;
   width: 90%;
-  border: solid 2px black
+  /* border: solid 2px black */
+}
+
+.login-box {
+  margin-top: 2rem;
+}
+
+.links {
+  margin: 1rem;
+  margin-bottom: 3rem;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
-  
+  padding: 1rem;
+}
+
+.footer {
+
+  padding: 1rem;
 }
 
 .navbar a {
@@ -62,4 +81,8 @@ a.active {
 }
 .user-input input {
   margin: 10px;
+}
+
+.content-box, .welcome-box ,.user-input {
+  padding: 1rem;
 }

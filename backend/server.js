@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  accesToken: {
+  accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
   },
@@ -40,6 +40,7 @@ app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
+
     if (password.length < 8) {
       res.status(400).json({
         response: "Password must be at least 8 characters long",
@@ -53,7 +54,7 @@ app.post("/register", async (req, res) => {
       res.status(201).json({
         response: {
           username: newUser.username,
-          accesToken: newUser.accesToken,
+          accessToken: newUser.accessToken,
           userId: newUser._id,
         },
         success: true,
@@ -77,7 +78,7 @@ app.post("/login", async (req, res) => {
       res.status(200).json({
         success: true,
         username: user.username,
-        accesToken: user.accesToken,
+        accessToken: user.accessToken,
         userId: user._id,
       });
     } else {
@@ -95,9 +96,9 @@ app.post("/login", async (req, res) => {
 });
 
 const authenticateUser = async (req, res, next) => {
-  const accesToken = req.header("Authorization");
+  const accessToken = req.header("Authorization");
   try {
-    const user = await User.findOne({ accesToken: accesToken });
+    const user = await User.findOne({ accessToken: accessToken });
     if (user) {
       next();
     } else {
@@ -113,10 +114,40 @@ const authenticateUser = async (req, res, next) => {
     });
   }
 };
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", (req, res) => {
-  res.send("Here are your thoughts");
-});
+
+// const ThoughtSchema = new mongoose.Schema({
+//   message: String,
+//   hearths: {
+//     type: Number,
+//     default: 0,
+//   },
+//   createdAt: {
+//     type: Date,
+//     default: () => new Date(),
+//   },
+// });
+// const Thought = mongoose.model("Thought", ThoughtSchema);
+
+// app.get("/thoughts", authenticateUser);
+// app.get("/thoughts", async (req, res) => {
+//   const thoughts = await Thought.find({});
+//   res.status(200).json({ response: thoughts, success: true });
+// });
+
+// app.post("/thoughts", async (req, res) => {
+//   const { message } = req.body;
+//   try {
+//     const newThought = await new Thought({ message }).save();
+//     res.status(201).json({ response: newThought, success: true });
+//   } catch (error) {
+//     res.status(400).json({ response: error, success: false });
+//   }
+// });
+
+// app.get("/thoughts", authenticateUser);
+// app.get("/thoughts", (req, res) => {
+//   res.send("Here are your thoughts");
+// });
 
 // ///CORS V2
 // app.use(
