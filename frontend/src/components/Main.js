@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { API_URL } from "utils/utils";
 import thoughts from "reducers/thoughts";
 import user from 'reducers/user';
+// import BackgroundImg from "../image/wp5393764-retro-neon-wallpapers.png";
 
 
 const Main = () => {
@@ -54,18 +55,24 @@ const Main = () => {
 
     return (
 
-        <>
-            <Link to="/login"> LINK TO /login</Link>
+        <><div className="main-wrapper">
+            {/* <div
+     className="background"
+     style={{
+       backgroundImage: `url(${process.env.PUBLIC_URL + '/wp5393764-retro-neon-wallpapers.png'})`
+     }}> */}
             <h1 className="Welcome">Welcome to your page {username}</h1>
             <h1 className="header">{secretMessage}</h1>
-            {/* {thoughtItems.map((item) => {
-                return <div key = {item._id}>{item.message}</div>
-            })} */}
-             <button className="button" onClick={logout}>
-            Log out
-             </button>
-        </>
+            <iframe src="https://giphy.com/embed/1l25XeKOh1YIYcyhbr" width="480" height="270" frameBorder="0" allowFullScreen></iframe>
+            <p><a href="https://giphy.com/gifs/studiosoriginals-dirty-mind-trying-not-to-laugh-1l25XeKOh1YIYcyhbr"></a></p>
+        
+            {/* </div> */}
+            {/* <img src={BackgroundImg } /> */}
+        </div><button className="button-52" onClick={logout}>
+                Log out
+            </button></>
     )
 };
 
 export default Main;
+

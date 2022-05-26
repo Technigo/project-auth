@@ -36,7 +36,7 @@ const Login = () => {
         fetch(API_URL(mode), options)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                ;
                 if (data.success) {
                     batch(()=> {
                         dispatch(user.actions.setUserId(data.userId));
@@ -58,31 +58,40 @@ const Login = () => {
     }
 
     return (
-    <>
-        <Link to="/"> LINK TO /</Link>
-        <label htmlFor="register">Register</label>
+    <div className="form-wrapper">
+        <Link to="/"></Link>
+        
+        <label className="container">Register
         <input type="radio" id="register" checked={mode === "register"} onChange={()=> setMode("register")}/>
-        <label htmlFor="login">Login</label>
+        <span className="checkmark"></span>
+        </label>
+        <label className="container">Login
         <input type="radio" id="login" checked={mode === "login"} onChange={()=> setMode("login")}/>
+        <span className="checkmark"></span>
+        </label>
+
 
         <form onSubmit={onFormSubmit}>
-            <label htmlFor="username">Username</label>
-            <input 
+          <div className="inputfields">
+             <label htmlFor="username">Username</label>
+               <input 
                 type="text"
                 id ="username"
                 value={username}
                 onChange={(e)=>setUsername(e.target.value)}/>
-
+           </div>
+                <div className="inputfields">
             <label htmlFor="password">Password</label>
-            <input 
-                type="password"
-                id ="password"
-                value={password}
-                onChange={(e)=>setPassword(e.target.value)}/>
-
-                <button type="submit">Submit</button>
-        </form>
-    </>
+              <input 
+                 type="password"
+                 id ="password"
+                 value={password}
+                 onChange={(e)=>setPassword(e.target.value)}/>
+             </div>
+             <button className="button-80" type="submit">Submit</button>
+                </form>
+                
+    </div>
     )
 };
 
