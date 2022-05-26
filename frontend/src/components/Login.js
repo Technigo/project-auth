@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector, batch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { API_URL } from "utils/utils";
 
 import user from "reducers/user";
@@ -8,6 +8,7 @@ import user from "reducers/user";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [validationError, setValidationError] = useState(null);
 
   const [mode, setMode] = useState("register");
 
@@ -42,6 +43,7 @@ const Login = () => {
             dispatch(user.actions.setAccessToken(data.accessToken));
             dispatch(user.actions.setUserName(data.username));
             dispatch(user.actions.setError(null));
+            setValidationError(null);
           });
         } else {
           batch(() => {
@@ -49,6 +51,7 @@ const Login = () => {
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setUserName(null));
+            setValidationError(data.response);
           });
         }
       });
@@ -56,7 +59,7 @@ const Login = () => {
 
   return (
     <section>
-      <h1>Sign in and Sign up</h1>
+      <h1>Sign in or Sign up</h1>
       <div className="radio-container">
         <label htmlFor="register">Register</label>
         <input
@@ -98,6 +101,9 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        {validationError !== null && (
+          <p className="error-message">{validationError}</p>
+        )}
         <button type="submit">Submit</button>
       </form>
     </section>
