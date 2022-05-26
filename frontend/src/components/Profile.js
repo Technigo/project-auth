@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { API_URL } from 'utils/utils';
 
@@ -55,8 +55,8 @@ const Profile = () => {
       <h1 className="header">{secretMessage}</h1>
       <iframe
         src="https://giphy.com/embed/d2Z9QYzA2aidiWn6"
-        title="Party cats"
-        className="giphy-embed"
+        title="Awsome"
+        className="giphy"
         allowFullScreen
       />
       <button className="button" onClick={logout}>

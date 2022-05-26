@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { API_URL } from 'utils/utils';
 
@@ -35,7 +35,6 @@ const Login = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.userId));
@@ -58,7 +57,7 @@ const Login = () => {
   return (
     <div>
       {mode === 'login' && (
-        <div>
+        <div className="containerRadio">
           <h1 className="header">LOG IN</h1>
           <label htmlFor="registration">Register here:</label>
           <input
@@ -71,7 +70,7 @@ const Login = () => {
         </div>
       )}
       {mode === 'registration' && (
-        <div>
+        <div className="containerRadio">
           <h1 className="header">REGISTRATION</h1>
           <label htmlFor="login">Login here:</label>
           <input
@@ -85,7 +84,6 @@ const Login = () => {
       )}
 
       <form className="form" onSubmit={onFormSubmit}>
-        {/* <label htmlFor="username">Username</label> */}
         <input
           className="input"
           type="text"
@@ -94,7 +92,6 @@ const Login = () => {
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
-        {/* <label htmlFor="password">Password</label> */}
         <input
           className="input"
           type="password"
@@ -105,7 +102,7 @@ const Login = () => {
         />
         {mode === 'login' && (
           <button className="button" type="submit">
-            Register
+            Log in
           </button>
         )}
         {mode === 'registration' && (
