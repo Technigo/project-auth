@@ -8,8 +8,8 @@ import user from 'reducers/user';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
   const [mode, setMode] = useState('registration');
+  const [error, setError] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,15 +50,14 @@ const Login = () => {
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
           });
+          setError('Something went wrong, try again.');
         }
-        // console.log(data);
       });
   };
 
   return (
     <div>
-      <h1>Login page</h1>
-      <Link to="/">LINK TO /</Link>
+      <h1>Login and Registration page</h1>
       <label htmlFor="registration">Registration</label>
       <input
         type="radio"
@@ -79,6 +78,7 @@ const Login = () => {
         <input
           type="text"
           id="username"
+          placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
@@ -86,6 +86,7 @@ const Login = () => {
         <input
           type="password"
           id="password"
+          placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
@@ -93,6 +94,7 @@ const Login = () => {
           <button type="submit">Login</button>
         </Link> */}
         <button type="submit">Login</button>
+        <p>{error}</p>
         {/* <button type="submit" onClick={() => setMode('login')}>Login</button> */}
 
         {/* <Link to="/registration">

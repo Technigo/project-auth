@@ -118,6 +118,7 @@ app.post('/registration', async (req, res) => {
 
 //--------------------PROFILE PROTECTED / AUTENTICATED ENDPOINT--------------------///
 app.get('/profile', authenticateUser, async (req, res) => {
+  const secretMessage = 'You are awesome! Have a nice day!';
   try {
     res.status(200).json({
       response: {
@@ -127,6 +128,7 @@ app.get('/profile', authenticateUser, async (req, res) => {
       },
       success: true,
     });
+    res.json({ success: true, secretMessage });
   } catch (error) {
     res.status(401).json({
       errors: error,
@@ -184,37 +186,6 @@ app.post('/login', async (req, res) => {
 //     }
 //   }
 // }));
-
-// FRÅN LEKTION ONS
-
-const ThoughtSchema = new mongoose.Schema({
-  message: String,
-  hearths: {
-    type: Number,
-    default: 0,
-  },
-  createdAt: {
-    type: Date,
-    default: () => new Date(),
-  },
-});
-const Thought = mongoose.model('Thought', ThoughtSchema);
-
-app.get('/thoughts', authenticateUser);
-app.get('/thoughts', async (req, res) => {
-  const thoughts = await Thought.find({});
-  res.status(200).json({ response: thoughts, success: true });
-});
-
-app.post('/thoughts', async (req, res) => {
-  const { message } = req.body;
-  try {
-    const newThought = await new Thought({ message }).save();
-    res.status(201).json({ response: newThought, success: true });
-  } catch (error) {
-    res.status(400).json({ response: error, success: false });
-  }
-});
 
 // Start the server
 app.listen(port, () => {
