@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import styles from "./sign.module.css";
 
-const SignIn = ({ authService, goToMyPage }) => {
+const SignIn = ({ authService, pageRouter }) => {
   const [signup, setSignup] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,29 +26,40 @@ const SignIn = ({ authService, goToMyPage }) => {
         if (password === confirmPassword) {
           authService
             .signup(username, password, email)
-            .then(goToMyPage)
+            .then((data) => {
+              if (data.message) {
+                throw new Error(data.message);
+              } else {
+                pageRouter();
+              }
+            })
             .catch((err) => toast(err.message));
         } else {
-          toastify("Password is not match");
+          toast.error("Password is not match");
         }
       } else {
         // step 1-1. display erorr message
-        const noSpace = /^[A-Za-z0-9]+$/;
-        const onlyUnderline = /^[A-Za-z0-9_]+$/;
+        const noSpace = /^[A-Za-z0-9_]+$/;
         if (!username.match(noSpace)) {
-          toastify("Username cannot contain white space");
-        } else if (!username.match(onlyUnderline)) {
-          toastify("Username cannot containspecial characters except _");
+          toast.error(
+            "Username cannot contain white space or special characters except _"
+          );
         } else {
-          toastify("Username should be between 3 to 12 characters");
+          toast.error("Username should be between 3 to 12 characters");
         }
       }
     } else {
       // case 2. login
       authService
         .login(username, password)
-        .then(goToMyPage)
-        .catch((err) => toast(err.message));
+        .then((data) => {
+          if (data.message) {
+            throw new Error(data.message);
+          } else {
+            pageRouter();
+          }
+        })
+        .catch((err) => toast.error(err.message));
     }
   };
 
@@ -142,7 +153,7 @@ const SignIn = ({ authService, goToMyPage }) => {
         )}
 
         <button type="submit" className={styles.submit}>
-          {signup ? "Sing up" : "Sign in"}
+          {signup ? "Sing up" : "Log in"}
         </button>
 
         <div className={styles.checkboxContainer}>
@@ -159,7 +170,7 @@ const SignIn = ({ authService, goToMyPage }) => {
           </label>
         </div>
       </form>
-      <ToastContainer />
+      <ToastContainer theme="colored" />
     </div>
   );
 };
