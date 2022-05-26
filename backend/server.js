@@ -118,7 +118,6 @@ app.post('/registration', async (req, res) => {
 
 //--------------------PROFILE PROTECTED / AUTENTICATED ENDPOINT--------------------///
 app.get('/profile', authenticateUser, async (req, res) => {
-  const secretMessage = 'You are awesome! Have a nice day!';
   try {
     res.status(200).json({
       response: {
@@ -128,11 +127,26 @@ app.get('/profile', authenticateUser, async (req, res) => {
       },
       success: true,
     });
-    res.json({ success: true, secretMessage });
   } catch (error) {
     res.status(401).json({
       errors: error,
-      response: 'Failed to log in.', //I don't get this one. This comes upp when I use the right accessToken. It should be the other way around.
+      response: 'Failed to log in.',
+    });
+  }
+});
+
+//--------------------------SECRET---------------------------///
+app.get('/secret', authenticateUser, async (req, res) => {
+  const secretMessage = 'You are awesome! Have a nice day!';
+  try {
+    res.status(200).json({
+      success: true,
+      secretMessage,
+    });
+  } catch (error) {
+    res.status(401).json({
+      errors: error,
+      response: 'Failed to display the secret.',
     });
   }
 });
