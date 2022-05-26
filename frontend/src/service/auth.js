@@ -1,10 +1,9 @@
-import { backendURL } from "./url";
-
 class AuthService {
   requestOptions;
   token;
 
-  constructor() {
+  constructor(url) {
+    this.url = url;
     this.requestOptions = {
       headers: { "Content-Type": "application/json" },
       redirect: "follow",
@@ -20,7 +19,7 @@ class AuthService {
     const reqOptions = { ...this.requestOptions, method: "POST", body };
 
     try {
-      const res = await fetch(`${backendURL}/signup`, reqOptions);
+      const res = await fetch(`${this.url}/signup`, reqOptions);
       const data = await res.json();
       if (data.accessToken) {
         // set token
@@ -40,7 +39,7 @@ class AuthService {
     const reqOptions = { ...this.requestOptions, method: "POST", body };
 
     try {
-      const res = await fetch(`${backendURL}/login`, reqOptions);
+      const res = await fetch(`${this.url}/login`, reqOptions);
       const data = await res.json();
       if (data.accessToken) {
         // set token
@@ -56,7 +55,7 @@ class AuthService {
     this.requestOptions.headers["Authorization"] = this.token;
     const reqOptions = { ...this.requestOptions, method: "GET" };
     try {
-      const res = await fetch(`${backendURL}/secret`, reqOptions);
+      const res = await fetch(`${this.url}/secret`, reqOptions);
       const data = await res.json();
       return data;
     } catch (err) {
