@@ -3,12 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { API_URL } from 'utils/utils';
 
-import thoughts from 'reducers/thoughts';
 import user from 'reducers/user';
 
 const Profile = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
-  const thoughtItems = useSelector((store) => store.thoughts.items);
+  const secretMessage = useSelector((store) => store.user.secretMessage);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,23 +34,22 @@ const Profile = () => {
       },
     };
 
-    // behöver ändra thoughts sen
-    //   fetch(API_URL('thoughts'), options)
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       if (data.success) {
-    //         dispatch(thoughts.actions.setItems(data.response));
-    //         dispatch(thoughts.actions.setError(null));
-    //       } else {
-    //         dispatch(thoughts.actions.setError(data.response));
-    //         dispatch(thoughts.actions.setItems([]));
-    //       }
-    //     });
-  }, []);
+    fetch(API_URL('profile'), options)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(user.actions.setSecretMessage(data.secretMessage));
+          dispatch(user.actions.setError(null));
+        } else {
+          dispatch(user.actions.setError(data.response));
+          // dispatch(user.actions.setItems([]));
+        }
+      });
+  }, [accessToken, dispatch]);
 
   return (
     <div>
-      <h1>Secret page</h1>
+      <h1>{secretMessage}</h1>
       <button onClick={logout}>Log out</button>
       {/* {thoughtItems.map((item) => {
         return <div key={item._id}>{item.message}</div>;
