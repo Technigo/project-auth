@@ -31,7 +31,7 @@ const SignUp = () => {
         .then(res => res.json())
         .then(data => {
           if (data.success) {
-            new Swal({
+            alert({
               title: 'Congratulations! User created 😻',
             }).then(function () {
               navigate('/signin');

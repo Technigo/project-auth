@@ -7,6 +7,7 @@ import user from "./reducers/user"
 
 
 import SignUp from "./components/SignUp"
+import SignIn from "./components/SignIn"
 import Start from "./components/Start"
 
 const reducer = combineReducers({
@@ -20,6 +21,7 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<Start />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
       </Provider>
     </BrowserRouter>
