@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import getEndpoints from 'express-list-endpoints';
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -126,8 +127,8 @@ app.get('/secret', authenticateUser, async (req, res) => {
 });
 
 // Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello Technigo!!");
+app.get('/', (req, res) => {
+  res.send(getEndpoints(app));
 });
 
 // Start the server
