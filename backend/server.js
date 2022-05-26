@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import crypto from "crypto"
-import bcrypt from "bcrypt"
+import crypto from "crypto";
+import bcryptjs from "bcryptjs";
 import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
@@ -65,7 +65,7 @@ app.post("/register", async (req, res) => {
 
   const { username, password } = req.body
   try {
-    const salt = bcrypt.genSaltSync()
+    const salt = bcryptjs.genSaltSync()
 
     if(password.length < 8) {
       res.status(400).json({
@@ -75,7 +75,7 @@ app.post("/register", async (req, res) => {
     } else {
       const newUser = await new User({
         username: username,
-        password: bcrypt.hashSync(password, salt)
+        password: bcryptjs.hashSync(password, salt)
       }).save()
   
       res.status(201).json({
