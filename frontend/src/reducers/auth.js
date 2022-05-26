@@ -10,7 +10,6 @@ export const authenticated = createSlice({
   },
   reducers: {
     login: (state, action) => {
-      console.log(action.payload);
       state.authToken = action.payload.accessToken;
       state.username = action.payload.username;
       state.userId = action.payload.userId;

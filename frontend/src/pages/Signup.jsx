@@ -71,7 +71,7 @@ const Signup = () => {
             textAlign="center"
             color="secondary"
           >
-            Sign up
+            New Arrivals
           </Typography>
           <TextField
             label="Username"

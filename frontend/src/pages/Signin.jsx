@@ -70,7 +70,7 @@ const Signin = () => {
             textAlign="center"
             color="secondary"
           >
-            Sign in
+            Enter Human
           </Typography>
           <TextField
             label="Username"
