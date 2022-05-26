@@ -112,7 +112,7 @@ const authenticateUser = async (req, res, next) => {
 
 //SECRET//
 app.get('/secret', authenticateUser, async (req, res) => {
-  const secretMessage = 'Your secret is safe me!';
+  const secretMessage = 'Your secret is safe with me!';
   try {
     res.status(200).json({
       success: true,
