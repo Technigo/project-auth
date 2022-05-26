@@ -73,20 +73,20 @@ export const Login = () => {
         </div>
         <div className="form-container">
           <form onSubmit={onFormSubmit}>
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Username :</label>
             <input
               type="text"
               id="username"
-              placeholder="enter username"
+              placeholder="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
 
-            <label htmlFor="username">Username</label>
+            <label htmlFor="password">Password :</label>
             <input
               type="password"
               id="password"
-              placeholder="enter password"
+              placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

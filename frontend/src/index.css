@@ -13,7 +13,7 @@ code {
 }
 
 .main-container{
-  padding: 20px;
+  padding: 120px 30px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -26,12 +26,14 @@ code {
   justify-content: center;
   border-radius: 10px;
   gap: 10px;
+  box-shadow: 1px 1px 5px black;
 }
 
 .form-container{
     background: #ff7a00;
     padding: 40px;
     border-radius: 10px;
+    box-shadow: 1px 1px 5px black;
    
 }
 a{
