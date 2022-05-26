@@ -7,7 +7,7 @@ const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
-    <div>
+    <div className="main-page">
       <h1>Hello User </h1>
       <h2>You are logged in </h2>
       <button
