@@ -1,27 +1,38 @@
 import React from 'react';
 import TheCountdown from './TheCountdown';
 import DateTimeDisplay from './DateTimeDisplay';
+import style from "styled-components"
+
+import{
+  Expired,
+  ExpiredMessage,
+  ExpiredNote, 
+  Counter,
+  Colon
+
+
+} from "./countdown_style"
 
 const ExpiredNotice = () => {
   return (
-    <div className='expired-notice'>
-      <span>Woohoooo</span>
-      <p>We have graduated from the bootcamp</p>
-    </div>
+    <Expired>
+      <ExpiredMessage>Woohoooo</ExpiredMessage>
+      <ExpiredNote >We have graduated from the bootcamp</ExpiredNote >
+    </Expired>
   );
 };
 
 const ShowCounter = ({ days, hours, minutes, seconds }) => {
   return (
-    <div className='show-counter'>
-      <DateTimeDisplay value={days} type={'Days'} isDanger={days <= 28} />
-      <p>:</p>
+    <Counter>
+      <DateTimeDisplay value={days} type={'Days'} isDanger={days >= 29} />
+      <Colon>:</Colon>
       <DateTimeDisplay value={hours} type={'Hours'} isDanger={false} />
-      <p>:</p>
+      <Colon>:</Colon>
       <DateTimeDisplay value={minutes} type={'Minutes'} isDanger={false} />
-      <p>:</p>
+      <Colon>:</Colon>
       <DateTimeDisplay value={seconds} type={'Seconds'} isDanger={false} />
-    </div>
+    </Counter>
   );
 };
 

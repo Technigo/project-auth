@@ -5,6 +5,15 @@ import { useDispatch } from 'react-redux';
 import { API_URL } from 'utils/utils';
 import user from 'reducers/user';
 import CountdownTimer from '../Hooks/CountdownTimer';
+import styled from "styled-components"
+
+import { 
+  Wrapper,
+  Title,
+  SignOutButton
+
+} from "./main_style"
+
 
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -30,13 +39,13 @@ const Main = () => {
   };
 
   return (
-    <>
-      <h1>It is the final countdown!!!</h1>
+    <Wrapper>
+      <Title>It is the final countdown!!!</Title>
       <CountdownTimer targetDate={dateTimeAfterFiveDays} />
-      <button type='submit' onClick={() => signOut()}>
+      <SignOutButton type='submit' onClick={() => signOut()}>
         Sign out
-      </button>
-    </>
+      </SignOutButton>
+    </Wrapper>
   );
 };
 
