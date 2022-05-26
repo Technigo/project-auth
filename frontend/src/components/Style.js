@@ -6,27 +6,49 @@ export const devices = {
     desktop: "(min-width: 1025px)"
 }
 
-// export const HeaderContainer = styled.div`
-//     height: 250px;
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     justify-content: center;
-//     background-color: #FFF;
-// `
+export const HeaderContainer = styled.div`
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFF;
+`
 
-// export const HeaderTitle = styled.h1`
-//     color: #EC9B3B;
-//     text-transform: uppercase;
-//     font-size: 60px;
-//     letter-spacing: 2px;
-// `
+export const HeaderTitle = styled.h1`
+    color: #EC9B3B;
+    text-transform: uppercase;
+    font-size: 40px;
+    letter-spacing: 2px;
+`
+
+export const Container = styled.article`
+    width: 375px;
+    margin: 0 auto;
+
+    @media ${devices.tablet} {
+        width: 768px;
+    }
+    @media ${devices.desktop} {
+      width: 1025px;
+  }
+`
+
+export const Radios = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+`
 
 export const RegisterLabel = styled.label`
     color: #EC9B3B;
     font-size: 24px;
     text-transform: uppercase;
     letter-spacing: 2px;
+
+    &:hover {
+        color: blue;
+    }
 `
 
 export const LoginLabel = styled.label`
@@ -34,16 +56,20 @@ export const LoginLabel = styled.label`
     font-size: 24px;
     text-transform: uppercase;
     letter-spacing: 2px;
+
+    &:hover {
+        color: blue;
+    }
 `
 
 export const StyledForm = styled.form`
     background-color: #0E3EDA;
-    margin: 16px;
     height: 450px;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 4px;
+
 `
 
 export const UsernameLabel = styled.label`
@@ -94,13 +120,17 @@ export const SubmitButton = styled.button`
     }
 `
 
+export const MainData = styled.h2`
+    color: white;
+`
+
 // export const LoginHeadline = styled.h2`
 //     color: #FFF;
 //     text-align: center;
 //     font-size: 24px;
 // `
 
-// export const FooterText = styled.p`
-//     font-size: 14px;
-//     text-align: center;
-// `
+export const FooterText = styled.p`
+    font-size: 14px;
+    text-align: center;
+`

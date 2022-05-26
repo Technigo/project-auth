@@ -1,7 +1,12 @@
 import React from 'react'
+import { Container } from "./Style"
 
 const NotFound = () => {
-    return <h1>Not found.. 😔</h1>
+    return (
+    <Container>
+        <h2>Not found.. 😔</h2>
+    </Container>
+    )
 }
 
 export default NotFound

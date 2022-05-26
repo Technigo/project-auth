@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import thoughts from 'reducers/thoughts'
 
 import { API_URL } from 'utils/utils'
+import Header from './Header'
+import Footer from './Footer'
+
+import { Container, StyledForm, MainData, SubmitButton } from "./Style"
 
 const Main = () => {
 
@@ -44,10 +48,22 @@ const Main = () => {
 
     return (
         <>
-            <h1>This is Main.</h1>
-            {thoughtItems.map((item)=> {
+        <Container>
+            <Header />
+            <StyledForm>
+                <MainData>This is Main.</MainData>
+
+                {thoughtItems.map((item)=> {
                 return <div key={item._id}>{item.message}</div>
-            })}
+                })}
+
+                <SubmitButton>Log out</SubmitButton>
+            </StyledForm>
+        </Container>
+        <Footer/>
+
+            
+           
         </>
     )
 }

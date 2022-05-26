@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 
 import { API_URL } from 'utils/utils';
-
 import user from 'reducers/user';
-import { SubmitButton, StyledForm, UsernameLabel, PasswordLabel, UsernameInput, PasswordInput, RegisterLabel, LoginLabel } from './Style';
+import Header from './Header';
+import Footer from './Footer';
+
+import { SubmitButton, StyledForm, UsernameLabel, PasswordLabel, UsernameInput, PasswordInput, RegisterLabel, LoginLabel, Container, Radios } from './Style';
 
 const Login = () => {
     const [username, setUsername] = useState("")
@@ -61,29 +63,35 @@ const Login = () => {
 
     return (
         <>
-            <RegisterLabel htmlFor="register">Register</RegisterLabel>
-            <input type="radio" id="register" checked={mode ==="register"} onChange={ () => setMode("register")}/>
-            
-            <LoginLabel htmlFor="login">Login</LoginLabel>
-            <input type="radio" id="login" checked={mode ==="login"} onChange={ () => setMode("login")}/>
-            
-            <StyledForm onSubmit={onFormSubmit}>
-                <UsernameLabel htmlFor="username">Username</UsernameLabel>
-                <UsernameInput 
-                    type="text"
-                    id="username"
-                    value={username}
-                    onChange={(e)=>setUsername(e.target.value)}/>
+        <Container>
+            <Header />
+                <Radios>
+                    <RegisterLabel htmlFor="register">Register</RegisterLabel>
+                    <input type="radio" id="register" checked={mode ==="register"} onChange={ () => setMode("register")}/>
+                    
+                    <LoginLabel htmlFor="login">Login</LoginLabel>
+                    <input type="radio" id="login" checked={mode ==="login"} onChange={ () => setMode("login")}/>
+                </Radios>
 
-                <PasswordLabel htmlFor="password">Password</PasswordLabel>
-                <PasswordInput 
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e)=>setPassword(e.target.value)}/>
+                <StyledForm onSubmit={onFormSubmit}>
+                    <UsernameLabel htmlFor="username">Username</UsernameLabel>
+                    <UsernameInput 
+                        type="text"
+                        id="username"
+                        value={username}
+                        onChange={(e)=>setUsername(e.target.value)}/>
 
-                <SubmitButton type="submit">Submit</SubmitButton>
-            </StyledForm>
+                    <PasswordLabel htmlFor="password">Password</PasswordLabel>
+                    <PasswordInput 
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e)=>setPassword(e.target.value)}/>
+
+                    <SubmitButton type="submit">Submit</SubmitButton>
+                </StyledForm>
+        </Container>
+        <Footer />
         </>
     )
 }
