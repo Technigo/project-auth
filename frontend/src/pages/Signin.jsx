@@ -52,7 +52,7 @@ const Signin = () => {
       console.log(data);
       if (data.success) {
         batch(() => {
-          dispatch(authenticated.actions.login(data.response));
+          dispatch(authenticated.actions.login(data));
           // dispatch(authenticated.actions.setUserId(data.userId));
           dispatch(authenticated.actions.setError(null));
           // dispatch(authenticated.actions.setlogin(data.login));

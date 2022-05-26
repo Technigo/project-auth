@@ -111,11 +111,9 @@ app.post("/login", async (req, res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
         success: true,
-        response: {
-          username: user.username,
-          accessToken: user.accessToken,
-          userId: user._id,
-        },
+        username: user.username,
+        accessToken: user.accessToken,
+        userId: user._id,
       });
     } else {
       res.status(400).json({
