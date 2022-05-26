@@ -23,7 +23,7 @@ const Container = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path='/main' element={<Main />}></Route>
+          <Route path='/' element={<Main />}></Route>
           <Route path='/signin' element={<SignIn />}></Route>
           <Route path='/notfound' element={<NotFound />}></Route>
         </Routes>
