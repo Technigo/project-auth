@@ -6,7 +6,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "themeprovider/theme";
-
+import NotFound from "pages/NotFound";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { authenticated } from "./reducers/auth";
 import { Provider } from "react-redux";
@@ -15,14 +15,9 @@ const reducer = combineReducers({
   authenticated: authenticated.reducer,
 });
 
-// #A78176
-
-// import { useSelector } from "react-redux";
-
 const store = configureStore({ reducer });
 
 export const App = () => {
-  // const authToken = useSelector((store) => store.authenticated.authToken);
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
@@ -32,8 +27,7 @@ export const App = () => {
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/home" element={<HomePage />} />
-
-            {/* <Route path='*' element={<NotFound/>}></Route> */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </Provider>
