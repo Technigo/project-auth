@@ -18,8 +18,6 @@ import triangle from "../assets/triangle_blue.png";
 const Signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [login, setLogin] = useState("");
-  // const [logout, setLogout] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,15 +32,6 @@ const Signin = () => {
   }, [authToken]);
 
   const userLogin = async (options) => {
-    console.log("userLogin function started");
-    // const options = {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({username, password})
-    // };
-
     try {
       const response = await fetch(
         "https://project-auth-asm.herokuapp.com/login",
@@ -52,28 +41,20 @@ const Signin = () => {
       console.log(data);
       if (data.success) {
         batch(() => {
-          dispatch(authenticated.actions.login(data));
-          // dispatch(authenticated.actions.setUserId(data.userId));
+          dispatch(authenticated.actions.login(data.response));
           dispatch(authenticated.actions.setError(null));
-          // dispatch(authenticated.actions.setlogin(data.login));
-          // dispatch(authenticated.actions.logout(data.logout));
         });
-        //navigate("/home");
       } else if (!data.success) {
         setError(data.response);
         console.log(error);
         batch(() => {
           dispatch(authenticated.actions.setUserId(null));
           dispatch(authenticated.actions.setError(data.response));
-          // dispatch(authenticated.actions.login(null));
-          dispatch(authenticated.actions.logout(data.logout));
-          //dispatch(authenticated.actions.setLogin(null));
+          dispatch(authenticated.actions.logout());
         });
-        //setError(data.response);
       }
     } catch (error) {
       console.log(error);
-      // setError(error.response)
     }
   };
 
@@ -99,7 +80,6 @@ const Signin = () => {
             onChange={(event) => setUsername(event.target.value)}
             autoComplete="true"
             color="secondary"
-            // sx={{ color: "text.primary" }}
           />
           <TextField
             label="Password"

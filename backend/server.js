@@ -111,13 +111,15 @@ app.post("/login", async (req, res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
         success: true,
-        username: user.username,
-        accessToken: user.accessToken,
-        userId: user._id,
+        response: {
+          username: user.username,
+          accessToken: user.accessToken,
+          userId: user._id,
+        },
       });
     } else {
       res.status(400).json({
-        response: "Username and password don't match",
+        response: "Username and password don't match.",
         success: false,
       });
     }
