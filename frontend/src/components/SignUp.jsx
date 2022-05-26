@@ -27,12 +27,12 @@ const SignUp = () => {
         body: JSON.stringify({ username, password, email }),
       };
   
-      fetch(SIGNUP_URL, options)
+      fetch(SIGNUP_URL, options)//FETCH from URL
         .then(res => res.json())
         .then(data => {
           if (data.success) {
             alert({
-              title: 'Congratulations! User created 😻',
+              title: 'Congratulations! User created',
             }).then(function () {
               navigate('/signin');
             });

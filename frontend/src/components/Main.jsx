@@ -23,9 +23,7 @@ const Main = () => {
         .then(res => res.json())
         .then(data => {
             setSecret(data);
-  
-        //   dispatch(secret.actions.setItems(data));
-        //   dispatch(secret.actions.setErrors(null));
+
         });
     }, [dispatch, accessToken]);
   
@@ -40,3 +38,8 @@ const Main = () => {
       );
     };
     export default Main;
+
+
+      
+        //   dispatch(secret.actions.setItems(data));
+        //   dispatch(secret.actions.setErrors(null));

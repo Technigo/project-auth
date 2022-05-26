@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initialState = localStorage.getItem("user")
+const initialState = localStorage.getItem("user") //LOCALSTORAGE ENABELED
   ? {
       userId: JSON.parse(localStorage.getItem("user")).userId,
       username: JSON.parse(localStorage.getItem("user")).username,
@@ -15,14 +15,13 @@ const initialState = localStorage.getItem("user")
       error: null,
     }
 
-const user = createSlice({
+const user = createSlice({//CREATE INITIAL STATE
   name: "user",
   initialState,
   reducers: {
     setEmail: (store, action) => {
       store.email = action.payload
     },
-
     setUserId: (store, action) => {
       store.userId = action.payload
     },

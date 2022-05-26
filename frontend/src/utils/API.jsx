@@ -1,4 +1,3 @@
-
 export const SIGNUP_URL =
 'https://project-auth-w20.herokuapp.com/signup';
 

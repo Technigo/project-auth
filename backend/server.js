@@ -67,11 +67,11 @@ app.post("/signup", async (req, res) => {
     if (password.length < 5) {
       throw "Password must be at least 5 characters"
     }
-    const newUser = await new User({
+    const newUser = await new User({ // SAVES NEW USER INFO
       username,
       email,
       password: bcrypt.hashSync(password, salt),
-    }).save() // SAVES NEW USER INFO
+    }).save()
     res.status(201).json({
       response: {
         userId: newUser._id,
@@ -111,7 +111,7 @@ app.post("/signup", async (req, res) => {
 })
 
 app.post("/signin", async (req, res) => {
-  const { username, password } = req.body
+  const { username, password, email } = req.body
   try {
     const user = await User.findOne({ username }) //CHECKS IF USER ALREADY HAS AN ACCOUNT
     if (user && bcrypt.compareSync(password, user.password)) {
