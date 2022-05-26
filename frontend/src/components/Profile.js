@@ -26,25 +26,29 @@ const Profile = () => {
   }, [accessToken, navigate]);
 
   useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: accessToken,
-      },
-    };
+    if (accessToken) {
+      const options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: accessToken,
+        },
+      };
 
-    fetch(API_URL('profile'), options)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          dispatch(user.actions.setSecretMessage(data.secretMessage));
-          dispatch(user.actions.setError(null));
-        } else {
-          dispatch(user.actions.setError(data.response));
-          // dispatch(user.actions.setItems([]));
-        }
-      });
+      fetch(API_URL('secret'), options)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            batch(() => {
+              dispatch(user.actions.setSecretMessage(data.secretMessage));
+              dispatch(user.actions.setError(null));
+            });
+          } else {
+            dispatch(user.actions.setError(data.response));
+            // dispatch(user.actions.setItems([]));
+          }
+        });
+    }
   }, [accessToken, dispatch]);
 
   return (
