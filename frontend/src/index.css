@@ -70,10 +70,11 @@ a.active {
   color: red;
 }
 
-.user-input {
+.user-input, .welcome-box {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1rem;
 }
 
 .user-input button {
@@ -83,6 +84,9 @@ a.active {
   margin: 10px;
 }
 
-.content-box, .welcome-box ,.user-input {
-  padding: 1rem;
+.input-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
 }
