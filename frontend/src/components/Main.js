@@ -2,14 +2,31 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+// import { batch } from "react-redux"
 import { API_URL } from "utils/utils";
 import thoughts from "reducers/thoughts";
+// import user from "../reducers/user";
+
 
 const Main = () => {
     const accessToken = useSelector((store) => store.user.accessToken)
     const thoughtItems = useSelector((store) => store.thoughts.items) 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+     // Function for logout
+//   const logout = () => {
+//     batch(() => {
+//       dispatch(user.actions.setUsername(null));
+//       dispatch(user.actions.setAccessToken(null));
+
+//       localStorage.removeItem("user");
+//     });
+//   };
+
+const logOutButton = () => {
+    window.location.reload()
+}
 
 useEffect(()=> {
     if(!accessToken) {
@@ -42,11 +59,18 @@ useEffect(()=> {
 
     return (
         <>
-        <Link to="/login"> LINK TO /login</Link>
-        <h1>This is main ..</h1>
+        <container>
+        {/* <Link to="/login"> LINK TO /login</Link> */}
+        <h1>Your garden page</h1>
         {thoughtItems.map((item) => {
             return <div key = {item._id}>{item.message}</div>
         })}
+        {/* <button onClick={logout}>Logout</button> */}
+        <div className="button-container">
+        <button type="button"
+                onClick={logOutButton}>Log out</button>
+                </div>
+        </container>
         </>
     )
 }
