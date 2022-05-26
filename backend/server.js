@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+const mongoUrl =
+  process.env.MONGO_URL || "mongodb://localhost/project-mongo-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -55,7 +56,7 @@ app.post("/register", async (req, res) => {
       res.status(201).json({
         response: {
           username: newUser.username,
-          accessToken: newUser.accesToken,
+          accessToken: newUser.accessToken,
           userId: newUser._id,
         },
         success: true,
@@ -97,7 +98,7 @@ app.post("/login", async (req, res) => {
 });
 
 const authenticateUser = async (req, res, next) => {
-  const ssToken = req.header("Authorization");
+  const accessToken = req.header("Authorization");
   try {
     const user = await User.findOne({ accessToken: accessToken });
     if (user) {
@@ -148,12 +149,7 @@ app.get("/thoughts", authenticateUser);
 app.get("/thoughts", (req, res) => {
   res.send("here are your thoughts");
 });
-// CORS
-app.use(
-  cors({
-    origin: "https://my-origin.com",
-  })
-);
+
 //////////
 // Start defining your routes here
 app.get("/", (req, res) => {
