@@ -34,7 +34,7 @@ const Signin = () => {
   }, [authToken]);
 
   const userLogin = async (options) => {
-
+    console.log("userLogin function started");
     // const options = {
     //   method: "POST",
     //   headers: {
@@ -44,17 +44,18 @@ const Signin = () => {
     // };
 
     try {
-      const fetch = await fetch(
+      const response = await fetch(
         "https://project-auth-asm.herokuapp.com/login",
         options
       );
-      const response = await fetch;
-      console.log(response);
+      const data = await response.json();
+      console.log(data);
       if (data.success) {
         batch(() => {
-          dispatch(authenticated.actions.setUserId(data.userId));
+          dispatch(authenticated.actions.login(data.response));
+          // dispatch(authenticated.actions.setUserId(data.userId));
           dispatch(authenticated.actions.setError(null));
-          dispatch(authenticated.actions.setlogin(data.login));
+          // dispatch(authenticated.actions.setlogin(data.login));
           // dispatch(authenticated.actions.logout(data.logout));
         });
         //navigate("/home");
@@ -94,7 +95,7 @@ const Signin = () => {
             variant="outlined"
             fullWidth
             required={true}
-            // onChange={typeEmail}
+            onChange={(event) => setUsername(event.target.value)}
             autoComplete="true"
             color="secondary"
             // sx={{ color: "text.primary" }}
@@ -106,7 +107,7 @@ const Signin = () => {
             type="password"
             required={true}
             color="secondary"
-            // onChange={typePassword}
+            onChange={(event) => setPassword(event.target.value)}
           />
           {/* {error.length > 0 && (
             <Alert severity="error">
@@ -115,7 +116,14 @@ const Signin = () => {
             </Alert>
           )} */}
           <Button
-            /*onClick={() => {userLogin}} */ variant="contained"
+            onClick={() =>
+              userLogin({
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password }),
+              })
+            }
+            variant="contained"
             fullWidth
             size="large"
             color="secondary"

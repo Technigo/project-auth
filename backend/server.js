@@ -29,22 +29,22 @@ const User = mongoose.model("User", UserSchema);
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
-    const user = await User.findOne({accessToken: accessToken});
+    const user = await User.findOne({ accessToken: accessToken });
     if (user) {
       next();
     } else {
       res.status(401).json({
         response: "Please log in",
-        success: false
+        success: false,
       });
     }
   } catch (error) {
     res.status(400).json({
       response: error,
-      success: false
+      success: false,
     });
   }
-}
+};
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -69,35 +69,35 @@ app.post("/register", async (req, res) => {
     if (password.length < 8) {
       res.status(400).json({
         response: "Password must contain at least 8 characters long",
-        success: false
+        success: false,
       });
     } else {
       const newUser = await new User({
         username: username,
-        password: bcrypt.hashSync(password, salt)
+        password: bcrypt.hashSync(password, salt),
       }).save();
       res.status(201).json({
         response: {
           username: newUser.username,
           accessToken: newUser.accessToken,
-          userId: newUser._id 
+          userId: newUser._id,
         },
-        success: true
-      })
+        success: true,
+      });
     }
     //
   } catch (error) {
     if (error.code === 11000) {
       res.status(400).json({
         response: "Username is already taken. Please enter new username.",
-        success: false
-      })
+        success: false,
+      });
     } else {
-      console.log(error)
+      console.log(error);
       res.status(400).json({
-      response: error,
-      success: false
-      })
+        response: error,
+        success: false,
+      });
     }
   }
 });
@@ -106,35 +106,35 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const user = await User.findOne({username});
+    const user = await User.findOne({ username });
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
         success: true,
-        username: user.username,
-        accessToken: user.accessToken,
-        userId: user._id
+        response: {
+          username: user.username,
+          accessToken: user.accessToken,
+          userId: user._id,
+        },
       });
     } else {
       res.status(400).json({
         response: "Username and password don't match",
-        success: false
+        success: false,
       });
     }
   } catch (error) {
     res.status(400).json({
       response: error,
-      success: false
-    })
+      success: false,
+    });
   }
 });
 
 app.get("/thoughts", authenticateUser);
 app.get("/thoughts", (req, res) => {
-  res.send("here are your thoughts")
+  res.send("here are your thoughts");
 });
-
-
 
 // Start the server
 app.listen(port, () => {

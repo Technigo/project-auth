@@ -10,18 +10,18 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // import { registerUser } from "services/helpers";
 import styled from "styled-components";
 import triangle from "../assets/triangle_blue.png";
+import { authenticated } from "reducers/auth";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  // console.log(useSelector((store) => store.auth))
+  const dispatch = useDispatch();
 
   const registerUser = async (options) => {
     try {
@@ -30,16 +30,14 @@ const Signup = () => {
         options
       );
       const data = await response.json();
-      console.log(data);
       if (data.success) {
+        dispatch(authenticated.actions.login(data.response));
         navigate("/home");
       } else if (!data.success) {
-        console.log(error);
         setError(data.response);
       }
     } catch (error) {
       console.log(error);
-      // setError(error.response)
     }
   };
 
@@ -48,7 +46,7 @@ const Signup = () => {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/;
 
     if (password.match(passwordPattern) && username.length > 4) {
-      console.log("Password is good to go");
+      // console.log("Password is good to go");
       registerUser({
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -83,7 +81,6 @@ const Signup = () => {
             fullWidth
             onChange={(event) => setUsername(event.target.value)}
             color="secondary"
-            // value={username}
           />
           <TextField
             label="Password"
@@ -93,7 +90,6 @@ const Signup = () => {
             fullWidth
             onChange={(event) => setPassword(event.target.value)}
             color="secondary"
-            //value={}
           />
           {error.length > 0 && (
             <Alert severity="error">
