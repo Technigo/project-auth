@@ -5,7 +5,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit"
 
 import user from "./reducers/user"
 
-
+import Main from './components/Main'
 import SignUp from "./components/SignUp"
 import SignIn from "./components/SignIn"
 import Start from "./components/Start"
@@ -22,6 +22,7 @@ export const App = () => {
           <Route path="/" element={<Start />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/main" element={<Main />} />
         </Routes>
       </Provider>
     </BrowserRouter>
