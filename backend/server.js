@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -45,7 +45,7 @@ app.post("/register", async (req, res) => {
   
   const { username, password } = req.body;
   try {
-    const salt = bcrypt.genSaltSync();
+    const salt = bcryptjs.genSaltSync();
     if(password.length < 8) {
       res.status(400).json({
         response: "Password must be at least 8 characters long",
@@ -54,7 +54,7 @@ app.post("/register", async (req, res) => {
     } else {
     const newUser = await new User({
       username: username,
-      password: bcrypt.hashSync(password, salt)
+      password: bcryptjs.hashSync(password, salt)
     }).save();
     res.status(201).json({
       response: {
@@ -148,7 +148,7 @@ app.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({username});
 
-    if(user && bcrypt.compareSync(password, user.password)) {
+    if(user && bcryptjs.compareSync(password, user.password)) {
       res.status(200).json({
         success: true,
         username: user.username,
