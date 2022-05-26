@@ -115,8 +115,8 @@ try {
 
 // here we are supposed to display some content, hard-coded data or something from the database 
 //if user logged in, this is the next()
-app.get("/yourGarden", authenticateUser)
-app.get("/yourGarden", (req, res,) => {res.send("here are your plants and flowers 🌺🌹🌻👒")})
+// app.get("/yourGarden", authenticateUser)
+// app.get("/yourGarden", (req, res,) => {res.send("here are your plants and flowers 🌺🌹🌻👒")})
 
 ////CODEALONG WEDNESSDAY
 
@@ -177,9 +177,9 @@ app.post("/thoughts", async (req, res) => {
 // }))
 
 // Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello Technigo!");
+// });
 
 // Start the server
 app.listen(port, () => {
