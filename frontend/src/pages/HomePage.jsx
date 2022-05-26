@@ -30,7 +30,62 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <p>This is homepage</p>
+      <div class="scene">
+        <div class="wrapper">
+          <ul class="ball">
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+            <li class="ring"></li>
+          </ul>
+        </div>
+      </div>
     </>
   );
 };
