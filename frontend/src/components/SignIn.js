@@ -55,34 +55,38 @@ const SignIn = () => {
   }
 
   return (
-      <> 
-          <Link to='/'> LINK TO /</Link>
-          <label htmlFor='register'>Register</label>
-          <input type='radio' id='register' checked={mode === 'register'} onChange={() => setMode('register')}/>
-
-          <label htmlFor='login'>Login</label>
-          <input type='radio' id='login' checked={mode === 'login'} onChange={() => setMode('login')}/>
-          
-          <form onSubmit={onFormSubmit}>
-            <p>Please type your username and password to sign in</p>
-            <label htmlFor='username'>Username</label>
-              <input
-                type='text'
-                id='username'
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-              />
-              <label htmlFor='password'>Password</label>
-      
-              <input
-                type='password'
-                id='password'
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
-              <button type='submit'>Submit</button>
-          </form>
-      </>
+    <> 
+          {/* <Link to='/'> LINK TO /</Link> */} 
+      <form className='container' onSubmit={onFormSubmit}>
+        <div>
+          <h2>Welcome!</h2>
+          <p>Please register or sign in by typing username and password</p>
+          <label htmlFor='username'>Username</label>
+            <input
+              type='text'
+              id='username'
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+            />
+            <label htmlFor='password'>Password</label>
+            <input
+              type='password'
+              id='password'
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </div>
+          <div>
+            <button type='submit'>Submit</button>
+          </div>
+          <div className='radio-btn-container'>
+            <label htmlFor='register'>Register</label>
+            <input type='radio' id='register' checked={mode === 'register'} onChange={() => setMode('register')}/>
+            <label htmlFor='login'>Login</label>
+            <input type='radio' id='login' checked={mode === 'login'} onChange={() => setMode('login')}/>
+          </div>
+      </form>
+    </>
   )
 }
 

@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { batch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { API_URL } from 'utils/utils';
+
+import thoughts from 'reducers/thoughts';
 
 
 
@@ -16,7 +18,6 @@ const Main = () => {
   useEffect(() => {
     if(!accessToken) {
       navigate('/signin');
-  
     }
   }, [accessToken]);
 
@@ -27,7 +28,7 @@ const Main = () => {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': accessToken
-      },
+      }
     }
 
     fetch(API_URL('thoughts'), options)
@@ -43,14 +44,21 @@ const Main = () => {
       })
   }, []);
 
+  const logOut = () => {
+    window.location.reload()
+}
+
   return (
-    <>
-      <Link to='/signin'>LINK TO /signin</Link>
+    <section className='container'>
+        {/* <Link to='/signin'>LINK TO /signin</Link> */}
       <h1>Hello member</h1>
-      {thoughtItems.map((item) => {
-        return <div key={item._id}>{item.message}</div>
-      })}
-    </>
+        {/* {thoughtItems.map((item) => {
+            return <div key = {item._id}>{item.message}</div>
+        })} */}
+      <div>
+        <button onClick={logOut}>Log out</button>
+      </div>
+    </section>
   )
 };
 
