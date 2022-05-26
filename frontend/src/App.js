@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
 import Login from 'components/Login'
@@ -15,7 +15,21 @@ const reducer = combineReducers({
   thoughts: thoughts.reducer
 })
 
-const store = configureStore({reducer})
+// const accessToken = useSelector((store) => store.user.accessToken)
+
+const persistedStateJSON = localStorage.getItem("userItemsReduxState")
+let preloadedState = {}
+
+if (persistedStateJSON) {
+  preloadedState = JSON.parse(persistedStateJSON)
+}
+
+const store = configureStore({reducer, preloadedState})
+
+store.subscribe(() => {
+  localStorage.setItem("userItemsReduxState", JSON.stringify(store.getState()))
+})
+
 
 export const App = () => {
   return (

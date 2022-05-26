@@ -56,7 +56,6 @@ const Login = () => {
 
     return (
         <>
-            <Link to="/">Link to /</Link>
             <label htmlFor="register">Register</label>
                 <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")} />
             <label htmlFor="login">Login</label>

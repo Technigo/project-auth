@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom"
 
 import { API_URL } from "utils/utils"
 import thoughts from "reducers/thoughts"
+import SignOut from "./SignOut"
 
 const Main = () => {
     const accessToken = useSelector((store) => store.user.accessToken)
@@ -41,11 +42,11 @@ const Main = () => {
     
     return (
         <>
-        <Link to="/login">Link to /login</Link>
         <h1>This is main</h1>
         {thoughtItems.map(item => {
             return <div key={item._id}>{item.message}</div>
         })}
+        <SignOut />
         </>
     )
 }
