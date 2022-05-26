@@ -102,5 +102,3 @@ export const Login = () => {
     </>
   );
 };
-
-//Connect this page to login-backend
