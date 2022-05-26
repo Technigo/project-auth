@@ -11,11 +11,13 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import Alert from '@mui/material/Alert';
 
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(false);
 
     const [mode, setMode] = useState("register");
 
@@ -44,7 +46,6 @@ const Login = () => {
     fetch(API_URL(mode), options)
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             if (data.success) {
                 batch(() => {
                     dispatch(user.actions.setUserId(data.userId));
@@ -58,6 +59,7 @@ const Login = () => {
                     dispatch(user.actions.setUserId(null));
                     dispatch(user.actions.setAccessToken(null));
                     dispatch(user.actions.setUserName(null));
+                    setErrorMessage(true)
                 });
             }
         })
@@ -65,47 +67,58 @@ const Login = () => {
 
     return (
         <>
+        <div className="container">
+            <form onSubmit={onFormSubmit}>
+                    <TextField
+                        id="outlined-basic"
+                        label="Username"
+                        variant="outlined"
+                        value={username}
+                        onChange={(e)=>setUsername(e.target.value)}
+                        required/>
 
-        <FormControl>
-            <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="register"
-                name="radio-buttons-group"
-            >
-                <FormControlLabel 
-                value="register" 
-                control={<Radio />} 
-                label="Register"
-                checked={mode === "register"}
-                onChange={() => setMode("register")} />
+                    <TextField
+                        id="outlined-password-input"
+                        label="Password"
+                        type="password"
+                        variant="outlined"
+                        value={password}
+                        onChange={(e)=>setPassword(e.target.value)} 
+                        required/>
+                    <FormControl>
+                        <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            defaultValue="register"
+                            name="radio-buttons-group"
+                        >
+                            <FormControlLabel 
+                            value="register" 
+                            control={<Radio />} 
+                            label="Register"
+                            checked={mode === "register"}
+                            onChange={() => setMode("register")}
+                            />
 
-                <FormControlLabel 
-                value="login" 
-                control={<Radio />} 
-                label="Log in"
-                checked={mode === "login"}
-                onChange={() => setMode("login")}/>
-            </RadioGroup>
-        </FormControl>
-       
-       <form onSubmit={onFormSubmit}>
-            <TextField
-                id="outlined-basic"
-                label="Username"
-                variant="outlined"
-                value={username}
-                onChange={(e)=>setUsername(e.target.value)}/>
+                            <FormControlLabel 
+                            value="login" 
+                            control={<Radio />} 
+                            label="Log in"
+                            checked={mode === "login"}
+                            onChange={() => setMode("login")}
+                            />
+                        </RadioGroup>
+                    </FormControl>
 
-            <TextField
-                id="outlined-password-input"
-                label="Password"
-                type="password"
-                variant="outlined"
-                value={password}
-                onChange={(e)=>setPassword(e.target.value)} />
-
-            <Button variant="contained" type="submit">Submit</Button>
-        </form>
+                    <Button 
+                        variant="contained"
+                        type="submit"
+                        disabled={password.length < 5}
+                        >
+                        Submit
+                    </Button>
+            </form>
+                {errorMessage && <Alert severity="error">Username and password do not match . Please retry or register if you are a new user.</Alert>}
+        </div>
         </>
     )
     

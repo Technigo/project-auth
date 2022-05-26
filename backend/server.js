@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -17,6 +18,12 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
+
+// Start defining your routes here
+app.get("/", (req, res) => {
+  res.send(listEndpoints(app));
+});
+
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -115,13 +122,31 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", (req, res) => {res.send("Here are your thoughts")});
-
-// Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+const NoteSchema = new mongoose.Schema({
+  message: String,
+  createdAt: {
+    type: Date,
+    default: () => new Date()
+  }
 });
+const Note = mongoose.model("Note", NoteSchema);
+
+app.get("/notes", authenticateUser);
+app.get("/notes", async (req, res) => {
+  const notes = await Note.find({});
+    res.status(200).json ({response: notes, success: true})
+});
+
+app.post("/notes", async (req, res) => {
+  const {message} = req.body;
+  try {
+    const newNote = await new Note({message}).save()
+      res.status(200).json({response: newNote, success: true});
+    } catch (error) {
+      res.status(400).json({response: error, success: false});
+    }
+});
+
 
 // Start the server
 app.listen(port, () => {

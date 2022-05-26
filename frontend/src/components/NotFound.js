@@ -1,7 +1,10 @@
 import React from "react"
+import Alert from '@mui/material/Alert';
 
 const NotFound = () => {
-    return <h1>Not found ...</h1>
+    return (
+        <Alert severity="error">Not found</Alert>
+    )
 };
 
 export default NotFound;
