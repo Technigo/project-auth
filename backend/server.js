@@ -103,6 +103,7 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
+
 app.get("/thoughts", authenticateUser);
 app.get("/thoughts", (req, res) => {
   const { username } = req.body;
