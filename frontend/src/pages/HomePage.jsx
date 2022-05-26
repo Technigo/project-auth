@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Header from "components/Header";
 
 // import { authenticated } from "reducers/auth";
 
@@ -10,7 +11,7 @@ const HomePage = () => {
 
   useEffect(() => {
     if (!authToken) {
-      navigate("/signin");
+      navigate("/");
     }
   }, [authToken]);
 
@@ -26,7 +27,12 @@ const HomePage = () => {
 
   // fetch(,options)
 
-  return <p>This is homepage</p>;
+  return (
+    <>
+      <Header />
+      <p>This is homepage</p>
+    </>
+  );
 };
 
 export default HomePage;
