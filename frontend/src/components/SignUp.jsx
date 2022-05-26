@@ -60,7 +60,6 @@ const SignUp = () => {
             value={username}
             onChange={e => setUsername(e.target.value)}
           />
-  
           <label>email*</label>
           <input
             type='email'
@@ -68,7 +67,6 @@ const SignUp = () => {
             value={email}
             onChange={e => setEmail(e.target.value)}
           />
-  
           <label>password*</label>
           <input
             type='password'
@@ -76,18 +74,15 @@ const SignUp = () => {
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
-  
           {password && password.length < 5
             ? 'password must be over 5 characters'
             : ''}
-  
           <button type='submit'>register</button>
           <p>*required fields</p>
           {validationError !== null && (
             <p style={{ fontSize: '21px', color: 'red' }}>{validationError}</p>
           )}
         </form>
-  
         <div>
           <p>Already a member?</p>
           <Link to='/signin'>Sign in</Link>

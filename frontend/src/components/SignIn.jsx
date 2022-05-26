@@ -11,7 +11,6 @@ const SignIn = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    //  const [error, setError] = useState(null);
     const [validationError, setValidationError] = useState(null);
   
     const dispatch = useDispatch();
@@ -81,13 +80,13 @@ const SignIn = () => {
             value={username}
             onChange={e => setUsername(e.target.value)}
           />
-          <label>email*</label>
+          {/* <label>email*</label>
           <input
             type='email'
             placeholder='enter email'
             value={email}
             onChange={e => setEmail(e.target.value)}
-          />
+          /> */}
           <label htmlFor='password'>password*</label>
           <input
             id='password'
@@ -108,4 +107,5 @@ const SignIn = () => {
       </div>
     );
   };
+
   export default SignIn;

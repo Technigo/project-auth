@@ -12,7 +12,6 @@ const Main = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
   
-    //   // if there is no accessToken then redirect to login
     useEffect(() => {
       if (!accessToken) {
         navigate('/');

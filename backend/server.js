@@ -8,6 +8,8 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
+//MODEL 
+
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -36,12 +38,14 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+//CHECKS IF THERE IS AN ACCESS TOKEN IF THERE IS WE CALL THE "NEXT" FUNC (LINE 49) OTHERWISE IT THROWS AN ERROR AND ASKS USER TO LOG IN
 const userAuthentication = async (req, res, next) => {
   try {
     const user = await User.findOne({
       accessToken: req.header("Authorization"),
     })
     if (user) {
+      //EXPRESS FUNCTION
       next()
     } else {
       res.status(401).json({ response: "Please log in", success: false })
@@ -50,28 +54,24 @@ const userAuthentication = async (req, res, next) => {
     res.status(400).json({ response: error, success: false })
   }
 }
-// paths
+// PATHS 
 app.get("/secret", userAuthentication)
 app.get("/secret", async (req, res) => {
   res.json({ response: main, success: true, message: "hush hush, secret :)" })
 })
-
+//GETS MODEL SCHEMA 
 app.post("/signup", async (req, res) => {
   const { username, password, email } = req.body
-
   try {
-    const salt = bcrypt.genSaltSync()
-
+    const salt = bcrypt.genSaltSync()//ENCRYPTS USER PASSWORD AND THROWS ERROR IF THERE IS LESS THAN 5 CHARACTERS
     if (password.length < 5) {
       throw "Password must be at least 5 characters"
     }
-
     const newUser = await new User({
       username,
       email,
       password: bcrypt.hashSync(password, salt),
-    }).save()
-
+    }).save() // SAVES NEW USER INFO
     res.status(201).json({
       response: {
         userId: newUser._id,
@@ -81,7 +81,7 @@ app.post("/signup", async (req, res) => {
       },
       success: true,
     })
-  } catch (error) {
+  } catch (error) { //DIFFERENT TYPES OF ERRORMESSAGES DEPENDING ON THE CASE
     if (username === "") {
       res.status(400).json({
         message: "wrong username",
@@ -111,11 +111,9 @@ app.post("/signup", async (req, res) => {
 })
 
 app.post("/signin", async (req, res) => {
-  const { username, password, email } = req.body
-
+  const { username, password } = req.body
   try {
-    const user = await User.findOne({ username })
-
+    const user = await User.findOne({ username }) //CHECKS IF USER ALREADY HAS AN ACCOUNT
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
         response: {
@@ -126,7 +124,7 @@ app.post("/signin", async (req, res) => {
         success: true,
       })
     } else {
-      if (username === "") {
+      if (username === "") { //DIFFERENT TYPES OF ERRORMESSAGES DEPENDING ON THE CASE
         res.status(404).json({
           message: "missing username",
           response: "missing username",
@@ -146,8 +144,8 @@ app.post("/signin", async (req, res) => {
         })
       }
     }
-  } catch (error) {
-    res.status(400).json({
+  } catch (error) { 
+    res.status(400).json({ //DIFFERENT TYPES OF ERRORMESSAGES DEPENDING ON THE CASE
       message: "wrong entry",
       response: error,
       success: false,
