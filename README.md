@@ -1,13 +1,16 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
+This project was about making it possible to register and login as a user to be able to see some content, using MongoDb backend and React frontend.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+If we had more time, we would like to implement a notification if the username is taken or the username/password don't match. 
+
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Heroku API: https://sofia-emma-week-20.herokuapp.com/
+Backend PR/Code:
+
+Frontend: https://super-basbousa-1762e9.netlify.app/
