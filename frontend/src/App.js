@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react"
 
 import Login from "components/Login";
 import Main from "components/Main";
@@ -18,6 +19,7 @@ const store = configureStore({ reducer });
 
 export const App = () => {
   return (
+    <ChakraProvider>
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
@@ -27,5 +29,6 @@ export const App = () => {
         </Routes>
       </BrowserRouter>
     </Provider>
+    </ChakraProvider>
   );
 };
