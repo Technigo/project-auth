@@ -11,11 +11,11 @@ import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
 import user from 'reducers/user'
-import thoughts from 'reducers/thoughts'
+import content from 'reducers/content'
 
 const reducer = combineReducers({
   user: user.reducer,
-  thougts: thoughts.reducer
+  thougts: content.reducer
 })
 
 const store = configureStore({reducer})
@@ -29,11 +29,12 @@ export const App = () => {
 
       {/* <Link to="/start"><Logo>Wanna know a secret?</Logo></Link> */}
   <Wrapper>
-      <Logo>Wanna know a secret?</Logo>
+      <Logo>Welcome!</Logo>
 
       <LinkWrapper>
-      <LoginLink to="/login">Login / Register</LoginLink>
-      <MainLink to="/main">Main</MainLink>
+      <Text>Say >>></Text>
+      <LoginLink to="/start">Thanks!</LoginLink>
+      {/* <MainLink to="/main">Main</MainLink> */}
       </LinkWrapper>
 </Wrapper>
      
@@ -55,30 +56,69 @@ display: flex;
 flex-direction: column;
 width: 100vw;
 align-items: center;
+margin-top: 10px;
 `
 
 const Logo = styled.h1`
-font-family: 'Shrikhand', cursive;
-text-shadow: 5px 5px yellow;
-font-size: 70px;
-color: darkcyan;
+font-family: 'League Spartan', sans-serif;
+/* text-shadow: 5px 5px yellow; */
+font-size: 20px;
+color: black;
 text-align: center;
 margin-bottom: 10px;
 margin-top: 10px;
+
+@media (min-width: 768px) {
+font-size: 40px;
+margin-top: 25px;
+}
 `
 
 const LinkWrapper = styled.div`
 display: flex;
+flex-direction: row;
+
+
+`
+
+const Text = styled.p`
+font-family: 'League Spartan', sans-serif;
+margin-right: 20px;
+margin-top: 0;
+animation: pulse 2s infinite;
+  
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      
+    }
+  
+    70% {
+      transform: scale(1.4);
+      color: #E204AB;
+     
+    }
+  
+    100% {
+      transform: scale(0.95);
+      
+    }
+  }
+
+  @media (min-width: 768px) {
+    font-size: 20px;
+  }
 `
 
 const LoginLink = styled(Link)`
-font-family: monospace;
-margin-right: 50px;
+font-family: 'League Spartan', sans-serif;
+/* margin-right: 50px; */
 margin-bottom: 20px;
 color: black;
 
 &:hover {
-  color: yellow;
+  color: lightcoral;
 
   
   &:active {
@@ -87,6 +127,10 @@ color: black;
   /* &:visited {
       color: black;
     } */
+}
+
+@media (min-width: 768px) {
+  font-size: 20px;
 }
 `
 

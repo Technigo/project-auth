@@ -16,6 +16,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);
+  console.log(accessToken)
 
   useEffect(() => {
     if (accessToken) {
@@ -35,13 +36,13 @@ const Login = () => {
     };
 
     fetch(API_URL(mode), options)
-      .then((res) => res.json())
-      .then((data) => {
+      .then(res => res.json())
+      .then(data => {
         if (data.success) {
           batch(() => {
-            dispatch(user.actions.setUserId(data.userId));
-            dispatch(user.actions.setAccessToken(data.accessToken));
-            dispatch(user.actions.setUserName(data.username));
+            dispatch(user.actions.setUserId(data.response.userId));
+            dispatch(user.actions.setAccessToken(data.response.accessToken));
+            dispatch(user.actions.setUserName(data.response.username));
             dispatch(user.actions.setError(null));
           });
         } else {
@@ -58,10 +59,8 @@ const Login = () => {
   return (
     <MainWrapper>
       <CardWrapper>
-      <LinkWrapper>
-        <LinkHome to="/">Link to /</LinkHome>
-        </LinkWrapper>
-
+     
+        <InputsWrapper>
         <RadioBtns>
         <Register>
         <LabelReg htmlFor="register">Register</LabelReg>
@@ -101,9 +100,15 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </Form>
 
         <LoginBtn type="submit">Login</LoginBtn>
+        </Form>
+        </InputsWrapper>
+        
+        <LinkWrapper>
+        <LinkHome to="/">Home</LinkHome>
+        </LinkWrapper>
+
       </CardWrapper>
     </MainWrapper>
   );
@@ -127,6 +132,8 @@ flex-direction: column;
 const RadioBtns = styled.div`
 display: flex;
 justify-content: space-evenly;
+margin-top: 20px;
+margin-bottom: 0;
 `
 
 const Register = styled.div`
@@ -135,31 +142,49 @@ const LoginWrap = styled.div`
 `
 
 const CardWrapper = styled.div`
-  width: 80vw;
-  height: 40vh;
+  min-width: 80vw;
+  min-height: 45vh;
   padding: 20px 10px 10px 10px;
   background-color: #fcf9e8;
   border: 1px solid black;
   box-shadow: 5px 5px 0 0 black;
+  margin-top: 60px;
 
   &:hover {
-    box-shadow: 5px 5px 0 0 #960da8;
+    box-shadow: 5px 5px 0 0 #00936E;
+  }
+
+  @media (min-width: 768px) {
+    min-width: 40vw;
   }
 `;
 
 const LinkHome = styled(Link)`
-  font-family: monospace;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 300;
+  text-decoration: none;
+  color: black;
+
+  &:active {
+    color:black;
+  }
+
 `;
+
+const InputsWrapper = styled.div`
+margin-top: 20px;
+margin-bottom: 30px;
+`
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 10px;
   
 `;
 
 const LabelUser = styled.label`
-font-family: Arial, Helvetica, sans-serif;
+font-family: 'League Spartan', sans-serif;
 font-weight: 700;
 margin: 10px 0 10px 0;
 `
@@ -185,9 +210,10 @@ margin-bottom: 20px;
 `;
 
 const LoginBtn = styled.button`
-  font-family: monospace;
-  width: 200px;
+  font-family: 'League Spartan', sans-serif;
+  width: 209px;
   height: 40px;
+  cursor: pointer;
 `;
 
 export default Login;

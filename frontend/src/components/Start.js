@@ -4,14 +4,16 @@ import styled from 'styled-components'
 
 const Start = () => {
 
+  return (
   <Wrapper>
-      {/* <Logo>Wanna know a secret?</Logo> */}
+      <Logo>Wanna know a secret?</Logo>
 
       <LinkWrapper>
       <LoginLink to="/login">Login / Register</LoginLink>
       <MainLink to="/main">Main</MainLink>
       </LinkWrapper>
 </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`
@@ -27,6 +29,10 @@ text-shadow: 5px 5px yellow;
 font-size: 70px;
 color: darkcyan;
 text-align: center;
+
+@media (min-width: 768px) {
+  font-size: 100px;
+}
 `
 
 const LinkWrapper = styled.div`
@@ -35,8 +41,8 @@ justify-content: space-between;
 `
 
 const LoginLink = styled(Link)`
-font-family: monospace;
-margin: 50px;
+font-family: 'League Spartan', sans-serif;
+margin-right: 50px;
 color: black;
 
 &:hover {
@@ -53,6 +59,7 @@ color: black;
 `
 
 const MainLink = styled(LoginLink)`
+margin-right: 0;
 `
 
 export default Start

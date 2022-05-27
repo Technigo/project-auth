@@ -2,16 +2,16 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { API_URL } from 'utils/utils'
+import { API_CONTENT, API_URL } from 'utils/utils'
 import styled from 'styled-components'
 
-import thoughts from 'reducers/thoughts'
+import content from 'reducers/content'
 
 
 const Main = () => {
 
   const accessToken = useSelector((store) => store.user.accessToken)
-  // const thoughtItems = useSelector((store) => store.thoughts.items)
+  // const contentItems = useSelector((store) => store.content.items)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -34,15 +34,15 @@ const Main = () => {
         
     }
 
-    fetch(API_URL("thoughts"), options)
+    fetch(API_CONTENT, options)  //removed ("content") after API_URL, caus eit dodnt work 
     .then(res => res.json())
     .then(data => {
       if (data.success) {
-        dispatch(thoughts.actions.setItems(data.response))
-        dispatch(thoughts.actions.setError(null))
+        dispatch(content.actions.setItems(data.response))
+        dispatch(content.actions.setError(null))
       } else {
-        dispatch(thoughts.actions.setError(data.response))
-        dispatch(thoughts.actions.setItems([]))
+        dispatch(content.actions.setError(data.response))
+        dispatch(content.actions.setItems([]))
       }
     })
   }, [])
@@ -51,13 +51,13 @@ const Main = () => {
   return(
     <MainWrapper>
     <Wrapper>
-    <LinkHome to="/">Go home</LinkHome>
       <SecretText>Live</SecretText>
       <SecretText>Love</SecretText>
       <SecretText>Laugh</SecretText>
-      {/* {thoughtItems.map((item) => {
+      {/* {contentItems.map((item) => {
         return <div key={item._id}>{item.message}</div>
       })} */}
+    <LinkHome to="/">Ok thank you..</LinkHome>
     </Wrapper>
     </MainWrapper>
   )
