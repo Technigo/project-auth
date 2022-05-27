@@ -51,19 +51,14 @@ input {
   font-size: 18px;
 }
 
-/* 
-input::placeholder {
-  font-size: 16px;
+.login-error {
   color: white;
-} */
-
-/* input:valid {
-  border-bottom: 3px solid rgb(177, 238, 193);
+  font-size: 1rem;
+  text-align: center;
+  overflow-wrap: break-word;
+  font-style: italic;
+  margin-top: 2rem;
 }
-
-input:invalid {
-  border-bottom: 3px solid #f77676;
-} */
 
 /* Button */
 .button-container {

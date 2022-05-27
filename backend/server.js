@@ -39,7 +39,7 @@ app.post("/register", async (req, res) => {
 
     if (password.length < 8) {
       res.status(400).json({
-        response: "password must be at least 8 characters long",
+        response: "Your password must be at least 8 characters long.",
         success: false
     })
   } else {
@@ -80,7 +80,7 @@ app.post("/login", async (req, res) => {
       })
     } else {
       res.status(400).json({
-        response: "username or password was incorrect, please check that you have the right login credentials!",
+        response: "Your username or password was incorrect, please check that you have the right login credentials!",
         success: false
       })
     }

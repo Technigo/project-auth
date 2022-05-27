@@ -84,7 +84,7 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)} />
 
                     {loginError !== null && (
-                            <p className="error-message">{loginError}</p>
+                            <p className="login-error">{loginError}</p>
                             )}
 
                 <div className="button-container">
