@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
 import LandingPage from './components/LandingPage'
-import AuthorizedPage from 'AuthorizedPage'
+import AuthorizedPage from './components/AuthorizedPage'
 import Profile from './components/Profile'
 
 import { account } from './reducers/account'
