@@ -122,7 +122,7 @@ const authenticateUser = async (req, res, next) => {
 
 app.get('/loggedin', authenticateUser);
 app.get('/loggedin', (req, res) => {res.json({
-    response: 'secret page for logged in users',
+    response: 'Secret page for logged in users',
     success: true
   });
 });
