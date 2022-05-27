@@ -17,7 +17,6 @@ import Alert from '@mui/material/Alert';
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    // const [errorMessage, setErrorMessage] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
 
 
@@ -62,7 +61,6 @@ const Login = () => {
                     dispatch(user.actions.setUserId(null));
                     dispatch(user.actions.setAccessToken(null));
                     dispatch(user.actions.setUserName(null));
-                    // setErrorMessage(true)
                     setErrorMessage(data.response);
                 });
             }
@@ -126,8 +124,7 @@ const Login = () => {
             )}
         </div>
         </>
-    )
-    
+    )  
 };
 
 export default Login;
