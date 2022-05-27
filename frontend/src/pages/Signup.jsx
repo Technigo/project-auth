@@ -20,6 +20,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordTwo, setPasswordTwo] = useState();
   const [error, setError] = useState("");
   const dispatch = useDispatch();
 
@@ -44,8 +45,9 @@ const Signup = () => {
   const onSignUp = () => {
     const passwordPattern =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/;
-
-    if (password.match(passwordPattern) && username.length > 4) {
+    if (password !== passwordTwo) {
+      setError("Passwords do not match.");
+    } else if (password.match(passwordPattern) && username.length > 4) {
       registerUser({
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -89,6 +91,16 @@ const Signup = () => {
             fullWidth
             onChange={(event) => setPassword(event.target.value)}
             color="secondary"
+          />
+          <TextField
+            label="Confirm password"
+            variant="outlined"
+            type="password"
+            autoComplete="current-password"
+            required={true}
+            fullWidth
+            color="secondary"
+            onChange={(e) => setPasswordTwo(e.target.value)}
           />
           {error.length > 0 && (
             <Alert severity="error">
