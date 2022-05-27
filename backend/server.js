@@ -63,11 +63,6 @@ app.post("/register", async (req, res) => {
         response: "password must be minimum 8 characters long",
         success: false
       })
-    } else if (response.code == '11000') {
-      res.status(409).json({
-        response: "this username is taken",
-        success: false
-      })
     } else {
       const newUser = await new User({
         username,
