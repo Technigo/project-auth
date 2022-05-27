@@ -74,7 +74,7 @@ label {
   text-align: center;
 }
 
-.not-member {
+.not-member, .error-msg {
   text-align: center;
 }
 
