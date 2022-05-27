@@ -36,9 +36,9 @@ export const Login = () => {
         console.log(data)
         if (data.success) {
           batch(() => {
-            dispatch(user.actions.setUserId(data.userId))
-            dispatch(user.actions.setAccessToken(data.accessToken))
-            dispatch(user.actions.setUserName(data.username))
+            dispatch(user.actions.setUserId(data.response.userId))
+            dispatch(user.actions.setAccessToken(data.response.accessToken))
+            dispatch(user.actions.setUserName(data.response.username))
             dispatch(user.actions.setError(null))
           })
         } else {
@@ -73,7 +73,7 @@ export const Login = () => {
         </div>
         <div className="form-container">
           <form onSubmit={onFormSubmit}>
-            <label htmlFor="username">Username :</label>
+            <label htmlFor="username">Username</label>
             <input
               type="text"
               id="username"
@@ -82,7 +82,7 @@ export const Login = () => {
               onChange={(e) => setUsername(e.target.value)}
             />
 
-            <label htmlFor="password">Password :</label>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"

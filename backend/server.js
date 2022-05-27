@@ -37,22 +37,25 @@ app.post('/register', async (req, res) => {
 
   try {
     const salt = bcrypt.genSaltSync()
-    if (password.length < 5) {
-      throw 'Password must be at least 5 characters long'
+    if (password.length < 8) {
+      res.status(400).json({
+        response: 'Password must be at least 8 characters long',
+        success: false,
+      })
+    } else {
+      const newUser = await new User({
+        username,
+        password: bcrypt.hashSync(password, salt),
+      }).save()
+      res.status(201).json({
+        response: {
+          username: newUser.username,
+          accessToken: newUser.accessToken,
+          userId: newUser._id,
+        },
+        success: true,
+      })
     }
-    const newUser = await new User({
-      username,
-      password: bcrypt.hashSync(password, salt),
-    }).save()
-
-    res.status(201).json({
-      response: {
-        username: newUser.username,
-        accessToken: newUser.accessToken,
-        userId: newUser._id,
-      },
-      success: true,
-    })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
   }
@@ -99,8 +102,8 @@ const authenticateUser = async (req, res, next) => {
 }
 
 // Post authentication
-app.get('/welcome', authenticateUser)
-app.get('/welcome', (req, res) => {
+app.get('/info', authenticateUser)
+app.get('/info', (req, res) => {
   res.json('Hello world')
 })
 
