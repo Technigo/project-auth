@@ -45,4 +45,7 @@ export const SignOutButton = styled.button`
     color: #fff;
     border-color: #ffce54;
   }
+  @media (max-width: 768px) {
+    padding: 5px 5px;
+  }
 `;
