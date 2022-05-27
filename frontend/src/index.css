@@ -5,7 +5,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(232, 207, 255);
 
+
+}
+
+h1 {
+  text-align: center;
 }
 
 code {
@@ -13,6 +19,29 @@ code {
     monospace;
 }
 
+button {
+  border: none;
+  background-color: blueviolet;
+  color: white;
+  border-radius: 50px;
+  padding: 1em;
+  font-size: large;
+  margin-top: 2rem;
+}
+
+input {
+  padding: 1rem;
+}
+
+label {
+font-family: menlo;
+color:rgb(96, 1, 159);
+margin-top: 1rem;
+}
+
+img {
+  max-width: 100%;
+}
 
 .wrapper {
 
@@ -20,16 +49,27 @@ code {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgb(232, 207, 255);
   height: 100vh;
   width: 100vw;
-
+  padding: 1rem;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 80%;
   height: 50%;
-  gap: 1em;
+  gap: 0.5em;
+}
+
+@media screen and (min-width: 1024px){
+ 
+ .wrapper {
+  width: 800px;
+  margin: auto; 
+}
+button {
+  width: 200px;
+}
+
 }
