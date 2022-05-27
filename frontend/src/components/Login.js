@@ -81,7 +81,7 @@ const Login = () => {
                             //     .email("Invalid email address")
                         })}
 
-                        onSubmit={(values, { setSubmitting }) => {
+                        onSubmit={(values, { setSubmitting, resetForm }) => {
                             fetch(API_URL(mode), {
                                 method: "POST",
                                 headers: {
