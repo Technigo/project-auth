@@ -18,7 +18,7 @@ const Main = () => {
 
   useEffect(() => {
     if(!accessToken) {
-      navigate("/main") //change to "login" instead of "main" when styled
+      navigate("/login") //change to "login" instead of "main" when styled
     }
   }, [accessToken])
 
@@ -51,37 +51,69 @@ const Main = () => {
   return(
     <MainWrapper>
     <Wrapper>
+    <SecretTitle>Remember to:</SecretTitle>
       <SecretText>Live</SecretText>
       <SecretText>Love</SecretText>
       <SecretText>Laugh</SecretText>
-      {/* {contentItems.map((item) => {
-        return <div key={item._id}>{item.message}</div>
-      })} */}
-    <LinkHome to="/">Ok thank you..</LinkHome>
+      
     </Wrapper>
+    <LinkHome to="/">Ok thank you..</LinkHome>
     </MainWrapper>
   )
 }
 
 const MainWrapper = styled.section`
 display: flex;
+flex-direction: column;
 justify-content: center;
+min-width: 90vw;
 `
 
 const Wrapper = styled.div`
+min-width: 90vw;
+min-height: 80vh;
+margin-top: 40px;
 
+@media (min-width: 768px) {
+  margin-top: 20px;
+}
 `
 
 const LinkHome = styled(Link)`
-font-family: monospace;
+font-family: 'League Spartan', sans-serif;
+color: gray;
+text-decoration: none;
+width: 100vw;
+text-align: center;
+
+@media (min-width: 768px) {
+  margin-top: 20px;
+  font-size: 18px;
+}
 `
 
 
 const SecretText = styled.h1`
 font-family: 'Shrikhand', cursive;
-color: purple;
-font-size: 70px;
+color: green;
+text-shadow: 5px 5px blue;
+font-size: 60px;
 text-align: center;
 margin: 5px;
+
+@media (min-width: 768px) {
+  font-size: 110px;
+  margin: 0;
+}
 `
+const SecretTitle = styled(SecretText)`
+color: lightskyblue;
+text-shadow: 5px 5px blue;
+font-size: 40px;
+
+@media (min-width: 768px) {
+  font-size: 80px;
+}
+`
+
 export default Main

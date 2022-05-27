@@ -5,12 +5,15 @@ import styled from 'styled-components'
 const Start = () => {
 
   return (
-  <Wrapper>
+    
+    
+    <Wrapper>
+
       <Logo>Wanna know a secret?</Logo>
 
       <LinkWrapper>
-      <LoginLink to="/login">Login / Register</LoginLink>
-      <MainLink to="/main">Main</MainLink>
+      <LoginLink to="/login">YES!</LoginLink>
+      {/* <MainLink to="/main">Main</MainLink> */}
       </LinkWrapper>
 </Wrapper>
   )
@@ -31,7 +34,7 @@ color: darkcyan;
 text-align: center;
 
 @media (min-width: 768px) {
-  font-size: 100px;
+  font-size: 110px;
 }
 `
 
@@ -42,8 +45,36 @@ justify-content: space-between;
 
 const LoginLink = styled(Link)`
 font-family: 'League Spartan', sans-serif;
-margin-right: 50px;
+/* margin-right: 50px; */
 color: black;
+text-decoration: none;
+margin-top: 20px;
+font-size: 80px;
+animation: pulse 2s infinite;
+  
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      
+    }
+  
+    70% {
+      transform: scale(1.4);
+      color: #E204AB;
+      
+     
+    }
+  
+    100% {
+      transform: scale(0.95);
+      
+    }
+  }
+
+  @media (min-width: 768px) {
+    font-size: 100px;
+  }
 
 &:hover {
   color: yellow;
@@ -52,10 +83,14 @@ color: black;
   &:active {
     color: pink;
   }
-  /* &:visited {
-      color: black;
-    } */
+  
 }
+
+@media (min-width: 768px) {
+  font-size: 180px;
+  margin-top: 40px;
+}
+
 `
 
 const MainLink = styled(LoginLink)`

@@ -28,21 +28,13 @@ export const App = () => {
       <BrowserRouter>
 
       {/* <Link to="/start"><Logo>Wanna know a secret?</Logo></Link> */}
-  <Wrapper>
-      <Logo>Welcome!</Logo>
-
-      <LinkWrapper>
-      <Text>Say >>></Text>
-      <LoginLink to="/start">Thanks!</LoginLink>
-      {/* <MainLink to="/main">Main</MainLink> */}
-      </LinkWrapper>
-</Wrapper>
+ 
      
       <Routes>
-      <Route path="start" element={<Start />}/>
-      <Route path="login" element={<Login />}/>
-      <Route path="main" element={<Main />}/>
-      <Route path="notfound" element={<NotFound />}/>
+      <Route path="/" element={<Start />}/>
+      <Route path="/login" element={<Login />}/>
+      <Route path="/main" element={<Main />}/>
+      <Route path="/notfound" element={<NotFound />}/>
 
       </Routes>
 
