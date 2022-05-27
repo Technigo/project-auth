@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector, batch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 
-import { API_URL } from "utils/API";
+import { API_URL } from "utils/utils";
 
 import user from "reducers/user";
 
