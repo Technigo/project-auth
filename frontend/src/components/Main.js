@@ -3,7 +3,7 @@ import { useSelector, useDispatch, batch } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 
 import user from '../reducers/user'
-// import { API_URL } from '../utils/utils'
+import { API_URL } from '../utils/utils'
 
 // import { jokes } from '../reducers/jokes'
 
@@ -31,6 +31,31 @@ export const Main = () => {
       navigate('/login')
     }
   }, [accessToken])
+
+  useEffect(() => {
+    if (accessToken) {
+      const options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: accessToken,
+        },
+      }
+
+      fetch(API_URL('secret'), options)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            batch(() => {
+              dispatch(user.actions.setSecretMessage(data.secretMessage))
+              dispatch(user.actions.setError(null))
+            })
+          } else {
+            dispatch(user.actions.setError(data.response))
+          }
+        })
+    }
+  }, [accessToken, dispatch])
 
   //////----- testar att ta bort detta
   // useEffect(() => {
