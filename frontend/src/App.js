@@ -21,17 +21,9 @@ export const App = () => {
       <Provider store={store}>
         <main className="main">
           <Routes>
-            <Route exact path="/">
-              <LandingPage />
-            </Route>
-            <Route exact path="/authorized">
-              <AuthorizedPage />
-              <Profile />
-            </Route>
-            <Route path="/authorized/profile">
-              <AuthorizedPage />
-              <Profile />
-            </Route>
+            <Route exact path="/" element={<LandingPage />}></Route>
+            <Route exact path="/authorized" element={<><AuthorizedPage /><Profile /></>}></Route>
+            <Route path="/authorized/profile" element={<><AuthorizedPage /><Profile /></>}></Route>
           </Routes>
         </main>
       </Provider>

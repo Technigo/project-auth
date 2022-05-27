@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { batch, useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { account } from '../reducers/account'
 
@@ -14,11 +14,11 @@ const SignupForm = () => {
   const accessToken = useSelector(store => store.account.accessToken)
   const error = useSelector(store => store.account.errors)
   const dispatch = useDispatch()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (accessToken) {
-        history.push('/authorized')
+        navigate('/authorized')
     }
   }, [accessToken, history])
 
