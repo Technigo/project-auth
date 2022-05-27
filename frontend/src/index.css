@@ -37,7 +37,12 @@ code {
   border-radius: 10px;
   box-shadow: 1px 1px 5px black;
   justify-content: center;
-   
+}
+.error-container{
+  background-size: cover ;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
 }
 a{
   text-decoration: none;

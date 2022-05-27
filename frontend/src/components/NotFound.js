@@ -1,14 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
-
-const Error = styled.div`
-  background-image: url(.img/error.jpg);
-`
+import error from '../img/error.jpeg'
 
 export const NotFound = () => {
   return (
-    <Error>
-      <h1>Not found...</h1>
-    </Error>
+    <div className="error-container">
+      <img
+        src={error}
+        height={350}
+        width={700}
+        style={{ alignSelf: 'center' }}
+      />
+    </div>
   )
 }
