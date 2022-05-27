@@ -49,7 +49,7 @@ const Login = () => {
             dispatch(user.actions.setAccessToken(data.accessToken));
             dispatch(user.actions.setUserName(data.username));
             dispatch(user.actions.setError(null));
-            setValidationError(null);
+            setValidationError('User created! Navigate to Sign in');
           });
         } else {
           batch(() => {
