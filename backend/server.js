@@ -66,7 +66,7 @@ app.get("/", (req, res) => {
   res.send("Hello Dorothea!")
 })
 
-// Creat a new user / signup endpoint - Lovisa
+// Create a new user / signup endpoint - Lovisa
 
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body
