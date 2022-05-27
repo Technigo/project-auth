@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
@@ -20,7 +20,7 @@ export const App = () => {
     <BrowserRouter>
       <Provider store={store}>
         <main className="main">
-          <Switch>
+          <Routes>
             <Route exact path="/">
               <LandingPage />
             </Route>
@@ -32,7 +32,7 @@ export const App = () => {
               <AuthorizedPage />
               <Profile />
             </Route>
-          </Switch>
+          </Routes>
         </main>
       </Provider>
     </BrowserRouter>
