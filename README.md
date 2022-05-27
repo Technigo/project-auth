@@ -1,13 +1,15 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+The assignment of the week was to create a project with both backend and frontend and the ability to sign up and log in to authenticated state. 
 
 ## The problem
 
 Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
 
+We started with planning on what would be in the app. We used live sessions, Google and Stack overflow to solve the the project. We have used Node.js, React and styled components to create this app. We store our information with Redux store. Our backend data is stored with MongoDB. 
+
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend: https://stalwart-fox-8f67bd.netlify.app/login
+
+Backend: https://project-auth-by-ida-camilla.herokuapp.com
