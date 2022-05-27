@@ -57,35 +57,39 @@ const Login = () => {
     }
 
     return (
-    <>
-        <p>Register or log in</p>
-        <label htmlFor="register">Register</label>
-        <input type="radio" id="register" checked={mode === "register"} onChange={()=> setMode("register")}/>
-        <label htmlFor="login">Login</label>
-        <input type="radio" id="login" checked={mode === "login"} onChange={()=> setMode("login")}/>
+    <div className="container">
+        <h1>Register or log in</h1>
+        <div className="radio-container">
+            <label htmlFor="register">Register</label>
+            <input type="radio" id="register" checked={mode === "register"} onChange={()=> setMode("register")}/>
+            <label htmlFor="login">Login</label>
+            <input type="radio" id="login" checked={mode === "login"} onChange={()=> setMode("login")}/>
+        </div>
 
-        { errorMessage && <p>{errorMessage}</p>}
+        { errorMessage && <p className="error-message">{errorMessage}</p>}
 
         <form onSubmit={onFormSubmit}>
-            <label htmlFor="username">Username</label>
-            <input 
-                type="text"
-                id ="username"
-                value={username}
-                onChange={(e)=>setUsername(e.target.value)}/>
+            <div className="label-input-container">
+                <label htmlFor="username">Username</label>
+                <input 
+                    type="text"
+                    id ="username"
+                    value={username}
+                    onChange={(e)=>setUsername(e.target.value)}/>
 
-            <label htmlFor="password">Password</label>
-            <input 
-                type="password"
-                id ="password"
-                value={password}
-                onChange={(e)=>setPassword(e.target.value)}/>
+                <label htmlFor="password">Password</label>
+                <input 
+                    type="password"
+                    id ="password"
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}/>
+            </div>
 
                 <button type="submit" > 
-                    { mode === "register" && "register" || "submit" } 
+                    { mode === "register" && "Register" || "Log in" } 
                 </button>
         </form>
-    </>
+    </div>
     )
 };
 

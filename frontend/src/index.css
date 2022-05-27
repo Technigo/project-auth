@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f1c5d8;
 }
 
 code {
@@ -13,9 +14,49 @@ code {
 }
 
 .container {
-  border: 1px solid black;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
-  margin-top: 100px;
+  margin: 100px auto 0 auto;
+  width: 400px;
+  padding: 10px;
+
+}
+
+.radio-container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15px;
+ 
+}
+
+.label-input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+input[type=radio] {
+  margin-right: 15px;
+}
+
+input[type=text],
+input[type=password] {
+  width: 50%;
+  margin-bottom: 5px;
+}
+
+button {
+  background: #F759A0;
+  color: #fff;
+  border-radius: 10px;
+  border: 0.5px solid darkblue;
+  margin: 10px;
+  padding: 5px;
+  max-width: fit-content;
+}
+
+.error-message {
+  color: red;
 }

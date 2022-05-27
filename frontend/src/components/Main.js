@@ -38,7 +38,7 @@ const Main = () => {
 
 
     return (
-        <>
+        <div className="container">
             <h1>You are logged in</h1>
             <p>User name: {username}</p>
             <p>{content}</p>
@@ -51,7 +51,7 @@ const Main = () => {
                 >
                     Log out
                 </button>
-        </>
+        </div>
 
     )
 };
