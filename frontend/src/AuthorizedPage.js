@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import Sidebar from 'components/Sidebar'
@@ -9,11 +9,11 @@ const AuthorizedPage = () => {
 
   const accessToken = useSelector(store => store.account.accessToken);
 
-  const navigate = useNavigate();
+  const history = useHistory();
 
   useEffect(() => {
     if (!accessToken) {
-        navigate.push('/');
+        history.push('/');
     }
   }, [accessToken, history]);
 
