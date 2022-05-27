@@ -18,7 +18,7 @@ export const ExpiredNote = styled.p`
 
 export const Counter = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-weight: 700;
@@ -31,9 +31,11 @@ export const Counter = styled.div`
   margin-top: 20px;
 `
 
-export const Colon = styled.p`
-  padding: 10px;
-  margin: 10px;
-  
+export const Timer = styled.div`
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
  
 `

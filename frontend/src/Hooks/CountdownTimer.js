@@ -12,6 +12,7 @@ import{
 
 } from "./countdown_style"
 
+
 const ExpiredNotice = () => {
   return (
     <Expired>
@@ -21,7 +22,7 @@ const ExpiredNotice = () => {
   );
 };
 
-const ShowCounter = ({ days, hours, minutes, seconds }) => {
+/*const ShowCounter = ({ days, hours, minutes, seconds }) => {
   return (
     <Counter>
       <DateTimeDisplay value={days} type={'Days'} isDanger={days <= 29} />

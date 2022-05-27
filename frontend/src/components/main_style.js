@@ -13,6 +13,13 @@ export const Wrapper = styled.div`
 export const Title = styled.h1` 
   font-size: 30px;
   letter-spacing: 3px;
+  text-align: center;
+`
+
+export const Date = styled.h1` 
+  font-size: 20px;
+  letter-spacing: 3px;
+  text-align: center;
 `
 export const SignOutButton = styled.button`
   position: absolute;

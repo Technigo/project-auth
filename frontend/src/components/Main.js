@@ -23,10 +23,6 @@ const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
- /* const daysLeft = new Date().getTime();
-  const fiveDaysLeft = 29 * 24 * 60 * 60 * 1000;
-
-  const dateTimeAfterFiveDays = daysLeft + fiveDaysLeft;*/
 
   useEffect(() => {
     if (!accessToken) {
@@ -44,7 +40,6 @@ const Main = () => {
   return (
     <Wrapper>
       <Title>It is the final countdown!!!</Title>
-      {/*<CountdownTimer targetDate={dateTimeAfterFiveDays} />*/}
       <SignOutButton type='submit' onClick={() => signOut()}>
         Sign out
       </SignOutButton>
