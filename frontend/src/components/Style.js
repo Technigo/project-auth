@@ -35,6 +35,7 @@ export const Container = styled.article`
 `
 
 export const Radios = styled.div`
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -45,6 +46,7 @@ export const RegisterLabel = styled.label`
     font-size: 24px;
     text-transform: uppercase;
     letter-spacing: 2px;
+    padding: 10px;
 
     &:hover {
         color: blue;
@@ -56,6 +58,7 @@ export const LoginLabel = styled.label`
     font-size: 24px;
     text-transform: uppercase;
     letter-spacing: 2px;
+    padding: 10px;
 
     &:hover {
         color: blue;
@@ -64,40 +67,39 @@ export const LoginLabel = styled.label`
 
 export const StyledForm = styled.form`
     background-color: #0E3EDA;
-    height: 800px;
+    height: 750px;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 8px;
-
 `
 
 export const UsernameLabel = styled.label`
     color: #FFF;
     font-size: 18px;
-    padding: 10px;
-    margin-top: 50px;
+    padding: 25px;
+    margin-top: 80px;
 `
 
 export const UsernameInput = styled.input`
     background: #FFF;
     border: 2px solid #FFF;
     border-radius: 4px;
-    height: 30px;
+    height: 35px;
     width: 250px;
 `
 
 export const PasswordLabel = styled.label`
     color: #FFF;
     font-size: 18px;
-    padding: 10px;
+    padding: 25px;
 `
 
 export const PasswordInput = styled.input`
     background: #FFF;
     border: 2px solid #FFF;
     border-radius: 4px;
-    height: 30px;
+    height: 35px;
     width: 250px;
 `
 

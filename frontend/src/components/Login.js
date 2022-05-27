@@ -72,15 +72,18 @@ const Login = () => {
             <>
             <Container>
                 <Header />
-                    <Radios>
-                        <RegisterLabel htmlFor="register">Register</RegisterLabel>
-                        <input type="radio" id="register" checked={mode ==="register"} onChange={ () => setMode("register")}/>
-                        
-                        <LoginLabel htmlFor="login">Login</LoginLabel>
-                        <input type="radio" id="login" checked={mode ==="login"} onChange={ () => setMode("login")}/>
-                    </Radios>
+                    
     
                     <StyledForm onSubmit={onFormSubmit}>
+
+                        <Radios>
+                            <RegisterLabel htmlFor="register">Register</RegisterLabel>
+                            <input type="radio" id="register" checked={mode ==="register"} onChange={ () => setMode("register")}/>
+                            
+                            <LoginLabel htmlFor="login">Login</LoginLabel>
+                            <input type="radio" id="login" checked={mode ==="login"} onChange={ () => setMode("login")}/>
+                        </Radios>
+
                         <UsernameLabel htmlFor="username">Username</UsernameLabel>
                         <UsernameInput 
                             type="text"
