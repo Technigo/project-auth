@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
-import bcrypt from "bcrypt-nodejs";
+import bcrypt from "bcrypt";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -17,8 +17,15 @@ app.use(express.json());
 
 // Codealong with Van, then Daniel
 const UserSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
@@ -42,18 +49,10 @@ app.post("/register", async (req, res) => {
 
   try {
     const salt = bcrypt.genSaltSync();
-    const userExists = await User.findOne({ username });
 
-    if (userExists) {
+    if (password.length < 8) {
       res.status(400).json({
-        response: "Choose a different name or log into an existing account",
-        success: false,
-      });
-    } else if (password.length < 8) {
-      res.status(400).json({
-        response: {
-          message: "Password must be at least 8 characters long",
-        },
+        response: "Password must be at least 8 characters long",
         success: false,
       });
     } else {
@@ -73,7 +72,10 @@ app.post("/register", async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(400).json({ response: error, success: false });
+    res.status(400).json({
+      response: error,
+      success: false,
+    });
   }
 });
 
@@ -82,21 +84,25 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
+
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
-        userId: user._id,
+        success: true,
         username: user.username,
         accessToken: user.accessToken,
-        success: true,
+        userId: user._id,
       });
     } else {
-      res.status(404).json({
-        response: "Username or password does not match",
+      res.status(400).json({
+        response: "username and password don't match",
         success: false,
       });
     }
   } catch (error) {
-    res.status(404).json({ response: error, success: false });
+    res.status(400).json({
+      response: error,
+      success: false,
+    });
   }
 });
 
@@ -108,15 +114,20 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next();
     } else {
-      res.status(401).json({ response: "Please log in", success: false });
+      res.status(401).json({
+        response: "Please log in to proceed",
+        success: false,
+      });
     }
   } catch (error) {
-    res.status(400).json({ response: error, success: false });
+    res.status(400).json({
+      response: error,
+      success: false,
+    });
   }
 };
 
-// Post authentication
-// app.get("/", authenticateUser);
+// Landing
 app.get("/", (req, res) => {
   res.send("Welcome to Justine's and Simon's API");
 });
