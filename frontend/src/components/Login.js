@@ -44,18 +44,18 @@ const Login = () => {
                 console.log(data)
                 if (data.success) {
                 batch(() => {
-                    dispatch(user.actions.setUserId(data.response.userId));
-                    dispatch(user.actions.setAccessToken(data.response.accessToken));
-                    dispatch(user.actions.setUserName(data.response.username));
-                    dispatch(user.actions.setError(null));
+                    dispatch(user.actions.setUserId(data.response.userId))
+                    dispatch(user.actions.setAccessToken(data.response.accessToken))
+                    dispatch(user.actions.setUserName(data.response.username))
+                    dispatch(user.actions.setError(null))
                     })
 
                 } else {
                     batch(() => {
-                    dispatch(user.actions.setError(data.response));
-                    dispatch(user.actions.setUserId(null));
-                    dispatch(user.actions.setAccessToken(null));
-                    dispatch(user.actions.setUserName(null));
+                    dispatch(user.actions.setError(data.response))
+                    dispatch(user.actions.setUserId(null))
+                    dispatch(user.actions.setAccessToken(null))
+                    dispatch(user.actions.setUserName(null))
                     })
                 }
             })
