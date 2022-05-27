@@ -19,7 +19,7 @@ export const Title = styled.h1`
   letter-spacing: 3px;
   text-align: center;
   @media (max-width: 768px) {
-    margin-top: 75px;
+    margin-top: 50px;
   }
 `;
 
