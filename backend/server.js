@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto"
 import bcrypt from "bcrypt"
+import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth-tiiliu";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -40,7 +41,7 @@ const User = mongoose.model("User", UserSchema)
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send(listEndpoints(app));
 });
 
 
@@ -170,7 +171,6 @@ app.post("/thoughts", async (req, res) => {
     })
   }
 })
-
 
 
 // Start the server
