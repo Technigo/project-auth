@@ -48,6 +48,7 @@ const Main = () => {
         {thoughtItems.map(item => {
             return <div key={item._id}>{item.message}</div>
         })}
+        <StyledSubTitle>Just close your eyes and listen to your inner happy thoughts...</StyledSubTitle>
         </StyledThought>
         <SignOut />
         </MainContainer>
@@ -79,4 +80,9 @@ const StyledThought = styled.div`
     width: 350px;
     height: 80px;
     border: 5px solid #3a4664;
+`
+
+const StyledSubTitle = styled.h2`
+    font-size: 1.5rem;
+    text-align: center;
 `
