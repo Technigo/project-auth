@@ -35,6 +35,7 @@ export const Login = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.userId))
@@ -81,19 +82,20 @@ export const Login = () => {
           <button
             className='submit-button'
             type='submit'
-            // id='login'
-            // onClick={() => setMode('login')}
+            id='login'
+            onClick={() => setMode('login')}
           >
             <p>Log in</p>
           </button>
           <button
             className='submit-button'
             type='submit'
-            // id='register'
-            // onClick={() => setMode('register')}
+            id='registration'
+            onClick={() => setMode('registration')}
           >
             <p>Sign up</p>
           </button>
+          <p className='error'>{error}</p>
         </form>
       </main>
     </>

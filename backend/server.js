@@ -148,7 +148,7 @@ app.post('/login', async (req, res) => {
       res.status(200).json({
         success: true,
         username: user.username,
-        accesToken: user.accesToken,
+        accessToken: user.accessToken,
         userId: user._id,
       })
     } else {
