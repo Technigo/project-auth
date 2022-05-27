@@ -10,19 +10,65 @@ import { API_URL } from "utils/utils";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [passwordShown, setPasswordShown] = useState(false)
   const [mode, setMode] = useState("register");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);
-  console.log(accessToken)
+  
 
   useEffect(() => {
     if (accessToken) {
       navigate("/main");
     }
   }, [accessToken]);
+
+
+  const togglePassword = () => {
+
+    setPasswordShown(!passwordShown)
+    
+  }
+
+  const userTaken = () => {
+
+    if (username.success === false) {
+      return(
+        <div>
+<h3>Username Taken</h3>
+        </div>
+      )
+    } 
+  
+  }
+
+  const wrongPassword = () => {
+     if (!accessToken) {
+       return( 
+         <div>
+           <h2>password dont match</h2>
+         </div>
+       )
+     }
+  }
+   
+  const passwordIcon = () => {
+
+  if (!passwordShown) {
+    return(
+      <>
+        <HidePassword>{'\u2600'}</HidePassword>
+      </>
+    )
+  } else {
+    return(
+      <>
+        <ShowPassword>{'\u2601'}</ShowPassword>
+      </>
+    )
+  }
+}
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -85,24 +131,37 @@ const Login = () => {
         </RadioBtns>
         
 
-        <Form onSubmit={onFormSubmit}>
           <LabelUser htmlFor="username">Username</LabelUser>
+        <Form onSubmit={onFormSubmit}>
           <UserInput
             type="text"
             id="username"
+            minLength={5}
+            maxLength={20}
+            required={true}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
+          </Form>
 
+          <ShowWrapper>
           <LabelPassword htmlFor="password">Password</LabelPassword>
+          <ShowPassword onClick={togglePassword}>{passwordIcon()}</ShowPassword>
+          </ShowWrapper>
+          <Form>
           <PasswordInput
-            type="password"
+            type={passwordShown ? "text" : "password"}
             id="password"
+            minLength={8}
+            required={true}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-
-        <LoginBtn type="submit">Login</LoginBtn>
+          </Form>
+          
+          
+        <Form onSubmit={onFormSubmit}>
+        <LoginBtn type="submit">Go!</LoginBtn>
         </Form>
         </InputsWrapper>
         
@@ -111,6 +170,13 @@ const Login = () => {
         </LinkWrapper>
 
       </CardWrapper>
+
+      {/* <div>
+        <h2>{wrongPassword()}</h2>
+      </div> */}
+      {/* <div>
+        <h3>{userTaken()}</h3>
+      </div> */}
     </MainWrapper>
   );
 };
@@ -128,21 +194,48 @@ const MainWrapper = styled.div`
 const LinkWrapper = styled.div`
 display: flex;
 flex-direction: column;
+align-items: flex-start;
+margin-top: 60px;
+
 `
 
 const RadioBtns = styled.div`
 display: flex;
-justify-content: space-evenly;
+justify-content: space-between;
 margin-top: 20px;
-margin-bottom: 0;
+margin-bottom: 40px;
 `
 
 const Register = styled.div`
+
 `
 const LoginWrap = styled.div`
+
+
 `
 
+const ShowWrapper = styled.div`
+display:flex;
+margin: 10px 0 0 0;
+padding: 0;
+/* border: 2px solid red; */
+
+`
+const ShowPassword = styled.button`
+background: none;
+border: none;
+font-size: 16px;
+margin: 2px 0 0 0;
+padding: 0;
+`
+
+const HidePassword = styled(ShowPassword)`
+
+`
 const CardWrapper = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
   min-width: 80vw;
   min-height: 45vh;
   padding: 20px 10px 10px 10px;
@@ -150,14 +243,19 @@ const CardWrapper = styled.div`
   border: 1px solid black;
   box-shadow: 5px 5px 0 0 black;
   margin-top: 60px;
+  
 
   &:hover {
     box-shadow: 5px 5px 0 0 #00936E;
   }
 
   @media (min-width: 768px) {
-    min-width: 40vw;
+    min-width: 45vw;
   }
+
+  @media (min-width: 992px) {
+    min-width: 20vw;
+}
 `;
 
 const LinkHome = styled(Link)`
@@ -173,14 +271,26 @@ const LinkHome = styled(Link)`
 `;
 
 const InputsWrapper = styled.div`
-margin-top: 20px;
+/* margin-top: 20px;
 margin-bottom: 30px;
+margin-left: 50px; */
+/* border: 1px solid red; */
+width: 60vw;
+
+@media (min-width: 768px) {
+  width: 40vw;
+}
+
+@media (min-width: 992px) {
+width: 16vw;
+}
+
 `
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  margin-top: 5px;
   
 `;
 
@@ -188,33 +298,73 @@ const LabelUser = styled.label`
 font-family: 'League Spartan', sans-serif;
 font-weight: 700;
 margin: 10px 0 10px 0;
+
+
 `
 
 const LabelPassword = styled(LabelUser)`
-
+margin: 10px 20px 0 0;
+padding: 0;
 `
 const LabelReg = styled(LabelUser)`
 margin: 0;
+color: darkgoldenrod;
 `
 const LabelLogin = styled(LabelUser)`
 margin: 0;
+color: darkorchid;
 `
 
 const UserInput = styled.input`
-  font-family: Arial, Helvetica, sans-serif;
-  width: 200px;
+  font-family: 'League Spartan', sans-serif;
+  width: inherit;
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: 1px solid black;
+  border-left: none;
+  font-size: 20px;
   `;
 
 const PasswordInput = styled(UserInput)`
 
-margin-bottom: 20px;
+margin-bottom: 5px;
 `;
 
 const LoginBtn = styled.button`
   font-family: 'League Spartan', sans-serif;
-  width: 209px;
+  width: inherit;
   height: 40px;
+  background: none;
+  border: none;
+  margin-top: 20px;
+  font-size: 20px;
   cursor: pointer;
+
+  &:hover {
+
+    animation: pulse 2s infinite;
+  
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      
+    }
+  
+    70% {
+      transform: scale(1.4);
+      color: #E204AB;
+      
+     
+    }
+  
+    100% {
+      transform: scale(0.95);
+      
+    }
+  }
+}
 `;
 
 export default Login;
