@@ -37,10 +37,9 @@ code {
 }
 
 .main-wrapper{
-  width:60%; 
+  width:80%; 
   margin:auto; 
   margin-top:50px;
-  background-color: #1b7c83;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -81,7 +80,8 @@ form {
 
 
 .button-52 {
-  margin-left:50px;
+  margin-left:45%;
+  margin-top:10px;
   font-size: 16px;
   font-weight: 200;
   letter-spacing: 1px;
@@ -112,18 +112,6 @@ form {
   top: 0px;
   left: 0px;
 }
-
-@media (min-width: 768px) {
-  .button-52 {
-    padding: 13px 50px 13px;
-  }
-}
-
-
-
-
-
-
 
 .button-80 {
   background: #0e8b81;
@@ -188,26 +176,33 @@ form {
 
 
 
-  .container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   }
 
   /*------FONTS-------*/
   .Welcome {
     font-family: "Yesteryear";
-    font-size: 60px;
-    line-height: 30px;
+    font-size: 50px;
+    line-height: 60px;
     color: rgb(244, 51, 215);
     font-stretch: expanded;
+
+  }
+
+  .header{
+    font-family: "Lucida Grande";
+    font-size: 20px;
+    color:rgb(244, 51, 215);
   }
   
   /* Hide the browser's default radio button */
@@ -252,7 +247,7 @@ form {
   
   /* Style the indicator (dot/circle) */
   .container .checkmark:after {
-     top: 9px;
+    top: 9px;
     left: 9px;
     width: 8px;
     height: 8px;

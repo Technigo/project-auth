@@ -104,13 +104,8 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-// app.get("/thoughts", authenticateUser);
-// app.get("/thoughts", (req, res) => {
-//   const { username } = req.body;
-//   res.send(`Here are your thoughts ${username}`);
-// });
 
-//SECRET//
+// SECRET
 app.get('/secret', authenticateUser, async (req, res) => {
   const secretMessage = 'Your secret is safe with me!';
   try {
