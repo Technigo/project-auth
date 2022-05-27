@@ -1,13 +1,15 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This weeks project was group task and we were suposed to build an API with authentication. The project both consists of a backend and a frontend folder.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We started with building our backend. We got help with how the structure should look from our lecture and we used Postman too try out our endpoints. The API is built with MongoDB and Mongoose. 
+
+For the frontend we built the code from scratch. We used router to navigate between the login/register Component and the main Component that for a logged in user shows a countdown.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Backend: https://countdown-app-login.herokuapp.com/
+
+Frontend: https://countdown-set.netlify.app/login
