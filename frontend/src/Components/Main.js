@@ -23,12 +23,12 @@ const Main = () => {
 
 
 
-// useEffect(() => {
+useEffect(() => {
   
-//   if (!accessToken) {
-//     navigate('/login')
-//   }
-// }, [accessToken, navigate])
+  if (!accessToken) {
+    navigate('/login')
+  }
+}, [accessToken, navigate])
 
 
   return (
