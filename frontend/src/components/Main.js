@@ -8,18 +8,12 @@ import user from 'reducers/user';
 import Confetti from 'react-confetti';
 import DateTimeDisplay from 'countdowntimer/DateTimeDisplay';
 
-import { 
-  Wrapper,
-  Title,
-  SignOutButton
-} from "./main_style"
-
+import { Wrapper, Title, SignOutButton } from './main_style';
 
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     if (!accessToken) {
@@ -36,7 +30,7 @@ const Main = () => {
 
   return (
     <Wrapper>
-      <Title>It is the final countdown!!!</Title>
+      <Title>It's the final countdown!!!</Title>
       <SignOutButton type='submit' onClick={() => signOut()}>
         Sign out
       </SignOutButton>
