@@ -1,6 +1,4 @@
 import React from 'react'
-//import styled from 'styled-components'
-
 import Login from 'components/Login'
 import NotFound from 'components/NotFound'
 import Main from 'components/Main'
@@ -12,7 +10,6 @@ import user from 'reducers/user';
 
 const reducer = combineReducers({
   user: user.reducer
-  //thoughts: thoughts.reducer
 });
 
 const store = configureStore({reducer});
