@@ -93,7 +93,7 @@ app.post('/login', async (req, res) => {
       });
     } else {
       res.status(400).json({
-        response: "username and password don't match",
+        response: "Username and password don't match",
         success: false,
       });
     }
@@ -129,7 +129,7 @@ app.get('/Main', authenticateUser);
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello Technigo!');
+  res.send('This is our backend');
 });
 
 // Start the server

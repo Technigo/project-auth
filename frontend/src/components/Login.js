@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/utils';
-import styled from 'styled-components';
 import user from 'reducers/user';
 
 import {

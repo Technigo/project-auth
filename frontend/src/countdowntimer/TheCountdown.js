@@ -1,24 +1,6 @@
 import React, { Component } from "react";
 
-
-import{
-  Expired,
-  ExpiredMessage,
-  ExpiredNote, 
-  Counter,
-  Timer,
-
-} from "./countdown_style"
-
-
-const ExpiredNotice = () => {
-  return (
-    <Expired>
-      <ExpiredMessage>Woohoooo</ExpiredMessage>
-      <ExpiredNote >We have graduated from the bootcamp</ExpiredNote >
-    </Expired>
-  );
-};
+import { Counter, Timer } from "./countdown_style";
 
 class TheCountdown extends Component {
   constructor(props) {
@@ -27,7 +9,7 @@ class TheCountdown extends Component {
       days: 0,
       hours: 0,
       minutes: 0,
-      seconds: 0
+      seconds: 0,
     };
   }
   UNSAFE_componentWillMount() {
@@ -42,8 +24,7 @@ class TheCountdown extends Component {
   getTimeUntil(deadline) {
     const time = Date.parse(deadline) - Date.parse(new Date());
     if (time < 0) {
-      this.setState({ days: 0, hours: 0, minutes: 0, seconds: 0,});
-      return <ExpiredNotice />;
+      this.setState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
     } else {
       const seconds = Math.floor((time / 1000) % 60);
       const minutes = Math.floor((time / 1000 / 60) % 60);
@@ -56,15 +37,9 @@ class TheCountdown extends Component {
     return (
       <Counter>
         <Timer>{this.leading0(this.state.days)} Days </Timer>
-        <Timer>
-          {this.leading0(this.state.hours)} Hours
-        </Timer>
-        <Timer>
-          {this.leading0(this.state.minutes)} Minutes
-        </Timer>
-        <Timer>
-          {this.leading0(this.state.seconds)} Seconds
-        </Timer>
+        <Timer>{this.leading0(this.state.hours)} Hours</Timer>
+        <Timer>{this.leading0(this.state.minutes)} Minutes</Timer>
+        <Timer>{this.leading0(this.state.seconds)} Seconds</Timer>
       </Counter>
     );
   }
