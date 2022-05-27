@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, Link } from "react-router-dom"
+import styled from "styled-components/macro";
 
 import { API_URL } from "utils/utils"
 import thoughts from "reducers/thoughts"
@@ -41,14 +42,41 @@ const Main = () => {
     }, [])
     
     return (
-        <>
-        <h1>This is main</h1>
+        <MainContainer>
+        <StyledTitle>Happy thoughts</StyledTitle>
+        <StyledThought>
         {thoughtItems.map(item => {
             return <div key={item._id}>{item.message}</div>
         })}
+        </StyledThought>
         <SignOut />
-        </>
+        </MainContainer>
     )
 }
 
 export default Main
+
+
+const MainContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #E7CFD7;
+    height: 100vh;
+`
+
+const StyledTitle = styled.h1`
+    font-size: 2,5rem;
+    margin-top: 3rem;
+`
+
+const StyledThought = styled.div`
+    background: #BAC0D4;
+    padding: 1em;
+    margin-bottom: 1em; 
+    margin-top: 2rem;
+    width: 350px;
+    height: 80px;
+    border: 5px solid #3a4664;
+`

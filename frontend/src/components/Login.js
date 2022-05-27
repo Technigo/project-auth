@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { Formik, Form, useField } from "formik"
 import * as Yup from "yup"
 import styled from "styled-components/macro"
+import LoadingAnimation from "../components/LoadingAnimation"
 
 import { API_URL } from "utils/utils"
 import user from "reducers/user"
@@ -16,24 +17,19 @@ const MyTextInput = ({ label, ...props }) => {
             <label htmlFor={props.id || props.name}>{label}</label>
             <input className="text-input" {...field} {...props} />
             {meta.touched && meta.error ? (
-                <div className="error">{meta.error}</div>
+                <StyledError className="error">{meta.error}</StyledError>
             ) : null}
         </>
     )
 }
 
-const Login = () => {
-    // const [username, setUsername] = useState("")
-    // const [password, setPassword] = useState("")
 
+const Login = () => {
     const [mode, setMode] = useState("login")
-    console.log(mode)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const accessToken = useSelector((store) => store.user.accessToken)
-
-    console.log("accessToken", accessToken)
 
 
     const handleLoginSuccess = (data) => {
@@ -80,8 +76,8 @@ const Login = () => {
                             password: Yup.string()
                                 .required("Required")
                                 .min(8, "The password must contain at least 8 characters"),
-                                // email: Yup.string()
-                                //     .required("Required")
+                            // email: Yup.string()
+                            //     .required("Required")
                             //     .email("Invalid email address")
                         })}
 
@@ -102,31 +98,37 @@ const Login = () => {
                             .catch((err) => {
                                 handleLoginFailure(err);
                             })
-                            .finally(() => setSubmitting(false))
+                            .finally(() => {
+                                setSubmitting(false)
+                                resetForm()
+                            })
                         }}
                         
                         >
                     {({ isSubmitting }) => (
                         <StyledForm>
-                                {isSubmitting && <div>Loading...</div>}
+                                {isSubmitting && <LoadingAnimation />}
+                            
                                 <StyledInput
-                                    label="Username"
-                                    name="username"
-                                    type="text" 
-                                    />
+                                label="Username"
+                                name="username"
+                                type="text" 
+                                />
+                                
+                                {/* <StyledInput
+                                label="Email address"
+                                name="email"
+                                type="email" 
+                                /> */}
 
                                 <StyledInput
-                                    label="Password"
-                                    name="password"
-                                    type="password" 
+                                label="Password"
+                                name="password"
+                                type="password" 
                                 />
 
-                                {/* <MyTextInput
-                                    label="Email address"
-                                    name="email"
-                                    type="email" 
-                                /> */}
-                                {mode === 'login' ? <StyledButton type="submit" background="#EBD0D0" boxShadow="2px 3px" width="100px">Login</StyledButton> : <StyledButton type="submit" background="#EBD0D0">Register</StyledButton>}
+
+                                {mode === 'login' ? <StyledButton type="submit" background="#E7CFD7" boxShadow="2px 3px #3a4664" width="100px">Login</StyledButton> : <StyledButton type="submit" background="#EBD0D0" boxShadow="2px 3px #3a4664" width="100px">Register</StyledButton>}
                                 
                                 {mode === 'login' ? 
                                 <StyledButton type="button" onClick={()=> setMode("register")} background="transparent" width="100%" textDecoration="underline">Not a member yet? Register here</StyledButton> :
@@ -161,9 +163,13 @@ const StyledLoginWrapper = styled.section`
     justify-content: center;
     width: 300px;
     height: 80vh;
-    background: #959595;
-    border: 10px solid black;
+    background: #BAC0D4;
+    border: 10px solid #3a4664;
+`
 
+const StyledTitle = styled.h1`
+    font-size: 2rem;
+    margin-bottom: 3rem;
 `
     
 const StyledMode = styled.div`
@@ -179,16 +185,23 @@ const StyledForm = styled(Form)`
     justify-content: center;
 
     label {
-        margin-bottom: 0.5rem;
+        margin-bottom: 3px;
     }
 `
 
 const StyledInput = styled(MyTextInput)`
     width: 150px;
     height: 20px;
-    margin-bottom: 1rem;
+    margin-bottom: 5px;
     border: none;
-    box-shadow: 2px 3px;
+    box-shadow: 2px 3px #3a4664;
+`
+
+const StyledError = styled.div`
+    font-size: 0.8rem;
+    color: red;
+    margin-bottom: 1rem;
+    text-align: center;
 `
 
 const StyledButton = styled.button`
