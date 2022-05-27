@@ -103,7 +103,7 @@ app.post("/login", async(req, res) => {
     const user = await User.findOne({username})
     if(user && bcrypt.compareSync(password, user.password))
     res.status(200).json({
-      repsonse: {
+      response: {
         username: user.username,
         accessToken: user.accessToken,
         userId: user._id
