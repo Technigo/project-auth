@@ -12,4 +12,4 @@ For the frontend we built the code from scratch. We used router to navigate betw
 
 Backend: https://countdown-app-login.herokuapp.com/
 
-Frontend: https://countdown-set.netlify.app/login
+Frontend: https://countdown-set.netlify.app/
