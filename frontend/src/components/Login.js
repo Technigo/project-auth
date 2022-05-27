@@ -17,7 +17,9 @@ import Alert from '@mui/material/Alert';
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState(false);
+    // const [errorMessage, setErrorMessage] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
+
 
     const [mode, setMode] = useState("register");
 
@@ -52,6 +54,7 @@ const Login = () => {
                     dispatch(user.actions.setAccessToken(data.accessToken));
                     dispatch(user.actions.setUserName(data.username));
                     dispatch(user.actions.setError(null));
+                    setErrorMessage(null);
                 });
             } else {
                 batch(() => {
@@ -59,7 +62,8 @@ const Login = () => {
                     dispatch(user.actions.setUserId(null));
                     dispatch(user.actions.setAccessToken(null));
                     dispatch(user.actions.setUserName(null));
-                    setErrorMessage(true)
+                    // setErrorMessage(true)
+                    setErrorMessage(data.response);
                 });
             }
         })
@@ -117,8 +121,11 @@ const Login = () => {
                         Submit
                     </Button>
             </form>
-                {errorMessage && <Alert severity="error">Username and password do not match . Please retry or register if you are a new user.</Alert>}
+                {/* {errorMessage && <Alert severity="error">Username and password do not match . Please retry or register if you are a new user.</Alert>} */}
         </div>
+        {errorMessage !== null && (
+                    <p>{errorMessage}</p>
+                     )}
         </>
     )
     

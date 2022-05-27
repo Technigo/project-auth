@@ -64,13 +64,13 @@ app.post("/register", async (req, res) => {
           accessToken: newUser.accessToken,
           userId: newUser._id
         },
-        sucess: true
+        success: true
       });
     }
   } catch(error) {
     res.status(400).json({
       response: error,
-      sucess: false
+      success: false
     });
   }
 });
