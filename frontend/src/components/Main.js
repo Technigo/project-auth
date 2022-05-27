@@ -68,8 +68,12 @@ const MainContainer = styled.section`
 `
 
 const StyledTitle = styled.h1`
-    font-size: 2,5rem;
+    font-size: 2rem;
     margin-top: 3rem;
+
+    @media screen and (min-width: 1024px) {
+        font-size: 2.5rem;
+    }
 `
 
 const StyledThought = styled.div`
@@ -77,12 +81,24 @@ const StyledThought = styled.div`
     padding: 1em;
     margin-bottom: 1em; 
     margin-top: 2rem;
-    width: 350px;
-    height: 80px;
+    width: 250px;
+    height: 100px;
     border: 5px solid #3a4664;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (min-width: 1024px) {
+        width: 350px;
+        height: 150px;
+    }
 `
 
 const StyledSubTitle = styled.h2`
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     text-align: center;
+
+    @media screen and (min-width: 1024px) {
+        font-size: 1.5rem;
+    }
 `

@@ -24,7 +24,7 @@ export default SignOut
 
 
 const StyledButton = styled.button`
-    margin-top: 1rem;
+    margin-top: 2rem;
     height: 25px;
     font-size: 0.9rem;
     width: ${props => props.width};
