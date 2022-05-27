@@ -25,7 +25,7 @@ const Container = () => {
         <Routes>
           <Route path='/' element={<Main />}></Route>
           <Route path='/signin' element={<SignIn />}></Route>
-          <Route path='/notfound' element={<NotFound />}></Route>
+          <Route path='*' element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>
     </Provider>

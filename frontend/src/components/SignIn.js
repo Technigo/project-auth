@@ -10,7 +10,7 @@ const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState('register');
-  const [error, setError] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const dispatch= useDispatch();
   const navigate = useNavigate();
@@ -36,14 +36,13 @@ const SignIn = () => {
     fetch(API_URL(mode), options)
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       if (data.success){
         batch(() => {
           dispatch(user.actions.setUserId(data.userId));
           dispatch(user.actions.setAccessToken(data.accessToken));
           dispatch(user.actions.setUserName(data.username));
           dispatch(user.actions.setError(null));
-          setError(null)
+          setLoginError(null)
         })
       } else {
         batch(() => {
@@ -51,7 +50,7 @@ const SignIn = () => {
           dispatch(user.actions.setUserId(null));
           dispatch(user.actions.setAccessToken(null));
           dispatch(user.actions.setUserName(null));
-          setError(data.message);
+          setLoginError(data.response);
         });
       }
     })
@@ -77,8 +76,8 @@ const SignIn = () => {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
-              {error !==null && (
-                <p className='login-error'>{error}</p>
+              {loginError !==null && (
+                <p className='login-error'>{loginError}</p>
               )}
             
           </div>

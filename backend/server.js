@@ -38,9 +38,8 @@ const authenticateUser = async (req, res, next) => {
       next();
     } else {
       res.status(401).json({
-        response: error,
         success: false,
-        message: 'Please log in'
+        response: 'Please log in'
       });
     }
 
@@ -52,17 +51,15 @@ const authenticateUser = async (req, res, next) => {
   }
 } 
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
+
 const port = process.env.PORT || 8080;
 const app = express();
 
-// Add middlewares to enable cors and json body parsing
+//middlewares
 app.use(cors());
 app.use(express.json());
 
-// Start defining your routes here
+//routes
 app.get("/", (req, res) => {
   res.send("This is the backend");
 });
@@ -77,9 +74,9 @@ app.post("/register", async (req, res) => {
 
     if(password.length < 8) {
       res.status(400).json({
-        response: error,
+        response: 'Password must be at least 8 characters long',
         success: false,
-        message: 'Password must be at least 8 characters long'
+        
       });
     } else {
     const newUser = await new User({
@@ -97,9 +94,8 @@ app.post("/register", async (req, res) => {
   }
   } catch (error) {
     res.status(400).json({
-      response: error,
+      response: 'User could not be created.',
       success: false,
-      message: 'User could not be created.',
     })
   }
 
@@ -118,8 +114,7 @@ app.get('/main', authenticateUser, async (req, res) => {
   } catch (error) {
     res.status(401).json({
       errors: error,
-      response: error,
-      message: 'Failed to log in'
+      response: 'Failed to log in'
     });
   }
 });
@@ -135,8 +130,7 @@ app.get('/secret', authenticateUser, async (req, res) => {
   } catch (error) {
     res.status(401).json({
       errors: error,
-      response: error,
-      message: 'Failed to display the secret.'
+      response: 'Failed to display the secret.'
     });
   }
 });
@@ -158,8 +152,7 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: error,
-        message: 'username and password does not match'
+        response: 'username and password does not match'
       });
     }
   } catch (error) {
