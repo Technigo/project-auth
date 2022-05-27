@@ -32,10 +32,7 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
-// app.use(cors());
-app.use(cors({
-  origin: "https://super-basbousa-1762e9.netlify.app/"
-}));
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
