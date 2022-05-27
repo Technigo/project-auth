@@ -35,7 +35,6 @@ const Login = () => {
         fetch(API_URL(mode), options)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.success) {
                     batch(()=> {
                         dispatch(user.actions.setUserId(data.userId));
@@ -45,7 +44,6 @@ const Login = () => {
                     });
                    
                 } else {
-                    console.log('login fail', data.response);
                     batch(()=> {
                         dispatch(user.actions.setError(data.response));
                         dispatch(user.actions.setUserId(null));

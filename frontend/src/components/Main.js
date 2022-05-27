@@ -28,7 +28,6 @@ const Main = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    console.log(data)
                     setContent(data.response);
                 } else {
                     console.log(data)
