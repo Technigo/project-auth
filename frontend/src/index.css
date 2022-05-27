@@ -51,19 +51,19 @@ input {
   font-size: 18px;
 }
 
-
+/* 
 input::placeholder {
   font-size: 16px;
   color: white;
-}
+} */
 
-input:valid {
+/* input:valid {
   border-bottom: 3px solid rgb(177, 238, 193);
 }
 
 input:invalid {
   border-bottom: 3px solid #f77676;
-}
+} */
 
 /* Button */
 .button-container {

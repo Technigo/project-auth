@@ -9,8 +9,8 @@ import user from 'reducers/user';
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("")
-
     const [mode, setMode] = useState("register");
+    const [loginError, setLoginError] = useState(null)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -43,6 +43,7 @@ const Login = () => {
                         dispatch(user.actions.setAccessToken(data.accessToken))
                         dispatch(user.actions.setUserName(data.username))
                         dispatch(user.actions.setError(null))
+                        setLoginError(null)
                     })
 
                 } else {
@@ -51,6 +52,7 @@ const Login = () => {
                         dispatch(user.actions.setUserId(null))
                         dispatch(user.actions.setAccessToken(null))
                         dispatch(user.actions.setUserName(null))
+                        setLoginError(data.response)
                     })
                 }
             })
@@ -60,7 +62,7 @@ const Login = () => {
         <>
             {/* <Link to="/"> LINK TO /</Link> */}
             <container>
-            <h1>Welcome to your garden page!</h1>
+            <h1>Welcome to your gardening page!</h1>
             <label htmlFor="register">Register</label>
             <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")} />
             <label htmlFor="login">Login</label>
@@ -81,6 +83,10 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)} />
 
+                    {loginError !== null && (
+                            <p className="error-message">{loginError}</p>
+                            )}
+
                 <div className="button-container">
                     <button type="submit">Sign up</button>
                     <button type="submit">Login</button>
@@ -88,6 +94,7 @@ const Login = () => {
                     <button type="button"
                 onClick={logOutButton}>Log out</button> */}
                 </div>
+                {/* <h1>$`{data.response}`</h1> */}
             </form>
             </container>
         </>
