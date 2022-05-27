@@ -37,7 +37,6 @@ export const Login = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.userId));
@@ -60,25 +59,32 @@ export const Login = () => {
   return (
     <>
       <section className="login-box">
-        <div className="links">
-          <Link to="/">LINK TO /</Link>
-          <label htmlFor="register">Register</label>
-          <input
-            type="radio"
-            id="register"
-            checked={mode === "register"}
-            onChange={() => setMode("register")}
-          />
-          <label htmlFor="login">Login</label>
-          <input
-            type="radio"
-            id="login"
-            checked={mode === "login"}
-            onChange={() => setMode("login")}
-          />
-        </div>
+        {mode === "login" && (
+          <div className="links">
+            <h1 className="header">LOG IN</h1>
+            {/* <Link to="/">LINK TO /</Link> */}
+            <label htmlFor="register">Register</label>
+            <input
+              type="radio"
+              id="register"
+              checked={mode === "register"}
+              onChange={() => setMode("register")}
+            />
+          </div>
+        )}
+        {mode === "register" && (
+          <div className="links">
+            <h1 className="header">REGISTER</h1>
+            <label htmlFor="login">Login</label>
+            <input
+              type="radio"
+              id="login"
+              checked={mode === "login"}
+              onChange={() => setMode("login")}
+            />
+          </div>
+        )}
         <form onSubmit={onFormSubmit} className="user-input">
-          <h1>Login here!</h1>
           <div className="input-box">
             <label htmlFor="username">Username: </label>
             <input
@@ -96,7 +102,16 @@ export const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button type="submit">Submit</button>
+          {mode === "login" && (
+            <button className="button" type="submit">
+              Log in
+            </button>
+          )}
+          {mode === "register" && (
+            <button className="button" type="submit">
+              Register
+            </button>
+          )}
         </form>
       </section>
     </>

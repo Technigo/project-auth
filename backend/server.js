@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import getEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -35,6 +36,29 @@ const UserSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", UserSchema);
+
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header("Authorization");
+  try {
+    const user = await User.findOne({ accessToken: accessToken });
+
+    if (user) {
+      req.user = user._id;
+      //la till denna, oklart om den behövs
+      next();
+    } else {
+      res.status(401).json({
+        response: "Please log in",
+        success: false,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      response: error,
+      success: false,
+    });
+  }
+};
 
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
@@ -95,29 +119,43 @@ app.post("/login", async (req, res) => {
   }
 });
 
-const authenticateUser = async (req, res, next) => {
-  const accessToken = req.header("Authorization");
+//--------------------PROFILE PROTECTED / AUTENTICATED ENDPOINT--------------------///
+// app.get("/welcome", authenticateUser, async (req, res) => {
+//   try {
+//     res.status(200).json({
+//       response: {
+//         id: req.user._id,
+//         username: req.user.username,
+//       },
+//       success: true,
+//     });
+//   } catch (error) {
+//     res.status(401).json({
+//       errors: error,
+//       response: "Failed to log in.",
+//     });
+//   }
+// });
+
+//--------------------------SECRET---------------------------///
+app.get("/secret", authenticateUser, async (req, res) => {
+  const secretMessage = "You are awesome! Have a nice day!";
   try {
-    const user = await User.findOne({ accessToken: accessToken });
-    if (user) {
-      next();
-    } else {
-      res.status(401).json({
-        response: "Please log in",
-        success: false,
-      });
-    }
+    res.status(200).json({
+      success: true,
+      secretMessage,
+    });
   } catch (error) {
-    res.status(400).json({
-      response: error,
-      success: false,
+    res.status(401).json({
+      errors: error,
+      response: "Failed to display the secret.",
     });
   }
-};
+});
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send(getEndpoints(app));
 });
 
 // Start the server

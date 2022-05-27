@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  background-color: rgb(222, 220, 220);
+  background-color: #095473;
 }
 
 body {
@@ -22,20 +22,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .page-wrapper {
+  margin-top: 3rem;
   margin: auto; 
   /* padding: 1rem; */
   max-width: 1240px;
   width: 90%;
-  /* border: solid 2px black */
+  border: solid 2px black;
+  background-color: #5B95AA;
 }
 
 .login-box {
   margin-top: 2rem;
+
 }
 
 .links {
   margin: 1rem;
   margin-bottom: 3rem;
+  background-color: #5B95AA;
 }
 
 .navbar {
@@ -64,17 +68,19 @@ h1, h2, h3, h4, h5, h6 {
 
 .link-box {
   display: flex;
+  
 }
 
 a.active {
   color: red;
 }
 
-.user-input, .welcome-box {
+.user-input, .welcome-box, .login-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
+  background-color: #5B95AA
 }
 
 .user-input button {
@@ -89,4 +95,5 @@ a.active {
   flex-direction: column;
   align-items: center;
   margin-top: 3rem;
+  background-color: #5B95AA;
 }
