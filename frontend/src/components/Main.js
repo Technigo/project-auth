@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect} from 'react'
+import { useDispatch, useSelector, batch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import thoughts from 'reducers/thoughts'
 
@@ -10,18 +10,25 @@ import Footer from './Footer'
 import { Container, StyledForm, MainData, SubmitButton } from "./Style"
 
 const Main = () => {
-
+    
     const accessToken = useSelector((store) => store.user.accessToken)
     const thoughtItems = useSelector((store) => store.thoughts.items)
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    // const logout = () => {
+    //     batch(()=> {
+    //         dispatch(user.actions.setUserName(null))
+    //         dispatch(user.actions.setAccessToken(null))
+    //     })
+    // }
     
     useEffect(()=> {
         if(!accessToken) {
             navigate("/login")
         }
-    }, [accessToken])
+    }, [accessToken, navigate])
 
     useEffect(() => {
 
@@ -44,7 +51,7 @@ const Main = () => {
                     dispatch(thoughts.actions.setItems([]))
                 }
             })
-        }, [])
+        }, [accessToken, dispatch])
 
     return (
         <>
@@ -57,13 +64,14 @@ const Main = () => {
                 return <div key={item._id}>{item.message}</div>
                 })}
 
-                <SubmitButton>Log out</SubmitButton>
+                <SubmitButton
+                // onSubmit={logout}
+
+                onClick={() => {dispatch(user.actions.setAccessToken(null))}}
+                >Log out</SubmitButton>
             </StyledForm>
         </Container>
         <Footer/>
-
-            
-           
         </>
     )
 }

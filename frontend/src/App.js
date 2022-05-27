@@ -1,8 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { createGlobalStyle } from 'styled-components';
-
 import Login from 'components/Login';
 import Main from 'components/Main';
 import NotFound from 'components/NotFound';
@@ -12,12 +10,6 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import user from 'reducers/user';
 import thoughts from 'reducers/thoughts';
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    font-family: 'Montserrat', sans-serif;
-  }
-`
 
 const reducer = combineReducers({
   user: user.reducer,
