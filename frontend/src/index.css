@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(20, 195, 142);
+  text-align: center;
 }
 
 code {
@@ -21,9 +22,17 @@ align-items: center;
 justify-content: center;
 }
 
+.radio-container {
+  padding: 1.5rem;
+  display:flex ;
+  font-size:1em;
+  font-weight: 700;
+  justify-content: space-between;
+}
+
 h1 {
   color: white;
-  font-size: 25px;
+  font-size: 27px;
   text-align: center;
 }
 
@@ -51,6 +60,7 @@ input {
   font-size: 18px;
 }
 
+/*error messages*/
 .login-error {
   color: white;
   font-size: 1rem;
@@ -58,6 +68,13 @@ input {
   overflow-wrap: break-word;
   font-style: italic;
   margin-top: 2rem;
+}
+
+img {
+  width: 30%;
+  height: 30%;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 /* Button */

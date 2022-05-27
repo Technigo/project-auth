@@ -62,12 +62,13 @@ const Login = () => {
         <>
             {/* <Link to="/"> LINK TO /</Link> */}
             <container>
-            <h1>Welcome to your gardening page!</h1>
+            <h1>Secret garden</h1>
+            <div className='radio-container'>
             <label htmlFor="register">Register</label>
             <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")} />
             <label htmlFor="login">Login</label>
             <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} />
-
+            </div>
             <form onSubmit={onFormSubmit}>
                 <label htmlFor="username">Username</label>
                 <input
