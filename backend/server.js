@@ -38,21 +38,28 @@ const User = mongoose.model('User', UserSchema);
 
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
+  console.log(username)
+  
   try {
+    let checkUsername = await User.findOne({ username: username.toLowerCase() }).exec();
+    console.log(checkUsername)
+
     const salt = bcrypt.genSaltSync();
-    if (password.length < 8) {
-      res.status(400).json({
-        response: 'Password must be at least 8 characters long.',
-        success: false,
-      });
-    } else if (User.findOne({ username: username.toLowerCase() })) {
+    
+     if (checkUsername !== null) {
       res.status(400).json({
         response: 'Username already taken',
         success: false,
       });
-    } else {
+    } else if (password.length < 8) {
+      res.status(400).json({
+        response: 'Password must be at least 8 characters long.',
+        success: false,
+      });
+    }
+     else {
       const newUser = await new User({
-        username: username,
+        username: username.toLowerCase(),
         password: bcrypt.hashSync(password, salt),
       }).save();
       res.status(201).json({
@@ -86,7 +93,7 @@ app.post('/login', async (req, res) => {
       });
     } else {
       res.status(400).json({
-        response: "username and password don't match",
+        response: "Username and password don't match",
         success: false,
       });
     }
@@ -122,7 +129,7 @@ app.get('/Main', authenticateUser);
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello Technigo!');
+  res.send('This is our backend');
 });
 
 // Start the server

@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/utils';
-import styled from 'styled-components';
 import user from 'reducers/user';
 
 import {
+  BackGround,
   FormWrapper,
   UserInput,
+  TextArea,
+  RadioWrapper,
+  Label,
+  RadioButtons,
+  ErrorMessage,
   SubmitButton,
   ButtonWrapper,
 } from './login_style';
@@ -63,46 +68,52 @@ const Login = () => {
   };
 
   return (
+    <BackGround >
     <FormWrapper>
       <form onSubmit={onFormSubmit}>
         <UserInput>
           <label htmlFor='username'>Username</label>
-          <input
+          <TextArea
             type='text'
             id='username'
+            placeholder='💻 Username' aria-label="Computer"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
 
           <label htmlFor='password'>Password</label>
-          <input
+          <TextArea
             type='password'
             id='password'
+            placeholder=' 🔑 Password' aria-label="key"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </UserInput>
-        <label htmlFor='login'>Login</label>
-        <input
+        <RadioWrapper>
+        <Label htmlFor='login'>Login</Label>
+        <RadioButtons
           type='radio'
           id='login'
           checked={mode === 'login'}
           onChange={() => setMode('login')}
         />
-        <label htmlFor='register'>Register</label>
-        <input
+        <Label htmlFor='register'>Register</Label>
+        <RadioButtons
           type='radio'
           id='register'
           checked={mode === 'register'}
           onChange={() => setMode('register')}
         />
+        </RadioWrapper>
 
-        {setErrorMessage !== null && <p>{errorMessage}</p>}
+        {setErrorMessage !== null && <ErrorMessage >{errorMessage}</ErrorMessage >}
         <ButtonWrapper>
           <SubmitButton type='submit'>Submit</SubmitButton>
         </ButtonWrapper>
       </form>
     </FormWrapper>
+    </BackGround >
   );
 };
 
