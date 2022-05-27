@@ -10,4 +10,4 @@ For some reason bcrypt-json dosn't work for me. The site will not update a user.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Backend --> https://week20-project-auth-frisk.herokuapp.com/

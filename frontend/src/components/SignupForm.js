@@ -71,21 +71,21 @@ const SignupForm = () => {
       <section className="landingpage-section signup-section">
         <h3>Sign Up!</h3>
         <form className="form signup-form" onSubmit={onFormSubmit}>
-          <label htmlFor="username">username</label>
+          <label htmlFor="username">Username:</label>
           <input 
             className="input signup-username-input" 
             type="text" 
             value={username} 
             onChange={(event) => setUsername(event.target.value)} 
           />
-          <label htmlFor="Email">Email</label>
+          <label htmlFor="Email">Email:</label>
           <input 
             className="input signup-Email-input" 
             type="email" 
             value={email} 
             onChange={(event) => setEmail(event.target.value)} 
           />
-          <label htmlFor="password">password</label>
+          <label htmlFor="password">Password:</label>
           <input 
             className="input signup-password-input" 
             type="password" 
@@ -93,12 +93,12 @@ const SignupForm = () => {
             onChange={(event) => setPassword(event.target.value)} 
           />
           {error && <p className="error-msg">{error.message}</p>}
-          <button className="btn signup-button" type="submit">Sign Up</button>
+          <button className="btn custom-btn signup-button" type="submit">Sign Up</button>
         </form>
         <div>
           <p> Already a member? </p>
           <button 
-            className="login-btn" 
+            className="btn custom-btn" 
             onClick={handleOnClick}
           > 
             Log in here!

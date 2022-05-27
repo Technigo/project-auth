@@ -70,14 +70,14 @@ const LoginForm = () => {
       <section className="landingpage-section login-section">
         <h3>Log in</h3>
         <form className="form login-form" onSubmit={onFormSubmit}>
-          <label htmlFor="username">username</label>
+          <label htmlFor="username">Username:</label>
           <input 
             className="input login-username-input" 
             type="text" 
             value={username} 
             onChange={(event) => setUsername(event.target.value)} 
           />
-          <label htmlFor="password">password</label>
+          <label htmlFor="password">Password:</label>
           <input 
             className="input login-password-input" 
             type="password" 
@@ -85,11 +85,11 @@ const LoginForm = () => {
             onChange={(event) => setPassword(event.target.value)} 
           />
           {error && <p className="error-msg">{error.message}</p>}
-          <button className="btn login-button" type="submit">log in</button>
+          <button className="btn custom-btn login-button" type="submit">Log in</button>
         </form>
         <div>
           <p> Not yet a member? </p>
-          <button className="create-btn" onClick={() => handleOnClick(account.actions.showSignupForm(true))}> create an account</button>
+          <button className="btn custom-btn create-account-btn" onClick={() => handleOnClick(account.actions.showSignupForm(true))}> Create an account</button>
         </div>
       </section>
     </div>

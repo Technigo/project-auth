@@ -11,7 +11,7 @@ const ProfileForm = ({ fullName, setFullName, age, setAge, location, setLocation
                 <label htmlFor="fullname">Full name</label>
                 <input 
                     id="fullname" 
-                    className="input fullname-input" 
+                    className="input" 
                     type="text" 
                     value={fullName} 
                     onChange={(event) => setFullName(event.target.value)} 
@@ -19,7 +19,7 @@ const ProfileForm = ({ fullName, setFullName, age, setAge, location, setLocation
                 <label htmlFor="age">Age</label>
                 <input 
                     id="age" 
-                    className="input age-input" 
+                    className="input" 
                     type="number" 
                     value={age} 
                     onChange={(event) => setAge(event.target.value)} 
@@ -27,7 +27,7 @@ const ProfileForm = ({ fullName, setFullName, age, setAge, location, setLocation
                 <label htmlFor="location">Location</label>
                 <input 
                     id="location" 
-                    className="input location-input" 
+                    className="input" 
                     type="text" 
                     value={location} 
                     onChange={(event) => setLocation(event.target.value)} 
@@ -40,7 +40,7 @@ const ProfileForm = ({ fullName, setFullName, age, setAge, location, setLocation
                     onChange={(event) => setDescription(event.target.value)} 
                 >
                 </textarea>
-                <button className="btn add-btn" type="submit">Add</button>
+                <button className="btn custom-btn" type="submit">Add</button>
           </form>
         </>
     )

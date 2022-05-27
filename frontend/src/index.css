@@ -1,13 +1,220 @@
+:root {
+  font-size: 62.5%;
+  font-family: 'Poppins', sans-serif;
+  --primary-one: #fabc3c;
+  --primary-two: #ffb238;
+  --primary-three:#f19143;
+  --primary-four: #ff773d;   
+  --primary-fifth: #f55536; 
+  /* --primary-sixth: #3B2B20;                                                                                                                                                                                                                                                              */
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: -apple-system, BlinkMacSystemFont, "Poppins", "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", "Poppins",
     monospace;
+}
+
+.main {
+  position: sticky;
+  font-size: 1.6rem;
+  color: var(--primary-sixth);
+  background-color: #ffd8be;
+  display: flex;
+  
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.landingpage-section-wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landingpage-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-three);
+  width: 25%;
+  box-shadow: 6px 6px 20px rgba(122,122,122,0.512);
+  border-radius: 28px;
+  padding: 50px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  width: 180px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+label {
+  text-align: center;
+}
+
+.sidebar {
+  background: var(--primary-three);
+  color: #000;
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  
+}
+
+.sidebar-list {
+  margin: 0;
+  padding: 10px;
+}
+
+.sidebar-list-item {
+  cursor: pointer;
+}
+
+.sidebar-list a {
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+}
+
+.profile-info-section {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  padding: 50px;
+  margin-left: auto;
+}
+
+.profile-info-wrapper {
+  align-self: center;
+  width: 50%;
+  display: flex;
+  border-radius: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 25px;
+  background: var(--primary-three);
+  color: var(--primary-sixth);
+  box-shadow: 6px 6px 20px rgba(122,122,122,0.512);
+}
+
+
+.profile-info-section h3 {
+  width: 50%;
+  align-self: center;
+  color:var(--primary-fifth); 
+  font-size: 3rem;
+}
+
+.profile-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.profile-info-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.description-textarea {
+  width: 190px;
+  height: 50px;
+  border-radius: 5px;
+}
+
+span {
+  font-weight: bold;
+}
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+
+.btn {
+  font-family: Poppins;
+  font-size: 12px;
+  width: 130px;
+  height: 50px;
+  line-height: 42px;
+  align-self: center;
+  padding: 0;
+  margin: 10px;
+  border: none;
+  background: rgb(255,27,0);
+  background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
+}
+.btn:hover {
+  color: #f0094a;
+  background: transparent;
+   box-shadow:none;
+}
+.btn:before,
+.btn:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #f0094a;
+  box-shadow:
+   /* -1px -1px 5px 0px #fff, */
+   7px 7px 20px 0px #0003,
+   4px 4px 5px 0px #0002;
+  transition:400ms ease all;
+}
+.btn:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.btn:hover:before,
+.btn:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+.create-account-btn {
+  width: 160px;
 }

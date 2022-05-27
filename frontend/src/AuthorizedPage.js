@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import Sidebar from 'components/Sidebar'
+import Profile from 'components/Profile'
 
 const AuthorizedPage = () => {
 

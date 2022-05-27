@@ -5,7 +5,6 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
 import LandingPage from './components/LandingPage'
 import AuthorizedPage from 'AuthorizedPage'
-// import Feed from './components/Feed'
 import Profile from './components/Profile'
 
 import { account } from './reducers/account'
@@ -27,14 +26,11 @@ export const App = () => {
             </Route>
             <Route exact path="/authorized">
               <AuthorizedPage />
+              <Profile />
             </Route>
             <Route path="/authorized/profile">
               <AuthorizedPage />
               <Profile />
-            </Route>
-            <Route path="/authorized/feed">
-              <AuthorizedPage />
-              {/* <Feed /> */}
             </Route>
           </Switch>
         </main>

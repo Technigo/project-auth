@@ -55,22 +55,22 @@ const Profile = () => {
 
   return (
     <section className="profile-info-section">
-      <h3>Welcome!</h3>
+      <h3>{`Welcome ${user.fullName}`}</h3>
       <div className="profile-info-wrapper">
         <div className="profile-info">
-          <p>{`Username: ${user.username}`}</p>
-          <p>{`Email: ${user.email}`}</p>
+          <p><span>Username:</span> {`${user.username}`}</p>
+          <p><span>Email:</span> {`${user.email}`}</p>
           {user.fullName && 
-            <p>{`Name: ${user.fullName}`}</p>
+            <p><span>Name:</span> {`${user.fullName}`}</p>
           }
           {user.age && 
-            <p>{`Age: ${user.age}`}</p>
+            <p><span>Age:</span> {`${user.age}`}</p>
           }
           {user.location && 
-            <p>{`Location: ${user.location}`}</p>
+            <p><span>Location:</span> {`${user.location}`}</p>
           }
           {user.desc && 
-            <p>{`Description: ${user.desc}`}</p>
+            <p><span>Description:</span> {`${user.desc}`}</p>
           }
         </div>
         <div className="profile-form-wrapper">
