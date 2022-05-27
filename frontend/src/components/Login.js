@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector, batch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { API_URL } from "utils/utils";
 
@@ -9,8 +9,8 @@ import user from "reducers/user";
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [value, setValue] = useState("register");
-  const [errorCheck, setErrorCheck] = useState("");
+  const [mode, setMode] = useState("register");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -23,15 +23,15 @@ export const Login = () => {
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username: username, password: password }),
     };
-    fetch(API_URL(value), options)
+
+    fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -41,7 +41,6 @@ export const Login = () => {
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setUserName(data.response.username));
             dispatch(user.actions.setError(null));
-            setErrorCheck("User created successfully");
           });
         } else {
           batch(() => {
@@ -49,56 +48,49 @@ export const Login = () => {
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setUserName(null));
-            setErrorCheck(data.response);
           });
+          setError(data.response);
         }
       });
   };
   return (
     <>
       <div className="main-container">
-        <div className="login-top">
-          <Link to="/">Link to /</Link>
-          <label htmlFor="register">Register</label>
-          <input
-            type="radio"
-            id="register"
-            checked={value === "register"}
-            onChange={() => setValue("register")}
-          />
-          <label htmlFor="login">Login</label>
-          <input
-            type="radio"
-            id="login"
-            checked={value === "login"}
-            onChange={() => setValue("login")}
-          />
-        </div>
-        <div className="form-container">
-          <form onSubmit={onFormSubmit}>
-            <label htmlFor="username">Username</label>
+        <form onSubmit={onFormSubmit}>
+          <div className="buttons">
+            <label htmlFor="register">Register</label>
             <input
-              type="text"
-              id="username"
-              placeholder="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              type="radio"
+              id="register"
+              checked={mode === "register"}
+              onChange={() => setMode("register")}
             />
-
-            <label htmlFor="password">Password</label>
+            <label htmlFor="login">Login</label>
             <input
-              type="password"
-              id="password"
-              placeholder="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="radio"
+              id="login"
+              checked={mode === "login"}
+              onChange={() => setMode("login")}
             />
-            <button type="submit">Submit</button>
-          </form>
-        </div>
+          </div>
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Submit</button>
+          <p className="error-message">{error}</p>
+        </form>
       </div>
     </>
   );
 };
-
-export default Login;
