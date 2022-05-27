@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import background from "../assets/alper-guzeler-inQvRABkTfg-unsplash.jpg";
-// import Button from '@mui/material'
 import styled from "styled-components/macro";
 import triangle from "../assets/triangle.png";
 

@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import ufoSightings from "./data/sightings.json";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -17,6 +18,8 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    minlength: 8,
+    maxlength: 30,
   },
   accessToken: {
     type: String,
@@ -131,9 +134,17 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", (req, res) => {
-  res.send("here are your thoughts");
+app.get("/sighting", authenticateUser);
+app.get("/sighting", (req, res) => {
+  const sighting = ufoSightings[Math.floor(Math.random() * 80331)];
+  if (sighting) {
+    res.status(200).json({ success: true, response: { sighting } });
+  } else {
+    res.status(400).json({
+      response: "You in danger.",
+      success: false,
+    });
+  }
 });
 
 // Start the server

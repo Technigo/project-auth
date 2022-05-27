@@ -30,62 +30,6 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <div className="scene">
-        <div className="wrapper">
-          <ul className="ball">
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-            <li className="ring"></li>
-          </ul>
-        </div>
-      </div>
     </>
   );
 };
