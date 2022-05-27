@@ -64,7 +64,7 @@ app.post('/register', async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({
-      response: 'Error registring',
+      response: 'Error registering',
       success: false
     })
   }
