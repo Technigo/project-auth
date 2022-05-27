@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import bodyParser from "body-parser";
 import crypto from "crypto";
 import bcrypt from "bcrypt-nodejs";
 
@@ -15,8 +14,6 @@ const app = express();
 // Middlewares:
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 // Codealong with Van, then Daniel
 const UserSchema = new mongoose.Schema({
@@ -49,10 +46,8 @@ app.post("/register", async (req, res) => {
 
     if (userExists) {
       res.status(400).json({
-        response: {
-          message: "Choose a different name or log into an existing account",
-          success: false,
-        },
+        response: "Choose a different name or log into an existing account",
+        success: false,
       });
     } else if (password.length < 8) {
       res.status(400).json({
@@ -62,6 +57,8 @@ app.post("/register", async (req, res) => {
         success: false,
       });
     } else {
+      console.log(password);
+      console.log(username);
       const newUser = await new User({
         username: username,
         password: bcrypt.hashSync(password, salt),
@@ -87,18 +84,14 @@ app.post("/login", async (req, res) => {
     const user = await User.findOne({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
-        response: {
-          userId: user._id,
-          username: user.username,
-          accessToken: user.accessToken,
-        },
+        userId: user._id,
+        username: user.username,
+        accessToken: user.accessToken,
         success: true,
       });
     } else {
       res.status(404).json({
-        response: {
-          message: "Username or password does not match",
-        },
+        response: "Username or password does not match",
         success: false,
       });
     }
@@ -123,9 +116,9 @@ const authenticateUser = async (req, res, next) => {
 };
 
 // Post authentication
-app.get("/info", authenticateUser);
-app.get("/info", (req, res) => {
-  res.json("You are logged in");
+// app.get("/", authenticateUser);
+app.get("/", (req, res) => {
+  res.send("You are logged in");
 });
 
 // Start the server
