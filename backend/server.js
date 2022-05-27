@@ -44,7 +44,6 @@ const authenticateUser = async (req, res, next) => {
 
     if (user) {
       req.user = user._id;
-      //la till denna, oklart om den behövs
       next();
     } else {
       res.status(401).json({
@@ -119,27 +118,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
-//--------------------PROFILE PROTECTED / AUTENTICATED ENDPOINT--------------------///
-// app.get("/welcome", authenticateUser, async (req, res) => {
-//   try {
-//     res.status(200).json({
-//       response: {
-//         id: req.user._id,
-//         username: req.user.username,
-//       },
-//       success: true,
-//     });
-//   } catch (error) {
-//     res.status(401).json({
-//       errors: error,
-//       response: "Failed to log in.",
-//     });
-//   }
-// });
-
 //--------------------------SECRET---------------------------///
 app.get("/secret", authenticateUser, async (req, res) => {
-  const secretMessage = "You are awesome! Have a nice day!";
+  const secretMessage = "You made it to the Secret page! Congrats!";
   try {
     res.status(200).json({
       success: true,

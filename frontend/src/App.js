@@ -8,29 +8,29 @@ import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 import user from "reducers/user";
-// import thoughts from "reducers/thoughts";
 
 const reducer = combineReducers({
   user: user.reducer,
-  // thoughts: thoughts.reducer,
 });
 
 const store = configureStore({ reducer });
 
 export const App = () => {
   return (
-    <div className="page-wrapper">
-      <Provider store={store}>
-        <BrowserRouter>
-          <main>
-            <Routes>
-              <Route path="/" element={<Welcome />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </BrowserRouter>
-      </Provider>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <div className="container">
+          <div className="page-wrapper">
+            <main>
+              <Routes>
+                <Route path="/" element={<Welcome />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+          </div>
+        </div>
+      </BrowserRouter>
+    </Provider>
   );
 };

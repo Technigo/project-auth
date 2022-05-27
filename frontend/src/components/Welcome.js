@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, batch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { API_URL } from "utils/utils";
 import user from "reducers/user";
@@ -44,14 +44,13 @@ export const Welcome = () => {
 
   return (
     <>
-      <div className="links">
-        {/* <Link to="/login">LINK TO /login</Link> */}
-      </div>
+      <div className="links"></div>
       <section className="welcome-box">
-        <h2>HELLO!</h2>
+        <h2>YESSS!</h2>
         <p>{secretMessage}</p>
-        <div className="logout-btn">
+        <div>
           <button
+            className="button"
             type="button"
             onClick={() => dispatch(user.actions.setAccessToken(null))}
           >

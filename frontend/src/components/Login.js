@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector, batch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { API_URL } from "utils/utils";
 
@@ -60,29 +60,38 @@ export const Login = () => {
     <>
       <section className="login-box">
         {mode === "login" && (
-          <div className="links">
-            <h1 className="header">LOG IN</h1>
-            {/* <Link to="/">LINK TO /</Link> */}
-            <label htmlFor="register">Register</label>
-            <input
-              type="radio"
-              id="register"
-              checked={mode === "register"}
-              onChange={() => setMode("register")}
-            />
-          </div>
+          <>
+            <div className="radiobtn">
+              <label htmlFor="register">Go to Register</label>
+              <input
+                className="radiobutton"
+                type="radio"
+                id="register"
+                checked={mode === "register"}
+                onChange={() => setMode("register")}
+              />
+            </div>
+            <div className="heading">
+              <h1>LOG IN</h1>
+            </div>
+          </>
         )}
         {mode === "register" && (
-          <div className="links">
-            <h1 className="header">REGISTER</h1>
-            <label htmlFor="login">Login</label>
-            <input
-              type="radio"
-              id="login"
-              checked={mode === "login"}
-              onChange={() => setMode("login")}
-            />
-          </div>
+          <>
+            <div className="radiobtn">
+              <label htmlFor="login">Go to Login</label>
+              <input
+                className="radiobutton"
+                type="radio"
+                id="login"
+                checked={mode === "login"}
+                onChange={() => setMode("login")}
+              />
+            </div>
+            <div className="heading">
+              <h1>REGISTER</h1>
+            </div>
+          </>
         )}
         <form onSubmit={onFormSubmit} className="user-input">
           <div className="input-box">
@@ -93,7 +102,6 @@ export const Login = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-
             <label htmlFor="password">Password: </label>
             <input
               type="password"
