@@ -8,8 +8,7 @@ import {
   RadioGroup, 
   Radio, 
   Stack, 
-  Text, 
-  FormControl 
+  Text 
 } from "@chakra-ui/react"
 
 import { API_URL } from "utils/utils";
@@ -17,14 +16,12 @@ import { API_URL } from "utils/utils";
 import user from "reducers/user";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [validationError, setValidationError] = useState(null);
-
-  const [mode, setMode] = useState("register");
-
+  const [value, setValue] = useState("register");
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);
 
   useEffect(() => {
@@ -35,16 +32,14 @@ const Login = () => {
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-
       body: JSON.stringify({ username, password }),
     };
-    fetch(API_URL(mode), options)
+    fetch(API_URL(value), options)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -70,31 +65,18 @@ const Login = () => {
 
   return (
     <Container mt={20}>
-      <Text fontSize='3xl'>Welcome Dude</Text>
-      <RadioGroup mt={10} onChange={setMode} value={mode}>
+      <Text fontSize='4xl'>Welcome Dude</Text>
+      <RadioGroup mt={5} onChange={setValue} value={value}>
         <Stack spacing={4} direction='row'>
-          <label htmlFor="register"></label>
-          <Radio
-            value="register"
-            type="radio"
-            id="register"            
-            checked={mode === "register"}
-            onChange={() => setMode("register")}
-          >Sign up
+          <Radio value="register">
+            Sign up
           </Radio>
-          <label htmlFor="login"></label>
-          <Radio
-            value="login"
-            type="radio"
-            id="register"
-            checked={mode === "login"}
-            onChange={() => setMode("login")}
-          >Sign in
+          <Radio value="login">
+            Sign in
           </Radio>
         </Stack>
       </RadioGroup>
-      <FormControl onSubmit={onFormSubmit}>
-        <div>
+      <form onSubmit={onFormSubmit}>
           <Input mt={5} 
             placeholder='Username'
             type="text"
@@ -102,8 +84,6 @@ const Login = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-        </div>
-        <div>
           <Input mt={5} 
             placeholder="Password"
             type="password"
@@ -111,12 +91,11 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
         {validationError !== null && (
           <p className="error-message">{validationError}</p>
         )}
-        <Button colorScheme='blue' type="submit">Submit</Button>
-      </FormControl>
+        <Button colorScheme='blue' mt={5} type="submit">Submit</Button>
+      </form>
     </Container>
   );
 };

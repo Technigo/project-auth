@@ -2,6 +2,12 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { 
+  Container, 
+  Button,  
+  Text 
+} from "@chakra-ui/react"
+
 import user from "reducers/user";
 
 const Main = () => {
@@ -16,9 +22,9 @@ const Main = () => {
   }, [accessToken]);
 
   return (
-    <>
-      <h1>Welcome!</h1>
-      <button
+    <Container>
+      <Text fontSize='3xl'>Grab a Beer</Text>
+      <Button
         type="button"
         onClick={() => {
           navigate("/login");
@@ -26,8 +32,8 @@ const Main = () => {
         }}
       >
         Log out
-      </button>
-    </>
+      </Button>
+    </Container>
   );
 };
 
