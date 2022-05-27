@@ -48,22 +48,23 @@ app.post('/register', async (req, res) => {
         response: "Password is too short, must be at least 8 characters",
         success: false
       });
-    } 
-    const newUser = await new User({
-      username: username,
-      password: bcrypt.hashSync(password, salt)
-    }).save(); 
-    res.status(201).json({
-      response: {
-        username:newUser.username,
-        accessToken: newUser.accessToken,
-        userId: newUser._id
-      },
-      success: true
-    })
+    } else {
+      const newUser = await new User({
+        username: username,
+        password: bcrypt.hashSync(password, salt)
+      }).save(); 
+      res.status(201).json({
+        response: {
+          username:newUser.username,
+          accessToken: newUser.accessToken,
+          userId: newUser._id
+        },
+        success: true
+      })
+    }
   } catch (error) {
     res.status(400).json({
-      response: error,
+      response: 'Error registring',
       success: false
     })
   }
@@ -85,19 +86,17 @@ app.post('/login', async (req, res) => {
       });
     } else {
       res.status(400).json({
-        response:"Username and password do not match",
+        response: "Username and password do not match",
         sucess: false
       })
     }
 
   } catch (error) {
     res.status(400).json ({
-      response: error,
+      response: 'Error logging in',
       sucess: false,
     });
-
   }
-
 });
 
 
@@ -115,14 +114,18 @@ const authenticateUser = async (req, res, next) => {
     }
   } catch (error) {
     res.status(400).json({
-      response:error,
+      response: "Please log in",
       success: false
     });
   }
 }
 
 app.get('/loggedin', authenticateUser);
-app.get('/loggedin', (req, res) => {res.send('secret page for logged in users')})
+app.get('/loggedin', (req, res) => {res.json({
+    response: 'secret page for logged in users',
+    success: true
+  });
+});
 
 
 
