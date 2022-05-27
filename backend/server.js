@@ -34,6 +34,8 @@ const User = mongoose.model("User", UserSchema);
 app.get("/", (req, res) => {
   res.send({
     "Justine's and Simon's app": "Welcome to our authentication API",
+    "Created for": "Technigo",
+    Project: "Week 20",
   });
 });
 
@@ -43,14 +45,25 @@ app.post("/register", async (req, res) => {
 
   try {
     const salt = bcrypt.genSaltSync();
-    if (password.length < 8) {
+    const userExists = await User.findOne({ username });
+
+    if (userExists) {
       res.status(400).json({
-        response: "Password must be at least 8 characters long",
+        response: {
+          message: "Choose a different name or log into an existing account",
+          success: false,
+        },
+      });
+    } else if (password.length < 8) {
+      res.status(400).json({
+        response: {
+          message: "Password must be at least 8 characters long",
+        },
         success: false,
       });
     } else {
       const newUser = await new User({
-        username,
+        username: username,
         password: bcrypt.hashSync(password, salt),
       }).save();
       res.status(201).json({
@@ -83,7 +96,9 @@ app.post("/login", async (req, res) => {
       });
     } else {
       res.status(404).json({
-        response: "Username or password does not match",
+        response: {
+          message: "Username or password does not match",
+        },
         success: false,
       });
     }
@@ -96,7 +111,7 @@ app.post("/login", async (req, res) => {
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
-    const user = await User.findOne({ accessToken });
+    const user = await User.findOne({ accessToken: accessToken });
     if (user) {
       next();
     } else {
@@ -110,7 +125,7 @@ const authenticateUser = async (req, res, next) => {
 // Post authentication
 app.get("/info", authenticateUser);
 app.get("/info", (req, res) => {
-  res.json("Hello world");
+  res.json("You are logged in");
 });
 
 // Start the server
