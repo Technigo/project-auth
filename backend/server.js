@@ -118,7 +118,7 @@ const authenticateUser = async (req, res, next) => {
 // Post authentication
 // app.get("/", authenticateUser);
 app.get("/", (req, res) => {
-  res.send("You are logged in");
+  res.send("Welcome to Justine's and Simon's API");
 });
 
 // Start the server
