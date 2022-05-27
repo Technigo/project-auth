@@ -8,8 +8,10 @@ import user from '../reducers/user'
 // import { jokes } from '../reducers/jokes'
 
 export const Main = () => {
-  const jokesItems = useSelector((store) => store.jokes.items)
+  // const jokesItems = useSelector((store) => store.jokes.items)
   const accessToken = useSelector((store) => store.user.accessToken)
+  const secretMessage = useSelector((store) => store.user.secretMessage)
+  const username = useSelector((store) => store.user.username)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -58,10 +60,11 @@ export const Main = () => {
       <Link to='/login'> LINK TO /login</Link>
       <main className='main-container'>
         <div className='form-container'>
-          <h1>Welcome!</h1>
-          <div key={jokesItems.id}>
+          <h1>Welcome {username}!</h1>
+          <h3 className='header'>Secret message: {secretMessage}</h3>
+          {/* <div key={jokesItems.id}>
             <h3> {jokesItems.message} </h3>
-          </div>
+          </div> */}
           <button className='submit-button' onClick={logout}>
             Log out
           </button>

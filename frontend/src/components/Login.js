@@ -19,7 +19,7 @@ export const Login = () => {
 
   useEffect(() => {
     if (accessToken) {
-      navigate('/main')
+      navigate('/')
     }
   }, [accessToken])
 
