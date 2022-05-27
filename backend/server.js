@@ -32,10 +32,10 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
-app.use(cors());
-// app.use(cors({
-//   origin: "https://thenetlifywecreate"
-// }));
+// app.use(cors());
+app.use(cors({
+  origin: "https://super-basbousa-1762e9.netlify.app/"
+}));
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -63,14 +63,12 @@ app.post("/register", async (req, res) => {
         response: "password must be minimum 8 characters long",
         success: false
       })
-    } 
-    // else if (err.code == '11000') {
-    //   res.status(409).json({
-    //     response: "this username is taken",
-    //     success: false
-    //   })
-    // } 
-    else {
+    } else if (response.code == '11000') {
+      res.status(409).json({
+        response: "this username is taken",
+        success: false
+      })
+    } else {
       const newUser = await new User({
         username,
         password: bcrypt.hashSync(password, salt)

@@ -1,13 +1,15 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This weeks project was about creating an api allowing users to register, sign in and see authenticated content. Then this was connected to a frontend. 
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+This week one of the main struggles was correctly creating endpoints and also how to connect this to our frontend using redux and React Router.
 
 ## View it live
+Frontend to be found: 
+https://super-basbousa-1762e9.netlify.app/
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Backend to be found: 
+herouku: https://sofia-emma-week-20.herokuapp.com/
+
