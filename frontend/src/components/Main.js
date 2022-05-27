@@ -7,6 +7,7 @@ import user from 'reducers/user';
 import CountdownTimer from '../Hooks/CountdownTimer';
 import Confetti from 'react-confetti';
 import styled from "styled-components"
+import DateTimeDisplay from 'Hooks/DateTimeDisplay';
 
 
 
@@ -14,7 +15,6 @@ import {
   Wrapper,
   Title,
   SignOutButton
-
 } from "./main_style"
 
 
@@ -23,10 +23,10 @@ const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const daysLeft = new Date().getTime();
+ /* const daysLeft = new Date().getTime();
   const fiveDaysLeft = 29 * 24 * 60 * 60 * 1000;
 
-  const dateTimeAfterFiveDays = daysLeft + fiveDaysLeft;
+  const dateTimeAfterFiveDays = daysLeft + fiveDaysLeft;*/
 
   useEffect(() => {
     if (!accessToken) {
@@ -44,10 +44,11 @@ const Main = () => {
   return (
     <Wrapper>
       <Title>It is the final countdown!!!</Title>
-      <CountdownTimer targetDate={dateTimeAfterFiveDays} />
+      {/*<CountdownTimer targetDate={dateTimeAfterFiveDays} />*/}
       <SignOutButton type='submit' onClick={() => signOut()}>
         Sign out
       </SignOutButton>
+      <DateTimeDisplay />
       <Confetti></Confetti>
     </Wrapper>
   );

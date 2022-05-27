@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Component }  from 'react';
+import TheCountdown from "./TheCountdown";
+
 
 import styled from "styled-components"
 
@@ -19,14 +21,19 @@ export const Type = styled.span`
   line-height: 1rem;
 `
 
-
-const DateTimeDisplay = ({ value, type, isDanger }) => {
-  return (
-    <TimeDisplay >
-      <Value>{value}</Value>
-      <Type>{type}</Type>
-    </TimeDisplay>
-  );
-};
-
+class DateTimeDisplay extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { deadline: "June, 24, 2022" };
+  }
+  render() {
+    return (
+      <div className="App">
+        <div className="App-title">Countdown Timer</div>
+        <div className="App-date">{this.state.deadline}</div>
+        <TheCountdown deadline={this.state.deadline} />
+      </div>
+    );
+  }
+}
 export default DateTimeDisplay;

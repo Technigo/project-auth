@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import TheCountdown from './TheCountdown';
 import DateTimeDisplay from './DateTimeDisplay';
 import style from "styled-components"
@@ -52,3 +52,5 @@ const CountdownTimer = ({ targetDate }) => {
 };
 
 export default CountdownTimer;
+
+*/
