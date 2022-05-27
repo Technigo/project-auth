@@ -15,9 +15,20 @@ mongoose.Promise = Promise;
 const port = process.env.PORT || 8080;
 const app = express();
 
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions)) 
+
 // Add middlewares to enable cors and json body parsing
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
+
+
 
 app.use((req, res, next) => {
   if (mongoose.connection.readyState === 1) {
