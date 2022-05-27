@@ -1,8 +1,12 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
+For this project we built a backend and a frontend at the same time.
+Using an API that was created in the backend we then used it to build a registration flow.
+Other learning goals included:
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+- how to authenticate users using tokens
+- How to securely store passwords in your databases
+- How to handle authentication, both in the frontend and in the backend
 
 ## The problem
 
