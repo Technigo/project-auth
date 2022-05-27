@@ -15,6 +15,20 @@ mongoose.Promise = Promise;
 const port = process.env.PORT || 8080;
 const app = express();
 
+// const allowedDomains = [
+//   "http://localhost:3000",
+//   "https://stalwart-fox-8f67bd.netlify.app"
+//   ]
+//   app.use(cors({
+//     origin: (origin, callback) => {
+//       if(allowedDomains.includes(origin)){
+//         return callback(null, true)
+//       } else {
+//         return callback(new Error("domain not allowed"), false)
+//       }
+//     }
+//   }))
+
 const cors=require("cors");
 const corsOptions ={
    origin:'*', 
