@@ -10,7 +10,6 @@ import{
   Counter,
   Colon
 
-
 } from "./countdown_style"
 
 const ExpiredNotice = () => {
@@ -25,7 +24,7 @@ const ExpiredNotice = () => {
 const ShowCounter = ({ days, hours, minutes, seconds }) => {
   return (
     <Counter>
-      <DateTimeDisplay value={days} type={'Days'} isDanger={days >= 29} />
+      <DateTimeDisplay value={days} type={'Days'} isDanger={days <= 29} />
       <Colon>:</Colon>
       <DateTimeDisplay value={hours} type={'Hours'} isDanger={false} />
       <Colon>:</Colon>
@@ -38,7 +37,7 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
 
 const CountdownTimer = ({ targetDate }) => {
   const [days, hours, minutes, seconds] = TheCountdown(targetDate);
-  if (days + hours + minutes + seconds <= 0) {
+  if (days + hours + minutes + seconds <= 30) {
     return <ExpiredNotice />;
   } else {
     return (

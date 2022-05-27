@@ -5,7 +5,10 @@ import { useDispatch } from 'react-redux';
 import { API_URL } from 'utils/utils';
 import user from 'reducers/user';
 import CountdownTimer from '../Hooks/CountdownTimer';
+import Confetti from 'react-confetti';
 import styled from "styled-components"
+
+
 
 import { 
   Wrapper,
@@ -45,6 +48,7 @@ const Main = () => {
       <SignOutButton type='submit' onClick={() => signOut()}>
         Sign out
       </SignOutButton>
+      <Confetti></Confetti>
     </Wrapper>
   );
 };
