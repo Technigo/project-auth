@@ -121,11 +121,10 @@ const Login = () => {
                         Submit
                     </Button>
             </form>
-                {/* {errorMessage && <Alert severity="error">Username and password do not match . Please retry or register if you are a new user.</Alert>} */}
+            {errorMessage !== null && (
+                <Alert severity="error">{errorMessage}</Alert>
+            )}
         </div>
-        {errorMessage !== null && (
-                    <p>{errorMessage}</p>
-                     )}
         </>
     )
     

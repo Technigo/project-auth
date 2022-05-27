@@ -69,7 +69,7 @@ app.post("/register", async (req, res) => {
     }
   } catch(error) {
     res.status(400).json({
-      response: error,
+      response: "Already registered, please log in",
       success: false
     });
   }
