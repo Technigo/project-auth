@@ -31,7 +31,9 @@ const Login = () => {
 
     const onFormSubmit = (event) => {
         event.preventDefault()
-
+        if (!username || !password) {
+            setError("Username and password are required")
+          } else {
         const options = {
             method: "POST",
             headers: {
@@ -63,6 +65,7 @@ const Login = () => {
                     setError(data.response)
                 }
             })
+        }
     }
 
         return (

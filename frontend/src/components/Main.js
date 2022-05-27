@@ -1,15 +1,18 @@
 import React, { useEffect} from 'react'
 import { useDispatch, useSelector, batch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import thoughts from 'reducers/thoughts'
-import { ui } from 'reducers/ui';
 
+
+import thoughts from 'reducers/thoughts'
+import user from 'reducers/user'
+import { ui } from 'reducers/ui';
 import { API_URL } from 'utils/utils'
 import Header from './Header'
 import Footer from './Footer'
 import Loading from './Loading';
+import giphy from 'assets/giphy.gif'
 
-import { Container, StyledForm, MainData, SubmitButton } from "./Style"
+import { Container, StyledForm, MainData, SubmitButton, Title } from "./Style"
 
 const Main = () => {
     
@@ -19,19 +22,12 @@ const Main = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
-    // const logout = () => {
-    //     batch(()=> {
-    //         dispatch(user.actions.setUserName(null))
-    //         dispatch(user.actions.setAccessToken(null))
-    //     })
-    // }
-    
+ 
     useEffect(()=> {
         if(!accessToken) {
             navigate("/login")
         }
-    }, [accessToken, navigate])
+    }, [accessToken])  
 
     useEffect(() => {
 
@@ -46,7 +42,7 @@ const Main = () => {
         fetch(API_URL("thoughts"), options)
             .then(res => res.json())
             .then(data => {
-                setTimeout(() => dispatch(ui.actions.setLoading(false)), 1000)
+                setTimeout(() => dispatch(ui.actions.setLoading(false)), 1500)
                 if(data.success) {
                     dispatch(thoughts.actions.setItems(data.response))
                     dispatch(thoughts.actions.setError(null))
@@ -55,14 +51,9 @@ const Main = () => {
                     dispatch(thoughts.actions.setItems([]))
                 }
             })
-        }, [accessToken, dispatch])
+        }, [])   
 
-    const signOut = () => {
-        dispatch(user.actions.setError(null));
-        dispatch(user.actions.setUserId(null));
-        dispatch(user.actions.setUserName(null));
-        dispatch(user.actions.setAccessToken(null));
-    }
+
 
 
     if(loading){
@@ -74,18 +65,18 @@ const Main = () => {
         <Container>
             <Header />
             <StyledForm>
+
                 <MainData>
-
+                <Title>This information can be changed without warning, stay tuned 👽 </Title>
                 {thoughtItems.map((item)=> {
-                return <div key={item._id}>{item.message}</div>
+                return <div key={item._id}>- {item.message}</div>
                 })}
-
                 </MainData>
 
+                <img src={giphy} alt="creating-gif" width="375px" />
+
                 <SubmitButton
-                // onSubmit={logout}
-                // onClick={() => {dispatch(user.actions.setAccessToken(null))}}
-                type="submit" onClick={() => signOut()}
+                type="button" onClick={() => dispatch(user.actions.logOut())}
                 >Log out</SubmitButton>
             </StyledForm>
         </Container>

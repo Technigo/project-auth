@@ -7,7 +7,7 @@ export const devices = {
 }
 
 export const HeaderContainer = styled.div`
-    height: 250px;
+    height: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,11 +64,11 @@ export const LoginLabel = styled.label`
 
 export const StyledForm = styled.form`
     background-color: #0E3EDA;
-    height: 450px;
+    height: 800px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 4px;
+    border-radius: 8px;
 
 `
 
@@ -125,12 +125,9 @@ export const MainData = styled.h3`
     color: white;
     text-align: center;
 `
-
-// export const LoginHeadline = styled.h2`
-//     color: #FFF;
-//     text-align: center;
-//     font-size: 24px;
-// `
+export const Title = styled.h3`
+    color: #F190B7;
+`
 
 export const FooterText = styled.p`
     font-size: 14px;

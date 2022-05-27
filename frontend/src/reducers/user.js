@@ -23,7 +23,7 @@ const user = createSlice({
         setError: (store, action) => {
             store.error = action.payload
         },
-        restart: () => {
+        logOut: () => {
             return initialState
         }
     }
