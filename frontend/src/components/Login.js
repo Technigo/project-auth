@@ -10,6 +10,7 @@ export const Login = () => {
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState('registration')
   const [error, setError] = useState('')
+  // const [testToken, setTestToken] = useState(null)
 
   const accessToken = useSelector((store) => store.user.accessToken)
 
@@ -21,6 +22,10 @@ export const Login = () => {
       navigate('/main')
     }
   }, [accessToken])
+
+  useEffect(() => {
+    console.log(accessToken)
+  }, [])
 
   const onFormSubmit = (event) => {
     event.preventDefault()
@@ -35,12 +40,17 @@ export const Login = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         if (data.success) {
+          console.log(data.response)
+          // setTestToken(data.accessToken)
           batch(() => {
-            dispatch(user.actions.setUserId(data.userId))
-            dispatch(user.actions.setAccessToken(data.accessToken))
-            dispatch(user.actions.setUsername(data.username))
+            const userId = data.userId
+            const accessToken = data.accessToken
+            const username = data.username
+            console.log(userId, accessToken, username)
+            dispatch(user.actions.setUserId(userId))
+            dispatch(user.actions.setAccessToken(accessToken))
+            dispatch(user.actions.setUsername(username))
             dispatch(user.actions.setError(null))
           })
         } else {
@@ -50,7 +60,7 @@ export const Login = () => {
             dispatch(user.actions.setAccessToken(null))
             dispatch(user.actions.setUsername(null))
           })
-          setError('Sorry, this is an invalid username or password')
+          // setError('Sorry, this is an invalid username or password')
         }
       })
   }
