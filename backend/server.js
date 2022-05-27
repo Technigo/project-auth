@@ -137,8 +137,9 @@ app.post("/login", async (req, res) => {
 app.get("/sighting", authenticateUser);
 app.get("/sighting", (req, res) => {
   const sighting = ufoSightings[Math.floor(Math.random() * 80331)];
+
   if (sighting) {
-    res.status(200).json({ success: true, response: { sighting } });
+    res.status(200).json({ success: true, response: sighting });
   } else {
     res.status(400).json({
       response: "You in danger.",
@@ -146,6 +147,8 @@ app.get("/sighting", (req, res) => {
     });
   }
 });
+
+console.log(ufoSightings[Math.floor(Math.random() * 80331)]);
 
 // Start the server
 app.listen(port, () => {
