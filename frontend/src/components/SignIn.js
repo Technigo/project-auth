@@ -10,6 +10,7 @@ const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState('register');
+  const [error, setError] = useState('');
 
   const dispatch= useDispatch();
   const navigate = useNavigate();
@@ -49,14 +50,14 @@ const SignIn = () => {
           dispatch(user.actions.setUserId(null));
           dispatch(user.actions.setAccessToken(null));
           dispatch(user.actions.setUserName(null));
-        })
+        });
+        setError('Something is wrong, try again please.');
       }
     })
   }
 
   return (
     <> 
-          {/* <Link to='/'> LINK TO /</Link> */} 
       <form className='container' onSubmit={onFormSubmit}>
         <div>
           <h2>Welcome!</h2>
