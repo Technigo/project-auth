@@ -41,24 +41,24 @@ app.post("/register", async (req, res) => {
       res.status(400).json({
         response: "Your password must be at least 8 characters long.",
         success: false
-    })
-  } else {
-    const newUser = await new User({
-      username: username,
-      password: bcrypt.hashSync(password, salt)
-    }).save()
-    res.status(201).json({
-      response: {
-        username: newUser.username,
-        accesToken: newUser.accessToken, 
-        userId: newUser._id
-      },
-      success: true
-    })
-  }
+      })
+    } else {
+      const newUser = await new User({
+        username: username,
+        password: bcrypt.hashSync(password, salt)
+      }).save()
+      res.status(201).json({
+        response: {
+          username: newUser.username,
+          accessToken: newUser.accessToken,
+          userId: newUser._id
+        },
+        success: true
+      })
+    }
 
   } catch (error) {
-      res.status(400).json({
+    res.status(400).json({
       response: error,
       success: false
     })
@@ -67,13 +67,13 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body
-  
+
   try {
     const user = await User.findOne({ username })
 
-    if(user && bcrypt.compareSync(password, user.password)) {
+    if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
-        success: true, 
+        success: true,
         username: user.username,
         accessToken: user.accessToken,
         userId: user._id
@@ -86,39 +86,31 @@ app.post("/login", async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({
-    response: error,
-    success: false
-  })
-}
-})
-
-//always sent in header
-const authenticateUser = async (req, res, next) => {
-const accessToken = req.header("Authorization")
-try {
-  const user = await User.findOne({accessToken: accessToken})
-  if(user) {
-    next()
-  } else {
-    res.status(401).json({
-      response: 'please log in',
+      response: error,
       success: false
     })
   }
-} catch (error) {
-  res.status(400).json({
-  response: error,
-  success: false
+})
+
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header("Authorization")
+  try {
+    const user = await User.findOne({ accessToken: accessToken })
+    if (user) {
+      next()
+    } else {
+      res.status(401).json({
+        response: 'please log in',
+        success: false
+      })
+    }
+  } catch (error) {
+    res.status(400).json({
+      response: error,
+      success: false
     })
   }
 }
-
-// here we are supposed to display some content, hard-coded data or something from the database 
-//if user logged in, this is the next()
-// app.get("/yourGarden", authenticateUser)
-// app.get("/yourGarden", (req, res,) => {res.send("here are your plants and flowers 🌺🌹🌻👒")})
-
-////CODEALONG WEDNESSDAY
 
 const ThoughtSchema = new mongoose.Schema({
   message: String,
@@ -126,60 +118,28 @@ const ThoughtSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  createdAt:{
+  createdAt: {
     type: Date,
-    default: ()=> new Date()
-  } 
+    default: () => new Date()
+  }
 });
 const Thought = mongoose.model("Thought", ThoughtSchema);
 
 app.get("/thoughts", authenticateUser);
 app.get("/thoughts", async (req, res) => {
   const thoughts = await Thought.find({});
-  res.status(200).json({response:thoughts, success: true})
+  res.status(200).json({ response: thoughts, success: true })
 });
 
 app.post("/thoughts", async (req, res) => {
-  const {message} = req.body;
+  const { message } = req.body;
   try {
-    const newThought = await new Thought({message}).save();
-    res.status(201).json({response:newThought, success: true});
+    const newThought = await new Thought({ message }).save();
+    res.status(201).json({ response: newThought, success: true });
   } catch (error) {
-    res.status(400).json({response:error, success: false});
+    res.status(400).json({ response: error, success: false });
   }
 });
-
-
-// //CORS V1 - allow everything
-// app.use(cors())
-
-// ///CORS v2 - allow one origin
-// app.use(cors({
-//   origin: "https://my-origin.com"
-// }))
-
-// //CORS V3 - allow multiple origins
-// const allowedDomains = [
-//   "https://lalala.io",
-//   "https://something.com",
-//   "https://lorem.com"
-// ]
-// app.use(cors({
-//   origin: (origin, callback) => {
-//     if (allowedDomains.includes(origin)) {
-//       return callback(null, true)
-//       //null means returning a list a null for the list of errors, true that success is true
-//       //in case of errors or not including origin
-//     } else {
-//       return callback(new Error("domain not allowed"), false)
-//     }
-//   }
-// }))
-
-// Start defining your routes here
-// app.get("/", (req, res) => {
-//   res.send("Hello Technigo!");
-// });
 
 // Start the server
 app.listen(port, () => {
