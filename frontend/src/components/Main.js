@@ -15,67 +15,66 @@ const Main = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-     // Function for logout
-//   const logout = () => {
-//     batch(() => {
-//       dispatch(user.actions.setUsername(null));
-//       dispatch(user.actions.setAccessToken(null));
+    // Function for logout
+    //   const logout = () => {
+    //     batch(() => {
+    //       dispatch(user.actions.setUsername(null));
+    //       dispatch(user.actions.setAccessToken(null));
 
-//       localStorage.removeItem("user");
-//     });
-//   };
+    //       localStorage.removeItem("user");
+    //     });
+    //   };
 
-const logOutButton = () => {
-    window.location.reload()
-}
-
-useEffect(()=> {
-    if(!accessToken) {
-        navigate("/login");
+    const logOutButton = () => {
+        window.location.reload()
     }
-}, [accessToken]);
 
-// useEffect(()=> {
+    useEffect(() => {
+        if (!accessToken) {
+            navigate("/login");
+        }
+    }, [accessToken]);
 
-//     const options = {
-//             method: "GET",
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 "Authorization": accessToken
-//         }        
-//     }
+    // useEffect(()=> {
 
-//     fetch(API_URL("thoughts"), options)
-//     .then(res => res.json())
-//     .then(data => {
-//         if (data.success) {
-//             dispatch(thoughts.actions.setItems(data.response))
-//             dispatch(thoughts.actions.setError(null))
-//         } else {
-//             dispatch(thoughts.actions.setError(data.response))
-//             dispatch(thoughts.actions.setItems([]))
-//         }
-//     })
-// }, [])
+    //     const options = {
+    //             method: "GET",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Authorization": accessToken
+    //         }        
+    //     }
+
+    //     fetch(API_URL("thoughts"), options)
+    //     .then(res => res.json())
+    //     .then(data => {
+    //         if (data.success) {
+    //             dispatch(thoughts.actions.setItems(data.response))
+    //             dispatch(thoughts.actions.setError(null))
+    //         } else {
+    //             dispatch(thoughts.actions.setError(data.response))
+    //             dispatch(thoughts.actions.setItems([]))
+    //         }
+    //     })
+    // }, [])
 
     return (
         <>
-        <container>
-        {/* <Link to="/login"> LINK TO /login</Link> */}
-        <h1>Your secret garden</h1>
-        {/* {thoughtItems.map((item) => {
+            <container>
+                {/* <Link to="/login"> LINK TO /login</Link> */}
+                <h1>Your secret garden</h1>
+                {/* {thoughtItems.map((item) => {
             return <div key = {item._id}>{item.message}</div>
         })} */}
-        {/* <button onClick={logout}>Logout</button> */}
-       <div>
-           <img src={garden} alt="garden" />
-       </div>
-       
-        <div className="button-container">
-        <button type="button"
-                onClick={logOutButton}>Log out</button>
+                {/* <button onClick={logout}>Logout</button> */}
+                <div>
+                    <img src={garden} alt="garden" />
                 </div>
-        </container>
+                <div className="button-container">
+                    <button className="logout-button" type="button"
+                        onClick={logOutButton}>Log out</button>
+                </div>
+            </container>
         </>
     )
 }

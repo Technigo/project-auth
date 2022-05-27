@@ -77,6 +77,12 @@ img {
   padding-bottom: 20px;
 }
 
+.error-img{
+  width: 50%;
+  height: 50%;
+  padding: 20px 0;
+}
+
 /* Button */
 .button-container {
   padding: 10px 0;
@@ -97,4 +103,29 @@ button {
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
+  text-decoration: none;
+}
+
+.back-button {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    background: #333;
+    padding: 18px 30px;
+    border-radius: 6px;
+    width: 40%;
+  }
+
+.logout-button{
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  background: #333;
+  padding: 18px 30px;
+  border-radius: 6px;
+  transition: .3s;
+}
+
+.logout-button:hover {
+  opacity: 0.6;
 }
