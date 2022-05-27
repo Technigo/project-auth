@@ -74,6 +74,10 @@ label {
   text-align: center;
 }
 
+.not-member {
+  text-align: center;
+}
+
 .sidebar {
   background: var(--primary-three);
   color: #000;

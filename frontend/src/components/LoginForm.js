@@ -88,7 +88,7 @@ const LoginForm = () => {
           <button className="btn custom-btn login-button" type="submit">Log in</button>
         </form>
         <div>
-          <p> Not yet a member? </p>
+          <p className='not-member'> Not yet a member? </p>
           <button className="btn custom-btn create-account-btn" onClick={() => handleOnClick(account.actions.showSignupForm(true))}> Create an account</button>
         </div>
       </section>
