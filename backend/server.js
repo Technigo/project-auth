@@ -8,17 +8,6 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
-const port = process.env.PORT || 8080;
-const app = express();
-
-// Add middlewares to enable cors and json body parsing
-app.use(cors());
-app.use(express.json());
-
-
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -38,45 +27,7 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema); 
 
-
-//register
-
-app.post("/register", async (req, res) => {
-  
-  const { username, password } = req.body;
-  try {
-    const salt = bcryptjs.genSaltSync();
-    if(password.length < 8) {
-      res.status(400).json({
-        response: "Password must be at least 8 characters long",
-        success: false
-      })
-    } else {
-    const newUser = await new User({
-      username: username,
-      password: bcryptjs.hashSync(password, salt)
-    }).save();
-    res.status(201).json({
-      response: {
-        username: newUser.username,
-        accessToken: newUser.accessToken,
-        userId: newUser._id
-      },
-      success: true
-    })
-  }
-  } catch (error) {
-    res.status(400).json({
-      response: error,
-      success: false
-    })
-  }
-
-});
-
-
 //authentication
-
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   
@@ -100,48 +51,93 @@ const authenticateUser = async (req, res, next) => {
   }
 } 
 
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", (req, res,) => {res.send("here are your thoughts")})
+// Defines the port the app will run on. Defaults to 8080, but can be overridden
+// when starting the server. Example command to overwrite PORT env variable value:
+// PORT=9000 npm start
+const port = process.env.PORT || 8080;
+const app = express();
 
+// Add middlewares to enable cors and json body parsing
+app.use(cors());
+app.use(express.json());
 
-//from beginning of wednesday session 
-const ThoughtSchema = new mongoose.Schema({
-  message: String,
-  hearths: {
-    type: Number,
-    default: 0
-  },
-  createdAt:{
-    type: Date,
-    default: ()=> new Date()
-  } 
-});
-const Thought = mongoose.model("Thought", ThoughtSchema);
-
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thought.find({});
-  res.status(200).json({response:thoughts, success: true})
+// Start defining your routes here
+app.get("/", (req, res) => {
+  res.send("This is the backend");
 });
 
-app.post("/thoughts", async (req, res) => {
-  const {message} = req.body;
+//_______User registration_____//
+app.post("/register", async (req, res) => {
+  
+  const { username, password } = req.body;
+  
   try {
-    const newThought = await new Thought({message}).save();
-    res.status(201).json({response:newThought, success: true});
+    const salt = bcryptjs.genSaltSync();
+
+    if(password.length < 8) {
+      res.status(400).json({
+        response: "Password must be at least 8 characters long",
+        success: false
+      });
+    } else {
+    const newUser = await new User({
+      username: username,
+      password: bcryptjs.hashSync(password, salt)
+    }).save();
+    res.status(201).json({
+      response: {
+        username: newUser.username,
+        accessToken: newUser.accessToken,
+        userId: newUser._id
+      },
+      success: true
+    });
+  }
   } catch (error) {
-    res.status(400).json({response:error, success: false});
+    res.status(400).json({
+      response: error,
+      success: false,
+      message: 'User could not be created.',
+    })
+  }
+
+});
+
+//____________Main protected___________//
+app.get('/main', authenticateUser, async (req, res) => {
+  try {
+    res.status(200).json({
+      response: {
+        id: req.user._id,
+        username: req.user.username,
+      },
+      success: true,
+    });
+  } catch (error) {
+    res.status(401).json({
+      errors: error,
+      response: 'Failed to log in.',
+    });
   }
 });
 
+//____________Secret Message____________//
+app.get('/secret', authenticateUser, async (req, res) => {
+  const secretMessage = 'Good to see you!';
+  try {
+    res.status(200).json({
+      success: true,
+      secretMessage,
+    });
+  } catch (error) {
+    res.status(401).json({
+      errors: error,
+      response: 'Failed to display the secret.',
+    });
+  }
+});
 
-
-
-
-
-
-//login
-
+//___________login____________//
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -169,48 +165,8 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("This is the backend");
-});
 
-// Start the server
+//_______ Start the server________//
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-//other ways to do cors
-
-
-//cors version 2
-// app.use(cors({
-//   origin: "https://my-origin.com"
-// }));
-
-//cors version 3
-// const allowedDomains = [
-//   "https://lalala.io",
-//   "https://something.com",
-//   "http://lorem.com"
-// ];
-// app.use(cors({
-//   origin: (origin, callback) => {
-//     if(allowedDomains.includes(origin)) {
-//       return callback(null, true)
-//     } else {
-//       return callback(new Error("domain not allowed"), false);
-//     }
-//   }
-// }));
