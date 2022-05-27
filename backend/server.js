@@ -15,10 +15,6 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  // email: {
-  //   type: String,
-  //   unique: true,
-  // },
   password: {
     type: String,
     required: true,
@@ -54,16 +50,6 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-// const authenticateUser = async (req, res, next) => {
-//   const user = await User.findOne({accessToken: req.header("Authorization")});
-//   if(user){
-//     req.user = user;
-//     next();
-//   }else {
-//     res.status(401).json({message: "You are not authenticated.", loggedOut: true});
-//   }
-// };
-
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
 // PORT=9000 npm start
@@ -81,7 +67,7 @@ app.get('/', (req, res) => {
 
 //--------------------USER REGISTRATION ENDPOINT--------------------//
 app.post('/registration', async (req, res) => {
-  const { username, password } = req.body; //Maybe that we won't need email?
+  const { username, password } = req.body;
   // DO NOT STORE PLAINTEXT PASSWORDS
   try {
     const salt = bcrypt.genSaltSync();
@@ -94,14 +80,12 @@ app.post('/registration', async (req, res) => {
     } else {
       const newUser = await new User({
         username: username,
-        // email: email,
         password: bcrypt.hashSync(password, salt),
       }).save();
       res.status(201).json({
         response: {
           username: newUser.username,
           userId: newUser._id,
-          // email: newUser.email,
           accessToken: newUser.accessToken,
         },
         success: true,
@@ -123,7 +107,6 @@ app.get('/profile', authenticateUser, async (req, res) => {
       response: {
         id: req.user._id,
         username: req.user.username,
-        email: req.user.email,
       },
       success: true,
     });
@@ -179,10 +162,10 @@ app.post('/login', async (req, res) => {
   }
 });
 
-///CORS - HAVEN'T DONE ANYTHING WITH THIS
+///CORS
 //////CORS v2
 // app.use(cors({
-//   origin: "https://my-origin.com"
+//   origin: "https://project-auth-vanhaj-joalod.netlify.app/"
 // }));
 
 /// CORS V3
