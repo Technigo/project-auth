@@ -1,45 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-
-import user from '../reducers/user';
-import { SECRET_URL } from '../utils/API';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import user from "reducers/user";
 
 const Main = () => {
-    const [secret, setSecret] = useState({});
-    const accessToken = useSelector(store => store.user.accessToken);
-  
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-  
-    useEffect(() => {
-      if (!accessToken) {
-        navigate('/');
-      }
-    }, [accessToken, navigate]);
-  
-    useEffect(() => {
-      fetch(SECRET_URL)
-        .then(res => res.json())
-        .then(data => {
-            setSecret(data);
+  const accessToken = useSelector((store) => store.user.accessToken);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-        });
-    }, [dispatch, accessToken]);
-  
-    const handleLogout = () => {
-      dispatch(user.actions.logout());
-    };
-    return (
-        <div>
-          <h1>Sup{' '}</h1>
-          <button onClick={handleLogout}>SIGN OUT</button>
-        </div>
-      );
-    };
-    export default Main;
+  useEffect(() => {
+    if (!accessToken) {
+      navigate("/login");
+    }
+  }, [accessToken]);
 
+  return (
+    <>
+      <h1>Welcome!</h1>
+      <button
+        type="button"
+        onClick={() => {
+          navigate("/login");
+          dispatch(user.actions.setAccessToken(null));
+        }}
+      >
+        Log out
+      </button>
+    </>
+  );
+};
 
-      
-        //   dispatch(secret.actions.setItems(data));
-        //   dispatch(secret.actions.setErrors(null));
+export default Main;

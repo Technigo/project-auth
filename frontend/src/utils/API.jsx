@@ -1,8 +1,3 @@
-export const SIGNUP_URL =
-'https://project-auth-w20.herokuapp.com/signup';
+const BASE_URL = "https://project-auth-w20.herokuapp.com"
 
-export const SIGNIN_URL =
-'https://project-auth-w20.herokuapp.com/signin';
-
-export const SECRET_URL = 
-'https://project-auth-w20.herokuapp.com/secret'
+export const API_URL = (slug) => `${BASE_URL}/${slug}`;

@@ -15,32 +15,29 @@ const initialState = localStorage.getItem("user") //LOCALSTORAGE ENABELED
       error: null,
     }
 
-const user = createSlice({//CREATE INITIAL STATE
-  name: "user",
-  initialState,
-  reducers: {
-    setEmail: (store, action) => {
-      store.email = action.payload
-    },
-    setUserId: (store, action) => {
-      store.userId = action.payload
-    },
-    setUsername: (store, action) => {
-      store.username = action.payload
-    },
-    setAccessToken: (store, action) => {
-      store.accessToken = action.payload
-    },
-    setError: (store, action) => {
-      store.error = action.payload
-    },
-    logout: (store, action) => {
-      store.userId = null
-      store.username = null
-      store.accessToken = null
-      localStorage.removeItem("accessToken")
-    },
-  },
-})
+    const user = createSlice({
+      name: "user",
+      initialState: {
+        userId: null,
+        username: null,
+        accessToken: null,
+        error: null,
+      },
+      reducers: {
+        setUserId: (store, action) => {
+          store.userId = action.payload;
+        },
+        setUserName: (store, action) => {
+          store.username = action.payload;
+        },
+        setAccessToken: (store, action) => {
+          store.accessToken = action.payload;
+        },
+        setError: (store, action) => {
+          store.error = action.payload;
+        },
+      },
+    });
+    
 
 export default user
