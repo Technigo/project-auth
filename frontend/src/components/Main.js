@@ -2,10 +2,12 @@ import React, { useEffect} from 'react'
 import { useDispatch, useSelector, batch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import thoughts from 'reducers/thoughts'
+import { ui } from 'reducers/ui';
 
 import { API_URL } from 'utils/utils'
 import Header from './Header'
 import Footer from './Footer'
+import Loading from './Loading';
 
 import { Container, StyledForm, MainData, SubmitButton } from "./Style"
 
@@ -13,6 +15,7 @@ const Main = () => {
     
     const accessToken = useSelector((store) => store.user.accessToken)
     const thoughtItems = useSelector((store) => store.thoughts.items)
+    const loading = useSelector((store) => store.ui.loading)
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -39,10 +42,11 @@ const Main = () => {
                 "Authorization": accessToken
             }
         }
-
+        dispatch(ui.actions.setLoading(true))
         fetch(API_URL("thoughts"), options)
             .then(res => res.json())
             .then(data => {
+                setTimeout(() => dispatch(ui.actions.setLoading(false)), 1000)
                 if(data.success) {
                     dispatch(thoughts.actions.setItems(data.response))
                     dispatch(thoughts.actions.setError(null))
@@ -53,8 +57,16 @@ const Main = () => {
             })
         }, [accessToken, dispatch])
 
-    const handleRestart = () => {
-        dispatch(user.actions.restart())
+    const signOut = () => {
+        dispatch(user.actions.setError(null));
+        dispatch(user.actions.setUserId(null));
+        dispatch(user.actions.setUserName(null));
+        dispatch(user.actions.setAccessToken(null));
+    }
+
+
+    if(loading){
+        return <Loading />
     }
 
     return (
@@ -62,16 +74,18 @@ const Main = () => {
         <Container>
             <Header />
             <StyledForm>
-                <MainData>This is Main.</MainData>
+                <MainData>
 
                 {thoughtItems.map((item)=> {
                 return <div key={item._id}>{item.message}</div>
                 })}
 
+                </MainData>
+
                 <SubmitButton
                 // onSubmit={logout}
                 // onClick={() => {dispatch(user.actions.setAccessToken(null))}}
-                onClick={handleRestart}
+                type="submit" onClick={() => signOut()}
                 >Log out</SubmitButton>
             </StyledForm>
         </Container>

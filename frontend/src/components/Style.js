@@ -12,7 +12,7 @@ export const HeaderContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #FFF;
+    background-color: #E9D5CA;
 `
 
 export const HeaderTitle = styled.h1`
@@ -120,8 +120,10 @@ export const SubmitButton = styled.button`
     }
 `
 
-export const MainData = styled.h2`
+export const MainData = styled.h3`
+    margin-top: 50px;
     color: white;
+    text-align: center;
 `
 
 // export const LoginHeadline = styled.h2`

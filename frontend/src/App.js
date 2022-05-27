@@ -10,10 +10,12 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import user from 'reducers/user';
 import thoughts from 'reducers/thoughts';
+import { ui } from 'reducers/ui';
 
 const reducer = combineReducers({
   user: user.reducer,
-  thoughts: thoughts.reducer
+  thoughts: thoughts.reducer,
+  ui: ui.reducer
 });
 
 const store = configureStore({reducer});
