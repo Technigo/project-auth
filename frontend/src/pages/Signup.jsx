@@ -25,7 +25,6 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   const registerUser = async (options) => {
-    // console.log(options);
     try {
       const response = await fetch(
         "https://project-auth-asm.herokuapp.com/register",
