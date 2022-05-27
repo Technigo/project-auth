@@ -27,14 +27,14 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-// API Landing
-app.get("/", (req, res) => {
-  res.send({
-    "Justine's and Simon's app": "Welcome to our authentication API",
-    "Created for": "Technigo",
-    Project: "Week 20",
-  });
-});
+// // API Landing
+// app.get("/", (req, res) => {
+//   res.send({
+//     "Justine's and Simon's app": "Welcome to our authentication API",
+//     "Created for": "Technigo",
+//     Project: "Week 20",
+//   });
+// });
 
 // Registration endpoint
 app.post("/register", async (req, res) => {
