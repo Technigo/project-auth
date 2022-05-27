@@ -46,7 +46,6 @@ const Signup = () => {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/;
 
     if (password.match(passwordPattern) && username.length > 4) {
-      // console.log("Password is good to go");
       registerUser({
         method: "POST",
         headers: { "Content-Type": "application/json" },
