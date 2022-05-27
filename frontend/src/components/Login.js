@@ -42,12 +42,10 @@ const Login = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ username: username, password: password }),
-      // body: JSON.stringify({username, password})
     };
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.userId));
@@ -68,52 +66,56 @@ const Login = () => {
   };
 
   return (
-    <BackGround >
-    <FormWrapper>
-      <form onSubmit={onFormSubmit}>
-        <UserInput>
-          <label htmlFor='username'>Username</label>
-          <TextArea
-            type='text'
-            id='username'
-            placeholder='💻 Username' aria-label="Computer"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+    <BackGround>
+      <FormWrapper>
+        <form onSubmit={onFormSubmit}>
+          <UserInput>
+            <label htmlFor='username'>Username</label>
+            <TextArea
+              type='text'
+              id='username'
+              placeholder='💻 Username'
+              aria-label='Computer'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
 
-          <label htmlFor='password'>Password</label>
-          <TextArea
-            type='password'
-            id='password'
-            placeholder=' 🔑 Password' aria-label="key"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </UserInput>
-        <RadioWrapper>
-        <Label htmlFor='login'>Login</Label>
-        <RadioButtons
-          type='radio'
-          id='login'
-          checked={mode === 'login'}
-          onChange={() => setMode('login')}
-        />
-        <Label htmlFor='register'>Register</Label>
-        <RadioButtons
-          type='radio'
-          id='register'
-          checked={mode === 'register'}
-          onChange={() => setMode('register')}
-        />
-        </RadioWrapper>
+            <label htmlFor='password'>Password</label>
+            <TextArea
+              type='password'
+              id='password'
+              placeholder=' 🔑 Password'
+              aria-label='key'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </UserInput>
+          <RadioWrapper>
+            <Label htmlFor='login'>Login</Label>
+            <RadioButtons
+              type='radio'
+              id='login'
+              checked={mode === 'login'}
+              onChange={() => setMode('login')}
+            />
+            <Label htmlFor='register'>Register</Label>
+            <RadioButtons
+              type='radio'
+              id='register'
+              checked={mode === 'register'}
+              onChange={() => setMode('register')}
+            />
+          </RadioWrapper>
 
-        {setErrorMessage !== null && <ErrorMessage >{errorMessage}</ErrorMessage >}
-        <ButtonWrapper>
-          <SubmitButton type='submit'>Submit</SubmitButton>
-        </ButtonWrapper>
-      </form>
-    </FormWrapper>
-    </BackGround >
+          {setErrorMessage !== null && (
+            <ErrorMessage>{errorMessage}</ErrorMessage>
+          )}
+          <ButtonWrapper>
+            <SubmitButton type='submit'>Submit</SubmitButton>
+          </ButtonWrapper>
+        </form>
+      </FormWrapper>
+    </BackGround>
   );
 };
 
