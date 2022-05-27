@@ -53,6 +53,10 @@ const Main = () => {
             })
         }, [accessToken, dispatch])
 
+    const handleRestart = () => {
+        dispatch(user.actions.restart())
+    }
+
     return (
         <>
         <Container>
@@ -66,8 +70,8 @@ const Main = () => {
 
                 <SubmitButton
                 // onSubmit={logout}
-
-                onClick={() => {dispatch(user.actions.setAccessToken(null))}}
+                // onClick={() => {dispatch(user.actions.setAccessToken(null))}}
+                onClick={handleRestart}
                 >Log out</SubmitButton>
             </StyledForm>
         </Container>
