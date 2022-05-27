@@ -43,6 +43,7 @@ const SignIn = () => {
           dispatch(user.actions.setAccessToken(data.accessToken));
           dispatch(user.actions.setUserName(data.username));
           dispatch(user.actions.setError(null));
+          setError(null)
         })
       } else {
         batch(() => {
@@ -50,8 +51,8 @@ const SignIn = () => {
           dispatch(user.actions.setUserId(null));
           dispatch(user.actions.setAccessToken(null));
           dispatch(user.actions.setUserName(null));
+          setError(data.message);
         });
-        setError('Something is wrong, try again please.');
       }
     })
   }
@@ -76,6 +77,10 @@ const SignIn = () => {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
+              {error !==null && (
+                <p className='login-error'>{error}</p>
+              )}
+            
           </div>
           <div>
             <button type='submit'>Submit</button>

@@ -38,8 +38,9 @@ const authenticateUser = async (req, res, next) => {
       next();
     } else {
       res.status(401).json({
-        response: "Please log in",
-        success: false
+        response: error,
+        success: false,
+        message: 'Please log in'
       });
     }
 
@@ -76,8 +77,9 @@ app.post("/register", async (req, res) => {
 
     if(password.length < 8) {
       res.status(400).json({
-        response: "Password must be at least 8 characters long",
-        success: false
+        response: error,
+        success: false,
+        message: 'Password must be at least 8 characters long'
       });
     } else {
     const newUser = await new User({
@@ -116,7 +118,8 @@ app.get('/main', authenticateUser, async (req, res) => {
   } catch (error) {
     res.status(401).json({
       errors: error,
-      response: 'Failed to log in.',
+      response: error,
+      message: 'Failed to log in'
     });
   }
 });
@@ -132,7 +135,8 @@ app.get('/secret', authenticateUser, async (req, res) => {
   } catch (error) {
     res.status(401).json({
       errors: error,
-      response: 'Failed to display the secret.',
+      response: error,
+      message: 'Failed to display the secret.'
     });
   }
 });
@@ -153,8 +157,9 @@ app.post("/login", async (req, res) => {
       });
     } else {
       res.status(400).json({
-        response: "username and password don't match",
-        success: false
+        success: false,
+        response: error,
+        message: 'username and password does not match'
       });
     }
   } catch (error) {
