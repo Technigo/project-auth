@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const jokes = createSlice({
+const jokes = createSlice({
   name: 'jokes',
   initialState: {
     items: [
@@ -34,3 +34,5 @@ export const jokes = createSlice({
     },
   },
 })
+
+export default jokes

@@ -3,6 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
+import getEndpoints from 'express-list-endpoints'
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/project-auth'
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -37,7 +38,37 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema)
 
-app.post('/register', async (req, res) => {
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header('Authorization')
+
+  try {
+    const user = await User.findOne({ accessToken: accessToken })
+
+    if (user) {
+      req.user = user._id
+      next()
+    } else {
+      res.status(401).json({
+        response: 'Please log in.',
+        success: false,
+      })
+    }
+  } catch (error) {
+    res.status(400).json({
+      response: error,
+      success: false,
+    })
+  }
+}
+
+// Start defining your routes here
+app.get('/', (req, res) => {
+  res.send(getEndpoints(app))
+})
+
+//--- REGISTRATION ENDPOINT ---//
+
+app.post('/registration', async (req, res) => {
   const { username, password } = req.body
   try {
     const salt = bcrypt.genSaltSync()
@@ -50,13 +81,13 @@ app.post('/register', async (req, res) => {
     } else {
       const newUser = await new User({
         username: username,
-        password: bcrypt.hashSync(password, salt), // skickar tillbaka blandade tecken typ?
+        password: bcrypt.hashSync(password, salt),
       }).save()
       res.status(201).json({
         response: {
           username: newUser.username,
-          accesToken: newUser.accesToken,
           userId: newUser._id,
+          accessToken: newUser.accessToken,
         },
         success: true,
       })
@@ -65,11 +96,48 @@ app.post('/register', async (req, res) => {
     res.status(400).json({
       response: error,
       success: false,
+      message: 'Could not create user.',
     })
   }
 })
 
-// login //////
+//--- MAIN ENDPOINT ---//
+
+app.get('/main', authenticateUser, async (req, res) => {
+  try {
+    res.status(200).json({
+      response: {
+        id: req.user._id,
+        username: req.user.username,
+      },
+      success: true,
+    })
+  } catch (error) {
+    res.status(401).json({
+      errors: error,
+      response: 'Failed to log in.',
+    })
+  }
+})
+
+//--- SECRET ENDPOINT ---//
+app.get('/secret', authenticateUser, async (req, res) => {
+  const secretMessage = 'Yay for today!'
+  try {
+    res.status(200).json({
+      success: true,
+      secretMessage,
+    })
+  } catch (error) {
+    res.status(401).json({
+      errors: error,
+      response: 'Failed to display the secret.',
+    })
+  }
+})
+
+//--- LOGIN ENDPOINT ---//
+
 app.post('/login', async (req, res) => {
   const { username, password } = req.body
 
@@ -95,41 +163,6 @@ app.post('/login', async (req, res) => {
       success: false,
     })
   }
-})
-
-//Authorization
-const authenticateUser = async (req, res, next) => {
-  const accesToken = req.header('Authorization')
-  try {
-    const user = await User.findOne({ accesToken: accesToken })
-    if (user) {
-      next()
-    } else {
-      res.status(401).json({
-        response: 'Please log in',
-        success: false,
-      })
-    }
-  } catch (error) {
-    res.status(400).json({
-      response: error,
-      success: false,
-    })
-  }
-}
-
-app.get('/main', authenticateUser)
-app.get('/main', (req, res) => {
-  res.send('you are here! welcome')
-})
-app.get('/main', authenticateUser)
-app.get('/main', (req, res) => {
-  res.send('you are here! welcome')
-})
-
-// Start defining your routes here
-app.get('/', (req, res) => {
-  res.send('Hello Technigo!')
 })
 
 // Start the server

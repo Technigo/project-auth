@@ -1,5 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const NotFound = () => {
-  return <h1>Not found...</h1>
+  return (
+    <div className='container'>
+      <h1 className='header'>Page not found</h1>
+      <Link to='/'>
+        <button className='button'>Go back</button>
+      </Link>
+    </div>
+  )
 }

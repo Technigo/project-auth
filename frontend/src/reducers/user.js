@@ -7,6 +7,7 @@ const user = createSlice({
     username: null,
     accessToken: null,
     error: null,
+    secretMessage: null,
   },
   reducers: {
     setUserId: (store, action) => {
@@ -20,6 +21,9 @@ const user = createSlice({
     },
     setError: (store, action) => {
       store.error = action.payload
+    },
+    setSecretMessage: (store, action) => {
+      store.secretMessage = action.payload
     },
   },
 })

@@ -5,12 +5,10 @@ import { useNavigate, Link } from 'react-router-dom'
 import user from '../reducers/user'
 import { API_URL } from '../utils/utils'
 
-// const API_URL = 'https://auth-login-hanna-isabell.herokuapp.com/'
-
 export const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [mode, setMode] = useState('register')
+  const [mode, setMode] = useState('registration')
   const [error, setError] = useState('')
 
   const accessToken = useSelector((store) => store.user.accessToken)
@@ -20,9 +18,9 @@ export const Login = () => {
 
   useEffect(() => {
     if (accessToken) {
-      navigate('/')
+      navigate('/main')
     }
-  }, [accessToken, navigate])
+  }, [accessToken])
 
   const onFormSubmit = (event) => {
     event.preventDefault()
@@ -32,7 +30,7 @@ export const Login = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username: username, password: password }), //varför är våra inte "aktiverade" som det ser ut
+      body: JSON.stringify({ username: username, password: password }),
     }
     fetch(API_URL(mode), options)
       .then((res) => res.json())
@@ -66,6 +64,7 @@ export const Login = () => {
           <input
             type='text'
             id='username'
+            placeholder='enter username'
             value={username}
             onChange={(event) => setUsername(event.target.value)}
           />
@@ -74,6 +73,7 @@ export const Login = () => {
           <input
             type='password'
             id='password'
+            placeholder='enter password'
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
@@ -81,16 +81,16 @@ export const Login = () => {
           <button
             className='submit-button'
             type='submit'
-            value='Login'
-            onClick={() => setMode('login')}
+            // id='login'
+            // onClick={() => setMode('login')}
           >
             <p>Log in</p>
           </button>
           <button
             className='submit-button'
             type='submit'
-            value='Sign up'
-            onClick={() => setMode('signup')}
+            // id='register'
+            // onClick={() => setMode('register')}
           >
             <p>Sign up</p>
           </button>

@@ -8,9 +8,11 @@ import { Main } from './components/Main'
 import { NotFound } from './components/NotFound'
 
 import user from './reducers/user'
+// import jokes from './reducers/jokes'
 
 const reducer = combineReducers({
   user: user.reducer,
+  // jokes: jokes.reducer,
 })
 
 const store = configureStore({ reducer })
