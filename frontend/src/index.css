@@ -1,9 +1,8 @@
-*{
-  padding:0;
-  margin:0;
+* {
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
-
 
 body {
   animation: 10000ms ease-in-out infinite color-change;
@@ -19,7 +18,7 @@ code {
     monospace;
 }
 
-.main-container{
+.main-container {
   padding: 120px 30px;
   display: flex;
   flex-direction: column;
@@ -27,7 +26,7 @@ code {
   align-items: center;
 }
 
-.login-top{
+.login-top {
   min-width: 400px;
   padding: 40px;
   background-color: #ffa500;
@@ -39,7 +38,7 @@ code {
   align-items: center;
 }
 
-.form-container{
+.form-container {
   min-width: 400px;
   gap: 1em;
   background: #ff7a00;
@@ -50,37 +49,37 @@ code {
   flex-direction: column;
   align-items: center;
 }
-.error-container{
-  background-size: cover ;
+.error-container {
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
   background-attachment: fixed;
 }
-a{
+a {
   text-decoration: none;
 }
-form{
+form {
   display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
-label{
+label {
   font-weight: bold;
 }
-input{
+input {
   text-align: center;
   padding: 10px;
   border-radius: 5px;
   font-size: 16px;
 }
-button{
+button {
   padding: 5px;
   font-size: 20px;
   border-radius: 3px;
   box-shadow: 1px 1px 5px black;
 }
-.song{
+.song {
   border-radius: 5px;
   box-shadow: 1px 1px 5px black;
 }
