@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import crypto from 'crypto'
-import bcrypt from 'bcrypt-nodejs'
+import crypto from 'crypto';
+import bcrypt from 'bcrypt-nodejs';
 import cookieParser from "cookie-parser";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
@@ -30,7 +30,6 @@ const User = mongoose.model('User', {
 
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({accessToken: req.cookies.accessToken});
-
   if (user) {
     req.user = user;
     res.json({Welcome: user.name})
@@ -56,39 +55,35 @@ app.get("/", (req, res) => {
   res.send("[POST]: /signup, [POST]: /signin, [GET]: /secrets ");
 });
 
-app.get("/logout", (req, res) => {
-  res.clearCookie('accessToken');
-  res.status(200).json({response: 'You are now logged out'})
-})
-
 app.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const user = await new User({name, email, password: bcrypt.hashSync(password)});
     user.save();
-    
-    res.status(201).json({id: user._id, accessToken: user.accessToken})
-    res.cookie('accessToken', user.accessToken);
+    res.cookie('accessToken', user.accessToken, { httpOnly: true });
+    res.status(201).json({id: user._id, accessToken: user.accessToken});
 
   } catch(err) {
-    res.status(400).json({message: 'Could not create user', errors: err.errors})
+    res.status(400).json({message: 'Could not create user', errors: err.message})
   }
 })
 
 app.get('/secrets', authenticateUser);
 
-app.get('/secrets', (req, res) => {
-  res.json({secret: 'this is a secret message shown only when logged in'});
-});
-
 app.post('/signin', async (req, res) => {
   const user = await User.findOne({email: req.body.email});
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.cookie('accessToken', user.accessToken);
+    res.cookie('accessToken', user.accessToken, { httpOnly: true });
+    res.status(201).json({id: user._id, accessToken: user.accessToken});
   } else {
     res.json({notFound: true});
   } 
 });
+
+app.get("/logout", (req, res) => {
+  res.clearCookie('accessToken');
+  res.status(200).json({response: 'You are now logged out'})
+})
 
 // Start the server
 app.listen(port, () => {
