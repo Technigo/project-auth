@@ -1,13 +1,16 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This week was a pair programming project where we built a fullstack application: a form to register a user and a log in function to reveal a secret page to the authenticated user, and handling the passwords in a secure way. 
+ 
 
 ## The problem
-
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We built a registration flow handling the authentication of the user both in the frontend and in the backend and displaying error messages to help the user register/log in.
+We used bcrypt to encrypt the passwords and store them in our database.
+ 
+If we would have more time we would change the login page to show distinct difference from successfully register a user from the option to log in. 
+Also we would use another solution for our log out button. 
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Backend: https://project-auth-secret-garden.herokuapp.com/
+Frontend: https://project-auth-tomoyo-louisa.netlify.app/login
