@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { API_URL } from "utils/utils";
-// import styled from 'styled-components';
 
 import user from 'reducers/user';
 
@@ -60,44 +59,41 @@ const Login = () => {
 
     return (
         <>
-            {/* <Link to="/"> LINK TO /</Link> */}
-            <container>
-            <h1>Secret garden</h1>
-            <div className='radio-container'>
-            <label htmlFor="register">Register</label>
-            <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")} />
-            <label htmlFor="login">Login</label>
-            <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} />
-            </div>
-            <form onSubmit={onFormSubmit}>
-                <label htmlFor="username">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)} />
+            <section>
+                <div className="form-container">
+                    <h1>Secret garden</h1>
+                    <div className='radio-container'>
+                        <label htmlFor="register">Register</label>
+                        <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")} />
+                        <label htmlFor="login">Login</label>
+                        <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} />
+                    </div>
+                    <form onSubmit={onFormSubmit}>
+                        <label htmlFor="username">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)} />
 
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)} />
+                        <label htmlFor="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)} />
 
-                    {loginError !== null && (
+                        {loginError !== null && (
                             <p className="login-error">{loginError}</p>
-                            )}
+                        )}
 
-                <div className="button-container">
-                    <button type="submit">Sign up</button>
-                    <button type="submit">Login</button>
-{/* 
-                    <button type="button"
-                onClick={logOutButton}>Log out</button> */}
+                        <div className="button-container">
+                            <button type="submit">Sign up</button>
+                            <button type="submit">Login</button>
+                        </div>
+                    </form>
                 </div>
-                {/* <h1>$`{data.response}`</h1> */}
-            </form>
-            </container>
+            </section>
         </>
     )
 }
