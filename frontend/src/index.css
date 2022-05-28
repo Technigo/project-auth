@@ -1,5 +1,12 @@
+*{
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
+}
+
+
 body {
- margin:0px;
+  animation: 10000ms ease-in-out infinite color-change;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -17,11 +24,13 @@ code {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: center;
 }
 
 .login-top{
-  padding: 30px;
-  background-color: #ffa50091;
+  min-width: 400px;
+  padding: 40px;
+  background-color: #ffa500;
   display: flex;
   justify-content: center;
   border-radius: 10px;
@@ -31,12 +40,15 @@ code {
 }
 
 .form-container{
+  min-width: 400px;
+  gap: 1em;
   background: #ff7a00;
   display: flex;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 1px 1px 5px black;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .error-container{
   background-size: cover ;
@@ -63,7 +75,47 @@ input{
   font-size: 16px;
 }
 button{
+  padding: 5px;
   font-size: 20px;
   border-radius: 3px;
-  box-shadow: 1px 1px 5px black; 
+  box-shadow: 1px 1px 5px black;
+}
+.song{
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px black;
+}
+@keyframes color-change {
+  0% {
+    background-color: rgb(7, 41, 152);
+  }
+  10% {
+    background-color: rgb(65, 32, 153);
+  }
+  20% {
+    background-color: rgb(142, 120, 240);
+  }
+  30% {
+    background-color: rgb(176, 151, 235);
+  }
+  40% {
+    background-color: rgb(149, 157, 233);
+  }
+  50% {
+    background-color: rgb(172, 169, 232);
+  }
+  60% {
+    background-color: rgb(149, 157, 233);
+  }
+  70% {
+    background-color: rgb(176, 151, 235);
+  }
+  80% {
+    background-color: rgb(142, 120, 240);
+  }
+  90% {
+    background-color: rgb(65, 32, 153);
+  }
+  100% {
+    background-color: rgb(7, 41, 152);
+  }
 }
