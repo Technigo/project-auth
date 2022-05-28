@@ -34,12 +34,12 @@ export const Login = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data)
+        console.log(data)
         if (data.success) {
           batch(() => {
-            dispatch(user.actions.setUserId(data.userId))
-            dispatch(user.actions.setAccessToken(data.accessToken))
-            dispatch(user.actions.setUserName(data.username))
+            dispatch(user.actions.setUserId(data.response.userId))
+            dispatch(user.actions.setAccessToken(data.response.accessToken))
+            dispatch(user.actions.setUserName(data.response.username))
             dispatch(user.actions.setError(null))
           })
         } else {
