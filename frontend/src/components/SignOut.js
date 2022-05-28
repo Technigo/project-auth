@@ -36,4 +36,8 @@ const StyledButton = styled.button`
     &:hover {
         text-decoration: ${props => props.textDecoration};
     }
+
+    @media screen and (min-width: 1024px) {
+        height: 35px;
+    }
 `

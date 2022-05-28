@@ -66,7 +66,7 @@ const Login = () => {
                             <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} />
                     </StyledMode> */}
 
-                    {mode === 'login' ? <h1>Login here</h1> : <h1>Register here</h1>}
+                    {mode === 'login' ? <StyledTitle>Login here</StyledTitle> : <StyledTitle>Register here</StyledTitle>}
                     
                     <Formik
                         initialValues={{ username: "", password: "", email: "" }}
@@ -128,7 +128,7 @@ const Login = () => {
                                 />
 
 
-                                {mode === 'login' ? <StyledButton type="submit" background="#E7CFD7" boxShadow="2px 3px #3a4664" width="100px">Login</StyledButton> : <StyledButton type="submit" background="#EBD0D0" boxShadow="2px 3px #3a4664" width="100px">Register</StyledButton>}
+                                {mode === 'login' ? <StyledButton type="submit" background="#E7CFD7" boxShadow="2px 3px #3a4664" width="100px" borderHover="2px solid #3a4664">Login</StyledButton> : <StyledButton type="submit" background="#EBD0D0" boxShadow="2px 3px #3a4664" width="100px" borderHover="2px solid #3a4664">Register</StyledButton>}
                                 
                                 {mode === 'login' ? 
                                 <StyledButton type="button" onClick={()=> setMode("register")} background="transparent" width="100%" textDecoration="underline">Not a member yet? Register here</StyledButton> :
@@ -165,6 +165,8 @@ const StyledLoginWrapper = styled.section`
     height: 80vh;
     background: #BAC0D4;
     border: 10px solid #3a4664;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 1px 1px 15px -17px rgba(0,0,0,0); 
+    box-shadow: 0px 10px 13px -7px #000000, 1px 1px 15px -17px rgba(0,0,0,0);
 `
 
 const StyledTitle = styled.h1`
@@ -195,6 +197,12 @@ const StyledInput = styled(MyTextInput)`
     margin-bottom: 5px;
     border: none;
     box-shadow: 2px 3px #3a4664;
+
+    &:hover,
+    &:focus {
+        outline: none;
+        border: 2px solid #3a4664;
+    }
 `
 
 const StyledError = styled.div`
@@ -215,5 +223,6 @@ const StyledButton = styled.button`
     
     &:hover {
         text-decoration: ${props => props.textDecoration};
+        border: ${props => props.borderHover}
     }
 `
