@@ -114,7 +114,7 @@ const authenticateUser = async (req, res, next) => {
 
 
 app.get("/", (req, res) => {
-  res.send("View frontend project here: !");
+  res.send("View frontend project here: https://project-auth-tomoyo-louisa.netlify.app/login");
 });
 
 // Start the server
