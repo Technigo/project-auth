@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import song from '../img/song.gif'
-
-import user from 'reducers/user'
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import song from "../img/song.gif";
+import user from "reducers/user";
 
 const Main = () => {
-  const accessToken = useSelector((store) => store.user.accessToken)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const accessToken = useSelector((store) => store.user.accessToken);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!accessToken) {
-      navigate('/login')
+      navigate("/login");
     }
-  }, [accessToken])
+  }, [accessToken]);
 
   return (
     <div className="main-container">
@@ -24,14 +23,14 @@ const Main = () => {
       <button
         className="button-container"
         onClick={() => {
-          navigate('/login')
-          dispatch(user.actions.setAccessToken(null))
+          navigate("/login");
+          dispatch(user.actions.setAccessToken(null));
         }}
       >
         Log out
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Main
+export default Main;
