@@ -22,7 +22,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/main' element={<Main />} />
-          <Route path='/not' element={<NotFound />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </Provider>
