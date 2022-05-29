@@ -11,10 +11,13 @@ export const SignInForm = () => {
         try {
             const response = await fetch('https://auth-login-form-project.herokuapp.com/signin', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {                
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Credentials': true
                 },
-                credentials: 'same-origin',
+                // mode: 'cors',
+                // credentials: 'include',
                 body: JSON.stringify({email: email, password: password})
             });
             const authorizedLogin = await response.json();

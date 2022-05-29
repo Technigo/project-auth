@@ -7,10 +7,13 @@ export const LoggedInPage = () => {
             try {
                 const response = await fetch('https://auth-login-form-project.herokuapp.com/secrets', {
                     method: 'GET',
+                    credentials: 'include',
                     headers: {                
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Credentials': true
                     },
-                    credentials: 'same-origin'
+                    // mode: 'cors',
+                    // credentials: 'include'
                 });
                 const loggedOutResponse = await response.json();
                 console.log(loggedOutResponse.loginData);
