@@ -8,8 +8,9 @@ export const LoggedInPage = () => {
                 const response = await fetch('https://auth-login-form-project.herokuapp.com/secrets', {
                     method: 'GET',
                     headers: {                
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json'
                     },
+                    credentials: 'include'
                 });
                 const loggedOutResponse = await response.json();
                 console.log(loggedOutResponse.loginData);

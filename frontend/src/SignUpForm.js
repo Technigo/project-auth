@@ -18,11 +18,10 @@ export const SignUpForm = () => {
         try {
             const response = await fetch('https://auth-login-form-project.herokuapp.com/signup', {
                 method: 'POST',
-                headers: {
-                    
-                    'Content-Type': 'application/json',
-                    'Credentials': 'same-origin'
+                headers: {                    
+                    'Content-Type': 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify({name: username, email: email, password: password})
             });
             
