@@ -14,7 +14,7 @@ export const SignInForm = () => {
                 headers: {                
                     'Content-Type': 'application/json'
                 },
-                credentials: 'include',
+                credentials: 'same-origin',
                 body: JSON.stringify({email: email, password: password})
             });
             const authorizedLogin = await response.json();

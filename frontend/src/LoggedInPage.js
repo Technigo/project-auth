@@ -10,7 +10,7 @@ export const LoggedInPage = () => {
                     headers: {                
                         'Content-Type': 'application/json'
                     },
-                    credentials: 'include'
+                    credentials: 'same-origin'
                 });
                 const loggedOutResponse = await response.json();
                 console.log(loggedOutResponse.loginData);

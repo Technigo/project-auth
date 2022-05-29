@@ -21,7 +21,7 @@ export const SignUpForm = () => {
                 headers: {                    
                     'Content-Type': 'application/json'
                 },
-                credentials: 'include',
+                credentials: 'same-origin',
                 body: JSON.stringify({name: username, email: email, password: password})
             });
             
