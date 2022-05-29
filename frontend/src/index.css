@@ -91,6 +91,7 @@ h2 {
 .header {
   color: rgb(255, 255, 255);
   font-size: 18px;
+  font-weight: normal;
 }
 
 .logout-button {

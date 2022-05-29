@@ -118,7 +118,7 @@ app.get('/main', authenticateUser, async (req, res) => {
 
 //--- SECRET ENDPOINT ---//
 app.get('/secret', authenticateUser, async (req, res) => {
-  const secretMessage = 'You are awesome, lets have some fun!'
+  const secretMessage = 'You are awesome!'
   try {
     res.status(200).json({
       success: true,

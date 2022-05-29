@@ -56,7 +56,7 @@ export const Main = () => {
     <>
       <main className='main-container'>
         <div className='form-container'>
-          <h1>Welcome {username}!</h1>
+          <h1>Welcome {username}</h1>
           <h2 className='header'>{secretMessage}</h2>
           <iframe
             src='https://giphy.com/embed/MMQrQQ87G2MmY'
