@@ -59,7 +59,7 @@ export const Main = () => {
           <h1>Welcome {username}</h1>
           <h2 className='header'>{secretMessage}</h2>
           <iframe
-            title='Old Girls'
+            title='OldGold'
             src='https://giphy.com/embed/MMQrQQ87G2MmY'
             width='250'
             height='250'
