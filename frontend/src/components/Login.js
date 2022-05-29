@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector, batch } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import user from '../reducers/user'
 import { API_URL } from '../utils/utils'
@@ -10,7 +10,6 @@ export const Login = () => {
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState('registration')
   const [error, setError] = useState('')
-  // const [testToken, setTestToken] = useState(null)
 
   const accessToken = useSelector((store) => store.user.accessToken)
 
@@ -19,13 +18,9 @@ export const Login = () => {
 
   useEffect(() => {
     if (accessToken) {
-      navigate('/')
+      navigate('/main')
     }
   }, [accessToken])
-
-  useEffect(() => {
-    console.log(accessToken)
-  }, [])
 
   const onFormSubmit = (event) => {
     event.preventDefault()
@@ -41,13 +36,10 @@ export const Login = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          console.log(data.response)
-          // setTestToken(data.accessToken)
           batch(() => {
             const userId = data.userId
             const accessToken = data.accessToken
             const username = data.username
-            console.log(userId, accessToken, username)
             dispatch(user.actions.setUserId(userId))
             dispatch(user.actions.setAccessToken(accessToken))
             dispatch(user.actions.setUsername(username))
@@ -60,15 +52,14 @@ export const Login = () => {
             dispatch(user.actions.setAccessToken(null))
             dispatch(user.actions.setUsername(null))
           })
-          // setError('Sorry, this is an invalid username or password')
+          setError('Sorry, this is an invalid username or password')
         }
       })
   }
 
   return (
     <>
-      <Link to='/'> LINK TO /</Link>
-      <main className='main-container'>
+      <main className='login-container'>
         <form onSubmit={onFormSubmit} className='form-container'>
           <label htmlFor='username'>Login</label>
           <h3>Username:</h3>
@@ -88,7 +79,7 @@ export const Login = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-
+          <div className='error'>{error}</div>
           <button
             className='submit-button'
             type='submit'
@@ -105,7 +96,6 @@ export const Login = () => {
           >
             <p>Sign up</p>
           </button>
-          <p className='error'>{error}</p>
         </form>
       </main>
     </>

@@ -8,7 +8,7 @@ body {
 
 /* LOGIN PAGE */
 
-.main-container {
+.login-container {
   padding: 0 15px;
   box-sizing: border-box;
   width: 400px;
@@ -19,7 +19,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: space-between; */
+  text-align: center;
+  justify-content: space-between;
   background-color: rgb(255, 130, 53);
   padding: 50px;
   margin-top: 100px;
@@ -27,7 +28,6 @@ body {
 }
 
 .form-container label {
-  /* background-color: rgb(255, 255, 255); */
   padding: 20px;
   text-align: center;
   font-size: 27px;
@@ -42,17 +42,6 @@ body {
   margin: 0px;
 }
 
-.submit-button {
-  border: none;
-  border-radius: 15px;
-  background-color: #ffd6ad;
-  color: rgb(255, 130, 53);
-  font-weight: bold;
-  padding: 10px;
-  cursor: pointer;
-  margin-top: 30px;
-}
-
 input {
   width: 80%;
   padding: 12px 20px;
@@ -64,8 +53,69 @@ input:focus {
   background-color: rgb(251, 239, 255);
 }
 
-/* WELCOME PAGE */
+/* BUTTON */
+
+.submit-button {
+  border: none;
+  border-radius: 15px;
+  background-color: #ffd6ad;
+  color: rgb(255, 130, 53);
+  font-weight: bold;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 25px;
+}
+
+.submit-button :hover {
+  color: black;
+}
+
+/* MAIN PAGE */
+
+.main-container {
+  padding: 0 15px;
+  box-sizing: border-box;
+  width: 400px;
+  margin: 0 auto;
+}
 
 h1 {
   color: white;
+  text-align: center;
 }
+
+h2 {
+  text-align: center;
+}
+
+.header {
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+}
+
+.logout-button {
+  border: none;
+  border-radius: 15px;
+  background-color: #ffd6ad;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 25px;
+  font-size: 20px;
+}
+
+.logout-button :hover {
+  color: black;
+}
+
+/* ERROR */
+
+.error {
+  padding: 10px;
+  color: red;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* NOT FOUND */

@@ -5,10 +5,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import user from '../reducers/user'
 import { API_URL } from '../utils/utils'
 
-// import { jokes } from '../reducers/jokes'
-
 export const Main = () => {
-  // const jokesItems = useSelector((store) => store.jokes.items)
   const accessToken = useSelector((store) => store.user.accessToken)
   const secretMessage = useSelector((store) => store.user.secretMessage)
   const username = useSelector((store) => store.user.username)
@@ -21,14 +18,12 @@ export const Main = () => {
     batch(() => {
       dispatch(user.actions.setUsername(null))
       dispatch(user.actions.setAccessToken(null))
-
-      localStorage.removeItem('user')
     })
   }
 
   useEffect(() => {
     if (!accessToken) {
-      navigate('/login')
+      navigate('/')
     }
   }, [accessToken])
 
@@ -57,41 +52,22 @@ export const Main = () => {
     }
   }, [accessToken, dispatch])
 
-  //////----- testar att ta bort detta
-  // useEffect(() => {
-  //   const options = {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: accessToken,
-  //     },
-  //   }
-
-  //   fetch(API_URL('jokes'), options)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.success) {
-  //         dispatch(jokes.actions.setItems(data.response))
-  //         dispatch(jokes.actions.setError(null))
-  //       } else {
-  //         dispatch(jokes.actions.setError(data.response))
-  //         dispatch(jokes.actions.setItems([]))
-  //       }
-  //     })
-  // }, [])
-
   return (
     <>
-      <Link to='/login'> LINK TO /login</Link>
       <main className='main-container'>
         <div className='form-container'>
           <h1>Welcome {username}!</h1>
-          <h3 className='header'>Secret message: {secretMessage}</h3>
-          {/* <div key={jokesItems.id}>
-            <h3> {jokesItems.message} </h3>
-          </div> */}
-          <button className='submit-button' onClick={logout}>
-            Log out
+          <h2 className='header'>{secretMessage}</h2>
+          <iframe
+            src='https://giphy.com/embed/MMQrQQ87G2MmY'
+            width='250'
+            height='250'
+            frameBorder='0'
+            class='giphy-embed'
+            allowFullScreen
+          ></iframe>
+          <button className='logout-button' onClick={logout}>
+            <p>Log out</p>
           </button>
         </div>
       </main>

@@ -9,13 +9,9 @@ const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/project-auth'
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
 const port = process.env.PORT || 8080
 const app = express()
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(express.json())
 
@@ -61,7 +57,7 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-// Start defining your routes here
+//--- DEFINING ROUTES ---//
 app.get('/', (req, res) => {
   res.send(getEndpoints(app))
 })
@@ -122,7 +118,7 @@ app.get('/main', authenticateUser, async (req, res) => {
 
 //--- SECRET ENDPOINT ---//
 app.get('/secret', authenticateUser, async (req, res) => {
-  const secretMessage = 'Yay for today!'
+  const secretMessage = 'You are awesome, lets have some fun!'
   try {
     res.status(200).json({
       success: true,
@@ -153,7 +149,7 @@ app.post('/login', async (req, res) => {
       })
     } else {
       res.status(400).json({
-        response: "username and password don't match",
+        response: "Username and password don't match",
         success: false,
       })
     }
