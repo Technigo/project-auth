@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import user from '../reducers/user'
 import { API_URL } from '../utils/utils'
@@ -25,7 +25,7 @@ export const Main = () => {
     if (!accessToken) {
       navigate('/')
     }
-  }, [accessToken])
+  }, [accessToken, navigate])
 
   useEffect(() => {
     if (accessToken) {

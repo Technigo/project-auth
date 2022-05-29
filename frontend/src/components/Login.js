@@ -20,7 +20,7 @@ export const Login = () => {
     if (accessToken) {
       navigate('/main')
     }
-  }, [accessToken])
+  }, [accessToken, navigate])
 
   const onFormSubmit = (event) => {
     event.preventDefault()
