@@ -32,7 +32,7 @@ const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({accessToken: req.cookies.accessToken});
   if (user) {
     req.user = user;
-    res.json({Welcome: user.name})
+    res.json({loginData: user.name})
     next();
   } else {
     res.status(401).json({loggedOut: true});
@@ -46,7 +46,10 @@ const port = process.env.PORT || 8080;
 const app = express();
 
 // Add middlewares to enable cors and json body parsing
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: 'https://symphonious-otter-f4f9a9.netlify.app/'
+}));
 app.use(express.json());
 app.use(cookieParser());
 
