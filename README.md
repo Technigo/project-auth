@@ -12,6 +12,6 @@ We used MongodB and Mongoose to build our Backend Express API.
 
 ## View it live
 
-Frontend:
+Frontend: https://oldgoldsignup.netlify.app/
 
 Backend: https://project-auth-isabell-hanna.herokuapp.com/
