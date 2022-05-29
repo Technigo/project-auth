@@ -51,24 +51,25 @@ const app = express();
 //   origin: 'https://symphonious-otter-f4f9a9.netlify.app/signin'
 // }));
 
-const whitelistedOrigins = ['https://symphonious-otter-f4f9a9.netlify.app/', 'http://localhost:3001/', 'http://localhost:3000/'];
+// const whitelistedOrigins = ['https://symphonious-otter-f4f9a9.netlify.app/', 'http://localhost:3001/', 'http://localhost:3000/'];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelistedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      let msg =
-      "The CORS policy for this site does not " +
-      "allow access from the specified Origin.";
-      callback(new Error(msg), false);
-    }
-  },
-  optionsSuccessStatus: 200,
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelistedOrigins.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       let msg =
+//       "The CORS policy for this site does not " +
+//       "allow access from the specified Origin.";
+//       callback(new Error(msg), false);
+//     }
+//   },
+//   optionsSuccessStatus: 200,
+//   credentials: true,
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
@@ -82,7 +83,7 @@ app.post('/signup', async (req, res) => {
     const { name, email, password } = req.body;
     const user = await new User({name, email, password: bcrypt.hashSync(password)});
     user.save();
-    res.cookie('accessToken', user.accessToken, { httpOnly: true });
+    res.cookie('accessToken', user.accessToken);
     res.status(201).json({id: user._id, accessToken: user.accessToken});
 
   } catch(err) {
@@ -95,7 +96,7 @@ app.get('/secrets', authenticateUser);
 app.post('/signin', async (req, res) => {
   const user = await User.findOne({email: req.body.email});
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.cookie('accessToken', user.accessToken, { httpOnly: true });
+    res.cookie('accessToken', user.accessToken);
     res.status(201).json({id: user._id, accessToken: user.accessToken});
   } else {
     res.json({notFound: true});
