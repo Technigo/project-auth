@@ -50,7 +50,25 @@ const app = express();
 //   credentials: true,
 //   origin: 'https://symphonious-otter-f4f9a9.netlify.app/signin'
 // }));
-app.use(cors());
+
+const whitelistedOrigins = ['https://symphonious-otter-f4f9a9.netlify.app/', 'https://auth-login-form-project.herokuapp.com/'];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelistedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      let msg =
+      "The CORS policy for this site does not " +
+      "allow access from the specified Origin.";
+      callback(new Error(msg), false);
+    }
+  },
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
