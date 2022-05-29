@@ -18,10 +18,9 @@ export const SignUpForm = () => {
         try {
             const response = await fetch('https://auth-login-form-project.herokuapp.com/signup', {
                 method: 'POST',
-                credentials: 'include',
+                // credentials: 'include',
                 headers: {                    
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Credentials': true
+                    'Content-Type': 'application/json'
                 },
                 // mode: 'cors',
                 // credentials: 'include',
@@ -30,6 +29,7 @@ export const SignUpForm = () => {
             
             const signupInfo = await response.json();
             console.log(signupInfo);
+            sessionStorage.setItem('accessToken', signupInfo.accessToken);
             
         } catch(err) {
             const errorMessage = `An error has occurred: ${response.status}`;
