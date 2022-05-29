@@ -82,7 +82,7 @@ app.post('/signup', async (req, res) => {
     const { name, email, password } = req.body;
     const user = await new User({name, email, password: bcrypt.hashSync(password)});
     user.save();
-    res.cookie('accessToken', user.accessToken);
+    res.cookie('accessToken', user.accessToken, { httpOnly: true });
     res.status(201).json({id: user._id, accessToken: user.accessToken});
 
   } catch(err) {
@@ -95,7 +95,7 @@ app.get('/secrets', authenticateUser);
 app.post('/signin', async (req, res) => {
   const user = await User.findOne({email: req.body.email});
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.cookie('accessToken', user.accessToken);
+    res.cookie('accessToken', user.accessToken, { httpOnly: true });
     res.status(201).json({id: user._id, accessToken: user.accessToken});
   } else {
     res.json({notFound: true});
