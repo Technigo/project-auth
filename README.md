@@ -1,13 +1,18 @@
-# Project Auth API
+# Project Auth API by Nabeel Mansour and Mathilda Karlsson
 
-Replace this readme with your own information about your project.
+This week we built a backend API with authentication to implement a registration flow, and a frontend with forms to register, sign in, and member specific content for those who are logged in.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We started with the backend using Node.js, MongoDB and Mongoose. With a mongoose model and schema for the user we could create a authentication with unique user tokens.
+
+Then we made a frontend with React and Redux, using Routes and Navigation to structure the pages. With an API-fetch we connected backend and frontend to a full application.
+
+If we had more time we would focus some more on the design and the member specific content. We would also add some love to the error messages.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend: https://backend-api-auth.netlify.app
+Backend: https://project-auth-backend-api.herokuapp.com/
