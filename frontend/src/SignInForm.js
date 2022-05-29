@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import { Navbar } from 'Navbar'
 
 export const SignInForm = () => {
     const [email, setEmail] = useState('');
@@ -6,6 +7,7 @@ export const SignInForm = () => {
 
     const validateUserLogin = async (e) => {
         e.preventDefault();
+
         try {
             const response = await fetch('https://auth-login-form-project.herokuapp.com/signin', {
                 method: 'POST',
@@ -15,9 +17,7 @@ export const SignInForm = () => {
                 body: JSON.stringify({email: email, password: password})
             });
             const authorizedLogin = await response.json();
-            console.log(authorizedLogin);
-            
-            document.cookie = `accessToken=${authorizedLogin.accessToken}`;
+            console.log(authorizedLogin);                    
         } catch(err) {
             console.error(err);
         }
@@ -25,6 +25,7 @@ export const SignInForm = () => {
 
     return (
         <div>
+            <Navbar />
             <form onSubmit={validateUserLogin}>
                 Already an user? Login:
             <label>

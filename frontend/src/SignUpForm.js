@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
+import { Navbar } from 'Navbar'
 
 export const SignUpForm = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    console.log(username)
     //prevent duplicate data/several clicks on post to be store (code in backend + frontend?)
+
     const createUserLogin = async (e) => {
         e.preventDefault();
         console.log('Submitted:' + username + ' ' + email + ' ' + password)
@@ -14,7 +15,6 @@ export const SignUpForm = () => {
         //     const errorMessage = `An error has occurred: ${response.status}`;
         //     throw new Error(errorMessage);
         // } 
-
         try {
             const response = await fetch('https://auth-login-form-project.herokuapp.com/signup', {
                 method: 'POST',
@@ -25,9 +25,10 @@ export const SignUpForm = () => {
                 },
                 body: JSON.stringify({name: username, email: email, password: password})
             });
+            
             const signupInfo = await response.json();
             console.log(signupInfo);
-            document.cookie = `accessToken=${signupInfo.accessToken}`;
+            
         } catch(err) {
             const errorMessage = `An error has occurred: ${response.status}`;
         }
@@ -35,6 +36,7 @@ export const SignUpForm = () => {
 
     return (
         <div>
+            <Navbar />
             <form onSubmit={createUserLogin}>
             <label>
                 Username:
