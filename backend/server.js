@@ -48,7 +48,10 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors({
   credentials: true,
-  origin: 'https://symphonious-otter-f4f9a9.netlify.app/'
+  origin: ['https://symphonious-otter-f4f9a9.netlify.app/', 
+  'https://symphonious-otter-f4f9a9.netlify.app/signin', 
+  'https://symphonious-otter-f4f9a9.netlify.app/signup', 
+  'https://symphonious-otter-f4f9a9.netlify.app/secrets']
 }));
 app.use(express.json());
 app.use(cookieParser());
