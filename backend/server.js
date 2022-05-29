@@ -51,7 +51,7 @@ const app = express();
 //   origin: 'https://symphonious-otter-f4f9a9.netlify.app/signin'
 // }));
 
-const whitelistedOrigins = ['https://symphonious-otter-f4f9a9.netlify.app/', 'https://auth-login-form-project.herokuapp.com/'];
+const whitelistedOrigins = ['https://symphonious-otter-f4f9a9.netlify.app/', 'http://localhost:3001/', 'http://localhost:3000/'];
 
 const corsOptions = {
   origin: function (origin, callback) {
