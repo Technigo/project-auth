@@ -11,6 +11,8 @@ const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [mode, setMode] = useState('signup')
+    
+    let errorMessage = useSelector((store) => store.user.error)
 
     const accessToken = useSelector((store) => store.user.accessToken)
 
@@ -19,7 +21,7 @@ const Login = () => {
 
     useEffect(() => {
   
-      if (accessToken) {
+      if (accessToken && mode === 'signin') {
         navigate('/')
       }
     }, [accessToken, navigate])
@@ -47,18 +49,27 @@ const Login = () => {
                 dispatch(user.actions.setUsername(data.response.username))
                 dispatch(user.actions.setAccessToken(data.response.accessToken))
                 dispatch(user.actions.setError(null))
-
+                if (mode === 'signup') {
+                  alert(`Successfully signed up!`)
+                  window.location.reload()
+                }
               })
               
             } else {
               dispatch(user.actions.setUserId(null))
-                dispatch(user.actions.setUsername(null))
-                dispatch(user.actions.setAccessToken(null))
+              dispatch(user.actions.setUsername(null))
+              dispatch(user.actions.setAccessToken(null))
               dispatch(user.actions.setError(data.response))
+              errorMessage = data.response
             }
           })
+
+          form.reset()
     }
     
+
+
+
     console.log(mode);
 
   return (
@@ -108,6 +119,7 @@ const Login = () => {
           <button type="submit">Submit</button>
           
         </form>
+        <h3>{errorMessage}</h3>
     
     </div>
   )
