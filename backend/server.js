@@ -33,10 +33,10 @@ const authenticateUser = async (req, res, next) => {
   //const user = await User.findOne({accessToken: req.cookies.accessToken});
   if (user) {
     req.user = user;
-    res.json({loginData: user.name})
+    res.json({loginData: 'You are now logged in,' + user.name})
     next();
   } else {
-    res.status(401).json({loggedOut: true});
+    res.status(401).json({loginData: 'You are now logged out'});
   }
 }
 
