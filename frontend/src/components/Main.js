@@ -45,7 +45,6 @@ return (
     <h1>Welcome!</h1>
     <p>Here you go, a quote</p>
     
-  <fieldset>
     {quote ? (
       <div className='quote-container'>
         <>
@@ -58,15 +57,13 @@ return (
     ) : (
       <p>Sorry, no quote found</p>
     )}
-  </fieldset>
-  <div className='logout-btn'>
+
     <button
       type='button'
       onClick={() => dispatch(user.actions.setAccessToken(null))}
     >
       Log out
     </button>
-  </div>
 </>
 )
 }

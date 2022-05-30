@@ -35,15 +35,15 @@ input {
 
 button {
   border-radius: 10px;
-  padding: 6px;
+  padding: 8px;
   border: 0.4px solid gray;
 }
 
 .logout-btn {
-  background:#b93951;
   border-radius: 10px;
   padding: 6px;
   border: 0.4px solid gray;
+  display: inline-block;
 }
 
 .footer-section {
@@ -64,6 +64,8 @@ button {
 .quote-container {
   border: 0.4px solid gray;
   padding: 0.5rem;
+  margin: 1.5rem;
+  border-radius: 10px;
 }
 
 .notfound-section {
@@ -75,4 +77,10 @@ margin-top: 3rem;
   font-style: italic;
   margin-top: 2rem;
   font-size: 15px;
+}
+
+.source-link {
+  margin-top: 3rem;
+  font-size: 12px;
+  color: #17414A;
 }
