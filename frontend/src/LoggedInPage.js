@@ -2,16 +2,16 @@ import React, {useState} from "react";
 import { Navbar } from 'Navbar'
 import styled from 'styled-components';
 
+const CenteredDiv = styled.div`
+display: flex;    
+justify-content: center;
+`;
+
+const HeadingText = styled.h1`
+text-align: center;
+`;
+
 export const LoggedInPage = () => {
-
-    const CenteredDiv = styled.div`
-        display: flex;    
-        justify-content: center;
-    `;
-
-    const HeadingText = styled.h1`
-    text-align: center;
-  `;
 
     const [loggedInUser, setLoggedInUser] = useState('log in first');
     
@@ -44,7 +44,7 @@ export const LoggedInPage = () => {
     return (
         <div>
             <Navbar />
-            {loggedInUser !== '' && <HeadingText>Welcome to your account, {loggedInUser}</HeadingText>}
+            {loggedInUser !== '' && <HeadingText>Welcome to your account, {loggedInUser} </HeadingText>}
             <CenteredDiv>
                 <button onClick={LogOutSession}>Log out</button>
                 <button onClick={checkLoginStatus}>Access secret page</button>

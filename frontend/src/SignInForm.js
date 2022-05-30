@@ -2,24 +2,24 @@ import React, { useState } from 'react'
 import { Navbar } from 'Navbar'
 import styled from 'styled-components';
 
+const UserForm = styled.form`
+background-color: pink;
+display: flex;
+flex-direction: column;
+align-content: center;
+margin: 20px;
+`;
+
+const CenteredDiv = styled.div`
+display: flex;    
+justify-content: center;
+`;
+
+const HeadingText = styled.h1`
+text-align: center;
+`;
+
 export const SignInForm = () => {
-    const UserForm = styled.form`
-        background-color: pink;
-        display: flex;
-        flex-direction: column;
-        align-content: center;
-        margin: 20px;
-    `;
-
-    const CenteredDiv = styled.div`
-        display: flex;    
-        justify-content: center;
-    `;
-
-    const HeadingText = styled.h1`
-        text-align: center;
-    `;
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
