@@ -44,7 +44,7 @@ export const LoggedInPage = () => {
     return (
         <div>
             <Navbar />
-            {loggedInUser !== '' && <HeadingText>Welcome to your account, {loggedInUser} </HeadingText>}
+            {loggedInUser && <HeadingText>{loggedInUser}</HeadingText>}
             <CenteredDiv>
                 <button onClick={LogOutSession}>Log out</button>
                 <button onClick={checkLoginStatus}>Access secret page</button>
