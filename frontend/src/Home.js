@@ -1,11 +1,17 @@
 import React from 'react'
 import { Navbar } from 'Navbar'
+import styled from 'styled-components';
 
 export const Home = () => {
+
+  const HeadingText = styled.h1`
+    text-align: center;
+  `;
+
   return (
     <div>
         <Navbar />
-        <h1>Welcome</h1>
+        <HeadingText>Welcome</HeadingText>
     </div>
   )
 }

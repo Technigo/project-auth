@@ -1,7 +1,29 @@
 import React, {useState} from 'react'
 import { Navbar } from 'Navbar'
+import styled from 'styled-components';
 
 export const SignUpForm = () => {
+    const UserForm = styled.form`
+        background-color: blue;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        margin: 20px;
+    `;
+
+    const FormLabel = styled.label`
+        background-color: pink;
+    `;
+
+    const CenteredDiv = styled.div`
+        display: flex;    
+        justify-content: center;
+    `;
+
+    const HeadingText = styled.h1`
+        text-align: center;
+    `;
+
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -39,21 +61,24 @@ export const SignUpForm = () => {
     return (
         <div>
             <Navbar />
-            <form onSubmit={createUserLogin}>
-            <label>
-                Username:
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-            </label>
-            <label>
-                Email:
-                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </label>
-            <label>
-                Password:
-                <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </label>
-            <input type="submit" value="Submit" />
-            </form>
+            <HeadingText>Create a new user account</HeadingText>
+            <CenteredDiv>
+                <UserForm onSubmit={createUserLogin}>
+                <FormLabel>
+                    <p>Username:</p>
+                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                </FormLabel>
+                <FormLabel>
+                    <p>Email:</p>
+                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </FormLabel>
+                <FormLabel>
+                    <p>Password:</p>
+                    <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+                </FormLabel>
+                <input type="submit" value="Submit" />
+                </UserForm>
+            </CenteredDiv>
         </div>
     )
 }

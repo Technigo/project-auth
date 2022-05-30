@@ -1,7 +1,25 @@
 import React, { useState } from 'react'
 import { Navbar } from 'Navbar'
+import styled from 'styled-components';
 
 export const SignInForm = () => {
+    const UserForm = styled.form`
+        background-color: pink;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        margin: 20px;
+    `;
+
+    const CenteredDiv = styled.div`
+        display: flex;    
+        justify-content: center;
+    `;
+
+    const HeadingText = styled.h1`
+        text-align: center;
+    `;
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -30,18 +48,20 @@ export const SignInForm = () => {
     return (
         <div>
             <Navbar />
-            <form onSubmit={validateUserLogin}>
-                Already an user? Login:
-            <label>
-                Email:
-                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </label>
-            <label>
-                Password:
-                <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </label>
-            <input type="submit" value="Submit" />
-            </form>
+            <HeadingText>Already an user? Login:</HeadingText>
+            <CenteredDiv>
+                <UserForm onSubmit={validateUserLogin}>
+                <label>
+                    <p>Email:</p>
+                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </label>
+                <label>
+                    <p>Password:</p>
+                    <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+                </label>
+                <input type="submit" value="Submit" />
+                </UserForm>
+            </CenteredDiv>
         </div>
     )
 }
