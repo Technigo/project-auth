@@ -18,7 +18,7 @@ const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (accessToken && mode === "signin") {
+    if (accessToken) {
       navigate("/")
     }
   }, [accessToken, navigate])
