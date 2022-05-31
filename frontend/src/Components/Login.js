@@ -45,10 +45,10 @@ const Login = () => {
             dispatch(user.actions.setUsername(data.response.username))
             dispatch(user.actions.setAccessToken(data.response.accessToken))
             dispatch(user.actions.setError(null))
-            // if (mode === "signup") {
-            //   alert(`Successfully signed up!`)
-            //   // window.location.reload()
-            // }
+            if (mode === "signup") {
+              alert(`Successfully signed up!`)
+              // window.location.reload()
+            }
           })
         } else {
           dispatch(user.actions.setUserId(null))
