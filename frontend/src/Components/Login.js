@@ -18,7 +18,7 @@ const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (accessToken) {
+    if (accessToken && mode === "signin") {
       navigate("/")
     }
   }, [accessToken, navigate])
@@ -47,7 +47,7 @@ const Login = () => {
             dispatch(user.actions.setError(null))
             if (mode === "signup") {
               alert(`Successfully signed up!`)
-              // window.location.reload()
+              window.location.reload()
             }
           })
         } else {
