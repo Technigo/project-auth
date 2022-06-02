@@ -46,8 +46,8 @@ const Login = () => {
             dispatch(user.actions.setAccessToken(data.response.accessToken))
             dispatch(user.actions.setError(null))
             if (mode === "signup") {
-              alert(`Successfully signed up!`)
-              // window.location.reload()
+              alert(`Successfully signed up! Please sign in.`)
+              window.location.reload()
             }
           })
         } else {
@@ -61,8 +61,6 @@ const Login = () => {
 
     form.reset()
   }
-
-  console.log(mode)
 
   return (
     <div className='wrapper'>
