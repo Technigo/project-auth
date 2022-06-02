@@ -18,7 +18,7 @@ const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (accessToken) {
+    if (accessToken && mode === "signin") {
       navigate("/")
     }
   }, [accessToken, navigate])
@@ -46,7 +46,11 @@ const Login = () => {
             dispatch(user.actions.setAccessToken(data.response.accessToken))
             dispatch(user.actions.setError(null))
             if (mode === "signup") {
+<<<<<<< HEAD
               alert(`Successfully signed up! Please sign in.`)
+=======
+              alert(`Successfully signed up!`)
+>>>>>>> 3e176134ebdaa3c887b7185b4ed4e85c704cf649
               window.location.reload()
             }
           })
