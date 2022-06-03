@@ -13,4 +13,4 @@ Also we would use another solution for our log out button.
 ## View it live
 
 Backend: https://project-auth-secret-garden.herokuapp.com/
-Frontend: https://project-auth-tomoyo-louisa.netlify.app/login
+Frontend: https://project-auth-tomoyo-louisa.netlify.app/
