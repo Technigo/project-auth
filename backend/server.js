@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import crypto from "crypto"
+import bcrypt from "bcrypt-nodejs"
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -15,6 +17,23 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
+
+const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  accessToken: {
+    type: String,
+    default: () => crypto.randomBytes(128).toString("hex")
+  }
+});
+
+const User = mongoose.model("User", UserSchema)
 
 // Start defining your routes here
 app.get("/", (req, res) => {
