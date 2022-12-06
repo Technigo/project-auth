@@ -8,6 +8,8 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
+/* ------Schemas------ */
+
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -27,13 +29,15 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
+/* ----- Authentication -------- */
+
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization');
 
   try {
     const user = await User.findOne({ accessToken });
     if (user) {
-      next();
+      next();  // when user is confirmed call the next function on line 120 after authentication
     } else {
       res.status(401).json({ response: 'Please log in', success: false });
     }
@@ -56,6 +60,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
+
+/* ------ Registration endpoint use in registration form in FE ------ */
 
 app.post("/registration", async (req, res) => {
   const { name, password } = req.body;
@@ -87,6 +93,9 @@ app.post("/registration", async (req, res) => {
   }
 })
 
+
+/* ------ Login endpoint use in login form in FE ------ */
+
 app.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({name: req.body.name})
@@ -96,7 +105,7 @@ app.post("/login", async (req, res) => {
         response: {
           userId: user._id, 
           name: user.name,
-          accessToken: user.accessToken}
+          accessToken: user.accessToken} //secured password incrypted as a AccessToken to prevent data steal
         })
     } else {
       res.status(400).json({
@@ -112,8 +121,11 @@ app.post("/login", async (req, res) => {
   }
 })
 
-app.get("/content", authenticateUser);
-app.get("/content", async (req, res) => {
+/* ------ Content endpoint use in component with "secret message" in FE ------ */
+
+app.get("/content", authenticateUser);  // If authentication === true ==> fetch will use next() from line 40
+                                        // if ath === false the secret content will not be display
+app.get("/content", async (req, res) => { 
   const secretMessage = 'You are awesome!'
   try {
     res.status(200).json({
