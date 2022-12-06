@@ -3,7 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto"
 import bcrypt from "bcrypt"
-import { serialize } from "v8";
+
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
