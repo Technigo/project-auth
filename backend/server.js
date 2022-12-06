@@ -63,6 +63,11 @@ app.get("/", (req, res) => {
   res.send("This is the backend of Project-auth by Naghmeh Okhovat and Antonella Cardozo.");
 });
 
+/*app.get('/secrets', authenticateUser)
+app.get('/secrets', (req, res) => {
+  res.status(200).json({response: "This is a super secret message"})
+});*/
+
 app.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
   try {
@@ -89,7 +94,6 @@ app.post('/login', async (req, res) => {
   const { username, email, password } = req.body;
   try {
     const user = await User.findOne({ username, email });
-
     if (user && bcrypt.compareSync(password, user.password, email, user.email)) {
       res.status(200).json({
         response: {
