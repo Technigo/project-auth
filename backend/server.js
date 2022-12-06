@@ -37,20 +37,60 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
+const OrderSchema = new mongoose.Schema({
+  flavor: {
+    type: Array, 
+    required: true
+  }, 
+  createdAt: {
+    type: Date, 
+    default : () => new Date()
+  },
+  scoop: {
+    type: Number, 
+    default: 1
+  }
+});
+
+const Order = mongoose.model("Order", OrderSchema);
+
+// For pages only shown for the login user we need to do a authentication of the user. 
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header("Authorization"); 
+  try {
+    // use the accessToken when its to easy to store a username in the header, accesstoken is uniqe for each user 
+    const user = await User.findOne({accessToken: accessToken});
+    if (user) {
+      next();
+    } else {
+      res.status(401).json({
+        response: " Please log in ",
+        success: false
+      })
+    }
+  } catch (error) {
+    res.status(400).json({
+      response: error,
+      success: false
+    })
+  }
+}
+
+
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send({
     Message: "Backend for login to our project page",
     Routes: [{
       "/register": "POST request where you register your profile",
-      "/login" : "Login page for a user"
+      "/login" : "Login page for a user",
+      "/order": "GET all orders and POST a new order"
     }]
   });
 });
 
 app.post("/register", async (req, res) =>{
   const { username, password } = req.body;
-
 // npm install bcrypt
   try {
     const salt = bcrypt.genSaltSync();
@@ -108,53 +148,35 @@ app.post("/login", async (req, res) => {
   } 
 });
 
-
-// For pages only shown for the login user we need to do a authentication of the user. 
-const authenticateUser = async (req, res, next) => {
-  const accessToken = req.header("Authorization"); 
+app.post("/order", authenticateUser);
+app.post("/order", async ( req, res) => {
+  const { flavor, scoop, createdAt } = req.body; 
   try {
-    // use the accessToken when its to easy to store a username in the header, accesstoken is uniqe for each user 
-    const user = await User.findOne({accessToken: accessToken});
-    if (user) {
-      next();
-    } else {
-      res.status(401).json({
-        response: " Please log in ",
-        success: false
-      })
-    }
+    const newFlavor = await new Order ({ flavor:flavor, scoop:scoop , createdAt:createdAt}).save()
+    res.status(200).json({
+      success: true, 
+      response: newFlavor
+    })
   } catch (error) {
     res.status(400).json({
       response: error,
       success: false
     })
   }
-}
+ 
+})
 
-// aut for happy thoughts - need to change to this week project 
-
-const ThoughtsSchema = new mongoose.Schema({
-  message: {
-    type: String, 
-  }, 
-  createdAt: {
-    type: Date, 
-    default : () => new Date()
-  },
-  hearts: {
-    type: Number, 
-    default: 0
+app.get("/order", authenticateUser);
+app.get("/order", async ( req, res) => {
+  try {
+    const orders = await Order.find()
+    res.status(200).json(orders)
+  } catch (error) {
+    res.status(400).json({
+      response: error,
+      success: false
+    })
   }
-});
-
-const Thought = mongoose.model("Thought", ThoughtsSchema);
-
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", ( req, res) => {
-  res.status(200).json({
-    success: true, 
-    response: "All the thoughts"
-  })
 })
 
 
