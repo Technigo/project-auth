@@ -14,6 +14,10 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  email:{
+    type: String,
+    unique: true
+  },
   password: {
     type: String,
     required: true,
@@ -46,9 +50,6 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -59,6 +60,29 @@ app.use(express.json());
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("This is the backend of Project-auth by Naghmeh Okhovat and Antonella Cardozo.");
+});
+
+
+app.post('/register', async (req, res) => {
+  const { username, email, password } = req.body;
+  try {
+    const salt = bcrypt.genSaltSync(); // Create a randomizer to prevent to unhash it
+      const newUser = await new User({
+        username,
+        email,
+        password: bcrypt.hashSync(password, salt)
+      }).save();
+      res.status(201).json({
+        response: {
+          userId: newUser._id,
+          username: newUser.username,
+          accessToken: newUser.accessToken
+        },
+        success: true
+      });
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
 });
 
 
