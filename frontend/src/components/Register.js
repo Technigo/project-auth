@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Wrapper } from './GlobalStyles';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { API_URL } from './config'
 
 const Register = ({ url }) => {
   // 1. input form for username and password
@@ -15,7 +16,7 @@ const Register = ({ url }) => {
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = () => {
-    fetch(`http://localhost:8080/register`, {
+    fetch(`${API_URL}/register`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'

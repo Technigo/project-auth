@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Wrapper } from './GlobalStyles';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { API_URL } from './config'
 
 const Login = ({ url }) => {
   // 1. make login component
@@ -13,7 +14,7 @@ const Login = ({ url }) => {
   console.log(accessToken);
 
   const handleSubmit = () => {
-    fetch(`http://localhost:8080/login`, {
+    fetch(`${API_URL}/login`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'

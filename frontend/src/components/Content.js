@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Wrapper } from './GlobalStyles';
+import { API_URL } from './config'
 
 const Content = ({ url }) => {
   // 1. make content component, send in accessToken, get request to /thoughts (or make new one)
-
+ 
   const [allTheContent, setAllTheContent] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -17,7 +18,7 @@ const Content = ({ url }) => {
   useEffect(() => {
     if (accessToken) {
     }
-    fetch(`http://localhost:8080/thoughts`, {
+    fetch(`${API_URL}/thoughts`, {
       method: 'get',
       headers: {
         Authorization: accessToken

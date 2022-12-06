@@ -69,7 +69,7 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
-app.post("/registrer",  async (req, res) => {
+app.post("/register",  async (req, res) => {
   const { username, password } = req.body
  
   try {
