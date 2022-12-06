@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { RegistrationForm } from 'components/RegistrationForm';
+import { SignIn } from 'components/SignIn';
+import { SignUp } from 'components/SignUp';
 import { SecretMessage } from 'components/SecretMessage'
+import { NotFound } from 'components/NotFound';
 
 import { Provider } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
@@ -19,9 +21,10 @@ export const App = () => {
     <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path='/login' element={<RegistrationForm/>} ></Route>
-        <Route path='/secretmessage' element={<SecretMessage/>} ></Route>
-        {/*<Route path='*' element={<NotFound/>}></Route>*/}
+        <Route path='/' element={<SignIn/>} ></Route>
+        <Route path='/signUp' element={<SignUp/>} ></Route>
+        <Route path='/secretContent' element={<SecretMessage/>} ></Route>
+        <Route path='*' element={<NotFound/>}></Route>
       </Routes>
     </BrowserRouter> 
  </Provider>
