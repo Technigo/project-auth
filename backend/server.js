@@ -40,13 +40,13 @@ const authenticateUser = async (req, res, next) => {
     } else {
       res.status(401).json({
         response: "Please log in",
-        success: false,
+        success: false
       });
     }
   } catch (error) {
     res.status(400).json({
       response: error,
-      success: false,
+      success: false
     });
   }
 };
@@ -63,10 +63,10 @@ app.get("/", (req, res) => {
   res.send("This is the backend of Project-auth by Naghmeh Okhovat and Antonella Cardozo.");
 });
 
-/*app.get('/secrets', authenticateUser)
+app.get('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
-  res.status(200).json({response: "This is a super secret message"})
-});*/
+  res.status(200).json({ response: "This is a super secret message" })
+});
 
 app.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
