@@ -71,17 +71,7 @@ app.get("/", (req, res) => {
 
 app.post("/registrer",  async (req, res) => {
   const { username, password } = req.body
-  // npm i dcrypt
-  // const code = [1, 2, 4, 4];  (never stor the accual pw)
-  //salt
-  // const makeCodeSecret = (codeArr) => {
-    // iterate or loop
-    //const sectetMsg = codeArr.map(singlNr => singlNr + 1)
-    //return sectretMsg
-  //
-    //Salt helps decode/desipher
-  //}
-  // transformedCode = makeSodeSecret(code)
+ 
   try {
     const salt = bcrypt.genSaltSync()
     if (password.length < 8) {
@@ -139,7 +129,7 @@ try {
 }
 })
 
-
+////////
 
 const ThoughtSchema = new mongoose.Schema({
   message: {
