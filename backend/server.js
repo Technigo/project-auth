@@ -3,8 +3,11 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
+dotenv.config()
+
+const mongoUrl = process.env.MONGO_URL || `mongodb+srv://spacecake:${process.env.STRING_PW}@cluster0.jgvyhjl.mongodb.net/projectAuth?retryWrites=true&w=majority`;
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -55,7 +58,7 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-const LoginSchema = new mongoose.Schema({
+const AuthSchema = new mongoose.Schema({
   message: {
     type: String,
   },
@@ -71,7 +74,7 @@ const LoginSchema = new mongoose.Schema({
 
 //models
 const User = mongoose.model("User", UserSchema)
-const LoginInfo = mongoose.model("LoginInfo", LoginSchema)
+const AuthPage = mongoose.model("LoginInfo", AuthSchema)
 
 // authentication 
 const authenticateUser = async (req, res, next) => {
@@ -161,7 +164,6 @@ app.get("/logininfo", (req, res) => {
     response: "all the information"
   })
 })
-
 
 // Start the server
 app.listen(port, () => {
