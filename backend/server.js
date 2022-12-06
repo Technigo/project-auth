@@ -36,11 +36,38 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema)
 
+/* FOR CODEALONG THURSDAY
+const ThoughtSchema = new mongoose.Schema({
+  message:{
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+    default: () => new Date()
+  },
+  hearts:{
+    type: Number,
+    default: 0
+  }
+});
+
+const Thought = new mongoose.model("Thought", ThoughtSchema);
+
+app.get('/thoughts', authenticateUser);
+app.get('/thoughts', (req, res) => {
+  res.status(200).json({
+    success: true,
+    response: "all thoughts"
+  })
+});
+*/
+
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
+// for new user to register
 app.post("/register", async (req, res) => {
   const {username, password} = req.body
   try {
@@ -55,7 +82,77 @@ app.post("/register", async (req, res) => {
         username: username,
         password: bcrypt.hashSync(password, salt)
       }).save();
+      res.status(201).json({
+        success: true,
+        response: {username: newUser.username, accessToken: newUser.accessToken, id: newUser._id}
+      })
     }
+  } catch(error) {
+    res.status(400).json({
+      success: false,
+      response: "Error"
+    })
+  }
+})
+
+// logging in
+app.post("/login", async (req, res) => {
+  const {username, password} = req.body;
+  try{
+    const user = await User.findOne({username});
+    if(user && bcrypt.compareSync(password, user.password)){
+      res.status(200).json({
+        success: true,
+        response: {
+          username: user.username,
+          id: user._id,
+          accessToken: user.accessToken
+        }
+      })
+    } else {
+      res.status(400).json({
+        success: false,
+        response: "username or password is incorrect"})
+    }
+  } catch (error){
+    res.status(500).json({ success: false,
+      response: error})
+  }
+})
+
+// Authenticate user
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header("Authorization");
+  try{
+    const user = await User.findOne({accessToken: accessToken});
+    if(user){
+      next()
+    }else{
+      res.status(401).json({ success: false,
+        response: "please login"
+      })
+    }
+  } catch(error) {
+    res.status(400).json({ success: false,
+      response: error
+    })
+  }
+}
+
+// Successful login then go to secret
+app.get("/secret", authenticateUser)
+app.get("/secret", (req, res) => {
+  const secretMessage = "Welcome to the secret chamber"
+  try{
+    res.status(200).json({
+      success: true,
+      secretMessage,
+    });
+  } catch(error){
+    res.status(401).json({
+      success: false,
+      response: "Secret chamber is locked",
+    });
   }
 })
 
