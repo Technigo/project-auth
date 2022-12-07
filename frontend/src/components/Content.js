@@ -27,7 +27,7 @@ const Content = ({ url }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setMostViews(data.body);
+        setMostViews(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -55,17 +55,16 @@ const Content = ({ url }) => {
     <Wrapper>
       <h1>10 most viewd TED Talks</h1>
       <ol>
-        {/* {mostViews.map((tedTalk) => {
+        {mostViews.body.map((tedTalk) => {
           return (
             <li key={tedTalk._id}>
-              <Link to={`/speaker/${tedTalk.speaker}`}>
+              <Link to={`/speaker/${tedTalk.talk_id}`}>
                 {tedTalk.speaker} - {tedTalk.title}
               </Link>
             </li>
           );
-        })} */}
+        })}
       </ol>
-      {/* <p>{mostViews.response}</p> */}
       <button
         type="button"
         onClick={() => {

@@ -154,7 +154,7 @@ const TedTalk = mongoose.model('TedTalk', {
 
 // Resetting DataBase
 if (process.env.RESET_DB) {
-  // console.log('Resetting database!')
+  console.log('Resetting database!')
   
   	const resetDataBase = async () => {
       // All Models
@@ -179,6 +179,28 @@ app.get("/top10Views", async (req, res) => {
       res.status(200).json({
         success: true,
         body: mostViews
+      });
+    }
+  } catch(error){
+    res.status(400).json({
+      body: {
+        message: "bad request",
+        success: false
+    }})
+  }
+});
+
+// Route to get details about a specific TED Talk
+app.get("/speaker/:id", authenticateUser)
+app.get("/speaker/:id", async (req, res) => {
+  try {
+  const speaker = await TedTalk.findOne({talk_id: req.params.id});
+  console.log(speaker)
+
+    if (speaker) {
+      res.status(200).json({
+        success: true,
+        body: speaker
       });
     }
   } catch(error){
