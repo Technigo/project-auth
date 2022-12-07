@@ -37,7 +37,7 @@ export const SignUp = () => {
             body: JSON.stringify({ username: username, password: password })
         };
 
-        fetch("http://localhost:8080/register", options) // registration URL
+        fetch("https://project-authentication-yz4wzwvsha-uc.a.run.app/register", options) // registration URL
             .then(res => res.json())
             .then(data => {
                 if (data.success) {

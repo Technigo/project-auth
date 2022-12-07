@@ -31,7 +31,7 @@ export const SignIn = () => {
             body: JSON.stringify({ username: username, password: password })
         };
 
-        fetch("http://localhost:8080/login", options) // login URL
+        fetch("https://project-authentication-yz4wzwvsha-uc.a.run.app/login", options) // login URL
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
