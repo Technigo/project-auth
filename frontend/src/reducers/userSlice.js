@@ -21,6 +21,12 @@ const userSlice = createSlice({
 		catchError: (state, action) => {
 			state.error = action.payload;
 		},
+		logOut: (state, action) => {
+			(state.accessToken = null),
+				(state.username = null),
+				(state.userId = null),
+				(state.error = null);
+		},
 	},
 });
 
