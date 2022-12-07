@@ -1,6 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Title, Wrapper, Form, Input, Button, LinkWrapper } from 'styles/Styles';
+import { useDispatch, batch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { SIGNIN_URL } from '../utils/urls';
+
+import user from '../reducers/user';
+
+import styled from 'styled-components';
 
 const Login = () => {
 return (
@@ -12,7 +20,7 @@ return (
         placeholder="Name"
         />
         <Input
-        type="text"
+        type="password"
         placeholder="Password"
         />
         <Button> sign in

@@ -8,7 +8,7 @@ const user = createSlice({
     accessToken: null,
     error: null,
   },
-  
+
   reducers: {
     setUserId: (store, action) => {
       store.userId = action.payload;
