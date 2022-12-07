@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Wrapper } from './GlobalStyles';
-import { API_URL } from './config'
+import { API_URL } from './config';
+import Loader from './Loader';
 
 const Content = ({ url }) => {
   // 1. make content component, send in accessToken, get request to /thoughts (or make new one)
- 
+
   const [allTheContent, setAllTheContent] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -35,7 +36,7 @@ const Content = ({ url }) => {
   }, [accessToken]);
 
   if (loading) {
-    return <div></div>;
+    return <Loader />;
   }
 
   if (!allTheContent.success) {
