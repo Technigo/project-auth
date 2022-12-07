@@ -3,18 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 const orderSlice = createSlice ({
     name:"order",
     initialState:{
-        flavor:[],
+        flavor:"",
         scoop:null,
     },
     reducers:{
-        setFlavor: (state, action) => {
+        addFlavor: (state, action) => {
             state.flavor = action.payload
         },
-        setScoop: (state, action) => {
+        addScoop: (state, action) => {
             state.scoop = action.payload
         }
     }
 })
 
 export default orderSlice;
-export const {setFlavor, setScoop} = orderSlice.actions;

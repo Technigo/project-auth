@@ -3,24 +3,27 @@ import React, { useState, useEffect } from "react";
 import { batch, useDispatch, useSelector } from "react-redux";
 import { API_URL } from "utils/utils";
 
-import userSlice, { addUsername, addAccessToken, addUserId, catchError }  from "reducers/userSlice";
+import userSlice from "reducers/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [mode, setMode] = useState("register")
+
+    const navigate = useNavigate()
 
     const dispatch = useDispatch();
     const accessToken = useSelector((state) => state.user.accessToken);
 
-  /*   useEffect(() => {
+    useEffect(() => {
         if(accessToken) {
-
+            navigate("/order")
         }
-    }) */
+    }, [accessToken])
    
     const onLoginSubmit = (event) => {
-      event.preventDefault();
-
+      event.preventDefault();  
         const options = {
             method: "POST",
             headers: {
@@ -34,18 +37,18 @@ const Login = () => {
         .then(data => {
             if(data.success) {
                 batch(() => {
-                    dispatch(addUsername(data.username))
-                    dispatch(addAccessToken(data.accessToken))
-                    dispatch(addUserId(data.userId))
-                    dispatch(catchError(null))
+                    dispatch(userSlice.actions.addUsername(data.response.username))
+                    dispatch(userSlice.actions.addUserId(data.response.userId))
+                    dispatch(userSlice.actions.addAccessToken(data.response.accessToken))
+                    dispatch(userSlice.actions.catchError(null))
                 })
     
             } else {
                 batch(() => {
-                    dispatch(catchError(data.response))
-                    dispatch(addUsername(null))
-                    dispatch(addAccessToken(null))
-                    dispatch(addUserId(null))
+                    dispatch(userSlice.actions.addUsername(null))
+                    dispatch(userSlice.actions.addUserId(null))
+                    dispatch(userSlice.actions.addAccessToken(null))
+                    dispatch(userSlice.actions.catchError(data.response))
                 })
                
             }
@@ -57,6 +60,34 @@ const Login = () => {
    
     return(
         <div>
+            {mode === "login" && (
+            <div>
+                <label htmlFor="Sign-Up">Sign up </label>
+                <input 
+                  type="radio"
+                  id="register"
+                  checked={mode === "register"}
+                  onChange={() => setMode("register")}
+                />
+                    <h1>LOG IN </h1>
+            </div>
+                )}
+
+            {mode === "register" && (
+            <div>
+              <label htmlFor="login">Go to Login</label>
+              <input
+                className="radioBtn"
+                type="radio"
+                id="login"
+                checked={mode === "login"}
+                onChange={() => setMode("login")}
+              />
+              <h1>REGISTER</h1>
+    
+        </div>
+        )}
+          
             <form onSubmit={onLoginSubmit}>
                 <label>Username</label>
              <input
@@ -70,12 +101,13 @@ const Login = () => {
              id="password"
              value={password}
              onChange={(e) => setPassword(e.target.value)} />
-
              <button className="submit" type="submit">submit</button>
 
             </form>
+
+        
         </div>
     )
 }
 
-export default Login
+export default Login 
