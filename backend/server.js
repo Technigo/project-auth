@@ -34,6 +34,7 @@ app.use((req, res, next) => {
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
+    required: true,
     unique: true
   },
   password: {
@@ -146,7 +147,7 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "Credentials didn't match"
+        response: "Incorrect username or password. Type the correct username and password, and try again."
       });
     }
   } catch (error) {
