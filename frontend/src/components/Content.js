@@ -6,28 +6,28 @@ import Loader from './Loader';
 
 const Content = ({ url }) => {
   // 1. make content component, send in accessToken, get request to /thoughts (or make new one)
-
-  const [allTheContent, setAllTheContent] = useState('');
+  
+  const [mostViews, setMostViews] = useState('');
   const [loading, setLoading] = useState(true);
 
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem('accessToken')
   );
 
-  console.log('allTheContent:', allTheContent);
+  console.log('mostViews:', mostViews);
 
   useEffect(() => {
     if (accessToken) {
     }
-    fetch(`${API_URL}/thoughts`, {
+    fetch(`${API_URL}/top10Views`, {
       method: 'get',
       headers: {
         Authorization: accessToken
       }
     })
       .then((res) => res.json())
-      .then((content) => {
-        setAllTheContent(content);
+      .then((data) => {
+        setMostViews(data.body);
         setLoading(false);
       })
       .catch((error) => {
@@ -39,7 +39,7 @@ const Content = ({ url }) => {
     return <Loader />;
   }
 
-  if (!allTheContent.success) {
+  if (!mostViews.success) {
     return (
       <Wrapper>
         <h1>This page requires login</h1>
@@ -53,8 +53,19 @@ const Content = ({ url }) => {
 
   return (
     <Wrapper>
-      <h1>Content</h1>
-      <p>{allTheContent.response}</p>
+      <h1>10 most viewd TED Talks</h1>
+      <ol>
+        {/* {mostViews.map((tedTalk) => {
+          return (
+            <li key={tedTalk._id}>
+              <Link to={`/speaker/${tedTalk.speaker}`}>
+                {tedTalk.speaker} - {tedTalk.title}
+              </Link>
+            </li>
+          );
+        })} */}
+      </ol>
+      {/* <p>{mostViews.response}</p> */}
       <button
         type="button"
         onClick={() => {

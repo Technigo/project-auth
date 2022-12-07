@@ -40,7 +40,7 @@ const Login = ({ url }) => {
     localStorage.setItem('accessToken', accessToken);
 
     setTimeout(() => {
-      window.location = `${url}/content`;
+      window.location = `${url}/top10Views`;
     }, 1000);
     return (
       <Wrapper>
