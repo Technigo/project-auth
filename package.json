@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
-    "bcrypt": "^5.1.0"
+    "bcrypt": "^5.1.0",
+    "react-router": "^6.4.4"
   }
 }
