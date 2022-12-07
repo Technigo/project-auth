@@ -1,3 +1,5 @@
+//API_URL = https://project-auth-fybh32gdwa-lz.a.run.app/
+
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -36,6 +38,7 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
+// Register new user
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
@@ -65,6 +68,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
+// Login
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -82,7 +86,7 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "Credentials didn't match"
+        response: "Credentials did not match"
       });
     }
   } catch (error) {
@@ -93,6 +97,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// Page after logged in
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
@@ -113,9 +118,42 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-// Start defining your routes here
+/*
+//Happy thoughts- change//
+const ThoughtSchema = new mongoose.Schema({
+  message: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+    default: () => new Date()
+  },
+  hearts: {
+    type: Number,
+    default: 0
+  }
+})
+
+const Thought = mongoose.model("Thought", ThoughtSchema) */
+
+// When user is authenticated they are directed to this endpoint
+app.get("/home", authenticateUser)
+app.get("/home", (req, res) => {
+  res.status(200).json({
+    sucess: true,
+    response: "Welcome, you are now logged in!"
+  })
+})
+
+// Start
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send({
+    Message: "Backend for login page (add URL)",
+    Routes: [{
+      "/register": "Register your profile (POST request)",
+      "/login" : "Login for registered user",
+    }]
+  });
 });
 
 // Start the server
