@@ -6,6 +6,22 @@ import { Start } from 'components/Start';
 import styled from "styled-components";
 
 export const App = () => {
+  const [authenticated, setauthenticated] = useState(null);
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("authenticated");
+    if (loggedInUser) {
+    setauthenticated(loggedInUser);
+    }
+    }, []);
+    
+    if (!authenticated) {
+      <Route path={"/"} element={<Start />} />
+    } else {
+      return (
+        <Route path={"/welcome"} element={
+          <Welcome />} />
+      );
+      }
 
   return (
     <BrowserRouter>
