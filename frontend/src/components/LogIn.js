@@ -1,13 +1,17 @@
 import React from "react";
+import { Form, ButtonLink } from "./Register";
+import { FormSection } from "./GlobalStyles";
 
 export const LogIn = () => {
     return (
-        <section>
+        <FormSection>
         <h1>Log in</h1>
-            <form>
+            <Form>
                 <input type="text" placeholder="username"></input>
                 <input type="text" placeholder="password"></input>
-            </form>
-      </section>
+            </Form>
+            <p>Not a registered user?</p>
+        <ButtonLink to="/">Sign up</ButtonLink>
+      </FormSection>
     )
 }
