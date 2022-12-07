@@ -1,0 +1,1 @@
+export const BASE_URL = "https://project-auth-2ucjrblcba-lz.a.run.app"

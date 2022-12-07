@@ -72,7 +72,7 @@ const AuthSchema = new mongoose.Schema({
   }
 });
 
-//models
+// models
 const User = mongoose.model("User", UserSchema)
 const AuthPage = mongoose.model("LoginInfo", AuthSchema)
 
@@ -146,7 +146,7 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "Credentials didn't match"
+        response: "Credentials didn't match" 
       });
     }
   } catch (error) {
