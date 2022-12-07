@@ -63,6 +63,15 @@ app.get("/", (req, res) => {
   res.send("This is the backend of Project-auth by Naghmeh Okhovat and Antonella Cardozo.");
 });
 
+app.get("/users", async (req,res) =>{
+  try {
+    const users = await User.find().limit(20).exec();
+    res.status(200).json(users)
+  } catch (error) {
+    res.status(400).json({ message: "Failed to load thoughts" })
+  }
+});
+
 app.get('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
   res.status(200).json({ response: "This is a super secret message" })

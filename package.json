@@ -5,6 +5,7 @@
     "postinstall": "npm install --prefix backend"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
     "bcrypt": "^5.1.0"
   }
 }
