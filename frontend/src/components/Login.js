@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Wrapper } from './GlobalStyles';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { API_URL } from './config'
+import { API_URL } from './config';
 
 const Login = ({ url }) => {
   // 1. make login component
@@ -11,6 +11,7 @@ const Login = ({ url }) => {
   const [usernameData, setUsernameData] = useState('');
   const [passwordData, setPasswordData] = useState('');
   const [accessToken, setAccessToken] = useState('');
+  const [user, setUser] = useState({});
   console.log(accessToken);
 
   const handleSubmit = () => {
@@ -27,6 +28,7 @@ const Login = ({ url }) => {
       .then((res) => res.json())
       .then((user) => {
         console.log('user:', user);
+        setUser(user);
         setAccessToken(user.response.accessToken);
       })
       .catch((error) => {
@@ -34,7 +36,7 @@ const Login = ({ url }) => {
       });
   };
 
-  if (accessToken.length > 0) {
+  if (accessToken) {
     localStorage.setItem('accessToken', accessToken);
 
     setTimeout(() => {
@@ -83,6 +85,7 @@ const Login = ({ url }) => {
         >
           Login
         </StyledSubmit>
+        {!user.success && <p>{user.response}</p>}
         <h2>No account?</h2>
         <Link to="/register">Sign up today!</Link>
       </StyledForm>
