@@ -17,4 +17,10 @@ export const user = createSlice({
             state.accessToken = accessToken; 
         }
     }
-})
+});
+
+export const login = (username, password) => {
+    return (dispatch) => {
+        fetch 
+    }
+};
