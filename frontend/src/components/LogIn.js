@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, ButtonLink, Input, PageHeader } from "./Register";
+import { Form, ButtonLink, Input, PageHeader, Button } from "./Register";
 import { FormSection } from "./GlobalStyles";
 
 export const LogIn = () => {
@@ -20,6 +20,7 @@ export const LogIn = () => {
                  onChange={(e) => setPassword(e.target.value)}
                  placeholder="Password" />
             </Form>
+            <Button type="submit">Log in</Button>
             <p>Not a registered user?</p>
         <ButtonLink to="/">Sign up</ButtonLink>
       </FormSection>

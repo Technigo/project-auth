@@ -57,6 +57,7 @@ export const Input = styled.input`
   padding: 5px;
   margin: 5px;
   transition: ease-out 0.2s;
+  border: 1px solid black;
 
     &:hover {
     transform: scale(1.05);
