@@ -3,18 +3,19 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import getEndpoints from 'express-list-endpoints';
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, });
 mongoose.Promise = Promise;
 
 /* ------Schemas------ */
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
-    unique: true,
-    required: true
+    required: true,
+    unique: true
   },
   password: {
     type: String,
@@ -23,8 +24,8 @@ const UserSchema = new mongoose.Schema({
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString('hex')
-  }
+    default: () => crypto.randomBytes(23).toString("hex"),
+  },
 });
 
 const User = mongoose.model("User", UserSchema);
@@ -56,61 +57,58 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+// List of endpoints
+app.get('/', (req, res) => {
+  res.send(getEndpoints(app));
 });
 
-/* ------ Registration endpoint use in registration form in FE ------ */
+/* ------ Registration endpoint used in registration form in FE ------ */
 
-app.post("/registration", async (req, res) => {
-  const { name, password } = req.body;
+app.post("/register", async (req, res) => {
+  const { username, password } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
+
     if (password.length < 8) {
       res.status(400).json({
+        response: "password needs to be 8 characters long",
         success: false,
-        response: "Your password has to have minimum 8 characters"
       });
-      
-    }else {
-      const newUser = await new User({name: name, password: bcrypt.hashSync(password, salt)}).save();
+    } else {
+      const newUser = await new User({ username: username, password: bcrypt.hashSync(password, salt)}).save();
       res.status(201).json({
-        success: true,
         response: {
-          name: newUser.name,
+          username: newUser.username,
           accessToken: newUser.accessToken,
-          id: newUser._id
-        }
-      })
+          userId: newUser._id,
+        },
+        success: true,
+      });
     }
-
-  }catch(error) {
-    res.status(400).json({
-      success: false,
-      response: error
-    })
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
   }
-})
+});
 
 
-/* ------ Login endpoint use in login form in FE ------ */
+/* ------ Login endpoint used in login form in FE ------ */
 
 app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
   try {
-    const user = await User.findOne({name: req.body.name})
-    if(user && bcrypt.compareSync(req.body.password, user.password)){
+    const user = await User.findOne({ username })
+    if(user && bcrypt.compareSync(password, user.password)){
       res.status(201).json({
         success: true,
         response: {
           userId: user._id, 
-          name: user.name,
-          accessToken: user.accessToken} //secured password incrypted as a AccessToken to prevent data steal
+          username: user.username,
+          accessToken: user.accessToken} //secured password encrypted as a AccessToken to prevent data steal
         })
     } else {
       res.status(400).json({
         success: false,
-        response: 'credentials did not match'
+        response: 'Credentials did not match'
       });
     }
   } catch (error) {
@@ -121,11 +119,11 @@ app.post("/login", async (req, res) => {
   }
 })
 
-/* ------ Content endpoint use in component with "secret message" in FE ------ */
+/* ------ Content endpoint used in component with "secret message" in FE ------ */
 
-app.get("/content", authenticateUser);  // If authentication === true ==> fetch will use next() from line 40
-                                        // if ath === false the secret content will not be display
-app.get("/content", async (req, res) => { 
+app.get("/secretContent", authenticateUser);  // If authentication === true ==> fetch will use next() from line 40
+                                       // if ath === false the secret content will not be displayed
+app.get("/secretContent", async (req, res) => { 
   const secretMessage = 'You are awesome!'
   try {
     res.status(200).json({
@@ -135,7 +133,7 @@ app.get("/content", async (req, res) => {
   } catch (error) {
     res.status(401).json({
       errors: error,
-      response: 'Failed to display the secret.',
+      response: 'Failed to display the secret content.',
     })
   }
 });
