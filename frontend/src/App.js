@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { SignIn } from 'components/SignIn';
 import { SignUp } from 'components/SignUp';
 import { SecretMessage } from 'components/SecretMessage'
@@ -24,7 +24,8 @@ export const App = () => {
         <Route path='/' element={<SignIn/>} ></Route>
         <Route path='/signUp' element={<SignUp/>} ></Route>
         <Route path='/secretContent' element={<SecretMessage/>} ></Route>
-        <Route path='*' element={<NotFound/>}></Route>
+        <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>
     </BrowserRouter> 
  </Provider>

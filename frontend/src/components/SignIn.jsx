@@ -3,6 +3,8 @@ import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate, Link } from "react-router-dom";
 import { FormContainer, FormSection, FormHeader, FormInput, FormWrapper, Buttons } from './Styles/Form.Styles';
 
+import user from '../reducers/user'
+
 export const SignIn = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("")
@@ -29,15 +31,14 @@ export const SignIn = () => {
             body: JSON.stringify({ username: username, password: password })
         };
 
-        fetch(API_URL(mode), options) // login URL
+        fetch("http://localhost:8080/login", options) // login URL
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.success) {
                     batch(() => {
-                        dispatch(user.actions.setUserId(data.userId))
-                        dispatch(user.actions.setAccessToken(data.accessToken))
-                        dispatch(user.actions.setUserName(data.username))
+                        dispatch(user.actions.setUserId(data.response.userId))
+                        dispatch(user.actions.setAccessToken(data.response.accessToken))
+                        dispatch(user.actions.setUserName(data.response.username))
                         dispatch(user.actions.setError(null))
                         setLoginError(null)
                     })
@@ -57,6 +58,20 @@ export const SignIn = () => {
 
     return ( 
         <FormSection>
+
+            <div className="bubbles">
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+            </div>
+
             <FormHeader>
                 <h1>Welcome Love</h1>
                 <h3>Not a member yet? Sign up <Link to="/signUp">here</Link></h3>
@@ -70,6 +85,7 @@ export const SignIn = () => {
                             id="username"
                             placeholder="My username"
                             value={username}
+                            required
                             onChange={(e) => setUsername(e.target.value)} />
 
                         <label htmlFor="password">Password</label>
@@ -77,6 +93,7 @@ export const SignIn = () => {
                             type="password"
                             id="password"
                             placeholder="******"
+                            required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)} />
 

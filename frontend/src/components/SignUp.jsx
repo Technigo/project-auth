@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate, Link } from "react-router-dom";
-import { FormContainer, FormSection, FormHeader, FormInput, FormWrapper, Buttons, BackButton } from './Styles/Form.Styles';
+import { FormContainer, FormSection, FormHeader, FormInput, FormWrapper, Buttons } from './Styles/Form.Styles';
+
+import user from '../reducers/user'
 
 export const SignUp = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
     const [loginError, setLoginError] = useState(null)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const accessToken = useSelector((store) => store.user.accessToken)
-
-    const goBack = () => {
-        navigate(-1);
-      }
-    
 
     useEffect(() => {
         if (accessToken) {
@@ -23,8 +21,13 @@ export const SignUp = () => {
         }
     }, [accessToken]);
 
-    const onFormSubmit = (event) => {
-        event.preventDefault();
+   const onFormSubmit = (event) => {
+        event.preventDefault()
+
+        if (password !== confirmPassword) {
+            return  setLoginError("Please enter valid passwords");
+        }
+
 
         const options = {
             method: "POST",
@@ -34,15 +37,14 @@ export const SignUp = () => {
             body: JSON.stringify({ username: username, password: password })
         };
 
-        fetch(API_URL(mode), options) // registration URL
+        fetch("http://localhost:8080/register", options) // registration URL
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.success) {
                     batch(() => {
-                        dispatch(user.actions.setUserId(data.userId))
-                        dispatch(user.actions.setAccessToken(data.accessToken))
-                        dispatch(user.actions.setUserName(data.username))
+                        dispatch(user.actions.setUserId(data.response.userId))
+                        dispatch(user.actions.setAccessToken(data.response.accessToken))
+                        dispatch(user.actions.setUserName(data.response.username))
                         dispatch(user.actions.setError(null))
                         setLoginError(null)
                     })
@@ -59,9 +61,21 @@ export const SignUp = () => {
             })
     }
     
-
     return ( 
         <FormSection>
+
+            <div className="bubbles">
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+                <div className="bubble"></div>
+            </div>
 
             <FormHeader>
                 <h1>Glad you want to join!</h1>
@@ -74,9 +88,11 @@ export const SignUp = () => {
                         <FormInput
                             type="text"
                             id="username"
+                            required
                             placeholder="My username"
                             value={username}
-                            onChange={(e) => setUsername(e.target.value)} />
+                            onChange={(e) => setUsername(e.target.value)}
+                             />
 
                         <label htmlFor="password">Password</label>
                         <FormInput
@@ -84,7 +100,17 @@ export const SignUp = () => {
                             id="password"
                             placeholder="******"
                             value={password}
+                            required
                             onChange={(e) => setPassword(e.target.value)} />
+
+                        <label htmlFor="confirmPassword">Confirm password</label>
+                        <FormInput
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="******"
+                            value={confirmPassword}
+                            required 
+                            onChange={(e) => setConfirmPassword(e.target.value)}/>
 
                         {loginError !== null && (
                             <p>{loginError}</p>
