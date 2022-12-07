@@ -1,6 +1,8 @@
 import React, { useState, redirect, useNavigate } from "react";
+import { StyledDiv, StyledButton } from "GlobalStyles";
+import styled from "styled-components";
 
-export const Form = ({ buttonText, formType, token }) => {
+export const Form = ({ buttonText, formType, formTitle, token }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     
@@ -49,16 +51,42 @@ export const Form = ({ buttonText, formType, token }) => {
     }
 
    return(
-    <form onSubmit={onSubmit}>
-      <label>Username:
-      <input type="text" value={username} onChange={handleUsernameInput}>
-      </input>
-      </label>
-      <label>Password:
-      <input type="text" value={password} onChange={handlePasswordInput}>
-      </input>
-      </label>
-      <button type="submit">{buttonText}</button>
-    </form>
+    <StyledDiv>
+      <h2>{formTitle}</h2>
+      <StyledForm onSubmit={onSubmit}>
+        <label>Username:
+        <input type="text" value={username} onChange={handleUsernameInput}>
+        </input>
+        </label>
+        <label>Password:
+        <input type="text" value={password} onChange={handlePasswordInput}>
+        </input>
+        </label>
+        <StyledButton type="submit">{buttonText}</StyledButton>
+      </StyledForm>
+    </StyledDiv>
    )
 }
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  label {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  label + button {
+    margin-top: 10px;
+  }
+
+  input {
+    margin-left: 10px;
+    border-radius: 5px;
+    border: none;
+  }
+`

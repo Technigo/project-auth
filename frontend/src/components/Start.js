@@ -1,16 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { StyledDiv, StyledButtonGroup, StyledButton } from "GlobalStyles";
 export const Start = () => {
   return (
-    <>
-      <Link to="/register">
-        <button>Press here to register</button>
-      </Link>
-      <Link to="/login">
-        <button>Press here to sign in</button>
-      </Link>
-
-    </>
+    <StyledDiv>
+      <h1>Hi there!</h1>
+      <StyledButtonGroup>
+        <Link to="/register">
+          <StyledButton>Register</StyledButton>
+        </Link>
+        <Link to="/login">
+          <StyledButton>Sign in</StyledButton>
+        </Link>
+      </StyledButtonGroup>
+    </StyledDiv>
   )
 }
+
