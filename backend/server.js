@@ -148,9 +148,9 @@ app.get("/home", (req, res) => {
 // Start
 app.get("/", (req, res) => {
   res.send({
-    Message: "Backend for login page (add URL)",
+    Message: "Backend for login page https://registertologin.netlify.app/",
     Routes: [{
-      "/register": "Register your profile (POST request)",
+      "/": "Register your profile (POST request)",
       "/login" : "Login for registered user",
     }]
   });
