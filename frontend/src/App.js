@@ -1,9 +1,13 @@
 import React from 'react';
+import { OuterWrapper, InnerWrapper } from 'components/GlobalStyles';
+import  Shapes  from 'components/Shapes';
+import { SignIn } from 'components/SignIn';
 
 export const App = () => {
   return (
-    <div>
-      Find me in src/app.js!
-    </div>
+    <OuterWrapper> 
+        <SignIn />
+      <Shapes />
+    </OuterWrapper>
   );
 }
