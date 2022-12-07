@@ -9,8 +9,7 @@ import userSlice from "reducers/userSlice";
 
 const Order = () => {
     const accessToken = useSelector((state) => state.user.accessToken);
-    const orderFlavor = useSelector((state) => state.order);
-  /*   const orderScoop = useSelector((state) => state.order.scoop); */
+  /*   const orderFlavor = useSelector((state) => state.order); */
 
     const [order, setOrder] = useState([])
     const [mode, setMode] = useState("order")
@@ -44,29 +43,6 @@ const Order = () => {
         getOrders()
     }, [])
 
-  /*   useEffect(() => {
-        const options ={
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": accessToken,
-            }
-        }
-
-        fetch(API_URL(flavor), options)
-        .then(res => res.json())
-        .then(data => { 
-             if (data.success) { 
-                 dispatch(orderSlice.actions.addFlavor(data.response));
-                dispatch(orderSlice.actions.addError(null)); 
-                setFlavor(data.flavor)
-            } else {
-                dispatch(orderSlice.actions.addFlavor(""));
-            } 
-        } )
-        .then(console.log(data,"test"));
-    }, []) */
-
     const onSendOrder = (event) => {
         event.preventDefault();  
           const options = {
@@ -98,6 +74,13 @@ const Order = () => {
           })
   
       }
+
+    const logout = () => {
+        batch(() => {
+          dispatch(userSlice.actions.addUsername(null));
+          dispatch(userSlice.actions.addAccessToken(null));
+        });
+      };
     
     return(
         <div>
@@ -110,7 +93,7 @@ const Order = () => {
                     </div>
                 )
             })}
-            <p> TEST </p>
+           
             <form onSubmit={onSendOrder}>
                 <label htmlFor="Flavor">Flavor</label>
                 <input
@@ -128,6 +111,7 @@ const Order = () => {
 
 <button className="submit" type="submit">submit</button>
             </form>
+            <button className="logout" onClick={logout}>Logout</button>
         </div>
     )
 }
