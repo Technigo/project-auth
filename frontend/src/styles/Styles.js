@@ -1,11 +1,15 @@
 import styled from 'styled-components'
 
 export const Title = styled.h1 `
-font-size:20px;
+font-size: 40px;
+text-transform: uppercase;
+font-family: 'Dongle';
+color: #80000E;
 `
 
 export const Wrapper = styled.div `
 // border: solid green 2px;
+font-family: 'Dongle', sans-serif;
 width: 100%;
 height: 100vh;
 display: flex;
@@ -30,20 +34,45 @@ box-shadow: 8px 11px 5px -6px rgba(0,0,0,0.75);
 
 export const Input = styled.input `
 // border: solid blue 2px;
+background: #F7EFE4;
+border: none;
+border-bottom: 2px solid rgb(255, 255, 255);
 display: flex;
 margin: 5px;
-padding: 5px;
+padding: 10px;
 border-radius: 5px;
+width: 200px;
 
 `
 
 export const Button = styled.button `
+margin: 10px;
+width: 75px;
+border-radius: 8px;
 border: none;
-border-radius: 10px;
-padding: 5px;
-display: flex;
-background: lightgrey;
+text-align: center;
+font-size: 20px;
+font-family: 'Dongle';
+background: #F7B258;
+color: #80000E;
 &:hover {
-    background: hotpink;
+    background: #D5640B;
+}
+`
+
+export const LinkWrapper = styled.div `
+font-size: 20px;
+font-family: 'Dongle';
+color: #80000E;
+text-align: center;
+p {
+margin: 0;
+}
+a {
+text-decoration: none;
+color: #80000E;
+}
+a:hover {
+    text-decoration: underline;
 }
 `

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import { Provider } from 'react-redux';
-//import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import Start from 'components/Start'
 import Register from 'components/Register'
@@ -10,21 +10,21 @@ import Main from 'components/Main'
 import Notfound from 'components/Notfound'
 
 
-// import user from "./reducers/user";
-// import thoughts from "./reducers/thoughts";
+import user from "./reducers/user";
+import thoughts from "./reducers/thoughts";
 
-// const reducer = combineReducers({
-//   user: user.reducer,
-//   thoughts: thoughts.reducer,
-// });
+const reducer = combineReducers({
+  user: user.reducer,
+  thoughts: thoughts.reducer,
+});
 
-// const store = configureStore({ reducer });
+const store = configureStore({ reducer });
 
 
 export const App = () => {
   return (
     <BrowserRouter>
-    {/* <Provider store={store}> */}
+    <Provider store={store}>
     <Routes>
       <Route path='/' element={<Start />} />
       <Route path='/register' element={<Register />} />
@@ -32,7 +32,7 @@ export const App = () => {
       <Route path='/main' element={<Main />} />
       <Route path='*' element={<Notfound />} /> 
     </Routes>
-    {/* </Provider> */}
+    </Provider>
     </BrowserRouter>
   );
 }

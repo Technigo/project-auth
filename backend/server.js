@@ -159,14 +159,14 @@ const ThoughtsSchema = new mongoose.Schema({
   message: {
     type: String,
   },
-  createdAt: {
-    type: Date,
-    default: () => new Date ()
-  },
-  hearts: {
-    type: Number,
-    default: 0
-  }
+  // createdAt: {
+  //   type: Date,
+  //   default: () => new Date ()
+  // },
+  // hearts: {
+  //   type: Number,
+  //   default: 0
+  // }
 })
 
 const Thought = mongoose.model("Thought", ThoughtsSchema)
@@ -175,7 +175,7 @@ app.get("/thoughts", authenticateUser)
 app.get("/thoughts", async (req, res) => {
   res.status(200).json({
     success: true,
-    response: "All the thoughts"
+    response: "Yey! Success! You're now logged in"
   })
 
 })
