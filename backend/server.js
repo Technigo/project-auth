@@ -39,7 +39,7 @@ const User = mongoose.model("User", UserSchema);
 
 const OrderSchema = new mongoose.Schema({
   flavor: {
-    type: Array, 
+    type: String, 
     required: true
   }, 
   createdAt: {
