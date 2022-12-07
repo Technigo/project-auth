@@ -4,10 +4,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 //import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import Start from 'components/Start'
-// import Register from 'components/Register'
-// import Login from 'components/Login'
-// import Main from 'components/Main'
-// import Notfound from 'components/Notfound'
+import Register from 'components/Register'
+import Login from 'components/Login'
+import Main from 'components/Main'
+import Notfound from 'components/Notfound'
 
 
 // import user from "./reducers/user";
@@ -27,15 +27,12 @@ export const App = () => {
     {/* <Provider store={store}> */}
     <Routes>
       <Route path='/' element={<Start />} />
-      {/* <Route path='/register' element={<Register />} />
+      <Route path='/register' element={<Register />} />
       <Route path='/login' element={<Login />} />
       <Route path='/main' element={<Main />} />
-      <Route path='*' element={<Notfound />} /> */}
+      <Route path='*' element={<Notfound />} /> 
     </Routes>
     {/* </Provider> */}
     </BrowserRouter>
   );
 }
-
-// import styled from 'styled-components'
-// npm install --save styled-components
