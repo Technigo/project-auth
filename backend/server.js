@@ -68,10 +68,16 @@ app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
+    const usernameExists = await User.findOne({ username });
 
     if (password.length < 8) {
       res.status(400).json({
         response: "password needs to be 8 characters long",
+        success: false,
+      });
+    } else if (usernameExists) {
+      res.status(400).json({
+        response: "username already in use",
         success: false,
       });
     } else {
