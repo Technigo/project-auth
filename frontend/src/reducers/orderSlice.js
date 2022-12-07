@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+/* import { createSlice } from "@reduxjs/toolkit";
 
 const orderSlice = createSlice ({
     name:"order",
@@ -16,4 +16,4 @@ const orderSlice = createSlice ({
     }
 })
 
-export default orderSlice;
+export default orderSlice; */

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+/* import React, { useEffect, useState } from "react";
 import { batch, useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "utils/utils";
@@ -11,7 +11,7 @@ const Order = () => {
     const accessToken = useSelector((state) => state.user.accessToken);
   /*   const orderFlavor = useSelector((state) => state.order); */
 
-    const [order, setOrder] = useState([])
+/* const [order, setOrder] = useState([])
     const [mode, setMode] = useState("order")
     const [scoop, setScoop] = useState("")
     const [flavor, setFlavor] = useState("")
@@ -116,4 +116,4 @@ const Order = () => {
     )
 }
 
-export default Order
+export default Order */
