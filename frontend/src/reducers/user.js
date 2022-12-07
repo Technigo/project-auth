@@ -1,13 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit"; 
 
-export const society = createSlice({
-    name: "society", 
+export const user = createSlice({
+    name: "user", 
     initialState: {
-        username: null, 
-        accessToken: null
+        userId: null, 
+        accessToken: null, 
+        //errorMessage: null
     }, 
-
     reducers: {
-        
+        setUserId: (state, action) => {
+            const { userId } = action.payload;
+            state.userId = userId; 
+        }, 
+        setAccessToken: (state, action) => {
+            const { accessToken } = action.payload; 
+            state.accessToken = accessToken; 
+        }
     }
 })
