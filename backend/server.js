@@ -8,11 +8,13 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-const User = mongoose.model('user', {
-  name: {type: String, unique: true},
+const UserSchema = new mongoose.Schema({
+  name: {type: String, unique: true, required: true},
   password: {type: String, required: true},
   accessToken: {type: String, default: ()=> crypto.randomBytes(128).toString("hex")}
 })
+
+const User = mongoose.model('user', UserSchema)
 
 //Middleware that checks accessTokens that are created when a user is registered
 const authentUser = async (req, res, next) => {
@@ -40,7 +42,7 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
-// Sign in (create new user) POST
+// Sign up (create new user) POST
 app.post('/users', async (req, res) => {
   try{
     const {name, password} = req.body;
@@ -58,7 +60,7 @@ app.get('/secrets', (req, res) =>{
 })
 
 //Log in (find user and validate the password) POST
-app.post('/sessions', async (req, res) =>{
+app.post('/login', async (req, res) =>{
   const user = await User.findOne({name:req.body.name})
   if(user && bcrypt.compareSync(req.body.password, user.password)){
     res.json({userId: user._id, accessToken: user.accessToken})
