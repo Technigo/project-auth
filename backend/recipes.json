@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "Name": "Scrambled Skagen",
+        "Ingredients": "Shrimps, Mayonnaise, Lemmon, Eggs",
+        "TotalTimeMinuits": 35,
+        "Portions": 2,
+        "CaloriesPerPortion": 180,
+        "Vegetarian": false,
+        "KindOfDish": "Entry",
+        "TypeOfKitchen": "Swedish"
+    },
+    {
+        "id": 2,
+        "Name": "Noodle Wok",
+        "Ingredients": "Noodels, Tofu, Soya sause, Pepper, Carrots",
+        "TotalTimeMinuits": 45,
+        "Portions": 4,
+        "CaloriesPerPortion": 250,
+        "Vegetarian": true,
+        "KindOfDish": "Main",
+        "TypeOfKitchen": "Asian"
+    },
+    {
+        "id": 3,
+        "Name": "Chocolate Chip Cookies",
+        "Ingredients": "Egg, flour, dark chocolate, cream",
+        "TotalTimeMinuits": 1,
+        "Portions": 6,
+        "CaloriesPerPortion": 300,
+        "Vegetarian": true,
+        "KindOfDish": "Dessert",
+        "TypeOfKitchen": "American"
+    }
+]

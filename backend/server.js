@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import recipes from "./project-auth/backend/recipes.json";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -17,6 +18,7 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
+
 /////// Monday
 const UserSchema = new mongoose.Schema({
   username: {
@@ -121,33 +123,41 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-const ThoughtSchema = new mongoose.Schema({
-  message: {
-    type: String,
-  },
-  createdAt: {
-    type: Date,
-    default: () => new Date() 
-  },
-  hearts: {
-    type: Number,
-    default: 0
-  }
+const RecipesSchema = new mongoose.Schema({
+  id: Number,
+  Name: String,
+  Ingredients: String,
+  TotalTimeMinuits: Number,
+  Portions: Number,
+  CaloriesPerPortion: Number,
+  Vegetarian: Boolean,
+  KindOfDish: String,
+  TypeOfKitchen: String
 }); 
+  
+const Recipes = mongoose.model("recipes", RecipesSchema);
 
-
-const Thought = mongoose.model("Thought", ThoughtSchema);
-
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", (req, res)=> {
-  res.status(200).json({success: true, response: "all the thoughts"});
+app.get("/recipes", authenticateUser);
+app.get("/recipes", async (req, res)=> {
+  const recipes = await Recipes.find({});
+  res.status(200).json({success: true, response: recipes});
 });
 
+app.post("/recipes", authenticateUser)
+app.post("/recipes", async (req, res) => {
+  const { RecipesSchema } = req.body;
+  try {
+    const newRecipe = await new Recipes({RecipesSchema}).save();
+    res.status(201).json({success: true, response: newRecipe});
+  } catch (error) {
+    res.status(400).json({success: false, response: error});
+  }
+});
 
 ///////
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send("Welcome to Recipes!");
 });
 
 // Start the server
