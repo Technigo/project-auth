@@ -39,3 +39,37 @@ export const Batman = styled.div`
   background-repeat: no-repeat;
   background-position: center;
 `;
+
+export const Headline = styled.h1`
+    color: white; 
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 2px solid white; 
+    line-height: 0.1em;
+    margin: 40px 0 20px;
+
+ span{
+    background: #9fafd3;
+    padding:0 10px;
+    font-weight: normal;
+ }
+`;
+
+export const TextInput = styled.input`
+  box-sizing: border-box;
+  width: 100%;
+  border: none;
+  padding: 3px;
+  margin-bottom: 20px;
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+`;
+
+export const Label = styled.label`
+  color: white;
+`;
