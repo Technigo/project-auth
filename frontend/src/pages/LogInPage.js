@@ -80,10 +80,10 @@ const LogInPage = () => {
 
   return (
   <>
-    <label htmlFor="register">Register</label>
+    {/* <label htmlFor="register">Register</label>
     <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")}></input>
     <label htmlFor="login">Login</label>
-    <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} /> 
+    <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} />  */}
 
     <form onSubmit={onFormSubmit}>
       <label htmlFor="username">Username</label>
