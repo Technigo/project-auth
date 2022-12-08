@@ -68,7 +68,7 @@ const LogIn = () => {
               autoComplete="off" 
               value={password} 
               placeholder={mode === "register" ? "Minimum 5 characters" : "Password"}
-              onChange={event => setPassword(event.target.value)} /> 
+              onChange={event => setPassword(event.target.value)} /> {/* password is shown in frontend.... */}
             <button 
               type="submit"
               disabled={password.length < 5 && mode === "signup"}>
@@ -80,7 +80,7 @@ const LogIn = () => {
             type="radio" 
             id="register" 
             checked={mode === "register"} 
-            onChange={()=>setMode("register")} />
+            onChange={()=>setMode("register")} /> {/* Register button does not work in frontend (log in do) */}
           <label htmlFor="login">Login</label>
           <input 
             type="radio" 

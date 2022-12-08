@@ -25,8 +25,8 @@ const Main = () => {
                 "Content-Type": "application/json",
                 "Authorization": accessToken
             }
-        } // we need to put someting in the database to acctually be displayed
-        fetch(API_URL("thoughts"), options)
+        } 
+        fetch(API_URL("thoughts"), options) 
             .then(res => res.json())
             .then(data => {
                 if(data.success) { //kollar datan och om success är true (från backend)
@@ -39,6 +39,7 @@ const Main = () => {
             })
     }, [])
 
+    // I put in thoughts in postman to the database, but they dont display in the frontend
     // Log out function here
 
     return (
