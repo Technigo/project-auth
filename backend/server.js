@@ -36,32 +36,6 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema)
 
-/* FOR CODEALONG THURSDAY
-const ThoughtSchema = new mongoose.Schema({
-  message:{
-    type: String,
-  },
-  createdAt: {
-    type: Date,
-    default: () => new Date()
-  },
-  hearts:{
-    type: Number,
-    default: 0
-  }
-});
-
-const Thought = new mongoose.model("Thought", ThoughtSchema);
-
-app.get('/thoughts', authenticateUser);
-app.get('/thoughts', (req, res) => {
-  res.status(200).json({
-    success: true,
-    response: "all thoughts"
-  })
-});
-*/
-
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
