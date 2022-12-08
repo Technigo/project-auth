@@ -1,13 +1,17 @@
-# Project Auth API
+# Project Auth API 
+Nina Berggren & Joel Öhman
 
-Replace this readme with your own information about your project.
+This week's project we have been working in pairs and practised authorization in backend, using bcrypt and crypto npm packages. 
+We connected our backend to a frontend that can create new users, login and display content which requires authentication. Frontend created with React routes.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
-
-## The problem
-
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+New concept for this week is the access token, which is created in backend and accessed in frontend to authenticate the user.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+google cloud:
+backend 
+https://project-auth-sjbhqactvq-lz.a.run.app
+
+netlify:
+frontend
+https://project-auth-w16-nina-joel.netlify.app/
