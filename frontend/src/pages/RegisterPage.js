@@ -3,6 +3,7 @@ import { useDispatch, useSelector, batch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { API_URL } from 'utils/Utils'
 import user from 'reducers/user'
+import { InnerWrapper, UserInputWrapper, Button } from '../assets/GlobalStyles'
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("") 
@@ -12,6 +13,9 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken) 
+
+  const onRegisterButtonClick = () => {
+    navigate('/login');}
 
   useEffect(() => {
     if(accessToken) {
@@ -52,7 +56,9 @@ const RegisterPage = () => {
   }
 
   return (
-  <>
+   <InnerWrapper> 
+    <UserInputWrapper> 
+    <h1>Please Register</h1>
       <form onSubmit={onFormSubmit}>
       <label htmlFor="username">Username</label>
       <input
@@ -73,10 +79,31 @@ const RegisterPage = () => {
 
     <button type="submit" onClick={() => setMode("register")} >Submit</button>
     </form>
-  </>
+    <p>Already a member? <Button onClick={onRegisterButtonClick}>Please log in here</Button></p>
+    </UserInputWrapper>
+    </InnerWrapper>
   
   )
 
 }
 
+/* 
+export const RegisterPage = () => {
+  const navigate = useNavigate();
+  const onRegisterButtonClick = () => {
+    navigate('/login');}
+
+    return (
+        <InnerWrapper>
+          <UserInputWrapper>
+            <h1>Please Register</h1>
+            <UserInput/>
+            <p>Already a member? <Button onClick={onRegisterButtonClick}>Please log in here</Button></p>
+          </UserInputWrapper>
+        </InnerWrapper>
+
+    )
+
+}
+ */
 export default RegisterPage;
