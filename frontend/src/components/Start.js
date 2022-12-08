@@ -11,7 +11,7 @@ return (
 Start
 </Title>
 <StartButton>
-click <Link to='/register'>here </Link> to sign up or sign in  
+click <Link to='/login'>here </Link> to sign up or sign in  
 </StartButton>
 </StartForm>
 </Wrapper>

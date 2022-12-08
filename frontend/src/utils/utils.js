@@ -1,3 +1,10 @@
+const BASE_URL = 
+  'http://localhost:8080'
+
+  export const API_URL = (slug) => `${BASE_URL}/${slug}`
+
+
+  // NOT USING:
 export const REGISTER_URL =
   'https://project-auth-3adyn7z7ja-uc.a.run.app/register';
 
