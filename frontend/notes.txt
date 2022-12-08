@@ -1,13 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, ButtonLink, Input, PageHeader, Button, Text } from "./Register";
 import { FormSection } from "./GlobalStyles";
-// import { useSelector, useDispatch } from 'react-redux';
-//import user from './reducers/user';
+import { useSelector, useDispatch } from 'react-redux';
+import user from './reducers/user';
 
 export const LogIn = () => {
     const [ username, setUsername] = useState("")
     const [ password, setPassword ] = useState("")
+    const error = useSelector((store) => store.user.errorMessage);
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+      dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+    }, [dispatch]); 
+  
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      dispatch(login(userame, password));
+    };
 
     return (
         <FormSection>

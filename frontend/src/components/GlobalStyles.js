@@ -10,7 +10,6 @@ export const OuterWrapper = styled.section`
   font-family: 'Roboto', sans-serif;
 `
 
-
 export const InnerWrapper = styled.section`
   width: 80%;
   display: flex;
