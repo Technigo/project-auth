@@ -7,7 +7,7 @@ import { OuterWrapper } from 'components/GlobalStyles';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import thoughts from 'reducers/thoughts';
 import user from 'reducers/user';
-import { SignIn } from 'components/SignIn';
+import { Login } from 'components/SignIn';
 import Shapes from 'components/Shapes';
 
 
@@ -22,8 +22,8 @@ export const App = () => {
     <OuterWrapper>
       <BrowserRouter>
         <Routes>
-          <Route path='/login' element={<SignIn/>}></Route>
           <Route path='/' element={<Main/>}></Route>
+          <Route path='/login' element={<Login/>}></Route>
           <Route path='*' element={<NotFound/>}></Route>
         </Routes>
       </BrowserRouter>

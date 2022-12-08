@@ -2,9 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import thoughts from "reducers/thoughts";
 import { API_URL } from "utils/utils";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Main = () => {
-    const thoughtItems = useSelector((store) => store.thoughts.items);
     const dispatch = useDispatch();
     const accessToken = useSelector((store) => store.user.accessToken);
     const navigate = useNavigate();
@@ -34,24 +33,20 @@ const Main = () => {
                     dispatch(thoughts.actions.setError(data.response));
                 }
             })
-    }, []);
+    }, [accessToken]);
 
     return (
         <>
-    <div className="container">
-            <h1>You are logged in</h1>
-            <p>User name: {username}</p>
-            <p>{content}</p>
+        <div className="logged-in-box"> 
+            <h2>You logged in</h2>
+            <h4>Sorry to say nothing happens here</h4>
+            <h4>please log out</h4>   
             <button 
                 type="button"
-                onClick={() => {
-                    navigate("/login");
-                    dispatch(user.actions.setAccessToken(null));
-                }}
-                >
-                    Log out
+                onClick={() => { navigate("/login"); dispatch(user.actions.setAccessToken(null));}}>
+                    SIGN OUT
                 </button>
-        </div>
+                </div>         
         </>
     )
 }

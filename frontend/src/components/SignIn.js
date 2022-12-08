@@ -6,7 +6,7 @@ import user from "reducers/user";
 import { Card, Input } from 'components/GlobalStyles';
 import { Form, Button } from 'components/GlobalStyles';
 
-export const SignIn = () => {
+export const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [mode, setMode] = useState("login")
@@ -28,7 +28,7 @@ export const SignIn = () => {
             },
             body: JSON.stringify({username: username, password: password })
         }
-        fetch(API_URL("login"), options)
+        fetch(API_URL(mode), options)
             .then(response => response.json())
             .then(data => {
                 if(data.success) {
@@ -57,7 +57,7 @@ export const SignIn = () => {
             <label htmlFor="login">Login</label>
             <input type="radio" id="login" checked={mode === "login"} onChange={()=> setMode("login")}/>
         </div>
-
+<form onSubmit={onFormSubmit}>
          <Form onSubmit={onFormSubmit}>
          <label htmlFor="username"/>
             <Input 
@@ -77,6 +77,7 @@ export const SignIn = () => {
             <Button type="submit" > 
                     { mode === "register" && "Join us now!" || "Sign in" } 
                 </Button>
+            </form>
             <h4>no a member? sign up here!</h4>
       </Card>
   );
