@@ -129,19 +129,20 @@ const authenticateUser = async (req, res, next) => {
 };
 
 const ThoughtSchema = new mongoose.Schema({
-  name: {
+  receiver: {
     type: String,
+    maxlength: 30,
   },
   message: {
     type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 140,
+    trim: true,
   },
   createdAt: {
     type: Date,
     default: () => new Date(),
-  },
-  hearts: {
-    type: Number,
-    default: 0,
   },
 });
 
