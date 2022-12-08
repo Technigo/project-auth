@@ -9,50 +9,49 @@ import styled from "styled-components";
 
 
 export const Register = () => {
-    const [ username, setUsername] = useState("")
-    const [ password, setPassword ] = useState("")
-    const [mode, setMode] = useState("login");
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const accessToken = useSelector((store) => store.user.accessToken);
-    useEffect( () => {
-        if (accessToken) {
-            navigate("/");
-        }
-    }, [accessToken])
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [mode, setMode] = useState("login");
 
-//POST request for sign in and sign up
-  const onFormSubmit =(event) => {
-  event.preventDefault();
-  
-  fetch(API_URL(mode), options)
-  const options = {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const accessToken = useSelector((store) => store.user.accessToken);
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/");
+    }
+  }, [accessToken])
+
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+    const options = {
       method: "POST",
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify({username: username, password: password })
-  }
-  // fetch(API_URL(mode), options)
+      body: JSON.stringify({ username: username, password: password })
+    }
+    fetch(API_URL(mode), options)
       .then(response => response.json())
       .then(data => {
-          if(data.success) {
-              batch(()=> {
-                  dispatch(user.actions.setUsername(data.response.username));
-                  dispatch(user.actions.setUserId(data.response.id))
-                  dispatch(user.actions.setAccessToken(data.response.accessToken));
-                  dispatch(user.actions.setError(null));
-              });
-          } else {
-              batch (() => {
-                  dispatch(user.actions.setUsername(null));
-                  dispatch(user.actions.setUserId(null))
-                  dispatch(user.actions.setAccessToken(null));
-                  dispatch(user.actions.setError(data.response));
-              });
-          }
+        if (data.success) {
+          batch(() => {
+            dispatch(user.actions.setUsername(data.response.username));
+            dispatch(user.actions.setId(data.response.id))
+            dispatch(user.actions.setAccessToken(data.response.accessToken));
+            dispatch(user.actions.setError(null));
+          });
+        } else {
+          batch(() => {
+            dispatch(user.actions.setUsername(null));
+            dispatch(user.actions.setId(null))
+            dispatch(user.actions.setAccessToken(null));
+            dispatch(user.actions.setError(data.response));
+          });
+        }
       })
-}
+  }
     return (
       <FormSection>
         <PageHeader>Register</PageHeader>

@@ -1,45 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { Form, ButtonLink, Input, PageHeader, Button, Text } from "./Register";
-import { FormSection } from "./GlobalStyles";
-import { useSelector, useDispatch } from 'react-redux';
-import user from './reducers/user';
 
-export const LogIn = () => {
-    const [ username, setUsername] = useState("")
-    const [ password, setPassword ] = useState("")
-    const error = useSelector((store) => store.user.errorMessage);
-    const dispatch = useDispatch();
+const SecretSchema = new mongoose.Schema({
+  message: {
+    type: String
+  },
+});
 
-    useEffect(() => {
-      dispatch(user.actions.setErrorMessage({ errorMessage: null }));
-    }, [dispatch]); 
-  
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      dispatch(login(userame, password));
-    };
+const Secret = mongoose.model("Secret", SecretSchema);
 
-    return (
-        <FormSection>
-        <PageHeader>Log in</PageHeader>
-            <Form>
-                <Input
-                 type="text"
-                 value={username}
-                 onChange={(e) => setUsername(e.target.value)}
-                 placeholder="Username"
-                 minLength="2"
-                 maxLength="20" />
-                <Input
-                 type="password"
-                 value={password}
-                 onChange={(e) => setPassword(e.target.value)}
-                 placeholder="Password"
-                 minLength="5" />
-            </Form>
-            <Button type="submit">Log in</Button>
-            <Text>Not a registered user?</Text>
-        <ButtonLink to="/">Sign up</ButtonLink>
-      </FormSection>
-    )
+if (true) {
+  const resetDatabase = async () => {
+    await Secret.deleteMany();
+    secretData.forEach(singleSecret => {
+      const newSecret = new Secret(singleSecret);
+      newSecret.save();
+    })
+  }
+  resetDatabase();
 }

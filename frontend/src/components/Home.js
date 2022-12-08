@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import { API_URL } from "./utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+//import { useNavigate, Link } from "react-router-dom";
+import user from "./reducers/user";
 
 export const Home = () => {
   const accessToken = useSelector((store) => store.user.accessToken)
-  const username = useSelector((store) => store.user.username)
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  useEffect( () => {
+  useEffect(() => {
     if (!accessToken) {
-        navigate("/");
+      navigate("/login");
     }
-    }, []);
+  }, [])
     
     useEffect(() => {
 
@@ -29,14 +29,14 @@ export const Home = () => {
       .then(res => res.json())
       .then(data => {
           if(data.success) {
-              dispatch(users.actions.setItems(data.response));
-              dispatch(users.actions.setError(null));
+              dispatch(user.actions.setItems(data.response));
+              dispatch(user.actions.setError(null));
           } else {
-              dispatch(users.actions.setItems([]));
-              dispatch(users.actions.setError(data.response));
+              dispatch(user.actions.setItems([]));
+              dispatch(user.actions.setError(data.response));
           }
       })
-}, []);
+    }, []);
     
     return (
     <div>
