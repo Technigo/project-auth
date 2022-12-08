@@ -38,7 +38,7 @@ const Main = () => {
 
     return (
         <>
-            <Link to="/login"> GO TO LOGIN</Link>
+            <Link to="/login">GO TO LOGIN</Link>
             <h2>This is the main component</h2>
             {thoughtItems.map((item) => {
                 return <p key={item._id}>{item.message}</p>
