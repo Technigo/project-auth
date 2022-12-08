@@ -1,13 +1,23 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This project's goal was to build an API with authentication using access token and securly save passwords in a database. We also create a frontend with form where users can register, sign in and only then see restricted content.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+The backend was made with Express API using mongoose and MongoDB for our user database. Our main endpoints are:
+
+A POST endpoint to create new user.
+https://project-auth-kristin-josefine.netlify.app/register
+
+A POST endpoint for existing users to sign in.
+https://project-auth-kristin-josefine.netlify.app/login
+
+A GET endpoint that is restricted with authentication middleware so it is only accessible with a valid access token that we receive from the database.
+https://project-auth-kristin-josefine.netlify.app/thoughts
+
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Fontend: https://project-auth-kristin-josefine.netlify.app
+
+Backend: https://project-auth-3adyn7z7ja-uc.a.run.app
