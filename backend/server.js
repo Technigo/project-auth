@@ -59,7 +59,7 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-const AuthSchema = new mongoose.Schema({
+const ThoughtSchema = new mongoose.Schema({
   message: {
     type: String,
   },
@@ -73,9 +73,9 @@ const AuthSchema = new mongoose.Schema({
   }
 });
 
-//models
+// models
 const User = mongoose.model("User", UserSchema)
-const AuthPage = mongoose.model("LoginInfo", AuthSchema)
+const Thought = mongoose.model("Thought", ThoughtSchema)
 
 // authentication 
 const authenticateUser = async (req, res, next) => {
@@ -103,14 +103,14 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
-app.post("/register", async (req, res) => {
+app.post("/register", async (req, res) => { // in the frontend "register" and "login" are at the same endpoint, so this does not work
   const { username, password } = req.body;
     try {
       const salt = bcrypt.genSaltSync();
-      if (password.length < 8) {
+      if (password.length < 5) {
         res.status(400).json({
           success: false,
-          response: "Password must be at least 8 characters long"
+          response: "Password must be at least 5 characters long"
         })
       } else {
         const newUser = await new User({username: username, password: bcrypt.hashSync(password, salt)}).save();
@@ -126,7 +126,7 @@ app.post("/register", async (req, res) => {
     } catch(error) {
       res.status(400).json({
         success: false,
-        response: error
+        response: error // vi måste fixa så error syns i frontend
       });
     }
 });
@@ -158,15 +158,34 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/logininfo", authenticateUser);
-app.get("/logininfo", (req, res) => {
+/* app.get("/thoughts", authenticateUser); */
+app.get("/thoughts", (req, res) => { // this endpoint is not in the frontend
   res.status(200).json({
     success: true,
     response: "all the information"
   })
 })
 
+app.post("/thoughts", authenticateUser);
+app.post("/thoughts", async (req, res) => {
+    const { message } = req.body;
+    try {
+        const newThought = await new Thought({message}).save()
+        res.status(201).json({ // 201 är för nya skapade grejer
+            success: true,
+            response: newThought
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            response: error
+        })
+    }
+})
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+

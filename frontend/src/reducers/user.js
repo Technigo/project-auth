@@ -3,9 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     username: null,
     accessToken: null,
+    error: null,
+    userId: null 
     // password?  
-    // userId?
-    // maybe loadin - om vi vill ha en sån sida?
+    // maybe loading - om vi vill ha en sån sida?
   };
 
 const user = createSlice({
@@ -17,6 +18,15 @@ const user = createSlice({
         },
         setAccessToken: (store, action) => {
             store.accessToken = action.payload;
+        },
+        setUserId: (store, action) => {
+            store.accessToken = action.payload;
+        },
+        setError: (store, action) => {
+            store.accessToken = action.payload;
+        },
+        logOut: () => {
+            return initialState
         }
     }
 })
