@@ -16,6 +16,26 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('user', UserSchema)
 
+const MovieSchema = new mongoose.Schema({
+  Year: {type: Number},
+  Title: {type: String},
+  Rated: {type: String},
+  Director: {type: String},
+  Released: {type: String},
+  Writer: {type: String},
+  Production: {type: String},
+  Actors: {type: String},
+  Runtime: {type: String},
+  Awards: {type: String},
+  ImdbVotes: {type: String},
+  ImdbRating: {type: Number},
+  RottenTomatoScore: {type: String},
+  Metascore: {type: Number},
+}); 
+
+
+const Movie = mongoose.model("Movie", MovieSchema);
+
 //Middleware that checks accessTokens that are created when a user is registered
 const authentUser = async (req, res, next) => {
   const user = await User.findOne({accessToken: req.header('Authorization')})
@@ -39,7 +59,7 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send("Hello Batman!");
 });
 
 // Sign up (create new user) POST
