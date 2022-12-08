@@ -6,6 +6,8 @@ import { API_URL } from "utils/utils";
 import userSlice from "reducers/userSlice";
 import { useNavigate } from "react-router-dom";
 
+import styled from "styled-components";
+
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -62,58 +64,104 @@ const Login = () => {
 
    
     return(
-        <div>
+        <WrapperLogin>
             {mode === "login" && (
-            <div>
-                <label htmlFor="Sign-Up">Sign up </label>
+            <LoginContainer>
+                <LabelMode htmlFor="Sign-Up">Go to sign up 
                 <input 
                   type="radio"
                   id="register"
                   checked={mode === "register"}
                   onChange={() => setMode("register")}
                 />
-                    <h1>LOG IN </h1>
-            </div>
+                </LabelMode>
+                    <h4>LOG IN </h4>
+            </LoginContainer>
                 )}
 
             {mode === "register" && (
-            <div>
-              <label htmlFor="login">Go to Login</label>
+            <LoginContainer>
+              <LabelMode htmlFor="login">Go to Login
               <input
                 className="radioBtn"
                 type="radio"
                 id="login"
                 checked={mode === "login"}
                 onChange={() => setMode("login")}
-              />
-              <h1>REGISTER</h1>
+              /></LabelMode>
+              <h4>REGISTER AS NEW USER </h4>
     
-        </div>
+        </LoginContainer>
         )}
-         
-            <form onSubmit={onLoginSubmit}>
-                <label>Username</label>
-             <input
+         <div>
+            <Form onSubmit={onLoginSubmit}>
+                <Label>Username</Label>
+             <InputCredentials
              type="text"
              id="username"
              value={username}
              onChange={(e) => setUsername(e.target.value)} />
-             <label>Password</label>
-             <input
+             <Label>Password</Label>
+             <InputCredentials
              type="password"
              id="password"
              value={password}
              onChange={(e) => setPassword(e.target.value)} />
-             <button className="submit" type="submit">submit</button>
+             {mode === "login" && (
+                <SubmitBtn className="submit" type="submit">Log in</SubmitBtn>
+             )}
+             {mode === "register" && (
+                <SubmitBtn className="submit" type="submit">Create user</SubmitBtn>
+             )}
+             
 
-            </form>
-            
+            </Form>
+            </div>
+            <div>
             {catchError !== null &&(
             <p>{catchError}</p>
           )}       
-                
-        </div>
+          </div>    
+        </WrapperLogin>
     )
 }
+
+const WrapperLogin = styled.div`
+display: grid; 
+height: 100vh; 
+width: 100vw; 
+justify-content: center; 
+`
+
+const LoginContainer = styled.div`
+display: flex;
+flex-direction: column; 
+align-items: center;
+margin-top: 5em;   `
+
+const Form = styled.form`
+display: flex; 
+flex-direction:column;
+align-items: center; 
+border: solid 5px black;
+height: 30vh; 
+width: 30vh; 
+padding: 4em;  
+ `
+
+const SubmitBtn = styled.button`
+margin-top: 20px; ` 
+
+const InputCredentials = styled.input`
+border-radius: 5px;
+height: 4vh;
+margin: 5px; 
+
+`
+const Label = styled.label`
+margin: 5px; 
+`
+
+const LabelMode = styled.label``
 
 export default Login 

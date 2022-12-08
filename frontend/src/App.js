@@ -6,6 +6,8 @@ import Login from './components/Login';
 import userSlice from 'reducers/userSlice';
 import Thoughts from 'components/Thoughts';
 
+import styled from 'styled-components';
+
 const reducer = combineReducers({
 	user: userSlice.reducer,
 });
@@ -14,16 +16,22 @@ const store = configureStore({ reducer });
 
 export const App = () => {
 	return (
+		<Wrapper>
 		<Provider store={store}>
 			<BrowserRouter>
-				<div>
+			
 					<Routes>
 						<Route path="/" element={<Login />} />
 						<Route path="/thoughts" element={<Thoughts />} />
 						{/* <Route path="/login" element={<LogOut />} /> */}
 					</Routes>
-				</div>
+				
 			</BrowserRouter>
 		</Provider>
+		</Wrapper>
 	);
 };
+
+const Wrapper = styled.section`
+border: solid 5px black; 
+`
