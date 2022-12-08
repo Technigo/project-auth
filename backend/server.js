@@ -74,7 +74,7 @@ app.get("/users", async (req,res) =>{
 
 app.get('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
-  res.status(200).json({ response: "This is a super secret message" })
+  res.status(200).json({ response: {message:"This is a super secret message"} })
 });
 
 app.post('/register', async (req, res) => {
