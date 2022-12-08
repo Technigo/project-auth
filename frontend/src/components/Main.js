@@ -47,11 +47,11 @@ const Main = () => {
 
   return (
     <div className="secret-page">
-      <h1>Do you want here?</h1>
-      <div>
-        <p>{secret.message}</p>
+      <h1 className="secret-title">Do you want here?</h1>
+      <div className="secret-container">
+        <p className="secret-text">{secret.message}</p>
       </div>
-      <button className="button-logout" onClick={logout}>
+      <button className="secret-button-logout" onClick={logout}>
         Logout
       </button>
     </div>
