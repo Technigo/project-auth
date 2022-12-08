@@ -6,7 +6,7 @@ const NotFound = () => {
     return (
     <>
         <Link to="/login"> GO TO LOGIN</Link>
-        <Title>Sorry, no such page :(</Title>;
+        <Title>Sorry, no such page..</Title>;
     </>
     ) 
 }
