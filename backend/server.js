@@ -34,6 +34,7 @@ app.use((req, res, next) => {
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
+    required: true,
     unique: true
   },
   password: {
@@ -58,7 +59,7 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-const AuthSchema = new mongoose.Schema({
+const ThoughtSchema = new mongoose.Schema({
   message: {
     type: String,
   },
@@ -74,7 +75,7 @@ const AuthSchema = new mongoose.Schema({
 
 // models
 const User = mongoose.model("User", UserSchema)
-const AuthPage = mongoose.model("LoginInfo", AuthSchema)
+const Thought = mongoose.model("Thought", ThoughtSchema)
 
 // authentication 
 const authenticateUser = async (req, res, next) => {
@@ -106,7 +107,7 @@ app.post("/register", async (req, res) => {
   const { username, password } = req.body;
     try {
       const salt = bcrypt.genSaltSync();
-      if (password.length < 8) {
+      if (password.length < 5) {
         res.status(400).json({
           success: false,
           response: "Password must be at least 8 characters long"
@@ -157,15 +158,34 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/logininfo", authenticateUser);
-app.get("/logininfo", (req, res) => {
+/* app.get("/thoughts", authenticateUser); */
+app.get("/thoughts", (req, res) => {
   res.status(200).json({
     success: true,
     response: "all the information"
   })
 })
 
+app.post("/thoughts", authenticateUser);
+app.post("/thoughts", async (req, res) => {
+    const { message } = req.body;
+    try {
+        const newThought = await new Thought({message}).save()
+        res.status(201).json({ // 201 är för nya skapade grejer
+            success: true,
+            response: newThought
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            response: error
+        })
+    }
+})
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+
