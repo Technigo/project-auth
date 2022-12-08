@@ -68,32 +68,31 @@ const Login = () => {
             {mode === "login" && (
             <LoginContainer>
                 <LabelMode htmlFor="Sign-Up">Go to sign up 
-                <input 
+                <InputRadio
                   type="radio"
                   id="register"
                   checked={mode === "register"}
                   onChange={() => setMode("register")}
                 />
                 </LabelMode>
-                    <h4>LOG IN </h4>
+                    <ModeHeading>LOG IN </ModeHeading>
             </LoginContainer>
                 )}
 
             {mode === "register" && (
             <LoginContainer>
               <LabelMode htmlFor="login">Go to Login
-              <input
+              <InputRadio
                 className="radioBtn"
                 type="radio"
                 id="login"
                 checked={mode === "login"}
                 onChange={() => setMode("login")}
               /></LabelMode>
-              <h4>REGISTER AS NEW USER </h4>
+              <ModeHeading>NEW USER </ModeHeading>
     
         </LoginContainer>
         )}
-         <div>
             <Form onSubmit={onLoginSubmit}>
                 <Label>Username</Label>
              <InputCredentials
@@ -107,21 +106,20 @@ const Login = () => {
              id="password"
              value={password}
              onChange={(e) => setPassword(e.target.value)} />
+
              {mode === "login" && (
                 <SubmitBtn className="submit" type="submit">Log in</SubmitBtn>
              )}
              {mode === "register" && (
                 <SubmitBtn className="submit" type="submit">Create user</SubmitBtn>
              )}
-             
+            <Error>
+            {catchError !== null &&(
+            <ErrorText>{catchError}</ErrorText>
+          )}       
+          </Error>  
 
             </Form>
-            </div>
-            <div>
-            {catchError !== null &&(
-            <p>{catchError}</p>
-          )}       
-          </div>    
         </WrapperLogin>
     )
 }
@@ -131,37 +129,166 @@ display: grid;
 height: 100vh; 
 width: 100vw; 
 justify-content: center; 
+
 `
 
 const LoginContainer = styled.div`
 display: flex;
 flex-direction: column; 
-align-items: center;
-margin-top: 5em;   `
+height: 10vh; 
+ 
+  `
 
 const Form = styled.form`
 display: flex; 
 flex-direction:column;
-align-items: center; 
-border: solid 5px black;
-height: 30vh; 
+align-items: center;
+justify-content: center; 
+border: solid 5px white;
+border-radius: 30px; 
+height: 35vh; 
 width: 30vh; 
-padding: 4em;  
+padding: 4em;    
+background-color: rgba(229, 229, 229, 0.4);
+box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
  `
 
 const SubmitBtn = styled.button`
-margin-top: 20px; ` 
+margin-top: 20px; 
+width: 25vh;
+height: 5vh; 
+border-radius: 5px; 
+font-weight: bold; 
+background-color: white;
+&:hover {
+    background-color: pink; 
+    transition-delay: 0.1s; 
+} ` 
 
 const InputCredentials = styled.input`
 border-radius: 5px;
+font-weight: bold; 
 height: 4vh;
 margin: 5px; 
 
 `
 const Label = styled.label`
 margin: 5px; 
+font-weight: bold; 
+color: white; 
 `
 
-const LabelMode = styled.label``
+const LabelMode = styled.label`
+  color: #fff;
+  text-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px #5271ff,
+      0 0 82px #5271ff,
+      0 0 92px #5271ff,
+      0 0 102px #5271ff,
+      0 0 151px #5271ff;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.7rem;
+    animation: pulsate 0.11s ease-in-out infinite alternate;  
+	
+	@keyframes pulsate {
+    
+	100% {
+  
+		text-shadow:
+		0 0 4px #fff,
+		0 0 11px #fff,
+		0 0 19px #fff,
+		0 0 40px #5271ff,
+		0 0 80px #5271ff,
+		0 0 90px #5271ff,
+		0 0 100px #5271ff,
+		0 0 150px #5271ff;
+	
+	}
+	
+	0% {
+  
+	  text-shadow:
+	  0 0 4px #fff,
+	  0 0 10px #fff,
+	  0 0 18px #fff,
+	  0 0 38px #5271ff,
+	  0 0 73px #5271ff,
+	  0 0 80px #5271ff,
+	  0 0 94px #5271ff,
+	  0 0 140px #5271ff;
+  
+  }
+}`
+
+const InputRadio = styled.input`
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #01FB37;
+  background: ${(props) => (props.checked ? '#01FB37' : 'white')};
+  position: absolute;
+
+`
+const Error = styled.div`
+ 
+`
+
+const ErrorText = styled.p`
+`
+
+const ModeHeading= styled.h4`
+ color: #fff;
+ margin-bottom: 50px; 
+  text-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px #5271ff,
+      0 0 82px #5271ff,
+      0 0 92px #5271ff,
+      0 0 102px #5271ff,
+      0 0 151px #5271ff;
+  text-align: center;
+  font-weight: 400;
+  font-size: 3rem;
+    animation: pulsate 0.11s ease-in-out infinite alternate;  
+	
+	@keyframes pulsate {
+    
+	100% {
+  
+		text-shadow:
+		0 0 4px #fff,
+		0 0 11px #fff,
+		0 0 19px #fff,
+		0 0 40px #5271ff,
+		0 0 80px #5271ff,
+		0 0 90px #5271ff,
+		0 0 100px #5271ff,
+		0 0 150px #5271ff;
+	
+	}
+	
+	0% {
+  
+	  text-shadow:
+	  0 0 4px #fff,
+	  0 0 10px #fff,
+	  0 0 18px #fff,
+	  0 0 38px #5271ff,
+	  0 0 73px #5271ff,
+	  0 0 80px #5271ff,
+	  0 0 94px #5271ff,
+	  0 0 140px #5271ff;
+  
+  }
+}
+`
 
 export default Login 

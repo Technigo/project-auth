@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL, LIKE_URL } from 'utils/utils';
 import userSlice from 'reducers/userSlice';
 /* import LogOut from './Logout'; */
+import styled from 'styled-components';
+import { formatDistance } from 'date-fns';
 
 
 const Thoughts = () => {
@@ -118,7 +120,7 @@ const Thoughts = () => {
       }
 
 	 /* Add likes to messages  */
-
+/* 
 	 const handleOnlikeChange = (LikeID) => {
 		const option = {
 		  method: 'POST',
@@ -133,7 +135,7 @@ const Thoughts = () => {
 		  .catch((error) => console.error(error))
 		  .finally(() => getThoughts())
 	  }
-
+ */
 	/* LOG OUT BUTTON- CANT MAKE IT WORK WITH THE SLICER.. */
 	const logout = () => {
         batch(() => {
@@ -143,26 +145,26 @@ const Thoughts = () => {
       };
 
 	return (
-		<>
-		<button className="logout" onClick={logout}>Logout</button>
+		<Wrapper>
+		<LogoutBtn className="logout" onClick={logout}>Logout</LogoutBtn>
 
 			<p>What's making you happy right now?</p>
 			<form
 				onSubmit={onSendThought}>
-				<input
+				<InputText
 					type="text"
 					value={newThought}
 					onChange={(e) => setNewThought(e.target.value)}
 				/>
-				<button>Post</button>
+				<BtnSend>Post</BtnSend>
 			</form>
-			<>
+			<ThoughtContainer>
 				{thoughts.map((item) => {
 					return (
-						<div key={item._id}>
+						<ThoughtCard key={item._id}>
 							<p>{item.message}</p>
-							<p>{item.createdAt}</p>
-							<button
+							<p>{formatDistance(new Date(item.createdAt), Date.now(), { addSuffix: true })}</p>
+							{/* <button
                   				type="button"
                  				 className="btn-heart"
                   				onClick={() => {handleOnlikeChange(item._id)}}
@@ -171,15 +173,120 @@ const Thoughts = () => {
                   				}}>
 								<span aria-label="heart emoji" className="heart-emoji"> ❤️
                   				</span>
-								</button>
+								</button> */}
 							<p>{item.hearts}</p>
-						</div>
+						</ThoughtCard>
 					);
 				})}
 				{/* <LogOut /> */}
-			</>
-		</>
+				</ThoughtContainer>
+		</Wrapper>
 	);
 };
+
+const Wrapper = styled.div`
+display: grid; 
+
+justify-content: center; 
+/* height: 100vh; 
+width: 100vw;  */
+justify-content: center; 
+
+`
+
+const InputText = styled.input`
+ width: 90%;
+  height: 50%; 
+  margin: auto;  
+  display: block;
+`
+
+const BtnSend = styled.button`
+margin-top: -30px; 
+  margin-bottom: 50px;
+  margin-left: 30px; 
+  display: block;
+  padding: 10px;
+  width: 200px; 
+  border-radius: 20px;
+  border:none; 
+  color: black; 
+  background-color:#FCAFE7 ;`
+
+  const ThoughtCard = styled.div`
+   border: solid black 1px;
+   margin-top: 30px; 
+   margin-bottom: 30px;
+   padding-bottom: 30px;
+   width: 250px;
+   height: 180px;
+   display: grid;
+   grid-column: 1fr 1fr 1fr;
+   box-shadow: 5px 10px;
+   gap: 50px; 
+   background-color: rgba(229, 229, 229, 0.4);
+  `
+
+  const ThoughtContainer= styled.div`
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 10px;  
+  `
+
+  const LogoutBtn = styled.button`
+  color: #fff;
+  background-color: transparent; 
+  border: none; 
+  text-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px #5271ff,
+      0 0 82px #5271ff,
+      0 0 92px #5271ff,
+      0 0 102px #5271ff,
+      0 0 151px #5271ff;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.7rem;
+    animation: pulsate 0.11s ease-in-out infinite alternate;  
+	&:hover{
+	font-weight: bold; 
+	font-size: 2.5rem; 
+  }
+	
+	@keyframes pulsate {
+    
+	100% {
+  
+		text-shadow:
+		0 0 4px #fff,
+		0 0 11px #fff,
+		0 0 19px #fff,
+		0 0 40px #5271ff,
+		0 0 80px #5271ff,
+		0 0 90px #5271ff,
+		0 0 100px #5271ff,
+		0 0 150px #5271ff;
+	
+	}
+	
+	0% {
+  
+	  text-shadow:
+	  0 0 4px #fff,
+	  0 0 10px #fff,
+	  0 0 18px #fff,
+	  0 0 38px #5271ff,
+	  0 0 73px #5271ff,
+	  0 0 80px #5271ff,
+	  0 0 94px #5271ff,
+	  0 0 140px #5271ff;
+  
+  }
+ 
+}`
+
 
 export default Thoughts;
