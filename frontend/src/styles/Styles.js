@@ -8,12 +8,19 @@ color: #80000E;
 `
 
 export const Wrapper = styled.div `
-// border: solid green 2px;
 font-family: 'Dongle', sans-serif;
 width: 100%;
 height: 100vh;
 display: flex;
 justify-content: center;
+align-items: center;
+`
+
+export const RadioButtonWrapper = styled.div `
+display: flex;
+flex-direction: row;
+width: 160px;
+justify-content: space-between;
 align-items: center;
 `
 
@@ -58,6 +65,14 @@ color: #80000E;
 &:hover {
     background: #D5640B;
 }
+`
+
+export const Label = styled.label`
+font-size: 28px;
+font-family: 'Dongle';
+color: #80000E;
+text-align: center;
+margin: 0;
 `
 
 export const LinkWrapper = styled.div `

@@ -3,6 +3,7 @@ import { useDispatch, useSelector, batch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { API_URL } from "utils/utils";
 import user from "reducers/user";
+import { Form, Input, Button, Wrapper, Label, RadioButtonWrapper } from 'styles/Styles';
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -48,25 +49,33 @@ const Login = () => {
     }
     return (
         <>
-        <label htmlFor="register">Register</label>
+        <Wrapper>
+        <Form onSubmit={onFormSubmit}>
+        <RadioButtonWrapper>
+        <div>
+        <Label htmlFor="register">Register</Label>
         <input type="radio" id="register" checked={mode === "register"} onChange={()=>setMode("register")}/>
-        <label htmlFor="login">Login</label>
+        </div>
+        <div>
+        <Label htmlFor="login">Login</Label>
         <input type="radio" id="login" checked={mode === "login"} onChange={()=>setMode("login")}/>
-        <form onSubmit={onFormSubmit}>
-            <label htmlFor="username">Username</label>
-            <input 
+        </div>
+        </RadioButtonWrapper>
+            <Label htmlFor="username">Username</Label>
+            <Input 
                 type="text" 
                 id="username" 
                 value={username} 
                 onChange={e => setUsername(e.target.value)}/>
-            <label htmlFor="password">Password</label>
-            <input 
+            <Label htmlFor="password">Password</Label>
+            <Input 
                 type="password" 
                 id="password" 
                 value={password} 
                 onChange={e => setPassword(e.target.value)}/>
-            <button type="submit">Submit</button>
-        </form>
+            <Button type="submit">Submit</Button>
+        </Form>
+        </Wrapper>
     </> 
     );
 }
