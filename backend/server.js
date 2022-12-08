@@ -158,9 +158,17 @@ const Thought = mongoose.model("Thought", {
   },
 });
 
+// Get Post
+app.get("/thoughts", authenticatedUser);
+app.get("/thoughts", async (req, res) => {
+  const thoughts = await Thought.find({});
+  res.status(200).json({
+    success: true,
+    response: thoughts,
+  });
+});
 
-
-// Post Thought 
+// Post Thought
 app.post("/thought", authenticatedUser);
 app.post("/thought", async (req, res) => {
   const { message } = req.body;
@@ -168,7 +176,7 @@ app.post("/thought", async (req, res) => {
     const newThought = await new Thought({ message: message }).save();
     res.status(201).json({
       response: newThought,
-      success: true
+      success: true,
     });
   } catch (err) {
     res.status(400).json({ success: false, response: error });
