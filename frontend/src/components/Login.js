@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { Wrapper } from './GlobalStyles';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from './config';
 
 const Login = ({ url }) => {
-  // 1. make login component
-  // 2. post request to /login, send in username and password, put accessToken in local storage
-
+  // Local state variables for storing form data and data from API
   const [usernameData, setUsernameData] = useState('');
   const [passwordData, setPasswordData] = useState('');
   const [accessToken, setAccessToken] = useState('');
   const [user, setUser] = useState({});
-  console.log(accessToken);
+  const navigate = useNavigate();
 
+  // post request to /login, send in username and password, put accessToken in local storage
   const handleSubmit = () => {
     fetch(`${API_URL}/login`, {
       method: 'post',
@@ -36,11 +35,12 @@ const Login = ({ url }) => {
       });
   };
 
+  // handle the successful login, put token in localStorage
   if (accessToken) {
     localStorage.setItem('accessToken', accessToken);
 
     setTimeout(() => {
-      window.location = `${url}/top10Views`;
+      navigate('/top10Views');
     }, 1000);
     return (
       <Wrapper>
@@ -59,17 +59,15 @@ const Login = ({ url }) => {
           <StyledInput
             id="username-input"
             onChange={(event) => setUsernameData(event.target.value)}
-            className="username-input"
             type="text"
             value={usernameData}
           ></StyledInput>
         </label>
-        <label htmlFor="username-input">
+        <label htmlFor="password-input">
           <p>Password:</p>
           <StyledInput
             id="password-input"
             onChange={(event) => setPasswordData(event.target.value)}
-            className="username-input"
             type="password"
             value={passwordData}
           ></StyledInput>
@@ -95,12 +93,13 @@ const Login = ({ url }) => {
 
 export default Login;
 
+/////////////////////////
+// ------ Styled components -----------
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: center;
-  /* text-align: center; */
   justify-content: center;
 
   p {
