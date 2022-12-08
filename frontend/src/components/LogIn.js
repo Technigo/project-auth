@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, ButtonLink, Input, PageHeader, Button } from "./Register";
+import { Form, ButtonLink, Input, PageHeader, Button, Text } from "./Register";
 import { FormSection } from "./GlobalStyles";
 
 export const LogIn = () => {
@@ -21,7 +21,7 @@ export const LogIn = () => {
                  placeholder="Password" />
             </Form>
             <Button type="submit">Log in</Button>
-            <p>Not a registered user?</p>
+            <Text>Not a registered user?</Text>
         <ButtonLink to="/">Sign up</ButtonLink>
       </FormSection>
     )

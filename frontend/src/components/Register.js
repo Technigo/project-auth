@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 import { FormSection } from "./GlobalStyles";
 import styled from "styled-components";
@@ -10,7 +9,7 @@ export const Register = () => {
     
     return (
     <FormSection>  
-        <PageHeader>Sign up</PageHeader>
+        <PageHeader>Register</PageHeader>
         <Form>
             <Input 
             id='username' 
@@ -26,11 +25,17 @@ export const Register = () => {
             onChange={(e) => setPassword(e.target.value)}/>
         </Form>
         <Button type="submit">Create account</Button>
-        <p>Already a user?</p>
+        <Text>Already a user?</Text>
         <ButtonLink to="/login">Log in</ButtonLink>
     </FormSection>
     )
 }
+export const Text = styled.p`
+font-weight: 600;
+
+@media (min-width: 800px) {
+    font-size:20px;
+  }`
 
 export const Form = styled.form`
   display: flex;
@@ -40,16 +45,20 @@ export const ButtonLink = styled(Link)`
  color: black;
  transition: ease-out 0.2s;
  cursor: pointer;
- font-size: 20px;
+ font-size: 15px;
  text-decoration: none;
- //border: 1px solid black;
- padding: 5px 10px;
+ padding: 10px 15px;
  border-radius: 5px;
  box-shadow: 0px 0px 7px 0px #888888;
- background-color: #F4C7AB;
+ background-color: #ECB390;
 
 &:hover {
     transform: scale(1.1);
+  }
+
+  @media (min-width: 800px) {
+    margin-bottom: 20px;
+    font-size:17px;
   }
 ` 
 export const Input = styled.input`
@@ -58,30 +67,43 @@ export const Input = styled.input`
   margin: 5px;
   transition: ease-out 0.2s;
   border: 1px solid black;
+  min-width: 50vw;
 
-    &:hover {
+  &:hover {
     transform: scale(1.05);
+  }
+
+  @media (min-width: 800px) {
+  min-width: 30vw;
+  padding: 7px;
   }
 `
 export const Button = styled.button`
-    margin: 10px;
-    padding: 10px;
-    cursor: pointer;
-    //border: 1px solid black;
-    border: 0px;
-    transition: ease-out 0.2s;
-    background-color: #F4C7AB;
-    border-radius: 5px;
-    box-shadow: 0px 0px 7px 0px #888888;
-    font-size: 15px;
-    font-weight: 400;
-
+  margin: 10px;
+  padding: 10px;
+  cursor: pointer;
+  border: 0px;
+  transition: ease-out 0.2s;
+  background-color: #ECB390;
+  border-radius: 5px;
+  box-shadow: 0px 0px 7px 0px #888888;
+  font-size: 15px;
+  font-weight: 400;
 
 &:hover {
     transform: scale(1.05);
+  }
+
+  @media (min-width: 800px) {
+    margin: 30px;
+    font-size:17px;
   }
 `
 export const PageHeader = styled.h1`
     font-size: 25px;
     margin: 20px;
+
+  @media (min-width: 800px) {
+    font-size: 30px;
+  }
 `
