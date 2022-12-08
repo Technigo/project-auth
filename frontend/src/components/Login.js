@@ -6,16 +6,17 @@ import user from "reducers/user";
 
 const Login = () => {
     const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");   
-
-    const accessToken = useSelector((store) => store.user.accessToken);
+    const [password, setPassword] = useState("");
+    const [mode, setMode] = useState("login");
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const accessToken = useSelector((store) => store.user.accessToken);
+
     useEffect( () => {
         if (accessToken) {
-            navigate("/")
+            navigate("/");
         }
     }, [accessToken])
 
@@ -28,7 +29,7 @@ const Login = () => {
             },
             body: JSON.stringify({ username: username, password: password })
         }
-        fetch(API_URL("login"), options)
+        fetch(API_URL(mode), options)
             .then(response => response.json())
             .then(data => {
                 if(data.success) {
@@ -50,6 +51,11 @@ const Login = () => {
     }
     return (
         <>
+        <label htmlFor="register">Register</label>
+        <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")}/>
+        <label htmlFor="login">Login</label>
+        <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")}/>
+
         <form onSubmit={onFormSubmit}>
             <label htmlFor="username">Username</label>
             <input 
