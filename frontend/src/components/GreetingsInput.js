@@ -6,7 +6,7 @@ import styled from "styled-components/macro";
 export const GreetingsInput = () => {
   return (
     <InputWrapper>
-      <InputForm className="form-container" onSubmit="">
+      {/* <InputForm className="form-container" onSubmit="">
         <textarea
           rows="5"
           value=""
@@ -20,7 +20,7 @@ export const GreetingsInput = () => {
         <Button type="submit" className="post-button" value="Post btn">
           🎄 Send Christmas Greeting 🎄
         </Button>
-      </InputForm>
+      </InputForm> */}
     </InputWrapper>
   );
 };

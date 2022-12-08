@@ -7,6 +7,7 @@ import styled from "styled-components/macro";
 import tree from "../assets/tree.png";
 import { GreetingsInput } from "./GreetingsInput";
 
+
 const Main = () => {
   const thoughtItems = useSelector((store) => store.thoughts.items);
   const dispatch = useDispatch();
@@ -49,14 +50,16 @@ const Main = () => {
       <h2>👇🏼 Post Christmas feelings here 👇🏼</h2>
       {thoughtItems.map((item) => {
         return (
-          <ChristmasCard key={item._id}>
-            <TreeImg src={tree} alt="Christmas tree" />
-            <SenderInfo>
-              <p>To: </p>
-              <p>From: {item.name}</p>
-            </SenderInfo>
-            <p>{item.message}</p>
-          </ChristmasCard>
+          
+            <ChristmasCard key={item._id}>
+              <TreeImg src={tree} alt="Christmas tree" />
+              <SenderInfo>
+                <p>To: </p>
+                <p>From: {item.name}</p>
+              </SenderInfo>
+              <Greeting>{item.message}</Greeting>
+            </ChristmasCard>
+  
         );
       })}
     </>
@@ -72,24 +75,29 @@ const ChristmasCard = styled.div`
   height: 10rem;
   display: flex;
   flex-direction: column;
-
   align-items: center;
   padding: 1rem;
   margin: 1rem;
   position: relative;
+  border: double 0.2rem;
 `;
 
 const TreeImg = styled.img`
   position: absolute;
-  top: -0.5rem;
-  left: -0.5rem;
-  rotate: -30deg;
+  top: -0.8rem;
+  left: -0.75rem;
+  rotate: -20deg;
+  width: 5rem;
 `;
 
 const SenderInfo = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 65%;
+  justify-content: space-around;
+  width: 70%;
   position: absolute;
   right: 1rem;
 `;
+
+const Greeting = styled.p`
+  margin-top: 15%;
+`
