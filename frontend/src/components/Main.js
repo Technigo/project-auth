@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import thoughts from "reducers/thoughts";
 import { API_URL } from "utils/utils";
 import { useNavigate, Link } from "react-router-dom";
+import styled from "styled-components";
 
 const Main = () => {
     const thoughtItems = useSelector((store) => store.thoughts.items);
@@ -37,15 +38,42 @@ const Main = () => {
             })
     }, []);
 
+    const logOut = () => {
+        dispatch(thoughts.actions.setAccessToken(null))
+        navigate('/login')
+      }
+
     return (
         <>
-            <Link to="/login"> GO TO LOGIN</Link>
-            <h2>This is the main component</h2>
-            {thoughtItems.map((item) => {
-                return <p key={item._id}>{item.message}</p>
-            })}
+        <Wrapper>
+            <FormWrapper>
+                <Link to="/login"> GO TO LOGIN</Link>
+                    <h2>This is the main component</h2>
+                    {thoughtItems.map((item) => {
+                        return <p key={item._id}>{item.message}</p>
+                    })}
+            </FormWrapper>
+            <button type="button" onClick={logOut}>Log out</button>
+        </Wrapper>
         </>
     )
 }
 
 export default Main;
+
+const Wrapper = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+background: #f8f9fd;
+color: white;
+`
+
+const FormWrapper = styled.div`
+width: 40%;
+padding: 50px;
+background: linear-gradient(#e36373, #e36460);
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+border-radius: 15px;
+`
