@@ -9,6 +9,7 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [mode, setMode] = useState("login");
+    const [error, setError] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const accessToken = useSelector((store) => store.user.accessToken);
@@ -73,7 +74,13 @@ const Login = () => {
                 id="password" 
                 value={password} 
                 onChange={e => setPassword(e.target.value)}/>
+            {password && password.length < 8
+            ? 'password must be over 8 characters'
+            : ''}
             <Button type="submit">Submit</Button>
+            {error !== null && (
+            <p style={{ fontSize: '21px', color: 'red' }}>{error}</p>
+            )}
         </Form>
         </Wrapper>
     </> 
