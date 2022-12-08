@@ -44,7 +44,7 @@ const LogInPage = () => {
 
   useEffect(() => {
     if(accessToken) {
-      navigate("/")
+      navigate("/dashboard")
     }
   }, [accessToken])
 
@@ -97,7 +97,7 @@ const LogInPage = () => {
       <input
         type="password"
         id="password"
-        value={username}
+        value={password}
         onChange={e => setPassword(e.target.value)} />
 
     <button type="submit">Submit</button>
