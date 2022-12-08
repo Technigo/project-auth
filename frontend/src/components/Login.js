@@ -17,6 +17,7 @@ const Login = () => {
             navigate("/");
         }
     }, [accessToken])
+
     const onFormSubmit = (event) => {
         event.preventDefault();
         const options = {
@@ -34,14 +35,14 @@ const Login = () => {
         .then(data => {
             if(data.success){
                 batch(() => {
-                    dispatch(user.actions.setUsername(data.response.username));
+                    dispatch(user.actions.setUserName(data.response.username));
                     dispatch(user.actions.setUserId(data.response.id));
                     dispatch(user.actions.setAccessToken(data.response.accessToken));
                     dispatch(user.actions.setError(null));
                 });
             } else {
                 batch(() => {
-                    dispatch(user.actions.setUsername(null));
+                    dispatch(user.actions.setUserName(null));
                     dispatch(user.actions.setUserId(null));
                     dispatch(user.actions.setAccessToken(null));
                     dispatch(user.actions.setError(data.response));

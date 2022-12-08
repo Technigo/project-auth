@@ -15,8 +15,10 @@ const Main = () => {
         if (!accessToken) {
             navigate("/login");
         }
-    }, []);
+    }, [accessToken]);
+
     useEffect( () => {
+        if (accessToken){
         const options = {
             method: "GET",
             headers: {
@@ -25,7 +27,7 @@ const Main = () => {
             }
         };
 
-        fetch(API_URL("secret"), options)
+        fetch(API_URL('secret'), options)
         .then(response => response.json())
         .then(data => {
             if(data.success) {
@@ -35,6 +37,7 @@ const Main = () => {
                     dispatch(user.actions.setError(data.response));
                 }
     });
+}
 },[accessToken, dispatch])
 
     return(
