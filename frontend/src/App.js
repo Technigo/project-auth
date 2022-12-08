@@ -4,8 +4,8 @@ import { GlobalStyles } from 'assets/GlobalStyles';
 import { StartPage } from './pages/StartPage'
 import { Dashboard } from './pages/Dashboard'
 import { NotFound } from './pages/NotFound';
-import  LogInPage from './pages/LogInPage';
-import { RegisterPage } from './pages/RegisterPage';
+import LogInPage from './pages/LogInPage';
+import RegisterPage from './pages/RegisterPage';
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import thoughts from 'reducers/thoughts';

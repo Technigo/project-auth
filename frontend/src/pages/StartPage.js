@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { InnerWrapper, TextWrapper, Buttonwrapper, Button } from '../assets/GlobalStyles'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 export const StartPage = () => {
+
     return (
         <InnerWrapper>
           <TextWrapper>
