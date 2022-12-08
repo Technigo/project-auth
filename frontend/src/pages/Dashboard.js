@@ -3,16 +3,26 @@ import { useDispatch, useSelector } from 'react-redux'
 import { InnerWrapper } from '../assets/GlobalStyles'
 import thoughts from 'reducers/thoughts'
 import { API_URL } from 'utils/Utils'
+import { useNavigate, Link } from 'react-router-dom'
 
 export const Dashboard = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items);
   const dispatch = useDispatch();
+  const accessToken = useSelector((store) => store.user.accessToken);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!accessToken) {
+      navigate("/login")
+    }
+  }, [accessToken])
 
   useEffect(() => {
     const options = {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": accessToken
       }
     }
     fetch(API_URL("thoughts"), options)
@@ -29,10 +39,13 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <h2>Dashboard</h2>
-    {thoughtsItems.map(item) => {
-      return (<p key></p>) // hann inte klart
-    }}
+    <>
+      <Link to="/login">Go to login</Link>
+      <h2>Dashboard</h2>
+      {thoughtsItems.map((singel) => {
+        return <p key={item._id}>{item.message}</p> 
+      })}
+    </>
   )
 
   //vårt gamla

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const thoughts = createSlice({
+const user = createSlice({
     name: "user",
     initialState:{
         error: null,
@@ -9,22 +9,22 @@ const thoughts = createSlice({
         accessToken: null
     },
     reducers: {
-        setUsername: (store, actions) => {
+        setUsername: (store, action) => {
             store.username = action.payload;
         },
-        setError: (store, actions) => {
+        setError: (store, action) => {
             store.error = action.payload;
         },
-        setUserId: (store, actions) => {
-            store.unserId = action.payload;
+        setUserId: (store, action) => {
+            store.userId = action.payload;
         },
-        setAccessTokem: (store, actions) => {
+        setAccessTokem: (store, action) => {
             store.accessToken = action.payload;
         },
     }
-})
+});
 
-export default user
+export default user;
 
 
 
