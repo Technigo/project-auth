@@ -1,47 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, /*useSelector*/ } from 'react-redux';
 
 
-import { useDispatch } from 'react-redux';
-// import { useSelector } from 'react-redux'
+const Main = () => {
+  const [secret, setsecret] = useState("");
 
-const Main = () =>{
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-
-    const dispatch = useDispatch()
-    // const userStart = useSelector((store) => store.user.username)
-
-  
-  const handleChange = (e) => {
-    setUsername(e.target.value);
-  };
-  const handleChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const onFormSubmit = (event) => {
-    event.preventDefault();
-  };
+  const dispatch = useDispatch()
+  // const userStart = useSelector((store) => store.user.username)
 
   return (
-    <form onSubmit={onFormSubmit}>
-         <label htmlFor="username">Username: </label>
-      <Input
-        type="text"
-        placeholder="🖊️ Write your username here"
-        value={username}
-        onChange={(e) => handleChange(e)}
-        className="input" />
-        <label htmlFor="password">Password: </label>
-        <Input
-        type="text"
-        placeholder="🖊️ Write your password here"
-        value={password}
-        onChange={(e) => handleChange(e)}
-        className="input" />
-      <Button className="submit-btn" type="submit">Submit</Button>
-    </form>
-    )
-}
+    <div className="secret-page">
+      <h1>It's a secret!</h1>
+      <button className="button-logout">
+        Logout
+      </button>
+    </div>
+  );
+};
 
 export default Main;
