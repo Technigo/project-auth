@@ -24,4 +24,4 @@ const user = createSlice({
     }
 });
 
-export default thoughts;
+export default user;

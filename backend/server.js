@@ -151,7 +151,7 @@ app.get("/thoughts", async (req, res) => {
   res.status(200).json({success: true, response: thoughts})
 });
 
-app.post("/thoughts", authenticateUser);
+// app.post("/thoughts", authenticateUser);
 app.post("/thoughts", async (req, res) => {
   const { message } = req.body;
   try {
@@ -161,10 +161,6 @@ app.post("/thoughts", async (req, res) => {
     res.status(400).json({success: false, response: error})
   }
 });
-
-
-
-
 
 // Start defining your routes here
 app.get("/", (req, res) => {
