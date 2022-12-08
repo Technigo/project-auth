@@ -3,7 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-import recipes from "./project-auth/backend/recipes.json";
+import RecipeData from "./data/RecipeData.json"
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -124,25 +124,53 @@ const authenticateUser = async (req, res, next) => {
 }
 
 const RecipesSchema = new mongoose.Schema({
-  id: Number,
-  Name: String,
-  Ingredients: String,
-  TotalTimeMinuits: Number,
-  Portions: Number,
-  CaloriesPerPortion: Number,
-  Vegetarian: Boolean,
-  KindOfDish: String,
-  TypeOfKitchen: String
+  id: {
+    type: Number
+  },
+  Ingredients: {
+    type: String
+  },
+  TotalTimeMinuits: {
+    type: Number
+  },
+  Portions: {
+    type: Number
+  },
+  CaloriesPerPortion: {
+    type: Number
+  },
+  Vegetarian: {
+    type: Boolean
+  },
+  KindOfDish: {
+    type: String
+  },
+  TypeOfKitchen: {
+    type: String
+  },
 }); 
-  
-const Recipes = mongoose.model("recipes", RecipesSchema);
+
+const Recipes = mongoose.model("Receipt", RecipesSchema);
+
+if (true) {
+  const resetDatabase = async () => {
+    await Recipes.deleteMany();
+    RecipeData.forEach(item => {
+      const newRecipe= new Recipes(item);
+      newRecipe.save();
+    })
+  }
+  resetDatabase();
+}
 
 app.get("/recipes", authenticateUser);
 app.get("/recipes", async (req, res)=> {
   const recipes = await Recipes.find({});
-  res.status(200).json({success: true, response: recipes});
+  res.status(200).json({ success: true, response: recipes });
 });
 
+
+/*
 app.post("/recipes", authenticateUser)
 app.post("/recipes", async (req, res) => {
   const { RecipesSchema } = req.body;
@@ -153,7 +181,7 @@ app.post("/recipes", async (req, res) => {
     res.status(400).json({success: false, response: error});
   }
 });
-
+*/
 ///////
 // Start defining your routes here
 app.get("/", (req, res) => {

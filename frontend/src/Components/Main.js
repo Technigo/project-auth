@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import thoughts from "reducers/thoughts";
+import recipes from "reducers/recipes";
 import { API_URL } from "utils/utils";
 import { useNavigate, Link } from "react-router-dom";
 const Main = () => {
-    const thoughtItems = useSelector((store) => store.thoughts.items);
+    const foodItems = useSelector((store) => store.recipes.items);
     const dispatch = useDispatch();
     const accessToken = useSelector((store) => store.user.accessToken);
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ const Main = () => {
         if (!accessToken) {
             navigate("/login");
         }
-    }, [accessToken])
+    }, []);
     useEffect(() => {
 
         const options = {
@@ -23,15 +23,15 @@ const Main = () => {
                 "Authorization": accessToken
             }
         }
-        fetch(API_URL("thoughts"), options)
+        fetch(API_URL("Receipt"), options)
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
-                    dispatch(thoughts.actions.setItems(data.response));
-                    dispatch(thoughts.actions.setError(null));
+                    dispatch(recipes.actions.setItems(data.response));
+                    dispatch(recipes.actions.setError(null));
                 } else {
-                    dispatch(thoughts.actions.setItems([]));
-                    dispatch(thoughts.actions.setError(data.response));
+                    dispatch(recipes.actions.setItems([]));
+                    dispatch(recipes.actions.setError(data.response));
                 }
             })
     }, []);
@@ -40,8 +40,8 @@ const Main = () => {
         <>
             <Link to="/login"> GO TO LOGIN</Link>
             <h2>This is the main component</h2>
-            {thoughtItems.map((item) => {
-                return <p key={item._id}>{item.message}</p>
+            {foodItems.map((item) => {
+        return <p key={item.id}>{item.Name}</p> 
             })}
         </>
     )

@@ -5,13 +5,13 @@ import Login from 'Components/Login';
 import NotFound from 'Components/NotFound';
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import thoughts from 'reducers/thoughts';
+import recipes from 'reducers/recipes';
 import user from 'reducers/user';
 
 
 const reducer = combineReducers({
   user: user.reducer,
-  thoughts: thoughts.reducer
+  recipes: recipes.reducer
 });
 const store = configureStore({reducer});
 export const App = () => {
