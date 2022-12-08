@@ -5,6 +5,7 @@ const user = createSlice({
     initialState: {
         username: null,
         accessToken: null,
+        email: null,
         userId: null,
         error: null
     },
@@ -17,6 +18,9 @@ const user = createSlice({
         },
         setAccessToken: (store, action) => {
             store.accessToken = action.payload;
+        },
+        setEmail: (store, action) => {
+            store.email = action.payload;
         },
         setError: (store, action) => {
             store.error = action.payload;
