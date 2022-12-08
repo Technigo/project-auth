@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import user from '../reducers/user';
 import { API_URL } from "../utils/urls";
 
-
 const Main = () => {
   const [secret, setSecret] = useState(null);
 
@@ -14,12 +13,9 @@ const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
 
   const logout = () => {
-    batch(() => {
       dispatch(user.actions.setUsername(null));
       dispatch(user.actions.setAccessToken(null));
-
       localStorage.removeItem('user');
-    });
   };
 
   useEffect(() => {
