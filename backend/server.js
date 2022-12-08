@@ -66,46 +66,45 @@ app.get("/users", async (req, res) => {
 // })
 
 app.post("/registerUser", async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    if (password.length < 6) {
-      res.status(400).json({
-        success: false,
-        response: "You need to have min 6 characters!",
-      });
-    } else {
-      const newUser = await new User({
-        username: username,
-        password: bcrypt.hashSync,
-      }).save();
-      res.status(201),
-        json({
-          success: true,
-          response: {
-            username: newUser.username,
-            accessToken: newUser.accessToken,
-            id: newUser._id,
-          },
-        });
-    }
-  } catch (err) {
+  const { name, password } = req.body;
+  if (password.length < 6) {
     res.status(400).json({
       success: false,
-      response: err,
+      response: "You need to have min 6 characters!",
     });
+  } else {
+    try {
+      const newUser = await new User({
+        name: name,
+        password: bcrypt.hashSync(password),
+      }).save();
+      res.status(201).json({
+        success: true,
+        response: {
+          username: newUser.username,
+          accessToken: newUser.accessToken,
+          id: newUser._id,
+        },
+      });
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        response: err,
+      });
+    }
   }
 });
 
 // Login
 app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { name, password } = req.body;
   try {
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ name });
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
         success: true,
         response: {
-          username: user.name,
+          name: user.name,
           id: user.id,
           accessToken: user.accessToken,
         },
@@ -113,7 +112,7 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "You do not have authorization",
+        response: "Could not login, try again! ",
       });
     }
   } catch (err) {
@@ -127,7 +126,7 @@ app.post("/login", async (req, res) => {
 const authenticatedUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
-    const user = await User.findOne({ accessToken: accessToken });
+    const user = await User.findOne({ accessToken });
     if (user) {
       next();
     } else {
@@ -158,14 +157,18 @@ const Thought = mongoose.model("Thought", {
   },
 });
 
-// Get Post
+//
 app.get("/thoughts", authenticatedUser);
 app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thought.find({});
-  res.status(200).json({
-    success: true,
-    response: thoughts,
-  });
+  try {
+    const thoughts = await Thought.find({}).limit(20).sort().exec();
+    res.status(200).json({
+      success: true,
+      response: thoughts,
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, response: err });
+  }
 });
 
 // Post Thought
@@ -173,13 +176,13 @@ app.post("/thought", authenticatedUser);
 app.post("/thought", async (req, res) => {
   const { message } = req.body;
   try {
-    const newThought = await new Thought({ message: message }).save();
+    const newThought = await new Thought({ message }).save();
     res.status(201).json({
       response: newThought,
       success: true,
     });
   } catch (err) {
-    res.status(400).json({ success: false, response: error });
+    res.status(400).json({ success: false, response: err });
   }
 });
 
