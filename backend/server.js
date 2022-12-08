@@ -137,16 +137,43 @@ const authenticatedUser = async (req, res, next) => {
       });
     }
   } catch (err) {
-    res.status(400).json({ 
-      success: false, 
-      response: err})
+    res.status(400).json({
+      success: false,
+      response: err,
+    });
   }
 };
 
+const Thought = mongoose.model("Thought", {
+  message: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+    default: () => new Date(),
+  },
+  header: {
+    type: Number,
+    default: 0,
+  },
+});
 
 
 
-
+// Post Thought 
+app.post("/thought", authenticatedUser);
+app.post("/thought", async (req, res) => {
+  const { message } = req.body;
+  try {
+    const newThought = await new Thought({ message: message }).save();
+    res.status(201).json({
+      response: newThought,
+      success: true
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, response: error });
+  }
+});
 
 // Start the server
 app.listen(port, () => {
