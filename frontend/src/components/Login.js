@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from './config';
 
-const Login = ({ url }) => {
+const Login = () => {
   // Local state variables for storing form data and data from API
   const [usernameData, setUsernameData] = useState('');
   const [passwordData, setPasswordData] = useState('');

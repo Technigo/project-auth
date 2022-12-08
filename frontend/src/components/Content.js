@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Wrapper } from './GlobalStyles';
 import { API_URL } from './config';
 import Loader from './Loader';
 
-const Content = ({ url }) => {
-  // 1. make content component, send in accessToken, get request to /thoughts (or make new one)
-  
+const Content = () => {
+  // Local state variables for storing data from API
   const [mostViews, setMostViews] = useState('');
   const [loading, setLoading] = useState(true);
+  const [accessToken] = useState(localStorage.getItem('accessToken'));
 
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem('accessToken')
-  );
+  const navigate = useNavigate();
 
-  console.log('mostViews:', mostViews);
-
+  // Send in accessToken to /top10Views endpoint, set state variable with data from API
   useEffect(() => {
     if (accessToken) {
     }
@@ -39,6 +36,7 @@ const Content = ({ url }) => {
     return <Loader />;
   }
 
+  // Protect the content behind the authorization from API
   if (!mostViews.success) {
     return (
       <Wrapper>
@@ -68,7 +66,7 @@ const Content = ({ url }) => {
       <button
         type="button"
         onClick={() => {
-          window.location = `${url}/login`;
+          navigate('/login');
           localStorage.removeItem('accessToken');
         }}
       >

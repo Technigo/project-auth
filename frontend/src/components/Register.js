@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { Wrapper } from './GlobalStyles';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { API_URL } from './config'
+import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from './config';
 
-const Register = ({ url }) => {
-  // 1. input form for username and password
-  // 2. post request with username and password
-  // 3. register component, on success, show "Redirect-message" ("User created, re-directing to login") for 2 seconds (use setTimeout) with window.direct or something like that to the login page
-
-  console.log(url);
-
+const Register = () => {
+  // Local state variables for storing form data and data from API
   const [usernameData, setUsernameData] = useState('');
   const [passwordData, setPasswordData] = useState('');
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
+  // Post request with username and password
   const handleSubmit = () => {
     fetch(`${API_URL}/register`, {
       method: 'post',
@@ -28,7 +25,6 @@ const Register = ({ url }) => {
     })
       .then((res) => res.json())
       .then((user) => {
-        console.log('user:', user);
         setSuccess(user.success);
       })
       .catch((error) => {
@@ -37,9 +33,10 @@ const Register = ({ url }) => {
       });
   };
 
+  // On successful register, show re-direct message for 1 second with navigate to login page
   if (success) {
     setTimeout(() => {
-      window.location = `${url}/login`;
+      navigate('/login');
     }, 1000);
     return (
       <Wrapper>
@@ -98,7 +95,6 @@ const StyledForm = styled.form`
   flex-direction: column;
   gap: 10px;
   align-items: center;
-  /* text-align: center; */
   justify-content: center;
 
   p {
