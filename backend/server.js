@@ -18,60 +18,135 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-const User= mongoose.model('User',{
-  name:{
-    type:String,
-    unique:true
-  }, 
-  password:{
-    type:String,
-    required:true
-  }, 
-  accessToken:{
-    type:String,
-    default:() => crypto.randomBytes(128).toString("hex")
-  }
-})
-
-
+const User = mongoose.model("User", {
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  accessToken: {
+    type: String,
+    default: () => crypto.randomBytes(128).toString("hex"),
+  },
+});
 
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
-app.get('/users', async (req, res) => {
+app.get("/users", async (req, res) => {
   try {
-    const user= await User.find({})
-    .limit(10)
-    .sort()
-    .exec()
-    res.status(200).json({success:true, data:user});
-
+    const user = await User.find({}).limit(10).sort().exec();
+    res.status(200).json({ success: true, data: user });
+  } catch (err) {
+    res.status(400).json({ success: false, err });
   }
-  catch (err) {
-res.status(400).json({success:false, err })
-  }
-})
+});
 
+// app.post('/newUser', async (req, res) => {
+//   const {name, password} = req.body;
+//   const user = new User({name, password: bcrypt.hashSync(password)})
+//   try{
+//     const savedNewUser= await user.save();
+//     res.status(201).json({response: savedNewUser, success: true});
+//   }
+//   catch (err){
+//     res.status(400).json({
+//       message: "Coould not save new user",
+//       error: err.error,
+//       success: false
+//     })
 
-app.get('/newUser', async (req, res) => {
-  const {name, password} = req.body;
-  const user = new User({name, password: bcrypt.hashSync(password)})
-  try{
-    const savedNewUser= await user.save();
-    res.status(201).json({response: savedNewUser, success: true});
-  }
-  catch (err){
+//   }
+// })
+
+app.post("/registerUser", async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    if (password.length < 6) {
+      res.status(400).json({
+        success: false,
+        response: "You need to have min 6 characters!",
+      });
+    } else {
+      const newUser = await new User({
+        username: username,
+        password: bcrypt.hashSync,
+      }).save();
+      res.status(201),
+        json({
+          success: true,
+          response: {
+            username: newUser.username,
+            accessToken: newUser.accessToken,
+            id: newUser._id,
+          },
+        });
+    }
+  } catch (err) {
     res.status(400).json({
-      message: "Coould not save new user",
-      error: err.error,
-      success: false
-    })
-
+      success: false,
+      response: err,
+    });
   }
-})
+});
+
+// Login
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ username: username });
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(200).json({
+        success: true,
+        response: {
+          username: user.name,
+          id: user.id,
+          accessToken: user.accessToken,
+        },
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        response: "You do not have authorization",
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      response: err.error,
+    });
+  }
+});
+
+const authenticatedUser = async (req, res, next) => {
+  const accessToken = req.header("Authorization");
+  try {
+    const user = await User.findOne({ accessToken: accessToken });
+    if (user) {
+      next();
+    } else {
+      res.status(401).json({
+        success: false,
+        response: "Please try to login again ",
+      });
+    }
+  } catch (err) {
+    res.status(400).json({ 
+      success: false, 
+      response: err})
+  }
+};
+
+
+
+
+
 
 // Start the server
 app.listen(port, () => {
