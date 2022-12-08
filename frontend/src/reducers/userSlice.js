@@ -22,10 +22,10 @@ const userSlice = createSlice({
 			state.error = action.payload;
 		},
 		logOut: (state, action) => {
-			(state.accessToken = null),
-				(state.username = null),
-				(state.userId = null),
-				(state.error = null);
+			state.accessToken = null,
+				state.username = null,
+				state.userId = null,
+				state.error = null;
 		},
 	},
 });

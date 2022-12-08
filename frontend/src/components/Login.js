@@ -10,6 +10,7 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [mode, setMode] = useState("register")
+    const [catchError, setCatchError] = useState(null)
 
     const navigate = useNavigate()
 
@@ -18,7 +19,7 @@ const Login = () => {
 
     useEffect(() => {
         if(accessToken) {
-            navigate("/order")
+            navigate("/thoughts")
         }
     }, [accessToken])
    
@@ -41,6 +42,7 @@ const Login = () => {
                     dispatch(userSlice.actions.addUserId(data.response.userId))
                     dispatch(userSlice.actions.addAccessToken(data.response.accessToken))
                     dispatch(userSlice.actions.catchError(null))
+                    setCatchError(null)
                 })
     
             } else {
@@ -49,6 +51,7 @@ const Login = () => {
                     dispatch(userSlice.actions.addUserId(null))
                     dispatch(userSlice.actions.addAccessToken(null))
                     dispatch(userSlice.actions.catchError(data.response))
+                    setCatchError(data.response)
                 })
                
             }
@@ -87,7 +90,7 @@ const Login = () => {
     
         </div>
         )}
-          
+         
             <form onSubmit={onLoginSubmit}>
                 <label>Username</label>
              <input
@@ -104,8 +107,11 @@ const Login = () => {
              <button className="submit" type="submit">submit</button>
 
             </form>
-
-        
+            
+            {catchError !== null &&(
+            <p>{catchError}</p>
+          )}       
+                
         </div>
     )
 }

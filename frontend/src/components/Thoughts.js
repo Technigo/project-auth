@@ -1,33 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import thoughtSlice from 'reducers/thoughtSlice';
 import { useNavigate } from 'react-router-dom';
-import { API_URL } from 'utils/utils';
+import { API_URL, LIKE_URL } from 'utils/utils';
 import userSlice from 'reducers/userSlice';
+/* import LogOut from './Logout'; */
+
 
 const Thoughts = () => {
-	const [thoughts, setThoughts] = useState('');
-	const values = useSelector((state) => state.thoughts.value);
+	
+	/* const values = useSelector((state) => state.thoughts); */
 	const accessToken = useSelector((state) => state.user.accessToken);
 	const username = useSelector((state) => state.user.username);
+
+	const [mode, setMode ] = useState("thoughts")
+	const [thoughts, setThoughts] = useState([]);
+	const [newThought, setNewThought] = useState("")
+	const [loading, setLoading] = useState(false)
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const options = {
+/* 	const options = {
 		method: 'GET',
 		header: {
 			Authorization: accessToken,
 		},
-	};
+	};  */
 
 	useEffect(() => {
 		if (!accessToken) {
-			navigate('/login');
+			navigate('/');
 		}
 	}, [accessToken]);
 
 	//get the thoughts posts in display, fire at new posts added
-	useEffect(() => {
+	/*  useEffect(() => {
 		try {
 			fetch(API_URL('thoughtSlice'), options)
 				.then((res) => res.json())
@@ -58,28 +65,118 @@ const Thoughts = () => {
 		} catch (err) {
 			console.log(err);
 		}
-	};
+	}; 
+ */
+	const getThoughts = () => {
+        const options ={
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": accessToken,
+            }
+        }
+        fetch(API_URL(mode), options)
+        .then(res => res.json())
+        .then(data => setThoughts(data))
+        .catch((error) => console.error(error))
+    }
+
+    useEffect(() => {
+        getThoughts()
+    }, [])
+
+    const onSendThought = (event) => {
+        event.preventDefault();  
+          const options = {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": accessToken,
+            },
+              body: JSON.stringify({ message: newThought })
+          };
+      
+          fetch(API_URL(mode), options)
+          .then(res => res.json())
+          .then(data => {
+              if(data.success) {
+                  batch(() => {
+                      dispatch(thoughtSlice.actions.addThoughts(data.response.value))
+                      
+                  })
+      
+              } else {
+                  batch(() => {
+                      dispatch(thoughtSlice.actions.addThoughts(null))
+                     
+                  })
+                 
+              }
+             
+          })
+  
+      }
+
+	 /* Add likes to messages  */
+
+	 const handleOnlikeChange = (LikeID) => {
+		const option = {
+		  method: 'POST',
+		  headers: {
+			'Content-Type': 'application/json',
+			"Authorization": accessToken,
+		  }
+		}
+		fetch(LIKE_URL(mode)(LikeID), option)
+		  .then((Response) => Response.json())
+		  .then(console.log('yey it works.'))
+		  .catch((error) => console.error(error))
+		  .finally(() => getThoughts())
+	  }
+
+	/* LOG OUT BUTTON- CANT MAKE IT WORK WITH THE SLICER.. */
+	const logout = () => {
+        batch(() => {
+          dispatch(userSlice.actions.addUsername(null));
+          dispatch(userSlice.actions.addAccessToken(null));
+        });
+      };
 
 	return (
 		<>
+		<button className="logout" onClick={logout}>Logout</button>
+
 			<p>What's making you happy right now?</p>
-			<Form>
-				onSubmit={onThoughtsSubmit}
+			<form
+				onSubmit={onSendThought}>
 				<input
 					type="text"
-					value={thoughts}
-					onChange={(e) => setThoughts(e.target.value)}
+					value={newThought}
+					onChange={(e) => setNewThought(e.target.value)}
 				/>
 				<button>Post</button>
-			</Form>
+			</form>
 			<>
-				{values.map((item) => {
+				{thoughts.map((item) => {
 					return (
-						<div>
+						<div key={item._id}>
 							<p>{item.message}</p>
+							<p>{item.createdAt}</p>
+							<button
+                  				type="button"
+                 				 className="btn-heart"
+                  				onClick={() => {handleOnlikeChange(item._id)}}
+                  				style={{
+                    			background: item.hearts >= 1 ? '#F6C6E9' : '#f2f2f2'
+                  				}}>
+								<span aria-label="heart emoji" className="heart-emoji"> ❤️
+                  				</span>
+								</button>
+							<p>{item.hearts}</p>
 						</div>
 					);
 				})}
+				{/* <LogOut /> */}
 			</>
 		</>
 	);

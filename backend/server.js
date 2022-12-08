@@ -56,24 +56,6 @@ const ThoughtsSchema = new mongoose.Schema({
 const User = mongoose.model('User', UserSchema);
 const Thoughts = mongoose.model('Thoughts', ThoughtsSchema);
 
-/* const OrderSchema = new mongoose.Schema({
-  flavor: {
-    type: String, 
-    required: true
-  }, 
-  createdAt: {
-    type: Date, 
-    default : () => new Date()
-  },
-  scoop: {
-    type: Number, 
-    default: 1
-  }
-});
-
-const Order = mongoose.model("Order", OrderSchema);
-*/
-
 // For pages only shown for the login user we need to do a authentication of the user.
 const authenticateUser = async (req, res, next) => {
 	const accessToken = req.header('Authorization');
@@ -115,11 +97,17 @@ app.post('/register', async (req, res) => {
 	// npm install bcrypt
 	try {
 		const salt = bcrypt.genSaltSync();
+		const usernameUsed = await User.findOne({ username })
 		if (password.length < 8) {
 			res.status(400).json({
 				success: false,
 				response: 'Password must be at least 8 characters long.',
 			});
+		} else if(usernameUsed) {
+			res.status(400).json({
+				success:false, 
+				response: "Username already in use",
+			})
 		} else {
 			const newUser = await new User({
 				username: username,
@@ -180,6 +168,7 @@ app.get('/thoughts', async (req, res) => {
 	res.status(201).json(thoughts);
 });
 
+
 app.post('/thoughts', async (req, res) => {
 	const { username, message } = req.body;
 	try {
@@ -201,6 +190,7 @@ app.post('/thoughts', async (req, res) => {
 	}
 });
 
+app.post('/thoughts/:thoughtsID/like', authenticateUser);
 app.post('/thoughts/:thoughtsID/like', async (req, res) => {
 	const { thoughtsID } = req.params;
 	try {
@@ -220,39 +210,6 @@ app.post('/thoughts/:thoughtsID/like', async (req, res) => {
 	}
 });
 
-/* app.post('/order', authenticateUser);
-app.post('/order', async (req, res) => {
-	const { flavor, scoop, createdAt } = req.body;
-	try {
-		const newFlavor = await new Order({
-			flavor: flavor,
-			scoop: scoop,
-			createdAt: createdAt,
-		}).save();
-		res.status(200).json({
-			success: true,
-			response: newFlavor,
-		});
-	} catch (error) {
-		res.status(400).json({
-			response: error,
-			success: false,
-		});
-	}
-});
-
-app.get('/order', authenticateUser);
-app.get('/order', async (req, res) => {
-	try {
-		const orders = await Order.find();
-		res.status(200).json(orders);
-	} catch (error) {
-		res.status(400).json({
-			response: error,
-			success: false,
-		});
-	}
-}); */
 
 // Start the server
 app.listen(port, () => {

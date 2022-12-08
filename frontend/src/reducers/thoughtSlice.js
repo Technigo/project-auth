@@ -12,3 +12,5 @@ const thoughtSlice = createSlice({
 		},
 	},
 });
+
+export default thoughtSlice
