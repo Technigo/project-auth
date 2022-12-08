@@ -72,13 +72,12 @@ app.post("/register", async (req, res) => {
 
     if (password.length < 8) {
       res.status(400).json({
-        response: "Password to short",
         response: "Enter minimum 8 letters",
         success: false,
       });
     } else if (usernameExists) {
       res.status(400).json({
-        response: "username already in use",
+        response: "Username already in use",
         success: false,
       });
     } else {
