@@ -1,13 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux"
+import { user } from 'reducers/user'
+
 import styled from 'styled-components/macro'
 import { Buttons } from '../GlobalStyles'
 import { InnerWrapper } from '../GlobalStyles';
 import { OuterWrapper } from '../GlobalStyles';
 import { Headline } from '../GlobalStyles';
 import { Batman } from '../GlobalStyles';
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+
+import { API_URL } from 'utils/utils'
+
+
 
 export const Main = () => {
+    const userId = useSelector((store) => store.user.userID)
+    const dispatch = useDispatch();
+    const accessToken = useSelector((store) => store.user.accessToken);
+    const navigate = useNavigate();
+
+
+    useEffect(()=>{
+        const options = {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+                "Authorization": accessToken
+            }
+        }
+        fetch(API_URL("user"), options)
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    dispatch(user.actions.setUserId(data.response))
+                    dispatch(user.actions.setError(null))
+                } else {
+                    dispatch(user.actions.setUserId([]))
+                    dispatch(user.actions.setError(data.response))
+                }
+            })
+    }, [])
   return (
     <OuterWrapper>
     <InnerWrapper>
