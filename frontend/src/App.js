@@ -3,26 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Form } from 'components/Form';
 import { Welcome } from 'components/Welcome';
 import { Start } from 'components/Start';
+import { NotFound } from 'components/NotFound';
 import styled from "styled-components";
 
 export const App = () => {
-  const [authenticated, setauthenticated] = useState(null);
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("authenticated");
-    if (loggedInUser) {
-    setauthenticated(loggedInUser);
-    }
-    }, []);
-    
-    if (!authenticated) {
-      <Route path={"/"} element={<Start />} />
-    } else {
-      return (
-        <Route path={"/welcome"} element={
-          <Welcome />} />
-      );
-      }
-
   return (
     <BrowserRouter>
         <StyledMain>
@@ -42,6 +26,7 @@ export const App = () => {
           />
         <Route path={"/welcome"} element={
         <Welcome />} />
+        <Route path='*' element={<NotFound/>} />
       </Routes>
         </StyledMain>
     </BrowserRouter>

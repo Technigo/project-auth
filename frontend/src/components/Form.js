@@ -1,4 +1,5 @@
-import React, { useState, redirect, useNavigate } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
 import { StyledDiv, StyledButton } from "GlobalStyles";
 import styled from "styled-components";
 
@@ -6,15 +7,12 @@ export const Form = ({ buttonText, formType, formTitle, token }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     
-    // const navigate = useNavigate();
+    const accessToken = localStorage.getItem('accessToken');
 
-    // const nextPage = () => {
-    //   navigate("/welcome")
-    // }
-    
+    const navigate = useNavigate();
+  
     const onSubmit = (event) => {
       event.preventDefault()
-    
       fetch(`https://project-auth-ca23vvjbjq-lz.a.run.app/${formType}`, {
         method: 'POST',
         headers: {
@@ -26,20 +24,22 @@ export const Form = ({ buttonText, formType, formTitle, token }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log('Success:', data)
-          localStorage.setItem("accessToken", data.response.accessToken);
-          setUsername('')
-          setPassword(''); 
-        })
-        .finally(() => {
-          // if (localStorage.getItem("accessToken")) {
-          //   navigate("/welcome")
-          // } 
+          if(data.success){
+            console.log('Success:', data)
+            localStorage.setItem("accessToken", data.response.accessToken);
+            localStorage.setItem("username", data.response.username);
+            setUsername('')
+            setPassword(''); 
+            navigate("/welcome");
+          } else {
+            console.log(data.response)
+            window.alert(data.response)
+          }
         })
         .catch((error) => {
           console.error('Error:', error);
         });
-
+    
     }
 
     const handleUsernameInput = (event) =>{
