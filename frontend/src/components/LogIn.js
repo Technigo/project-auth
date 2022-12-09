@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import user from "../reducers/user";
 import { API_URL } from "../utils/urls";
@@ -8,16 +8,17 @@ import { API_URL } from "../utils/urls";
 const LogIn = () => {
     const [username, setUserName] = useState("")
     const [password, setPassword] = useState("")
-    const [mode, setMode] = useState("login"); // does mode need useSelector also?
+    /* const [mode, setMode] = useState("login");  */// does mode need useSelector also?
     const accessToken = useSelector((store) => store.user.accessToken)
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const mode = useSelector((store) => store.user.mode);
 
     useEffect( () => {
-        if (accessToken) {
+        if (accessToken) { //useEffect checks if accessToken is provided, if yes, then should navigate to mainpage
             navigate("/")
         }
-    }, [accessToken]) // dont remember what this last one does, execute/check? because if its execute, then maybe navigate should be there too?
+    }, [accessToken, navigate]) // It shall trigger everytime accessToken changes
 
     const onFormSubmit = (event) => {
         event.preventDefault();
@@ -32,7 +33,7 @@ const LogIn = () => {
             .then((res) => res.json())
             .then(data => {
                 if(data.success) {
-                    batch(() => { // flera dispatch samtidigt - man skickar alla samtidigt, så det inte är massa olika
+                    batch(() => { // All dispatches will trigger our rerender only once
                         dispatch(user.actions.setUserName(data.response.username))
                         dispatch(user.actions.setUserId(data.response.id))
                         dispatch(user.actions.setAccessToken(data.response.accessToken))
@@ -50,7 +51,6 @@ const LogIn = () => {
     }
     return (
         <>
-        <Link to="/"></Link> {/* Daniel did not put this link here */}
         <h1>{mode === "register" ? "Create a New Account" : "Welcome back!" }</h1>
         <form onSubmit={onFormSubmit}>
             <label htmlFor="username">Username</label>

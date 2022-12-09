@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-
+import user from 'reducers/user';
 import thoughts from 'reducers/thoughts';
 import { API_URL } from 'utils/urls';
 
@@ -11,12 +11,13 @@ const Main = () => {
     // maybe mode here too?
     const dispatch = useDispatch();
     const navigate =useNavigate();
+    /* const mode = useSelector((store) => store.user.mode); */
 
     useEffect( () => {
         if (!accessToken) {
             navigate("/login")
         }
-    }, [])
+    }, [accessToken, navigate])
 
     useEffect(() => {
         const options = {
@@ -40,17 +41,28 @@ const Main = () => {
     }, [])
 
     // I put in thoughts in postman to the database, but they dont display in the frontend
-    // Log out function here
+
+      const logOut = () => {
+        batch(() => {
+          dispatch(user.actions.setUsername(null));
+          dispatch(user.actions.setAccessToken(null));
+          /* navigate("/login") */
+
+    
+          //localStorage.removeItem('user')
+        });
+      };
 
     return (
         <>
-            <Link to="/thoughts">GO TO LOGIN</Link> {/* I think Daniel wrote this, but i feel unsure about the link to log in here */}
+           {/*  <Link to="/login">GO TO LOGIN</Link>  */}{/* I think Daniel wrote this, but i feel unsure about the link to log in here */}
             <h2>This is the Main</h2>
-            {thoughtItems.map((item) => {
-                return ( 
-                    <p key={item._id}>{item.message}</p>
-                )
-            })}
+            {/* {thoughtItems.map((item) => {
+                return <p key={item._id}>{item.message}</p>
+            })} */}
+             <Link to="/" onClick={logOut}>
+          Log out
+        </Link>
         </>
     )
 }

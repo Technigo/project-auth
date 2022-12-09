@@ -23,7 +23,10 @@ const user = createSlice({
         },
         setError: (store, action) => {
             store.error = action.payload;
-        }
+        },
+       /*  setMode: (store, action) => {
+            store.mode = action.payload;
+          }, */
     }
 })
 
