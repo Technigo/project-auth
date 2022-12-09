@@ -46,7 +46,8 @@ color: white;
 &:focus {
     outline: none;
 }
-` 
+`
+
 export const Button = styled.button`
     margin: 10px;
     width: 300px;

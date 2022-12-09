@@ -48,17 +48,13 @@ export const Login = () => {
                 }
             })
     }
+
+
   return (
-      <Card>
-                 <h1> { mode === "register" && "Register" || "Sign in" } </h1>
-        <div className="radio-container">
-            <label htmlFor="register">Register</label>
-            <input type="radio" id="register" checked={mode === "register"} onChange={()=> setMode("register")}/>
-            <label htmlFor="login">Login</label>
-            <input type="radio" id="login" checked={mode === "login"} onChange={()=> setMode("login")}/>
-        </div>
-<form onSubmit={onFormSubmit}>
-         <Form onSubmit={onFormSubmit}>
+    <Card>
+         <h1> { mode === "register" && "Register" || "Sign in" } </h1>
+       <form onSubmit={onFormSubmit}>
+         <Form>
          <label htmlFor="username"/>
             <Input 
             type="text" 
@@ -76,11 +72,14 @@ export const Login = () => {
          </Form>
             <Button type="submit" > 
                     { mode === "register" && "Join us now!" || "Sign in" } 
-                </Button>
-            </form>
-            <h4>no a member? sign up here!</h4>
-            <label htmlFor="register">Register</label>
-            <input type="radio" id="register" checked={mode === "register"} onChange={()=> setMode("register")}/>
-      </Card>
+            </Button>
+        </form>
+            <label htmlFor="register">{mode === "register" ? "" : "not a member? become one today!" }
+            <input type="radio" id="register" name="register" checked={mode === "register"} onChange={()=> setMode("register")}/>
+            </label>
+            <label htmlFor="login">{mode === "login" ? "" : "log in now" }
+            <input type="radio" id="login" checked={mode === "login" } onChange={()=> setMode("login")}/>
+            </label>
+    </Card>
   );
 }
