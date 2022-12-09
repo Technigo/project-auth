@@ -7,12 +7,20 @@ import { API_URL } from 'utils/Utils'
 export const Dashboard = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items);
   const dispatch = useDispatch();
+  const accessToken = useSelector((store) => store.user.accessToken)
+
+  useEffect(() => {
+    if(!accessToken) {
+      navigate("/login")
+    }
+  }, [accessToken])
 
   useEffect(() => {
     const options = {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": accessToken
       }
     }
     fetch(API_URL("thoughts"), options)
@@ -29,10 +37,13 @@ export const Dashboard = () => {
   }, []);
 
   return (
+    <>
+    <Link to="/login"></Link>
     <h2>Dashboard</h2>
     {thoughtsItems.map(item) => {
-      return (<p key></p>) // hann inte klart
+      return (<p key={item._id}>{item.message}</p>) // hann inte klart
     }}
+    </>
   )
 
   //vårt gamla
