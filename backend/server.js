@@ -5,6 +5,7 @@ import crypto from "crypto";
 import bcrypt from "bcrypt";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
+
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -36,21 +37,25 @@ const UserSchema = mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-
 //REGISTER
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
   try {
     const salt = bcrypt.genSaltSync();
-    if (password.length < 8) {
+    const anyUser = await User.findOne({username})
+    if (anyUser) {
       res.status(400).json({
         success: false,
-        response: "Password must be at least 8 characters long"
+        response: "Username already in use"
+    })} if (password.length < 8) {
+          res.status(400).json({
+          success: false,
+          response: "Password must be at least 8 characters long"
       })
     } else {
-      const newUser = await User({username: username, password: bcrypt.hashSync(password, salt)}).save()
-      res.status(201).json({
+        const newUser = await User({username: username, password: bcrypt.hashSync(password, salt)}).save()
+        res.status(201).json({
         success: true,
         response: {
           username: newUser.username,
