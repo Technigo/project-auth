@@ -9,7 +9,7 @@ const initialState = {
   };
 
 const user = createSlice({
-    name: 'user',
+    name: "user",
     initialState, 
     reducers: {
         setUserName: (store, action) => {
@@ -19,10 +19,10 @@ const user = createSlice({
             store.accessToken = action.payload;
         },
         setUserId: (store, action) => {
-            store.accessToken = action.payload;
+            store.userId = action.payload;
         },
         setError: (store, action) => {
-            store.accessToken = action.payload;
+            store.error = action.payload;
         }
     }
 })
