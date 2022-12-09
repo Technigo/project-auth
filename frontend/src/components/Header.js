@@ -4,13 +4,14 @@ import styled from "styled-components";
 const Header = () => {
   return (
     <HeaderContainer>
-      <nav>
+      <Logo />
+      {/* <nav>
         <ul>
           <li>
             Sign up/log in
           </li>
         </ul>
-      </nav>
+      </nav> */}
     </HeaderContainer>
   )
 }
@@ -19,8 +20,9 @@ export default Header
 
 const HeaderContainer = styled.header`
   height: 20vh;
-  display: flex;
-  justify-content: end;
+  position: relative;
+  border-bottom: solid 1px red;
+
    li {
     font-size: 10px;
     background-color: blue;
@@ -29,4 +31,13 @@ const HeaderContainer = styled.header`
     padding: 10px;
     border-radius: 10px;
    }
+`
+const Logo = styled.div`
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background-color: blue;
+  position: absolute;
+  left: 10vw;
+  bottom: -35px;
 `

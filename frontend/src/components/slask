@@ -1,0 +1,62 @@
+  
+//   // const apiRegister = 'https://project-auth-ou3ewmaujq-lz.a.run.app/register'
+  
+//   // useEffect(() => {
+//   //   fetch(apiRegister)
+//   //   .then((res) => res.json())
+//   //   .then((data) => setUsername(data), setPassword(data))
+//   //   .catch((error) => console.error(error))
+//   //   .finally(() => console.log('done'))
+//   //  }, [username, password])
+  
+//   // const handleNewUserChange = (event) => {
+//   //   setUsername(event.target.value)
+//   //   setPassword(event.target.value)
+//   // }
+  
+//   //   event.preventDefault()
+  
+//   //   const options = {
+//   //     method: 'POST',
+//   //     headers: {
+//   //        'Content-Type': 'application/json'
+//   //     },
+//   //     body: JSON.stringify({
+//   //       message: newMessage
+//   //     })
+//   //   }
+  
+//   //   fetch(api, options)
+//   //     .then((res) => res.json())
+//   //     .then(() => fetchMessages())
+//   //     .finally(() => setNewMessage(''))
+//   // }
+//   const onFormSubmit = (event) => {
+//     event.preventDefault();
+//     const options = {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ username: username, password: password }),
+//     };
+
+//     fetch('https://project-auth-ou3ewmaujq-lz.a.run.app/register', options)
+//       .then((res) => res.json())
+//       .then((data) => {
+//         console.log(data);
+//         if (data.success) {
+//           batch(() => {
+//             dispatch(user.actions.setUsername(data.username));
+//             // dispatch(user.actions.setAccessToken(data.accessToken));
+//             dispatch(user.actions.setPassword(data.password));
+//             // dispatch(user.actions.setError(null));
+//           });
+//         } else {
+//           batch(() => {
+//             console.log(error)
+//           });
+//           setError(data.response);
+//         }
+//       });
+//   }

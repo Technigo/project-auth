@@ -1,22 +1,37 @@
 import React from 'react';
 import Header from 'components/Header';
-import Register from 'components/Register';
 import LogIn from 'components/LogIn';
+import Feed from 'components/Feed';
+import NotFound from 'components/NotFound';
 import { InnerWrapper, OuterWrapper } from 'components/GlobalStyles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import user from 'reducers/users';
+import thoughts from 'reducers/thoughts';
+
 
 export const App = () => {
+  const reducer = combineReducers({ 
+    user: user.reducer,
+    thoughts: thoughts.reducer 
+  })
+  const store = configureStore({ reducer })
+
   return (
-    <BrowserRouter>
-      <OuterWrapper>
-        <InnerWrapper>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Register />} />
-            <Route path="login" element={<LogIn />} />
-          </Routes>
-        </InnerWrapper>
-      </OuterWrapper>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+      <Header />
+        <OuterWrapper>
+          <InnerWrapper>
+            <Routes>
+              <Route path="/login" element={<LogIn />} />
+              <Route path="/" element={<Feed />} />
+              <Route path="/*" element={<NotFound />} />
+            </Routes>
+          </InnerWrapper>
+        </OuterWrapper>
+      </BrowserRouter>
+    </Provider>
   );
 }
