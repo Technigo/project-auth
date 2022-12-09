@@ -1,70 +1,56 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux"
-import { user } from 'reducers/user'
-
-import styled from 'styled-components/macro'
-import { Buttons } from '../GlobalStyles'
-import { InnerWrapper } from '../GlobalStyles';
-import { OuterWrapper } from '../GlobalStyles';
-import { Headline } from '../GlobalStyles';
-import { Batman } from '../GlobalStyles';
-import { useNavigate, Link } from 'react-router-dom'
-
-import { API_URL } from 'utils/utils'
-
-
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { movies } from "reducers/movies";
+import { user } from "reducers/user";
+import { API_URL } from "utils/utils";
+import { useNavigate, Link } from "react-router-dom";
 
 export const Main = () => {
-    const userId = useSelector((store) => store.user.userID)
+    //const userId = useSelector((store) => store.user.userId)
     const dispatch = useDispatch();
     const accessToken = useSelector((store) => store.user.accessToken);
     const navigate = useNavigate();
+    const movieItems = useSelector((store) => store.movies.items);
 
-
-    useEffect(()=>{
-        const options = {
-            method: "GET",
-            headers: {
-                "content-type": "application/json",
-                "Authorization": accessToken
+    // useEffect(()=>{
+        
+    //     const dispatch = useDispatch();
+    //     const accessToken = useSelector((store) => store.user.accessToken);
+    //     const navigate = useNavigate();
+    
+        useEffect( () => {
+            if (!accessToken) {
+                navigate("/login");
             }
-        }
-        fetch(API_URL("user"), options)
-            .then(res => res.json())
-            .then(data => {
-                if(data.success) {
-                    dispatch(user.actions.setUserId(data.response))
-                    dispatch(user.actions.setError(null))
-                } else {
-                    dispatch(user.actions.setUserId([]))
-                    dispatch(user.actions.setError(data.response))
+        }, []);
+
+        useEffect(() => {
+            const options = {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": accessToken
                 }
-            })
-    }, [])
+            }
+            fetch(API_URL("movies"), options)
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success) {
+                        dispatch(movies.actions.setItems(data.response));
+                        dispatch(movies.actions.setError(null));
+                    } else {
+                        dispatch(movies.actions.setItems([]));
+                        dispatch(movies.actions.setError(data.response));
+                    }
+                })
+        }, []);
   return (
-    <OuterWrapper>
-    <InnerWrapper>
-        <Batman />
-        <Headline><span>The Batcave</span></Headline>
-        <Text>Sign up now to get exclusive access!</Text>
-        <ButtonLink to="/signup">
-            <Buttons type="button">Sign up</Buttons>
-        </ButtonLink>
-        <Text>Already a member? Log in to your account.</Text>
-        <ButtonLink to="/login">
-            <Buttons type="button">Log in</Buttons>
-        </ButtonLink>
-    </InnerWrapper>
-    </OuterWrapper>
+    <>
+      <Link to="/login"> GO TO LOGIN</Link>
+      <h2>This is the main component</h2>
+      {movieItems.map((items) => {return <p key={items._id}>{items.Title}</p>})}
+    </>
   );
 }
 
-
-const ButtonLink = styled(Link)`
- width: 100%;
-`;
-
-const Text = styled.p`
- color: white;
-`;
-
+//

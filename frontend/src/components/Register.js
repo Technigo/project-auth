@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Buttons } from '../GlobalStyles'
 import { InnerWrapper } from '../GlobalStyles';
 import { OuterWrapper } from '../GlobalStyles';
@@ -9,7 +9,7 @@ import { Headline, TextInput, Form, Label } from '../GlobalStyles';
 import { API_URL } from 'utils/utils';
 import { user } from 'reducers/user';
 
-export const LogIn = () => {
+export const Register = () => {
 
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -31,7 +31,7 @@ export const LogIn = () => {
       headers: {"content-type": "application/json"},
       body: JSON.stringify({username: username, password: password})
     }
-    fetch(API_URL("login"), options)
+    fetch(API_URL("register"), options)
     .then(response => response.json())
     .then(data => {
       if(data.success) {
@@ -52,14 +52,11 @@ export const LogIn = () => {
     })
   }
 
-
-
-
   return (
     <OuterWrapper>
     <InnerWrapper>
         <Batman />
-        <Headline><span>Log in</span></Headline>
+        <Headline><span>Sign up</span></Headline>
           <Form onSubmit={onFormSubmit}>
             <Label htmlFor="username">Username:</Label>
             <TextInput 
@@ -77,7 +74,7 @@ export const LogIn = () => {
               onChange={e => setPassword(e.target.value)} 
               name="password" 
               placeholder="password" />
-            <Buttons type="submit">Log in</Buttons>
+            <Buttons type="submit">Create account</Buttons>
           </Form> 
       </InnerWrapper>
     </OuterWrapper>
@@ -86,30 +83,28 @@ export const LogIn = () => {
 
 
 
-  // return (
-  //   <>
-  //   <label htmlFor="register">Register</label>
-  //   <input type="radio" id="register" checked={mode === "register"} onChange={()=>setMode("register")}/>
 
+// import React from 'react';
+// import { Buttons } from '../GlobalStyles'
+// import { InnerWrapper } from '../GlobalStyles';
+// import { OuterWrapper } from '../GlobalStyles';
+// import { Batman } from '../GlobalStyles';
+// import { Headline, TextInput, Form, Label } from '../GlobalStyles';
 
-  //   <label htmlFor="login">Login</label>
-  //   <input type="radio" id="login" checked={mode === "login"} onChange={()=>setMode("login")}/>
-
-
-  //   <form onSubmit={onFormSubmit}>
-  //       <label htmlFor="username">Username</label>
-  //       <input 
-  //           type="text" 
-  //           id="username" 
-  //           value={username} 
-  //           onChange={e => setUsername(e.target.value)}/>
-  //       <label htmlFor="password">Password</label>
-  //       <input 
-  //           type="password" 
-  //           id="password" 
-  //           value={password} 
-  //           onChange={e => setPassword(e.target.value)}/>
-  //       <button type="submit">Submit</button>
-  //   </form>
-  //   </> 
-  // );
+// export const SignUp = () => {
+//   return (
+//     <OuterWrapper>
+//     <InnerWrapper>
+//         <Batman />
+//         <Headline><span>Sign up</span></Headline>
+//           <Form>
+//             <Label htmlFor="username">Username:</Label>
+//             <TextInput type="text" id="username" name="username" placeholder="username" />
+//             <Label htmlFor="password">Password:</Label>
+//             <TextInput type="password" id="password" name="password" placeholder="password" />
+//             <Buttons type="submit" value="Create account">Create account</Buttons>
+//           </Form> 
+//       </InnerWrapper>
+//     </OuterWrapper>
+//   );
+// }

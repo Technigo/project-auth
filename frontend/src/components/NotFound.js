@@ -1,5 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const NotFound = () => {
-    return <h1>Not found</h1>
+    return (
+    <>
+        <Link to="/"> GO TO STARTPAGE</Link>
+        <h1>Not Found...</h1>
+    </>
+    ) 
 }
