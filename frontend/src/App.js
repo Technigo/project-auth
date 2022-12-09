@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Form } from 'components/Form';
 import { Welcome } from 'components/Welcome';
@@ -9,26 +9,25 @@ import styled from "styled-components";
 export const App = () => {
   return (
     <BrowserRouter>
-        <StyledMain>
-      <Routes>
-        <Route path={"/"} element={<Start />} />
-        <Route path={"/register"} element={
-          <Form 
-          formType="register"
-          formTitle="Enter details"
-          buttonText="Register me!"/>}
+      <StyledMain>
+        <Routes>
+          <Route path={"/"} element={<Start />} />
+          <Route path={"/register"} element={
+            <Form
+              formType="register"
+              formTitle="Enter details"
+              buttonText="Register me!" />}
           />
-        <Route path={"/login"} element={
-          <Form 
-          formType="login"
-          formTitle="User login "
-          buttonText="Sign me in!"/>}
+          <Route path={"/login"} element={
+            <Form
+              formType="login"
+              formTitle="User login "
+              buttonText="Sign me in!" />}
           />
-        <Route path={"/welcome"} element={
-        <Welcome />} />
-        <Route path='*' element={<NotFound/>} />
-      </Routes>
-        </StyledMain>
+          <Route path={"/welcome"} element={<Welcome />} />
+          <Route path={"*"} element={<NotFound />} />
+        </Routes>
+      </StyledMain>
     </BrowserRouter>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { StyledDiv, StyledButtonGroup, StyledButton } from "GlobalStyles";
+
 export const Start = () => {
   return (
     <StyledDiv>

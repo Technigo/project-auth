@@ -34,11 +34,11 @@ const UserSchema = mongoose.Schema({
   }
 })
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model("User", UserSchema);
 
 
 //REGISTER
-app.post('/register', async (req, res) => {
+app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -69,7 +69,7 @@ app.post('/register', async (req, res) => {
 
 
 //LOGIN
-app.post('/login', async (req, res) => {
+app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({username})
@@ -96,7 +96,7 @@ app.post('/login', async (req, res) => {
   }
 })
 
-//SECRET PAGE
+// AUTHENTICATED ENDPOINT, accessible only when logged in
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization")
   try {
@@ -117,17 +117,23 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-app.get('/welcome', authenticateUser)
-app.get('/welcome', (req, res) => {
+app.get("/welcome", authenticateUser)
+app.get("/welcome", (req, res) => {
   res.status(200).json({
     success: true,
     response: "Welcome! You are logged in"
   })
 })
 
-// Start defining your routes here
+// Defined routes
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.json({
+    endpoints: {
+      "/register": "use with POST along with a username and password in the body to create and save a user to the database - the new user's username, id and accesstoken are returned in response",
+      "/login": "use with POST along with a username and password in the bodyto login a user - an existing user's username, id and accesstoken are returned in response",
+      "/welcome": "use with GET and an authorization accesstoken in the header to access the welcome page"
+    }
+  });
 });
 
 // Start the server
