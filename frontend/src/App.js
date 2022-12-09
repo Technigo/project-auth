@@ -7,7 +7,7 @@ import { InnerWrapper, OuterWrapper } from 'components/GlobalStyles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import user from 'reducers/users';
+import user from 'reducers/user';
 import thoughts from 'reducers/thoughts';
 
 

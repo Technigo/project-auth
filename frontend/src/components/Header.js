@@ -5,13 +5,6 @@ const Header = () => {
   return (
     <HeaderContainer>
       <Logo />
-      {/* <nav>
-        <ul>
-          <li>
-            Sign up/log in
-          </li>
-        </ul>
-      </nav> */}
     </HeaderContainer>
   )
 }

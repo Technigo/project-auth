@@ -4,7 +4,7 @@ import { Button } from "./Buttons";
 import { useDispatch, useSelector, batch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "utils/utils";
-import user from "reducers/users";
+import user from "reducers/user";
 
 const LogIn = () => {
   const [ username, setUsername ] = useState('')
