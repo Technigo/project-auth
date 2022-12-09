@@ -9,12 +9,13 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [mode, setMode] = useState("login");
-    const [error, setError] = useState(null); 
+    //const [error, setError] = useState(null); 
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const accessToken = useSelector((store) => store.user.accessToken);
+    const error = useSelector(store => store.user.error)
 
     useEffect( () => {
         if (accessToken) {
@@ -88,7 +89,7 @@ const Login = () => {
                         : ''}
                     <Button type="submit">Submit</Button>
                     {error !== null && (
-                    <p style={{ fontSize: '21px', color: 'red' }}>{error}</p>
+                    <p>{error}</p>
                     )}
                 </Form>
             </InputWrapper>

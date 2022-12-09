@@ -75,7 +75,7 @@ app.post("/register", async (req, res) => {
   } catch(error) {
     res.status(400).json({
       success: false,
-      response: error
+      response: "Oups..something went wrong. Try again.",
     });
   }
 })
@@ -98,7 +98,7 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "Credentials did not match"
+        response: "Credentials did not match. Try again."
       });
     }
   } catch (error) {
