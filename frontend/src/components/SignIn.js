@@ -52,7 +52,8 @@ export const Login = () => {
 // CSS to hide active radio buttons + label is located in index.css
   return (
     <Card>
-         <Form onSubmit={onFormSubmit}>
+       <form onSubmit={onFormSubmit}>
+         <Form >
          <h1> { mode === "register" && "Register" || "Sign in" } </h1>
          <label htmlFor="username"/>
             <Input 
@@ -72,11 +73,12 @@ export const Login = () => {
             <Button type="submit" > 
                     { mode === "register" && "Join us now!" || "Sign in" } 
             </Button>
+        </form>
         <Label>
-            <ModeLabel htmlFor="register">{mode === "register" ? "" : "Not a member?" }
+            <ModeLabel htmlFor="register">{mode === "register" ? "" : "not a member? register here!" }
             <input type="radio" id="register" name="register" checked={mode === "register"} onChange={()=> setMode("register")}/>
             </ModeLabel>
-            <ModeLabel htmlFor="login">{mode === "login" ? "" : "Already a member?" }
+            <ModeLabel htmlFor="login">{mode === "login" ? "" : "log in now" }
             <input type="radio" id="login" checked={mode === "login" } onChange={()=> setMode("login")}/> 
             </ModeLabel>
         </Label>    
