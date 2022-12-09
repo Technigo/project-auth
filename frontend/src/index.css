@@ -22,6 +22,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url("https://gallery.yopriceville.com/var/albums/Backgrounds/Christmas_Background_with_Christmas_Stars.jpg?m=1399676400");
 }
 
 h1, h2 {

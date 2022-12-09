@@ -10,5 +10,5 @@ Describe how you approached to problem, and what tools and techniques you used t
 
 ## View it live
 
-frontend url: https://guest-book-by-elin-and-saralie.netlify.app/login
+frontend url: https://send-christmas-greetings.netlify.app/login
 backend url: https://project-auth-huzhytvv6a-lz.a.run.app/

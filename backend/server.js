@@ -132,6 +132,7 @@ const GreetingSchema = new mongoose.Schema({
   receiver: {
     type: String,
     maxlength: 30,
+    required: true,
   },
   message: {
     type: String,
@@ -139,6 +140,11 @@ const GreetingSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 140,
     trim: true,
+  },
+  sender: {
+    type: String,
+    maxlength: 30,
+    required: true,
   },
   createdAt: {
     type: Date,
@@ -150,7 +156,7 @@ const Greeting = mongoose.model("Greeting", GreetingSchema);
 
 app.get("/greetings", authenticateUser);
 app.get("/greetings", async (req, res) => {
-  const greetings = await Greeting.find({});
+  const greetings = await Greeting.find().sort({createdAt: 'desc'}).limit(20).exec();
   res.status(200).json({ success: true, response: greetings });
 });
 

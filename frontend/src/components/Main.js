@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import thoughts from "reducers/thoughts";
+import greetings from "reducers/greetings";
 import { API_URL } from "utils/utils";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import tree from "../assets/tree.png";
 import { GreetingsInput } from "./GreetingsInput";
 
 
 const Main = () => {
-  const thoughtItems = useSelector((store) => store.thoughts.items);
+  const greetingItems = useSelector((store) => store.greetings.items);
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.accessToken);
   const navigate = useNavigate();
@@ -28,15 +28,15 @@ const Main = () => {
         Authorization: accessToken,
       },
     };
-    fetch(API_URL("thoughts"), options)
+    fetch(API_URL("greetings"), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          dispatch(thoughts.actions.setItems(data.response));
-          dispatch(thoughts.actions.setError(null));
+          dispatch(greetings.actions.setItems(data.response));
+          dispatch(greetings.actions.setError(null));
         } else {
-          dispatch(thoughts.actions.setItems([]));
-          dispatch(thoughts.actions.setError(data.response));
+          dispatch(greetings.actions.setItems([]));
+          dispatch(greetings.actions.setError(data.response));
         }
       });
   }, []);
@@ -46,27 +46,33 @@ const Main = () => {
       <button type="button" onClick={() => window.location.reload()}>
         Log out
       </button>
-      <GreetingsInput />
       <h2>👇🏼 Post Christmas feelings here 👇🏼</h2>
-      {thoughtItems.map((item) => {
-        return (
-          
-            <ChristmasCard key={item._id}>
-              <TreeImg src={tree} alt="Christmas tree" />
-              <SenderInfo>
-                <p>To: </p>
-                <p>From: {item.name}</p>
-              </SenderInfo>
-              <Greeting>{item.message}</Greeting>
-            </ChristmasCard>
-  
-        );
-      })}
+      <GreetingsInput />
+      <Feed>
+        {greetingItems.map((item) => {
+          return (
+              <ChristmasCard key={item._id}>
+                <TreeImg src={tree} alt="Christmas tree" />
+                <SenderInfo>
+                  <p>To: {item.receiver}</p>
+                  {/* <p>From: {item.name}</p> */}
+                </SenderInfo>
+                <Greeting>{item.message}</Greeting>
+              </ChristmasCard>
+    
+          );
+        })}
+      </Feed>
     </>
   );
 };
 
 export default Main;
+
+const Feed = styled.section`
+overflow-y: scroll;
+height: 70vh;
+`
 
 const ChristmasCard = styled.div`
   background-color: var(--white);
