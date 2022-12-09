@@ -143,8 +143,8 @@ export const Input = styled.input`
   }
 
   @media (min-width: 800px) {
-  min-width: 30vw;
-  padding: 4px;
+  min-width: 20vw;
+  padding: 7px;
   }
 `
 export const Button = styled.button`
