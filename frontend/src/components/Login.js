@@ -8,6 +8,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+	const [error, setError] = useState(null);
   const [mode, setMode] = useState("login");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,17 +48,19 @@ const Login = () => {
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
           });
+					setError('Invalid login. Try Again!');
         }
       })
   }
-
-  return (
+	return (
     <>
-      <label htmlFor="register">Register</label>
+		<div className="main">
+      <label htmlFor="register">   Not registered yet? Register here</label>
       <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")} />
-      <label htmlFor="login">Login</label>
+      <label htmlFor="login">Already registered? Login here</label>
       <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} />
       <form onSubmit={onFormSubmit}>
+			<p className="error"> {error} </p>
         <label htmlFor="username">Username</label>
         <input
           type="text"
@@ -78,6 +81,7 @@ const Login = () => {
           onChange={e => setPassword(e.target.value)} />
         <button type="submit">Submit</button>
       </form>
+			</div>
     </>
   );
 };

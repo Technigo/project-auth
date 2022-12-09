@@ -23,7 +23,7 @@ export const App = () => {
           <Route
             path="/login"
             element={<Login />} />
-          <Route path="/*"
+          <Route path="*"
             element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -10,6 +10,7 @@ const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.accessToken);
+	const username = useSelector((store) => store.user.username)
 
   const logout = () => {
     batch(() => {
@@ -44,7 +45,8 @@ const Main = () => {
 
   return (
     <div className="secret-page">
-      <h1 className="secret-title">Do you want here?</h1>
+      <h1 className="secret-title">Welcom to your page {username}</h1>
+			<p>Here is where magic will happen!</p>
       <div className="secret-container">
         <p className="secret-text">{secret}</p>
       </div>
