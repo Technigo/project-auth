@@ -5,17 +5,17 @@ On a backend we needed to create three endpoints: a registration endpoint (to cr
 
 Backend technologies:
 
--Mongoose to create a User's schema and a model based on the schema.
--Bcrypt method for salt to safely hash and store passwords.
--Async/await was used for promises.
--Deployed to MongoDB through Google Cloud.
+- Mongoose to create a User's schema and a model based on the schema.
+- Bcrypt method for salt to safely hash and store passwords.
+- Async/await was used for promises.
+- Deployed to MongoDB through Google Cloud.
 
 Frontend technologies:
 
--React/React Routes
--Redux (store, reducers)
--localStorage to enable user to stay logged in when reloading the page
--API fetch
+- React/React Routes
+- Redux (store, reducers)
+- localStorage to enable user to stay logged in when reloading the page
+- API fetch
 
 ## View it live
 
