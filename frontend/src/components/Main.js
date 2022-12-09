@@ -12,6 +12,7 @@ const Main = () => {
     const username = useSelector((store) => store.user.username);
 
     useEffect( () => {
+        // If the user doesn't have an accessToken, it will be redirected to the login page.
         if (!accessToken) {
             navigate("/login");
         }
