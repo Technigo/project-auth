@@ -151,7 +151,7 @@ const Greeting = mongoose.model("Greeting", GreetingSchema);
 app.get("/greetings", authenticateUser);
 app.get("/greetings", async (req, res) => {
   const greetings = await Greeting.find({});
-  res.status(200).json({ success: true, response: greetings, receiver: receiver });
+  res.status(200).json({ success: true, response: greetings });
 });
 
 app.post("/greetings", authenticateUser);
