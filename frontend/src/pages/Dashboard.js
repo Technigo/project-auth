@@ -11,24 +11,11 @@ export const Dashboard = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.accessToken);
   const navigate = useNavigate();
-  const accessToken = useSelector((store) => store.user.accessToken)
-
-  useEffect(() => {
-    if(!accessToken) {
-      navigate("/login")
-    }
-  }, [accessToken])
 
   useEffect(() => {
     if(!accessToken) {
       alert("You are not logged in")
       navigate("/login")
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": accessToken
-      }
     }
   }, [accessToken])
 
