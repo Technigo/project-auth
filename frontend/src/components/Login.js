@@ -52,6 +52,7 @@ const Login = () => {
             }
         })
     }
+    // This is the "start" page. Here, the user decides to register or to login.
     return(
         <>
         <HeaderContainer>
@@ -103,8 +104,10 @@ const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
     background-image: url('/images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 300px;
-    background-position: center top;
+    background-position: center;
     box-shadow: 10px 10px 19px 1px rgba(0,0,0,0.61);
     -webkit-box-shadow: 10px 10px 19px 1px rgba(0,0,0,0.61);
     -moz-box-shadow: 10px 10px 19px 1px rgba(0,0,0,0.61);
@@ -115,12 +118,16 @@ const HeaderContainer = styled.header`
         word-wrap: break-word;
         width: 200px;
         font-size: 30px;
+        padding-bottom: 100px;
     }
 
     @media (min-width: 668px){
-        background-position: center bottom;
+        height: 400px;
+
         h1{
             left: 30%;
+            font-size: 40px;
+            width: 300px;
         }
     }
 `
