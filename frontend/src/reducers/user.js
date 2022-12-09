@@ -8,7 +8,7 @@ export const user = createSlice({
         accessToken: null,
         error: null,
         secretMessage: null,
-    },
+},
     reducers: {
         setUserId: (store, action) => {
             store.id = action.payload;
@@ -24,6 +24,9 @@ export const user = createSlice({
         },
         setSecretMessage: (store, action) => {
             store.secretMessage = action.payload;
+        },
+        logOut: () => {
+            return initialState
         }
     }
 });

@@ -17,7 +17,7 @@ const Main = () => {
         }
     }, [accessToken]);
 
-    useEffect( () => {
+/*     useEffect( () => {
         if (accessToken){
         const options = {
             method: "GET",
@@ -38,11 +38,19 @@ const Main = () => {
                 }
     });
 }
-},[accessToken, dispatch])
+},[accessToken, dispatch]) */
 
     return(
         <>
-        <Link to="/login">Go to Login</Link>
+         <button
+        type="button"
+        onClick={() => {
+          navigate("/login");
+          dispatch(user.actions.setAccessToken(null));
+        }}
+      >
+        Log Out
+      </button>
         <h2>This is the main page</h2>
         <h2>{secretMessage}</h2>
         </>

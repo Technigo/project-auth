@@ -6,6 +6,7 @@ import NotFound from 'components/NotFound';
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { user } from 'reducers/user';
+import { GlobalStyles } from 'components/GlobalStyles';
 
 const reducer = combineReducers({
   user: user.reducer
@@ -14,6 +15,8 @@ const store = configureStore({reducer});
 
 export const App = () => {
   return (
+    <>
+    <GlobalStyles />
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
@@ -23,5 +26,6 @@ export const App = () => {
         </Routes>
       </BrowserRouter>
     </Provider>
+    </>
   );
 }
