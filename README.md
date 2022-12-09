@@ -1,13 +1,25 @@
 # Project Auth API
+Created a sign in page, backend and connected frontend.
+User can register, login, see some content and log out.
 
-Replace this readme with your own information about your project.
+# Team
+Caroline Söderström
+Petra Eriksson
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+## Tech
+Node.js, Redux, React Router, Mongo DB, Mongoose
 
-## The problem
+Tech focus:
+- How to authenticate users using tokens
+- How to securely store passwords in your databases
+- How to think about security and defensive design when building frontend or backend code
+- Some common attacks which are used against sites and how to protect against them
+- How to build a registration flow
+- How to handle authentication, both in the frontend and in the backend
+- How to build a frontend and backend at the same time
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We haven't spent time on content and styling in this project since focused on functions and connecting frontend and backend.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+https://auth-login-project.netlify.app/login
