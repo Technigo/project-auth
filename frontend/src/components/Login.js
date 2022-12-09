@@ -5,14 +5,12 @@ import { API_URL } from 'utils/utils';
 import user from 'reducers/user';
 
 const Login = () => {
-  const [username, setUserName] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [mode, setMode] = useState('');
-
+  const [mode, setMode] = useState('login');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);
-
   useEffect(() => {
     if (accessToken) {
       navigate('/');
@@ -28,11 +26,9 @@ const Login = () => {
       },
       body: JSON.stringify({ username: username, password: password }),
     };
-
     fetch(API_URL(mode), options)
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUsername(data.response.username));
@@ -50,37 +46,36 @@ const Login = () => {
         }
       });
   };
-
   return (
     <>
-      <label htmlFor='register'>Register</label>
+      <label htmlFor="register">Register</label>
       <input
-        type='radio'
-        id='register'
+        type="radio"
+        id="register"
         checked={mode === 'register'}
         onChange={() => setMode('register')}
       />
-      <label htmlFor='login'>Login</label>
+      <label htmlFor="login">Login</label>
       <input
         type="radio"
         id="login"
         checked={mode === 'login'}
         onChange={() => setMode('login')}
       />
-
       <form onSubmit={onFormSubmit}>
         <label htmlFor="username">Username</label>
         <input
           type="text"
           id="username"
           value={username}
-          onChange={(event) => setUserName(event.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
         />
+        <label htmlFor="password">Password</label>
         <input
           type="password"
           id="password"
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Submit</button>
       </form>

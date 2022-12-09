@@ -2,29 +2,28 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import thoughts from 'reducers/thoughts';
 import { API_URL } from 'utils/utils';
-import { useNavigate, Link, Navigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Main = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items);
-  const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
-  const navigate =useNavigate();
+  const accessToken = useSelector((store) => store.user.accessToken);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if(!accessToken) {
+    if (!accessToken) {
       navigate('/login');
-    }
+    } 
   }, []);
 
   useEffect(() => {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': accessToken,
-      },
+        "Content-Type": "application/json",
+        "Authorization": accessToken
+      }
     };
-
     fetch(API_URL('thoughts'), options)
       .then((res) => res.json())
       .then((data) => {
@@ -40,7 +39,7 @@ const Main = () => {
 
   return (
     <>
-      <Link to='/login'>Go to login</Link>
+      <Link to='/login'>Register / Login</Link>
       <h2>This is the main component</h2>
       {thoughtsItems.map((item) => {
         return <p key={item._id}>{item.message}</p>
