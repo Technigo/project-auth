@@ -144,7 +144,6 @@ const GreetingSchema = new mongoose.Schema({
   sender: {
     type: String,
     maxlength: 30,
-    required: true,
   },
   createdAt: {
     type: Date,
