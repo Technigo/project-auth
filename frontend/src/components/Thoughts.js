@@ -147,9 +147,10 @@ const Thoughts = () => {
 	return (
 		<Wrapper>
 		<LogoutBtn className="logout" onClick={logout}>Logout</LogoutBtn>
-
-			<p>What's making you happy right now?</p>
-			<form
+			<HeadingContainer>
+			<Heading>What's making you happy right now?</Heading>
+			</HeadingContainer>
+			<Form
 				onSubmit={onSendThought}>
 				<InputText
 					type="text"
@@ -157,13 +158,13 @@ const Thoughts = () => {
 					onChange={(e) => setNewThought(e.target.value)}
 				/>
 				<BtnSend>Post</BtnSend>
-			</form>
+			</Form>
 			<ThoughtContainer>
 				{thoughts.map((item) => {
 					return (
 						<ThoughtCard key={item._id}>
-							<p>{item.message}</p>
-							<p>{formatDistance(new Date(item.createdAt), Date.now(), { addSuffix: true })}</p>
+							<Message>{item.message}</Message>
+							<DateFormat>{formatDistance(new Date(item.createdAt), Date.now(), { addSuffix: true })}</DateFormat>
 							{/* <button
                   				type="button"
                  				 className="btn-heart"
@@ -174,7 +175,7 @@ const Thoughts = () => {
 								<span aria-label="heart emoji" className="heart-emoji"> ❤️
                   				</span>
 								</button> */}
-							<p>{item.hearts}</p>
+							{/* <p>{item.hearts}</p> */}
 						</ThoughtCard>
 					);
 				})}
@@ -186,10 +187,8 @@ const Thoughts = () => {
 
 const Wrapper = styled.div`
 display: grid; 
-
+grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
 justify-content: center; 
-/* height: 100vh; 
-width: 100vw;  */
 justify-content: center; 
 
 `
@@ -202,39 +201,12 @@ const InputText = styled.input`
 `
 
 const BtnSend = styled.button`
-margin-top: -30px; 
+  margin-top: 5px; 
   margin-bottom: 50px;
-  margin-left: 30px; 
+  align-items: center; 
   display: block;
-  padding: 10px;
-  width: 200px; 
-  border-radius: 20px;
-  border:none; 
-  color: black; 
-  background-color:#FCAFE7 ;`
-
-  const ThoughtCard = styled.div`
-   border: solid black 1px;
-   margin-top: 30px; 
-   margin-bottom: 30px;
-   padding-bottom: 30px;
-   width: 250px;
-   height: 180px;
-   display: grid;
-   grid-column: 1fr 1fr 1fr;
-   box-shadow: 5px 10px;
-   gap: 50px; 
-   background-color: rgba(229, 229, 229, 0.4);
-  `
-
-  const ThoughtContainer= styled.div`
-  display: flex; 
-  flex-wrap: wrap; 
-  justify-content: center;
-  gap: 10px;  
-  `
-
-  const LogoutBtn = styled.button`
+  padding: 10px; 
+  border:none;  
   color: #fff;
   background-color: transparent; 
   border: none; 
@@ -287,6 +259,151 @@ margin-top: -30px;
   }
  
 }`
+
+  const ThoughtCard = styled.div`
+   border: solid black 1px;
+   margin-top: 30px; 
+   margin-bottom: 30px;
+   padding-bottom: 30px;
+   width: 250px;
+   height: 180px;
+   display: grid;
+   grid-column: 1fr 1fr 1fr;
+   box-shadow: 5px 10px;
+   gap: 50px; 
+   background-color: rgba(229, 229, 229, 0.4);
+  `
+
+  const ThoughtContainer= styled.div`
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 10px;  
+  grid-column: span 5; 
+  `
+
+  const LogoutBtn = styled.button`
+  grid-column: 3 / 4 ; 
+  color: #fff;
+  background-color: transparent; 
+  border: none; 
+  text-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px #5271ff,
+      0 0 82px #5271ff,
+      0 0 92px #5271ff,
+      0 0 102px #5271ff,
+      0 0 151px #5271ff;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.7rem;
+    animation: pulsate 0.11s ease-in-out infinite alternate;  
+	&:hover{
+	font-weight: bold; 
+	font-size: 2.5rem; 
+  }
+	
+	@keyframes pulsate {
+    
+	100% {
+  
+		text-shadow:
+		0 0 4px #fff,
+		0 0 11px #fff,
+		0 0 19px #fff,
+		0 0 40px #5271ff,
+		0 0 80px #5271ff,
+		0 0 90px #5271ff,
+		0 0 100px #5271ff,
+		0 0 150px #5271ff;
+	
+	}
+	
+	0% {
+  
+	  text-shadow:
+	  0 0 4px #fff,
+	  0 0 10px #fff,
+	  0 0 18px #fff,
+	  0 0 38px #5271ff,
+	  0 0 73px #5271ff,
+	  0 0 80px #5271ff,
+	  0 0 94px #5271ff,
+	  0 0 140px #5271ff;
+  
+  }
+ 
+}`
+
+const Form = styled.form`
+grid-column: 3 / 4; 
+`
+
+const HeadingContainer = styled.div`
+grid-column: 3 / 4; 
+text-align: center; 
+`
+const Heading = styled.h4`
+  color: #fff;
+  text-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px #5271ff,
+      0 0 82px #5271ff,
+      0 0 92px #5271ff,
+      0 0 102px #5271ff,
+      0 0 151px #5271ff;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.7rem;
+    animation: pulsate 0.11s ease-in-out infinite alternate;  
+	
+	@keyframes pulsate {
+    
+	100% {
+  
+		text-shadow:
+		0 0 4px #fff,
+		0 0 11px #fff,
+		0 0 19px #fff,
+		0 0 40px #5271ff,
+		0 0 80px #5271ff,
+		0 0 90px #5271ff,
+		0 0 100px #5271ff,
+		0 0 150px #5271ff;
+	
+	}
+	
+	0% {
+  
+	  text-shadow:
+	  0 0 4px #fff,
+	  0 0 10px #fff,
+	  0 0 18px #fff,
+	  0 0 38px #5271ff,
+	  0 0 73px #5271ff,
+	  0 0 80px #5271ff,
+	  0 0 94px #5271ff,
+	  0 0 140px #5271ff;
+  
+  }
+}
+`
+
+const Message = styled.p`
+color: white; 
+font-weight: bold; 
+text-align: center; `
+
+const DateFormat = styled.p`
+margin-top: 80px; 
+margin-right: 10px; 
+color: white; 
+font-weight: bold;
+text-align: right; `
 
 
 export default Thoughts;

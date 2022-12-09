@@ -20,7 +20,7 @@ export const App = () => {
 		<Wrapper>
 		<Provider store={store}>
 			<BrowserRouter>
-				<Heading>Happy Thoughts</Heading>
+				<Heading>POSITIVE VIBES</Heading>
 					<Routes>
 						<Route path="/" element={<Login />} />
 						<Route path="/thoughts" element={<Thoughts />} />
