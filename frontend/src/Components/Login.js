@@ -37,6 +37,7 @@ const Login = () => {
                         dispatch(user.actions.setError(null));
                     });
                 } else {
+                    alert("wrong credentials");
                     batch (() => {
                         dispatch(user.actions.setUsername(null));
                         dispatch(user.actions.setUserId(null))

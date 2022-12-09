@@ -17,7 +17,7 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
-/////// Monday
+
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
