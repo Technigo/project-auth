@@ -10,7 +10,7 @@ const Main = () => {
     const accessToken = useSelector((store) => store.user.accessToken);
     // maybe mode here too?
     const dispatch = useDispatch();
-    const navigate =useNavigate();
+    const navigate = useNavigate();
     /* const mode = useSelector((store) => store.user.mode); */
 
     useEffect( () => {
@@ -44,7 +44,7 @@ const Main = () => {
 
       const logOut = () => {
         batch(() => {
-          dispatch(user.actions.setUsername(null));
+          dispatch(user.actions.setUserName(null));
           dispatch(user.actions.setAccessToken(null));
           /* navigate("/login") */
 
@@ -57,9 +57,9 @@ const Main = () => {
         <>
            {/*  <Link to="/login">GO TO LOGIN</Link>  */}{/* I think Daniel wrote this, but i feel unsure about the link to log in here */}
             <h2>This is the Main</h2>
-            {/* {thoughtItems.map((item) => {
+            {thoughtItems.map((item) => {
                 return <p key={item._id}>{item.message}</p>
-            })} */}
+            })}
              <Link to="/" onClick={logOut}>
           Log out
         </Link>

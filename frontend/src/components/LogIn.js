@@ -8,11 +8,11 @@ import { API_URL } from "../utils/urls";
 const LogIn = () => {
     const [username, setUserName] = useState("")
     const [password, setPassword] = useState("")
-    /* const [mode, setMode] = useState("login");  */// does mode need useSelector also?
+    const [mode, setMode] = useState("login"); // does mode need useSelector also?
     const accessToken = useSelector((store) => store.user.accessToken)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const mode = useSelector((store) => store.user.mode);
+    /* const mode = useSelector((store) => store.user.mode); */
 
     useEffect( () => {
         if (accessToken) { //useEffect checks if accessToken is provided, if yes, then should navigate to mainpage
