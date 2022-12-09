@@ -5,14 +5,15 @@ body {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(18, 18, 18);
+  background-color:rgb(163, 189, 242);
   color: #fff;
 
 }
 
 /* alternative background colors 
  rgb(230, 197, 197); light pinkish
-  rgb(163, 189, 242);   baby blue  */
+  rgb(163, 189, 242);   baby blue 
+   rgb(18, 18, 18);  black original */
 
   
 code {

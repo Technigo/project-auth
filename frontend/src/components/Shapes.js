@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import  Svg from "../images/donut.svg"
 import  Svg2 from "../images/curl.svg"
-import  Svg3 from "../images/scrunch.svg"
-import  Svg4 from "../images/splash.svg"
 
 const Shapes = ({ size, top, left, zIndex }) => {
     return (
@@ -71,19 +69,6 @@ const Shapes = ({ size, top, left, zIndex }) => {
                 alt="curl" 
                 top="20%"
                 left="0%"/>
-
-            <Img 
-                src={Svg3} 
-                alt="scrunch ball" 
-                top="40%"
-                left="50%"/>
-            
-            <Img 
-                src={Svg4} 
-                alt="splash" 
-                top="0%"
-                left="0%"
-                zindex="1"/>
 
         </>
     )
