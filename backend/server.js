@@ -86,7 +86,7 @@ app.get('/', (req, res) => {
 			{
 				'/register': 'POST request where you register your profile',
 				'/login': 'Login page for a user',
-				'/order': 'GET all orders and POST a new order',
+				'/thoughts': 'GET all thoughts and POST a new order',
 			},
 		],
 	});
@@ -97,17 +97,17 @@ app.post('/register', async (req, res) => {
 	// npm install bcrypt
 	try {
 		const salt = bcrypt.genSaltSync();
-		const usernameUsed = await User.findOne({ username })
+		const usernameUsed = await User.findOne({ username });
 		if (password.length < 8) {
 			res.status(400).json({
 				success: false,
 				response: 'Password must be at least 8 characters long.',
 			});
-		} else if(usernameUsed) {
+		} else if (usernameUsed) {
 			res.status(400).json({
-				success:false, 
-				response: "Username already in use",
-			})
+				success: false,
+				response: 'Username already in use',
+			});
 		} else {
 			const newUser = await new User({
 				username: username,
@@ -168,7 +168,6 @@ app.get('/thoughts', async (req, res) => {
 	res.status(201).json(thoughts);
 });
 
-
 app.post('/thoughts', async (req, res) => {
 	const { username, message } = req.body;
 	try {
@@ -209,7 +208,6 @@ app.post('/thoughts/:thoughtsID/like', async (req, res) => {
 		});
 	}
 });
-
 
 // Start the server
 app.listen(port, () => {
