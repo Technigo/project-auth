@@ -1,13 +1,15 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This is a pair programming project. The goal was to build an API with authentication to implement a registration flow, using access token and to securly save passwords in a database. We've also built a frontend with a form to register, sign in, and view some content once you're logged in. 
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We've built a React frontend, with React Router to navigate from sign in/register. We've been using Redux to dispatch actions for our users accessToken, username and errors.
+
+The backend was made with Express API using Mongoose Schema and MongoDB. The users are authenticated with bcrypt.
+
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend:
+Backend: 
