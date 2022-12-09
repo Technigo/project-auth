@@ -26,7 +26,9 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minlenght: 8,
+    maxlenght: 12
     /// My_B4nK_P4$$word
   },
   // npm install crypto
