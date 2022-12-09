@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import recipes from "reducers/recipes";
 import { API_URL } from "utils/utils";
 import { useNavigate, Link } from "react-router-dom";
+import user from "reducers/user";
 
 const Main = () => {
     const foodItems = useSelector((store) => store.recipes.items);
@@ -41,14 +42,38 @@ const Main = () => {
 
     return (
         <>
-            <Link to="/login"> logga ut knapp</Link>
+            <button
+            type="button"
+            onClick={() => {
+            dispatch(user.actions.setAccessToken(null));
+            navigate("/login");
+            }}> 
+            Log Out
+        </button>
             <h2>This is the main component</h2>
             {foodItems.map((singleRecipe) => {
              return (
-             <p key={singleRecipe._id}>{singleRecipe.recipe}</p> 
-             )})}  
-        </> 
+          <div key={singleRecipe._id}>
+                <h3>Kind of Dish: {singleRecipe.KindOfDish}</h3>
+                <p>Ingredients: {singleRecipe.Ingredients}</p>
+                <p>Name: {singleRecipe.Name}</p>
+                <p>Total Time in Minutes: {singleRecipe.TotalTimeMinuits}</p>
+                <p>Portions: {singleRecipe.Portions}</p>
+          </div>
+             )})}   
+        </>
+
     )
 }
 
 export default Main;
+
+/* foodItems.map((singleRecipe) => {
+    return (
+     <div key={singleRecipe._id}>
+       <h3>Kind of Dish: {singleRecipe.KindOfDish}</h3>
+       <p>Ingredients: {singleRecipe.Ingredients}</p>
+       <p>Total Time in Minutes: {singleRecipe.TotalTimeMinuits}</p>
+       <p>Portions: {singleRecipe.Portions}</p>
+    </div>
+    )}) */
