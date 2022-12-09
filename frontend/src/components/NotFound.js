@@ -5,8 +5,10 @@ const NotFound = () => {
 
     return (
         <>
-            <h1>Not found</h1>
-            <Link to="/login">GO TO LOGIN </Link>
+            <h1>Not found...</h1>
+            <Link to="/">
+                <SubmitButton>Go back</SubmitButton>
+            </Link>
         </>
     )
 }

@@ -25,9 +25,9 @@ const user = createSlice({
         setError: (store, action) => {
             store.accessToken = action.payload;
         },
-        logOut: () => {
-            return initialState
-        }
+        setMode: (store, action) => {
+            store.mode = action.payload;
+          },
     }
 })
 
