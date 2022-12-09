@@ -158,11 +158,12 @@ app.post("/login", async (req, res) => {
   }
 });
 
-/* app.get("/thoughts", authenticateUser); */
-app.get("/thoughts", (req, res) => { // this endpoint is not in the frontend
+app.get("/thoughts", authenticateUser);
+app.get("/thoughts", async (req, res) => { // this endpoint is not in the frontend
+  const thoughts = await Thought.find({})
   res.status(200).json({
     success: true,
-    response: "all the information"
+    response: thoughts
   })
 })
 

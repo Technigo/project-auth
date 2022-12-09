@@ -5,7 +5,6 @@ const initialState = {
     accessToken: null,
     error: null,
     userId: null 
-    // password?  
     // maybe loading - om vi vill ha en sån sida?
   };
 

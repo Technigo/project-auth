@@ -91,7 +91,7 @@ const LogIn = () => {
     )
 }
 
-// from previus project, maybe we sould use the catch and finally in this project too?
+// from previus project, maybe we sould use the catch and finally in this project too? Dont know if needed 
 
 
 /* const handleFormSubmit = (event) => {

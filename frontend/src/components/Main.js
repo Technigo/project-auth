@@ -8,7 +8,7 @@ import { API_URL } from 'utils/urls';
 const Main = () => {
     const thoughtItems = useSelector((store) => store.thoughts.items);
     const accessToken = useSelector((store) => store.user.accessToken);
-    // maybe mode here too
+    // maybe mode here too?
     const dispatch = useDispatch();
     const navigate =useNavigate();
     /* const mode = useSelector((store) => store.user.mode); */
