@@ -120,6 +120,9 @@ const RecipesSchema = new mongoose.Schema({
   id: {
     type: Number
   },
+  Name: {
+    type: String
+  },
   Ingredients: {
     type: String
   },
@@ -156,7 +159,7 @@ if (true) {
   resetDatabase();
 }
 
-// app.get("/recipes", authenticateUser);
+app.get("/recipes", authenticateUser);
 app.get("/recipes", async (req, res)=> {
   const recipes = await Recipes.find({});
   res.status(200).json({ success: true, response: recipes });
