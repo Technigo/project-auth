@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import thoughts from 'reducers/thoughts'
+import posts from 'reducers/posts'
 import { API_URL } from "utils/utils";
 import { useNavigate, Link } from "react-router-dom";
+import NewMessage from "./NewMessage";
 
 const Feed = () => {
-  const thoughtItems = useSelector((store) => store.thoughts.items)
+  const thoughtItems = useSelector((store) => store.posts.items)
   const accessToken = useSelector((store) => store.user.accessToken)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -26,15 +27,15 @@ const Feed = () => {
       }
 
     }
-    fetch(API_URL("thoughts"), options)
+    fetch(API_URL("posts"), options)
       .then(res => res.json())
       .then(data => {
         if(data.sucess) {
-          dispatch(thoughts.actions.setItems(data.response))
-          dispatch(thoughts.actions.setError(null))
+          dispatch(posts.actions.setItems(data.response))
+          dispatch(posts.actions.setError(null))
         } else {
-          dispatch(thoughts.actions.setItems([]))
-          dispatch(thoughts.actions.setError(data.response))
+          dispatch(posts.actions.setItems([]))
+          dispatch(posts.actions.setError(data.response))
         }
       })
   }, [])
@@ -43,7 +44,8 @@ const Feed = () => {
     <>
       <Link to="/login">Go to login</Link>
       <FeedSection>
-      <h2>This is the main component</h2>
+      <h2>Message board</h2>
+      <NewMessage />
       {thoughtItems.map((item) => {
         return (
         <Message key={item._id}>

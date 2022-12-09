@@ -113,8 +113,7 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-//HAPPY THOUGHTS - change this//
-const ThoughtSchema = new mongoose.Schema({
+const PostSchema = new mongoose.Schema({
   message: {
     type: String,
   },
@@ -128,25 +127,25 @@ const ThoughtSchema = new mongoose.Schema({
   }
 })
 
-const Thought = mongoose.model("Thought", ThoughtSchema)
+const Post = mongoose.model("Post", PostSchema)
 
-app.get("/thoughts", authenticateUser)
-app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thought.find({})
+app.get("/posts", authenticateUser)
+app.get("/posts", async (req, res) => {
+  const posts = await Post.find({})
   res.status(200).json({
     sucess: true,
-    response: thoughts
+    response: posts
   })
 })
 
-app.post("/thoughts", authenticateUser)
-app.post("/thoughts", async (req, res) => {
+app.post("/posts", authenticateUser)
+app.post("/posts", async (req, res) => {
   const { message } = req.body
   try {
-    const newThought = await new Thought({message}).save()
+    const newPost = await new Post({message}).save()
     res.status(201).json({
       sucess: true, 
-      response: newThought
+      response: newPost
     })
 
   } catch (error) {

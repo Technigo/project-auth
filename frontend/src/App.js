@@ -8,13 +8,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import user from 'reducers/user';
-import thoughts from 'reducers/thoughts';
+import posts from 'reducers/posts';
 
 
 export const App = () => {
   const reducer = combineReducers({ 
     user: user.reducer,
-    thoughts: thoughts.reducer 
+    posts: posts.reducer 
   })
   const store = configureStore({ reducer })
 
