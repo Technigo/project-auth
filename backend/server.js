@@ -118,12 +118,12 @@ app.post("/login", async (req, res) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      response: err.error,
+      response: err
     });
   }
 });
 
-const authenticatedUser = async (req, res, next) => {
+const authenticatUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
     const user = await User.findOne({ accessToken });
@@ -157,14 +157,15 @@ const Thought = mongoose.model("Thought", {
   },
 });
 
-//
-app.get("/thoughts", authenticatedUser);
+//Connected to frontend
+// app.get("/thoughts", authenticatUser);
 app.get("/thoughts", async (req, res) => {
   try {
-    const thoughts = await Thought.find({}).limit(20).sort().exec();
+    const thoughts = await Thought.find({})
+    .limit(20).sort().exec();
     res.status(200).json({
       success: true,
-      response: thoughts,
+      response: thoughts
     });
   } catch (err) {
     res.status(400).json({ success: false, response: err });
@@ -172,8 +173,8 @@ app.get("/thoughts", async (req, res) => {
 });
 
 // Post Thought
-app.post("/thought", authenticatedUser);
-app.post("/thought", async (req, res) => {
+app.post("/thoughts", authenticatUser);
+app.post("/thoughts", async (req, res) => {
   const { message } = req.body;
   try {
     const newThought = await new Thought({ message }).save();
