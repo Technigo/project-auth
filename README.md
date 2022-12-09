@@ -1,13 +1,27 @@
-# Project Auth API
+# Project Auth API 
+The assignment was to create a fullstack project connecting a backend API and a React frontend.
 
-Replace this readme with your own information about your project.
+On a backend we needed to create three endpoints: a registration endpoint (to create a new user), a sign-in endpoint, to authenticate a returning user and an authenticated endpoint which only shows the content if the Authorization header with the user's token was correct.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+- Backend technologies:
 
-## The problem
+Mongoose to create a User's schema and a model based on the schema.
+Bcrypt method for salt to safely hash and store passwords.
+Async/await was used for promises.
+Deployed to MongoDB through Google Cloud.
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+- Frontend technologies:
+
+React/React Routes
+Redux (store, reducers)
+localStorage to enable user to stay logged in when reloading the page
+API fetch
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+- Backend: https://project-auth-w5otwao4va-lz.a.run.app/
+- Frontend: https://authentication-naghmeh-antonella.netlify.app/login
+
+Authentication page made by Naghmeh Okhovat and Antonella Cardozo.
+
+
