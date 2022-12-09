@@ -3,7 +3,7 @@ import { useDispatch, useSelector, batch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { API_URL } from "utils/utils";
 import user from "reducers/user";
-import { Card, Input } from 'components/GlobalStyles';
+import { Card, Input, Label, ModeLabel } from 'components/GlobalStyles';
 import { Form, Button } from 'components/GlobalStyles';
 
 export const Login = () => {
@@ -49,12 +49,11 @@ export const Login = () => {
             })
     }
 
-
+// CSS to hide active radio buttons + label is located in index.css
   return (
     <Card>
+         <Form onSubmit={onFormSubmit}>
          <h1> { mode === "register" && "Register" || "Sign in" } </h1>
-       <form onSubmit={onFormSubmit}>
-         <Form>
          <label htmlFor="username"/>
             <Input 
             type="text" 
@@ -73,13 +72,14 @@ export const Login = () => {
             <Button type="submit" > 
                     { mode === "register" && "Join us now!" || "Sign in" } 
             </Button>
-        </form>
-            <label htmlFor="register">{mode === "register" ? "" : "not a member? become one today!" }
+        <Label>
+            <ModeLabel htmlFor="register">{mode === "register" ? "" : "Not a member?" }
             <input type="radio" id="register" name="register" checked={mode === "register"} onChange={()=> setMode("register")}/>
-            </label>
-            <label htmlFor="login">{mode === "login" ? "" : "log in now" }
-            <input type="radio" id="login" checked={mode === "login" } onChange={()=> setMode("login")}/>
-            </label>
+            </ModeLabel>
+            <ModeLabel htmlFor="login">{mode === "login" ? "" : "Already a member?" }
+            <input type="radio" id="login" checked={mode === "login" } onChange={()=> setMode("login")}/> 
+            </ModeLabel>
+        </Label>    
     </Card>
   );
 }

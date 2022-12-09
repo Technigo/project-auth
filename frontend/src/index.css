@@ -15,6 +15,14 @@ code {
     monospace;
 }
 
+/* ----Hides radio button---*/
+input[type="radio"]{
+font-size: 60px;
+width: 0;
+height: 0;
+text-align: center;
+}
+
 input[type="radio"]:checked{
   visibility:hidden;
 }

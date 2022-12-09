@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 
+// GLOBAL WRAPPERS
 export const OuterWrapper = styled.div`
     position: relative;
     display: flex;
@@ -23,11 +24,17 @@ export const Card = styled.div`
   border: 1px solid rgba( 255, 255, 255, 0.18 );
 `;
 
+//OTHER WRAPPERS
+export const Label = styled.div`
+padding: 40px;
+`
 
-//INPUT
-export const Form = styled.div`
+
+//INPUT  (see index.css for hiding radio buttons)
+export const Form = styled.form`
 display: grid;
 place-items: center;
+padding-top: 10%;
 `
 export const Input = styled.input`
 margin: 10px;
@@ -47,6 +54,15 @@ color: white;
     outline: none;
 }
 `
+export const ModeLabel = styled.label`
+color: white;
+font-size: 1.1rem;
+@media (min-width:320px){
+&:hover{
+color: #B35FE0;
+}
+}
+`
 
 export const Button = styled.button`
     margin: 10px;
@@ -57,9 +73,11 @@ export const Button = styled.button`
     background-color: #fff;
     color: #000;
     font-size: 20px;
+@media (min-width:720px){
     &:hover{
         background: rgb(184,0,230);
         background: linear-gradient(90deg, rgba(184,0,230,1) 0%, rgba(115,0,144,1) 80%, rgba(95,0,119,1) 100%);
         color: #fff;
     }
+}
 `
