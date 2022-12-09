@@ -114,7 +114,7 @@ const Thoughts = () => {
 				//Authorization: accessToken,
 			},
 		};
-		fetch(LIKE_URL(thoughtsID), option)
+		fetch(LIKE_URL(mode)(thoughtsID), option)
 			.then((Response) => Response.json())
 			.then(console.log('yey it works.'))
 			.catch((error) => console.error(error))
