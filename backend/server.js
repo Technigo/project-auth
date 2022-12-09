@@ -128,7 +128,7 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-const ThoughtSchema = new mongoose.Schema({
+const GreetingSchema = new mongoose.Schema({
   receiver: {
     type: String,
     maxlength: 30,
@@ -146,20 +146,20 @@ const ThoughtSchema = new mongoose.Schema({
   },
 });
 
-const Thought = mongoose.model("Thought", ThoughtSchema);
+const Greeting = mongoose.model("Greeting", GreetingSchema);
 
-app.get("/thoughts", authenticateUser);
-app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thought.find({});
-  res.status(200).json({ success: true, response: thoughts });
+app.get("/greetings", authenticateUser);
+app.get("/greetings", async (req, res) => {
+  const greetings = await Greeting.find({});
+  res.status(200).json({ success: true, response: greetings, receiver: receiver });
 });
 
-app.post("/thoughts", authenticateUser);
-app.post("/thoughts", async (req, res) => {
-  const { name, message } = req.body;
+app.post("/greetings", authenticateUser);
+app.post("/greetings", async (req, res) => {
+  const { receiver, message } = req.body;
   try {
-    const newThought = await new Thought({ name, message }).save();
-    res.status(201).json({ success: true, response: newThought });
+    const newGreeting = await new Greeting({ receiver, message }).save();
+    res.status(201).json({ success: true, response: newGreeting });
   } catch (error) {
     res.status(400).json({ success: false, response: error });
   }
