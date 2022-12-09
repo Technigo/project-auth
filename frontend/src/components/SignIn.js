@@ -79,6 +79,8 @@ export const Login = () => {
                 </Button>
             </form>
             <h4>no a member? sign up here!</h4>
+            <label htmlFor="register">Register</label>
+            <input type="radio" id="register" checked={mode === "register"} onChange={()=> setMode("register")}/>
       </Card>
   );
 }

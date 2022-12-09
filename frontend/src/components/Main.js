@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import thoughts from "reducers/thoughts";
 import { API_URL } from "utils/utils";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import user from 'reducers/user';
+
 const Main = () => {
     const dispatch = useDispatch();
     const accessToken = useSelector((store) => store.user.accessToken);
@@ -13,8 +15,8 @@ const Main = () => {
             navigate("/login");
         }
     }, [accessToken])
-    useEffect(() => {
 
+    useEffect(() => {
         const options = {
             method: "GET",
             headers: {
@@ -33,7 +35,8 @@ const Main = () => {
                     dispatch(thoughts.actions.setError(data.response));
                 }
             })
-    }, [accessToken]);
+    }, []);
+    
 
     return (
         <>
