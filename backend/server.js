@@ -156,24 +156,23 @@ if (true) {
   resetDatabase();
 }
 
-app.get("/recipes", authenticateUser);
+// app.get("/recipes", authenticateUser);
 app.get("/recipes", async (req, res)=> {
   const recipes = await Recipes.find({});
   res.status(200).json({ success: true, response: recipes });
 });
 
-/*
-app.post("/recipes", authenticateUser)
-app.post("/recipes", async (req, res) => {
-  const { RecipesSchema } = req.body;
-  try {
-    const newRecipe = await new Recipes({RecipesSchema}).save();
-    res.status(201).json({success: true, response: newRecipe});
-  } catch (error) {
-    res.status(400).json({success: false, response: error});
-  }
-});
-*/
+
+// app.post("/recipes", authenticateUser)
+// app.post("/recipes", async (req, res) => {
+//   const { RecipesSchema } = req.body;
+//   try {
+//     const newRecipe = await new Recipes({RecipesSchema}).save();
+//     res.status(201).json({success: true, response: newRecipe});
+//   } catch (error) {
+//     res.status(400).json({success: false, response: error});
+//   }
+// });
 
 // Start defining your routes here
 app.get("/", (req, res) => {
