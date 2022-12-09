@@ -7,7 +7,7 @@ const NotFound = () => {
         <>
           <h1>Not found...</h1>
             <Link to="/">
-              <SubmitButton>Go back</SubmitButton>
+              {/* <SubmitButton>Go back</SubmitButton> */}
             </Link>
         </>
     )
