@@ -1,35 +1,6 @@
-//Vår kod
-/* import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { InnerWrapper, UserInputWrapper } from '../assets/GlobalStyles'
-import { Button } from '../assets/GlobalStyles'
-import { UserInput } from 'components/UserInput'
-
-export const LogInPage = () => {
-  const navigate = useNavigate();
-  const onRegisterButtonClick = () => {
-    navigate('/register');}
-  
-    return (
-        <InnerWrapper>
-          <UserInputWrapper>
-            <h1>Please log in</h1>
-            <UserInput/>
-            <p>Not a member? <Button onClick={onRegisterButtonClick}>Please register here</Button></p>
-          </UserInputWrapper>
-        </InnerWrapper>
-
-    )
-
-} */
-
-
-//Daniels kod
-
-
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector, batch } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { API_URL } from 'utils/Utils'
 import user from 'reducers/user'
 
@@ -40,12 +11,11 @@ const LogInPage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const accessToken = useSelector((store) => store.user.accessToken) //Inte klar?
-
+  const accessToken = useSelector((store) => store.user.accessToken) 
 
   useEffect(() => {
     if(accessToken) {
-      navigate("/")
+      navigate("/dashboard")
     }
   }, [accessToken])
 
@@ -64,44 +34,47 @@ const LogInPage = () => {
       if(data.success) {
         batch(() => {
           dispatch(user.actions.setUsername(data.response.username));
-          dispatch(user.actions.setUsername(data.response.id));
-          dispatch(user.actions.setUsername(data.response.accessToken));
+          dispatch(user.actions.setUserId(data.response.id));
+          dispatch(user.actions.setAccessToken(data.response.accessToken));
           dispatch(user.actions.setError(null))
+          navigate("/dashboard")
         });
       } else {
         batch (() => { 
           dispatch(user.actions.setUsername(null));
-          dispatch(user.actions.setUsername(null));
-          dispatch(user.actions.setUsername(null));
+          dispatch(user.actions.setUserId(null));
+          dispatch(user.actions.setAccessToken(null));
           dispatch(user.actions.setError(data.response))
         })
       }
     })
+   
   }
- <>
- <label htmlFor="register"></label>
- <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")}></input>
- <label htmlFor="login"></label>
- <input type="radio" id="login"></input> {/* Inte klar */}
 
- <form onSubmit={onFormSubmit}>
-  <label htmlFor="username">Username</label>
-  <input
-  type="text"
-  id="username"
-  value={username}
-  onChange={e = setUsername(e.taget.value)}
-  ></input>
-  <label htmlFor="password">Password</label>
-  <input
-  type="text"
-  id="password"
-  value={username}
-  onChange={e = setPassword(e.taget.value)}
-  ></input>
-<button type="submit">submit</button>
- </form>
- </>
+  return (
+  <>
+      <form onSubmit={onFormSubmit}>
+      <label htmlFor="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        value={username}
+        onChange={e => setUsername(e.target.value)} />
+
+      <label htmlFor="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        value={password}
+        onChange={e => setPassword(e.target.value)} 
+        />
+
+    <button type="submit" onClick={() => setMode("login")} >Submit</button>
+    </form>
+  </>
   
+  )
 
 }
+
+export default LogInPage;

@@ -127,30 +127,24 @@ const ThoughtSchema = new mongoose.Schema ({
   }
 })
 
-
-const Thought = new mongoose.model("Thought", ThoughtSchema);
+const Message = new mongoose.model("Message", MessageSchema);
 
 app.get("/dashboard", authenticateUser);
-app.get("/dashboard", (req, res) => {
-  const thougths = await Thought.find({});
-  res.status(200).json({
-    success: true,
-    response: thoughts
-  });
+app.get("/dashboard", async (req, res)=> {
+  const messages = await Message.find({});
+  res.status(200).json({success: true, response: messages});
 });
 
-app.post("/dashboard", authenticateUser);
-app.post("/dashboard", async (req, res) => {
-  const { message } = req.body;
-  try { 
-    const newThought = await new Thought({message}).save();
-    res.status(200).json({success: true,
-      response: newThought})
-
-  } catch {
-    res.status(400).json({success: false, response: error})
-  }
-});
+app.post("/dashboard", authenticateUser)
+ app.post("/dashboard", async (req, res) => {
+   const { message } = req.body;
+  try {
+    const newMessage = await new Thought({message}).save();
+    res.status(201).json({success: true, response: newMessage});
+  } catch (error) {
+     res.status(400).json({success: false, response: error});
+   }
+ });
 
 // Start defining your routes here
 app.get("/", (req, res) => {

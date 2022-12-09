@@ -1,16 +1,18 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { InnerWrapper, TextWrapper, Buttonwrapper, Button } from '../assets/GlobalStyles'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const StartPage = () => {
+
     return (
         <InnerWrapper>
           <TextWrapper>
             <Secondheader>Welcome to</Secondheader>
             <h1>The Secret Society of Arts and Craft</h1>
             <Buttonwrapper>
-              <Button>Log in</Button>
-              <Button>Register</Button>
+              <Link to="/login"><Button>Log in</Button></Link>
+              <Link to="/register"><Button>Register</Button></Link>
             </Buttonwrapper>
           </TextWrapper>
    
