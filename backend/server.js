@@ -81,7 +81,7 @@ app.post("/registerUser", async (req, res) => {
       res.status(201).json({
         success: true,
         response: {
-          username: newUser.username,
+          name: newUser.name,
           accessToken: newUser.accessToken,
           id: newUser._id,
         },
@@ -151,7 +151,7 @@ const Thought = mongoose.model("Thought", {
     type: Date,
     default: () => new Date(),
   },
-  header: {
+  hearts: {
     type: Number,
     default: 0,
   },
