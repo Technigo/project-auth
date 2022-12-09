@@ -1,5 +1,3 @@
-//API_URL = https://project-auth-fybh32gdwa-lz.a.run.app/
-
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -10,9 +8,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
+// Defines the port the app will run on. 
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -127,14 +123,13 @@ app.get("/home", (req, res) => {
   })
 })
 
-
 // Start
 app.get("/", (req, res) => {
   res.send({
-    Message: "Backend page https://registertologin.netlify.app/",
+    Message: "Backend page for https://registertologin.netlify.app/",
     Routes: [{
-      "/": "Register your profile (POST request)",
-      "/login" : "Login for registered user",
+      "/login" : "Login or register",
+      "/": "Page after successful authorization",
     }]
   });
 });
