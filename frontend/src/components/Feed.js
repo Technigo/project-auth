@@ -7,7 +7,7 @@ import { useNavigate, Link } from "react-router-dom";
 import NewMessage from "./NewMessage";
 
 const Feed = () => {
-  const thoughtItems = useSelector((store) => store.posts.items)
+  const postItems = useSelector((store) => store.posts.items)
   const accessToken = useSelector((store) => store.user.accessToken)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -46,7 +46,7 @@ const Feed = () => {
       <FeedSection>
       <h2>Message board</h2>
       <NewMessage />
-      {thoughtItems.map((item) => {
+      {postItems.map((item) => {
         return (
         <Message key={item._id}>
           <p>{item.message}</p>

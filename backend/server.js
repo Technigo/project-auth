@@ -156,8 +156,6 @@ app.post("/posts", async (req, res) => {
   }
 })
 
-
-
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
