@@ -8,9 +8,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-tika-mari
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
+// Defines the port the app will run on
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -36,12 +34,12 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema)
 
-// Start defining your routes here
+// Routes starts here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send("Tika and Maria's project");
 });
 
-// for new user to register
+// The endpoint where the new user register
 app.post("/register", async (req, res) => {
   const {username, password} = req.body
   try {
@@ -69,7 +67,7 @@ app.post("/register", async (req, res) => {
   }
 })
 
-// logging in
+// Endpoint for logging in
 app.post("/login", async (req, res) => {
   const {username, password} = req.body;
   try{
@@ -94,7 +92,7 @@ app.post("/login", async (req, res) => {
   }
 })
 
-// Authenticate user
+// To authenticate the user
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try{
@@ -113,7 +111,7 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-// Successful login then go to secret
+// Successful login then go to secret. This is only used for the backend part, where you can see these messages in Postman.
 app.get("/secret", authenticateUser)
 app.get("/secret", (req, res) => {
   const secretMessage = "Welcome to the secret chamber"
@@ -130,7 +128,7 @@ app.get("/secret", (req, res) => {
   }
 })
 
-// Start the server
+// Starts the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

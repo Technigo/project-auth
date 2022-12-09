@@ -8,7 +8,7 @@ const NotFound = () => {
     <>
     <Wrapper>   
         <TextContainer>Are you lost, my friend? Please go back to login page!</TextContainer>
-        <LogoutLink to="/login">Go to Login</LogoutLink>
+        <LogoutLink to="/login">Login Page</LogoutLink>
     </Wrapper> 
     </>
     )

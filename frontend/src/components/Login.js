@@ -15,6 +15,7 @@ const Login = () => {
     const accessToken = useSelector((store) => store.user.accessToken);
 
     useEffect( () => {
+        // If the accessToken is provided, then the user will be redirected to the main page.
         if (accessToken) {
             navigate("/");
         }
@@ -52,7 +53,7 @@ const Login = () => {
             }
         })
     }
-    // This is the "start" page. Here, the user decides to register or to login.
+    // This is the "start" page. Mode allows the user to chose between what action that want; either register or login.
     return(
         <>
         <HeaderContainer>
