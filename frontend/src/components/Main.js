@@ -55,11 +55,11 @@ const Main = () => {
 
     return (
         <>
-           {/*  <Link to="/login">GO TO LOGIN</Link>  */}{/* I think Daniel wrote this, but i feel unsure about the link to log in here */}
+           {/* <Link to="/login">GO TO LOGIN</Link> I think Daniel wrote this, but i feel unsure about the link to log in here */}
             <h2>This is the Main</h2>
-            {/* {thoughtItems.map((item) => {
+            {thoughtItems.map((item) => {
                 return <p key={item._id}>{item.message}</p>
-            })} */}
+            })}
              <Link to="/" onClick={logOut}>
           Log out
         </Link>
