@@ -6,7 +6,7 @@ import thoughts from 'reducers/thoughts';
 import { API_URL } from 'utils/urls';
 
 const Main = () => {
-    const thoughtItems = useSelector((store) => store.thoughts.items);
+    const thoughtsItems = useSelector((store) => store.thoughts.items);
     const accessToken = useSelector((store) => store.user.accessToken);
     // maybe mode here too?
     const dispatch = useDispatch();
@@ -24,12 +24,12 @@ const Main = () => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": accessToken
+                Authorization: accessToken
             }
         } 
         fetch(API_URL("thoughts"), options) 
-            .then(res => res.json())
-            .then(data => {
+            .then((res) => res.json())
+            .then((data) => {
                 if(data.success) { //kollar datan och om success är true (från backend)
                     dispatch(thoughts.actions.setItems(data.response));
                     dispatch(thoughts.actions.setError(null))
@@ -38,7 +38,7 @@ const Main = () => {
                     dispatch(thoughts.actions.setError(data.response))
                 }
             })
-    }, [])
+    }, [accessToken, dispatch])
 
     // I put in thoughts in postman to the database, but they dont display in the frontend
 
@@ -46,10 +46,6 @@ const Main = () => {
         batch(() => {
           dispatch(user.actions.setUserName(null));
           dispatch(user.actions.setAccessToken(null));
-          /* navigate("/login") */
-
-    
-          //localStorage.removeItem('user')
         });
       };
 
@@ -57,7 +53,7 @@ const Main = () => {
         <>
            {/*  <Link to="/login">GO TO LOGIN</Link>  */}{/* I think Daniel wrote this, but i feel unsure about the link to log in here */}
             <h2>This is the Main</h2>
-            {thoughtItems.map((item) => {
+            {thoughtsItems.map((item) => {
                 return <p key={item._id}>{item.message}</p>
             })}
              <Link to="/" onClick={logOut}>

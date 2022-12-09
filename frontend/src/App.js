@@ -3,8 +3,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-/* import Register from "Register";
-import AuthFeed from "AuthFeed"; */
 import LogIn from "components/LogIn";
 import Main from 'components/Main';
 import NotFound from 'components/NotFound';
