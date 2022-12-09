@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt"
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -113,17 +113,13 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-const ThoughtSchema = new mongoose.Schema ({
+const MessageSchema = new mongoose.Schema ({
   message: {
     type: String,
   },
   createdAt: {
     type: Date,
     default: () => new Date()
-  },
-  hearts: {
-    type: Number,
-    default: 0
   }
 })
 
@@ -139,7 +135,7 @@ app.post("/dashboard", authenticateUser)
  app.post("/dashboard", async (req, res) => {
    const { message } = req.body;
   try {
-    const newMessage = await new Thought({message}).save();
+    const newMessage = await new Message({message}).save();
     res.status(201).json({success: true, response: newMessage});
   } catch (error) {
      res.status(400).json({success: false, response: error});

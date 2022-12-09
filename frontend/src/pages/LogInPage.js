@@ -3,6 +3,7 @@ import { useDispatch, useSelector, batch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { API_URL } from 'utils/Utils'
 import user from 'reducers/user'
+import { InnerWrapper, UserInputWrapper, Button, Form } from '../assets/GlobalStyles'
 
 const LogInPage = () => {
   const [username, setUsername] = useState("") 
@@ -11,14 +12,21 @@ const LogInPage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const accessToken = useSelector((store) => store.user.accessToken) 
+  const accessToken = useSelector((store) => store.user.accessToken)
+  
+  // Fucntion for redirect button. Sends user to register page
+  const onRegisterButtonClick = () => {
+    navigate('/register');}
 
+
+    // If correct token (password), redirects to dashboard
   useEffect(() => {
     if(accessToken) {
       navigate("/dashboard")
     }
   }, [accessToken])
 
+  // Posts to server on submit
   const onFormSubmit = (event) => {
     event.preventDefault();
     const options = {
@@ -52,8 +60,10 @@ const LogInPage = () => {
   }
 
   return (
-  <>
-      <form onSubmit={onFormSubmit}>
+  <InnerWrapper>
+    <UserInputWrapper>
+    <h1>Please Log In</h1>
+      <Form onSubmit={onFormSubmit}>
       <label htmlFor="username">Username</label>
       <input
         type="text"
@@ -69,9 +79,11 @@ const LogInPage = () => {
         onChange={e => setPassword(e.target.value)} 
         />
 
-    <button type="submit" onClick={() => setMode("login")} >Submit</button>
-    </form>
-  </>
+    <Button submit type="submit" onClick={() => setMode("login")} >Submit</Button>
+    </Form>
+    <p>Not a member? <Button redirect onClick={onRegisterButtonClick}>Register here</Button></p>
+    </UserInputWrapper>
+    </InnerWrapper>
   
   )
 

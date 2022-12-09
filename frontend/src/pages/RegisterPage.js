@@ -3,7 +3,7 @@ import { useDispatch, useSelector, batch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { API_URL } from 'utils/Utils'
 import user from 'reducers/user'
-import { InnerWrapper, UserInputWrapper, Button } from '../assets/GlobalStyles'
+import { InnerWrapper, UserInputWrapper, Button, Form } from '../assets/GlobalStyles'
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("") 
@@ -59,7 +59,7 @@ const RegisterPage = () => {
    <InnerWrapper> 
     <UserInputWrapper> 
     <h1>Please Register</h1>
-      <form onSubmit={onFormSubmit}>
+      <Form onSubmit={onFormSubmit}>
       <label htmlFor="username">Username</label>
       <input
         type="text"
@@ -77,33 +77,13 @@ const RegisterPage = () => {
           ? 'password must be over 8 characters'
           : ''}
 
-    <button type="submit" onClick={() => setMode("register")} >Submit</button>
-    </form>
-    <p>Already a member? <Button onClick={onRegisterButtonClick}>Please log in here</Button></p>
+    <Button submit type="submit" onClick={() => setMode("register")} >Submit</Button>
+    </Form>
+    <p>Already a member? <Button redirect onClick={onRegisterButtonClick}>Log in here</Button></p>
     </UserInputWrapper>
     </InnerWrapper>
   
   )
-
 }
 
-/* 
-export const RegisterPage = () => {
-  const navigate = useNavigate();
-  const onRegisterButtonClick = () => {
-    navigate('/login');}
-
-    return (
-        <InnerWrapper>
-          <UserInputWrapper>
-            <h1>Please Register</h1>
-            <UserInput/>
-            <p>Already a member? <Button onClick={onRegisterButtonClick}>Please log in here</Button></p>
-          </UserInputWrapper>
-        </InnerWrapper>
-
-    )
-
-}
- */
 export default RegisterPage;
