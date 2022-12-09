@@ -19,6 +19,7 @@ export const GreetingsInput = () => {
   }
   // This code empties the form
   const handleFormCleanup = () => {
+    console.log('handleFormCleanup har kört')
     setGreeting('');
     setReceiver('')
   };
@@ -34,24 +35,42 @@ export const GreetingsInput = () => {
         },
         body: JSON.stringify({ receiver: receiver, message: greeting})
       }
-    ).then(() => {
-      fetch(API_URL("greetings"),
+      ) 
+      .catch((error) => console.error(error))
+      .finally (() => handleFormCleanup())
+    
+    // .then(() => {
+    //   fetch(API_URL("/greetings"),
+      
+    //   {
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       Authorization: accessToken,
+    //     },
+        
+    //   }) 
+    //   .catch(error => console.error(error))
+    //   .finally (
+    //     handleFormCleanup()
+    //   )
+    // })
+
+    fetch(API_URL("/greetings"),
       {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: accessToken,
         },
-        
       })
-      //window.location.reload()
-    })
+      .catch(error => console.error(error))
   }
   
     return (
       <InputWrapper>
         <InputForm className="form-container" onSubmit={handleFormSubmit}>
-          <input
+          <Input
             type="text"
             required
             placeholder="Receiver of greeting"
@@ -60,12 +79,10 @@ export const GreetingsInput = () => {
             rows="5"
             required
             onChange={handleGreetingChange}
-            placeholder="Write some christmas rhymes here"
-          >
-          </textarea>
+            placeholder="Write some christmas rhymes here" />
   
           <Button type="submit" className="post-button" value="Post btn">
-            🎄 Send Christmas Greeting 🎄
+            🎄 Send 🎄
           </Button>
         </InputForm>
       </InputWrapper>
@@ -74,15 +91,25 @@ export const GreetingsInput = () => {
   
 
 const InputWrapper = styled.div`
-  margin: 0 auto;
+  margin: 0.5rem auto 0;
   width: 60vw;
 `;
 
 const InputForm = styled.form`
+  margin: 10px auto;
   display: flex;
   flex-direction: column;
+  max-width: 400px;
+`;
+
+const Input = styled.input`
+  margin: 10px 0;
+  
 `;
 
 const Button = styled.button`
   width: 100%;
+  max-width: 100px;
+  margin: 10px auto;
+  cursor: pointer;
 `;

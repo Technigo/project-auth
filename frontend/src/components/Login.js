@@ -55,20 +55,24 @@ const Login = () => {
           Hi and ho! Please login to send a Christmas greeting!
         </Greeting>
         <RadioButtonContainer>
-          <label htmlFor="register">Register</label>
-          <input
-            type="radio"
-            id="register"
-            checked={mode === "register"}
-            onChange={() => setMode("register")}
-          />
-          <label htmlFor="login">Login</label>
-          <input
-            type="radio"
-            id="login"
-            checked={mode === "login"}
-            onChange={() => setMode("login")}
-          />
+          <div>
+            <label htmlFor="register">Register</label>
+            <input
+              type="radio"
+              id="register"
+              checked={mode === "register"}
+              onChange={() => setMode("register")}
+            />
+          </div>
+          <div>
+            <label htmlFor="login">Login</label>
+            <input
+              type="radio"
+              id="login"
+              checked={mode === "login"}
+              onChange={() => setMode("login")}
+            />
+          </div>
         </RadioButtonContainer>
 
         <FormContainer onSubmit={onFormSubmit}>
@@ -108,13 +112,21 @@ const InnerWrapper = styled.div`
   border-radius: 10px;
   padding: 2em;
 `;
-const Greeting = styled.h2``;
+const Greeting = styled.h2`
+  margin: 20px;
+`;
 
-const RadioButtonContainer = styled.div``;
+const RadioButtonContainer = styled.div`
+margin: 20px 0;`;
 
 const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
+  
 `;
 
-const Button = styled.button``;
+const Button = styled.button`
+margin: 20px auto;
+max-width: 400px;
+
+`;

@@ -155,7 +155,7 @@ const Greeting = mongoose.model("Greeting", GreetingSchema);
 
 app.get("/greetings", authenticateUser);
 app.get("/greetings", async (req, res) => {
-  const greetings = await Greeting.find().sort({createdAt: 'desc'}).limit(20).exec();
+  const greetings = await Greeting.find().sort({createdAt: 'desc'}).limit(18).exec();
   res.status(200).json({ success: true, response: greetings });
 });
 

@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import greetings from "reducers/greetings";
 import { API_URL } from "utils/utils";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import tree from "../assets/tree.png";
 import { GreetingsInput } from "./GreetingsInput";
+import user from "reducers/user";
 
 
 const Main = () => {
@@ -43,10 +44,8 @@ const Main = () => {
 
   return (
     <>
-      <button type="button" onClick={() => window.location.reload()}>
-        Log out
-      </button>
-      <h2>👇🏼 Post Christmas feelings here 👇🏼</h2>
+      <button type="button" onClick={() => dispatch(user.actions.setAccessToken(null))}>Sign Out</button>
+      <h2>👇🏼 Post Christmas Greetings Here 👇🏼</h2>
       <GreetingsInput />
       <Feed>
         {greetingItems.map((item) => {
@@ -72,20 +71,41 @@ export default Main;
 const Feed = styled.section`
 overflow-y: scroll;
 height: 70vh;
+padding: 0.5rem;
+margin-top: 1rem;
+
+@media (min-width: 600px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90vw;
+    gap: 1rem;
+  };
+
+  @media (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
 `
 
 const ChristmasCard = styled.div`
   background-color: var(--white);
   color: var(--red);
   width: 85vw;
+  max-width: 400px;
   height: 10rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  margin: 1rem;
+  margin-bottom: 1rem;
   position: relative;
   border: double 0.2rem;
+
+  @media (min-width: 600px) {
+    width: 100%;
+    margin: 0;
+  }
 `;
 
 const TreeImg = styled.img`
@@ -102,8 +122,12 @@ const SenderInfo = styled.div`
   width: 70%;
   position: absolute;
   right: 1rem;
+
+  @media (min-width: 600px) {
+    position: static;
+  }
 `;
 
 const Greeting = styled.p`
-  margin-top: 15%;
+  margin: auto
 `
