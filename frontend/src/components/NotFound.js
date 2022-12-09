@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const NotFound = () => {
-
     return (
         <>
-            <h1>Not found</h1>
             <Link to="/login">GO TO LOGIN </Link>
+            <h1>Not found</h1>
         </>
     )
 }
 
-export default NotFound
+export default NotFound;

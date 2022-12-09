@@ -5,7 +5,6 @@ const initialState = {
     accessToken: null,
     error: null,
     userId: null 
-    // password?  
     // maybe loading - om vi vill ha en sån sida?
   };
 
@@ -24,9 +23,6 @@ const user = createSlice({
         },
         setError: (store, action) => {
             store.accessToken = action.payload;
-        },
-        logOut: () => {
-            return initialState
         }
     }
 })

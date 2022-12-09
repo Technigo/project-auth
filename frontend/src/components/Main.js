@@ -8,7 +8,7 @@ import { API_URL } from 'utils/urls';
 const Main = () => {
     const thoughtItems = useSelector((store) => store.thoughts.items);
     const accessToken = useSelector((store) => store.user.accessToken);
-    // maybe mode here too
+    // maybe mode here too?
     const dispatch = useDispatch();
     const navigate =useNavigate();
 
@@ -44,7 +44,7 @@ const Main = () => {
 
     return (
         <>
-            <Link to="/login">GO TO LOGIN</Link> {/* I think Daniel wrote this, but i feel unsure about the link to log in here */}
+            <Link to="/thoughts">GO TO LOGIN</Link> {/* I think Daniel wrote this, but i feel unsure about the link to log in here */}
             <h2>This is the Main</h2>
             {thoughtItems.map((item) => {
                 return ( 

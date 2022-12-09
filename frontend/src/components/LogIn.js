@@ -50,7 +50,7 @@ const LogIn = () => {
     }
     return (
         <>
-        <Link to="/"></Link>
+        <Link to="/"></Link> {/* Daniel did not put this link here */}
         <h1>{mode === "register" ? "Create a New Account" : "Welcome back!" }</h1>
         <form onSubmit={onFormSubmit}>
             <label htmlFor="username">Username</label>
@@ -91,7 +91,7 @@ const LogIn = () => {
     )
 }
 
-// from previus project, maybe we sould use the catch and finally in this project too?
+// from previus project, maybe we sould use the catch and finally in this project too? Dont know if needed 
 
 
 /* const handleFormSubmit = (event) => {
