@@ -8,26 +8,17 @@ import userSlice from 'reducers/userSlice';
 import styled from 'styled-components';
 import { formatDistance } from 'date-fns';
 
-
 const Thoughts = () => {
-	
 	/* const values = useSelector((state) => state.thoughts); */
 	const accessToken = useSelector((state) => state.user.accessToken);
 	const username = useSelector((state) => state.user.username);
 
-	const [mode, setMode ] = useState("thoughts")
+	const [mode, setMode] = useState('thoughts');
 	const [thoughts, setThoughts] = useState([]);
-	const [newThought, setNewThought] = useState("")
-	const [loading, setLoading] = useState(false)
+	const [newThought, setNewThought] = useState('');
+	//const [loading, setLoading] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-/* 	const options = {
-		method: 'GET',
-		header: {
-			Authorization: accessToken,
-		},
-	};  */
 
 	useEffect(() => {
 		if (!accessToken) {
@@ -70,88 +61,88 @@ const Thoughts = () => {
 	}; 
  */
 	const getThoughts = () => {
-        const options ={
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": accessToken,
-            }
-        }
-        fetch(API_URL(mode), options)
-        .then(res => res.json())
-        .then(data => setThoughts(data))
-        .catch((error) => console.error(error))
-    }
+		const options = {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: accessToken,
+			},
+		};
+		fetch(API_URL(mode), options)
+			.then((res) => res.json())
+			.then((data) => setThoughts(data))
+			.catch((error) => console.error(error));
+	};
 
-    useEffect(() => {
-        getThoughts()
-    }, [])
+	useEffect(() => {
+		getThoughts();
+	}, []);
 
-    const onSendThought = (event) => {
-        event.preventDefault();  
-          const options = {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": accessToken,
-            },
-              body: JSON.stringify({ message: newThought })
-          };
-      
-          fetch(API_URL(mode), options)
-          .then(res => res.json())
-          .then(data => {
-              if(data.success) {
-                  batch(() => {
-                      dispatch(thoughtSlice.actions.addThoughts(data.response.value))
-                      
-                  })
-      
-              } else {
-                  batch(() => {
-                      dispatch(thoughtSlice.actions.addThoughts(null))
-                     
-                  })
-                 
-              }
-             
-          })
-  
-      }
+	const onSendThought = (event) => {
+		event.preventDefault();
+		const options = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: accessToken,
+			},
+			body: JSON.stringify({ message: newThought }),
+		};
 
-	 /* Add likes to messages  */
-/* 
-	 const handleOnlikeChange = (LikeID) => {
+		fetch(API_URL(mode), options)
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.success) {
+					batch(() => {
+						dispatch(thoughtSlice.actions.addThoughts(data.response.value));
+					});
+				} else {
+					batch(() => {
+						dispatch(thoughtSlice.actions.addThoughts(null));
+					});
+				}
+			});
+	};
+
+	/* Add likes to messages  */
+
+	const handleLikeChange = (thoughtsID) => {
 		const option = {
-		  method: 'POST',
-		  headers: {
-			'Content-Type': 'application/json',
-			"Authorization": accessToken,
-		  }
-		}
-		fetch(LIKE_URL(mode)(LikeID), option)
-		  .then((Response) => Response.json())
-		  .then(console.log('yey it works.'))
-		  .catch((error) => console.error(error))
-		  .finally(() => getThoughts())
-	  }
- */
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				//Authorization: accessToken,
+			},
+		};
+		fetch(LIKE_URL(thoughtsID), option)
+			.then((Response) => Response.json())
+			.then(console.log('yey it works.'))
+			.catch((error) => console.error(error))
+			.finally(() => getThoughts());
+		/* try {
+			fetch(API_URL(`${thoughtsID}/like`), option);
+		} catch (err) {
+			console.log(error);
+		} */
+	};
+
 	/* LOG OUT BUTTON- CANT MAKE IT WORK WITH THE SLICER.. */
 	const logout = () => {
-        batch(() => {
-          dispatch(userSlice.actions.addUsername(null));
-          dispatch(userSlice.actions.addAccessToken(null));
-        });
-      };
+		batch(() => {
+			dispatch(userSlice.actions.addUsername(null));
+			dispatch(userSlice.actions.addAccessToken(null));
+		});
+	};
 
 	return (
 		<Wrapper>
-		<LogoutBtn className="logout" onClick={logout}>Logout</LogoutBtn>
+			<LogoutBtn className="logout" onClick={logout}>
+				Logout
+			</LogoutBtn>
 			<HeadingContainer>
-			<Heading>What's making you happy right now?</Heading>
+				<Heading>What's making you happy right now?</Heading>
 			</HeadingContainer>
-			<Form
-				onSubmit={onSendThought}>
+			<Form onSubmit={onSendThought}>
 				<InputText
 					type="text"
 					value={newThought}
@@ -160,250 +151,192 @@ const Thoughts = () => {
 				<BtnSend>Post</BtnSend>
 			</Form>
 			<ThoughtContainer>
-				{thoughts.map((item) => {
-					return (
-						<ThoughtCard key={item._id}>
-							<Message>{item.message}</Message>
-							<DateFormat>{formatDistance(new Date(item.createdAt), Date.now(), { addSuffix: true })}</DateFormat>
-							{/* <button
-                  				type="button"
-                 				 className="btn-heart"
-                  				onClick={() => {handleOnlikeChange(item._id)}}
-                  				style={{
-                    			background: item.hearts >= 1 ? '#F6C6E9' : '#f2f2f2'
-                  				}}>
-								<span aria-label="heart emoji" className="heart-emoji"> ❤️
-                  				</span>
-								</button> */}
-							{/* <p>{item.hearts}</p> */}
-						</ThoughtCard>
-					);
-				})}
+				{thoughts &&
+					thoughts.map((item) => {
+						return (
+							<ThoughtCard key={item._id}>
+								<Message>{item.message}</Message>
+								<DateFormat>
+									{formatDistance(new Date(item.createdAt), Date.now(), {
+										addSuffix: true,
+									})}
+									{/* {item.createdAt} */}
+								</DateFormat>
+								<LikeArea>
+									<HeartBtn
+										type="button"
+										className="btn-heart"
+										onClick={() => {
+											handleLikeChange(item._id);
+										}}
+										style={{
+											background: item.hearts >= 1 ? '#F6C6E9' : '#f2f2f2',
+										}}
+									>
+										❤️
+									</HeartBtn>
+									<p>x {item.hearts}</p>
+								</LikeArea>
+							</ThoughtCard>
+						);
+					})}
 				{/* <LogOut /> */}
-				</ThoughtContainer>
+			</ThoughtContainer>
 		</Wrapper>
 	);
 };
 
 const Wrapper = styled.div`
-display: grid; 
-grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
-justify-content: center; 
-justify-content: center; 
-
-`
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	justify-content: center;
+	justify-content: center;
+`;
 
 const InputText = styled.input`
- width: 90%;
-  height: 50%; 
-  margin: auto;  
-  display: block;
-`
+	width: 90%;
+	height: 50%;
+	margin: auto;
+	display: block;
+`;
 
 const BtnSend = styled.button`
-  margin-top: 5px; 
-  margin-bottom: 50px;
-  align-items: center; 
-  display: block;
-  padding: 10px; 
-  border:none;  
-  color: #fff;
-  background-color: transparent; 
-  border: none; 
-  text-shadow:
-      0 0 7px #fff,
-      0 0 10px #fff,
-      0 0 21px #fff,
-      0 0 42px #5271ff,
-      0 0 82px #5271ff,
-      0 0 92px #5271ff,
-      0 0 102px #5271ff,
-      0 0 151px #5271ff;
-  text-align: center;
-  font-weight: 400;
-  font-size: 1.7rem;
-    animation: pulsate 0.11s ease-in-out infinite alternate;  
-	&:hover{
-	font-weight: bold; 
-	font-size: 2.5rem; 
-  }
-	
-	@keyframes pulsate {
-    
-	100% {
-  
-		text-shadow:
-		0 0 4px #fff,
-		0 0 11px #fff,
-		0 0 19px #fff,
-		0 0 40px #5271ff,
-		0 0 80px #5271ff,
-		0 0 90px #5271ff,
-		0 0 100px #5271ff,
-		0 0 150px #5271ff;
-	
+	margin-top: 5px;
+	margin-bottom: 50px;
+	align-items: center;
+	display: block;
+	padding: 10px;
+	border: none;
+	color: #fff;
+	background-color: transparent;
+	border: none;
+	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #5271ff,
+		0 0 82px #5271ff, 0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+	text-align: center;
+	font-weight: 400;
+	font-size: 1.7rem;
+	animation: pulsate 0.11s ease-in-out infinite alternate;
+	&:hover {
+		opacity: 80%;
 	}
-	
-	0% {
-  
-	  text-shadow:
-	  0 0 4px #fff,
-	  0 0 10px #fff,
-	  0 0 18px #fff,
-	  0 0 38px #5271ff,
-	  0 0 73px #5271ff,
-	  0 0 80px #5271ff,
-	  0 0 94px #5271ff,
-	  0 0 140px #5271ff;
-  
-  }
- 
-}`
 
-  const ThoughtCard = styled.div`
-   border: solid black 1px;
-   margin-top: 30px; 
-   margin-bottom: 30px;
-   padding-bottom: 30px;
-   width: 250px;
-   height: 180px;
-   display: grid;
-   grid-column: 1fr 1fr 1fr;
-   box-shadow: 5px 10px;
-   gap: 50px; 
-   background-color: rgba(229, 229, 229, 0.4);
-  `
-
-  const ThoughtContainer= styled.div`
-  display: flex; 
-  flex-wrap: wrap; 
-  justify-content: center;
-  gap: 10px;  
-  grid-column: span 5; 
-  `
-
-  const LogoutBtn = styled.button`
-  grid-column: 3 / 4 ; 
-  color: #fff;
-  background-color: transparent; 
-  border: none; 
-  text-shadow:
-      0 0 7px #fff,
-      0 0 10px #fff,
-      0 0 21px #fff,
-      0 0 42px #5271ff,
-      0 0 82px #5271ff,
-      0 0 92px #5271ff,
-      0 0 102px #5271ff,
-      0 0 151px #5271ff;
-  text-align: center;
-  font-weight: 400;
-  font-size: 1.7rem;
-    animation: pulsate 0.11s ease-in-out infinite alternate;  
-	&:hover{
-	font-weight: bold; 
-	font-size: 2.5rem; 
-  }
-	
 	@keyframes pulsate {
-    
-	100% {
-  
-		text-shadow:
-		0 0 4px #fff,
-		0 0 11px #fff,
-		0 0 19px #fff,
-		0 0 40px #5271ff,
-		0 0 80px #5271ff,
-		0 0 90px #5271ff,
-		0 0 100px #5271ff,
-		0 0 150px #5271ff;
-	
+		100% {
+			text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #5271ff,
+				0 0 80px #5271ff, 0 0 90px #5271ff, 0 0 100px #5271ff, 0 0 150px #5271ff;
+		}
+
+		0% {
+			text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 18px #fff, 0 0 38px #5271ff,
+				0 0 73px #5271ff, 0 0 80px #5271ff, 0 0 94px #5271ff, 0 0 140px #5271ff;
+		}
 	}
-	
-	0% {
-  
-	  text-shadow:
-	  0 0 4px #fff,
-	  0 0 10px #fff,
-	  0 0 18px #fff,
-	  0 0 38px #5271ff,
-	  0 0 73px #5271ff,
-	  0 0 80px #5271ff,
-	  0 0 94px #5271ff,
-	  0 0 140px #5271ff;
-  
-  }
- 
-}`
+`;
+
+const ThoughtCard = styled.div`
+	margin: 30px 0 30px 0;
+	width: 250px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	background-color: rgba(229, 229, 229, 0.4);
+`;
+
+const ThoughtContainer = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	gap: 10px;
+	grid-column: span 5;
+`;
+
+const LogoutBtn = styled.button`
+	grid-column: 3 / 4;
+	color: #fff;
+	background-color: transparent;
+	border: none;
+	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #5271ff,
+		0 0 82px #5271ff, 0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+	text-align: center;
+	font-weight: 400;
+	font-size: 1.7rem;
+	animation: pulsate 0.11s ease-in-out infinite alternate;
+	&:hover {
+		font-weight: bold;
+		font-size: 2.5rem;
+	}
+
+	@keyframes pulsate {
+		100% {
+			text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #5271ff,
+				0 0 80px #5271ff, 0 0 90px #5271ff, 0 0 100px #5271ff, 0 0 150px #5271ff;
+		}
+
+		0% {
+			text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 18px #fff, 0 0 38px #5271ff,
+				0 0 73px #5271ff, 0 0 80px #5271ff, 0 0 94px #5271ff, 0 0 140px #5271ff;
+		}
+	}
+`;
 
 const Form = styled.form`
-grid-column: 3 / 4; 
-`
+	grid-column: 3 / 4;
+`;
 
 const HeadingContainer = styled.div`
-grid-column: 3 / 4; 
-text-align: center; 
-`
+	grid-column: 3 / 4;
+	text-align: center;
+`;
 const Heading = styled.h4`
-  color: #fff;
-  text-shadow:
-      0 0 7px #fff,
-      0 0 10px #fff,
-      0 0 21px #fff,
-      0 0 42px #5271ff,
-      0 0 82px #5271ff,
-      0 0 92px #5271ff,
-      0 0 102px #5271ff,
-      0 0 151px #5271ff;
-  text-align: center;
-  font-weight: 400;
-  font-size: 1.7rem;
-    animation: pulsate 0.11s ease-in-out infinite alternate;  
-	
-	@keyframes pulsate {
-    
-	100% {
-  
-		text-shadow:
-		0 0 4px #fff,
-		0 0 11px #fff,
-		0 0 19px #fff,
-		0 0 40px #5271ff,
-		0 0 80px #5271ff,
-		0 0 90px #5271ff,
-		0 0 100px #5271ff,
-		0 0 150px #5271ff;
-	
-	}
-	
-	0% {
-  
-	  text-shadow:
-	  0 0 4px #fff,
-	  0 0 10px #fff,
-	  0 0 18px #fff,
-	  0 0 38px #5271ff,
-	  0 0 73px #5271ff,
-	  0 0 80px #5271ff,
-	  0 0 94px #5271ff,
-	  0 0 140px #5271ff;
-  
-  }
-}
-`
+	color: #fff;
+	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #5271ff,
+		0 0 82px #5271ff, 0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+	text-align: center;
+	font-weight: 400;
+	font-size: 1.7rem;
+	animation: pulsate 0.11s ease-in-out infinite alternate;
 
-const Message = styled.p`
-color: white; 
-font-weight: bold; 
-text-align: center; `
+	@keyframes pulsate {
+		100% {
+			text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #5271ff,
+				0 0 80px #5271ff, 0 0 90px #5271ff, 0 0 100px #5271ff, 0 0 150px #5271ff;
+		}
+
+		0% {
+			text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 18px #fff, 0 0 38px #5271ff,
+				0 0 73px #5271ff, 0 0 80px #5271ff, 0 0 94px #5271ff, 0 0 140px #5271ff;
+		}
+	}
+`;
+
+const Message = styled.h1`
+	padding-top: 15px;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+`;
 
 const DateFormat = styled.p`
-margin-top: 80px; 
-margin-right: 10px; 
-color: white; 
-font-weight: bold;
-text-align: right; `
+	margin-top: 80px;
+	margin-right: 10px;
+	color: white;
+	font-weight: bold;
+	text-align: right;
+`;
 
+const HeartBtn = styled.button`
+	border-style: none;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+`;
+
+const LikeArea = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding-right: 1rem;
+	gap: 8px;
+`;
 
 export default Thoughts;
