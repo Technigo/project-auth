@@ -8,17 +8,26 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-	const [error, setError] = useState(null);
+	// const [error, setError] = useState(null);
+  const [isUnavailable, setIsUnavailable] = useState(false)
   const [mode, setMode] = useState("login");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const accessToken = useSelector((store) => store.user.accessToken);
+
   useEffect(() => {
     if (accessToken) {
       navigate("/");
     }
-  }, [accessToken])
+  }, [accessToken, navigate])
+
+  useEffect(() => {
+    if (isUnavailable) {
+      navigate('/not-found')
+      setIsUnavailable(false)
+    }
+  }, [isUnavailable, navigate])
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -42,14 +51,20 @@ const Login = () => {
             dispatch(user.actions.setError(null));
           });
         } else {
+          console.log("Unsuccessful")
           batch(() => {
             dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setUserId(null))
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
           });
-					setError('Invalid login. Try Again!');
+          setIsUnavailable(true)
+					// setError('Invalid login. Try Again!');
         }
+      })
+      .catch((error) => {
+        console.log("Catch")
+        setIsUnavailable(true)
       })
   }
 	return (
@@ -60,26 +75,26 @@ const Login = () => {
       <label htmlFor="login">Already registered? Login here</label>
       <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} />
       <form onSubmit={onFormSubmit}>
-			<p className="error"> {error} </p>
+			{/* <p className="error"> {error} </p> */}
         <label htmlFor="username">Username</label>
         <input
           type="text"
           id="username"
-          required ="Required"
+          // required ="Required"
           value={username}
           onChange={e => setUsername(e.target.value)} />
         <label htmlFor="password">Email</label>
         <input
           type="email"
           id="email"
-          required ="Required"
+          // required ="Required"
           value={email}
           onChange={e => setEmail(e.target.value)} />
           <label htmlFor="password">Password</label>
         <input
           type="password"
           id="password"
-          required ="Required"
+          // required ="Required"
           value={password}
           onChange={e => setPassword(e.target.value)} />
         <button type="submit">Submit</button>
