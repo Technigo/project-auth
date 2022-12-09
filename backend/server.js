@@ -29,7 +29,6 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-    /// My_B4nK_P4$$word
   },
   // npm install crypto
   accessToken: {
@@ -43,12 +42,6 @@ const User = mongoose.model("User", UserSchema);
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 // npm install bcrypt
-// const code = [1, 2, 4, 4];
-// const makeCodeSecret = (codeArr) => {
-    // const secretMessage = codeArr.map(singleNumber => singleNumber + 1);
-    // return secretMessage
-//}
-// transformedCode = makeCodeSecret(code)
   try {
     const salt = bcrypt.genSaltSync();
     if (password.length < 8) {
@@ -150,7 +143,7 @@ const RecipesSchema = new mongoose.Schema({
   },
 }); 
 
-const Recipes = mongoose.model("Receipt", RecipesSchema);
+const Recipes = mongoose.model("Recipe", RecipesSchema);
 
 if (true) {
   const resetDatabase = async () => {
@@ -169,7 +162,6 @@ app.get("/recipes", async (req, res)=> {
   res.status(200).json({ success: true, response: recipes });
 });
 
-
 /*
 app.post("/recipes", authenticateUser)
 app.post("/recipes", async (req, res) => {
@@ -182,7 +174,7 @@ app.post("/recipes", async (req, res) => {
   }
 });
 */
-///////
+
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Welcome to Recipes!");
