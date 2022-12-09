@@ -26,14 +26,12 @@ export const Form = ({ buttonText, formType, formTitle }) => {
         .then((response) => response.json())
         .then((data) => {
           if(data.success){
-            // console.log('Success:', data)
             localStorage.setItem("accessToken", data.response.accessToken);
             localStorage.setItem("username", data.response.username);
             setUsername('')
             setPassword(''); 
             navigate("/welcome");
           } else {
-            // console.log(data.response)
             window.alert(data.response)
           }
         })

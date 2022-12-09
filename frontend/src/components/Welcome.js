@@ -14,8 +14,8 @@ export const Welcome = () => {
   }
 
   const clearStorage = () => {
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('username')
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('username');
     navigate("/");
   }
   
@@ -30,12 +30,6 @@ export const Welcome = () => {
   useEffect(() => {
     fetch ('https://project-auth-ca23vvjbjq-lz.a.run.app/welcome', options)
     .then((response) => response.json())
-    // .then((data) => {
-    //   console.log(data)
-    //   if (!data.success) {
-    //     console.log(data)
-    //   }
-    // })
     .catch((error) => {
       console.error('Error:', error);
     });
