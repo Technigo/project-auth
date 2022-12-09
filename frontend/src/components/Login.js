@@ -55,7 +55,7 @@ const Login = () => {
 	return (
     <>
 		<div className="main">
-      <label htmlFor="register">   Not registered yet? Register here</label>
+      <label htmlFor="register">Not registered yet? Register here</label>
       <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")} />
       <label htmlFor="login">Already registered? Login here</label>
       <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} />
@@ -65,18 +65,21 @@ const Login = () => {
         <input
           type="text"
           id="username"
+          required ="Required"
           value={username}
           onChange={e => setUsername(e.target.value)} />
         <label htmlFor="password">Email</label>
         <input
           type="email"
           id="email"
+          required ="Required"
           value={email}
           onChange={e => setEmail(e.target.value)} />
           <label htmlFor="password">Password</label>
         <input
           type="password"
           id="password"
+          required ="Required"
           value={password}
           onChange={e => setPassword(e.target.value)} />
         <button type="submit">Submit</button>
