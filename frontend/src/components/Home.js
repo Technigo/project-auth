@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import user from "./reducers/user";
-import { Button, FormSection } from "./Login";
+import { Button, FormSection } from "./LogIn";
 import styled from "styled-components";
 import loginImg from "../images/Success.png"
 

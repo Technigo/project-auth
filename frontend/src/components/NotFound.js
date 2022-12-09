@@ -1,7 +1,7 @@
 import React from 'react'
 import notfound from "../images/search.png"
-import { FormSection } from './Login'
-import { Pic, WelcomeHeader } from './Home'
+import { FormSection } from './LogIn'
+import { Pic } from './Home'
 import styled from 'styled-components'
 
 export const NotFound = () => {

@@ -1,6 +1,5 @@
-//API_URL: https://project-auth-fybh32gdwa-lz.a.run.app/
 import React from 'react';
-import { Login } from 'components/Login';
+import { Login } from 'components/LogIn';
 import { NotFound } from 'components/NotFound';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
