@@ -1,46 +1,51 @@
 import React, { useEffect } from "react";
-import { API_URL } from "./utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-//import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import user from "./reducers/user";
+import { Button, FormSection } from "./Login";
+import styled from "styled-components";
+import loginImg from "../images/Success.png"
 
 export const Home = () => {
-  const accessToken = useSelector((store) => store.user.accessToken)
-  //const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const accessToken = useSelector((store) => store.user.accessToken);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!accessToken) {
-      navigate("/login");
-    }
-  }, [])
-    
-    useEffect(() => {
-
-      const options = {
-          method: "GET",
-          headers: {
-              "Content-Type": "application/json",
-              "Authorization": accessToken
-          }
+  useEffect( () => {
+      if (!accessToken) {
+          navigate("/login");
       }
+  }, []);
 
-      fetch(API_URL("user"), options)
-      .then(res => res.json())
-      .then(data => {
-          if(data.success) {
-              dispatch(user.actions.setItems(data.response));
-              dispatch(user.actions.setError(null));
-          } else {
-              dispatch(user.actions.setItems([]));
-              dispatch(user.actions.setError(data.response));
-          }
-      })
-    }, []);
     
     return (
-    <div>
-        <h1>Welcome, you are now logged in!</h1>
-    </div>
+    <FormSection>
+      
+        <WelcomeHeader>Welcome, you are now logged in!</WelcomeHeader>
+        <Pic src={loginImg} alt="Success" />
+      <Button
+        type="button"
+        onClick={() => {
+          dispatch(user.actions.setAccessToken(null));
+          navigate("/login");
+        } }>
+          Log Out
+        </Button>
+        </FormSection>
     )
 }
+
+export const WelcomeHeader = styled.h1`    
+font-size: 20px;
+margin: 10px;
+
+@media (min-width: 800px) {
+font-size: 25px;
+}`
+
+export const Pic = styled.img`
+  width: 40%;
+  height: auto;
+  margin: 5px;
+
+`

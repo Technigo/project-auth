@@ -1,5 +1,19 @@
 import React from 'react'
+import notfound from "../images/search.png"
+import { FormSection } from './Login'
+import { Pic, WelcomeHeader } from './Home'
+import styled from 'styled-components'
 
 export const NotFound = () => {
-  return <h1>404 Page not found</h1>
+  return (
+  <FormSection>
+    <NotFoundHeader>Page not found</NotFoundHeader>
+  <Pic src={notfound} alt="Not found" />
+  </FormSection>
+  )
 }
+
+const NotFoundHeader = styled.h1`
+font-size: 25px;
+margin: 20px;
+`

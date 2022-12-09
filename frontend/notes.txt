@@ -17,3 +17,33 @@ if (true) {
   }
   resetDatabase();
 }
+
+
+
+    return (
+      <FormSection>
+        <PageHeader>Register</PageHeader>
+        <Form onSubmit={onFormSubmit}>
+            <Input 
+            id='username' 
+            type="text" 
+            value={username}
+            placeholder="Choose username"
+            minLength="2"
+            maxLength="20"
+            onChange={(e) => setUsername(e.target.value)}/>
+            <Input 
+            id="password"
+            type="password" 
+            value={password}
+            minLength="5"
+            placeholder="Choose password"
+            onChange={(e) => setPassword(e.target.value)}/>
+        </Form>
+        <Button type="submit">Create account</Button>
+         
+        <Text>Already a user?</Text>
+        <ButtonLink to="/login">Log in</ButtonLink>   
+    </FormSection>
+    )
+}

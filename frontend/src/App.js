@@ -1,7 +1,6 @@
 //API_URL: https://project-auth-fybh32gdwa-lz.a.run.app/
 import React from 'react';
-import { Register } from 'components/Register';
-import { LogIn } from 'components/LogIn';
+import { Login } from 'components/Login';
 import { NotFound } from 'components/NotFound';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -22,9 +21,8 @@ export const App = () => {
         <OuterWrapper> 
           <InnerWrapper>
             <Routes>
-              <Route path="/" element={<Register />} />
-              <Route path="login" element={<LogIn />} />
-              <Route path="home" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Home />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </InnerWrapper>

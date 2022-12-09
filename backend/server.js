@@ -44,10 +44,10 @@ app.post("/register", async (req, res) => {
 
   try {
     const salt = bcrypt.genSaltSync();
-    if (password.length < 8) {
+    if (password.length < 5) {
       res.status(400).json({
         success: false,
-        response: "Password must be at least 8 characters long"
+        response: "Password must be at least 5 characters long"
       });
     } else {
       const newUser = await new User({username: username, password: bcrypt.hashSync(password, salt)}).save();
@@ -118,24 +118,6 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-/*
-//Happy thoughts- change//
-const ThoughtSchema = new mongoose.Schema({
-  message: {
-    type: String,
-  },
-  createdAt: {
-    type: Date,
-    default: () => new Date()
-  },
-  hearts: {
-    type: Number,
-    default: 0
-  }
-})
-
-const Thought = mongoose.model("Thought", ThoughtSchema) */
-
 // When user is authenticated they are directed to this endpoint
 app.get("/home", authenticateUser)
 app.get("/home", (req, res) => {
@@ -145,10 +127,11 @@ app.get("/home", (req, res) => {
   })
 })
 
+
 // Start
 app.get("/", (req, res) => {
   res.send({
-    Message: "Backend for login page https://registertologin.netlify.app/",
+    Message: "Backend page https://registertologin.netlify.app/",
     Routes: [{
       "/": "Register your profile (POST request)",
       "/login" : "Login for registered user",
