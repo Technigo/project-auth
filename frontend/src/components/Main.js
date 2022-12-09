@@ -48,7 +48,7 @@ const Main = () => {
         <>
         <Wrapper>
             <FormWrapper>
-                <Link to="/login"> GO TO LOGIN</Link>
+                {/* <Link to="/login"> GO TO LOGIN</Link> */}
                     <h2>This is some secret thoughts that only authorized users can see.</h2>
                     <ThoughtWrapper>
                     {thoughtItems.map((item) => {
@@ -85,10 +85,12 @@ border-radius: 15px;
 
 const ThoughtWrapper = styled.div`
 p {
-    box-shadow: inset 0 0 10px;
-    padding: 10px;
+    /* box-shadow: inset 0 0 10px; */
+    padding: 8px;
     background-color: white;
     color: #333;
+    border-radius: 15px;
+    font-size: 12px;
 }
 `
 
@@ -101,7 +103,7 @@ width: 300px;
 border-radius: 15px;
 padding: 8px;
 margin-top: 30px;
-background-color: #d4bcb4;
+background-color: #e36373;
 color: white;
 border: 1px solid white;
 font-weight: 800;
