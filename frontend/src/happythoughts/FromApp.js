@@ -12,10 +12,12 @@ export const Fromapp = () => {
   
 
   // https://project-happy-thoughts-api-lsdubteuzq-lz.a.run.app/
+  // USING --> https://project-happy-thoughts-api-lsdubteuzq-lz.a.run.app/
   
   const fetchData = () => {
     setLoading(true);
-    fetch('https://project-happy-thoughts-api-lsdubteuzq-lz.a.run.app/thoughts')
+    //fetch('https://project-happy-thoughts-api-lsdubteuzq-lz.a.run.app/thoughts')
+   fetch('https://project-auth-lsdubteuzq-lz.a.run.app/thoughts') 
       .then((response) => response.json())
       .then((Data) => setThoughts(Data)) 
       .catch((error) => console.error(error))
@@ -42,7 +44,8 @@ const handleHeartCounter = (_id) => {
     headers: {'Content-Type': 'application/json',},
   };
  
-  fetch(`https://project-happy-thoughts-api-lsdubteuzq-lz.a.run.app/thoughts/${_id}/like`, options)
+  //fetch(`https://project-happy-thoughts-api-lsdubteuzq-lz.a.run.app/thoughts/${_id}/like`, options)
+  fetch (`https://project-auth-lsdubteuzq-lz.a.run.app/thoughts/${_id}/like`, options) 
     then((response) => response.json())
     .finally(() => fetchThought(data));
 };
@@ -58,7 +61,8 @@ const handleHeartCounter = (_id) => {
 
     
     setLoading(true);
-    fetch('https://project-happy-thoughts-api-lsdubteuzq-lz.a.run.app/thoughts', options)
+    //fetch('https://project-happy-thoughts-api-lsdubteuzq-lz.a.run.app/thoughts', options)
+    fetch ('https://project-auth-lsdubteuzq-lz.a.run.app/thoughts/', options) 
       .then((response) => response.json())
       .then(() => fetchData())
       .catch((error) => console.error(error))
