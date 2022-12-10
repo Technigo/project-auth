@@ -11,7 +11,7 @@ const posts = createSlice({
             store.items = action.payload
         },
         setNewItems: (store, action) => {
-            store.items.push(action.payload)
+            store.items.unshift(action.payload)
         },
         setError: (store, action) => {
             store.error = action.payload
