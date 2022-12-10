@@ -42,11 +42,18 @@ app.post("/register", async (req, res) => {
 
   try {
     const salt = bcrypt.genSaltSync();
+    const usernameExists = await User.findOne({username})
+
     if (password.length < 5) {
       res.status(400).json({
         success: false,
         response: "Password must be at least 5 characters long"
       });
+    } else if (usernameExists) {
+      res.status(400).json({
+        success: false,
+        response: "Username taken"
+      })
     } else {
       const newUser = await new User({username: username, password: bcrypt.hashSync(password, salt)}).save();
       res.status(201).json({
@@ -78,7 +85,7 @@ app.post("/login", async (req, res) => {
         response: {
           username: user.username,
           id: user._id,
-          accessToken: user.accessToken
+          accessToken: user.accessToken //secured password encrypted as a AccessToken to prevent data steal
         }
       });
     } else {
@@ -95,7 +102,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Page after logged in
+// Authenticated endpoint - accesible after logged in
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {

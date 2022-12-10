@@ -77,6 +77,7 @@ export const Login = () => {
               type="text"
               id="username"
               value={username}
+              placeholder="My username"
               onChange={(e) => setUsername(e.target.value)}
             />
             <Label htmlFor="password">Password: </Label>
@@ -84,6 +85,7 @@ export const Login = () => {
               type="password"
               id="password"
               value={password}
+              placeholder="******"
               onChange={(e) => setPassword(e.target.value)}
             />  
           <Button type="submit">Submit</Button>

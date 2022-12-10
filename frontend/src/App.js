@@ -2,7 +2,7 @@ import React from 'react';
 import { Login } from 'components/LogIn';
 import { NotFound } from 'components/NotFound';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { InnerWrapper, OuterWrapper } from 'components/GlobalStyles';
 import { Home } from 'components/Home';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
@@ -22,7 +22,8 @@ export const App = () => {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<Home />} />
-              <Route path='*' element={<NotFound />} />
+              <Route path="/404" element={<NotFound />} />
+              <Route path="*" element={<Navigate to="/404" replace />} />
             </Routes>
           </InnerWrapper>
         </OuterWrapper>
