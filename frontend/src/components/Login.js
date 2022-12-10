@@ -3,14 +3,19 @@ import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { API_URL } from 'utils/utils';
 import user from 'reducers/user';
+import { Button } from './styled/Buttons.styled';
+import { AppContainer, RadioContainer, StyledForm } from './styled/RegLog.styled';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState('login');
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);
+  const errorMessage = useSelector((store) => store.user.error);
+
   useEffect(() => {
     if (accessToken) {
       navigate('/');
@@ -26,8 +31,9 @@ const Login = () => {
       },
       body: JSON.stringify({ username: username, password: password }),
     };
+
     fetch(API_URL(mode), options)
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           batch(() => {
@@ -46,40 +52,56 @@ const Login = () => {
         }
       });
   };
+
   return (
-    <>
-      <label htmlFor="register">Register</label>
-      <input
-        type="radio"
-        id="register"
-        checked={mode === 'register'}
-        onChange={() => setMode('register')}
-      />
-      <label htmlFor="login">Login</label>
-      <input
-        type="radio"
-        id="login"
-        checked={mode === 'login'}
-        onChange={() => setMode('login')}
-      />
-      <form onSubmit={onFormSubmit}>
-        <label htmlFor="username">Username</label>
+      <><RadioContainer>
+      <label htmlFor='register'>
+        Register
         <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="password">Password</label>
+          type='radio'
+          id='register'
+          checked={ mode === 'register' }
+          onChange={ () => setMode('register') } />
+      </label>
+      <label htmlFor='login'>
+        Login
         <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </>
+          type='radio'
+          id='login'
+          checked={ mode === 'login' }
+          onChange={ () => setMode('login') } />
+      </label>
+    </RadioContainer><StyledForm onSubmit={ onFormSubmit }>
+        <fieldset>
+          <legend>
+            <label htmlFor='username'>Username</label>
+          </legend>
+          <input
+            type='text'
+            id='username'
+            value={ username }
+            onChange={ (event) => setUserName(event.target.value) }
+            placeholder='Type here...'
+            required />
+        </fieldset>
+        <fieldset>
+          <legend>
+            <label htmlFor='password'>Password</label>
+          </legend>
+          <input
+            type='password'
+            id='password'
+            value={ password }
+            onChange={ (event) => setPassword(event.target.value) }
+            placeholder='Type here...'
+            required />
+        </fieldset>
+        <div>
+          <Button type='submit'>
+            { mode === 'register' ? 'Register' : 'Login' }
+          </Button>
+        </div>
+      </StyledForm><p>{ errorMessage ? errorMessage : '' }</p></>
   );
 };
 

@@ -18,7 +18,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Authentication function
+// Function for authenticating user
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization');
   try {
@@ -27,7 +27,7 @@ const authenticateUser = async (req, res, next) => {
       next();
     } else {
       res.status(401).json({
-        response: 'Please log in',
+        response: 'Please log in.',
         success: false,
       });
     }
@@ -47,7 +47,7 @@ app.post('/register', async (req, res) => {
     if (password.length < 8) {
       res.status(400).json({
         success: false,
-        response: 'Password must be at least 8 characters long',
+        response: 'Password must be min 8 characters',
       });
     } else {
       const newUser = await new User({
@@ -64,10 +64,17 @@ app.post('/register', async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(400).json({
-      success: false,
-      response: err,
-    });
+    if (err.code === 11000) {
+      res.status(400).json({
+        success: false,
+        response: 'Username already taken',
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        response: err,
+      });
+    }
   }
 });
 
@@ -88,7 +95,7 @@ app.post('/login', async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "Credentials didn't match",
+        response: 'Credentials not correct',
       });
     }
   } catch (err) {

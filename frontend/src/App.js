@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import thoughts from 'reducers/thoughts';
 import user from 'reducers/user';
+import { AppContainer } from 'components/styled/RegLog.styled';
 
 const reducer = combineReducers({
   user: user.reducer,
@@ -17,14 +18,16 @@ const store = configureStore({ reducer });
 
 export const App = () => {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/" element={<Main />}></Route>
-          <Route path="*" element={<NotFound />}></Route>
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <AppContainer>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/login' element={<Login />}></Route>
+            <Route path='/' element={<Main />}></Route>
+            <Route path='*' element={<NotFound />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    </AppContainer>
   );
 };

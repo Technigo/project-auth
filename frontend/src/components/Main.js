@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import thoughts from 'reducers/thoughts';
 import { API_URL } from 'utils/utils';
 import { useNavigate, Link } from 'react-router-dom';
+import user from 'reducers/user';
+import { Button } from './styled/Buttons.styled';
 
 const Main = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items);
@@ -13,16 +15,16 @@ const Main = () => {
   useEffect(() => {
     if (!accessToken) {
       navigate('/login');
-    } 
+    }
   }, []);
 
   useEffect(() => {
     const options = {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": accessToken
-      }
+        'Content-Type': 'application/json',
+        Authorization: accessToken,
+      },
     };
     fetch(API_URL('thoughts'), options)
       .then((res) => res.json())
@@ -39,10 +41,14 @@ const Main = () => {
 
   return (
     <>
-      <Link to='/login'>Register / Login</Link>
-      <h2>This is the main component</h2>
+      <Button>
+        <Link to='/login' onClick={dispatch(user.actions.setAccessToken(null))}>
+          Log Out
+        </Link>
+      </Button>
+      <h2>Random thoughts</h2>
       {thoughtsItems.map((item) => {
-        return <p key={item._id}>{item.message}</p>
+        return <p key={item._id}>{item.message}</p>;
       })}
     </>
   );
