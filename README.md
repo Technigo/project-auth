@@ -1,13 +1,14 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
+Week 16 of Technigo boot camp, pair-programming with Sofie Rydmark. Register/Log in form made in React with backend and authentication build using node.js, mongoDB and mongoose. 
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
-
-## The problem
-
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+## What we learned
+1. How to use user authentication in backend
+2. What is it and how to use "crypto"
+3. What is it and how to use "bcrypt"
+4. How to connect the backend to frontend
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+https://signupformkajansofie.netlify.app/
+
