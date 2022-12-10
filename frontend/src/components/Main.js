@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import thoughts, { getThoughts } from 'reducers/thoughts';
-import { API_URL } from 'utils/utils';
-import { useNavigate, Link } from 'react-router-dom';
+import { getThoughts } from 'reducers/thoughts';
+import { useNavigate } from 'react-router-dom';
 import user from 'reducers/user';
+
 const Main = () => {
   const thoughtItems = useSelector((store) => store.thoughts.items);
   const dispatch = useDispatch();
@@ -14,11 +14,11 @@ const Main = () => {
     if (!accessToken) {
       navigate('/login');
     }
-  }, [accessToken]);
+  }, [accessToken, navigate]);
 
   useEffect(() => {
     dispatch(getThoughts());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

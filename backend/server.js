@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+console.log(process.env.MONGO_URL);
+
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -69,15 +71,26 @@ app.post("/register", async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(400).json({
-      success: false,
-      response: error,
-    });
+    // Error code 11000 = duplicate key error
+    if (error.name === "MongoServerError" && error.code === 11000) {
+      console.error(error);
+      res.status(400).json({
+        success: false,
+        response: "User already exists!",
+      });
+    } else {
+      console.warn(error.name, error.code);
+      res.status(500).json({
+        success: false,
+        response: "Unexpected Error...",
+      });
+    }
   }
 });
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
+  console.log(username, password);
 
   try {
     const user = await User.findOne({ username });
@@ -117,8 +130,8 @@ const authenticateUser = async (req, res, next) => {
       });
     }
   } catch (error) {
-    res.status(400).json({
-      response: error,
+    res.status(500).json({
+      response: "Could not authenticate the user...",
       success: false,
     });
   }
