@@ -10,6 +10,9 @@ const posts = createSlice({
         setItems: (store, action) => {
             store.items = action.payload
         },
+        setNewItems: (store, action) => {
+            store.items.push(action.payload)
+        },
         setError: (store, action) => {
             store.error = action.payload
         }

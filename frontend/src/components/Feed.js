@@ -50,6 +50,8 @@ const Feed = () => {
         return (
         <Message key={item._id}>
           <p>{item.message}</p>
+          <p>{item.createdAt}</p>
+          <p>{item.hearts}</p>
         </Message>
       )})}
     </FeedSection>
@@ -73,8 +75,7 @@ const FeedSection = styled.section`
 
 const Message = styled.div`
   background-color: #FFEEE3;
-  padding: 50px;
-  height: 30px;
+  padding: 50px;;
   box-sizing: border-box;
   border-radius: 30px;
   display: flex;

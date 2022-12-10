@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "utils/utils";
 import posts from "reducers/posts";
-import { useSelector } from 'react-redux'
+// nya meddelanden måste kopplas till redux-storen för att automatiskt synas i feed. 
 
 const NewMessage = () => {
   const [message, setMessage] = useState('')
@@ -23,13 +23,14 @@ const NewMessage = () => {
     fetch(API_URL("posts"), options)
       .then(res => res.json())
       .then(data => {
-        setMessage('')
+        console.log(data)
+        dispatch(posts.actions.setNewItems(data.response))
       })
   }
 
   return (
-    <NewMessageSection>
-      <div>
+    <NewMessageOuterSection>
+      <NewMessageInnerSection>
         <form onSubmit={onFormSubmit}>
           <textarea
             id="newMessage"
@@ -39,15 +40,21 @@ const NewMessage = () => {
             onChange={(event) => setMessage(event.target.value)}></textarea>
           <button type="submit">Post new message</button>
         </form>
-      </div>
-    </NewMessageSection>
+      </NewMessageInnerSection>
+    </NewMessageOuterSection>
   )
 }
 
 export default NewMessage
 
-const NewMessageSection = styled.section`
+const NewMessageOuterSection = styled.section`
   background-color: #FFEEE3;
-  padding: 30px;
   border-radius: 20px;
+  padding: 20px;
 `
+
+const NewMessageInnerSection = styled.div`
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  ` 
