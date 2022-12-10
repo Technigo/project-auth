@@ -4,16 +4,14 @@ export const Button = styled.button`
   background: none;
   border: none;
   border-radius: 5px;
-  color: gray;
+  color: hotpink;
   cursor: pointer;
   font-family: 'Comfortaa';
   font-size: 1rem;
-  font-weight: 700;
   width: 6rem;
   height: 2.5rem;
   padding: .5rem;
   transition: all .3s ease;
-  transform: rotate(-6deg);
 
     :active {
       font-size: .95rem;
@@ -22,17 +20,16 @@ export const Button = styled.button`
     }
 
     :hover {
-      border: 2px solid mediumpurple;
-      color: mediumpurple;
+      border: 1px solid orangered;
     }
 
     & a {
       text-decoration: none;
-      color: mediumpurple;
+      color: orangered;
     }
 
      a:active {
-      color: mediumpurple;
+      color: orangered;
      }
 `;
 

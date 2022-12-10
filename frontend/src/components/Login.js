@@ -81,7 +81,7 @@ const Login = () => {
             id='username'
             value={ username }
             onChange={ (event) => setUserName(event.target.value) }
-            placeholder='Type here...'
+            placeholder='Your Username'
             required />
         </fieldset>
         <fieldset>
@@ -93,7 +93,7 @@ const Login = () => {
             id='password'
             value={ password }
             onChange={ (event) => setPassword(event.target.value) }
-            placeholder='Type here...'
+            placeholder='••••••••'
             required />
         </fieldset>
         <div>

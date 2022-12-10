@@ -8,6 +8,7 @@ export const AppContainer = styled.div`
   gap: 1.5rem;
 
   background: whitesmoke;
+  border: 2px solid orangered;
   border-radius: .5rem;
   margin: 3rem auto 0;
   width: 25rem;
@@ -15,7 +16,7 @@ export const AppContainer = styled.div`
   padding-bottom: 1rem;
 
   & p {
-    color: mediumpurple;
+    color: gray;
     font-size: .9rem;
     font-weight: 700;
     width: 17rem;
@@ -25,42 +26,51 @@ export const AppContainer = styled.div`
 export const RadioContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  color: gray;
-
+  color: hotpink;
   width: 15rem;
+
     & input {
       margin-left: .5rem;
     }
-`;
+    `;
 
 export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
   color: gray;
-
+  
   & fieldset {
-    border: 1px solid gray;
+    border: 1px solid orangered;
     border-radius: 5px;
   }
   
   & label {
+    color: orangered;
     font-size: .8rem;
+    font-weight: 700;
   }
-
+  
   & input {
     background: whitesmoke;
     border: none;
     width: 15rem;
     height: 2rem;
-    }
-
-    input:focus{
-      outline: none;
-    }
-
+  }
+  
+  input:focus{
+    outline: none;
+    color: hotpink;
+    font-family: 'Comfortaa', cursive, sans-serif;
+  }
+  
+  input::placeholder {
+   color: gray;
+   font-family: 'Comfortaa', cursive, sans-serif;
+  }
+  
   & div {
     display: flex;
     justify-content: flex-end;
   }
-`;
+  `;
