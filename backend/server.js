@@ -30,9 +30,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-    /// My_B4nK_P4$$word
   },
-  // npm install crypto
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex")
@@ -43,7 +41,6 @@ const User = mongoose.model("User", UserSchema);
 
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
-// npm install bcrypt
 // const code = [1, 2, 4, 4];
 // const makeCodeSecret = (codeArr) => {
     // const secretMessage = codeArr.map(singleNumber => singleNumber + 1);
