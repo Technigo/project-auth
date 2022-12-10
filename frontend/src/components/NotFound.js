@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const NotFound = () => {
     return (
@@ -13,3 +14,6 @@ const NotFound = () => {
 }
 
 export default NotFound;
+
+const SubmitButton = styled.input`
+    color: black;`
