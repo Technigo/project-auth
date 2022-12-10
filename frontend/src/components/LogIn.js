@@ -47,6 +47,7 @@ export const Login = () => {
             dispatch(user.actions.setUserId(null))
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
+            window.alert(data.response)
           });
         }
       })
