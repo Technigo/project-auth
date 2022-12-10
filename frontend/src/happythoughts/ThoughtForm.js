@@ -1,4 +1,9 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const Text = styled.h3 `
+margin-top: 10%;
+`
 
 const ThoughtForm = ({ handleFormSubmit, onNewThoughtChange, newThought }) => {
   return (
@@ -6,7 +11,7 @@ const ThoughtForm = ({ handleFormSubmit, onNewThoughtChange, newThought }) => {
     <form onSubmit={handleFormSubmit}>
       
       <label htmlFor="newThought">
-      <p>What's making you happy now?</p></label>
+      <Text>What makes you happy now?</Text></label>
       <textarea
         type="text"
        value={newThought} 
@@ -23,7 +28,7 @@ const ThoughtForm = ({ handleFormSubmit, onNewThoughtChange, newThought }) => {
       className="submit-btn" type="submit" 
       disabled={newThought.length < 5 || newThought.length > 140} >
       <span className="heart-emoji" role="image" aria-label="heart"/>
-      <p>❤️ Send happiness ❤️</p>
+      <p>Send happiness ❤️</p>
       </button>
       </div>
     

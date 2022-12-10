@@ -3,9 +3,23 @@ import { useDispatch, useSelector, batch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { API_URL } from "utils/utils";
 import user from "reducers/user";
+import styled from "styled-components";
 
 // const BASE_URL = "http://localhost:8090";
 // export const API_URL = (slug) => `${BASE_URL}/${slug}`;
+
+const StartPage = styled.div `
+text-align: center;
+color: white;
+display: flex;
+flex-direction: column; 
+
+`
+
+const Loginpagetext = styled.h1 `
+margin: 5%;
+color: white;
+`
 
 
 const Login = () => {
@@ -52,32 +66,17 @@ const Login = () => {
             })
     }
     return (
-        <>
+        <StartPage>
+        <Loginpagetext>
+          Welcome to Happy Thoughts ❤️
+        </Loginpagetext>
+
         <label htmlFor="register">Register</label>
-        <input type="radio" id="register" checked={mode === "register"} onChange={()=>setMode("register")}/>
+        <input type="radio" id="register" checked={mode === "register"} onChange={()=>setMode("register")}/> 
         <label htmlFor="login">Login</label>
         <input type="radio" id="login" checked={mode === "login"} onChange={()=>setMode("login")}/>
         <form onSubmit={onFormSubmit}>
-        <button type="submit">Submit</button>
-    
-        <input
-            required 
-            type="password" 
-            id="password" 
-            placeholder="password"
-            value={password} 
-            onChange={e => setPassword(e.target.value)}/>
-            <label htmlFor="Password">Password</label>
-                
-        <input
-           // required
-            type="email"
-            value={email}
-            name="email"
-            placeholder="email"
-            onChange={event => setEmail(event.target.value)} />
-           <label htmlFor="email">Email</label>
-            
+        
         <input 
             required
             type="text" 
@@ -86,8 +85,27 @@ const Login = () => {
             value={username} 
             onChange={e => setUsername(e.target.value)}/>
             <label htmlFor="username">Username</label>
+
+            <input
+           // required
+            type="email"
+            value={email}
+            name="email"
+            placeholder="email"
+            onChange={event => setEmail(event.target.value)} />
+           <label htmlFor="email">Email</label>
+
+        <input
+            required 
+            type="password" 
+            id="password" 
+            placeholder="password"
+            value={password} 
+            onChange={e => setPassword(e.target.value)}/>
+            <label htmlFor="Password">Password</label>
+            <button type="submit">Submit</button>
         </form>
-    </> 
+    </StartPage> 
     );
 }
 

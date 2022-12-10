@@ -9,14 +9,20 @@ import { Fromapp } from "../happythoughts/FromApp";
 // const THOUGHTS_URL = "https://project-happy-thoughts-api-lsdubteuzq-lz.a.run.app/";
 // export const HAPPY_API_URL = (slug) => `${THOUGHTS_URL}/${slug}`;
 
+const Userpage = styled.div `
+    color: white;
+    text-align: center;
+`
+
 const Logoutbutton = styled.button `
     color: white;
-    margin-top: 15%
+    margin-top: 10%
 `
 
 const Welcometext = styled.p `
     color: white;
-    margin-top: 15%
+    margin-top: 5%;
+    text-align: center;
 `
 
 const Main = () => {
@@ -58,15 +64,15 @@ const home = () => {
     }, []);
 
     return (
-        <>
+        <Userpage>
             <Link to="/login"> GO TO LOGIN</Link>
             <Welcometext>
-            Welcome {username} You are logged in! This is main component </Welcometext>
+            Welcome {username} </Welcometext>
             <div>
                 <Logoutbutton onClick={() => home()}>Log out</Logoutbutton>
             </div>
             <Fromapp/>
-        </>
+        </Userpage>
     )
 }
 
