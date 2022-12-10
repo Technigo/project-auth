@@ -79,7 +79,7 @@ export const SignUp = () => {
 
             <FormHeader>
                 <h1>Glad you want to join!</h1>
-                <h3>Already a member? Sign in <Link to="/">here</Link></h3>
+                <h3>Already a member? Sign in <Link to="/">here</Link></h3> 
             </FormHeader>
         
             <FormContainer>
