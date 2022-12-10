@@ -11,5 +11,5 @@ The backend was made with Express API using Mongoose Schema and MongoDB. The use
 
 ## View it live
 
-Frontend:
+Frontend: https://charlotte-annika-auth-project.netlify.app/login
 Backend: https://project-auth-mvxagr6rda-uc.a.run.app/
