@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import thoughts from "reducers/thoughts";
 import { API_URL } from "utils/utils";
+import user from "reducers/user";
+import styled from "styled-components";
 
 const Main = () => {
   // Access to all thoughts from the store
@@ -12,7 +14,7 @@ const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // useNavigate 
+  // useNavigate
   useEffect(() => {
     if (!accessToken) {
       navigate("/login");
@@ -24,9 +26,9 @@ const Main = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Autorization": accessToken
+        Autorization: accessToken,
       },
-    }
+    };
     fetch(API_URL("thoughts"), options)
       .then((res) => res.json())
       .then((data) => {
@@ -44,14 +46,57 @@ const Main = () => {
   }, []);
 
   return (
-    <>
-      <Link to="/login">LOGIN</Link>
-      <h2>This is a main componenet</h2>
+    <Wrapper>
+      {/* <Link to="/login">LOGIN</Link> */}
+      <Text>
+        <h2>💜 All Happy Thoughts 💜 </h2>
+      </Text>
       {thoughtsItem.map((item) => {
-        return <p key={item._id}>{item.message}</p>;
+        return (
+          <Text>
+            <h4 key={item._id}>{item.message}</h4>
+          </Text>
+        );
       })}
-    </>
+      <Button
+        type="button"
+        onClick={() => {
+          dispatch(user.actions.setAccessToken(null));
+          //   navigate("/login");
+        }}
+      >
+        Log Out
+      </Button>
+    </Wrapper>
   );
 };
 
 export default Main;
+
+/**stying */
+const Wrapper = styled.div`
+  width: 100vw;
+  /* height: 100vh; */
+  display: flex;
+  background-color: rgb(230, 179, 255);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+const Button = styled.button`
+  font-family: "Inconsolata";
+  padding: 6px 15px;
+  background: none;
+  border: 4px solid rgb(102, 0, 102);
+  width: 150px;
+  margin: 15px 30px 30px;
+  cursor: pointer;
+  color: rgb(26, 0, 26);
+  border-radius: 8px;
+`;
+
+const Text = styled.h2`
+  margin-top: 20px;
+  font-size: 18px;
+  color: beige;
+`;
