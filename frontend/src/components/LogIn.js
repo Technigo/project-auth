@@ -15,6 +15,7 @@ const LogIn = () => {
   const navigate = useNavigate()
 
   const accessToken = useSelector((store) => store.user.accessToken)
+  const error = useSelector((store) => store.user.error)
 
   useEffect(() => {
     if(accessToken) {
@@ -76,7 +77,6 @@ const LogIn = () => {
             {mode === "login" && <Button type="submit">Log in</Button>}
             {mode === "register" && <Button type="submit">Register</Button>}
           </ButtonDiv>
-          
       </Form>
       <div>
         <label htmlFor="register">Register</label>
@@ -84,6 +84,7 @@ const LogIn = () => {
         <label htmlFor="login">Login</label>
         <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} />
       </div>
+      <ErrorMsg>{error}</ErrorMsg>
     </FormSection>
   )
 }
@@ -116,4 +117,8 @@ export const Form = styled.form`
     border-radius: 10px;
     border: none;
   }
+`
+const ErrorMsg = styled.p`
+  color: red;
+  margin-top: 10px;
 `

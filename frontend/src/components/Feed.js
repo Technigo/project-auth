@@ -10,7 +10,6 @@ import Moment from 'react-moment'
 const Feed = () => {
   const postItems = useSelector((store) => store.posts.items)
   const accessToken = useSelector((store) => store.user.accessToken)
-  const user = useSelector((store) => store.user.username)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -44,14 +43,14 @@ const Feed = () => {
 
   return (
     <>
-      <Link to="/login">Go to login</Link>
+    <Link to="/login"><button>Go to login</button></Link> 
       <FeedSection>
         <h2>Message board</h2>
         <NewMessage />
         {postItems.map((item) => {
           return (
           <MessageContainer key={item._id}>
-            <p>{user}, posted <Moment fromNow ago>{item.createdAt}</Moment> ago:</p>
+            <p><Moment fromNow ago>{item.createdAt}</Moment> ago:</p>
             <MessageDiv>
               <p>"{item.message}"</p>
               {/* <LikeBtn><CiHeart /></LikeBtn><p> x {item.hearts}</p> */}
