@@ -48,24 +48,8 @@ app.get("/users", async (req, res) => {
   }
 });
 
-// app.post('/newUser', async (req, res) => {
-//   const {name, password} = req.body;
-//   const user = new User({name, password: bcrypt.hashSync(password)})
-//   try{
-//     const savedNewUser= await user.save();
-//     res.status(201).json({response: savedNewUser, success: true});
-//   }
-//   catch (err){
-//     res.status(400).json({
-//       message: "Coould not save new user",
-//       error: err.error,
-//       success: false
-//     })
 
-//   }
-// })
-
-app.post("/registerUser", async (req, res) => {
+app.post("/register", async (req, res) => {
   const { name, password } = req.body;
   if (password.length < 6) {
     res.status(400).json({
