@@ -10,5 +10,5 @@ Week 16 of Technigo boot camp, pair-programming with Sofie Rydmark. Register/Log
 
 ## View it live
 
-https://signupformkajansofie.netlify.app/
-
+Frontend: https://signupformkajansofie.netlify.app/
+Backend: https://project-authentication-yz4wzwvsha-uc.a.run.app
