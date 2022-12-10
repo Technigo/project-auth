@@ -11,12 +11,12 @@ export const Button = styled.button`
   width: 6rem;
   height: 2.5rem;
   padding: .5rem;
-  transition: all .3s ease;
+  transition: all .2s ease;
 
     :active {
       font-size: .95rem;
       transform: scale(.99);
-      width: 5.47rem;
+      width: 5.7rem;
     }
 
     :hover {

@@ -72,5 +72,6 @@ export const StyledForm = styled.form`
   & div {
     display: flex;
     justify-content: flex-end;
+    padding-right: .15rem;
   }
   `;
