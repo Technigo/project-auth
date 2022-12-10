@@ -57,8 +57,8 @@ const Main = () => {
                 return <p key={item._id}>{item.message}</p>
             })}
              <Link to="/" onClick={logOut}>
-          Log out
-        </Link>
+                Log out
+            </Link>
         </>
     )
 }
