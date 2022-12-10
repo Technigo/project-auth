@@ -17,13 +17,11 @@ export const Home = () => {
       }
   }, []);
 
-    
     return (
     <FormSection>
-      
         <WelcomeHeader>Welcome, you are now logged in!</WelcomeHeader>
         <Pic src={loginImg} alt="Success" />
-      <Button
+        <Button
         type="button"
         onClick={() => {
           dispatch(user.actions.setAccessToken(null));
@@ -41,11 +39,11 @@ margin: 10px;
 
 @media (min-width: 800px) {
 font-size: 25px;
-}`
+}
+`
 
 export const Pic = styled.img`
   width: 40%;
   height: auto;
   margin: 5px;
-
 `

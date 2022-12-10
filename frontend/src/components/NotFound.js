@@ -8,7 +8,7 @@ export const NotFound = () => {
   return (
   <FormSection>
     <NotFoundHeader>Page not found</NotFoundHeader>
-  <Pic src={notfound} alt="Not found" />
+    <Pic src={notfound} alt="Not found" />
   </FormSection>
   )
 }

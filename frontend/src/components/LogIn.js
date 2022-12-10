@@ -5,8 +5,6 @@ import { API_URL } from './utils/constants';
 import user from './reducers/user';
 import styled from "styled-components";
 
-
-
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -73,7 +71,6 @@ export const Login = () => {
             onChange={() => setMode("login")}
             />
           </SignupSignin>
-
           <FormSubmit onSubmit={onFormSubmit}>
             <Label htmlFor="username">Username: </Label>
             <Input
@@ -82,22 +79,18 @@ export const Login = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-
             <Label htmlFor="password">Password: </Label>
             <Input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-            />
-            
-      <Button type="submit">Submit</Button>
-          </FormSubmit>
-  
+            />  
+          <Button type="submit">Submit</Button>
+        </FormSubmit>
     </FormSection>
     );
 }
-
 
 export const FormSection = styled.section`
   display: flex;
