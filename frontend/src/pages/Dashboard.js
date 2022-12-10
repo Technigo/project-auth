@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { InnerWrapper } from '../assets/GlobalStyles'
+import { InnerWrapper, Button, TextWrapper, Img } from '../assets/GlobalStyles'
 import thoughts from 'reducers/thoughts'
 import { API_URL } from 'utils/Utils'
 import { useNavigate } from 'react-router-dom'
 import user from 'reducers/user'
+import Meme from '../assets/drake-meme.jpg'
 
 export const Dashboard = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items);
@@ -14,8 +15,8 @@ export const Dashboard = () => {
 
   useEffect(() => {
     if(!accessToken) {
-      /* alert("You are not logged in") */
       navigate("/")
+      alert("You are not logged in")
     }
   }, [accessToken])
 
@@ -41,16 +42,19 @@ export const Dashboard = () => {
    }, []);
 
   return (
-    <>
-      <button
+    <InnerWrapper>
+      <TextWrapper SiteHeader>
+      <h1>Dashboard</h1>
+      <Button logout
             type="button"
             onClick={() => {
             dispatch(user.actions.setAccessToken(null));
             navigate("/");
             }}> 
             Log Out
-        </button>
-      <h2>Dashboard</h2>
-    </>
+        </Button>
+        </TextWrapper>
+        <Img src={Meme} alt="drake meme" />
+      </InnerWrapper>
   )
 }

@@ -1,8 +1,8 @@
 import styled, { createGlobalStyle, css } from "styled-components/macro";
 import backgroundImage from "../assets/knit-background.jpg"
+
+
 export const GlobalStyles = createGlobalStyle`
-
-
 // background and font colour
 html {
     background-image: url(${backgroundImage});
@@ -19,6 +19,7 @@ body {
 }`
 
 // Main wrapper, decides width of all content
+// Props for the dashboard styling
 export const InnerWrapper = styled.div`
    width: 60%;
    margin: 0 auto;
@@ -32,12 +33,44 @@ export const TextWrapper = styled.div`
     background-color: rgb(64, 43, 34, 0.9);
     border-radius: 10px;
     padding: 25px;
+
+    ${(props) =>
+    props.SiteHeader &&
+    css`
+    margin: 2% auto;
+    padding: 0;
+
+    display: flex;
+     flex-direction: column;
+     justify-content: center;
+     text-align: center;
+    `};
+`
+
+// Wrapper for login and register page
+export const UserInputWrapper = styled.div`
+    width: 60%;
+    margin: 20vh auto;
+    padding: 5% 10%;
+    border-radius: 15px;
+    background-color: rgb(64, 43, 34, 0.9);
+` 
+
+// Styling for form with username and password input (login & register page)
+export const Form = styled.form`
+display: flex;
+flex-direction: column;
+line-height: 3;
 `
 
 //Wrapper for buttons on start page
 export const Buttonwrapper = styled.div`
     display: flex; 
     justify-content: space-evenly;
+`
+// Styles image on dashboard page
+export const Img = styled.img`
+width: 100%;
 `
 // Main styling for buttons and props for submit and redirect buttons
 export const Button = styled.button`
@@ -75,20 +108,13 @@ export const Button = styled.button`
         margin-top: 5%;
       }
     `};
+
+    ${(props) =>
+    props.logout &&
+    css`
+      align-self: center;
+      margin-bottom: 5%;
+    `};
 `
 
-// Wrapper for login and register page
-export const UserInputWrapper = styled.div`
-    width: 60%;
-    margin: 20vh auto;
-    padding: 5% 10%;
-    border-radius: 15px;
-    background-color: rgb(64, 43, 34, 0.9);
-` 
 
-// Styling for form with username and password input (login & register page)
-export const Form = styled.form`
-display: flex;
-flex-direction: column;
-line-height: 3;
-`

@@ -1,13 +1,17 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+A combined frontend and backend project to create a site with register-and-login-function with encryptesd passwords and a route which need authorization to see.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We have a RESTful API with routes to register, login, and an authenticated endpoint. It also validates the user input when creating a new user.
+
+The frontend has registration form which POSTs to the API to create a new user and the passwords in the database are encrypted with bcrypt.
+
+Tech used: React, Styled components, API, MongoDB, Crypto and Bcrypt
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Backend: https://project-auth-3asmq7u3ga-lz.a.run.app
+
+Frontend: https://arts-and-craft-society.netlify.app
