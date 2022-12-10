@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "utils/utils";
 import posts from "reducers/posts";
-// nya meddelanden måste kopplas till redux-storen för att automatiskt synas i feed. 
+import { Button } from "./Buttons"
+import { Form } from "./LogIn"
+import { ButtonDiv } from "./Buttons";
 
 const NewMessage = () => {
   const [message, setMessage] = useState('')
@@ -31,15 +33,17 @@ const NewMessage = () => {
   return (
     <NewMessageOuterSection>
       <NewMessageInnerSection>
-        <form onSubmit={onFormSubmit}>
-          <textarea
+        <Form onSubmit={onFormSubmit}>
+          <Textarea
             id="newMessage"
-            placeholder="Post new message" 
+            placeholder="..." 
             type="text"
             value={message}
-            onChange={(event) => setMessage(event.target.value)}></textarea>
-          <button type="submit">Post new message</button>
-        </form>
+            onChange={(event) => setMessage(event.target.value)}></Textarea>
+          <ButtonDiv>
+            <Button type="submit">Post new message</Button>
+          </ButtonDiv>
+        </Form>
       </NewMessageInnerSection>
     </NewMessageOuterSection>
   )
@@ -50,11 +54,17 @@ export default NewMessage
 const NewMessageOuterSection = styled.section`
   background-color: #FFEEE3;
   border-radius: 20px;
-  padding: 20px;
+  width: 100%;
+  margin-bottom: 10px;
 `
 
 const NewMessageInnerSection = styled.div`
   padding: 40px;
   display: flex;
   flex-direction: column;
-  ` 
+` 
+
+const Textarea = styled.textarea`
+  border: none;
+  border-radius: 5px;
+`

@@ -5,6 +5,7 @@ import { useDispatch, useSelector, batch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "utils/utils";
 import user from "reducers/user";
+import { ButtonDiv } from "./Buttons";
 
 const LogIn = () => {
   const [username, setUsername] = useState('')
@@ -54,7 +55,8 @@ const LogIn = () => {
 
   return (
     <FormSection>
-      <h1>Sign up</h1>
+      {mode === "login" && <h1>Log in</h1>}
+      {mode === "register" && <h1>Sign up</h1>}
       <Form onSubmit={onFormSubmit}>
           <label htmlFor="username">Username</label>
           <input 
@@ -63,15 +65,18 @@ const LogIn = () => {
             placeholder="username"
             value={username}
             onChange={(event) => setUsername(event.target.value)} />
-          <label htmlFor="password">Username</label>
+          <label htmlFor="password">Password</label>
           <input
             id="password"
             type="password"
             placeholder="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)} />
-          {mode === "login" && <Button type="submit">Log in</Button>}
-          {mode === "register" && <Button type="submit">Register</Button>}
+          <ButtonDiv>
+            {mode === "login" && <Button type="submit">Log in</Button>}
+            {mode === "register" && <Button type="submit">Register</Button>}
+          </ButtonDiv>
+          
       </Form>
       <div>
         <label htmlFor="register">Register</label>
@@ -92,11 +97,18 @@ export const FormSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  h1 {
+    font-weight: 700;
+    font-size: 45;
+    margin-bottom: 20px;
+  }
 `
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
+  margin: 5px;
 
   input {
     padding: 15px;
@@ -105,10 +117,3 @@ export const Form = styled.form`
     border: none;
   }
 `
-
-const ModeSection = styled.div`
-  background-color: transparent;
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  `

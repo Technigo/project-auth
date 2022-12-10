@@ -5,10 +5,12 @@ import posts from 'reducers/posts'
 import { API_URL } from "utils/utils";
 import { useNavigate, Link } from "react-router-dom";
 import NewMessage from "./NewMessage";
+import Moment from 'react-moment'
 
 const Feed = () => {
   const postItems = useSelector((store) => store.posts.items)
   const accessToken = useSelector((store) => store.user.accessToken)
+  const user = useSelector((store) => store.user.username)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -44,20 +46,20 @@ const Feed = () => {
     <>
       <Link to="/login">Go to login</Link>
       <FeedSection>
-      <h2>Message board</h2>
-      <NewMessage />
-      {postItems.map((item) => {
-        return (
-        <Message key={item._id}>
-          <p>{item.message}</p>
-          <p>{item.createdAt}</p>
-          <p>{item.hearts}</p>
-        </Message>
-      )})}
-    </FeedSection>
+        <h2>Message board</h2>
+        <NewMessage />
+        {postItems.map((item) => {
+          return (
+          <MessageContainer key={item._id}>
+            <p>{user}, posted <Moment fromNow ago>{item.createdAt}</Moment> ago:</p>
+            <MessageDiv>
+              <p>"{item.message}"</p>
+              {/* <LikeBtn><CiHeart /></LikeBtn><p> x {item.hearts}</p> */}
+            </MessageDiv>
+          </MessageContainer>
+        )})}
+      </FeedSection>
     </>
-
-
   )
 }
 
@@ -71,16 +73,27 @@ const FeedSection = styled.section`
   flex-direction: column;
   align-items: center;
   border: 2px #EA9A66 solid;
-  `
 
-const Message = styled.div`
-  background-color: #FFEEE3;
-  padding: 50px;;
-  box-sizing: border-box;
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  h2 {
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 25px;
+    color: darkgoldenrod;
+    margin-bottom: 10px;
+  }
+`
+
+const MessageContainer = styled.div`
   width: 100%;
-  margin: 10px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+`
+
+const MessageDiv = styled.div`
+  background-color: #FFEEE3;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
 `

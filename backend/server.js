@@ -131,7 +131,7 @@ const Post = mongoose.model("Post", PostSchema)
 
 app.get("/posts", authenticateUser)
 app.get("/posts", async (req, res) => {
-  const posts = await Post.find({})
+  const posts = await Post.find({}).sort({createdAt: 'desc'}).limit(20).exec()
   res.status(200).json({
     sucess: true,
     response: posts
