@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -14,7 +15,12 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
-/////// Monday
+
+//shows the available endpoints
+app.get("/endpoints", (req, res) => {
+  res.send(listEndpoints(app))
+});
+
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
