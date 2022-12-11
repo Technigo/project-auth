@@ -18,6 +18,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Schema for User, with encryptet password
 const UserSchema = new mongoose.Schema({
 username: {
   type: String,
@@ -36,6 +37,7 @@ default: () => crypto.randomBytes(128).toString("hex")
 
 const User = mongoose.model("User", UserSchema);
 
+// Registers a new user and requires password to be over 8 characters and encrypts password
 app.post("/register", async (req, res) => {
 const { username, password } = req.body;
 try {
@@ -64,6 +66,7 @@ res.status(400).json({
 }
 });
 
+// Matches username and accesstoken when logging , otherwise throws error 
 app.post("/login", async (req, res) => {
 const { username, password } = req.body;
 try {
@@ -92,6 +95,7 @@ try {
 }
 });
 
+//Checks if user has access token, if not throws error
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
@@ -112,35 +116,6 @@ const authenticateUser = async (req, res, next) => {
     })
   }
 }
-
-const MessageSchema = new mongoose.Schema ({
-  message: {
-    type: String,
-  },
-  createdAt: {
-    type: Date,
-    default: () => new Date()
-  }
-})
-
-const Message = new mongoose.model("Message", MessageSchema);
-
-app.get("/dashboard", authenticateUser);
-app.get("/dashboard", async (req, res)=> {
-  const messages = await Message.find({});
-  res.status(200).json({success: true, response: messages});
-});
-
-app.post("/dashboard", authenticateUser)
- app.post("/dashboard", async (req, res) => {
-   const { message } = req.body;
-  try {
-    const newMessage = await new Message({message}).save();
-    res.status(201).json({success: true, response: newMessage});
-  } catch (error) {
-     res.status(400).json({success: false, response: error});
-   }
- });
 
 // Start defining your routes here
 app.get("/", (req, res) => {
