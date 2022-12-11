@@ -57,12 +57,12 @@ const Main = () => {
           return <li key={item._id}>{item.message}</li>;
         })}
       </ul>
-      <Link
+      <a
         to='https://gladatankar.netlify.com'
         target='_blank'
         rel='noreferrer'>
-        Remember ?
-      </Link>
+        Do you remember ?
+      </a>
     </>
   );
 };
