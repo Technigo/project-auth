@@ -48,9 +48,7 @@ code {
   flex-direction: column;
   align-items: center;
 }
-a {
-  text-decoration: none;
-}
+
 form {
   display: flex;
   /* flex-direction: column-reverse;  */

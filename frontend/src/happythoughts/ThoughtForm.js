@@ -1,10 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Text = styled.h3 `
-margin-top: 10%;
-`
-
 const ThoughtForm = ({ handleFormSubmit, onNewThoughtChange, newThought }) => {
   return (
   <section className="form-section">
@@ -37,3 +33,7 @@ const ThoughtForm = ({ handleFormSubmit, onNewThoughtChange, newThought }) => {
   );
 }
 export default ThoughtForm;
+
+const Text = styled.h3 `
+margin-top: 10%;
+`

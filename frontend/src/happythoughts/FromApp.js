@@ -39,10 +39,9 @@ export const Fromapp = () => {
 
 const handleHeartCounter = (_id) => {
   const options = {
-    method: 'POST',
+    method: 'PATCH',
     headers: {'Content-Type': 'application/json',},
   };
- 
   //fetch(`https://project-happy-thoughts-api-lsdubteuzq-lz.a.run.app/thoughts/${_id}/like`, options)
   fetch (`https://project-auth-lsdubteuzq-lz.a.run.app/thoughts/${_id}/like`, options) 
     then((response) => response.json())

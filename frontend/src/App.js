@@ -25,6 +25,5 @@ export const App = () => {
         </Routes>
       </BrowserRouter>
     </Provider>
-      
   );
 }

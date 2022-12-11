@@ -5,22 +5,6 @@ import { API_URL } from "utils/utils";
 import user from "reducers/user";
 import styled from "styled-components";
 
-// const BASE_URL = "http://localhost:8090";
-// export const API_URL = (slug) => `${BASE_URL}/${slug}`;
-
-const StartPage = styled.div `
-text-align: center;
-color: white;
-display: flex;
-flex-direction: column; 
-
-`
-
-const Loginpagetext = styled.h1 `
-margin: 5%;
-color: white;
-`
-
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -68,15 +52,21 @@ const Login = () => {
     return (
         <StartPage>
         <Loginpagetext>
-          Welcome to Happy Thoughts ❤️
+          Welcome to Happy Thoughts User ❤️
         </Loginpagetext>
 
-        <label htmlFor="register">Register</label>
-        <input type="radio" id="register" checked={mode === "register"} onChange={()=>setMode("register")}/> 
-        <label htmlFor="login">Login</label>
-        <input type="radio" id="login" checked={mode === "login"} onChange={()=>setMode("login")}/>
-        <form onSubmit={onFormSubmit}>
+        <Register>
+        <label htmlFor="register">New user? 
+        <input type="radio" label="register" id="register" checked={mode === "register"} onChange={()=>setMode("register")}/> 
+        </label>
         
+
+        <label htmlFor="login">Already a user?
+        <input type="radio" id="login" checked={mode === "login"} onChange={()=>setMode("login")}/>
+        </label>
+        </Register>
+        <form onSubmit={onFormSubmit}>
+        <label htmlFor="username">Username</label>
         <input 
             required
             type="text" 
@@ -84,17 +74,14 @@ const Login = () => {
             placeholder="username"
             value={username} 
             onChange={e => setUsername(e.target.value)}/>
-            <label htmlFor="username">Username</label>
-
-            <input
-           // required
+        <label htmlFor="email">Email</label>
+        <input
             type="email"
             value={email}
             name="email"
             placeholder="email"
             onChange={event => setEmail(event.target.value)} />
-           <label htmlFor="email">Email</label>
-
+        <label htmlFor="Password">Password</label>
         <input
             required 
             type="password" 
@@ -102,8 +89,7 @@ const Login = () => {
             placeholder="password"
             value={password} 
             onChange={e => setPassword(e.target.value)}/>
-            <label htmlFor="Password">Password</label>
-            <button type="submit">Submit</button>
+        <button type="submit">Submit</button>
         </form>
     </StartPage> 
     );
@@ -111,3 +97,23 @@ const Login = () => {
 
 export default Login;
 
+
+
+const StartPage = styled.div `
+text-align: center;
+color: white;
+display: flex;
+flex-direction: column; 
+`
+
+const Loginpagetext = styled.h1 `
+margin: 5%;
+color: white;
+`
+
+const Register = styled.div `
+display: flex;
+text-align: center;
+margin-bottom:10%;
+max-width: 100%;  
+`
