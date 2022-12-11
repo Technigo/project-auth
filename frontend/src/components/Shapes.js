@@ -8,8 +8,8 @@ const Shapes = ({ size, top, left, zIndex }) => {
         <>
             <Shape 
                 size="150px"
-                top="20%"
-                left="32%"
+                top="22%"
+                left="31%"
                 zIndex="1"
             />
 
@@ -17,7 +17,7 @@ const Shapes = ({ size, top, left, zIndex }) => {
                 size="400px"
                 top="70%"
                 left="-10%"
-                zIndex="-1"
+                zIndex="-3"
             />
 
             <Shape 
@@ -36,9 +36,9 @@ const Shapes = ({ size, top, left, zIndex }) => {
 
             <Shape 
                 size="150px"
-                top="12%"
-                left="68%"
-                zIndex="-1"
+                top="10%"
+                left="73%"
+                zIndex="-2"
             />
 
             <Shape 
@@ -67,9 +67,16 @@ const Shapes = ({ size, top, left, zIndex }) => {
             <Img 
                 src={Svg2} 
                 alt="curl" 
-                top="20%"
-                left="0%"/>
+                top="30%"
+                left="-10%"
+            />
 
+            <Mobile 
+                src={Svg2} 
+                alt="curl" 
+                top="-10"
+                left="-30%"
+            />
         </>
     )
 }
@@ -83,9 +90,14 @@ export const Shape = styled.div`
     left: ${props => props.left};
     z-index: ${props => props.zIndex};
     border-radius: 50%;
-    background: radial-gradient(96% 96% at 23% 14%, #B800E6 0%, #090014 100%);
+    background: radial-gradient(96% 96% at 23% 14%, #E6D9F2 0%, #E7447B 100%);
     position: absolute;
+    @media (max-width:720px){
+        visibility: hidden;
+}
+
 `
+//radial-gradient(96% 96% at 23% 14%, #DDBBF4 0%, #C04E98 100%); PINK 
 
 export const BlurShape = styled.div`
     top: ${props => props.top};
@@ -95,8 +107,11 @@ export const BlurShape = styled.div`
     z-index: -1;
     filter: blur(200px);
     border-radius: 50%;
-    background: radial-gradient(96% 96% at 23% 14%, #B800E6 0%, #090014 100%);
+    background: radial-gradient(96% 96% at 23% 14%, white 0%, white 100%);
     position: absolute;
+    @media (max-width:720px){
+        visibility: hidden;
+    }
 `
 
 export const Img = styled.img`
@@ -105,4 +120,16 @@ top: ${props => props.top};
 left: ${props => props.left};
 width: ${props => props.size}; 
 height: ${props => props.size};
-z-index: -2 ${props => props.zindex};;` 
+z-index: -2 ${props => props.zindex};
+    @media (max-width:720px){
+        visibility: hidden;
+}` 
+export const Mobile = styled.img`
+position: absolute;
+top: ${props => props.top};
+left: ${props => props.left};
+z-index: -2 ${props => props.zindex};
+@media (min-width:720px){
+        visibility: hidden;
+}
+` 

@@ -16,7 +16,7 @@ export const Card = styled.div`
   flex-direction: column;
   align-items: center;
   height: 480px;
-  width: 420px;
+  max-width: 420px;
   background: rgba( 255, 255, 255, 0.12 );
   backdrop-filter: blur( 20px );
   -webkit-backdrop-filter: blur( 20px );
@@ -59,25 +59,26 @@ color: white;
 font-size: 1.1rem;
 @media (min-width:320px){
 &:hover{
-color: #B35FE0;
+color:  #E7447B;
 }
 }
 `
 
 export const Button = styled.button`
     margin: 10px;
-    width: 300px;
+    width: 310px;
     height: 40px;
     border-radius: 30px;
     border: none;
     background-color: #fff;
     color: #000;
     font-size: 20px;
+    font-weight: 500;
 @media (min-width:720px){
     &:hover{
         background: rgb(184,0,230);
-        background: linear-gradient(90deg, rgba(184,0,230,1) 0%, rgba(115,0,144,1) 80%, rgba(95,0,119,1) 100%);
+        background: linear-gradient(90deg, #E58CB5 0%, #E7447B  70%,  #E7447B 100%);
         color: #fff;
     }
 }
-`
+` //radial-gradient(96% 96% at 23% 14%, #E6D9F2 0%, #E7447B 100%)
