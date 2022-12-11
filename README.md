@@ -1,13 +1,17 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This is a fullstack project where we have first build a backend API in mongoDB and mongoose with authentication, GET and POST endpoints followed by deployed in google cloud. We have also build and connteced a frontend to this project. 
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+First we started to go thru the material we had an live session about how to build authentication with mongoDB. After we started to plann our project and pair programming. 
+We used google, stackoverflow, course material and youtube to finish this project. 
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+See the final frontend project here: https://inspiring-frangollo-40b5aa.netlify.app/
+Backend : https://project-auth-5ohdkk2c7a-uc.a.run.app
+
+
+Build by :
+Jessica Mo @jessnmo & Amanda Elvkull @amandaelvkull
