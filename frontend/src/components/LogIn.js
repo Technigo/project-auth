@@ -8,11 +8,11 @@ import { API_URL } from "../utils/urls";
 const LogIn = () => {
   const [username, setUserName] = useState("")
   const [password, setPassword] = useState("")
-  const [mode, setMode] = useState("register");
   const accessToken = useSelector((store) => store.user.accessToken)
+  const mode = useSelector((store) => store.user.mode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const mode = useSelector((store) => store.user.mode);
+  
 
   useEffect(() => {
     if (accessToken) { //useEffect checks if accessToken is provided, if yes, then should navigate to mainpage
@@ -27,8 +27,8 @@ const LogIn = () => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ username, password }) // samma som: username: username, password: password
-    } // mode är ett argument 
+      body: JSON.stringify({ username, password })
+    } 
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then(data => {
@@ -71,11 +71,11 @@ const LogIn = () => {
             autoComplete="off"
             value={password}
             placeholder={mode === "register" ? "Minimum 5 characters" : "Password"}
-            onChange={event => setPassword(event.target.value)} /> {/* password is shown in frontend.... */}
+            onChange={event => setPassword(event.target.value)} />
 
           <button
             type="submit"
-            disabled={password.length < 5 && mode === "signup"}>
+            disabled={password.length < 5 && mode === "register"}>
             {mode === "register" ? "Sign Up" : "Log in"}
           </button>
         </InnerWrapper>
@@ -86,42 +86,18 @@ const LogIn = () => {
             type="radio"
             id="register"
             checked={mode === "register"}
-            onChange={() => setMode("register")} /> {/* Register button does not work in frontend (log in do) */}
+            onChange={() => dispatch(user.actions.setMode("register"))} />
           <label htmlFor="login">Login</label>
           <input
             type="radio"
             id="login"
             checked={mode === "login"}
-            onChange={() => setMode("login")} />
+            onChange={() => dispatch(user.actions.setMode("login"))} />
         </ButtonWrapper>
       </OuterWrapper>
     </>
   )
 }
-
-// from previus project, maybe we sould use the catch and finally in this project too? Dont know if needed 
-
-
-/* const handleFormSubmit = (event) => {
-    event.preventDefault();
-    fetch(BASE_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name: new, message: newThought })
-    })
-      .then((res) => res.json())
-      .then((data => {
-        setNewThought((previousThoughts) => [newUserThought, ...previousThoughts])
-      })
-      .catch((err) => console.error(err))
-      .finally(() => {
-        setNewThought('')
-        setNewName('')
-        fetchThoughts()
-      })
-  } */
 
 export default LogIn
 
@@ -138,7 +114,6 @@ export default LogIn
     width: 26vh;
     height: 15vh;
     `
-
   const ButtonWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -146,7 +121,6 @@ export default LogIn
     justify-content: space-between;
     align-items: center;
     `
-
   const input = styled.input `
     display: flex;
     margin: 5px;
@@ -154,7 +128,6 @@ export default LogIn
     border-radius: 5px;
     width: 200px;
     `
-  
   const form = styled.form `
     display: flex;
     justify-content: center;
@@ -166,7 +139,7 @@ export default LogIn
     `
   const Label = styled.label `
     text-align: center;
-    font-size: 12px`
-
+    font-size: 12px;
+    `
   const Button = styled.button `
     margin: 10px; `

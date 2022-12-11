@@ -4,8 +4,8 @@ const initialState = {
     username: null,
     accessToken: null,
     error: null,
-    userId: null 
-    // maybe loading - om vi vill ha en sån sida?
+    userId: null, 
+    mode: "register"
   };
 
 const user = createSlice({
@@ -24,9 +24,9 @@ const user = createSlice({
         setError: (store, action) => {
             store.error = action.payload;
         },
-       /*  setMode: (store, action) => {
+        setMode: (store, action) => {
             store.mode = action.payload;
-          }, */
+          },
     }
 })
 

@@ -8,10 +8,10 @@ import { API_URL } from 'utils/urls';
 const Main = () => {
     const thoughtsItems = useSelector((store) => store.thoughts.items);
     const accessToken = useSelector((store) => store.user.accessToken);
-    // maybe mode here too?
+    const username = useSelector((store) => store.user.username);
+    const mode = useSelector((store) => store.user.mode);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    /* const mode = useSelector((store) => store.user.mode); */
 
     useEffect( () => {
         if (!accessToken) {
@@ -27,7 +27,7 @@ const Main = () => {
                 Authorization: accessToken
             }
         } 
-        fetch(API_URL("thoughts"), options) 
+        fetch(API_URL(mode), options) 
             .then((res) => res.json())
             .then((data) => {
                 if(data.success) { //kollar datan och om success är true (från backend)
@@ -51,14 +51,18 @@ const Main = () => {
 
     return (
         <>
-           {/* <Link to="/login">GO TO LOGIN</Link> I think Daniel wrote this, but i feel unsure about the link to log in here */}
-            <h2>This is the Main</h2>
-            {thoughtsItems.map((item) => {
+        <div>
+            <h2>{mode === "register" 
+            ? "Welcome to the football page "
+            : "Welcome back to the football page "}
+            {username}!</h2>
+           {/*  {thoughtsItems.map((item) => {
                 return <p key={item._id}>{item.message}</p>
-            })}
+            })} */}
              <Link to="/" onClick={logOut}>
                 Log out
             </Link>
+            </div>
         </>
     )
 }
