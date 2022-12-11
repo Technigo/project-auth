@@ -48,7 +48,6 @@ app.get("/users", async (req, res) => {
   }
 });
 
-
 app.post("/register", async (req, res) => {
   const { name, password } = req.body;
   if (password.length < 6) {
@@ -102,7 +101,7 @@ app.post("/login", async (req, res) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      response: err
+      response: err,
     });
   }
 });
@@ -145,11 +144,10 @@ const Thought = mongoose.model("Thought", {
 // app.get("/thoughts", authenticatUser);
 app.get("/thoughts", async (req, res) => {
   try {
-    const thoughts = await Thought.find({})
-    .limit(20).sort().exec();
+    const thoughts = await Thought.find({}).limit(20).sort().exec();
     res.status(200).json({
       success: true,
-      response: thoughts
+      response: thoughts,
     });
   } catch (err) {
     res.status(400).json({ success: false, response: err });
