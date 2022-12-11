@@ -105,31 +105,45 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-const MovieSchema = new mongoose.Schema({
-  Year: {type: Number},
-  Title: {type: String},
-  Rated: {type: String},
-  Director: {type: String},
-  Released: {type: String},
-  Writer: {type: String},
-  Production: {type: String},
-  Actors: {type: String},
-  Runtime: {type: String},
-  Awards: {type: String},
-  ImdbVotes: {type: String},
-  ImdbRating: {type: Number},
-  RottenTomatoScore: {type: String},
-  Metascore: {type: Number},
-}); 
+// const MovieSchema = new mongoose.Schema({
+//   Year: {type: Number},
+//   Title: {type: String},
+//   Rated: {type: String},
+//   Director: {type: String},
+//   Released: {type: String},
+//   Writer: {type: String},
+//   Production: {type: String},
+//   Actors: {type: String},
+//   Runtime: {type: String},
+//   Awards: {type: String},
+//   ImdbVotes: {type: String},
+//   ImdbRating: {type: Number},
+//   RottenTomatoScore: {type: String},
+//   Metascore: {type: Number},
+// }); 
 
-const Movie = mongoose.model("Movie", MovieSchema);
+// const Movie = mongoose.model("Movie", MovieSchema);
 
 //This is the endpoint that only can be reached if you have a valid accesstoken
 app.get('/main', authenticateUser);
-app.get('/main', async (req, res) =>{
-  const movies = await Movie.find({});
-  res.status(200).json({success: true, response: movies});
-});
+app.get("/main", (req, res) => {
+  const secret = "You now have access to the mysterious batcave"
+  try{
+    res.status(200).json({
+      success: true,
+      secret,
+    });
+  } catch(error){
+    res.status(401).json({
+      success: false,
+      response: "Access denied",
+    });
+  }
+})
+// app.get('/main', async (req, res) =>{
+//   const movies = await Movie.find({});
+//   res.status(200).json({success: true, response: movies});
+// });
 
 // Start defining your routes here
 app.get("/", (req, res) => {
