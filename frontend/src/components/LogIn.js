@@ -35,7 +35,7 @@ export const Login = () => {
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUsername(data.response.username));
-            dispatch(user.actions.setUserId(data.response.id))
+            dispatch(user.actions.setUserId(data.response.userId))
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setError(null));
           });
@@ -77,6 +77,7 @@ export const Login = () => {
               type="text"
               id="username"
               value={username}
+              required
               placeholder="My username"
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -85,6 +86,7 @@ export const Login = () => {
               type="password"
               id="password"
               value={password}
+              required
               placeholder="******"
               onChange={(e) => setPassword(e.target.value)}
             />  
