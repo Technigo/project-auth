@@ -68,7 +68,7 @@ width: 90px;
 height: 48px;
 color: #1F36FB;
 font-size: 40px;
-text-align: centre;
+text-align: center;
 `
 const Box = styled.div`
 width: 390px;
