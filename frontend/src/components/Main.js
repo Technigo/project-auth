@@ -53,9 +53,9 @@ const Main = () => {
       </Text>
       {thoughtsItem.map((item) => {
         return (
-          <Text>
+          <Textsub>
             <h4 key={item._id}>{item.message}</h4>
-          </Text>
+          </Textsub>
         );
       })}
       <Button
@@ -86,6 +86,8 @@ const Wrapper = styled.div`
 const Button = styled.button`
   font-family: "Inconsolata";
   padding: 6px 15px;
+  font-weight: bold;
+  font-size: 17px;
   background: none;
   border: 4px solid rgb(102, 0, 102);
   width: 150px;
@@ -96,6 +98,11 @@ const Button = styled.button`
 `;
 
 const Text = styled.h2`
+  margin-top: 20px;
+  font-size: 18px;
+  color: beige;
+`;
+const Textsub = styled.h4`
   margin-top: 20px;
   font-size: 18px;
   color: beige;

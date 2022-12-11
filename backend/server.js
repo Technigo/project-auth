@@ -96,7 +96,7 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "Could not login, try again! ",
+        response: "Could not login 😕 try again! ",
       });
     }
   } catch (err) {
@@ -116,7 +116,7 @@ const authenticatUser = async (req, res, next) => {
     } else {
       res.status(401).json({
         success: false,
-        response: "Please try to login again ",
+        response: "Please try to login again.",
       });
     }
   } catch (err) {

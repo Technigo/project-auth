@@ -13,6 +13,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);
+  const errorMessage= useSelector((store)=>store.user.error)
 
   useEffect(() => {
     if (accessToken) {
@@ -90,8 +91,10 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
         <Button type="submit">Submit</Button>
+        <TextError>
+          <p>{errorMessage && errorMessage}</p>
+        </TextError>
       </Form>
     </Wrapper>
   );
@@ -152,6 +155,7 @@ const Button = styled.button`
   color: rgb(26, 0, 26);
   margin-top: 2rem;
   border-radius: 8px;
+  font-weight: bold;
 `;
 const Section = styled.div`
   width: 100vw;
@@ -164,6 +168,10 @@ const Section = styled.div`
 `;
 const Input= styled.input`
 width: 200px;
-height: 20px;
+height: 25px;
 border-radius: 8px;
+`
+const TextError= styled.p`
+font-weight: bold;
+color:red;
 `
