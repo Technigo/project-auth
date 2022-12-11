@@ -72,6 +72,11 @@ font-size: 0.9rem;
 color:  #ffff;
 }`
 
+
+export const CenterBtn =styled.div`
+display: grid;
+place-items: center;
+`
 export const Button = styled.button`
     -webkit-appearance: none;
     width: 310px;
