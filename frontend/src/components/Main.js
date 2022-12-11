@@ -5,13 +5,12 @@ import user from "reducers/user";
 import { API_URL } from "utils/urls";
 
 const Main = () => {
-  const [secret, setSecret] = useState();
+  const [secret, setSecret] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.accessToken);
 	const username = useSelector((store) => store.user.username)
-
   const logout = () => {
     batch(() => {
       dispatch(user.actions.setUsername(null));
@@ -19,30 +18,28 @@ const Main = () => {
       localStorage.removeItem("user");
     })
   };
-
   useEffect(() => {
     if (!accessToken) {
       navigate('/login')
     }
   }, [accessToken, navigate])
+  // useEffect(() => {
+  //   const options = {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: accessToken,
+  //     },
+  //   }
 
-  useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        'Authorization': accessToken,
-        'Content-Type': 'application/json'
-      },
-    }
-
-    fetch(API_URL('secrets'), options)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          setSecret(data.response)
-        }
-      })
-  }, [accessToken]);
+  //   fetch(API_URL('secrets'), options)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log("Response: " + data);
+  //       if (data.success) {
+  //         setSecret(data.response)
+  //       }
+  //     })
+  // }, [accessToken])
 
   return (
     <div className="secret-page">
@@ -57,5 +54,4 @@ const Main = () => {
     </div>
   );
 };
-
 export default Main;

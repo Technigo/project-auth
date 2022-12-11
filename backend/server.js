@@ -31,7 +31,8 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model("User", UserSchema);
 
 
-const authenticateUser = async (req, res, next) => {
+const isAuthenticated = async (req, res, next) => {
+  console.log(req);
   const accessToken = req.header("Authorization");
   try {
     const user = await User.findOne({ accessToken: accessToken });
@@ -72,18 +73,8 @@ app.get("/users", async (req, res) => {
   }
 });
 
-app.get('/secrets', authenticateUser);
-// app.get('/secrets', (req, res) => {
-//   res.status(200).json({message:"This is a super secret message"})
-// });
-app.get('/secrets', async (req, res) => {
-  const userSecret = await User.findOne({ accessToken: req.header('Authorization') })
-  res.status(200).json({
-    response: {
-      message: `Unfortunely, this is a top secret! You cannot continue browsing here. ${userSecret}`
-    },
-    success: true
-  })
+app.get('/secrets', isAuthenticated, (req, res) => {
+  res.status(200).json({message:"This is a super secret message"})
 });
 
 app.post('/register', async (req, res) => {
