@@ -49,10 +49,16 @@ app.post('/register', async (req, res) => {
   const { username, password } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
+    const oldUser = User.findOne({ username });
     if (password.length < 8) {
       res.status(400).json({
         success: false,
         response: 'Password must be min 8 characters',
+      });
+    } else if (oldUser) {
+      res.status(400).json({
+        success: false,
+        response: 'Username already taken 😔',
       });
     } else {
       const newUser = await new User({
@@ -69,17 +75,16 @@ app.post('/register', async (req, res) => {
       });
     }
   } catch (err) {
-    if (err.code === 11000) {
-      res.status(400).json({
-        success: false,
-        response: 'Username already taken',
-      });
-    } else {
-      res.status(400).json({
-        success: false,
-        response: err,
-      });
-    }
+    // if (err.code === 11000) {
+    //   res.status(400).json({
+    //     success: false,
+    //     response: 'Username already taken',
+    //   });
+    // } else {
+    res.status(400).json({
+      success: false,
+      response: err,
+    });
   }
 });
 
@@ -138,7 +143,6 @@ app.get('/thoughts', async (req, res) => {
 //     });
 //   }
 // });
-
 
 // Start the server
 app.listen(port, () => {

@@ -9,16 +9,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  text-decoration: none;
-  color: orangered;
-  padding-bottom: 1rem;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+a {
+  text-decoration: none;
+  color: hotpink;
+  padding-bottom: 1rem;
+}
+
 
 ul {
   list-style-type: none;

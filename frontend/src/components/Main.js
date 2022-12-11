@@ -58,7 +58,7 @@ const Main = () => {
         })}
       </ul>
       <a
-        to='https://gladatankar.netlify.com'
+        href='https://gladatankar.netlify.com'
         target='_blank'
         rel='noreferrer'>
         Remember ?

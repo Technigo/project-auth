@@ -25,7 +25,7 @@ export const Button = styled.button`
 
     & a {
       text-decoration: none;
-      color: orangered;
+      color: hotpink;
     }
 
      a:active {
