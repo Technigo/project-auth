@@ -1,8 +1,6 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+Backend project with the aim to learn how to authenticate users and handle passwords in a safe way. The project is also including a frontend part with a form to register and log in users. 
 
 ## The problem
 
@@ -10,4 +8,8 @@ Describe how you approached to problem, and what tools and techniques you used t
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Backend:
+https://project-auth-ca23vvjbjq-lz.a.run.app/
+
+Frontend:
+https://stalwart-faun-264ebc.netlify.app/
