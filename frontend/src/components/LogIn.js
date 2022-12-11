@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import user from "../reducers/user";
 import { API_URL } from "../utils/urls";
 
@@ -57,9 +57,9 @@ const LogIn = () => {
         </HeaderWrapper>
         <InnerWrapper>
         <h1>{mode === "register" ? "Create a New Account" : "Welcome back!"}</h1>
-        <form onSubmit={onFormSubmit}>
+        <Form onSubmit={onFormSubmit}>
         
-          <label htmlFor="username">Username</label>
+          <Label htmlFor="username">Username</Label>
           <InputText 
             type="text"
             id="username"
@@ -68,7 +68,7 @@ const LogIn = () => {
             placeholder={mode === "register" ? "Username" : "Username"}
             onChange={event => setUserName(event.target.value)} />
 
-          <label htmlFor="password">Password</label>
+          <Label htmlFor="password">Password</Label>
           <InputText 
             type="password"
             id="pwd"
@@ -83,16 +83,16 @@ const LogIn = () => {
             {mode === "register" ? "Sign Up" : "Log in"}
           </StyledButton>
         
-        </form>
+        </Form>
         
         <ButtonWrapper>
-          <label htmlFor="register">Register</label>
+          <Label htmlFor="register">Register</Label>
           <input
             type="radio"
             id="register"
             checked={mode === "register"}
             onChange={() => dispatch(user.actions.setMode("register"))} />
-          <label htmlFor="login">Login</label>
+          <Label htmlFor="login">Login</Label>
           <input
             type="radio"
             id="login"
@@ -160,6 +160,7 @@ export default LogIn
     padding: 10px;
     box-shadow: 5px 10px;
     margin: 119px;
+    text-align: center;
     `
   const ButtonWrapper = styled.div`
     display: flex;
@@ -167,7 +168,7 @@ export default LogIn
     width: 160px;
     justify-content: space-between;
     align-items: center;
-    margin: 40px;
+    margin: auto;
 
     input[type='radio'] {
             /* add margin here of If you want */
@@ -178,6 +179,7 @@ export default LogIn
             outline: none;
             opacity: 0.6;
             transition: 0.3s;
+            cursor: pointer;
         }
     input[type='radio']:hover:before {
             box-shadow: 0px 0px 0px 12px rgba(80, 80, 200, 0.2); /* control thickens on border here */
@@ -204,22 +206,31 @@ export default LogIn
     padding: 10px;
     border-radius: 5px;
     width: 200px;
+    cursor: pointer;
     `
-  const form = styled.form `
+  const Form = styled.form `
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 50vw;
+    width: 30vw;
     height: auto;
     padding: 20px;
+    
     `
   const Label = styled.label `
     text-align: center;
-    font-size: 12px;
+    font-size: 18px;
     `
   const StyledButton = styled.button ` 
-    margin: 10px;
-    width: 5em;  
-    height: 2.5em 
+  background-color: #1abc9c;
+  border: none;
+  color: black;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+    
     `
