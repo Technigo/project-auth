@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useEffect } from "react";
-import { batch, useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import posts from 'reducers/posts'
 import { API_URL } from "utils/utils";
 import { useNavigate } from "react-router-dom";

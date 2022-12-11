@@ -24,6 +24,7 @@ const user = createSlice({
     setUserId: (store, action) => {
       store.userId = action.payload
     },
+    
     logOut: (store) => {
       store.accessToken = '';
       store.username = '';

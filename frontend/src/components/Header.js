@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from 'react-redux'
 
 
 const Header = () => {
-  const dispatch = useDispatch()
   return (
     <HeaderContainer>
       <Logo>Jessika's Message Board</Logo>

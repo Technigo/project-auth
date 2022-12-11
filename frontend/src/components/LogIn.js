@@ -16,6 +16,7 @@ const LogIn = () => {
 
   const accessToken = useSelector((store) => store.user.accessToken)
   const error = useSelector((store) => store.user.error)
+  console.log(error)
 
   useEffect(() => {
     if(accessToken) {
@@ -84,7 +85,7 @@ const LogIn = () => {
         <label htmlFor="login">Login</label>
         <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} />
       </div>
-      <ErrorMsg>{error}</ErrorMsg>
+      {/* <ErrorMsg>{error}</ErrorMsg> */}
     </FormSection>
   )
 }
@@ -105,7 +106,6 @@ export const FormSection = styled.section`
     margin-bottom: 20px;
   }
 `
-
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
