@@ -11,4 +11,6 @@ Our ambition was to have a more detailed and advanced authenticated endpoint wit
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend: https://lisa-linnea-project-auth.netlify.app/main
+
+Backend: https://project-auth-hswv4hjbqq-lz.a.run.app
