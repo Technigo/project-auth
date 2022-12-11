@@ -16,7 +16,7 @@ export const Card = styled.div`
   flex-direction: column;
   align-items: center;
   height: 480px;
-  max-width: 420px;
+  width: 360px;
   background: rgba( 255, 255, 255, 0.12 );
   backdrop-filter: blur( 20px );
   -webkit-backdrop-filter: blur( 20px );
@@ -34,7 +34,7 @@ padding: 40px;
 export const Form = styled.form`
 display: grid;
 place-items: center;
-padding-top: 10%;
+padding-top: 12%;
 `
 export const Input = styled.input`
 margin: 10px;
@@ -57,16 +57,23 @@ color: white;
 export const ModeLabel = styled.label`
 color: white;
 font-size: 1.1rem;
+font-weight: 600;
 @media (min-width:320px){
 &:hover{
 color:  #E7447B;
 }
 }
 `
+export const ErrorMsg = styled.p`
+color: #E7447B;
+font-size: 0.9rem;
+
+@media (max-width:720px){
+color:  #ffff;
+}`
 
 export const Button = styled.button`
     -webkit-appearance: none;
-    margin: 10px;
     width: 310px;
     height: 40px;
     border-radius: 30px;

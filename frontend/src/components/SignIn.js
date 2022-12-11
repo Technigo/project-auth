@@ -3,7 +3,7 @@ import { useDispatch, useSelector, batch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { API_URL } from "utils/utils";
 import user from "reducers/user";
-import { Card, Input, Label, ModeLabel } from 'components/GlobalStyles';
+import { Card, ErrorMsg, Input, Label, ModeLabel } from 'components/GlobalStyles';
 import { Form, Button } from 'components/GlobalStyles';
 
 export const Login = () => {
@@ -39,6 +39,7 @@ export const Login = () => {
                         dispatch(user.actions.setError(null));
                     });
                 } else {
+                    alert("error, could not find user - make sure you've registered");
                     batch (() => {
                         dispatch(user.actions.setUsername(null));
                         dispatch(user.actions.setUserId(null))
@@ -69,16 +70,21 @@ export const Login = () => {
             placeholder="password"
             value={password} 
             onChange={e => setPassword(e.target.value)}/>
-         </Form>
+            <ErrorMsg>
+            { mode === "register" && password.length < 8
+            ? 'minimum of 8 characters required'
+            : ''}
+            </ErrorMsg>
             <Button type="submit" > 
                     { mode === "register" && "Join us now!" || "Sign in" } 
             </Button>
+            </Form>
         </form>
         <Label>
             <ModeLabel htmlFor="register">{mode === "register" ? "" : "not a member? register here!" }
             <input type="radio" id="register" name="register" checked={mode === "register"} onChange={()=> setMode("register")}/>
             </ModeLabel>
-            <ModeLabel htmlFor="login">{mode === "login" ? "" : "log in now" }
+            <ModeLabel htmlFor="login">{mode === "login" ? "" : "or log in now" }
             <input type="radio" id="login" checked={mode === "login" } onChange={()=> setMode("login")}/> 
             </ModeLabel>
         </Label>    

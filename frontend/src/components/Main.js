@@ -49,9 +49,7 @@ const Main = () => {
             <h4>please sign out</h4>   
             <Btn 
                 type="button"
-                onClick={() => { navigate("/login"); dispatch(user.actions.setAccessToken(null));}}>
-                    SIGN OUT
-                </Btn>
+                onClick={() => { navigate("/login"); dispatch(user.actions.setAccessToken(null));}}>⎆</Btn>
         </Box>    
         </LogOutCard>     
         </>
@@ -66,8 +64,11 @@ height: 300px;
 
 const Btn = styled(Button)`
 -webkit-appearance: none;
-width: 126px;
+width: 90px;
+height: 48px;
 color: #1F36FB;
+font-size: 40px;
+text-align: centre;
 `
 const Box = styled.div`
 width: 390px;
