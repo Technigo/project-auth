@@ -23,3 +23,6 @@ The site is styled and inspired by glass morphism trend.
 Frontend deployed; 
 https://authenticated.netlify.app/
 
+## screenshots
+![Screenshot 2022-12-11 at 15 27 01 (2)](https://user-images.githubusercontent.com/105229808/206910293-257475fe-cba7-460e-bcc4-dc0c2c1fe876.png)
+![Screenshot 2022-12-11 at 15 27 11 (2)](https://user-images.githubusercontent.com/105229808/206910296-50eb2569-995b-438c-ab8c-377cb1aa5c45.png)
