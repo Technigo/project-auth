@@ -65,6 +65,7 @@ color:  #E7447B;
 `
 
 export const Button = styled.button`
+    -webkit-appearance: none;
     margin: 10px;
     width: 310px;
     height: 40px;

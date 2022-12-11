@@ -23,6 +23,7 @@ code {
 
 /* ----Hides radio button---*/
 input[type="radio"]{
+-webkit-appearance: none;
 font-size: 60px;
 width: 0;
 height: 0;

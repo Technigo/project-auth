@@ -65,6 +65,7 @@ height: 300px;
 `
 
 const Btn = styled(Button)`
+-webkit-appearance: none;
 width: 126px;
 color: #1F36FB;
 `
