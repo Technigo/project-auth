@@ -53,7 +53,7 @@ const Main = () => {
         <>
         <div>
             <h2>{mode === "register" 
-            ? "Welcome to the football page "
+            ? "Welcome to the football page"
             : "Welcome back to the football page "}
             {username}!</h2>
            {/*  {thoughtsItems.map((item) => {
