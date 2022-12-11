@@ -9,9 +9,12 @@ import styled from 'styled-components';
 import { formatDistance } from 'date-fns';
 
 const Thoughts = () => {
+	const likeThoughts = (thoughtsID) =>
+		`https://project-auth-5ohdkk2c7a-uc.a.run.app/thoughts/${thoughtsID}/like
+		`;
 	/* const values = useSelector((state) => state.thoughts); */
 	const accessToken = useSelector((state) => state.user.accessToken);
-	const username = useSelector((state) => state.user.username);
+	//const username = useSelector((state) => state.user.username);
 
 	const [mode, setMode] = useState('thoughts');
 	const [thoughts, setThoughts] = useState([]);
@@ -111,12 +114,13 @@ const Thoughts = () => {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				//Authorization: accessToken,
+				Authorization: accessToken,
 			},
 		};
-		fetch(LIKE_URL(mode)(thoughtsID), option)
+		//fetch(LIKE_URL(/* (mode) */ thoughtsID), option)
+		fetch(likeThoughts(thoughtsID), option)
 			.then((Response) => Response.json())
-			.then(console.log('yey it works.'))
+			.then(console.log(Response, 'yey it works.'))
 			.catch((error) => console.error(error))
 			.finally(() => getThoughts());
 		/* try {
