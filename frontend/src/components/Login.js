@@ -14,6 +14,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const accessToken = useSelector((store) => store.user.accessToken);
+    
     useEffect( () => {
         if (accessToken) {
             navigate("/");
@@ -21,7 +22,7 @@ const Login = () => {
     }, [accessToken])
 
     const onFormSubmit =(event) => {
-        event.preventDefault();
+    event.preventDefault();
         const options = {
             method: "POST",
             headers: {

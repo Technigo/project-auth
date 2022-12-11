@@ -18,41 +18,42 @@ const Main = () => {
   
 
 //log out - back to loginpage    
-const home = () => {
-    navigate ("/");
-}
+// const home = () => {
+//     navigate ("/");
+// }
     
-    useEffect( () => {
-        if (!accessToken) {
-            navigate("/login");
+useEffect( () => {
+    if (!accessToken) {
+        navigate("/login");
+}
+}, []);
+
+useEffect(() => {
+    const options = {
+    method: "GET",
+    headers: {
+       "Content-Type": "application/json",
+       "Authorization": accessToken
+    }
+    }
+    fetch(HAPPY_API_URL("thoughts"), options)
+    .then(res => res.json())
+    .then(data => {
+        if(data.success) {
+            dispatch(thoughts.actions.setItems(data.response));
+            dispatch(thoughts.actions.setError(null));
+        } else {
+            dispatch(thoughts.actions.setItems([]));
+            dispatch(thoughts.actions.setError(data.response));
         }
-    }, []);
-    useEffect(() => {
-        const options = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": accessToken
-            }
-        }
-        fetch(HAPPY_API_URL("thoughts"), options)
-            .then(res => res.json())
-            .then(data => {
-                if(data.success) {
-                    dispatch(thoughts.actions.setItems(data.response));
-                    dispatch(thoughts.actions.setError(null));
-                } else {
-                    dispatch(thoughts.actions.setItems([]));
-                    dispatch(thoughts.actions.setError(data.response));
-                }
-            })
+        })
     }, []);
 
     return (
         <Userpage>
-            <Link to="/login"> GO TO LOGIN</Link>
+            {/* <Link to="/login"> GO TO LOGIN</Link> */}
             <Welcometext>
-            Welcome {username} 
+            Welcome {username} to Happy Thoughts Userpage ❤️
             </Welcometext>
             <div>
                 <Logoutbutton onClick={() => home()}>Log out</Logoutbutton>
