@@ -36,7 +36,7 @@ const User = mongoose.model("User", {
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send("Hello User!");
 });
 
 app.get("/users", async (req, res) => {
