@@ -61,7 +61,7 @@ const Main = () => {
         to='https://gladatankar.netlify.com'
         target='_blank'
         rel='noreferrer'>
-        Do you remember ?
+        Remember ?
       </a>
     </>
   );
