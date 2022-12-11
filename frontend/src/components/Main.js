@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { /*useState*/ useEffect } from "react";
 import { useDispatch, useSelector, batch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import user from "reducers/user";
 import { API_URL } from "utils/urls";
 
 const Main = () => {
-  const [secret, setSecret] = useState(null);
+  // const [secret, setSecret] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const Main = () => {
       navigate('/login')
     }
   }, [accessToken, navigate])
+
   // useEffect(() => {
   //   const options = {
   //     method: 'GET',
@@ -36,7 +37,7 @@ const Main = () => {
   //     .then((data) => {
   //       console.log("Response: " + data);
   //       if (data.success) {
-  //         setSecret(data.response)
+  //         setSecret(data.message)
   //       }
   //     })
   // }, [accessToken])
@@ -46,7 +47,7 @@ const Main = () => {
       <h1 className="secret-title">Welcome to your page {username}</h1>
 			<p>Here is where magic will happen!</p>
       <div className="secret-container">
-        <p className="secret-text">{secret}</p>
+        {/* <p className="secret-text">{secret}</p> */}
       </div>
       <button className="secret-button-logout" onClick={logout}>
         Logout
@@ -54,4 +55,5 @@ const Main = () => {
     </div>
   );
 };
+
 export default Main;
