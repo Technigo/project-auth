@@ -40,7 +40,7 @@ const LogIn = () => {
           batch(() => {
             dispatch(user.actions.setUsername(data.response.username))
             dispatch(user.actions.setAccessToken(data.response.accessToken))
-            dispatch(user.actions.setUserId(data.response.userId))
+            dispatch(user.actions.setUserId(data.response.id))
             dispatch(user.actions.setError(null))
           })
         } else {
