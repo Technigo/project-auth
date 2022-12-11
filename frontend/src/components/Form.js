@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import { StyledDiv, StyledButton } from "GlobalStyles";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const Form = ({ buttonText, formType, formTitle }) => {
     const [username, setUsername] = useState('')

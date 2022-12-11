@@ -41,7 +41,7 @@ export const Welcome = () => {
     <StyledDiv>
       {accessToken && (
         <div>
-          <h2>hello {username}, you are now logged in</h2>
+          <h2>Hello {username}! You are now logged in</h2>
           <StyledButton onClick={() => clearStorage()}>Log out</StyledButton>
         </div>
       )}
