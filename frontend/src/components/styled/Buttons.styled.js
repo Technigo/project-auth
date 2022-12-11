@@ -11,7 +11,7 @@ export const Button = styled.button`
   width: 6rem;
   height: 2.5rem;
   padding: .5rem;
-  transition: all .2s ease;
+  transition: all .1s ease;
 
     :active {
       font-size: .95rem;

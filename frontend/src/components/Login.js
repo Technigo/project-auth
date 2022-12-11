@@ -64,7 +64,7 @@ const Login = () => {
           onChange={ () => setMode('register') } />
       </label>
       <label htmlFor='login'>
-        Login
+        Log in
         <input
           type='radio'
           id='login'
@@ -98,7 +98,7 @@ const Login = () => {
         </fieldset>
         <div>
           <Button type='submit'>
-            { mode === 'register' ? 'Register' : 'Login' }
+            { mode === 'register' ? 'Register' : 'Log in' }
           </Button>
         </div>
       </StyledForm><p>{ errorMessage ? errorMessage : '' }</p></>

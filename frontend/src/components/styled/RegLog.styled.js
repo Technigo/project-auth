@@ -11,7 +11,7 @@ export const AppContainer = styled.div`
   border: 2px solid orangered;
   border-radius: .5rem;
   margin: 3rem auto 0;
-  width: 25rem;
+  width: 23rem;
   min-height: 23rem;
   padding-bottom: 1rem;
 
@@ -72,6 +72,6 @@ export const StyledForm = styled.form`
   & div {
     display: flex;
     justify-content: flex-end;
-    padding-right: .15rem;
+    margin-right: .15rem;
   }
   `;
