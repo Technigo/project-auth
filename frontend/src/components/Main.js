@@ -49,7 +49,7 @@ const Main = () => {
         <Wrapper>
             <FormWrapper>
                 {/* <Link to="/login"> GO TO LOGIN</Link> */}
-                    <h2>This is some secret thoughts that only authorized users can see.</h2>
+                    <h2>These are some secret thoughts that only authorized users can see.</h2>
                     <ThoughtWrapper>
                     {thoughtItems.map((item) => {
                         return <p key={item._id}>{item.message}</p>
