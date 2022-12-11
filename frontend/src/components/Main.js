@@ -56,9 +56,21 @@ const Main = () => {
             ? "Welcome to the football page "
             : "Welcome back to the football page "}
             {username}!</h2>
-           {/*  {thoughtsItems.map((item) => {
+           {thoughtsItems.map((item) => {
                 return <p key={item._id}>{item.message}</p>
-            })} */}
+            })}
+            <h3>Your football pictures</h3>
+            <div>
+                <img src="https://i0.wp.com/www.middleeastmonitor.com/wp-content/uploads/2022/12/AA-20221206-29663742-29663736-MOROCCO_V_SPAIN_ROUND_OF_16_FIFA_WORLD_CUP_QATAR_2022.jpg?w=1200&quality=85&strip=all&zoom=1&ssl=1"
+                     alt="Marocco vs Spain 2022"
+                     title="Marocco writing history in the World Cup 2022" />
+                <img src="http://static-cdn.sr.se/images/109/3307333_2048_1150.jpg?preset=1024x576"
+                     alt="Mens world cup 1994"
+                     title="World Cup 1994 when the Swedish mens team came in third place" />
+                <img src="https://static-cdn.sr.se/images/179/3529462_1200_675.jpg?preset=h432"
+                     alt="Womens world cup 2003"
+                     title="World Cup 2003 when the Swedish ladies team came in second place" />
+            </div>
              <Link to="/" onClick={logOut}>
                 Log out
             </Link>
