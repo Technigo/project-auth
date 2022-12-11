@@ -3,8 +3,10 @@ import { useDispatch, useSelector, batch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { API_URL } from "utils/utils";
 import user from "reducers/user";
+import styled from "styled-components";
+import { Button } from "./GlobalComponents";
 
-const Login = () => {
+const SignIn = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [mode, setMode] = useState("login");
@@ -42,33 +44,69 @@ const Login = () => {
                         dispatch(user.actions.setUserId(null))
                         dispatch(user.actions.setAccessToken(null));
                         dispatch(user.actions.setError(data.response));
+                        window.alert(data.response)
                     });
                 }
             })
     }
     return (
         <>
-        <label htmlFor="register">Register</label>
-        <input type="radio" id="register" checked={mode === "register"} onChange={()=>setMode("register")}/>
-        <label htmlFor="login">Login</label>
-        <input type="radio" id="login" checked={mode === "login"} onChange={()=>setMode("login")}/>
-        <form onSubmit={onFormSubmit}>
+        <Label htmlFor="signUp">Sign up</Label>
+       <Span><Input type="radio" id="signUp" checked={mode === "signUp"} onChange={()=>setMode("signUp")} /></Span>
+        <Label htmlFor="signIn">Sign in</Label>
+      <Span><Input type="radio" id="signIn" checked={mode === "signIn"} onChange={()=>setMode("signIn")}/></Span>
+
+        <Form onSubmit={onFormSubmit}>
             <label htmlFor="username">Username</label>
             <input 
                 type="text" 
                 id="username" 
                 value={username} 
                 onChange={e => setUsername(e.target.value)}/>
+
             <label htmlFor="password">Password</label>
             <input 
                 type="password" 
                 id="password" 
                 value={password} 
                 onChange={e => setPassword(e.target.value)}/>
-            <button type="submit">Submit</button>
-        </form>
+
+            <Button type="submit">Submit</Button>
+        </Form>
     </> 
     );
 }
 
-export default Login;
+export default SignIn;
+
+const Input = styled.input`
+  opacity: 0;
+  height: 0;
+  width: 0;
+
+`
+const Span = styled.span`
+height: 20px;
+width: 20px;
+border: solid;
+border-radius: 50%;
+margin: 10px;
+
+:hover {
+    color: cornflowerblue;
+}
+
+&:checked {
+    color: tan;
+}
+`
+
+const Label = styled.label`
+color: firebrick;
+`
+
+const Form = styled.form`
+padding: 10px;
+background-color: whitesmoke;
+border-radius: 8px;
+`
