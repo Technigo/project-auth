@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import styled from 'styled-components';
+=======
+import styled from 'styled-components/macro'
+>>>>>>> d78b809a1e9e76ec42ef118162a94d02060d4a2d
 import user from "../reducers/user";
 import { API_URL } from "../utils/urls";
 
@@ -116,7 +120,7 @@ export default LogIn
   text-align: center;
   background: #1abc9c;
   color: white;
-  font-size: 30px
+  font-size: 30px;
   `
   const FooterWrapper = styled.footer`
   position: relative;
