@@ -39,6 +39,11 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
+// Routes
+app.get('/', (req, res) => {
+  res.send('Peep the front-end: https://glittery-halva-09357e.netlify.app 🥸');
+});
+
 // Register end point
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
@@ -117,28 +122,23 @@ app.get('/thoughts', async (req, res) => {
 });
 
 // End point for post requests only available after authentication
-app.post('/thoughts', authenticateUser);
-app.post('/thoughts', async (req, res) => {
-  const { message } = req.body;
-  try {
-    const newThought = await new Thought({ message }).save();
-    res.status(201).json({
-      success: true,
-      response: newThought,
-    });
-  } catch (err) {
-    res.status(400).json({
-      success: false,
-      response: err,
-    });
-  }
-});
+// app.post('/thoughts', authenticateUser);
+// app.post('/thoughts', async (req, res) => {
+//   const { message } = req.body;
+//   try {
+//     const newThought = await new Thought({ message }).save();
+//     res.status(201).json({
+//       success: true,
+//       response: newThought,
+//     });
+//   } catch (err) {
+//     res.status(400).json({
+//       success: false,
+//       response: err,
+//     });
+//   }
+// });
 
-/////
-// Start defining your routes here
-app.get('/', (req, res) => {
-  res.send('Hello Technigo!');
-});
 
 // Start the server
 app.listen(port, () => {

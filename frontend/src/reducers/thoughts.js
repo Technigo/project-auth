@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { API_URL } from 'utils/utils';
 
 const thoughts = createSlice({
   name: 'Thoughts',
   initialState: {
     items: [],
     error: null,
+    loading: false
   },
   reducers: {
     setItems: (store, action) => {
@@ -14,6 +14,9 @@ const thoughts = createSlice({
     setError: (store, action) => {
       store.error = action.payload;
     },
+    setLoading: (store, action) => {
+      store.loading = action.payload;
+    }
   },
 });
 

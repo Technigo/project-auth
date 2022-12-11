@@ -8,8 +8,9 @@ import { Button } from './styled/Buttons.styled';
 
 const Main = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items);
-  const dispatch = useDispatch();
+  const loading = useSelector((store) => store.thoughts.loading);
   const accessToken = useSelector((store) => store.user.accessToken);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +20,8 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
+    dispatch(thoughts.actions.setLoading(true));
+
     const options = {
       method: 'GET',
       headers: {
@@ -36,20 +39,30 @@ const Main = () => {
           dispatch(thoughts.actions.setItems([]));
           dispatch(thoughts.actions.setError(data.response));
         }
-      });
+      })
+      .finally(() => dispatch(thoughts.actions.setLoading(false)));
   }, []);
 
   return (
     <>
       <Button>
-        <Link to='/login' onClick={dispatch(user.actions.setAccessToken(null))}>
-          Log Out
+        <Link to='/' onClick={dispatch(user.actions.setAccessToken(null))}>
+          Log out
         </Link>
       </Button>
-      <h2>Random thoughts</h2>
-      {thoughtsItems.map((item) => {
-        return <p key={item._id}>{item.message}</p>;
-      })}
+      <h2>The good old happy thoughts!</h2>
+      {loading && <h2>Wait for it... 😅</h2>}
+      <ul>
+        {thoughtsItems.map((item) => {
+          return <li key={item._id}>{item.message}</li>;
+        })}
+      </ul>
+      <Link
+        to='https://gladatankar.netlify.com'
+        target='_blank'
+        rel='noreferrer'>
+        Remember ?
+      </Link>
     </>
   );
 };

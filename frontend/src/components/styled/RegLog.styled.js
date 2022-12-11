@@ -10,7 +10,7 @@ export const AppContainer = styled.div`
   background: whitesmoke;
   border: 2px solid orangered;
   border-radius: .5rem;
-  margin: 3rem auto 0;
+  margin: 3rem auto;
   width: 23rem;
   min-height: 23rem;
   padding-bottom: 1rem;
