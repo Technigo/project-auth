@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import styled from 'styled-components';
-=======
-import styled from 'styled-components/macro'
->>>>>>> d78b809a1e9e76ec42ef118162a94d02060d4a2d
+import styled, { keyframes } from 'styled-components/macro'
 import user from "../reducers/user";
 import { API_URL } from "../utils/urls";
 
@@ -107,6 +103,12 @@ const LogIn = () => {
      
       <FooterWrapper>
       <p>&copy;2022 Younas & Sarah | All Rights Reserved</p>
+      <div class="waves">
+      <div class="wave" id="wave1"></div>
+      <div class="wave" id="wave2"></div>
+      <div class="wave" id="wave3"></div>
+      <div class="wave" id="wave4"></div>
+      </div>
       </FooterWrapper> 
       </OuterWrapper>
     </>
@@ -115,23 +117,27 @@ const LogIn = () => {
 
 export default LogIn
 
-  const HeaderWrapper = styled.header`
+ export const HeaderWrapper = styled.header`
   width: inherit;
   text-align: center;
   background: #1abc9c;
   color: white;
   font-size: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  top: -72px;
   `
-  const FooterWrapper = styled.footer`
+  export const FooterWrapper = styled.footer`
   position: relative;
   width: 100%;
   background: #3586ff;
-  min-height: 126px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  bottom: -72px;
+  
   .wave {
   position: absolute;
   top: -100px;
@@ -141,6 +147,7 @@ export default LogIn
   background: url("https://i.ibb.co/wQZVxxk/wave.png");
   background-size: 1000px 100px;
 }
+
 .wave#wave1 {
   z-index: 1000;
   opacity: 1;
@@ -148,9 +155,47 @@ export default LogIn
   animation: animateWaves 4s linear infinite;
 }
 
+.wave#wave2 {
+  z-index: 999;
+  opacity: 0.5;
+  bottom: 10px;
+  animation: animate 4s linear infinite !important;
+}
+
+.wave#wave3 {
+  z-index: 1000;
+  opacity: 0.2;
+  bottom: 15px;
+  animation: animateWaves 3s linear infinite;
+}
+
+.wave#wave4 {
+  z-index: 999;
+  opacity: 0.7;
+  bottom: 20px;
+  animation: animate 3s linear infinite;
+}
+
+@keyframes animateWaves {
+  0% {
+    background-position-x: 1000px;
+  }
+  100% {
+    background-positon-x: 0px;
+  }
+}
+
+@keyframes animate {
+  0% {
+    background-position-x: -1000px;
+  }
+  100% {
+    background-positon-x: 0px;
+  }
+}
   `
 
-  const OuterWrapper = styled.div`
+  export const OuterWrapper = styled.div`
     width: 100%;
     height: 100vh;
     display: flex;
