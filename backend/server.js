@@ -49,7 +49,7 @@ app.post('/register', async (req, res) => {
   const { username, password } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
-    const oldUser = User.findOne({ username });
+    const oldUser = await User.findOne({ username });
     if (password.length < 8) {
       res.status(400).json({
         success: false,
