@@ -5,7 +5,7 @@ import { API_URL } from "utils/utils";
 import { useNavigate } from "react-router-dom";
 import user from "reducers/user";
 import styled from "styled-components";
-import { Button, Headline, Title, Description } from "./GlobalComponents";
+import { Button, Headline } from "./GlobalComponents";
 
 const Main = () => {
     const foodItems = useSelector((store) => store.recipes.items);
@@ -43,28 +43,40 @@ const Main = () => {
     }, []);
 
     return (
-    <>
-        <Button
+        <><MainWrapper>
+            <Headline>Put together your personal meny here</Headline>
+            {foodItems.map((singleRecipe) => {
+                return (
+                    <><div key={singleRecipe._id}>
+                        <Title>Name: {singleRecipe.Name}</Title>
+                        <Description>Ingredients: {singleRecipe.Ingredients}</Description>
+                        <Description>Kind of Dish: {singleRecipe.KindOfDish}</Description>
+                        <Description>Total time in minutes: {singleRecipe.TotalTimeMinuits}</Description>
+                        <Description>Portions: {singleRecipe.Portions}</Description>
+                    </div>
+                    </>
+                );
+            })}
+        </MainWrapper><Button
             type="button"
             onClick={() => {
-            dispatch(user.actions.setAccessToken(null));
-            navigate("/login");
-            }}> LOG OUT
-        </Button>
-            <Headline>Put togheter your personal meny here</Headline>
-            {foodItems.map((singleRecipe) => {
-             return (
-            <div key={singleRecipe._id}>
-                <Title>Name: {singleRecipe.Name}</Title>
-                <Description>Ingredients: {singleRecipe.Ingredients}</Description>
-                <Description>Kind of Dish: {singleRecipe.KindOfDish}</Description>
-                <Description>Total time in minutes: {singleRecipe.TotalTimeMinuits}</Description>
-                <Description>Portions: {singleRecipe.Portions}</Description>
-            </div>
-             )})}   
-        </>
-
+                dispatch(user.actions.setAccessToken(null));
+                navigate("/login");
+            } }> LOG OUT
+            </Button></>
     )
 }
 
 export default Main;
+
+const MainWrapper = styled.div`
+  
+  margin-top: 10%;
+`
+
+const Title = styled.h3`
+    font-size: 20px;
+`
+const Description = styled.p`
+    font-size: 16px;
+`

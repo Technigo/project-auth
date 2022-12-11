@@ -5,13 +5,11 @@ background-color: whitesmoke;
 width: 100%;
 height: 150vh;
 display: flex;
-flex-direction: row;
 justify-content: center;
-align-items: flex-start;
+font-family: Arial, Helvetica, sans-serif;
 `
 
 export const InnerWrapper = styled.div`
-position: absolute;
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -19,32 +17,25 @@ align-items: center;
 background-color: #E9E5D6;
 width: 80%;
 height: 60%;
-margin-top: 8em;
+margin-top: 15px;
 border-radius: 10px;
 `
 
 export const Button = styled.button`
-background-color: whitesmoke;
+background-color: #E9E5D6;
 border-radius: 20px;
-border: lightsalmon 4px solid;
+border: #362706 4px solid;
 margin: 10px;
 padding: 10px;
 font-size: 16px;
 
 :hover {
-    background-color: cornflowerblue;
+    background-color: #464E2E;
+    color: white;
 }
 `
 
 export const Headline = styled.h2`
-    font-size: 24px;
-    color: red;
-`
-export const Title = styled.h3`
-    font-size: 20px;
-    color: blue;
-`
-export const Description = styled.p`
-    font-size: 16px;
-    color: green;
+    font-size: 34px;
+
 `

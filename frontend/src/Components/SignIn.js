@@ -51,21 +51,22 @@ const SignIn = () => {
     }
     return (
         <>
+        <LoginWrapper>
         <Label htmlFor="signUp">Sign up</Label>
        <Span><Input type="radio" id="signUp" checked={mode === "signUp"} onChange={()=>setMode("signUp")} /></Span>
         <Label htmlFor="signIn">Sign in</Label>
       <Span><Input type="radio" id="signIn" checked={mode === "signIn"} onChange={()=>setMode("signIn")}/></Span>
-
+      </LoginWrapper>
         <Form onSubmit={onFormSubmit}>
-            <label htmlFor="username">Username</label>
-            <input 
+            <Label htmlFor="username">Username</Label>
+            <InputForm
                 type="text" 
                 id="username" 
                 value={username} 
                 onChange={e => setUsername(e.target.value)}/>
 
-            <label htmlFor="password">Password</label>
-            <input 
+            <Label htmlFor="password">Password</Label>
+            <InputForm 
                 type="password" 
                 id="password" 
                 value={password} 
@@ -79,11 +80,13 @@ const SignIn = () => {
 
 export default SignIn;
 
-const Input = styled.input`
-  opacity: 0;
-  height: 0;
-  width: 0;
+const LoginWrapper = styled.div`
+display: flex;
+`
 
+const Input = styled.input`
+  height: 10px;
+  width: 10px;
 `
 const Span = styled.span`
 height: 20px;
@@ -91,22 +94,29 @@ width: 20px;
 border: solid;
 border-radius: 50%;
 margin: 10px;
+color: #464E2E;
 
 :hover {
-    color: cornflowerblue;
+    color: #ACB992;
 }
 
-&:checked {
-    color: tan;
-}
 `
 
 const Label = styled.label`
-color: firebrick;
+font-size: 16px;
 `
 
 const Form = styled.form`
 padding: 10px;
-background-color: whitesmoke;
 border-radius: 8px;
+`
+
+const InputForm = styled.input`
+padding: 10px;
+margin: 15px;
+border-radius: 8px;
+font-size:16px;
+box-shadow: 3px 2px #464E2E;
+border: 1px solid;
+background-color: rgb(228, 228, 228);
 `
