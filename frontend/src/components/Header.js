@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from 'react-redux'
+
 
 const Header = () => {
+  const dispatch = useDispatch()
   return (
     <HeaderContainer>
-      <Logo />
+      <Logo>Jessika's Message Board</Logo>
     </HeaderContainer>
   )
 }
@@ -31,6 +34,19 @@ const Logo = styled.div`
   border-radius: 50%;
   background-color: blue;
   position: absolute;
-  left: 10vw;
+  left: 5%;
   bottom: -35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  border: white solid 5px;
+
+  @media (min-width: 668px) and (max-width: 1024px) {
+    left: 20%;
+  }
+  @media (min-width: 1025px){ 
+    left: 20%;
+  }
 `

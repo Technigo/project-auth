@@ -7,6 +7,7 @@ export const Button = styled.button`
   border-radius: 10px;
   border: none;
   margin: 10px;
+  font-family: 'Josefin Sans', sans-serif;
 
   &:hover {
     background-color: lightblue;
