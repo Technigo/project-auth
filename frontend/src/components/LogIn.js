@@ -57,9 +57,9 @@ const LogIn = () => {
         </HeaderWrapper>
         <InnerWrapper>
         <h1>{mode === "register" ? "Create a New Account" : "Welcome back!"}</h1>
-        <StyledForm onSubmit={onFormSubmit}>
+        <form onSubmit={onFormSubmit}>
         
-          <Label htmlFor="username">Username</Label>
+          <label htmlFor="username">Username</label>
           <InputText 
             type="text"
             id="username"
@@ -68,7 +68,7 @@ const LogIn = () => {
             placeholder={mode === "register" ? "Username" : "Username"}
             onChange={event => setUserName(event.target.value)} />
 
-          <Label htmlFor="password">Password</Label>
+          <label htmlFor="password">Password</label>
           <InputText 
             type="password"
             id="pwd"
@@ -83,7 +83,7 @@ const LogIn = () => {
             {mode === "register" ? "Sign Up" : "Log in"}
           </StyledButton>
         
-        </StyledForm>
+        </form>
         
         <ButtonWrapper>
           <Label htmlFor="register">Register</Label>
