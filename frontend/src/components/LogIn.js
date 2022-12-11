@@ -57,7 +57,7 @@ const LogIn = () => {
         </HeaderWrapper>
         <InnerWrapper>
         <h1>{mode === "register" ? "Create a New Account" : "Welcome back!"}</h1>
-        <form onSubmit={onFormSubmit}>
+        <Form onSubmit={onFormSubmit}>
         
           <label htmlFor="username">Username</label>
           <InputText 
@@ -83,7 +83,7 @@ const LogIn = () => {
             {mode === "register" ? "Sign Up" : "Log in"}
           </StyledButton>
         
-        </form>
+        </Form>
         
         <ButtonWrapper>
           <Label htmlFor="register">Register</Label>
@@ -205,7 +205,7 @@ export default LogIn
     border-radius: 5px;
     width: 200px;
     `
-  const StyledForm = styled.form `
+  const Form = styled.form `
     display: flex;
     justify-content: center;
     align-items: center;
