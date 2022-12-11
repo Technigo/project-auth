@@ -18,12 +18,14 @@ export const LogIn = () => {
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);
 
+  //If user is validated they will navigate to /main
   useEffect( () => {
     if (accessToken){
       navigate("/main")
     }
   }, [accessToken])
-
+  
+  // When login form is submitted the data is sent and compared to registered users in database
   const onFormSubmit = (event) => {
     event.preventDefault();
     const options = {

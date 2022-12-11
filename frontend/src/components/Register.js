@@ -18,12 +18,14 @@ export const Register = () => {
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);
 
+  //when new user is validated and created they will navigate to /main
   useEffect( () => {
     if (accessToken){
       navigate("/main")
     }
   }, [accessToken])
 
+  // When registration form is submitted the data in sent and stored at register-endpoint in database
   const onFormSubmit = (event) => {
     event.preventDefault();
     const options = {

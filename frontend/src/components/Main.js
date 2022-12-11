@@ -1,3 +1,6 @@
+// In this component there is a lot of code commented out. 
+// We didn't make it work but if we had more time we wanted to giv it a try
+
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { user } from "reducers/user";
@@ -16,7 +19,8 @@ export const Main = () => {
     const navigate = useNavigate();
     // const movieItems = useSelector((store) => store.movies.items);
 
-
+// Since main-page is an authenticated endpoint you only access it if you have a valid accesstoken
+// If user don't provide valid accesstoken they are redirected to login-page
         useEffect( () => {
             if (!accessToken) {
                 navigate("/login");
