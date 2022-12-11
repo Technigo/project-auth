@@ -17,5 +17,5 @@ Done!
 
 ## View it live
 
-#Frontend:
-#Backend
+#Frontend: https://app.netlify.com/sites/aquamarine-truffle-ce5fec/overview
+#Backend: https://project-auth-pvgq4cny7a-lz.a.run.app/
