@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import user from "../reducers/user";
 import { API_URL } from "../utils/urls";
 
@@ -52,11 +52,15 @@ const LogIn = () => {
   return (
     <>
       <OuterWrapper>
-        <h1>{mode === "register" ? "Create a New Account" : "Welcome back!"}</h1>
-        <form onSubmit={onFormSubmit}>
+        <HeaderWrapper>
+          <h1>Fotboll something....</h1>
+        </HeaderWrapper>
         <InnerWrapper>
-          <label htmlFor="username">Username</label>
-          <input
+        <h1>{mode === "register" ? "Create a New Account" : "Welcome back!"}</h1>
+        <StyledForm onSubmit={onFormSubmit}>
+        
+          <Label htmlFor="username">Username</Label>
+          <InputText 
             type="text"
             id="username"
             autoComplete="off"
@@ -64,8 +68,8 @@ const LogIn = () => {
             placeholder={mode === "register" ? "Username" : "Username"}
             onChange={event => setUserName(event.target.value)} />
 
-          <label htmlFor="password">Password</label>
-          <input
+          <Label htmlFor="password">Password</Label>
+          <InputText 
             type="password"
             id="pwd"
             autoComplete="off"
@@ -73,33 +77,74 @@ const LogIn = () => {
             placeholder={mode === "register" ? "Minimum 5 characters" : "Password"}
             onChange={event => setPassword(event.target.value)} />
 
-          <button
+          <StyledButton
             type="submit"
             disabled={password.length < 5 && mode === "register"}>
             {mode === "register" ? "Sign Up" : "Log in"}
-          </button>
-        </InnerWrapper>
-        </form>
+          </StyledButton>
+        
+        </StyledForm>
+        
         <ButtonWrapper>
-          <label htmlFor="register">Register</label>
+          <Label htmlFor="register">Register</Label>
           <input
             type="radio"
             id="register"
             checked={mode === "register"}
             onChange={() => dispatch(user.actions.setMode("register"))} />
-          <label htmlFor="login">Login</label>
+          <Label htmlFor="login">Login</Label>
           <input
             type="radio"
             id="login"
             checked={mode === "login"}
             onChange={() => dispatch(user.actions.setMode("login"))} />
         </ButtonWrapper>
+        </InnerWrapper>
+     
+      <FooterWrapper>
+      <p>&copy;2022 Younas & Sarah | All Rights Reserved</p>
+      </FooterWrapper> 
       </OuterWrapper>
     </>
   )
 }
 
 export default LogIn
+
+  const HeaderWrapper = styled.header`
+  width: inherit;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 30px;
+  `
+  const FooterWrapper = styled.footer`
+  position: relative;
+  width: 100%;
+  background: #3586ff;
+  min-height: 126px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .wave {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: url("https://i.ibb.co/wQZVxxk/wave.png");
+  background-size: 1000px 100px;
+}
+.wave#wave1 {
+  z-index: 1000;
+  opacity: 1;
+  bottom: 0;
+  animation: animateWaves 4s linear infinite;
+}
+
+  `
 
   const OuterWrapper = styled.div`
     width: 100%;
@@ -108,11 +153,13 @@ export default LogIn
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: lightblue;
+    background: linear-gradient(80deg,#86bbb6 50%,#00adff 50%);
     `
   const InnerWrapper = styled.div`
-    width: 26vh;
-    height: 15vh;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px;
+    margin: 119px;
     `
   const ButtonWrapper = styled.div`
     display: flex;
@@ -120,15 +167,45 @@ export default LogIn
     width: 160px;
     justify-content: space-between;
     align-items: center;
+    margin: 40px;
+
+    input[type='radio'] {
+            /* add margin here of If you want */
+            width: 20px;
+            height: 20px;
+            border: 2px solid #747474;
+            border-radius: 50%;
+            outline: none;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+    input[type='radio']:hover:before {
+            box-shadow: 0px 0px 0px 12px rgba(80, 80, 200, 0.2); /* control thickens on border here */
+            border-radius: 50%;
+            opacity: 1;
+        }
+    input[type='radio']:before {
+            content: '';
+            display: block;
+            width: 100%; /* outside border*/
+            height: 100%; /* for outside border */
+            border-radius: 50%;
+            transition:.3s; /* for animation*/
+        }
+    input[type='radio']:checked:before {
+            background: black;
+        }
     `
-  const input = styled.input `
+    // för mig ser det ut som att dessa under inte fungerar.. det är prickar under, men vet inte om
+    // det kanske bara är för att jag har dålig uppkoppling och det inte uppdatera
+  const InputText = styled.input `
     display: flex;
     margin: 5px;
     padding: 10px;
     border-radius: 5px;
     width: 200px;
     `
-  const form = styled.form `
+  const StyledForm = styled.form `
     display: flex;
     justify-content: center;
     align-items: center;
@@ -141,5 +218,8 @@ export default LogIn
     text-align: center;
     font-size: 12px;
     `
-  const Button = styled.button `
-    margin: 10px; `
+  const StyledButton = styled.button ` 
+    margin: 10px;
+    width: 5em;  
+    height: 2.5em 
+    `
