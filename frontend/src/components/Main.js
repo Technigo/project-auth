@@ -5,7 +5,7 @@ import user from "reducers/user";
 import { API_URL } from "utils/urls";
 
 const Main = () => {
-  const [secret, setSecret] = useState(null);
+  const [secret, setSecret] = useState();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,7 +30,8 @@ const Main = () => {
     const options = {
       method: 'GET',
       headers: {
-        Authorization: accessToken,
+        'Authorization': accessToken,
+        'Content-Type': 'application/json'
       },
     }
 
@@ -41,11 +42,11 @@ const Main = () => {
           setSecret(data.response)
         }
       })
-  }, [accessToken])
+  }, [accessToken]);
 
   return (
     <div className="secret-page">
-      <h1 className="secret-title">Welcom to your page {username}</h1>
+      <h1 className="secret-title">Welcome to your page {username}</h1>
 			<p>Here is where magic will happen!</p>
       <div className="secret-container">
         <p className="secret-text">{secret}</p>
