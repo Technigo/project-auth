@@ -102,12 +102,12 @@ const Login = () => {
 export default Login;
 
 const Wrapper = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh;
-background: #f8f9fd;
-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f8f9fd;
+  color: white;
 `
 
 const FormWrapper = styled.div`
@@ -116,6 +116,10 @@ padding: 50px;
 background: linear-gradient(#e36373, #e36460);
 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 border-radius: 15px;
+
+@media screen and (max-width: 400px) {
+    width: 60%;
+}
 `
 
 const InputWrapper = styled.div`
@@ -125,6 +129,7 @@ align-items: center;
 `
 
 const Form = styled.form`
+width: 100%;
 display: flex;
 flex-direction: column;
 width: 300px;
@@ -155,7 +160,6 @@ font-size: 10px;
 `
 
 const Button = styled.button`
-width: 300px;
 border-radius: 15px;
 padding: 8px;
 margin-top: 30px;
@@ -163,8 +167,13 @@ background-color: #e36373;
 color: white;
 border: 1px solid white;
 
+
 &:hover {
     background-color: white;
     color: #e36373;
+}
+
+@media screen and (min-width: 400px) {
+    width: 300px;
 }
 `

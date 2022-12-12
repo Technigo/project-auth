@@ -81,6 +81,10 @@ padding: 50px;
 background: linear-gradient(#e36373, #e36460);
 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 border-radius: 15px;
+
+@media (max-width 400px) {
+    width: 90%;
+}
 `
 
 const ThoughtWrapper = styled.div`
@@ -99,7 +103,7 @@ text-align: center;
 `
 
 const Button = styled.button`
-width: 300px;
+
 border-radius: 15px;
 padding: 8px;
 margin-top: 30px;
@@ -111,5 +115,9 @@ font-weight: 800;
 &:hover {
     background-color: white;
     color: #e36373;
+}
+
+@media screen and (min-width: 400px) {
+    width: 300px;
 }
 `
