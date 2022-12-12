@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import { API_URL } from 'utils/Utils'
 import user from 'reducers/user'
 
-const UserInput = () => {
-   const page = "/register"
+const UserInput = (page) => {
+  const endPoint = (page.page)
   const [username, setUsername] = useState("") 
   const [password, setPassword] = useState("") 
-  /* const [mode, setMode] = useState("login") */
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +28,7 @@ const UserInput = () => {
       },
       body: JSON.stringify({username: username, password: password})
     }
-    fetch(API_URL(page), options)
+    fetch(API_URL(endPoint), options)
     .then(response => response.json())
     .then(data => {
       if(data.success) {
@@ -37,15 +36,16 @@ const UserInput = () => {
           dispatch(user.actions.setUsername(data.response.username));
           dispatch(user.actions.setUserId(data.response.id));
           dispatch(user.actions.setAccessToken(data.response.accessToken));
-          dispatch(user.actions.setError(null))
-          navigate("/dashboard")
+          dispatch(user.actions.setError(null));
+          navigate("/dashboard");
         });
       } else {
         batch (() => { 
           dispatch(user.actions.setUsername(null));
           dispatch(user.actions.setUserId(null));
           dispatch(user.actions.setAccessToken(null));
-          dispatch(user.actions.setError(data.response))
+          dispatch(user.actions.setError(data.response));
+          alert("Something went wrong");
         })
       }
     })

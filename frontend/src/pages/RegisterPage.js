@@ -48,7 +48,8 @@ const RegisterPage = () => {
           dispatch(user.actions.setUsername(null));
           dispatch(user.actions.setUserId(null));
           dispatch(user.actions.setAccessToken(null));
-          dispatch(user.actions.setError(data.response))
+          dispatch(user.actions.setError(data.response));
+          alert("Something went wrong");
         })
       }
     })
