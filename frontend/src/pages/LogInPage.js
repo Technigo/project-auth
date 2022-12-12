@@ -46,15 +46,16 @@ const LogInPage = () => {
             dispatch(user.actions.setUsername(data.response.username));
             dispatch(user.actions.setUserId(data.response.id));
             dispatch(user.actions.setAccessToken(data.response.accessToken));
-            dispatch(user.actions.setError(null))
-            navigate("/dashboard")
+            dispatch(user.actions.setError(null));
+            navigate("/dashboard");
           });
         } else {
           batch(() => {
             dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setAccessToken(null));
-            dispatch(user.actions.setError(data.response))
+            dispatch(user.actions.setError(data.response));
+            alert("Something went wrong");
           })
         }
       })
