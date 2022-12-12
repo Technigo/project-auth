@@ -7,8 +7,6 @@ export const Form = ({ buttonText, formType, formTitle }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     
-    //const accessToken = localStorage.getItem('accessToken');
-
     const navigate = useNavigate();
   
     const onSubmit = (event) => {

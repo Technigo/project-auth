@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { StyledButton, StyledDiv } from "GlobalStyles";
 import { useNavigate } from "react-router-dom";
 
@@ -8,10 +8,6 @@ export const Welcome = () => {
   const username = localStorage.getItem('username');
 
   const navigate = useNavigate();
-
-  if (!accessToken === undefined || !accessToken === null) {
-    navigate("/");
-  }
 
   const clearStorage = () => {
     localStorage.removeItem('accessToken');
@@ -38,19 +34,19 @@ export const Welcome = () => {
   // If there is an accesstoken present, log user in and display welcome page, 
   // otherwise ask them to log in
   return (
-    <StyledDiv>
+    <>
       {accessToken && (
-        <div>
+        <StyledDiv>
           <h2>Hello {username}! You are now logged in</h2>
           <StyledButton onClick={() => clearStorage()}>Log out</StyledButton>
-        </div>
+        </StyledDiv>
       )}
       {!accessToken && (
-        <div>
+        <StyledDiv>
           <h2>Please log in</h2>
           <StyledButton onClick={() => clearStorage()}>Go to start page</StyledButton>
-        </div>
+        </StyledDiv>
       )}
-    </StyledDiv>
+    </>
   )
 }
