@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// passing intisal states. By creating slice or reducer, Modofeing our store appear
 // null is a defual of value
 const user = createSlice({
   name: "user",

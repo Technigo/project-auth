@@ -13,9 +13,11 @@ For Frontend, By using both component local states as well as Redux states we co
 
 we had an issu for not following the same path name for frontend, and we could not register a new user.
 
-Done!
+
 
 ## View it live
 
-#Frontend: https://app.netlify.com/sites/aquamarine-truffle-ce5fec/overview
-#Backend: https://project-auth-pvgq4cny7a-lz.a.run.app/
+#Frontend: npm start/ 
+https://app.netlify.com/sites/aquamarine-truffle-ce5fec/overview
+#Backend: npm run dev/ 
+APIhttps://project-auth-pvgq4cny7a-lz.a.run.app/

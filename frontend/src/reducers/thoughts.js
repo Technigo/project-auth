@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// passing intisal states
+// passing intisal states. By creating slice or reducer, Modofeing our store appear
 const thoughts = createSlice({
   name: "thoughts",
   initialState: {

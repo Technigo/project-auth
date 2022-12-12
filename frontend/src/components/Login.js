@@ -35,6 +35,7 @@ const Login = () => {
       .then((data) => {
         if (data.success) {
           batch(() => {
+            // Dispatch excuting the Action
             dispatch(user.actions.setName(data.response.name));
             dispatch(user.actions.setId(data.response.id));
             dispatch(user.actions.setAccessToken(data.response.accessToken));
@@ -93,7 +94,7 @@ const Login = () => {
         />
         <Button type="submit">Submit</Button>
         <TextError>
-          <p>{errorMessage && errorMessage}</p>
+          <span>{errorMessage && errorMessage}</span>
         </TextError>
       </Form>
     </Wrapper>
@@ -106,7 +107,7 @@ export default Login;
 /**Styling  */
 const Wrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -143,6 +144,7 @@ const LabelText = styled.p`
   text-align: right;
   color: beige;
 `;
+
 const Button = styled.button`
   font-family: "Inconsolata";
   font-size: 18px;
@@ -157,6 +159,7 @@ const Button = styled.button`
   border-radius: 8px;
   font-weight: bold;
 `;
+
 const Section = styled.div`
   width: 100vw;
   height: 200px;
@@ -166,6 +169,7 @@ const Section = styled.div`
   align-items: center;
   font-size: 18px;
 `;
+
 const Input= styled.input`
 width: 200px;
 height: 25px;

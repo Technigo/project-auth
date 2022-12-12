@@ -33,6 +33,8 @@ const Main = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          console.log(data.response);
+          // Dispatch method "Excuting the action"
           dispatch(thoughts.actions.setItems(data.response));
           dispatch(thoughts.actions.setError(null));
           // Set Error to initial state which it is null
@@ -47,14 +49,13 @@ const Main = () => {
 
   return (
     <Wrapper>
-      {/* <Link to="/login">LOGIN</Link> */}
       <Text>
-        <h2>💜 All Happy Thoughts 💜 </h2>
+       💜 All Happy Thoughts 💜 
       </Text>
       {thoughtsItem.map((item) => {
         return (
-          <Textsub>
-            <h4 key={item._id}>{item.message}</h4>
+          <Textsub key={item._id}>
+            {item.message}
           </Textsub>
         );
       })}
@@ -67,6 +68,10 @@ const Main = () => {
       >
         Log Out
       </Button>
+
+      {/* <Link to="/login">
+        <Button>LOGIN</Button>
+      </Link> */}
     </Wrapper>
   );
 };
@@ -76,13 +81,13 @@ export default Main;
 /**stying */
 const Wrapper = styled.div`
   width: 100vw;
-  /* height: 100vh; */
   display: flex;
   background-color: rgb(230, 179, 255);
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
+
 const Button = styled.button`
   font-family: "Inconsolata";
   padding: 6px 15px;
@@ -102,6 +107,7 @@ const Text = styled.h2`
   font-size: 18px;
   color: beige;
 `;
+
 const Textsub = styled.h4`
   margin-top: 20px;
   font-size: 18px;
