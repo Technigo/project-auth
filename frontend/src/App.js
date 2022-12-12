@@ -1,5 +1,5 @@
 import './index.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import Main from './components/Main';
 import Register from 'components/Register';
 import Login from 'components/Login';
@@ -8,7 +8,7 @@ import SpeakerDetails from 'components/SpeakerDetails';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/register" element={<Register />} />
@@ -16,7 +16,7 @@ const App = () => {
         <Route path="/top10Views" element={<Content />} />
         <Route path="/speaker/:id" element={<SpeakerDetails />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
