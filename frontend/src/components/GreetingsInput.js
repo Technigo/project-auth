@@ -39,22 +39,6 @@ export const GreetingsInput = () => {
       .catch((error) => console.error(error))
       .finally (() => handleFormCleanup())
     
-    // .then(() => {
-    //   fetch(API_URL("/greetings"),
-      
-    //   {
-    //     method: 'GET',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       Authorization: accessToken,
-    //     },
-        
-    //   }) 
-    //   .catch(error => console.error(error))
-    //   .finally (
-    //     handleFormCleanup()
-    //   )
-    // })
 
     fetch(API_URL("/greetings"),
       {
@@ -104,7 +88,6 @@ const InputForm = styled.form`
 
 const Input = styled.input`
   margin: 10px 0;
-  
 `;
 
 const Button = styled.button`
@@ -112,4 +95,13 @@ const Button = styled.button`
   max-width: 100px;
   margin: 10px auto;
   cursor: pointer;
+  background-color: var(--white);
+  border-radius: 1rem;
+  padding:0.5rem;
+  font-family: 'Mountains of Christmas', cursive;
+  font-size: 16px;
+  border: none;
+  box-shadow: 0.2rem 0.2rem 0.5rem;
+  letter-spacing: 1px;
 `;
+

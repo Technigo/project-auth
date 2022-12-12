@@ -44,7 +44,7 @@ const Main = () => {
 
   return (
     <>
-      <button type="button" onClick={() => dispatch(user.actions.setAccessToken(null))}>Sign Out</button>
+      <Button type="button" onClick={() => dispatch(user.actions.setAccessToken(null))}>Sign Out</Button>
       <h2>👇🏼 Post Christmas Greetings Here 👇🏼</h2>
       <GreetingsInput />
       <Feed>
@@ -129,5 +129,19 @@ const SenderInfo = styled.div`
 `;
 
 const Greeting = styled.p`
-  margin: auto
+  margin: auto;
 `
+
+const Button = styled.button`
+margin-top: 0.5rem;
+max-width: 400px;
+background-color: var(--white);
+border-radius: 1rem;
+padding: 0.5rem 1rem;
+font-family: 'Mountains of Christmas', cursive;
+font-size: 16px;
+cursor: pointer;
+border: none;
+box-shadow: 0.2rem 0.2rem 0.5rem;
+letter-spacing: 1px;
+`;

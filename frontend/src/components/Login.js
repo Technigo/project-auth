@@ -52,39 +52,39 @@ const Login = () => {
     <OuterWrapper>
       <InnerWrapper>
         <Greeting>
-          Hi and ho! Please login to send a Christmas greeting!
+          Hi and ho! <br/> Please login to send a Christmas greeting!
         </Greeting>
         <RadioButtonContainer>
-          <div>
-            <label htmlFor="register">Register</label>
-            <input
+          <RadioWrapper>
+            <RadioInput
               type="radio"
               id="register"
               checked={mode === "register"}
               onChange={() => setMode("register")}
             />
-          </div>
-          <div>
-            <label htmlFor="login">Login</label>
-            <input
+            <label htmlFor="register">Register</label>
+          </RadioWrapper>
+          <RadioWrapper>
+            <RadioInput
               type="radio"
               id="login"
               checked={mode === "login"}
               onChange={() => setMode("login")}
             />
-          </div>
+            <label htmlFor="login">Login</label>
+          </RadioWrapper>
         </RadioButtonContainer>
 
         <FormContainer onSubmit={onFormSubmit}>
           <label htmlFor="username">Username</label>
-          <input
+          <TextInput
             type="text"
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <label htmlFor="password">Password</label>
-          <input
+          <TextInput
             type="password"
             id="password"
             value={password}
@@ -101,32 +101,68 @@ export default Login;
 
 const OuterWrapper = styled.div`
   width: 100vw;
+  display:flex;
+  align-items: center;
+  min-height: 100vh;
 `;
 const InnerWrapper = styled.div`
-  margin: 50px auto;
+  margin: auto;
   width: 60vw;
   background: white;
   max-width: 700px;
   box-shadow: 0 15px 35px rgba(50, 50, 93, 0.3), 0 5px 15px rgba(0, 0, 0, 0.5);
   height: fit-content;
-  border-radius: 10px;
+  border-radius: 50%;
   padding: 2em;
+  background-color: var(--yellow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 `;
 const Greeting = styled.h2`
-  margin: 20px;
+  margin: 3rem;
 `;
 
 const RadioButtonContainer = styled.div`
-margin: 20px 0;`;
+display: flex;
+justify-content: space-between;
+margin: 1rem 0;
+width:10rem;
+`;
+
+const RadioWrapper = styled.div`
+width:fit-content;
+`
 
 const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
+ 
   
 `;
 
 const Button = styled.button`
 margin: 20px auto;
 max-width: 400px;
-
+background-color: var(--green);
+border-radius: 1rem;
+padding:0.5rem 1rem;
+font-family: 'Mountains of Christmas', cursive;
+font-size: 16px;
+cursor: pointer;
+border: none;
+box-shadow: 0.2rem 0.2rem 0.5rem;
+letter-spacing: 1px;
 `;
+
+const TextInput = styled.input`
+width:100%;
+`
+const RadioInput = styled.input`
+margin-right: 0.5rem;
+accent-color: (var(--red)) !important;
+grid-column-start: 1;
+
+  
+`
