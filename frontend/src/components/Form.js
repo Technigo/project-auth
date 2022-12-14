@@ -35,10 +35,8 @@ export const Form = (props) => {
           placeholder="Password"
         />
       </label>
-
-      <p>{errorMessage && errorMessage}</p>
-
       <button type="submit">Log in</button>
+      <p>{errorMessage && errorMessage}</p>
     </form>
   );
 };

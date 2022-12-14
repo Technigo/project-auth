@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Form } from './Form';
-import { ContentContainer, Wrapper } from './styledComponents/Containers';
+import { ContentContainer, LoginRegister, Wrapper } from './styledComponents/Containers';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,10 +18,14 @@ const Login = () => {
   return (
     <Wrapper>
       <ContentContainer>
-        <h1>Sign in</h1>
-        <Form mode="login" />
-        <h1>Create account</h1>
-        <Form mode="register" />
+        <LoginRegister primary>
+          <h1>Sign in</h1>
+          <Form mode="login" />
+        </LoginRegister>
+        <LoginRegister>
+          <h1>Sign Up</h1>
+          <Form mode="register" />
+        </LoginRegister>
       </ContentContainer>
     </Wrapper>
   );
