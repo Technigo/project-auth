@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getThoughts } from 'reducers/thoughts';
 import { useNavigate } from 'react-router-dom';
 import user from 'reducers/user';
+import { Wrapper } from './styledComponents/Containers';
 
 const Main = () => {
   const thoughtItems = useSelector((store) => store.thoughts.items);
@@ -21,7 +22,7 @@ const Main = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <Wrapper>
       <h2>This is the main component</h2>
       {thoughtItems.map((item) => {
         return <p key={item._id}>{item.message}</p>;
@@ -35,7 +36,7 @@ const Main = () => {
       >
         Log Out
       </button>
-    </>
+    </Wrapper>
   );
 };
 
