@@ -7,11 +7,11 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.4.5"
+    "react-router-dom": "^6.4.5",
+    "styled-components": "^5.3.6"
   },
   "description": "Replace this readme with your own information about your project.",
   "main": "index.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CeciliaMichele/project-auth.git"
