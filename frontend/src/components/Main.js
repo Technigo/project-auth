@@ -23,7 +23,6 @@ const Main = () => {
 
   return (
     <Wrapper>
-      <h2>This is the main component</h2>
       {thoughtItems.map((item) => {
         return <p key={item._id}>{item.message}</p>;
       })}
