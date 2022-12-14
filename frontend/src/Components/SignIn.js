@@ -52,10 +52,10 @@ const SignIn = () => {
     return (
         <>
         <LoginWrapper>
-        <Label htmlFor="signUp">Sign up</Label>
-       <Span><Input type="radio" id="signUp" checked={mode === "signUp"} onChange={()=>setMode("signUp")} /></Span>
-        <Label htmlFor="signIn">Sign in</Label>
-      <Span><Input type="radio" id="signIn" checked={mode === "signIn"} onChange={()=>setMode("signIn")}/></Span>
+        <Label htmlFor="register">Sign up</Label>
+       <Span><Input type="radio" id="register" checked={mode === "register"} onChange={()=>setMode("register")} /></Span>
+        <Label htmlFor="login">Sign in</Label>
+      <Span><Input type="radio" id="login" checked={mode === "login"} onChange={()=>setMode("login")}/></Span>
       </LoginWrapper>
         <Form onSubmit={onFormSubmit}>
             <Label htmlFor="username">Username</Label>
