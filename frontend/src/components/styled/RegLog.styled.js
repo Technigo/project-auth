@@ -13,7 +13,7 @@ export const AppContainer = styled.div`
   margin: 3rem auto;
   width: 23rem;
   min-height: 23rem;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
 
   & p {
     color: gray;

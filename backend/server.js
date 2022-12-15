@@ -46,10 +46,12 @@ app.get('/', (req, res) => {
 
 // Register end point
 app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, email, password } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
     const oldUser = await User.findOne({ username });
+    const oldEmail = await User.findOne({ email });
+
     if (password.length < 8) {
       res.status(400).json({
         success: false,
@@ -58,11 +60,17 @@ app.post('/register', async (req, res) => {
     } else if (oldUser) {
       res.status(400).json({
         success: false,
-        response: 'Username already taken 😔',
+        response: 'Username already taken',
       });
+    } else if (oldEmail) {
+      res.status(400).json({
+        success: false,
+        response: 'Email already registered'
+      })
     } else {
       const newUser = await new User({
         username: username,
+        email: email,
         password: bcrypt.hashSync(password, salt),
       }).save();
       res.status(201).json({
@@ -75,12 +83,6 @@ app.post('/register', async (req, res) => {
       });
     }
   } catch (err) {
-    // if (err.code === 11000) {
-    //   res.status(400).json({
-    //     success: false,
-    //     response: 'Username already taken',
-    //   });
-    // } else {
     res.status(400).json({
       success: false,
       response: err,
@@ -116,7 +118,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// End point with content available after authentication
+// End point with content available only if authenticated
 app.get('/thoughts', authenticateUser);
 app.get('/thoughts', async (req, res) => {
   const thoughts = await Thought.find({});
@@ -125,24 +127,6 @@ app.get('/thoughts', async (req, res) => {
     response: thoughts,
   });
 });
-
-// End point for post requests only available after authentication
-// app.post('/thoughts', authenticateUser);
-// app.post('/thoughts', async (req, res) => {
-//   const { message } = req.body;
-//   try {
-//     const newThought = await new Thought({ message }).save();
-//     res.status(201).json({
-//       success: true,
-//       response: newThought,
-//     });
-//   } catch (err) {
-//     res.status(400).json({
-//       success: false,
-//       response: err,
-//     });
-//   }
-// });
 
 // Start the server
 app.listen(port, () => {
