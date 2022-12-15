@@ -9,7 +9,6 @@ import { RadioContainer, StyledForm } from './styled/RegLog.styled';
 const Login = () => {
   const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
-  console.log(email)
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState('login');
 
