@@ -7,4 +7,4 @@ The assignment was to build an API with authentication to implement a registrati
 
 Frontend: https://registertologin.netlify.app/
 
-Backend: https://project-auth-fybh32gdwa-lz.a.run.app/
+Backend: https://project-auth-br3we37cla-lz.a.run.app/
