@@ -13,7 +13,7 @@ const Main = () => {
 
 	useEffect(() => {
 		if (!accessToken) {
-			navigate("/login");
+			navigate("/");
 		}
 	}, []);
 
