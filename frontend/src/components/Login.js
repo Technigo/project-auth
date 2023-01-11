@@ -107,7 +107,7 @@ export default Login;
 /**Styling  */
 const Wrapper = styled.div`
   width: 100vw;
-  /* height: 100vh; */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
