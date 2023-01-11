@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import thoughts from "reducers/thoughts";
 import { API_URL } from "utils/utils";
 import user from "reducers/user";
