@@ -36,8 +36,10 @@ export const App = () => {
 const StyledMain = styled.main`
   height: 100%;
   display: flex;
+  flex-direction: column;
   height: 100%;
   align-items: center;
+  justify-content: center;
   background-color: #fdb49b;
   background-image: linear-gradient(0deg, #fdb49b 0%, #e197d2 100%);
 `
