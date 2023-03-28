@@ -12,6 +12,6 @@ Tech used: React, Styled components, API, MongoDB, Crypto and Bcrypt
 
 ## View it live
 
-Backend: https://project-auth-3asmq7u3ga-lz.a.run.app
+Backend: https://arts-and-crafts.onrender.com
 
 Frontend: https://arts-and-craft-society.netlify.app
