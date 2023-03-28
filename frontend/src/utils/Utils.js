@@ -1,3 +1,3 @@
-const BASE_URL ="https://project-auth-3asmq7u3ga-lz.a.run.app";
+const BASE_URL ="https://arts-and-crafts.onrender.com";
 
 export const API_URL = (slug) => `${BASE_URL}/${slug}`;
