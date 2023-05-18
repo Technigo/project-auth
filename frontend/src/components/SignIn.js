@@ -14,11 +14,16 @@ export const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // change to POST request to the API
-    console.log({
-      username: data.get('username'),
-      password: data.get('password')
-    });
+    const options = {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username: data.get('username'), password: data.get('password') })
+    }
+    fetch('https://project-authentication-es4c3pthxq-lz.a.run.app/signin', options)
+    .then((res) => res.json())
+    .then((data => console.log(data)))
   };
 
   return (

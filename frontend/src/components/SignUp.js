@@ -12,11 +12,16 @@ export const SignUp = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // change to POST request to the API
-    console.log({
-      username: data.get('username'),
-      password: data.get('password')
-    });
+    const options = {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username: data.get('username'), password: data.get('password') })
+    }
+    fetch('https://project-authentication-es4c3pthxq-lz.a.run.app/signup', options)
+    .then((res) => res.json())
+    .then((data => console.log(data)))
   };
 
   const defaultTheme = createTheme();
@@ -37,16 +42,6 @@ export const SignUp = () => {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="name"
-                  name="name"
-                  required
-                  fullWidth
-                  id="name"
-                  label="Name"
-                  autoFocus />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
