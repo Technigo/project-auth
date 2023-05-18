@@ -15,6 +15,10 @@ const port = process.env.PORT || 8080;
 const app = express();
 const listEndPoints = require('express-list-endpoints');
 
+// Add middlewares to enable cors and json body parsing
+app.use(cors());
+app.use(express.json());
+
 // User model with validation rules
 const { Schema } = mongoose;
 const UserSchema = new Schema({
@@ -33,24 +37,6 @@ const UserSchema = new Schema({
   }
 });
 const User = mongoose.model("User", UserSchema);
-
-// Middleware function for authentication
-const authenticateUser = async (req, res, next) => {
-  // Looks up the user based on the accessToken stored in the header
-  const user = await User.findOne({ accessToken: req.header("Authorization") });
-  if (user) {
-    req.user = user;
-    // Allows the protected endpoint to continue exec.
-    next();
-  } else {
-    // If no accessToken was found, access will be denied
-    res.status(401).json({ loggedOut: true });
-  }
-};
-
-// Add middlewares to enable cors and json body parsing
-app.use(cors());
-app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
@@ -80,12 +66,6 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-// Secret endpoint that only can be accessed when logged in as a user
-app.get("/secrets", authenticateUser);
-app.get("/secrets", (req, res) => {
-  res.json({ secret: "This is a super secret message." })
-});
-
 // Login as an already registered user
 app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
@@ -105,6 +85,26 @@ app.post("/signin", async (req, res) => {
       response: "User not found"
     });
   }
+});
+
+// Middleware function for authentication
+const authenticateUser = async (req, res, next) => {
+  // Looks up the user based on the accessToken stored in the header
+  const user = await User.findOne({ accessToken: req.header("Authorization") });
+  if (user) {
+    req.user = user;
+    // Allows the protected endpoint to continue exec.
+    next();
+  } else {
+    // If no accessToken was found, access will be denied
+    res.status(401).json({ loggedOut: true });
+  }
+};
+
+// Secret endpoint that only can be accessed when logged in as a user
+app.get("/secrets", authenticateUser);
+app.get("/secrets", (req, res) => {
+  res.json({ secret: "This is a super secret message." })
 });
 
 // Start the server
