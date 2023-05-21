@@ -29,7 +29,8 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minlength: 8
   },
   accessToken: {
     type: String,
@@ -69,21 +70,29 @@ app.post("/signup", async (req, res) => {
 // Login as an already registered user
 app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
-  const user = await User.findOne({ username });
-  if (user && bcrypt.compareSync(password, user.password)) {
-    res.status(200).json({
-      success: true,
-      response: {
-        username: user.username,
-        accessToken: user.accessToken,
-        id: user._id
-      }
-    });
-  } else {
-    res.status(200).json({
+  try {
+    const user = await User.findOne({ username });
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(200).json({
+        success: true,
+        response: {
+          username: user.username,
+          accessToken: user.accessToken,
+          id: user._id
+        }
+      });
+    } else {
+      res.status(200).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+  } catch(e) {
+    res.status(400).json({
       success: false,
-      message: "User not found"
-    });
+      response: e,
+      message: "Something went wrong, please try again."
+    })
   }
 });
 
