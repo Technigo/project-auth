@@ -50,12 +50,16 @@ app.post("/signup", async (req, res) => {
   try {
     const newUser = await new User({username, password: bcrypt.hashSync(password, salt)}).save();
     res.status(201).json({
-      username: newUser.username,
-      accessToken: newUser.accessToken,
-      id: newUser._id
+      success: true,
+      response: {
+        username: newUser.username,
+        accessToken: newUser.accessToken,
+        id: newUser._id
+      }
     })
   } catch(e) {
     res.status(400).json({
+      success: false,
       response: e,
       message: "Could not create user"
     })
@@ -68,9 +72,12 @@ app.post("/signin", async (req, res) => {
   const user = await User.findOne({ username });
   if (user && bcrypt.compareSync(password, user.password)) {
     res.status(200).json({
-      username: user.username,
-      accessToken: user.accessToken,
-      id: user._id
+      success: true,
+      response: {
+        username: user.username,
+        accessToken: user.accessToken,
+        id: user._id
+      }
     });
   } else {
     res.status(200).json({
