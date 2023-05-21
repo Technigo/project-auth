@@ -29,8 +29,7 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
-    minlength: 8
+    required: true
   },
   accessToken: {
     type: String,
@@ -49,15 +48,22 @@ app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
   const salt = bcrypt.genSaltSync();
   try {
-    const newUser = await new User({username, password: bcrypt.hashSync(password, salt)}).save();
-    res.status(201).json({
-      success: true,
-      response: {
-        username: newUser.username,
-        accessToken: newUser.accessToken,
-        id: newUser._id
-      }
-    });
+    if (password.length < 8) {
+      res.status(400).json({
+        success: false,
+        response: "Password must be minimum 8 characters long"
+      });
+    } else {
+      const newUser = await new User({username, password: bcrypt.hashSync(password, salt)}).save();
+      res.status(201).json({
+        success: true,
+        response: {
+          username: newUser.username,
+          accessToken: newUser.accessToken,
+          id: newUser._id
+        }
+      });
+    };
   } catch(e) {
     res.status(400).json({
       success: false,
@@ -108,7 +114,7 @@ const authenticateUser = async (req, res, next) => {
       // If no accessToken was found, access will be denied
       res.status(401).json({
         success: false,
-        response: "Acess denied, please sign in."
+        response: "Access denied, please sign in."
       });
     }
   } catch(e) {
