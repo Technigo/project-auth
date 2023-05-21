@@ -77,7 +77,9 @@ export const Form = ({ path, title, btnText }) => {
                   id="password"
                   autoComplete="new-password" />
               </Grid>
-              <p>{error}</p>
+              <Typography variant="body1" color="red">
+                {error}
+              </Typography>
             </Grid>
             <Button
               type="submit"

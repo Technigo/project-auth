@@ -25,10 +25,16 @@ export const FirstPage = () => {
             <Image />
         </Grid>
         <Grid item xs={6}>
-            {!checked ? <Form path="signin" title="Sign in" btnText="Sign in" /> : <Form path="signup" title="Sign up" btnText="Sign up" />}
-            Sign in
-            <Switch checked={checked} onChange={handleToggle}/>
-            Don't have an account? Sign Up
+            <Grid container justifyContent="center" alignItems="center">
+                <Grid item>
+                    {!checked ? <Form path="signin" title="Sign in" btnText="Sign in" /> : <Form path="signup" title="Sign up" btnText="Sign up" />}
+                </Grid>
+                <Grid item>
+                    Sign in
+                    <Switch checked={checked} onChange={handleToggle}/>
+                    Don't have an account? Sign Up
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
     )

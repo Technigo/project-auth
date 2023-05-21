@@ -67,8 +67,7 @@ app.post("/signup", async (req, res) => {
   } catch(e) {
     res.status(400).json({
       success: false,
-      response: e,
-      message: "Could not create user"
+      response: "Could not create user"
     });
   }
 });
