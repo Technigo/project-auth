@@ -57,13 +57,13 @@ app.post("/signup", async (req, res) => {
         accessToken: newUser.accessToken,
         id: newUser._id
       }
-    })
+    });
   } catch(e) {
     res.status(400).json({
       success: false,
       response: e,
       message: "Could not create user"
-    })
+    });
   }
 });
 
@@ -84,7 +84,7 @@ app.post("/signin", async (req, res) => {
     } else {
       res.status(200).json({
         success: false,
-        message: "User not found"
+        response: "User not found"
       });
     }
   } catch(e) {
@@ -92,21 +92,30 @@ app.post("/signin", async (req, res) => {
       success: false,
       response: e,
       message: "Something went wrong, please try again."
-    })
+    });
   }
 });
 
 // Middleware function for authentication
 const authenticateUser = async (req, res, next) => {
-  // Looks up the user based on the accessToken stored in the header
-  const user = await User.findOne({ accessToken: req.header("Authorization") });
-  if (user) {
-    req.user = user;
-    // Allows the protected endpoint to continue exec.
-    next();
-  } else {
-    // If no accessToken was found, access will be denied
-    res.status(401).json({ loggedOut: true });
+  try {
+    // Looks up the user based on the accessToken stored in the header
+    const user = await User.findOne({ accessToken: req.header("Authorization") });
+    if (user) {
+      // Allows the protected endpoint to continue exec.
+      next();
+    } else {
+      // If no accessToken was found, access will be denied
+      res.status(401).json({
+        success: false,
+        response: "Acess denied, please sign in."
+      });
+    }
+  } catch(e) {
+    res.status(400).json({
+      success: false,
+      response: e
+    })
   }
 };
 
