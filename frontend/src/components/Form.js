@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { user } from 'reducer/user';
-import { Button, CssBaseline, TextField, Grid, Box, Typography, Container } from '@mui/material';
+import { Button, CssBaseline, TextField, Grid, Box, Typography, Container, CircularProgress } from '@mui/material';
 
 export const Form = ({ path, title, btnText }) => {
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const accessToken = useSelector((store) => store.user.accessToken);
@@ -18,6 +19,7 @@ export const Form = ({ path, title, btnText }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setLoading(true);
         const userInput = new FormData(event.currentTarget);
         const options = {
         method: "POST",
@@ -30,17 +32,16 @@ export const Form = ({ path, title, btnText }) => {
         .then((res) => res.json())
         .then(data => {
             if(data.success) {
-              console.log(data)
                 batch(() => {
                     dispatch(user.actions.setUsername(data.response.username));
                     dispatch(user.actions.setUserId(data.response.id));
                     dispatch(user.actions.setAccessToken(data.response.accessToken));
                 });
             } else {
-              console.log(data.response)
               dispatch(user.actions.setError(data.response));
             }
-        });
+        })
+        .finally(() => { setLoading(false) })
     };
 
   return (
@@ -53,7 +54,7 @@ export const Form = ({ path, title, btnText }) => {
             flexDirection: 'column',
             alignItems: 'center'
           }}>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" textTransform={'uppercase'}>
                 {title}
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -77,20 +78,22 @@ export const Form = ({ path, title, btnText }) => {
                   id="password"
                   autoComplete="new-password" />
               </Grid>
-              <Typography variant="body1" color="red">
+              <Typography variant="body1" color="red" textTransform={'uppercase'} margin={'5px auto'}>
                 {error}
               </Typography>
             </Grid>
+            {!loading &&
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}>
                   {btnText}
-            </Button>
+            </Button>}
             <Grid container>
             </Grid>
           </Box>
+          {loading && <CircularProgress style={{ margin: '20px' }}/>}
         </Box>
       </Container>
   );

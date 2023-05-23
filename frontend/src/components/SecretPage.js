@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { user } from 'reducer/user';
-import { Button, Paper } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
 
 export const SecretPage = () => {
     const [secretMessage, setSecretMessage] = useState("");
@@ -30,9 +30,12 @@ export const SecretPage = () => {
     }, []);
 
     return (
-        <Paper elevation={4} style={{ margin: '20px' }}>
-            <p>{secretMessage}</p>
-            <Button onClick={() => dispatch(user.actions.signOut())}>
+        <Paper elevation={4} style={{ margin: '20px', padding: '20px' }}>
+            <Typography variant="body1">{secretMessage}</Typography>
+            <Button
+             type="button"
+             onClick={() => dispatch(user.actions.signOut())}
+             variant="contained">
                 Sign out
             </Button>
         </Paper>
