@@ -127,7 +127,17 @@ const authenticateUser = async (req, res, next) => {
 // Secret endpoint that only can be accessed when logged in as a user
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
-  res.json({ secret: "This is a super secret message." })
+  try {
+    res.status(200).json({
+      success: true,
+      response: "This is a super secret message."
+    });
+  } catch(e) {
+    res.status(400).json({
+      success: false,
+      response: e
+    })
+  }
 });
 
 // Start the server

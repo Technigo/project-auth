@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { user } from 'reducer/user';
-import { Button } from '@mui/material';
+import { Button, Paper } from '@mui/material';
 
 export const SecretPage = () => {
+    const [secretMessage, setSecretMessage] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const accessToken = useSelector((store) => store.user.accessToken);
@@ -25,21 +26,15 @@ export const SecretPage = () => {
         }
         fetch('https://project-authentication-es4c3pthxq-lz.a.run.app/secrets', options)
             .then(res => res.json())
-            .then(data => {
-                if(data.success) {
-                    console.log(data);
-                } else {
-                    console.log(data.response);
-                }
-            })
+            .then((data) => { setSecretMessage(data.response) })
     }, []);
 
     return (
-        <>
-            <p>This is a secret page you can only access when signed in.</p>
+        <Paper elevation={4} style={{ margin: '20px' }}>
+            <p>{secretMessage}</p>
             <Button onClick={() => dispatch(user.actions.signOut())}>
                 Sign out
             </Button>
-        </>
+        </Paper>
     )
 };
