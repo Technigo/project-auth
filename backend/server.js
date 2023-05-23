@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 const { Schema } = mongoose;
 
 const UserSchema = new mongoose.Schema({
-  username: {
+  name: {
     type: String,
     required: true,
     unique: true
@@ -36,7 +36,6 @@ const UserSchema = new mongoose.Schema({
     required: true
   },
   accessToken: {
-    // npm install crypto
     type: String,
     default: () => crypto.randomBytes(128).toString("hex")
   }
@@ -46,19 +45,19 @@ const User = mongoose.model("User", UserSchema);
 
 // Registration
 app.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  const { name, password } = req.body;
 
   try {
     const salt = bcrypt.genSaltSync();
     // Do not store plaintext passwords
     const newUser = await new User({
-      username: username,
+      name: name,
       password: bcrypt.hashSync(password, salt)})
     .save();
     res.status(201).json({
       success: true,
       response: {
-        username: newUser.username,
+        name: newUser.name,
         id: newUser._id,
         accessToken: newUser.accessToken
       }
@@ -73,17 +72,16 @@ app.post("/register", async (req, res) => {
     });
   }
 });
-/// Login
+// Login
 app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { name, password } = req.body;
   try {
-    const user = await User.findOne({username: username})
-    // const user = await User.findOne({username})
+    const user = await User.findOne({name: name})
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
         success: true,
         response: {
-          username: user.username,
+          name: user.name,
           id: user._id,
           accessToken: user.accessToken
         }
@@ -129,14 +127,15 @@ app.get("/secrets", async (req, res) => {
   res.status(200).json({secret: 'This is a super secret message'})
 });
 
-app.post('/sessions', async (req, res) => {
-  const user = await User.findOne({username: req.body.username});
-    if (user && bcrypt.compareSync(req.body.password, user.password)){
-      res.json({ userId:user._id, accessToken: user.accessToken })
-    } else {
-      res.json({notFound: true})
-    }
+app.post("/sessions", async (req, res) => {
+  const user = await User.findOne({ name: req.body.name });
+  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    res.json({ userId: user._id, accessToken: user.accessToken });
+  } else {
+    res.json({ notFound: true });
+  }
 });
+
 
 // Start the server
 app.listen(port, () => {
@@ -149,9 +148,10 @@ app.listen(port, () => {
 
 // Post: http://localhost:8080/register
 // Post: http://localhost:8080/login
+// Get   http://localhost:8080/secrets
 // {
-//     "username": "Sammie",
-//     "password": "passwordx"
+//     "name": "sloth",
+//     "password": "slothypassword"
 // }
 
 // Authenticated endpoint
