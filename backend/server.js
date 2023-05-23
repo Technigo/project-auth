@@ -37,7 +37,7 @@ const UserSchema  = new mongoose.Schema({
     // npm install crypto package 
     type: String,
     // create randome numbers and letters that will be the token for out log in
-    default: () => crypto.ramdomBytes(128).ToString("hex") 
+    default: () => crypto.randomBytes(128).toString("hex") 
   }
 });
 
@@ -47,10 +47,10 @@ const User = mongoose.model("User", UserSchema);
 app.post ("/register", async (req, res) => {
 const { username, password } =req.body;
 try {
-  const salt = bcrypt.genSaltSync(); // oscure the password
+  const salt = bcrypt.genSaltSync(); 
   const newUser = await new User ({
     username: username,
-    password: bcrypt.hashSync(password, salt)
+    password: bcrypt.hashSync(password, salt) // obscure the password
   }).save ();
   res.status(201).json ({
  success: true,
