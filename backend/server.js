@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from "bcrypt-nodejs";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -64,11 +64,13 @@ app.post("/users", async (req, res) => {
   }
 });
 
+// Register
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
   res.json({secret: 'This is a super secret message.'});
 });
 
+// Log-in
 app.post("/sessions", async (req, res) => {
   const user = await User.findOne({email: req.body.email});
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
