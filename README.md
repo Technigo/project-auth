@@ -1,13 +1,15 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+Build an API with authentication to implement a registration flow, and a frontend with forms to register, sign in, and view some content once you're logged in. 
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+Started with going through this weeks material, got started with the project through code-along. Finished the backend before starting with the frontend. Decided to use Redux store for easy storage of userinput and created a reusable form component with MUI.
 
 ## View it live
 
-API: https://project-authentication-es4c3pthxq-lz.a.run.app/
+API:
+https://project-authentication-es4c3pthxq-lz.a.run.app/
+
+Frontend:
+https://velvety-churros-b8e244.netlify.app/
