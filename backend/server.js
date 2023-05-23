@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
+import crypto from "crypto"
+import bcrypt from "bcrypt";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -20,7 +22,54 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
+///////////////////
+const UserSchema  = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  accessToken: {
+    // npm install crypto package 
+    type: String,
+    // create randome numbers and letters that will be the token for out log in
+    default: () => crypto.ramdomBytes(128).ToString("hex") 
+  }
+});
 
+//user model
+const User = mongoose.model("User", UserSchema);
+
+app.post ("/register", async (req, res) => {
+const { username, password } =req.body;
+try {
+  const salt = bcrypt.genSaltSync(); // oscure the password
+  const newUser = await new User ({
+    username: username,
+    password: bcrypt.hashSync(password, salt)
+  }).save ();
+  res.status(201).json ({
+ success: true,
+ resposne: {
+  username: newUser.username,
+  id: newUser._id,
+  accessToken: newUser.accessToken
+ }
+  })
+} catch (e) {
+  res.status(400).json ({
+    success: false,
+    resposne: e
+});
+}
+})
+
+
+///////////////////
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
