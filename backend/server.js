@@ -52,6 +52,7 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
+// Never store passwords in text
 app.post("/users", async (req, res) => {
   try {
     const {name, email, password} = req.body;
