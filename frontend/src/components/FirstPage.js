@@ -24,11 +24,11 @@ export const FirstPage = () => {
                 <Image />
             </Grid>
             <Grid item xs={10} sm={6}>
-                <Grid container justifyContent="center" alignItems="center">
-                    <Grid item>
+                <Grid container xs={12}>
+                    <Grid item xs={12}>
                         {!checked ? <Form path="signin" title="Sign in" btnText="Sign in" /> : <Form path="signup" title="Sign up" btnText="Sign up" />}
                     </Grid>
-                    <Grid item>
+                    <Grid item margin={'0 auto'}>
                         Sign in
                         <Switch checked={checked} onChange={handleToggle} />
                         Sign Up
