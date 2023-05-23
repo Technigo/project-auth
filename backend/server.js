@@ -25,28 +25,48 @@ app.get("/", (req, res) => {
   res.json(listEndpoints(app));
 });
 
-const { Schema } = mongoose;
+// const { Schema } = mongoose;
 
 const userSchema = new mongoose.Schema({
   username: {
     type:String,
     required: true,
-    unique: true,
+    unique: true
   },
   password: {
     type:String,
     required: true
+  },
+  email:{
+    type:String,
+    required:true,
+    unique: true
+  },
+  createdAt:{
+    type:String,
+    default: ()=> new Date()
   },
   accessToken: {
     // npm install crypto for this
     type:String,
     default: () => crypto.randomBytes(128).toString("hex")
   },
-  avatar: [],
-  badges:[],
-  history:[],
+  avatar:{
+    type:String,
+    default:"/images/defaultAvatar.png"
+  } ,
+  badges:{
+    type:Array,
+    default:['/images/firstBadge.png']
+  },
+  history:{
+    type:Array,
+    default:[
+    ]
+  },
   totalScore:{
-    type:Number
+    type:Number,
+    default:0
   }
 
   /* from the figma file
@@ -69,39 +89,52 @@ const User = mongoose.model("User", userSchema);
 
 // register user and login requests
 app.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
    try {
     const salt = bcrypt.genSaltSync();
     const newUser = await new User ({
       username: username,
-      password: bcrypt.hashSync(password, salt)
+      password: bcrypt.hashSync(password, salt),
+      email:email
     }).save();
+    if(newUser){
     res.status(201).json({
       success:true,
       response:{
         username: newUser.username,
         id: newUser._id,
-        accessToken: newUser.accessToken
+        accessToken: newUser.accessToken,
+        password:newUser.password
       }
     })
+    } else {
+    res.status(404).json({
+    success:false,
+    response:'Failed registration. Email or username is not valid.'
+})
+    } // check this later
+
   } catch (e) {
     res.status(400).json({
       success:false,
-      response: e
+      response: {
+        message:'Username or email is already used',
+        error:e
+      }
     })
   }
 });
 
 
 app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   try {
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ email: email });
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(201).json({
         success: true,
         response: {
-          username: user.username,
+          username: user.email,
           id: user._id,
           accessToken: user.accessToken
         }
@@ -109,20 +142,23 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "Credentials do not match"
+        response: "Credentials do not match"//check later
       });
     }
   } catch (error) {
     res.status(500).json({
       success: false,
-      response: e
+      response:{
+        error:error,
+        message:"Internal server error" //check later
+      }
     });
   }
 });
 
 // Authenticate user
 const authenticateUser = async (req, res, next) => {
-  const accessToken = req.header("Authorizatoin Header");
+  const accessToken = req.header("Authorization");
   try {
   const user = await User.findOne({accessToken: accessToken});
   if (user) {
@@ -133,29 +169,58 @@ const authenticateUser = async (req, res, next) => {
         response: "Please log in"
       })
   }
-} catch (e) {
+} catch (error) {
   res.status(500).json({
     success: false,
-    response: e
+    response:{
+      message:'Internal server error',
+      error:error
+    } 
 })
 }};
 
 // Get and post totalScore
-app.get("/totalScore",authenticateUser);
-app.get("/totalScore", async (req, res) => {
-  const totalScore = await totalScore.find({});
-  res.status(200).json({success: true, response: totalScore})
-});
+// app.get("/totalScore",authenticateUser);
+// app.get("/totalScore", async (req, res) => {
+//   const totalScore = await totalScore.find({});
+//   res.status(200).json({success: true, response: totalScore})
+// });
 
-app.post("/totalScore",authenticateUser);
-app.post("/totalScore", async (req, res) => {
-  const { message } = req.body;
-  const accessToken = req.header("Authorization");
-  const user = await User.findOne({accessToken: accessToken});
-  const totalScore = await new Score({score: score, user: user._id}).save()
-  res.status(200).json({success: true, response: totalScore})
-});
+// app.post("/totalScore",authenticateUser);
+// app.post("/totalScore", async (req, res) => {
+//   const { message } = req.body;
+//   const accessToken = req.header("Authorization");
+//   const user = await User.findOne({accessToken: accessToken});
+//   const totalScore = await new Score({score: score, user: user._id}).save()
+//   res.status(200).json({success: true, response: totalScore})
+// });
 
+//updating total score, history, badges, avatar
+app.patch("/user",authenticateUser);
+app.patch("/user", async (req, res) => {
+ try {
+    const { totalScore, badges, avatar, history } = req.body;
+    const accessToken = req.header("Authorization");
+    const user = await User.findOneAndUpdate(
+      { accessToken: accessToken },
+       {
+        totalScore: totalScore,
+        badges: badges,
+        avatar: avatar,
+        history: history // check how to add timestamp
+      },
+      { new: true }
+    );
+
+    if (user) {
+      res.status(200).json({ success: true, response: user });
+    } else {
+      res.status(404).json({ success: false, response: "User not found." });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, response: "Internal server error." });
+  }
+});
 
 // Start the server
 app.listen(port, () => {
