@@ -51,7 +51,7 @@ app.post("/signup", async (req, res) => {
     if (password.length < 8) {
       res.status(400).json({
         success: false,
-        response: "Password must be minimum 8 characters long"
+        response: "Password must be minimum 8 characters"
       });
     } else {
       const newUser = await new User({username, password: bcrypt.hashSync(password, salt)}).save();
