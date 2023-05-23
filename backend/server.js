@@ -21,6 +21,8 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
+
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
