@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-app.post("/register"), async(req, res) => {
+app.post("/register", async(req, res) => {
   const {username, password} = req.body;
   try {
     const salt = bcrypt.genSaltSync();
@@ -63,7 +63,7 @@ app.post("/register"), async(req, res) => {
       response: e
     })
   }
-}
+})
 // login
 app.post("/login",async(req, res) => {
   const { username, password } = req.body;
