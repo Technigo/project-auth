@@ -1,12 +1,18 @@
 import React from 'react'
-import Login from "./Login"
+import LoginRegister from "./LoginRegister"
 import Register from "./Register"
 
+const token = localStorage.getItem('token');
+
+
 const Home = () => {
-    return ( <>
+    return ( 
+    <>
     <h1>Home</h1> 
-    <Login />
-    <Register />
+    {
+        token ? <h1>Data</h1> : <LoginRegister />
+    }
+
     </>
     );
 }
