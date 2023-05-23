@@ -26,16 +26,6 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-// login endpoint
-app.post("/sessions", async (req, res) => {
-  const user = await User.findOne({ username: req.body.username });
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken });
-  } else {
-    res.json({ notFound: true });
-  }
-});
-
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
@@ -86,6 +76,16 @@ app.post("/register", async (req, res) => {
       success: false,
       response: e,
     });
+  }
+});
+
+// login endpoint
+app.post("/sessions", async (req, res) => {
+  const user = await User.findOne({ username: req.body.username });
+  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    res.json({ userId: user._id, accessToken: user.accessToken });
+  } else {
+    res.json({ notFound: true });
   }
 });
 
