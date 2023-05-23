@@ -43,14 +43,11 @@ const UserSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", UserSchema);
-/// Registration
+
+// Registration
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
-  /// const code = [1, 2, 3, 4, 5]
-  /// const makeCodeSecret = (codeArray, salt) => {
-  /// const transformedCode = codeArray.map(singleNumber => singleNumber + salt)
-  /// return transformed array
- /// }
+
   try {
     const salt = bcrypt.genSaltSync();
     // Do not store plaintext passwords
@@ -104,28 +101,6 @@ app.post("/login", async (req, res) => {
     });
   }
 });
-////
-// Thoughts
-
-// const ThoughtSchema = new mongoose.Schema({
-//   message: {
-//     type: String
-//   },
-//   createdAt: {
-//     type: Date,
-//     default: () => new Date()
-//   },
-//   hearts: {
-//     type: Number,
-//     default: 0
-//   },
-//   user: {
-//     type: String,
-//     require: true
-//   }
-// });
-
-// const Thought = mongoose.model("Thought", ThoughtSchema);
 
 // Authenticate the user
 const authenticateUser = async (req, res, next) => {
@@ -163,15 +138,6 @@ app.post('/sessions', async (req, res) => {
     }
 });
 
-// app.post("/thoughts",authenticateUser);
-// app.post("/thoughts", async (req, res) => {
-//   const { message } = req.body;
-//   const accessToken = req.header("Authorization");
-//   const user = await User.findOne({accessToken: accessToken});
-//   const thoughts = await new Thought({message: message, user: user._id}).save();
-//   res.status(200).json({success: true, response: thoughts})
-// });
-///////////
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
