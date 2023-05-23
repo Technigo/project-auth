@@ -1,6 +1,5 @@
 import React from 'react'
 import LoginRegister from "./LoginRegister"
-import Register from "./Register"
 
 const token = localStorage.getItem('token');
 

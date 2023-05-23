@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+
 const LoginRegisterForm = ({ state, name, setName, email, setEmail, password, setPassword }) => {
 
     const handleNameChange = (event) => { 
@@ -18,6 +19,7 @@ const LoginRegisterForm = ({ state, name, setName, email, setEmail, password, se
       {state === "register" && <input type="text" name="name" value={name} placeholder="enter your name" onChange={handleNameChange}/> }
       <input type="email" name="email" value={email} placeholder="enter your email" onChange={handleEmailChange}/>
       <input type="password" name="password" value={password} placeholder="enter your password" onChange={handlePasswordChange}/>
+    <button type="button" className={state}>{state==="login" ? "Login!" : "Register!"}</button>
     </>
   );
 };
