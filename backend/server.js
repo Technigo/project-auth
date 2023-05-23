@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -20,6 +20,17 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
+
+// Register route
+
+// Login route
+
+// Authenticated endpoint
+// Return a 401 or 403 with error message if someone tries to access it without an authentication
+
+// API should validate the user input when creating a new user, and return error messages which could be shown by the frontend 
+
+// localStorage.removeItem() for log out (to not lose everything when logging out)
 
 // Start the server
 app.listen(port, () => {
