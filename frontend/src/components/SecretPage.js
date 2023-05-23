@@ -33,9 +33,9 @@ export const SecretPage = () => {
         <Paper elevation={4} style={{ margin: '20px', padding: '20px' }}>
             <Typography variant="body1">{secretMessage}</Typography>
             <Button
-             type="button"
-             onClick={() => dispatch(user.actions.signOut())}
-             variant="contained">
+                type="button"
+                onClick={() => dispatch(user.actions.signOut())}
+                variant="contained">
                 Sign out
             </Button>
         </Paper>

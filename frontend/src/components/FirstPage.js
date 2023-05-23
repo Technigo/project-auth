@@ -19,22 +19,22 @@ export const FirstPage = () => {
     };
 
     return (
-     <Grid container spacing={2}>
-        <Grid item xs={2} sm={6}>
-            <Image />
-        </Grid>
-        <Grid item xs={10} sm={6}>
-            <Grid container justifyContent="center" alignItems="center">
-                <Grid item>
-                    {!checked ? <Form path="signin" title="Sign in" btnText="Sign in" /> : <Form path="signup" title="Sign up" btnText="Sign up" />}
-                </Grid>
-                <Grid item>
-                    Sign in
-                    <Switch checked={checked} onChange={handleToggle}/>
-                    Sign Up
+        <Grid container spacing={2}>
+            <Grid item xs={2} sm={6}>
+                <Image />
+            </Grid>
+            <Grid item xs={10} sm={6}>
+                <Grid container justifyContent="center" alignItems="center">
+                    <Grid item>
+                        {!checked ? <Form path="signin" title="Sign in" btnText="Sign in" /> : <Form path="signup" title="Sign up" btnText="Sign up" />}
+                    </Grid>
+                    <Grid item>
+                        Sign in
+                        <Switch checked={checked} onChange={handleToggle} />
+                        Sign Up
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
-    </Grid>
     )
 };

@@ -54,7 +54,7 @@ app.post("/signup", async (req, res) => {
         response: "Password must be minimum 8 characters"
       });
     } else {
-      const newUser = await new User({username, password: bcrypt.hashSync(password, salt)}).save();
+      const newUser = await new User({ username, password: bcrypt.hashSync(password, salt) }).save();
       res.status(201).json({
         success: true,
         response: {
@@ -64,7 +64,7 @@ app.post("/signup", async (req, res) => {
         }
       });
     };
-  } catch(e) {
+  } catch (e) {
     res.status(400).json({
       success: false,
       response: "Could not create user"
@@ -92,7 +92,7 @@ app.post("/signin", async (req, res) => {
         response: "User not found"
       });
     }
-  } catch(e) {
+  } catch (e) {
     res.status(400).json({
       success: false,
       response: e,
@@ -116,7 +116,7 @@ const authenticateUser = async (req, res, next) => {
         response: "Access denied, please sign in."
       });
     }
-  } catch(e) {
+  } catch (e) {
     res.status(400).json({
       success: false,
       response: e
@@ -132,7 +132,7 @@ app.get("/secrets", (req, res) => {
       success: true,
       response: "This is a super secret message."
     });
-  } catch(e) {
+  } catch (e) {
     res.status(400).json({
       success: false,
       response: e
