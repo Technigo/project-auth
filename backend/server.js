@@ -118,7 +118,17 @@ app.post("/login", async (req, res) => {
 
 // Secret endpoint that can only be viewed when logged in
 app.get("/secrets", authenticateUser, (req, res) => {
-  res.json({ secret: "This is a super secret message." });
+  try {
+    res.status(200).json({
+      success: true,
+      response: "This is a super secret message.",
+    });
+  } catch (e) {
+    res.status(400).json({
+      success: false,
+      response: e,
+    });
+  }
 });
 
 // Start the server
