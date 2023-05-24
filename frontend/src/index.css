@@ -62,8 +62,15 @@ auto;
   font-style: italic;
   font-size: large;
   padding: 10px;
+}
 
-
+button {
+  color: black;
+  background-color: #ff3ef1;
+  text-shadow: 0 black;
+  border-radius: 11px;
+  border: none;
+  margin: 2px;
 }
 
 input#username {
