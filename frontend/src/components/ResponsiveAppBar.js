@@ -130,8 +130,9 @@ export const ResponsiveAppBar = () => {
               <Button
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'flex' }}
               >
+                <img src={page.image} alt={page.name} style={{ marginRight: '0.8em', width: '35px' }} />
                 {page.name}
               </Button>
             ))}
