@@ -5,7 +5,8 @@ node_modules
 .env.development.local
 .env.test.local
 .env.production.local
-
+notes.js
+server_d.js
 build
 
 npm-debug.log*
