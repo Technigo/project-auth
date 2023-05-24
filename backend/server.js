@@ -16,6 +16,28 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// User schema
+const { Schema } = mongoose;
+
+const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  accessToken: {
+    type: String,
+    default: () => crypto.randomBytes(128).toString("hex"),
+  },
+});
+// user model
+const User = mongoose.model("User", UserSchema);
+
+// Middleware function for authentication
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
@@ -41,27 +63,7 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
-// User schema
-const { Schema } = mongoose;
-
-const UserSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  accessToken: {
-    type: String,
-    default: () => crypto.randomBytes(128).toString("hex"),
-  },
-});
-// user model
-const User = mongoose.model("User", UserSchema);
-
+// Register new user
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -86,7 +88,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// login endpoint
+// Login endpoint
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -114,6 +116,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// Secret endpoint that can only be viewed when logged in
 app.get("/secrets", authenticateUser, (req, res) => {
   res.json({ secret: "This is a super secret message." });
 });
