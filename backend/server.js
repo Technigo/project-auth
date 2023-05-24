@@ -18,14 +18,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello user!!");
-});
-
-////////////////////////
+////////////////////////SCHEMAS/////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 const { Schema } = mongoose; 
 
+/////////////////////////////USERSCHEMA///////////////////////////////
 const UserSchema = new mongoose.Schema({
   username: {
     type: String, 
@@ -39,69 +36,13 @@ const UserSchema = new mongoose.Schema({
   accessToken: {
     // npm install crypto in order to use this.
     type: String, 
-    default: () => crypto.randomBytes(128).toString("hex")
+    default: () => crypto.randomBytes(128).toString("hex") // This starts a function that randomizes the password to a string of 128 characters. 
   }
 })
 
 const User = mongoose.model("User", UserSchema)
-////////////Registration /////////////////
-app.post("/register", async (req, res) => {
-  const {username, password } = req.body
-  try {
-    const salt = bcrypt.genSaltSync()
-    const newUser = await new User({
-      username: username,
-      password: bcrypt.hashSync(password, salt)
-    }).save()
-  res.status(201).json({
-    success: true, 
-    response: {
-      username: newUser.username,
-      id: newUser._id,
-      accessToken: newUser.accessToken
-    }
-  })
-  } catch (e) {
-    res.status(400).json({
-      success: false,
-      response: e
-    })
-  }
-})
 
-////////////////LOGIN//////////////////
-app.post("/login", async (req, res) => {
-  const {username, password } = req.body
-  try {
-    const user = await User.findOne({username: username})
-    if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(201).json({
-        success: true, 
-        response: {
-          username: user.username,
-          id: user._id,
-          accessToken: user.accessToken
-        } 
-      })
-
-    } else {
-      res.status(400).json({
-        success: false,
-        resonse: "Credentionals do not match"
-      })
-
-    }
-  } catch (e) {
-    res.status(500).json({
-      success: false,
-      resonse: e
-    })
-  }
-})
-
-//Thoughts
-
-
+////////////////////////////THOUGHTSCHEMA//////////////////////////////
 const ThoughtSchema = new Schema({
   message: {
     // most important one
@@ -126,7 +67,9 @@ const ThoughtSchema = new Schema({
 
 const Thought = mongoose.model("Thought", ThoughtSchema)
 
-//Authenticate the user
+
+//////////////////////AUTHENTICATE USER////////////////////
+////////////////////////////////////////////////////////////
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization")
   try{
@@ -147,32 +90,134 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
+
+////////////////////////////ROUTES//////////////////////////////
+///////////////////////////////////////////////////////////////
+
+// Start defining your routes here
+app.get("/", (req, res) => {
+  res.send("Hello user!!");
+});
+
+
+/////////////////////////////REGISTRATION///////////////////////////
+app.post("/register", async (req, res) => {
+  const {username, password } = req.body
+  try {
+    const salt = bcrypt.genSaltSync() //create random salt
+    const newUser = await new User({
+      username: username,
+      password: bcrypt.hashSync(password, salt) // hashes the password and the random salt
+    }).save()
+  res.status(201).json({
+    success: true, 
+    response: {
+      username: newUser.username,
+      id: newUser._id,
+      accessToken: newUser.accessToken 
+    }
+  })
+  } catch (error) {
+    if (error.code === 11000) {
+      res.status(400).json({
+        success: false,
+        response: "Username already exists!"
+      })
+    } else {
+    res.status(400).json({
+      success: false,
+      response: e
+    })
+    }
+  }
+})
+
+////////////////////////////LOGIN///////////////////////////
+app.post("/login", async (req, res) => {
+  const {username, password } = req.body
+  try {
+    const user = await User.findOne({username: username}) //searching for username that is the same as user input
+    if (user && bcrypt.compareSync(password, user.password)) {
+      //if username is present and the password matches the password in the database with the input password from user. 
+      res.status(201).json({
+        success: true, 
+        response: {
+          username: user.username,
+          id: user._id,
+          accessToken: user.accessToken
+        } 
+      })
+
+    } else {
+      res.status(400).json({
+        success: false,
+        resonse: "Credentionals do not match"
+      })
+
+    }
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      resonse: e
+    })
+  }
+})
+
+/////////////////////////////////THOUGHTS/////////////////////////////////
 app.get("/thoughts", authenticateUser)
 app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thought.find({})
-  res.status(200).json({
-    success: true, 
-    response: thoughts
-  })
+  try {
+    const thoughts = await Thought.find({})
+    if (thoughts) {
+      res.status(200).json({
+        success: true, 
+        response: thoughts
+      })
+    } else {
+      res.status(404).json({
+        success: false,
+        resonse: "Thoughts not found"
+      })
+    }
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      resonse: e
+    })
+  }
+  
 }) // add try catch blocks
 
+//////////////////////FIND SPECIFIC USER'S THOUGHTS???///////
 app.post("/thoughts", authenticateUser)
 app.post("/thoughts", async (req, res) => {
   const { message } = req.body;
-
   const accessToken = req.header("Authorization");
+  try {
   const user = await User.findOne({accessToken: accessToken});
-
   const thoughts = await new Thought({message: message, user: user._id}).save();
 
-  res.status(200).json({
+  if (user && thoughts) {/// this might be wrong, I'm not sure.
+    res.status(200).json({
     success: true, 
     response: thoughts
-  })
+    })
+  } else {
+      res.status(404).json({
+        success: false, 
+        response: "Couldn't find users thoughts"
+      })
+    }
+  } catch (e) {
+    res.status(500).json({
+      success: false, 
+      response: e
+    })
+  }
+  
+
+  
 })
-
-
-///////////////////////
 
 
 // Start the server
