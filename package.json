@@ -3,8 +3,5 @@
   "version": "1.0.0",
   "scripts": {
     "postinstall": "npm install --prefix backend"
-  },
-  "dependencies": {
-    "react-redux": "^8.0.5"
-  }
+  }  
 }
