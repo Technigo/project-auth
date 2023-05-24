@@ -53,6 +53,7 @@ const Login = () => {
     }
     return(
         <div className="login-box">
+            <div className="log-reg">
             <label htmlFor="register">Register</label>
             <input 
                 type="radio" 
@@ -65,6 +66,9 @@ const Login = () => {
                 id="login" 
                 checked={mode === "login"}
                 onChange={() => setMode("login")}/>
+                </div>
+
+                <div className="userpass-box">
             <form onSubmit={onFormSubmit}>
                 <label htmlFor="username">Username</label>
                 <input 
@@ -72,6 +76,7 @@ const Login = () => {
                     id="username" 
                     value={username} 
                     onChange={e => setUsername(e.target.value)} />
+
                 <label htmlFor="password">Password</label>
                 <input 
                     type="password" 
@@ -81,6 +86,7 @@ const Login = () => {
                 <button type="submit">Submit</button>
                 <p>{error}</p>
         </form>
+        </div>
         </div>
     );
 }

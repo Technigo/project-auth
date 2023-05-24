@@ -7,22 +7,70 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-html {
-  background-color: rgb(237, 193, 218);
+div#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #ab5bff;
+  background-image: url("https://images.unsplash.com/photo-1564769610726-59cead6a6f8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2149&q=80");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>↖︎</text></svg>")
+  16 0,
+auto;
 }
 
-div.login-box {
+/* html {
+  background-image: url("https://images.unsplash.com/photo-1564769610726-59cead6a6f8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2149&q=80");
+  https://wallpaperaccess.com/full/1466268.png
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+ } */
+
+.login-box {
   width: 500px;
   margin: 0 auto;
   margin-top: 100px;
   padding: 20px;
-  border: 1px solid #ccc;
-  background-color: #fff;
+  background-color: #ab5bff;
   /* display: flex; */
   /* flex-direction: column; */
+  box-shadow: 0 0 25px rgb(0 0 0 / 96%);
+  font-family: monospace;
+  color: white;
+}
+
+ .userpass-box {
+  /*background-color: rgb(212, 132, 102);*/
+  font-weight: bolder;
+}
+
+.log-reg {
+  display: flex;
+  justify-content: center;
+  font-style: italic;
+  font-size: large;
+  padding: 10px;
+
+
+}
+
+input#username {
+  background-color: #ab5bff;
+  border: dashed;
+}
+input#password {
+  background-color: #ab5bff;
+  border: dashed;
 }
