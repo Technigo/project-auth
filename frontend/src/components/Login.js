@@ -27,19 +27,18 @@ const Login = () => {
             body: JSON.stringify({username: username, password: password})
         }
         fetch(API_URL(mode), options)
-            .then(lalalala => lalalala.json())
-            .then(potato => {
-                if(potato.success) {
-                    console.log(potato)
-                    dispatch(user.actions.setAccessToken(potato.response.accessToken));
-                    dispatch(user.actions.setUsername(potato.response.username));
-                    dispatch(user.actions.setUserId(potato.response.id));
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    dispatch(user.actions.setAccessToken(data.response.accessToken));
+                    dispatch(user.actions.setUsername(data.response.username));
+                    dispatch(user.actions.setUserId(data.response.id));
                     dispatch(user.actions.setError(null));
                 } else {
                     dispatch(user.actions.setAccessToken(null));
                     dispatch(user.actions.setUsername(null));
                     dispatch(user.actions.setUserId(null));
-                    dispatch(user.actions.setError(potato.response))
+                    dispatch(user.actions.setError(data.response))
                 }
             })
     }
