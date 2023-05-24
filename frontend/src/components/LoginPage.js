@@ -18,11 +18,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-// import { LoginWrapper, LoginForm, PasswordInput, NameInput } from './LoginPageStyling';
-
 export const LoginPage = () => {
-  /* const [usernameInput, setUsernameInput] = useState('')
-  const [userPasswordInput, setUserPasswordInput] = useState('') */
     const [username, setUsername] = useState(""); 
     const [password, setPassword] = useState("");
     const [mode, setMode] = useState("login");
@@ -30,14 +26,6 @@ export const LoginPage = () => {
     const navigate = useNavigate();
     const accessToken = useSelector(store => store.user.accessToken);
   
-    /* const handleSubmit = (event) => {
-      event.preventDefault();
-      const data = new FormData(event.currentTarget);
-      console.log({
-        email: data.get('email'),
-        password: data.get('password'),
-      });
-    }; */
     useEffect(() => {
         if(accessToken) {
             navigate("/")
@@ -55,24 +43,32 @@ export const LoginPage = () => {
             body: JSON.stringify({username: username, password: password})
         }
         fetch(API_URL(mode), options)
-            .then(lalalala => lalalala.json())
-            .then(potato => {
-                if(potato.success) {
-                    console.log(potato)
-                    dispatch(user.actions.setAccessToken(potato.response.accessToken));
-                    dispatch(user.actions.setUsername(potato.response.username));
-                    dispatch(user.actions.setUserId(potato.response.id));
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    console.log(data)
+                    dispatch(user.actions.setAccessToken(data.response.accessToken));
+                    dispatch(user.actions.setUsername(data.response.username));
+                    dispatch(user.actions.setUserId(data.response.id));
                     dispatch(user.actions.setError(null));
                 } else {
                     dispatch(user.actions.setAccessToken(null));
                     dispatch(user.actions.setUsername(null));
                     dispatch(user.actions.setUserId(null));
-                    dispatch(user.actions.setError(potato.response))
+                    dispatch(user.actions.setError(data.response))
                 }
             })
     }
 
     const defaultTheme = createTheme();
+
+    const handleModeChange = () => {
+        if (mode === 'login') {
+          setMode('register');
+        } else {
+          setMode('login');
+        }
+      };
 
     return (
         <>
@@ -94,7 +90,7 @@ export const LoginPage = () => {
                             Welcome!
                         </Typography>
                         <Box component="form" onSubmit={onFormSubmit} noValidate sx={{ mt: 1 }}>
-                        <label htmlFor="register">Register</label>
+                        {/* <label htmlFor="register">Register</label>
                             <input 
                                 type="radio" 
                                 id="register" 
@@ -105,7 +101,7 @@ export const LoginPage = () => {
                                 type="radio" 
                                 id="login" 
                                 checked={mode === "login"}
-                                onChange={() => setMode("login")}/>
+                                onChange={() => setMode("login")}/> */}
                             <TextField
                                 type="text"
                                 margin="normal"
@@ -140,18 +136,18 @@ export const LoginPage = () => {
                             >
                                 {mode === 'login' ? 'Login' : 'Register'}
                             </Button>
-                           {/*  <Grid container>
-                                <Grid item xs>
+                           <Grid container>
+                                {/* <Grid item xs>
                                     <Link href="#" variant="body2">
                                         Forgot password?
                                     </Link>
-                                </Grid>
+                                </Grid> */}
                                 <Grid item>
-                                    <Link href="#" variant="body2">
-                                        {"Don't have an account? Sign Up"}
+                                    <Link href="#" variant="body2" onClick={handleModeChange}>
+                                    {mode === 'login' ? "Don't have an account? Register" : 'Already have an account? Login'}
                                     </Link>
                                 </Grid>
-                            </Grid> */}
+                            </Grid> 
                         </Box>
                     </Box>
                 </Container>
