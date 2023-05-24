@@ -31,8 +31,6 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
-/////////////////////////
-
 // User schema
 const { Schema } = mongoose;
 
@@ -51,7 +49,6 @@ const UserSchema = new mongoose.Schema({
     default: () => crypto.randomBytes(128).toString("hex"),
   },
 });
-
 // user model
 const User = mongoose.model("User", UserSchema);
 
@@ -80,16 +77,32 @@ app.post("/register", async (req, res) => {
 });
 
 // login endpoint
-app.post("/sessions", async (req, res) => {
-  const user = await User.findOne({ username: req.body.username });
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken });
-  } else {
-    res.json({ notFound: true });
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ username: username });
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(200).json({
+        success: true,
+        response: {
+          username: user.username,
+          id: user._id,
+          accessToken: user.accessToken,
+        },
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        response: "Credentials do not match",
+      });
+    }
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      response: e,
+    });
   }
 });
-
-/////////////////////////
 
 app.get("/secrets", authenticateUser, (req, res) => {
   res.json({ secret: "This is a super secret message." });
