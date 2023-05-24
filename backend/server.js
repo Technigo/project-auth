@@ -154,9 +154,11 @@ app.get('/thoughts', async (req, res) => {
 app.post('/thoughts', authenticateUser);
 app.post('/thoughts', async (req, res) => {
   const { message } = req.body;
+
   const accessToken = req.header("Authorization")
   const user = await User.findOne({accessToken: accessToken})
-  const thoughts = await new Thought.find({message: message, user: user._id}).save();
+
+  const thoughts = await new Thought({message: message, user: user._id}).save();
   res.status(200).json({success: true, response: thoughts})
 });
 
