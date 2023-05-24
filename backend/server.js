@@ -131,7 +131,7 @@ app.post("/register", async (req, res) => {
 // When a POST request is made to "/login", the provided callback function is executed.
 // It takes two arguments: the `req` (request) object representing the incoming request,
 // and the `res` (response) object used to send the response back to the client.
-app.post("https://project-auth.onrender.com/login", async (req, res) => {
+app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -241,8 +241,8 @@ const authenticateUser = async (req, res, next) => {
 // The `authenticateUser` middleware function is used to authenticate the user before accessing the route.
 // When a GET request is made to "/thoughts", the provided callback function is executed.
 // It retrieves all thoughts from the database using `Thought.find`, and sends a success response with the thoughts.
-app.get("https://project-auth.onrender.com/thoughts", authenticateUser);
-app.get("https://project-auth.onrender.com/thoughts", async (req, res) => {
+app.get("/thoughts", authenticateUser);
+app.get("/thoughts", async (req, res) => {
   const accessToken = req.header("Authorization");
   const user = await User.findOne({ accessToken: accessToken });
   // Thiss will only happne if the next() function is called from the middleware
@@ -259,8 +259,8 @@ app.get("https://project-auth.onrender.com/thoughts", async (req, res) => {
 // It retrieves the thought message from the request body and the user's access token from the request headers.
 // It finds the user using the access token, creates a new thought with the message and user ID,
 // saves it to the database using `Thought.save`, and sends a success response with the created thought.
-app.post("https://project-auth.onrender.com/thoughts", authenticateUser);
-app.post("https://project-auth.onrender.com/thoughts", async (req, res) => {
+app.post("/thoughts", authenticateUser);
+app.post("/thoughts", async (req, res) => {
   const { message } = req.body;
   const accessToken = req.header("Authorization");
   const user = await User.findOne({ accessToken: accessToken });
