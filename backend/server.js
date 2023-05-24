@@ -160,7 +160,10 @@ const authenticateUser = async (req, res, next) => {
 app.get("/thoughts", authenticateUser)
 // If they "pass" this is the function that happens next()
 app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thought.find({})
+  const accessToken = req.header("Authorization")
+  const user = await User.findOne({accessToken: accessToken});
+  // Thoughts of the specific user
+  const thoughts = await Thought.find({user: user._id}) // .populate('user') https://mongoosejs.com/docs/populate.html
   res.status(200).json({success: true, response: thoughts})
   // add if else block
 })
