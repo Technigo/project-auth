@@ -180,12 +180,14 @@ const authenticateUser = async (req, res, next) => {
 }};
 
 // Get and post totalScore
-// app.get("/totalScore",authenticateUser);
-// app.get("/totalScore", async (req, res) => {
-//   const totalScore = await totalScore.find({});
-//   res.status(200).json({success: true, response: totalScore})
+// app.get("/thoughts",authenticateUser);
+// app.get("/thoughts", async (req, res) => {
+//  const accessToken = req.header("Authorization");
+//  const user = await User.findOne({accessToken: accessToken});
+//  const thoughts = await Thought.find({user: user._id})
+  //https://mongoosejs.com/docs/populate.html
+//  res.status(200).json({success: true, response: thoughts})
 // });
-
 // app.post("/totalScore",authenticateUser);
 // app.post("/totalScore", async (req, res) => {
 //   const { message } = req.body;
