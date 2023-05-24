@@ -150,7 +150,7 @@ app.post ("/thoughts", async (req,res) => {
   const accessToken = req.header("Authorization");
   const user = await User.findOne ({accessToken: accessToken});
 
-const thougths =await new Thought({message: message, user: user._id });
+const thougths =await new Thought({message: message, user: user._id }).save();
 res.status(200).json ({success:true, response: thougths})
 });
 
