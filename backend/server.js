@@ -20,7 +20,7 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Helloooooåååeeeeh!");
+  res.send("Hello Technigo!");
 });
 ////////////
 const { Schema } = mongoose;
@@ -146,7 +146,10 @@ const authenticateUser = async (req, res, next) => {
 
 app.get("/thoughts",authenticateUser);
 app.get("/thoughts", async (req, res) => {
-  const thoughts = await Thought.find({});
+  const accessToken = req.header("Authorization");
+  const user = await User.findOne({accessToken: accessToken});
+  const thoughts = await Thought.find({user: user._id})
+  //https://mongoosejs.com/docs/populate.html
   res.status(200).json({success: true, response: thoughts})
 });
 

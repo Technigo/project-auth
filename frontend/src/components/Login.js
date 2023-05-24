@@ -27,24 +27,28 @@ const Login = () => {
             body: JSON.stringify({username: username, password: password})
         }
         fetch(API_URL(mode), options)
-            .then(lalalala => lalalala.json())
-            .then(potato => {
-                if(potato.success) {
-                    console.log(potato)
-                    dispatch(user.actions.setAccessToken(potato.response.accessToken));
-                    dispatch(user.actions.setUsername(potato.response.username));
-                    dispatch(user.actions.setUserId(potato.response.id));
+            .then(whatever => whatever.json())
+            //whatever means response, response is the same as potato, and potato is the same as data, 
+            //what it does is that it takes the data from the backend and puts it in the frontend
+            .then(korre => {
+                console.log(korre)
+                //korre means data, data is the same as response, and response is the same as potato
+                //and what is does is that it takes the data from the backend and puts it in the frontend
+                if(korre.success) {
+                    dispatch(user.actions.setAccessToken(korre.response.accessToken));
+                    dispatch(user.actions.setUsername(korre.response.username));
+                    dispatch(user.actions.setUserId(korre.response.id));
                     dispatch(user.actions.setError(null));
                 } else {
                     dispatch(user.actions.setAccessToken(null));
                     dispatch(user.actions.setUsername(null));
                     dispatch(user.actions.setUserId(null));
-                    dispatch(user.actions.setError(potato.response))
+                    dispatch(user.actions.setError(korre.response))
                 }
             })
     }
     return(
-        <>  
+        <div className="login-box">
             <label htmlFor="register">Register</label>
             <input 
                 type="radio" 
@@ -72,8 +76,7 @@ const Login = () => {
                     onChange={e => setPassword(e.target.value)} />
                 <button type="submit">Submit</button>
         </form>
-        </>
-       
+        </div>
     );
 }
 
