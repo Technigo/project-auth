@@ -243,6 +243,10 @@ const authenticateUser = async (req, res, next) => {
 // It retrieves all thoughts from the database using `Thought.find`, and sends a success response with the thoughts.
 app.get("/thoughts", authenticateUser);
 app.get("/thoughts", async (req, res) => {
+  const accessToken = req.header("Authorization");
+  const user = await User.findOne({ accessToken: accessToken });
+  // Thiss will only happne if the next() function is called from the middleware
+  // now we can access the req.user object from the middleware
   const thoughts = await Thought.find({});
   res.status(200).json({ success: true, response: thoughts });
 });
