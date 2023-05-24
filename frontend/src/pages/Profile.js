@@ -17,6 +17,11 @@ const Profile = ({ API_URL }) => {
       .then((data) => setResponseData(data));
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  }
+
   useEffect(() => {
     fetchProfile();
   }, []);
@@ -29,6 +34,7 @@ const Profile = ({ API_URL }) => {
           Hi {responseData.user.name}, {responseData.secret}
         </h1>
       )}
+      <button type="button" onClick={handleLogout}>Logout</button>
     </>
   );
 };

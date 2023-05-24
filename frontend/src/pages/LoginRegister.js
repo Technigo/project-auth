@@ -17,7 +17,10 @@ const LoginRegister = ({ API_URL }) => {
           body: JSON.stringify({ email, password }),
         })
           .then((response) => response.json())
-          .then((data) => localStorage.setItem("token", data.response.accessToken))
+          .then((data) => {
+            localStorage.setItem("token", data.accessToken);
+            window.location.reload();
+          })
           .catch((error) => console.log(error))
 
         break;
@@ -29,7 +32,10 @@ const LoginRegister = ({ API_URL }) => {
           body: JSON.stringify({ username: name, email, password }),
         })
           .then((response) => response.json())
-          .then((data) => localStorage.setItem("token", data.accessToken))
+          .then((data) => {
+            localStorage.setItem("token", data.accessToken);
+            window.location.reload(); 
+          })
           .catch((error) => console.log(error));
         break;
     }
