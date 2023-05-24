@@ -22,6 +22,8 @@ export const LoginPage = () => {
     const [username, setUsername] = useState(""); 
     const [password, setPassword] = useState("");
     const [mode, setMode] = useState("login");
+    const [loginError, setLoginError] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const accessToken = useSelector(store => store.user.accessToken);
@@ -51,11 +53,13 @@ export const LoginPage = () => {
                     dispatch(user.actions.setUsername(data.response.username));
                     dispatch(user.actions.setUserId(data.response.id));
                     dispatch(user.actions.setError(null));
+                    setLoginError(false);
                 } else {
                     dispatch(user.actions.setAccessToken(null));
                     dispatch(user.actions.setUsername(null));
                     dispatch(user.actions.setUserId(null));
-                    dispatch(user.actions.setError(data.response))
+                    dispatch(user.actions.setError(data.response));
+                    setLoginError(true);
                 }
             })
     }
@@ -113,6 +117,8 @@ export const LoginPage = () => {
                                 label="Name"
                                 name="username"
                                 autoFocus
+                                error={loginError}
+                                helperText={loginError ? 'Credentials do not match' : ''}
                                 />
                             <TextField
                                 margin="normal"
@@ -124,7 +130,10 @@ export const LoginPage = () => {
                                 id="password"
                                 value={password} 
                                  onChange={e => setPassword(e.target.value)}
-                                autoComplete="current-password" />
+                                autoComplete="current-password" 
+                                error={loginError}
+                                helperText={loginError ? 'Credentials do not match' : ''}
+                                />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me" />

@@ -5,6 +5,7 @@ import thoughts from "reducers/thoughts";
 import { API_URL } from "utils/urls";
 import user from "reducers/user";
 import { ResponsiveAppBar } from "./ResponsiveAppBar";
+
 const Main = () => {
     const thoughtItems = useSelector((store) => store.thoughts.items);
     const dispatch = useDispatch();
