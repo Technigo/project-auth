@@ -11,7 +11,7 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
 // Define the port the app will run on
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 
 // Create an Express app
 const app = express();
