@@ -3,7 +3,7 @@ import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "utils/utils";
 
-import user from 'reducers/user';
+import { user } from 'reducers/user';
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -27,10 +27,10 @@ const Login = () => {
         const options = {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+              "Content-Type": "application/json"
             },
-            body: JSON.stringify({ username: username, password: password })
-        };
+            body: JSON.stringify({ name: username, password: password }) // Updated "username" to "name"
+          };
 
         fetch(API_URL(mode), options)
             .then(res => res.json())
@@ -68,6 +68,7 @@ const Login = () => {
                         <label htmlFor="login">Login</label>
                         <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} />
                     </div>
+
                     <form onSubmit={onFormSubmit}>
                         <label htmlFor="username">Username</label>
                         <input
@@ -88,8 +89,11 @@ const Login = () => {
                         )}
 
                         <div className="button-container">
+                            {mode === "register" ? (
                             <button type="submit">Sign up</button>
+                            ) : (
                             <button type="submit">Login</button>
+                            )}
                         </div>
                     </form>
                 </div>
