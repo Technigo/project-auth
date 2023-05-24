@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = "https://project-auth.onrender.com";
 
 // The `API_URL` function takes a `slug` parameter and returns the URL by appending the `slug` to the `BASE_URL`.
 // It provides a convenient way to generate API URLs with the appropriate endpoint paths.
