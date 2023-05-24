@@ -10,7 +10,7 @@ const Profile = ({ API_URL }) => {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        "Authorization": `${token}`,
+        "Authorization": token,
       },
     })
       .then((response) => response.json())

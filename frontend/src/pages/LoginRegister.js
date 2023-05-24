@@ -18,8 +18,9 @@ const LoginRegister = ({ API_URL }) => {
         })
           .then((response) => response.json())
           .then((data) => {
-            localStorage.setItem("token", data.accessToken);
-            window.location.reload();
+            if (data.success) {
+            localStorage.setItem("token", data.response.accessToken);
+            window.location.reload(); } else { console.log("fel!") }
           })
           .catch((error) => console.log(error))
 
@@ -29,12 +30,13 @@ const LoginRegister = ({ API_URL }) => {
         fetch(`${API_URL}/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username: name, email, password }),
+          body: JSON.stringify({ name: name, email, password }),
         })
           .then((response) => response.json())
           .then((data) => {
-            localStorage.setItem("token", data.accessToken);
-            window.location.reload(); 
+            if (data.success) {
+            localStorage.setItem("token", data.response.accessToken);
+            window.location.reload(); } else { console.log("fel!") }
           })
           .catch((error) => console.log(error));
         break;

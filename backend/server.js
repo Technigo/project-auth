@@ -71,14 +71,14 @@ app.post("/register", async (req, res) => {
     try {
       const salt = bcrypt.genSaltSync();
       const newUser = await new User({
-        username: req.body.username,
+        name: req.body.name,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, salt)
       }).save();
       res.status(201).json({
         success: true,
         response: {
-          username: newUser.username,
+          name: newUser.name,
           id: newUser._id,
           accessToken: newUser.accessToken
         }
