@@ -22,7 +22,7 @@ app.use(express.json()); // Parse JSON request bodies
 
 // Define a route for the root URL ("/")
 app.get("/", (req, res) => {
-  res.send("Hello user!"); // Send a response with the message "Hello user!"
+  res.send("Hello User!"); // Send a response with the message "Hello User!"
 });
 
 // Define the User schema for the MongoDB collection
