@@ -1,8 +1,9 @@
 import express from "express";
 import cors from "cors";
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import e from "express";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -13,6 +14,8 @@ mongoose.Promise = Promise;
 // PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
+
+
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
@@ -97,6 +100,60 @@ app.post("/login", async (req, res) => {
     });
   }
 });
+// Thoughts
+const ThoughtSchema = new mongoose.Schema ({
+  message: {
+    type:String
+  },
+  createdAt: {
+    type: Date,
+    default:0
+  },
+  user: {
+    type:String,
+    required: true
+  }
+});
+
+const Thought = mongoose.model("thought", ThoughtSchema)
+
+// Autehnticate the user
+const authenticateUser = async (req, res , next) => {
+  const accessToken = req.header("Authorization");
+  try {
+    const user = await User.findOne({accessToken: accessToken});
+    if (user) {
+      next ();
+    } else {
+     res.status(401).json({
+      sucess: false,
+      response: e
+     })
+    }
+  } catch (e) {
+    res.status(500).json ({
+      sucess: false,
+      response:e
+    });
+  }
+}
+
+app.get ("/thoughts",authenticateUser);
+app.get ("/thoughts", async (req,res) => {
+const thougths =await Thought.find ({});
+res.status(200).json ({success:true, response: thougths})
+});
+
+app.post ("/thoughts",authenticateUser);
+app.post ("/thoughts", async (req,res) => {
+  const { message } = req.body;
+  const accessToken = req.header("Authorization");
+  const user = await User.findOne ({accessToken: accessToken});
+
+const thougths =await new Thought({message: message, user: user._id });
+res.status(200).json ({success:true, response: thougths})
+});
+
 
 ///////////////////
 // Start the server
