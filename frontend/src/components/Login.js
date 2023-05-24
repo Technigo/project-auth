@@ -10,6 +10,7 @@ const Login = () => {
     const [mode, setMode] = useState("login");
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const error = useSelector(store => store.user.error)
     const accessToken = useSelector(store => store.user.accessToken);
     useEffect(() => {
         if(accessToken) {
@@ -25,6 +26,9 @@ const Login = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({username: username, password: password})
+            // error message: "username" and "password" are not defined            
+            // solution: add username and password to the useState
+
         }
         fetch(API_URL(mode), options)
             .then(whatever => whatever.json())
@@ -75,6 +79,7 @@ const Login = () => {
                     value={password} 
                     onChange={e => setPassword(e.target.value)} />
                 <button type="submit">Submit</button>
+                <p>{error}</p>
         </form>
         </div>
     );

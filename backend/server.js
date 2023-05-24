@@ -90,7 +90,7 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "Credentials do not match"
+        response: "Invalid username or password"
       });
     }
   } catch (e) {
@@ -147,10 +147,17 @@ const authenticateUser = async (req, res, next) => {
 app.get("/thoughts",authenticateUser);
 app.get("/thoughts", async (req, res) => {
   const accessToken = req.header("Authorization");
+  try {
   const user = await User.findOne({accessToken: accessToken});
   const thoughts = await Thought.find({user: user._id})
   //https://mongoosejs.com/docs/populate.html
   res.status(200).json({success: true, response: thoughts})
+  } catch (e) {
+     res.status(500).json({
+      success: false,
+      response: e
+    })
+  }
 });
 
 app.post("/thoughts",authenticateUser);
