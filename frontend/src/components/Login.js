@@ -31,21 +31,21 @@ const Login = () => {
         };
 
         fetch(API_URL(mode), options)
-            .then((lalalala) => lalalala.json()) // Parse the response as JSON
-            .then((potato) => {
-                if (potato.success) {
+            .then((response) => response.json()) // Parse the response as JSON
+            .then((data) => {
+                if (data.success) {
                     // If the response is successful
-                    console.log(potato);
-                    dispatch(user.actions.setAccessToken(potato.response.accessToken)); // Update the "accessToken" value in the Redux store
-                    dispatch(user.actions.setUsername(potato.response.username)); // Update the "username" value in the Redux store
-                    dispatch(user.actions.setUserId(potato.response.id)); // Update the "userId" value in the Redux store
+                    console.log(data);
+                    dispatch(user.actions.setAccessToken(data.response.accessToken)); // Update the "accessToken" value in the Redux store
+                    dispatch(user.actions.setUsername(data.response.username)); // Update the "username" value in the Redux store
+                    dispatch(user.actions.setUserId(data.response.id)); // Update the "userId" value in the Redux store
                     dispatch(user.actions.setError(null)); // Clear any previous error in the Redux store
                 } else {
                     // If the response is not successful
                     dispatch(user.actions.setAccessToken(null)); // Clear the "accessToken" value in the Redux store
                     dispatch(user.actions.setUsername(null)); // Clear the "username" value in the Redux store
                     dispatch(user.actions.setUserId(null)); // Clear the "userId" value in the Redux store
-                    dispatch(user.actions.setError(potato.response)); // Set the error message in the Redux store
+                    dispatch(user.actions.setError(data.response)); // Set the error message in the Redux store
                 }
             });
     };
