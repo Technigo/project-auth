@@ -1,7 +1,6 @@
 import NotFound from 'component/NotFound';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import NotFound from 'component/NotFound';
 import Main from 'component/Main';
 import Login from 'component/Login';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
