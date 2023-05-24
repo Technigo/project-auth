@@ -19,6 +19,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Defines endpoint paths as constants to be able to only update the paths in one place if needed
+const PATHS = {
+  root: "/",
+  register: "/register",
+  login: "/login",
+  secrets: "/secrets",
+  sessions: "/sessions"
+}
+
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send(listEndpoints(app));
@@ -45,7 +54,7 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model("User", UserSchema);
 
 // Registration
-app.post("/register", async (req, res) => {
+app.post(PATHS.register, async (req, res) => {
   const { name, password } = req.body;
 
   try {
@@ -74,7 +83,7 @@ app.post("/register", async (req, res) => {
   }
 });
 // Login
-app.post("/login", async (req, res) => {
+app.post(PATHS.login, async (req, res) => {
   const { name, password } = req.body;
   try {
     const user = await User.findOne({name: name})
@@ -123,12 +132,12 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-app.get("/secrets",authenticateUser);
-app.get("/secrets", async (req, res) => {
+app.get(PATHS.secrets, authenticateUser);
+app.get(PATHS.secrets, async (req, res) => {
   res.status(200).json({secret: 'This is a super secret message'})
 });
 
-app.post("/sessions", async (req, res) => {
+app.post(PATHS.sessions, async (req, res) => {
   const user = await User.findOne({ name: req.body.name });
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     res.json({ userId: user._id, accessToken: user.accessToken });
@@ -147,12 +156,27 @@ app.listen(port, () => {
 
 // Test in postman
 
-// Post: http://localhost:8080/register
-// Post: http://localhost:8080/login
-// Get   http://localhost:8080/secrets
+// Post: http://localhost:8080/register 
 // {
-//     "name": "sloth",
-//     "password": "slothypassword"
+//   "name": "enter new name",
+//   "password": "enter password"
+// }
+
+// Post: http://localhost:8080/login
+// {
+//     "name": "name",
+//     "password": "password"
+// }
+
+
+// Get   http://localhost:8080/secrets
+// Headers: Authorization
+// Enter accessToken in value
+
+// Post: http://localhost:8080/sessions
+// {
+//     "name": "name",
+//     "password": "password"
 // }
 
 // Authenticated endpoint
