@@ -11,7 +11,7 @@ export const ButtonWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #777;
     font-family: 'Sora', helvetica, sans-serif;
     font-weight: 800;
@@ -83,7 +83,7 @@ export const FormWrapper = styled.form`
 
     .submitButton {
         margin: 40px 0px;
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: #777;
         font-family: 'Sora', helvetica, sans-serif;
         font-weight: 800;
