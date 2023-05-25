@@ -116,8 +116,9 @@ const ThoughtSchema = new mongoose.Schema({
     default: 0
   },
   user: {
-    type: String,
-    require: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   }
 });
 
@@ -148,8 +149,8 @@ app.get("/thoughts",authenticateUser);
 app.get("/thoughts", async (req, res) => {
   const accessToken = req.header("Authorization");
   try {
-  const user = await User.findOne({accessToken: accessToken});
-  const thoughts = await Thought.find({})
+  // const user = await User.findOne({accessToken: accessToken});
+  const thoughts = await Thought.find().populate('user')
   //https://mongoosejs.com/docs/populate.html
   res.status(200).json({success: true, response: thoughts})
   } catch (e) {

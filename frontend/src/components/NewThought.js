@@ -12,6 +12,10 @@ export const NewThought = ({ newMessage, handleNewThoughtsChange, onFormSubmit }
     handleNewThoughtsChange(event);
   };
 
+  // create a POST request 
+  // get the props to be handled correctly 
+  // new onForm Submit
+  
   return (
     <form className="message-container" onSubmit={onFormSubmit}>
       <p className="thought-text">share some shiet</p>
