@@ -60,7 +60,7 @@ const Login = () => {
                     <p className="sign-up">Enter your personal details<br /> and start a journey with us</p>
                     <a
                         className={`button sign-up ${mode === 'register' ? 'active' : ''}`}
-                        href="#"
+                        href=""
                         onClick={() => setMode('register')}
                     >
                         Sign Up
