@@ -50,6 +50,7 @@ const Login = () => {
                 id="register" 
                 checked={mode === "register"}
                 onChange={() => setMode("register")}/>
+                
             <label htmlFor="login">Login</label>
             <input 
                 type="radio" 
