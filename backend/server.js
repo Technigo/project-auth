@@ -43,15 +43,17 @@ const UserSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", UserSchema);
+
 /// Registration
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
-  /// const code = [1, 2, 3, 4, 5]
-  /// const makeCodeSecret = (codeArray, salt) => {
-  /// const transformedCode = codeArray.map(singleNumber => singleNumber + salt)
-  /// return transformed array
- /// }
-  try {
+
+  const onValidUsername = () => {
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    return usernameRegex.test(req.body.username)
+  }
+if (onValidUsername) {
+try {
     const salt = bcrypt.genSaltSync();
     const newUser = await new User({
       username: username,
@@ -65,13 +67,16 @@ app.post("/register", async (req, res) => {
         accessToken: newUser.accessToken
       }
     })
-  } catch (e) {
+  }
+ 
+ catch (e) {
     res.status(400).json({
       success: false,
       response: e
     })
   }
-});
+}})
+
 /// Login
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
