@@ -6,22 +6,27 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  margin-top: 50px;
   height: 100vh;
 `;
 
 const Button = styled.button`
-  margin: 1rem;
-  font-size: 1.5rem;
-  padding: 5px;
+  padding: 10px 20px;
+  margin: 20px;
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  background-color: pink;
+  cursor: pointer;
 `;
+
+const Text = styled.h1`
+
+`
 
 export const Main = () => {
   return (
     <Wrapper>
-      <h1>Register and log in to see the secret page!</h1>
+      <Text>Register and log in to see the secret page!</Text>
       <div>
         <Link to="/register">
           <Button type="button">Register</Button>
