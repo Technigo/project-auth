@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"; // Import required modules from React
+import React, { useEffect, useState } from "react"; // Import required modules from React
 import { useDispatch, useSelector } from "react-redux"; // Import required modules from React Redux
 import { useNavigate } from "react-router-dom"; // Import required modules from React Router
 import thoughts from "reducers/thoughts"; // Import the "thoughts" reducer from the "reducers" folder
