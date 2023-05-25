@@ -11,6 +11,7 @@ const Main = () => {
     const accessToken = useSelector((store) => store.user.accessToken); // Access the "accessToken" value from the Redux store
     const username = useSelector((store) => store.user.username); // Access the "username" value from the Redux store
     const navigate = useNavigate(); // Access the navigation function from React Router
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
         // Perform an action when the component mounts or when the "accessToken" value changes
@@ -53,6 +54,12 @@ const Main = () => {
         dispatch(thoughts.actions.setItems([])); // Set an empty array as the "items" value in the "thoughts" reducer
     };
 
+    const onMessageSubmit = (e) => {
+        e.preventDefault();
+        // Add your code to handle the message submission and posting here
+        // You can make a POST request to the API and update the Redux store with the new thought item
+      };
+    
     return (
         <>
             <button type="button" onClick={onLogoutButtonClick}>
