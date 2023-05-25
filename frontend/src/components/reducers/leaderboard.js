@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const score = createSlice({
-    name:"score",
+const leaderboard = createSlice({
+    name:"leaderboard",
     initialState:{
         items:[],
-        totalScore:0,
+        leaderboard:'',
         error:null
     },
     reducers:{
         setError:(store, action) =>{
             store.error = action.payload
         },
-        setScore:(store, action) =>{
-            store.score = action.payload
+        setLeaderboard:(store, action) =>{
+            store.leaderboard = action.payload
         }
     }
 });
 
 
-export default score
+export default leaderboard

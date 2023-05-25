@@ -5,15 +5,19 @@ import Main from 'components/Main';
 import Login from 'components/Login';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {user} from 'components/reducers/user';
-import score from 'components/reducers/scores';
+import score from 'components/reducers/leaderboard';
 import { Provider } from 'react-redux';
+import { loading } from 'components/reducers/loading';
+import leaderboard from 'components/reducers/leaderboard';
 
 
 export const App = () => {
 
   const reducer = combineReducers({
     user: user.reducer,
-    score: score.reducer
+    leaderboard: leaderboard.reducer,
+    loading: loading.reducer,
+
   });
   const store = configureStore({reducer})
 

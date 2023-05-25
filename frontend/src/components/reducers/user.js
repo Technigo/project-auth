@@ -5,17 +5,24 @@ import { loading } from "./loading";
 export const user = createSlice({
     name:"user",
     initialState:{
+       userId:null,
         username:"",
-        userId:null,
         email:"",
-        // password:null,
+        avatar:'',
         badges:[],
-        avatar:"",
+        history:[],
+        totalScore:0,
+        createdAt:'',
+        // password:null,
         accessToken:null,
         error:null,
         mode:"login"
     },
     reducers:{
+        setUserId:(store, action) =>{
+            store.userId = action.payload
+            console.log('userId:',action.payload)
+        },
         setUsername:(store, action) =>{
             store.username = action.payload
             console.log('username:',action.payload)
@@ -27,13 +34,29 @@ export const user = createSlice({
         //  setPassword:(store, action) =>{
         //     store.password = action.payload
         // },
-        setUserId:(store, action) =>{
-            store.userId = action.payload
-            console.log('userId:',action.payload)
+        setAvatar:(store, action) =>{
+            store.avatar = action.payload
+            console.log('avatar:',action.payload)
         },
+         setBadges:(store, action) =>{
+            store.badges = action.payload
+            console.log('badges:',action.payload)
+        },
+         setHistory:(store, action) =>{
+            store.history = action.payload
+            console.log('history:',action.payload)
+        },
+        setTotalScore:(store, action) =>{
+            store.totalScore = action.payload
+            console.log('totalscore:',action.payload)
+      },
         setAccessToken:(store, action) =>{
             store.accessToken = action.payload
             console.log('accessToken:', action.payload)
+        },
+        setCreatedAt:(store, action) =>{
+            store.createdAt = action.payload
+            console.log('createdAt:', action.payload)
         },
         setError:(store, action) =>{
             store.error = action.payload
@@ -64,7 +87,7 @@ export const registerUser = (username, email, password) => {
          if(data.success) {
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setUsername(data.response.username));
-            // dispatch(user.actions.setEmail(data.response.email));
+            dispatch(user.actions.setEmail(data.response.email));
             // dispatch(user.actions.setPassword(data.response.password));
             dispatch(user.actions.setUserId(data.response.id));
             dispatch(user.actions.setError(null))
@@ -75,7 +98,7 @@ export const registerUser = (username, email, password) => {
             // dispatch(user.actions.setEmail(null));
             // dispatch(user.actions.setPassword(null));
             dispatch(user.actions.setUserId(null));
-            dispatch(user.actions.setError(data.response.message))
+            dispatch(user.actions.setError(data.response))
             console.log(data)
          }
       })
@@ -99,7 +122,7 @@ export const loginUser = ( email, password) => {
     fetch(API_URL('login'), options)
       .then((response) => response.json())
       .then(data => {
-         if(data.success) {
+ if(data.success) {
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setUsername(data.response.username));
             dispatch(user.actions.setEmail(data.response.email));
@@ -113,8 +136,46 @@ export const loginUser = ( email, password) => {
             dispatch(user.actions.setEmail(null));
             // dispatch(user.actions.setPassword(null));
             dispatch(user.actions.setUserId(null));
-            dispatch(user.actions.setError(data.response.message))
+            dispatch(user.actions.setError(data.response))
             console.log(data)
+         }
+        
+      })
+      .finally(() => dispatch(loading.actions.setLoading(false)))
+  };
+};
+
+// GET user data
+export const getUser = () => {
+  return (dispatch, getState) => {
+     const accessToken = getState().user.accessToken;
+    dispatch(loading.actions.setLoading(true))
+    const options = {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': accessToken
+      }
+    }
+    fetch(API_URL('user'), options)
+      .then((response) => response.json())
+      .then(data => {
+         if(data.success) {
+        //  dispatch(user.actions.setAccessToken(data.response.accessToken));
+          dispatch(user.actions.setUsername(data.response.username));
+          dispatch(user.actions.setAvatar(data.response.avatar));
+          dispatch(user.actions.setBadges(data.response.badges));
+          dispatch(user.actions.setCreatedAt(data.response.createdAt));
+          dispatch(user.actions.setTotalScore(data.response.totalScore));
+          dispatch(user.actions.setHistory(data.response.history));
+          dispatch(user.actions.setEmail(data.response.email));
+            // dispatch(user.actions.setPassword(data.response.password));
+          // dispatch(user.actions.setUserId(data.response.id));
+          dispatch(user.actions.setError(null))
+         }else{
+          dispatch(user.actions.setError(data.response.message))
+          console.log('error')
          }
       })
       .finally(() => dispatch(loading.actions.setLoading(false)))
