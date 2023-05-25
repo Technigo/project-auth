@@ -54,13 +54,8 @@ const Main = () => {
         dispatch(thoughts.actions.setItems([])); // Set an empty array as the "items" value in the "thoughts" reducer
     };
 
-    const onMessageSubmit = (e) => {
+    const postNewThought = (e) => {
         e.preventDefault();
-      
-        // Create a new thought object with the message
-        const newThought = {
-          message: message,
-        };
       
         const options = {
           method: "POST",
@@ -68,7 +63,7 @@ const Main = () => {
             "Content-Type": "application/json",
             Authorization: accessToken,
           },
-          body: JSON.stringify(newThought), // Convert the thought object to JSON string
+          body: JSON.stringify({ message }), // Corrected: Use `message` instead of `newThought`
         };
       
         fetch(API_URL("thoughts"), options)
@@ -76,13 +71,14 @@ const Main = () => {
           .then((data) => {
             if (data.success) {
               dispatch(thoughts.actions.setError(null));
-              dispatch(thoughts.actions.setItems([...thoughtItems, data.response])); // Add the new thought item to the existing thoughtItems array
-              setMessage(""); // Clear the message input field after successful submission
+              dispatch(thoughts.actions.setItems([...thoughtItems, data.response]));
+              setMessage("");
             } else {
               dispatch(thoughts.actions.setError(data.error));
             }
           });
       };
+      
       
     
     return (
@@ -94,7 +90,7 @@ const Main = () => {
             {thoughtItems.map((item) => {
                 return <p key={item._id}>{item.message}</p>; // Render paragraphs for each thought item in the "thoughtItems" array
             })}
-             <form onSubmit={onMessageSubmit}>
+             <form onSubmit={postNewThought}>
         <input
           type="text"
           value={message}
