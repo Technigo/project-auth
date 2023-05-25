@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import user from "reducers/user";
 import { API_URL } from "utils/urls";
+import styled from "styled-components";
 
 const Login = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [mode, setMode] = useState("login")
+    const [errorMessage, setErrorMessage] = useState("");
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const accessToken = useSelector(store => store.user.accessToken)
@@ -28,18 +30,19 @@ const Login = () => {
         }
         fetch(API_URL(mode), options)
             .then(res => res.json())
-            .then(potato => {
-                if (potato.success) {
-                    console.log(potato)
-                    dispatch(user.actions.setAccessToken(potato.response.accessToken))
-                    dispatch(user.actions.setUsername(potato.response.username))
-                    dispatch(user.actions.setUserId(potato.response.id))
+            .then(data => {
+                if (data.success) {
+                    console.log(data)
+                    dispatch(user.actions.setAccessToken(data.response.accessToken))
+                    dispatch(user.actions.setUsername(data.response.username))
+                    dispatch(user.actions.setUserId(data.response.id))
                     dispatch(user.actions.setError(null))
                 } else {
                     dispatch(user.actions.setAccessToken(null));
                     dispatch(user.actions.setUsername(null));
                     dispatch(user.actions.setUserId(null));
-                    dispatch(user.actions.setError(potato.response))
+                    dispatch(user.actions.setError(data.response))
+                    setErrorMessage(data.message);
                 }
             })
     }
@@ -73,7 +76,8 @@ const Login = () => {
                 value={password} 
                 onChange={event => setPassword(event.target.value)} />
             <button type="submit">Submit</button>
-        </form>
+            </form>
+            {errorMessage && <p>{errorMessage}</p>}
         </>
     )
 }

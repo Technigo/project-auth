@@ -68,6 +68,7 @@ app.post("/register", async (req, res) => {
   } catch (err) {
     res.status(400).json({
       success: false,
+      message: "User already exists",
       response: err
     })
   }
@@ -92,7 +93,7 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "Credentials do not match"
+        response: "Could not login, credentials do not match"
       })
     }
   } catch (err) {
@@ -160,6 +161,9 @@ const authenticateUser = async (req, res, next) => {
 app.get("/thoughts", authenticateUser)
 // If they "pass" this is the function that happens next()
 app.get("/thoughts", async (req, res) => {
+  // The authenticated endpoint should return a 401 or 403 (see 401 vs. 403 on SO) 
+  // with an error message if you try to access it without an Authentication access token 
+  // or with an invalid token.
   const accessToken = req.header("Authorization")
   const user = await User.findOne({accessToken: accessToken});
   // Thoughts of the specific user
