@@ -42,9 +42,25 @@ export const LoginPage = () => {
             },
             body: JSON.stringify({username: username, password: password})
         }
+
+                    // const errorMessage = ''; 
+                    // if (mode === 'login' && errorMessage === 'Credentials do not match') {
+                    //   setLoginError(errorMessage);
+                    // } else if (mode === 'register') {
+                    //   if (errorMessage === 'Username taken, try another one') {
+                    //     setLoginError(errorMessage);
+                    //   } else if (errorMessage === 'Username cannot contain special characters or spaces') {
+                    //     setLoginError(errorMessage);
+                    //   } else {
+                    //     setLoginError("");
+                    //   }
+                    // } else {
+                    //   setLoginError("");
+                    // }
+
         fetch(API_URL(mode), options)
             .then(response => response.json())
-            .then(data => {
+            .then((data) => {
                 if(data.success) {
                     console.log(data)
                     dispatch(user.actions.setAccessToken(data.response.accessToken));
@@ -58,9 +74,13 @@ export const LoginPage = () => {
                     dispatch(user.actions.setUserId(null));
                     dispatch(user.actions.setError(data.response));
                     setLoginError(true);
-                }
-            })
-    }
+                    
+                    }
+                    
+                })
+            }
+
+   
 
     const defaultTheme = createTheme({
         typography: {
@@ -78,109 +98,153 @@ export const LoginPage = () => {
         }
       };
 
+      
+
     return (
-        <>
-            <ThemeProvider theme={defaultTheme}>
-                <Container component="main" maxWidth="xs">
-                    <CssBaseline />
-                    <Box
-                        sx={{
-                            marginTop: 8,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Welcome, please {mode === 'login' ? 'login' : 'register'}
-                        </Typography>
-                        <Box component="form" onSubmit={onFormSubmit} noValidate sx={{ mt: 1 }}>
-                            <TextField
-                                type="text"
-                                margin="normal"
-                                value={username}
-                                onChange={e => setUsername(e.target.value)}
-                                required
-                                fullWidth
-                                id="username"
-                                label="Name"
-                                name="username"
-                                autoFocus
-                                error={loginError}
-                                helperText={loginError ? mode === 'login' ? 'Credentials do not match' : 'Name taken, please register another user name' : ''}
-                                />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                value={password} 
-                                 onChange={e => setPassword(e.target.value)}
-                                autoComplete="current-password" 
-                                error={loginError}
-                                helperText={loginError ? mode === 'login' ? 'Credentials do not match' : '' : ''}
-                                />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me" />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                {mode === 'login' ? 'Login' : 'Register'}
-                            </Button>
-                           <Grid container>
-                                {/* <Grid item xs>
+      <>
+        <ThemeProvider theme={defaultTheme}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+              sx={{
+                marginTop: 8,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Welcome, please {mode === "login" ? "login" : "register"}
+              </Typography>
+              <Box
+                component="form"
+                onSubmit={onFormSubmit}
+                noValidate
+                sx={{ mt: 1 }}
+              >
+                <TextField
+                  type="text"
+                  margin="normal"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                  fullWidth
+                  id="username"
+                  label="Name"
+                  name="username"
+                  autoFocus
+                 error={loginError}
+                  helperText={
+                    loginError
+                      ? mode === "login"
+                        ? "Credentials do not match"
+                        : "Name taken, please register another username"
+                      : ""
+                  }
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="current-password"
+                 error={loginError}
+                  helperText={
+                    loginError
+                      ? mode === "login"
+                        ? "Credentials do not match"
+                        : ""
+                      : ""
+                  }
+                />
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Remember me"
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  {mode === "login" ? "Login" : "Register"}
+                </Button>
+                <Grid container>
+                  {/* <Grid item xs>
                                     <Link href="#" variant="body2">
                                         Forgot password?
                                     </Link>
                                 </Grid> */}
-                                <Grid item>
-                                    {/* <Link href="#" variant="body2" onClick={handleModeChange}>
+                  <Grid item>
+                    {/* <Link href="#" variant="body2" onClick={handleModeChange}>
                                     {mode === 'login' ? "Don't have an account? Register" : 'Already have an account? Login'}
                                     </Link> */}
-                                    <FormGroup >
-                                    {mode === 'login' ? "Don't have an account? →" : 'Already have an account? →'}
-                                    {mode === 'login' ? <FormControlLabel control={<Switch /* checked={checked} */ onChange={handleModeChange} inputProps={{ 'aria-label': 'controlled' }}
-/>} label="Login" /> : <FormControlLabel control={<Switch /* checked={checked} */ onChange={handleModeChange} inputProps={{ 'aria-label': 'controlled' }}
-/>} label="Register" />}
-                                    </FormGroup>
-                                </Grid>
-                            </Grid> 
-                        </Box>
-                    </Box>
-                </Container>
-            </ThemeProvider></>
-  
-        // <Container>
-        //     <h1>Welcome, please login</h1>
-        //     <LoginForm
-        //         type="submit"
-        //         onSubmit={(event) => loginUser(event)}>
-        //         <NameInput
-        //         id=""
-        //         type="text"
-        //         placeholder="Enter name"
-        //         value={usernameInput}
-        //         onChange={(event) => setUsernameInput(event.target.value)}
-        //         required />
-        //         <PasswordInput
-        //         id=""
-        //         type="text"
-        //         placeholder="password"
-        //         value={userPasswordInput}
-        //         onChange={(event) => setUserPasswordInput(event.target.value)}
-        //         required />
-        //         <Button type="submit">Enter</Button>
-        //     </LoginForm>
-        // </Container>
-    
-)}
+                    <FormGroup>
+                      {mode === "login"
+                        ? "Don't have an account? →"
+                        : "Already have an account? →"}
+                      {mode === "login" ? (
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              /* checked={checked} */ onChange={
+                                handleModeChange
+                              }
+                              inputProps={{ "aria-label": "controlled" }}
+                            />
+                          }
+                          label="Login"
+                        />
+                      ) : (
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              /* checked={checked} */ onChange={
+                                handleModeChange
+                              }
+                              inputProps={{ "aria-label": "controlled" }}
+                            />
+                          }
+                          label="Register"
+                        />
+                      )}
+                    </FormGroup>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Box>
+          </Container>
+        </ThemeProvider>
+      </>
+
+      // <Container>
+      //     <h1>Welcome, please login</h1>
+      //     <LoginForm
+      //         type="submit"
+      //         onSubmit={(event) => loginUser(event)}>
+      //         <NameInput
+      //         id=""
+      //         type="text"
+      //         placeholder="Enter name"
+      //         value={usernameInput}
+      //         onChange={(event) => setUsernameInput(event.target.value)}
+      //         required />
+      //         <PasswordInput
+      //         id=""
+      //         type="text"
+      //         placeholder="password"
+      //         value={userPasswordInput}
+      //         onChange={(event) => setUserPasswordInput(event.target.value)}
+      //         required />
+      //         <Button type="submit">Enter</Button>
+      //     </LoginForm>
+      // </Container>
+    );}

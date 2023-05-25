@@ -48,11 +48,16 @@ const User = mongoose.model("User", UserSchema);
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
-  const onValidUsername = () => {
-    const usernameRegex = /^[a-zA-Z0-9]+$/;
-    return usernameRegex.test(req.body.username)
+  const usernameRegex = /^[a-zA-Z0-9.\-_]+$/;
+  
+  if (!usernameRegex.test(username)) {
+    res.status(401).json({
+      success: false,
+      response: "Username cannot contain special characters or spaces"
+    });
+    return;
   }
-if (onValidUsername) {
+  
 try {
     const salt = bcrypt.genSaltSync();
     const newUser = await new User({
@@ -72,10 +77,10 @@ try {
  catch (e) {
     res.status(400).json({
       success: false,
-      response: e
+      response: "Username taken, try another one"
     })
   }
-}})
+})
 
 /// Login
 app.post("/login", async (req, res) => {
