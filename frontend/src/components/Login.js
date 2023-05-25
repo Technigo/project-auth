@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "utils/utils";
+import { API_URL } from "../utils/utils";
 
 import { user } from 'reducers/user';
 
@@ -32,19 +32,23 @@ const Login = () => {
             body: JSON.stringify({ name: username, password: password }) // Updated "username" to "name"
           };
 
+        // Update options.body and API_URL based on the selected mode
+        if (mode === "login") {
+            options.body = JSON.stringify({ name: username, password: password })
+        }
+
         fetch(API_URL(mode), options)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                if (data.success) {
+                if (data.userId) {
                     batch(() => {
                         dispatch(user.actions.setUserId(data.userId))
                         dispatch(user.actions.setAccessToken(data.accessToken))
                         dispatch(user.actions.setUserName(data.username))
                         dispatch(user.actions.setError(null))
                         setLoginError(null)
-                    })
-
+                    });
+                    navigate("/");
                 } else {
                     batch(() => {
                         dispatch(user.actions.setError(data.response))
@@ -55,13 +59,23 @@ const Login = () => {
                     })
                 }
             })
-    }
+            .catch(error => {
+                console.log("Login error", error);
+                    batch(() => {
+                        dispatch(user.actions.setError("Something went wrong"));
+                        dispatch(user.actions.setUserId(null));
+                        dispatch(user.actions.setAccessToken(null));
+                        dispatch(user.actions.setUserName(null));
+                        setLoginError("Something went wrong");
+                    });
+                });
+            };
 
     return (
         <>
             <section>
                 <div className="form-container">
-                    <h1>Register page</h1>
+                    <h1>{mode === "register" ? "Reguster" : "Login"} page</h1>
                     <div className='radio-container'>
                         <label htmlFor="register">Register</label>
                         <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")} />
@@ -85,15 +99,11 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)} />
 
                         {loginError !== null && (
-                            <p className="login-error">{loginError}</p>
+                            <p className="login-error">{loginError.message}</p>
                         )}
 
                         <div className="button-container">
-                            {mode === "register" ? (
-                            <button type="submit">Sign up</button>
-                            ) : (
-                            <button type="submit">Login</button>
-                            )}
+                           <button type="submit">{mode === "register" ? "Sign up" : "Login"}</button>
                         </div>
                     </form>
                 </div>
