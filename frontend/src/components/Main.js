@@ -50,7 +50,7 @@ const Main = () => {
         <h1> Thoughts OF { username ? username.toUpperCase() : ''}  </h1>
         {thoughtItems.map(item => {
             return (
-                <p key={item._id}>{item.message} </p>
+                <p key={item._id}>{item.message} </p> 
             )
         })}
         </>
