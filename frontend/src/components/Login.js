@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+// Add more styling
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
@@ -8,6 +9,7 @@ const Wrapper = styled.section`
   justify-content: center;
   height: 100vh;
   `
+
 
 // On form-submit function
 
