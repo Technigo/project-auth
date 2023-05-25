@@ -60,7 +60,7 @@ export const ThoughtList = ({ onLikesIncrease }) => {
               type="button"
               className={list.flames === 0 ? 'like-btn' : 'no-like-btn'}
               onClick={() => onLikesIncrease(list._id)}>
-                <p className="counter">🤘🏽 x {list.hearts}</p>
+                <p className="counter">🤘🏽  {list.hearts}</p>
             </button>
 
             {/* hearts */}
@@ -68,7 +68,7 @@ export const ThoughtList = ({ onLikesIncrease }) => {
               type="button"
               className={list.hearts === 0 ? 'like-btn' : 'no-like-btn'}
               onClick={() => onLikesIncrease(list._id)}>            
-              <p className="counter">💗 x {list.hearts}</p>
+              <p className="counter">💗  {list.hearts}</p>
             </button>
 
             {/* flames */}
@@ -76,7 +76,7 @@ export const ThoughtList = ({ onLikesIncrease }) => {
               type="button"
               className={list.flames === 0 ? 'like-btn' : 'no-like-btn'}
               onClick={() => onLikesIncrease(list._id)}>
-                <p className="counter">🔥 x {list.hearts}</p>
+                <p className="counter">🔥  {list.hearts}</p>
             </button>
 
             {/* lemon */}
@@ -84,7 +84,7 @@ export const ThoughtList = ({ onLikesIncrease }) => {
               type="button"
               className={list.flames === 0 ? 'like-btn' : 'no-like-btn'}
               onClick={() => onLikesIncrease(list._id)}>              
-                <p className="counter">🍋 x {list.hearts}</p>
+                <p className="counter">🍋  {list.hearts}</p>
             </button>
 
             {/* <p className="date">
