@@ -22,8 +22,8 @@ const Main = () => {
             method:"GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": accessTokenout
-            }
+                "Authorization": accessToken
+            },
         }
         fetch(API_URL("thoughts"), options)
             .then(res => res.json())

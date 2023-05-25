@@ -1,10 +1,9 @@
 # Project Auth API
+This is a full-stack app project that implements an API with authentication to support a registration process. And a simple front end with user registration, login and login forms.
 
+Backend: node.js, Express, Mongoose, MongoDB, GoogleCloud, MongoDB Cloud Atlas.
+Frontend: React, React Router, React Redux, Redux Toolkit, Netlify
 
-
-## The problem
-
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
 
 ## View it live
 
