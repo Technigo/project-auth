@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"; // Import required modul
 import { useNavigate } from "react-router-dom"; // Import required modules from React Router
 import user from "reducers/user"; // Import the "user" reducer from the "reducers" folder
 import { API_URL } from "utils/urls"; // Import the "API_URL" constant from the "utils/urls" module
+
 const Login = () => {
     const [username, setUsername] = useState(""); // Create a state variable for the username
     const [password, setPassword] = useState(""); // Create a state variable for the password
@@ -10,14 +11,17 @@ const Login = () => {
     const dispatch = useDispatch(); // Access the Redux dispatch function
     const navigate = useNavigate(); // Access the navigation function from React Router
     const accessToken = useSelector((store) => store.user.accessToken); // Access the "accessToken" value from the Redux store
+
     useEffect(() => {
         // Perform an action when the component mounts or when the "accessToken" value changes
         if (accessToken) {
             navigate("/"); // Navigate to the homepage if the user is already logged in
         }
     }, [accessToken]);
+
     const onFormSubmit = (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
+
         const options = {
             method: "POST",
             headers: {
@@ -25,6 +29,7 @@ const Login = () => {
             },
             body: JSON.stringify({ username: username, password: password }), // Create a JSON string from the username and password
         };
+
         fetch(API_URL(mode), options)
             .then((response) => response.json()) // Parse the response as JSON
             .then((data) => {
@@ -44,6 +49,7 @@ const Login = () => {
                 }
             });
     };
+
     return (
         <>
             <div id="container">
@@ -59,6 +65,7 @@ const Login = () => {
                     >
                         Sign Up
                     </a>
+
                     {/* Sign In Section */}
                     <h1 className="sign-in">Welcome Back!</h1>
                     <p className="sign-in">To keep connected with us please<br /> login with your personal info</p>
@@ -71,6 +78,7 @@ const Login = () => {
                         Sign In
                     </a>
                 </div>
+
                 {/* Login Box */}
                 <div id="login">
                     <h1>Sign In</h1>
@@ -94,6 +102,7 @@ const Login = () => {
                         <input className="submit-btn" type="submit" value="Sign In" />
                     </form>
                 </div>
+
                 {/* Register Box */}
                 <div id="register">
                     <h1>Create Account</h1>
@@ -122,6 +131,9 @@ const Login = () => {
                 </div>
             </div>
         </>
+
     );
 };
+
 export default Login;
+

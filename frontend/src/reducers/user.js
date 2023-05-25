@@ -1,27 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"; // Import the createSlice function from Redux Toolkit
 
 const user = createSlice({
-    name: "user",
+    name: "user", // Specify the name of the slice
     initialState: {
-        username: null,
-        userId: null,
-        accessToken: null,
-        error: null
+        username: null, // Initialize the username to null
+        userId: null, // Initialize the userId to null
+        accessToken: null, // Initialize the accessToken to null
+        error: null // Initialize the error to null
     },
     reducers: {
-        setUsername: (store, action) => {
-            store.username = action.payload
+        setUsername: (store, action) => { // Define a reducer function named setUsername
+            store.username = action.payload // Update the username state with the payload value from the action
         },
-        setUserId: (store, action) => {
-            store.userId = action.payload
+        setUserId: (store, action) => { // Define a reducer function named setUserId
+            store.userId = action.payload // Update the userId state with the payload value from the action
         },
-        setAccessToken: (store, action) => {
-            store.accessToken = action.payload
+        setAccessToken: (store, action) => { // Define a reducer function named setAccessToken
+            store.accessToken = action.payload // Update the accessToken state with the payload value from the action
         },
-        setError: (store, action) => {
-            store.error = action.payload
+        setError: (store, action) => { // Define a reducer function named setError
+            store.error = action.payload // Update the error state with the payload value from the action
         }
     }
 });
 
-export default user
+export default user; // Export the user slice

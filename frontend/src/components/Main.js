@@ -4,18 +4,21 @@ import { useNavigate } from "react-router-dom"; // Import required modules from 
 import thoughts from "reducers/thoughts"; // Import the "thoughts" reducer from the "reducers" folder
 import { API_URL } from "utils/urls"; // Import the "API_URL" constant from the "utils/urls" module
 import user from "reducers/user"; // Import the "user" reducer from the "reducers" folder
+
 const Main = () => {
     const thoughtItems = useSelector((store) => store.thoughts.items); // Access the "items" value from the "thoughts" reducer in the Redux store
     const dispatch = useDispatch(); // Access the Redux dispatch function
     const accessToken = useSelector((store) => store.user.accessToken); // Access the "accessToken" value from the Redux store
     const username = useSelector((store) => store.user.username); // Access the "username" value from the Redux store
     const navigate = useNavigate(); // Access the navigation function from React Router
+
     useEffect(() => {
         // Perform an action when the component mounts or when the "accessToken" value changes
         if (!accessToken) {
             navigate("/login"); // Navigate to the login page if the user is not logged in
         }
     }, [accessToken]);
+
     useEffect(() => {
         // Perform an action when the component mounts
         const options = {
@@ -25,6 +28,7 @@ const Main = () => {
                 Authorization: accessToken, // Set the Authorization header with the access token
             },
         };
+
         fetch(API_URL("thoughts"), options)
             .then((res) => res.json()) // Parse the response as JSON
             .then((data) => {
@@ -39,6 +43,7 @@ const Main = () => {
                 }
             });
     });
+
     const onLogoutButtonClick = () => {
         // Perform an action when the logout button is clicked
         dispatch(user.actions.setAccessToken(null)); // Clear the "accessToken" value in the Redux store
@@ -47,9 +52,12 @@ const Main = () => {
         dispatch(user.actions.setError(null)); // Clear any previous error in the Redux store
         dispatch(thoughts.actions.setItems([])); // Set an empty array as the "items" value in the "thoughts" reducer
     };
+
     return (
         <>
-            <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button>
+            <button type="button" onClick={onLogoutButtonClick}>
+                LOGOUT
+            </button>
             {username ? <h2>THESE ARE THE THOUGHTS OF {username.toUpperCase()}</h2> : ""}
             {thoughtItems.map((item) => {
                 return <p key={item._id}>{item.message}</p>; // Render paragraphs for each thought item in the "thoughtItems" array
@@ -57,12 +65,5 @@ const Main = () => {
         </>
     );
 };
+
 export default Main;
-
-
-
-
-
-
-
-
