@@ -16,6 +16,7 @@ import shopIMG from '../assets/coin.png'
 import homeIMG from '../assets/home.png'
 import questIMG from '../assets/questmap.png'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import barIMG from '../assets/GUI.png'
 
 const pages = [
   { name: 'Shop', image: shopIMG },
@@ -30,8 +31,8 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#0971f1',
-      darker: '#053e85',
+      main: '#733214',
+      darker: '#5c270f',
     },
     neutral: {
       main: '#64748B',
@@ -61,7 +62,14 @@ export const ResponsiveAppBar = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar position="static" primary="brown">
+      <AppBar
+        position="static"
+        sx={{
+          backgroundImage: `url(${barIMG})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '150% 100%',
+          backgroundPosition: 'center'
+        }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
