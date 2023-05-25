@@ -24,7 +24,7 @@ export const App = () => {
     setLoading(true);
     fetch('https://project-happy-thoughts-api-oivc6zag6a-lz.a.run.app/thoughts')
       .then((data) => data.json())
-      .then((jsonData) => setThoughts(jsonData))
+      .then((jsonData) => setThoughts(jsonData.response))
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
   };
@@ -56,25 +56,26 @@ export const App = () => {
       .finally(() => setNewMessage(''));
   };
 
-  /* const onLikesIncrease = (LikeID) => {
-    const options = {
-      method: 'POST',
-      body: '',
-      headers: {
-        'content-type': 'application/json'
-      }
-    }
+  // const onLikesIncrease = (LikeID) => {
+  //   const options = {
+  //     method: 'POST',
+  //     body: '',
+  //     headers: {
+  //       'content-type': 'application/json'
+  //     }
+  //   }
   
-    fetch(
-      `https://project-happy-thoughts-api-oivc6zag6a-lz.a.run.app/thoughts/${LikeID}/like`,
-      options
-    )
-      .catch((error) => error)
-      .finally(() => fetchThoughts())
-  } */
+  //   fetch(
+  //     `https://project-happy-thoughts-api-oivc6zag6a-lz.a.run.app/thoughts/${LikeID}/like`,
+  //     options
+  //   )
+  //     .catch((error) => error)
+  //     .finally(() => fetchThoughts())
+  // } 
+
   const onLikesIncrease = (LikeID) => {
     const options = {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         'content-type': 'application/json'
       }
@@ -84,17 +85,20 @@ export const App = () => {
       `https://project-happy-thoughts-api-oivc6zag6a-lz.a.run.app/thoughts/${LikeID}/like`,
       options
     )
+
+    // `${API_URL}/thoughts/${LikeID}/like`, options
       .then((res) => res.json())
       .then((tomato) => { 
         const updatedThoughts = thoughts.map((thought) => {
-          if (thought._id === tomato._id) {
-            thought.heart += 1;
+          if (thought._id === tomato.response._id) {
+            thought.hearts += 1;
           }
           return thought;
         });
         setThoughts(updatedThoughts);
       }) 
       .catch((error) => error);
+      fetchThoughts();
   };
 
   return (

@@ -46,9 +46,6 @@ export const NewThought = () => {
         .catch((error) => console.log(error))
         .finally(() => {setNewMessage('')})
 }
-  // create a POST request 
-  // get the props to be handled correctly 
-  // new onForm Submit
   
   return (
     <>
