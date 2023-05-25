@@ -12,6 +12,9 @@ const initialState = {
       setItems: (store, action) => {
         store.items = action.payload
       },
+      setNewThought: (store, action) => {
+        store.newThought = action.payload
+      },
       setError: (store, action) => {
         store.error = action.payload
         }
