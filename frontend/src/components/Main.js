@@ -56,9 +56,34 @@ const Main = () => {
 
     const onMessageSubmit = (e) => {
         e.preventDefault();
-        // Add your code to handle the message submission and posting here
-        // You can make a POST request to the API and update the Redux store with the new thought item
+      
+        // Create a new thought object with the message
+        const newThought = {
+          message: message,
+        };
+      
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: accessToken,
+          },
+          body: JSON.stringify(newThought), // Convert the thought object to JSON string
+        };
+      
+        fetch(API_URL("thoughts"), options)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              dispatch(thoughts.actions.setError(null));
+              dispatch(thoughts.actions.setItems([...thoughtItems, data.response])); // Add the new thought item to the existing thoughtItems array
+              setMessage(""); // Clear the message input field after successful submission
+            } else {
+              dispatch(thoughts.actions.setError(data.error));
+            }
+          });
       };
+      
     
     return (
         <>
