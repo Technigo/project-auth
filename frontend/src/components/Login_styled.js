@@ -58,7 +58,7 @@ export const FormWrapper = styled.form`
     gap: 20px;
     
     .inputLabel {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         color: #777;
         font-family: 'Sora', helvetica, sans-serif;
         font-weight: 800;
@@ -66,7 +66,7 @@ export const FormWrapper = styled.form`
     }
 
     .inputField {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: #777;
     font-family: 'Sora', helvetica, sans-serif;
     font-weight: 800;
