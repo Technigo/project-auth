@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "utils/utils";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-    const [mode, setMode] = useState("login")
-    const dispatch = useDispatch()
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [mode, setMode] = useState("login");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const accessToken = useSelector(store => store.user.accessToken)
+    useEffect(() => {
+        if(accessToken) {
+            navigate("/")
+        }
+    }, [accessToken]);
     const onFormSubmit = (event) => {
         event.preventDefault()
         const options = {
@@ -19,23 +26,36 @@ const Login = () => {
         }
         fetch(API_URL(mode), options)
             .then(response => response.json())
-            .then(potato => {
-                if(potato.success) {
-                    dispatch(user.actions.setAccessToken(potato.response.accessToken))
-                    dispatch(user.actions.setUsername(potato.response.username))
-                    dispatch(user.actions.setUserId(potato.response.id))
-                    dispatch(user.actions.setError(null))
+            .then(data => {
+                if(data.success) {
+                    dispatch(user.actions.setAccessToken(data.response.accessToken));
+                    dispatch(user.actions.setUsername(data.response.username));
+                    dispatch(user.actions.setUserId(data.response.id));
+                    dispatch(user.actions.setError(null));
                 } else {
-                    dispatch(user.actions.setAccessToken(null))
-                    dispatch(user.actions.setUsername(null))
-                    dispatch(user.actions.setUserId(null))
-                    dispatch(user.actions.setError(null))
+                    dispatch(user.actions.setAccessToken(null));
+                    dispatch(user.actions.setUsername(null));
+                    dispatch(user.actions.setUserId(null));
+                    dispatch(user.actions.setError(data.response));
                 }
             })
     }
 
     return(
-        <form>
+        <>
+        <label htmlFor="register">Register</label>
+        <input
+            type="radio"
+            id="register"
+            checked={mode === "register"}
+            onChange={() => setMode("register")}/>
+        <label htmlFor="login">Login</label>
+        <input
+            type="radio"
+            id="login"
+            checked={mode === "login"}
+            onChange={() => setMode("login")}/>
+        <form onSubmit={onFormSubmit}>
             <label htmlFor="username">Username</label>
             <input 
             type="text" 
@@ -50,6 +70,7 @@ const Login = () => {
             onChange={e => setPassword(e.target.value)} />
             <button type="submit">Submit</button>
         </form>
+        </>
     )
 }
 
