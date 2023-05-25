@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import user from 'reducers/user';
 import { API_URL } from 'utils/urls';
+import styled from 'styled-components';
 
 export const Login = () => {
     const [username, setUsername] = useState("");
@@ -46,6 +47,12 @@ export const Login = () => {
     }
     return (
         <>
+        <LoginWrapper>
+            <Header>
+                <h1>Welcome!</h1>
+                <h2>Sign in for todays qoute</h2>
+            </Header>
+            <RegisterLogin>
             <label htmlFor="register">Register</label>
             <input
                 type="radio"
@@ -58,6 +65,7 @@ export const Login = () => {
                 id="login"
                 checked={mode === "login"}
                 onChange={() => setMode("login")}/>
+            </RegisterLogin>
             <form onSubmit={onFormSubmit}>
                 <label htmlFor="username">Username</label>
                 <input
@@ -73,6 +81,34 @@ export const Login = () => {
                     onChange={event => setPassword(event.target.value)}/>
                 <button type="submit">Submit</button>
             </form>
+            </LoginWrapper>
         </>
     )
 };
+
+const LoginWrapper = styled.div`
+width: 350px;
+height: 400px;
+background-color: linen;
+margin-left: 50px;
+margin-top: 90px;
+border-radius: 10px;
+`
+const Header = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+h1 {
+    font-size: 29px;
+}
+h2 {
+    font-size: 20px;
+}
+`
+
+const RegisterLogin = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: center;
+`

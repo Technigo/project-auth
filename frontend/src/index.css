@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+body {
+  background-image: url(https://img.freepik.com/free-vector/hand-drawn-wedding-ornaments_52683-65811.jpg?w=740&t=st=1685011259~exp=1685011859~hmac=fda500fe76e6ea86f5feb1d6a8b260046e9de96b58b9f157dab0f990efe8fa60);
+  background-size:cover;
+  background-attachment: fixed;
+}
