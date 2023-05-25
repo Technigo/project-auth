@@ -12,7 +12,7 @@ export const ButtonWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     font-size: 1.1rem;
-    color: darkgray;
+    color: #777;
     font-family: 'Sora', helvetica, sans-serif;
     font-weight: 800;
     margin-bottom: 10px;
@@ -24,7 +24,7 @@ export const ButtonWrapper = styled.div`
   }
 
   input[type='radio']:checked + span {
-    background-color: pink;
+    background-color: #8cffb6;
   }
 
   span {
@@ -35,7 +35,7 @@ export const ButtonWrapper = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    border: 4px solid darkgray;
+    border: 4px solid #777;
     transition: background-color 0.3s ease-in-out;
   }
 
@@ -59,7 +59,7 @@ export const FormWrapper = styled.form`
     
     .inputLabel {
         font-size: 1.5rem;
-        color: darkgray;
+        color: #777;
         font-family: 'Sora', helvetica, sans-serif;
         font-weight: 800;
         cursor: pointer;
@@ -67,7 +67,7 @@ export const FormWrapper = styled.form`
 
     .inputField {
     font-size: 1.5rem;
-    color: darkgray;
+    color: #777;
     font-family: 'Sora', helvetica, sans-serif;
     font-weight: 800;
     border: none;
@@ -77,24 +77,24 @@ export const FormWrapper = styled.form`
     text-align: center;
 
     &:focus {
-        outline: 2px solid pink; // this line changes the outline color to pink when the input field is focused
+        outline: 2px solid #8cffb6; // this line changes the outline color to pink when the input field is focused
     }
 }
 
     .submitButton {
         margin: 40px 0px;
         font-size: 1.2rem;
-        color: darkgray;
+        color: #777;
         font-family: 'Sora', helvetica, sans-serif;
         font-weight: 800;
         padding: 10px 20px;
-        border: 4px solid darkgray;
+        border: 4px solid #777;
         border-radius: 45px;
         cursor: pointer;
         transition: background-color 0.2s ease-in-out, color 0.3s ease-in-out;
 
         &:hover {
-            background-color: darkgray;
+            background-color: #777;
             color: white;
         }
     }
