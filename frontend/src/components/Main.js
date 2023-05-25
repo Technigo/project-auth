@@ -1,13 +1,22 @@
 import React, { useEffect } from "react";
-// import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { user, getUser } from "./reducers/user";
+import { Loading } from "./Loading"; 
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 
 const Main = () => {
     const dispatch = useDispatch();
     const accessToken = useSelector(store => store.user.accessToken);
     const email = useSelector(store => store.user.email);
+    const username = useSelector(store => store.user.username);
+    const isLoading = useSelector((store) => store.loading.isLoading)
     const navigate = useNavigate();
     useEffect(() => {
         if(!accessToken){
@@ -17,27 +26,6 @@ const Main = () => {
         }
     },[accessToken]);
     
-    // useEffect(() => {
-    //     const options = {
-    //         method:"GET",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Authorization": accessToken
-    //         }
-    //     }
-    //     fetch(API_URL("scores"), options)
-    //         .then(res => res.json())
-    //         .then(data => {
-    //            if(data.success) {
-    //             dispatch(scores.actions.setError(null));
-    //             dispatch(scores.actions.setItems(data.response));
-    //            } else {
-    //             dispatch(scores.actions.setError(response));
-    //             dispatch(scores.actions.setItems([]));
-    //            }
-    //         })
-    // })
-
     const onLogoutButtonClick = () => {
         dispatch(user.actions.setAccessToken(null));
         dispatch(user.actions.setUsername(null));
@@ -52,10 +40,32 @@ const Main = () => {
         dispatch(user.actions.setError(null))
     }    
      return(
-    <>
-      <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button>
-        {email ? (<h2>THESE ARE THE THOUGHT OF {email.toUpperCase()}</h2>): ""}
-    </>
+        <> {!isLoading ? (
+            <>
+            <Card sx={{ maxWidth: 800 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="/static/images/cards/contemplative-reptile.jpg"
+        title="green iguana"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Welcome! Your email {email ? (<p>{email.toUpperCase()}</p>) : null} and username {username ? (<p>{username}</p>) : null} have been registered. 
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+           Ready to learn about animals? This is a fun encyclopedia full of animal facts and games that you are going to love. Lets start learning!
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
+              <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button>
+              
+            </>
+          ) : <Loading />}
+          </>
+          
      )
 };
 
