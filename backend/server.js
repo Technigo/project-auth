@@ -146,17 +146,53 @@ app.post("/login", async (req, res) => {
 // Start defining your routes here
 app.get("/surfposts", authenticateUser);
 app.get("/surfposts", async (req, res) => {
-  const surferposts = await UserPost.find({});
-  res.status(200).json({ success: true, response: surferposts })
+  const accessToken = req.header("Authorization");
+  try {
+    const user = await User.findOne({ accessToken: accessToken });
+    const surferposts = await UserPost.find({ user: user._id });
+    if (surferposts.length) {
+      res.status(200).json({
+        success: true,
+        response: surferposts
+      })
+    } else {
+      res.status(404).json({
+        success: true,
+        response: "No posts found from this creator"
+      })
+    }
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      response: e
+    })
+  }
 });
 
 app.post("/surfposts", authenticateUser);
 app.post("/surfposts", async (req, res) => {
   const { headline, message, location, } = req.body;
   const accessToken = req.header("Authorization");
-  const user = await User.findOne({ accessToken: accessToken });
-  const surferpost = await new UserPost({ headline: headline, message: message, location: location, user: user._id }).save();
-  res.status(200).json({ success: true, response: surferpost })
+  try {
+    const user = await User.findOne({ accessToken: accessToken });
+    const surferposts = await new UserPost({ headline: headline, message: message, location: location, user: user._id }).save();
+    if (surferposts) {
+      res.status(201).json({
+        success: true,
+        response: surferposts
+      })
+    } else {
+      res.status(400).json({
+        success: false,
+        response: ""
+      })
+    }
+  } catch (e) {
+    res.status(400).json({
+      success: false,
+      response: e
+    })
+  }
 });
 
 // Start the server
