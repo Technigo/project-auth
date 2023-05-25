@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import user from "reducers/user";
 import { API_URL } from "utils/urls";
+import { ButtonWrapper, FormWrapper } from './Login_styled'; // make sure to import FormWrapper
+
 
 const Login = () => {
     // The component initializes state variables for username,
@@ -90,39 +92,46 @@ const Login = () => {
     return (
         <>
             {/* Radio buttons for selecting login or register mode */}
-            <label htmlFor="register">Register</label>
-            <input
-                type="radio"
-                id="register"
-                checked={mode === "register"}
-                onChange={() => setMode("register")}
-            />
-            <label htmlFor="login">Login</label>
-            <input
-                type="radio"
-                id="login"
-                checked={mode === "login"}
-                onChange={() => setMode("login")}
-            />
-
+            <ButtonWrapper>
+                <label className="buttonWrapper" radiobutton htmlFor="register">Register
+                    <input
+                        type="radio"
+                        id="register"
+                        checked={mode === "register"}
+                        onChange={() => setMode("register")}
+                    />
+                    <span class="checkmark"></span>
+                </label>
+                <label className="buttonWrapper" htmlFor="login">Login
+                    <input
+                        type="radio"
+                        id="login"
+                        checked={mode === "login"}
+                        onChange={() => setMode("login")}
+                    />
+                    <span class="checkmark"></span>
+                </label>
+            </ButtonWrapper>
             {/* Login/registration form */}
-            <form onSubmit={onFormSubmit}>
-                <label htmlFor="username">Username</label>
+            <FormWrapper onSubmit={onFormSubmit}>
+                <label htmlFor="username" className="inputLabel">Username</label>
                 <input
                     type="text"
                     id="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    className="inputField"
                 />
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password" className="inputLabel">Password</label>
                 <input
                     type="password"
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    className="inputField"
                 />
-                <button type="submit">Submit</button>
-            </form>
+                <button type="submit" className="submitButton">Submit</button>
+            </FormWrapper>
         </>
     );
 };
