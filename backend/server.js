@@ -40,6 +40,35 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
+const userPostSchema = new mongoose.Schema({
+  headline: {
+    type: String,
+    required: true
+  },
+  message: {
+    type: String,
+    required: true
+  },
+  location: {
+    type: String,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    default: () => new Date()
+  },
+  likes: {
+    type: Number,
+    default: 0
+  },
+  user: {
+    type: String,
+    require: true
+  }
+})
+
+const UserPost = mongoose.model("UserPost", userPostSchema);
+
 // Authenticate the user
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
@@ -115,9 +144,19 @@ app.post("/login", async (req, res) => {
 })
 
 // Start defining your routes here
-app.get("/", authenticateUser);
-app.get("/", (req, res) => {
-  res.send("Welcome to the super secret page!");
+app.get("/surfposts", authenticateUser);
+app.get("/surfposts", async (req, res) => {
+  const surferposts = await UserPost.find({});
+  res.status(200).json({ success: true, response: surferposts })
+});
+
+app.post("/surfposts", authenticateUser);
+app.post("/surfposts", async (req, res) => {
+  const { headline, message, location, } = req.body;
+  const accessToken = req.header("Authorization");
+  const user = await User.findOne({ accessToken: accessToken });
+  const surferpost = await new UserPost({ headline: headline, message: message, location: location, user: user._id }).save();
+  res.status(200).json({ success: true, response: surferpost })
 });
 
 // Start the server
