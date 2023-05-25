@@ -62,6 +62,15 @@ const Main = () => {
             {thoughtItems.map((item) => {
                 return <p key={item._id}>{item.message}</p>; // Render paragraphs for each thought item in the "thoughtItems" array
             })}
+             <form onSubmit={onMessageSubmit}>
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Enter your message"
+        />
+        <button type="submit">Post Message</button>
+      </form>
         </>
     );
 };
