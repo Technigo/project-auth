@@ -3,15 +3,12 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-
+import validator from 'validator';
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -20,27 +17,35 @@ app.use(cors());
 app.use(express.json());
 const listEndpoints = require('express-list-endpoints');
 
-// Start defining your routes here
+// Routes
 app.get("/", (req, res) => {
   res.json(listEndpoints(app));
 });
 
-// const { Schema } = mongoose;
-
+const isValidUsername = /^[a-zA-Z0-9_.-]{8,}$/
 const userSchema = new mongoose.Schema({
   username: {
     type:String,
     required: true,
-    unique: true
+    unique: true,
+     validate: {
+      validator: (value) => isValidUsername.test(value)
+    }
   },
   password: {
     type:String,
-    required: true
+      required: true,
+      validate: {
+      validator: (value) => validator.isStrongPassword(value)
+    }
   },
   email:{
     type:String,
     required:true,
-    unique: true
+    unique: true,
+     validate: {
+      validator: (value) => validator.isEmail(value)
+    }
   },
   createdAt:{
     type:String,
@@ -90,7 +95,21 @@ const User = mongoose.model("User", userSchema);
 // register user and login requests
 app.post("/register", async (req, res) => {
   const { username, password, email } = req.body;
+
+
    try {
+       // Perform password validation
+    if (!validator.isStrongPassword(password)) {
+      throw new Error("Invalid password. Password must be at least 8 characters long and contain a combination of uppercase letters, lowercase letters, numbers, and special characters.");
+    }
+    // Perform username validation
+    if (!validator.matches(username, isValidUsername)) {
+      throw new Error("Invalid username. Username must be at least 8 characters long and can only contain alphanumeric characters, underscores, dots, and dashes.");
+    }
+    // Perform email validation
+    if (!validator.isEmail(email)) {
+      throw new Error("Invalid email address.");
+    }
     const salt = bcrypt.genSaltSync();
     const newUser = await new User ({
       username: username,
@@ -111,18 +130,41 @@ app.post("/register", async (req, res) => {
     } else {
     res.status(404).json({
     success:false,
-    response:'Failed registration. Email or username is not valid.'
+    response:'Failed registration.'
 })
-    } // check this later
+    } 
 
-  } catch (e) {
-    res.status(400).json({
-      success:false,
-      response: {
-        message:'Username or email is already used',
-        error:e
-      }
-    })
+  } catch (error) {
+   console.log("Registration error:", error);
+if(error.code === 11000){
+  res.status(400).json({
+        success: false,
+        response: 'Username or email have been already used.',
+      });
+}
+else if (error.message.includes("password")) {
+      res.status(400).json({
+        success: false,
+        response: error.message,
+      });
+    } else if (error.message.includes("username")) {
+      res.status(400).json({
+        success: false,
+        response: error.message,
+      });
+    } else if (error.message.includes("email")) {
+      res.status(400).json({
+        success: false,
+        response: error.message,
+      });
+    } 
+   
+else {
+      res.status(500).json({
+        success: false,
+        response: "Internal server error.",
+      });
+    }
   }
 });
 
@@ -143,7 +185,7 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "Credentials do not match"//check later
+        response: "The email address or password is incorrect. Please try again."
       });
     }
   } catch (error) {
@@ -151,7 +193,7 @@ app.post("/login", async (req, res) => {
       success: false,
       response:{
         error:error,
-        message:"Internal server error" //check later
+        message:"Internal server error"
       }
     });
   }
@@ -167,14 +209,14 @@ const authenticateUser = async (req, res, next) => {
   } else {
     res.status(401).json({
         success: false,
-        response: "User could not be authenticated"
+        response: "Authentication failed."
       })
   }
 } catch (error) {
   res.status(500).json({
     success: false,
     response:{
-      message:'Internal server error',
+      message:'Internal server error!',
       error:error
     } 
 })
@@ -185,49 +227,42 @@ app.get("/user",authenticateUser);
 app.get("/user", async (req, res) => {
  const accessToken = req.header("Authorization");
  const user = await User.findOne({accessToken: accessToken});
-//  const thoughts = await Thought.find({user: user._id})
- // https://mongoosejs.com/docs/populate.html
  try{
-
  if(user){
 res.status(200).json({success: true, response: user})
  }else{
-  res.status(401).json({success: false, response: "Could not find user"})
+  res.status(401).json({success: false, response: "Could not find user."})
  }
 }catch(error){
   res.status(500).json({
     success: false,
     response:{
-      message:'Server error', //revise this later
+      message:'Internal server error',
       error:error
     } 
 })
 }
  
 });
-// app.post("/totalScore",authenticateUser);
-// app.post("/totalScore", async (req, res) => {
-//   const { message } = req.body;
-//   const accessToken = req.header("Authorization");
-//   const user = await User.findOne({accessToken: accessToken});
-//   const totalScore = await new Score({score: score, user: user._id}).save()
-//   res.status(200).json({success: true, response: totalScore})
-// });
 
 //updating total score, history, badges, avatar
 app.patch("/user",authenticateUser);
 app.patch("/user", async (req, res) => {
  try {
-    const { totalScore, badges, avatar, history } = req.body;
+const { totalScore, badges, avatar, history } = req.body;
     const accessToken = req.header("Authorization");
+
+const updateFields = {
+  $set: { totalScore: totalScore, avatar: avatar },
+  $push: { badges: { $each: [badges] } }
+};
+if (history) {
+  updateFields.$push = { history: { $each: [history] } };
+}
+
     const user = await User.findOneAndUpdate(
       { accessToken: accessToken },
-       {
-        totalScore: totalScore,
-        badges: badges,
-        avatar: avatar,
-        history: history // check how to add timestamp
-      },
+        updateFields,
       { new: true }
     );
 
@@ -240,6 +275,8 @@ app.patch("/user", async (req, res) => {
     res.status(500).json({ success: false, response: "Internal server error." });
   }
 });
+
+
 
 // Start the server
 app.listen(port, () => {
