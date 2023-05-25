@@ -1,26 +1,27 @@
 import React from "react";
-import { Box, Button } from '@mui/material';
 import { Link } from "react-router-dom";
+import { Box, Button } from "@mui/material";
 
-export const NotFound = () => {
+export const Startpage = () => {
     return (
         <Box>
-            <p>PAGE COULD NOT BE FOUND :(</p>
+            <h1>This is the startpage</h1>
+
+            <Link to="/register">
+                <Button 
+                    type="submit" 
+                    variant="outlined"
+                >           
+                GO TO REGISTER
+                </Button>
+            </Link>
+            
             <Link to="/login">
                 <Button 
                     type="submit" 
                     variant="outlined"
                 >           
                 GO TO LOGIN
-                </Button>
-            </Link>
-
-            <Link to="/">
-                <Button 
-                    type="submit" 
-                    variant="outlined"
-                >           
-                GO TO STARTPAGE
                 </Button>
             </Link>
 

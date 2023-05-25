@@ -1,19 +1,21 @@
 import { Box, Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 // import { API_URL } from 'utils/urls';
 import { BASE_URL } from 'utils/urls';
 import user from 'reducers/user';
 
-
 const Register = () => {
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
+    const [successMsg, setSuccessMsg] = useState("");
+    const [isRegistered, setIsRegistered] = useState(false);
     const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(password);
         const options = {
             method: "POST",
             headers: {
@@ -26,15 +28,18 @@ const Register = () => {
             .then(data => {
                 if (data.success) {
                     console.log(data)
-                    dispatch(user.actions.setAccessToken(data.response.accessToken))
+                    // dispatch(user.actions.setAccessToken(data.response.accessToken))
                     dispatch(user.actions.setUserName(data.response.username))
                     dispatch(user.actions.setUserId(data.response.id))
                     dispatch(user.actions.setError(null))
+                    setIsRegistered(true);
+                    setSuccessMsg('User successfully created')
                 } else {
                     dispatch(user.actions.setAccessToken(null))
                     dispatch(user.actions.setUserName(null))
                     dispatch(user.actions.setUserId(null))
                     dispatch(user.actions.setError(data.response))
+                    setErrorMsg('User could not be created')
                 }
             })
             .catch(error => {
@@ -69,9 +74,13 @@ const Register = () => {
             <Button 
                 type="submit" 
                 variant="outlined"
+                component={isRegistered ? Link : "button"}
+                to={isRegistered ? "/login" : undefined}
             >
-            Submit
+                {isRegistered ? "Go to login" : "Submit"}
             </Button>
+            <p>{errorMsg}</p>
+            <p>{successMsg}</p>
         </Box>
     )
 };

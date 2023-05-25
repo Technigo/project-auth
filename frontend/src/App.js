@@ -1,8 +1,10 @@
 import React from 'react';
-import { Main } from 'components/Main';
+import { Main } from 'components/Secrets';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Login } from 'components/Login';
+import Login from 'components/Login';
 import Register from 'components/Register';
+import { Startpage } from 'components/Startpage';
+import { Secrets } from 'components/Secrets';
 import { NotFound } from 'components/NotFound';
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
@@ -21,9 +23,10 @@ export const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Startpage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/secrets" element={<Secrets />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
