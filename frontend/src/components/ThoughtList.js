@@ -47,18 +47,45 @@ export const ThoughtList = () => {
   return (
     <section>
       {thoughtItems.map((list) => (
+        
         <div className="Thoughts" key={list._id}>
-          <p className="thought-text">{list.message}</p>
-
           <h1>{list.user.username}</h1>
+          <p className="thought-text">{list.message}</p>
+          
+
           <div className="likes">
+              {/* hand */}
+              <button
+              type="button"
+              className={list.flames === 0 ? 'like-btn' : 'no-like-btn'}
+              onClick={() => onLikesIncrease(list._id)}>
+                <p className="counter">🤘🏽 x {list.hearts}</p>
+            </button>
+
+            {/* hearts */}
             <button
               type="button"
               className={list.hearts === 0 ? 'like-btn' : 'no-like-btn'}
-              onClick={() => onLikesIncrease(list._id)}>
-              ❤️
+              onClick={() => onLikesIncrease(list._id)}>            
+              <p className="counter">💗 x {list.hearts}</p>
             </button>
-            <p className="counter">x {list.hearts}</p>
+
+            {/* flames */}
+            <button
+              type="button"
+              className={list.flames === 0 ? 'like-btn' : 'no-like-btn'}
+              onClick={() => onLikesIncrease(list._id)}>
+                <p className="counter">🔥 x {list.hearts}</p>
+            </button>
+
+            {/* lemon */}
+            <button
+              type="button"
+              className={list.flames === 0 ? 'like-btn' : 'no-like-btn'}
+              onClick={() => onLikesIncrease(list._id)}>              
+                <p className="counter">🍋 x {list.hearts}</p>
+            </button>
+
             {/* <p className="date">
               {formatDistance(new Date(list.createdAt), Date.now(), {
                 addSuffix: true

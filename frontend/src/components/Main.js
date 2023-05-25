@@ -51,7 +51,8 @@ const Main = () => {
     return(
         <>
             <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button>
-            {username ? (<h2>This is where the cool kids hang, {username.toUpperCase()}!</h2>): ""}
+            {username ? (<h2>Welcome to the secret spot!<br />
+            This is where the cool kids hangs, {username.toUpperCase()}!</h2>): ""}
             {/* {thoughtItems.map(item => {
                 return(<p key={item._id}>{item.message}</p>)
             })} */}

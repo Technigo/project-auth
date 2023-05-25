@@ -18,6 +18,7 @@ div#root {
   align-items: center;
   justify-content: center;
   width: 100vw;
+  /* height: 100vh; */
   background-color: #ab5bff;
   background-image: url("https://images.unsplash.com/photo-1564769610726-59cead6a6f8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2149&q=80");
   background-repeat: no-repeat;
@@ -86,4 +87,70 @@ input#password {
 
 h2 {
   font-family: sans-serif;
+  text-align: center;
+}
+/* username */
+h1 {
+  font-family: sans-serif;
+  text-align: center;
+}
+/* input message */
+p.thought-text{
+  font-family: sans-serif;
+  text-align: center;
+  border: 1px solid black;; 
+}
+
+div.Thoughts {
+  border: 1px solid black;
+  width: 300px;
+}
+
+button.submit-btn {
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+div.input-btn-box {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  padding: 15px;
+  gap: 5px;
+}
+
+div.likes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  gap: 5px;
+}
+
+/* Not really sure why they get different names? */
+
+.no-like-btn {
+  display: flex;
+  flex-direction: row;
+  width: 47px;
+  justify-content: center;
+  background: #c4b0403d;
+  border-radius: 40px;
+}
+
+
+.like-btn {
+  display: flex;
+  flex-direction: row;
+  width: 47px;
+  justify-content: center;
+  background: #c4b0403d;
+  border-radius: 40px;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }

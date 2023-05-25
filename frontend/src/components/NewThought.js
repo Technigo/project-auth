@@ -53,7 +53,7 @@ export const NewThought = () => {
   return (
     <>
     <form className="message-container" onSubmit={onFormSubmit}>
-      <p className="thought-text">share your thoughts</p>
+      <div className='input-btn-box'>
       <textarea
         placeholder="What's up?"
         value={newMessage}
@@ -62,8 +62,9 @@ export const NewThought = () => {
       <div className="main">
         {/* <div className="char-count">{remainingChars}  / 140</div> */}
         <button className="submit-btn" type="submit" disabled={newMessage.length < 1 || newMessage.length > 160}>
-          ❤️ Send a Happy Thought ❤️
+          send
         </button>
+        </div>
       </div>
     </form>
     </>
