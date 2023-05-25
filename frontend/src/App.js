@@ -6,6 +6,7 @@ import { NotFound } from "components/NotFound";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { user } from "./reducers/user";
 import { Provider } from "react-redux";
+import { Register } from "components/Register";
 
 const reducer = combineReducers({
   user: user.reducer,
@@ -20,6 +21,7 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>
