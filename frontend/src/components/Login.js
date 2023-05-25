@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import user from 'reducers/user';
 import { API_URL } from 'utils/urls';
 import styled from 'styled-components';
+import { Player, Controls } from '@lottiefiles/react-lottie-player';
 
 export const Login = () => {
     const [username, setUsername] = useState("");
@@ -47,11 +48,8 @@ export const Login = () => {
     }
     return (
         <>
+        <Hello><h1>Hello!</h1></Hello>
         <LoginWrapper>
-            <Header>
-                <h1>Welcome!</h1>
-                <h2>Sign in for todays qoute</h2>
-            </Header>
             <RegisterLogin>
             <label htmlFor="register">Register</label>
             <input
@@ -67,48 +65,100 @@ export const Login = () => {
                 onChange={() => setMode("login")}/>
             </RegisterLogin>
             <form onSubmit={onFormSubmit}>
-                <label htmlFor="username">Username</label>
+            <Inputs>
                 <input
                     type="text"
                     id="username"
                     value={username}
+                    placeholder="Username"
                     onChange={event => setUsername(event.target.value)}/>
-                <label htmlFor="password">Password</label>
                 <input
                     type="password"
                     id="password"
                     value={password}
+                    placeholder="Password"
                     onChange={event => setPassword(event.target.value)}/>
+                    <Monster>
+                    <Player
+                     autoplay
+                     loop
+                     src="https://assets3.lottiefiles.com/packages/lf20_borkvxlu.json"
+                     style={{ height: '100px', width: '100px', }}>
+                     <Controls visible={false} buttons={['play', 'repeat', 'frame', 'debug']} />
+                     </Player>
+                     </Monster>
                 <button type="submit">Submit</button>
+                </Inputs>
             </form>
+            
             </LoginWrapper>
         </>
     )
 };
 
-const LoginWrapper = styled.div`
-width: 350px;
-height: 400px;
-background-color: linen;
-margin-left: 50px;
-margin-top: 90px;
-border-radius: 10px;
-`
-const Header = styled.div`
+//<label htmlFor="username">Username</label>//
+// <label htmlFor="password">Password</label>//
+
+const Hello = styled.div`
+color: white;
 display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-h1 {
-    font-size: 29px;
-}
-h2 {
-    font-size: 20px;
-}
+justify-content: flex-start;
+margin: 30px 0 -20px 28px;
+font-size: 42px;
+font-family: 'Cherry Bomb One', cursive;
+`
+
+const LoginWrapper = styled.div`
+height: 500px;
+border-radius:  100% 7% / 50% 1%;;
+background-color: pink;
+font-family: 'Montserrat', sans-serif;
 `
 
 const RegisterLogin = styled.div`
 display: flex;
 flex-direction: row;
 justify-content: center;
+font-size: 18px;
+gap: 10px;
+padding-top: 130px;
+`
+const Inputs = styled.div`
+display: flex;
+flex-direction: column;
+padding: 30px;
+@media (min-width: 768px) {
+    align-items: center;
+}
+
+input {
+    height: 30px;
+    outline: 0;
+    border-width: 0 0 1px;
+    border-color: black;
+    margin-bottom: 15px;
+    background-color: pink;
+    width: 340px;
+    font-family: 'Montserrat', sans-serif;
+::placeholder { 
+  color: black;
+  opacity: 1;
+  font-size: 18px;
+}
+}
+button {
+    width: 230px;
+    height: 40px;
+    color: white;
+    font-size: 18px;
+    background-color: black;
+    align-self: center;
+    border-radius: 10px;
+    border-style: none;
+    margin-top: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+`
+const Monster = styled.div`
+margin: 0 0 -45px 55px;
 `
