@@ -102,6 +102,7 @@ app.post("/register", async (req, res) => {
       success:true,
       response:{
         username: newUser.username,
+        email: newUser.email,
         id: newUser._id,
         accessToken: newUser.accessToken,
         password:newUser.password
@@ -134,7 +135,7 @@ app.post("/login", async (req, res) => {
       res.status(201).json({
         success: true,
         response: {
-          username: user.email,
+          email: user.email,
           id: user._id,
           accessToken: user.accessToken
         }
@@ -166,7 +167,7 @@ const authenticateUser = async (req, res, next) => {
   } else {
     res.status(401).json({
         success: false,
-        response: "Please log in"
+        response: "User could not be authenticated"
       })
   }
 } catch (error) {
@@ -179,15 +180,31 @@ const authenticateUser = async (req, res, next) => {
 })
 }};
 
-// Get and post totalScore
-// app.get("/thoughts",authenticateUser);
-// app.get("/thoughts", async (req, res) => {
-//  const accessToken = req.header("Authorization");
-//  const user = await User.findOne({accessToken: accessToken});
+// Get user info and post totalScore
+app.get("/user",authenticateUser);
+app.get("/user", async (req, res) => {
+ const accessToken = req.header("Authorization");
+ const user = await User.findOne({accessToken: accessToken});
 //  const thoughts = await Thought.find({user: user._id})
-  //https://mongoosejs.com/docs/populate.html
-//  res.status(200).json({success: true, response: thoughts})
-// });
+ // https://mongoosejs.com/docs/populate.html
+ try{
+
+ if(user){
+res.status(200).json({success: true, response: user})
+ }else{
+  res.status(401).json({success: false, response: "Could not find user"})
+ }
+}catch(error){
+  res.status(500).json({
+    success: false,
+    response:{
+      message:'Server error', //revise this later
+      error:error
+    } 
+})
+}
+ 
+});
 // app.post("/totalScore",authenticateUser);
 // app.post("/totalScore", async (req, res) => {
 //   const { message } = req.body;

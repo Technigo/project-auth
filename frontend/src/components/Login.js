@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { registerUser, user, loginUser } from "./reducers/user";
 
 const Login = () => {
   const[username, setUsername] = useState("");
   const[password, setPassword] = useState("");
-  const [mode, setMode] = useState("login")
+  const[email, setEmail] = useState("");
+  const mode = useSelector(store => store.user.mode);
+  console.log(mode, username, password, email)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector(store => store.user.accessToken);
@@ -14,33 +17,14 @@ const Login = () => {
       navigate("/")
    }
   }, [accessToken]);
-  
-  const onFormSubmit = (event) => {
-      event.preventDefault();
-      const options = {
-         method: "POST",
-         headers: {
-            "Content-Type": "application/json"
-         },
-         body: JSON.stringify({username:username, password:password})
-      }
-      fetch (API_URL(mode), options)
-      .then(response => response.json())
-      .then(data => {
-         if(data.success) {
-            dispatch(user.actions.setAccessToken(data.response.accessToken));
-            dispatch(user.actions.setUsername(data.response.username));
-            dispatch(user.actions.setUserId(data.response.id));
-            dispatch(user.actions.setError(null))
-         } else {
-            dispatch(user.actions.setAccessToken(null));
-            dispatch(user.actions.setUsername(null));
-            dispatch(user.actions.setUserId(null));
-            dispatch(user.actions.setError(data.response))
-         }
-      })
-   }
-
+const onFormSubmit = (event)=>{
+event.preventDefault()
+if(mode==='register'){
+dispatch(registerUser(username, email, password))
+}else if(mode==='login'){
+   dispatch(loginUser(email, password))
+}
+}
      return(
       <>  
       <label htmlFor="register">Register</label>
@@ -48,13 +32,13 @@ const Login = () => {
           type="radio" 
           id="register" 
           checked={mode === "register"}
-          onChange={() => setMode("register")}/>
+          onChange={() => dispatch(user.actions.setMode("register"))}/>
       <label htmlFor="login">Login</label>
       <input 
           type="radio" 
           id="login" 
           checked={mode === "login"}
-          onChange={() => setMode("login")}/>
+          onChange={() => dispatch(user.actions.setMode("login"))}/>
       <form onSubmit={onFormSubmit}>
           <label htmlFor="username">Username</label>
           <input 
@@ -62,6 +46,12 @@ const Login = () => {
               id="username" 
               value={username} 
               onChange={e => setUsername(e.target.value)} />
+          <label htmlFor="email">Email</label>
+          <input 
+              type="text" 
+              id="email" 
+              value={email} 
+              onChange={e => setEmail(e.target.value)} />
           <label htmlFor="password">Password</label>
           <input 
               type="password" 
@@ -74,4 +64,4 @@ const Login = () => {
      );
 };
 
-export default Login;
+export default Login

@@ -4,6 +4,7 @@ const score = createSlice({
     name:"score",
     initialState:{
         items:[],
+        totalScore:0,
         error:null
     },
     reducers:{
