@@ -1,22 +1,23 @@
 import React from "react";
-import { BottomNavigation, Typography, Link} from "@mui/material";
+import { BottomNavigation, Typography, Link, Paper} from "@mui/material";
 
 export const Footer = () => {
   return (
-    <BottomNavigation
-      sx={{
+    <Paper sx={{
         position: "fixed",
         bottom: 0,
         left: 0,
         right: 0,
         color: "black",
-        height: 0.06,
-      }}
+        height: 0.06
+      }} elevation={3}>
+    <BottomNavigation
     >
       <Typography
-        variant="body2"
+        variant="body1"
         color="text.secondary"
         fontFamily="VT323, monospace"
+        paddingTop={2}
       >
         {"Made by "}
         <Link
@@ -41,5 +42,6 @@ export const Footer = () => {
         {new Date().getFullYear()}
       </Typography>
     </BottomNavigation>
+    </Paper>
   );
 };
