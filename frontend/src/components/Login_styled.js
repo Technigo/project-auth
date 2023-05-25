@@ -77,7 +77,7 @@ export const FormWrapper = styled.form`
     text-align: center;
 
     &:focus {
-        outline: 2px solid #8cffb6; // this line changes the outline color to pink when the input field is focused
+        outline: 2px solid pink; // this line changes the outline color to pink when the input field is focused
     }
 }
 
@@ -91,7 +91,7 @@ export const FormWrapper = styled.form`
         border: 4px solid #777;
         border-radius: 45px;
         cursor: pointer;
-        transition: background-color 0.2s ease-in-out, color 0.3s ease-in-out;
+        transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out;
 
         &:hover {
             background-color: #777;
