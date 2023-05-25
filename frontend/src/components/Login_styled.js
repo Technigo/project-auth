@@ -70,7 +70,7 @@ export const FormWrapper = styled.form`
     color: darkgray;
     font-family: 'Sora', helvetica, sans-serif;
     font-weight: 800;
-    border: 1px solid darkgray;
+    border: none;
     padding: 10px;
     border-radius: 5px;
     width: 200px;
