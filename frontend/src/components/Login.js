@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import user from "reducers/user";
 import { API_URL } from "utils/urls";
 import styled from "styled-components";
+import { Button, TextField, Alert, AlertTitle, Container, FormControl, RadioGroup, FormControlLabel, Radio, Typography, Box, Grid } from "@mui/material";
 
 const Login = () => {
     const [username, setUsername] = useState("")
@@ -48,37 +49,116 @@ const Login = () => {
     }
 
     return (
-        <>
-        <label htmlFor="register">Register</label>
-        <input 
-            type="radio" 
-            id="register" 
-            checked={mode === "register"}
-            onChange={() => setMode("register")}/>
-        <label htmlFor="login">Login</label>
-        <input 
-            type="radio" 
-            id="login" 
-            checked={mode === "login"}
-            onChange={() => setMode("login")}/>
-            
-        <form onSubmit={onFormSubmit}>
-            <label htmlFor="username">Username</label>
-            <input 
-                type="text" 
-                id="username" 
-                value={username} 
-                onChange={event => setUsername(event.target.value)} />
-            <label htmlFor="password">Password</label>
-            <input 
-                type="password" 
-                id="password" 
-                value={password} 
-                onChange={event => setPassword(event.target.value)} />
-            <button type="submit">Submit</button>
+        <Container component="main" maxWidth="xs" sx={{marginTop: 8}}>
+            <Typography component="h1">Welcome! Please register and/or login to continue.</Typography>
+            <FormControl id="register-or-login">
+                <RadioGroup
+                    row
+                    aria-labelledby="register-or-login-button-group"
+                    defaultValue={mode === "register"}
+                    name="register-or-login-button-group">
+                    <FormControlLabel 
+                        value="register" 
+                        control={<Radio />}
+                        label="Register"
+                        checked={mode === "register"}
+                        onChange={() => setMode("register")}/>
+                    <FormControlLabel 
+                        value="login" 
+                        control={<Radio />}
+                        label="Login"
+                        checked={mode === "login"}
+                        onChange={() => setMode("login")}/>
+                  </RadioGroup>
+            </FormControl>
+           
+            {/* <label htmlFor="register">Register</label>
+            <input
+                type="radio"
+                id="register"
+                checked={mode === "register"}
+                onChange={() => setMode("register")}
+            />
+            <label htmlFor="login">Login</label>
+            <input
+                type="radio"
+                id="login"
+                checked={mode === "login"}
+                onChange={() => setMode("login")}
+            /> */}
+            <Box component="form" onSubmit={onFormSubmit}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <TextField
+                            required
+                            fullWidth
+                            type="text"
+                            id="username"
+                            label="Username"
+                            variant="outlined"
+                            value={username}
+                            onChange={event => setUsername(event.target.value)}
+                            minLength="4"
+                            maxLength="30"
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            required
+                            fullWidth
+                            type="password"
+                            id="password"
+                            label="Password"
+                            variant="outlined"
+                            value={password}
+                            onChange={event => setPassword(event.target.value)}
+                            minLength="4"
+                            maxLength="30"
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            disabled={username.length < 4 || username.length > 30 && password.length < 8 || password.length > 30}>
+                            Submit
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12}>
+                        {errorMessage && (
+                            <Alert severity="error">
+                            <AlertTitle>Error</AlertTitle>
+                            {errorMessage}
+                            </Alert>
+                        )}
+                    </Grid>
+                </Grid>
+            </Box>
+
+            {/* <form onSubmit={onFormSubmit}>
+                <label htmlFor="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={event => setUsername(event.target.value)}
+                    minLength="4"
+                    maxLength="30"
+                />
+                <label htmlFor="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={event => setPassword(event.target.value)}
+                    minLength="4"
+                    maxLength="30"
+                />
+                <button type="submit" disabled={username.length < 4 || username.length > 30 && password.length < 7 || password.length > 30}>Submit</button>
             </form>
-            {errorMessage && <p>{errorMessage}</p>}
-        </>
+            {errorMessage && {errorMessage}} */}
+
+        </Container>
     )
 }
 

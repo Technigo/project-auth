@@ -73,7 +73,7 @@ app.post("/register", async (req, res) => {
     })
   }
 })
-// Login/ Sign in
+// Login / Sign in
 app.post("/login", async (req, res) => {
   const { username, password } = req.body
   try {
@@ -93,7 +93,7 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "Could not login, credentials do not match"
+        message: "Could not login, login details do not match"
       })
     }
   } catch (err) {
