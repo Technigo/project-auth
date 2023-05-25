@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import thoughts from 'reducers/thoughts';
 import user from 'reducers/user';
 import { API_URL } from 'utils/urls';
