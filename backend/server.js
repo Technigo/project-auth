@@ -169,6 +169,35 @@ app.post("/thoughts", async (req, res) => {
   const thoughts = await new Thought({message: message, user: user._id}).save();
   res.status(200).json({success: true, response: thoughts})
 });
+
+// PATCH thoughts/:thoughtId/like - get a heart like on a thought 
+app.patch('/thoughts/:thoughtId/like', async (req, res) => {
+  const { thoughtId } = req.params;
+  try {
+    const thought = await Thought.findById(thoughtId);
+    if (thought) {
+      thought.hearts += 1; 
+      const updatedThought = await thought.save();
+      res.status(200).json({
+        success: true,
+        response: updatedThought,
+        message: `Thought ${ updatedThought.id} added heart successfully`
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Thought not found"
+      });
+    }
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      response: err,
+      message: "Error occured"
+    });
+  }
+})
+
 ///////////
 // Start the server
 app.listen(port, () => {

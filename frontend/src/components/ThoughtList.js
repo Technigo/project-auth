@@ -11,7 +11,8 @@ import thoughts from 'reducers/thoughts';
 // The loading state is used to render a loading message while the data is being fetched.
 // The onLikesIncrease function is called when the user clicks on the heart button to
 // increase the number of hearts for a specific thought.
-export const ThoughtList = () => {
+export const ThoughtList = ({ onLikesIncrease }) => {
+  console.log(onLikesIncrease, 'working')
     const thoughtItems = useSelector((store) => store.thoughts.items);
     const dispatch = useDispatch();
     const accessToken = useSelector(store => store.user.accessToken);
@@ -38,11 +39,11 @@ export const ThoughtList = () => {
                 dispatch(thoughts.actions.setError(null));
                 dispatch(thoughts.actions.setItems(data.response));
             } else {
-                dispatch(thoughts.actions.setError(response));
+                dispatch(thoughts.actions.setError(data.response));
                 dispatch(thoughts.actions.setItems([]));
             }
         });
-})
+}, []);
   
   return (
     <section>
