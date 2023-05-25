@@ -157,7 +157,7 @@ app.get("/surfposts", async (req, res) => {
       })
     } else {
       res.status(404).json({
-        success: true,
+        success: false,
         response: "No posts found from this creator"
       })
     }
