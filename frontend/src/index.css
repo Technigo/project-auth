@@ -5,20 +5,7 @@ body {
   sans-serif;
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  background-color: #ab5bff;
-  background-image: url(https://images.unsplash.com/photo-1564769610726-59cead6a6f8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2149&q=80);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  overflow-y: scroll;
-  padding-bottom: 35px;
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>↖︎</text></svg>")
-  16 0,auto;
+
   }
 
 
@@ -46,7 +33,7 @@ code {
  padding-bottom: 35px;
 } 
 
- /*html {
+ html {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,7 +48,7 @@ code {
   16 0,
 auto;
  overflow-y: scroll;
- } */
+ } 
 
 .login-box {
   display: flex;
