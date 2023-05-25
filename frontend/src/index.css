@@ -17,7 +17,6 @@ div#root {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   width: 100vw;
   background-color: #ab5bff;
   background-image: url("https://images.unsplash.com/photo-1564769610726-59cead6a6f8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2149&q=80");
@@ -28,7 +27,7 @@ div#root {
   16 0,
 auto;
 /* overflow: hidden; */
-overflow-y: scroll;
+ overflow-y: scroll;
 }
 
 /* html {
@@ -48,7 +47,7 @@ overflow-y: scroll;
   background-color: #ab5bff;
   /* display: flex; */
   /* flex-direction: column; */
-  box-shadow: 0 0 25px rgb(0 0 0 / 96%);
+  box-shadow: 10px 10px rgb(0 0 0 / 96%);
   font-family: monospace;
   color: white;
 }
@@ -73,6 +72,7 @@ button {
   border-radius: 11px;
   border: none;
   margin: 2px;
+  padding: 5px;
 }
 
 input#username {

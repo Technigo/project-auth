@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import user from "reducers/user";
 import { API_URL } from "utils/urls";
-import Form from 'components/common/Form';
 
 
 const Login = () => {
@@ -91,7 +90,6 @@ const Login = () => {
         </form>
         </div>
         </div>
-        <Form />
         </>
     );
 }

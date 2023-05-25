@@ -19,26 +19,26 @@ const Main = () => {
         }
     }, [accessToken]);
 
-    useEffect(() => {
-        const options = {
-            method:"GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": accessToken
-            }
-        }
-        fetch(API_URL("thoughts"), options)
-            .then(res => res.json())
-            .then(data => {
-                if(data.success) {
-                    dispatch(thoughts.actions.setError(null));
-                    dispatch(thoughts.actions.setItems(data.response));
-                } else {
-                    dispatch(thoughts.actions.setError(response));
-                    dispatch(thoughts.actions.setItems([]));
-                }
-            });
-    })
+    // useEffect(() => {
+    //     const options = {
+    //         method:"GET",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Authorization": accessToken
+    //         }
+    //     }
+    //     fetch(API_URL("thoughts"), options)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             if(data.success) {
+    //                 dispatch(thoughts.actions.setError(null));
+    //                 dispatch(thoughts.actions.setItems(data.response));
+    //             } else {
+    //                 dispatch(thoughts.actions.setError(response));
+    //                 dispatch(thoughts.actions.setItems([]));
+    //             }
+    //         });
+    // })
 
 
     const onLogoutButtonClick = () => {
@@ -55,7 +55,7 @@ const Main = () => {
             {/* {thoughtItems.map(item => {
                 return(<p key={item._id}>{item.message}</p>)
             })} */}
-       {/* <NewThought /> */}
+            <NewThought /> 
             <ThoughtList />
         </>
     );

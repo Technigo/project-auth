@@ -50,7 +50,7 @@ export const ThoughtList = () => {
         <div className="Thoughts" key={list._id}>
           <p className="thought-text">{list.message}</p>
 
-          <p>{list.user.username}</p>
+          <h1>{list.user.username}</h1>
           <div className="likes">
             <button
               type="button"
