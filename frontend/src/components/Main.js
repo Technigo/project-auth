@@ -49,11 +49,6 @@ const Main = () => {
     return(
         <>
             <ResponsiveAppBar />
-            {/* <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button>
-            {username ? (<h2>{username.toUpperCase()}</h2>): ""}
-            {thoughtItems.map(item => {
-                return(<p key={item._id}>{item.message}</p>)
-            })} */}
         </>
     );
 }

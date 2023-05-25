@@ -4,13 +4,11 @@ import { useNavigate } from "react-router-dom";
 import user from "reducers/user";
 import { API_URL } from "utils/urls";
 import { Avatar, Button } from '@mui/material';
-// import Avatar from '@mui/material/Avatar';
-// import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { FormControlLabel, FormGroup } from '@mui/material';
+import Switch from '@mui/material/Switch';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -64,7 +62,13 @@ export const LoginPage = () => {
             })
     }
 
-    const defaultTheme = createTheme();
+    const defaultTheme = createTheme({
+        typography: {
+          fontFamily: [
+            'VT323', 
+            'monospace',
+          ].join(','),
+       },});;
 
     const handleModeChange = () => {
         if (mode === 'login') {
@@ -91,21 +95,9 @@ export const LoginPage = () => {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Welcome!
+                            Welcome, please {mode === 'login' ? 'login' : 'register'}
                         </Typography>
                         <Box component="form" onSubmit={onFormSubmit} noValidate sx={{ mt: 1 }}>
-                        {/* <label htmlFor="register">Register</label>
-                            <input 
-                                type="radio" 
-                                id="register" 
-                                checked={mode === "register"}
-                                onChange={() => setMode("register")}/>
-                            <label htmlFor="login">Login</label>
-                            <input 
-                                type="radio" 
-                                id="login" 
-                                checked={mode === "login"}
-                                onChange={() => setMode("login")}/> */}
                             <TextField
                                 type="text"
                                 margin="normal"
@@ -118,7 +110,7 @@ export const LoginPage = () => {
                                 name="username"
                                 autoFocus
                                 error={loginError}
-                                helperText={loginError ? 'Credentials do not match' : ''}
+                                helperText={loginError ? mode === 'login' ? 'Credentials do not match' : 'Name taken, please register another user name' : ''}
                                 />
                             <TextField
                                 margin="normal"
@@ -132,7 +124,7 @@ export const LoginPage = () => {
                                  onChange={e => setPassword(e.target.value)}
                                 autoComplete="current-password" 
                                 error={loginError}
-                                helperText={loginError ? 'Credentials do not match' : ''}
+                                helperText={loginError ? mode === 'login' ? 'Credentials do not match' : '' : ''}
                                 />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
@@ -152,9 +144,15 @@ export const LoginPage = () => {
                                     </Link>
                                 </Grid> */}
                                 <Grid item>
-                                    <Link href="#" variant="body2" onClick={handleModeChange}>
+                                    {/* <Link href="#" variant="body2" onClick={handleModeChange}>
                                     {mode === 'login' ? "Don't have an account? Register" : 'Already have an account? Login'}
-                                    </Link>
+                                    </Link> */}
+                                    <FormGroup >
+                                    {mode === 'login' ? "Don't have an account? →" : 'Already have an account? →'}
+                                    {mode === 'login' ? <FormControlLabel control={<Switch /* checked={checked} */ onChange={handleModeChange} inputProps={{ 'aria-label': 'controlled' }}
+/>} label="Login" /> : <FormControlLabel control={<Switch /* checked={checked} */ onChange={handleModeChange} inputProps={{ 'aria-label': 'controlled' }}
+/>} label="Register" />}
+                                    </FormGroup>
                                 </Grid>
                             </Grid> 
                         </Box>

@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { useDispatch } from "react-redux";
+import user from "reducers/user";
+import thoughts from "reducers/thoughts";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -23,9 +26,16 @@ const pages = [
   { name: 'Homestead', image: homeIMG },
   { name: 'Quests', image: questIMG }
 ];
-const settings = ['Account', 'Logout'];
+/* const settings = ['Account', 'Logout']; */
 
 const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'VT323', 
+      'monospace',
+    ].join(','),
+    fontSize: 18,
+ },
   status: {
     danger: '#e53e3e',
   },
@@ -41,9 +51,11 @@ const theme = createTheme({
   },
 });
 
+
 export const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -59,6 +71,14 @@ export const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const onLogoutButtonClick = () => {
+    dispatch(user.actions.setAccessToken(null));
+    dispatch(user.actions.setUsername(null));
+    dispatch(user.actions.setUserId(null));
+    dispatch(user.actions.setError(null));
+    dispatch(thoughts.actions.setItems([]));
+}
 
   return (
     <ThemeProvider theme={theme}>
@@ -81,8 +101,8 @@ export const ResponsiveAppBar = () => {
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
                 fontWeight: 700,
+                fontSize: '1.5rem',
                 letterSpacing: '.3rem',
                 color: 'inherit',
                 textDecoration: 'none',
@@ -142,7 +162,6 @@ export const ResponsiveAppBar = () => {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
@@ -150,14 +169,15 @@ export const ResponsiveAppBar = () => {
             }}
           >
             LOGO
-          </Typography>
+            </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'flex' }}
               >
+                <img src={page.image} alt={page.name} style={{ marginRight: '0.8em', width: '35px' }} />
                 {page.name}
               </Button>
             ))}
@@ -185,11 +205,12 @@ export const ResponsiveAppBar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem>
+                <Button sx={{ fontSize: '1.5rem' }}>Account</Button>
+                </MenuItem>
+                <MenuItem>
+                <Button onClick={onLogoutButtonClick} sx={{ fontSize: '1.5rem' }}>Logout</Button>
+                </MenuItem>
               </Menu>
             </Box>
           </Toolbar>
