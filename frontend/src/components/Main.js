@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import thoughts from "reducers/thoughts";
 import { API_URL } from "utils/urls";
 import user from "reducers/user";
+import { ThoughtList } from "./ThoughtList";
 
 const Main = () => {
     const thoughtItems = useSelector((store) => store.thoughts.items);
@@ -38,6 +39,7 @@ const Main = () => {
             });
     })
 
+
     const onLogoutButtonClick = () => {
         dispatch(user.actions.setAccessToken(null));
         dispatch(user.actions.setUsername(null));
@@ -48,12 +50,14 @@ const Main = () => {
     return(
         <>
             <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button>
-            {username ? (<h2>This is some shiet {username.toUpperCase()}</h2>): ""}
-            {thoughtItems.map(item => {
+            {username ? (<h2>This is where the cool kids hang, {username.toUpperCase()}!</h2>): ""}
+            {/* {thoughtItems.map(item => {
                 return(<p key={item._id}>{item.message}</p>)
-            })}
+            })} */}
+         
+            <ThoughtList />
         </>
     );
 }
 
-export default Main;
+export default Main; 

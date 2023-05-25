@@ -149,7 +149,7 @@ app.get("/thoughts", async (req, res) => {
   const accessToken = req.header("Authorization");
   try {
   const user = await User.findOne({accessToken: accessToken});
-  const thoughts = await Thought.find({user: user._id})
+  const thoughts = await Thought.find({})
   //https://mongoosejs.com/docs/populate.html
   res.status(200).json({success: true, response: thoughts})
   } catch (e) {
