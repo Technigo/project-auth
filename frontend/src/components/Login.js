@@ -29,72 +29,74 @@ const Login = () => {
             body: JSON.stringify({username: username, password: password})
         }
         fetch(API_URL(mode), options)
-            .then(lalalala => lalalala.json())
-            .then(potato => {
-                if(potato.success) {
-                    console.log(potato)
-                    dispatch(user.actions.setAccessToken(potato.response.accessToken));
-                    dispatch(user.actions.setUsername(potato.response.username));
-                    dispatch(user.actions.setUserId(potato.response.id));
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    console.log(data)
+                    dispatch(user.actions.setAccessToken(data.response.accessToken));
+                    dispatch(user.actions.setUsername(data.response.username));
+                    dispatch(user.actions.setUserId(data.response.id));
                     dispatch(user.actions.setError(null));
                 } else {
                     dispatch(user.actions.setAccessToken(null));
                     dispatch(user.actions.setUsername(null));
                     dispatch(user.actions.setUserId(null));
-                    dispatch(user.actions.setError(potato.response))
+                    dispatch(user.actions.setError(data.response))
                     setErrorMessage("Invalid credentials. Please try again.");
                 }
             })
     }
     return (
-        <>
-        
-        <Wrapper>
-        <FormWrapper>
-            <RadioButtonsWrapper>
-                <Label>
-            <label htmlFor="register">Register</label>
-            <input
-              type="radio"
-              id="register"
-              checked={mode === "register"}
-              onChange={() => setMode("register")}
+      <>
+      
+      <Wrapper>
+      <FormWrapper>
+          <RadioButtonsWrapper>
+              <Label>
+          <RadioLabel htmlFor="register">Register</RadioLabel>
+          <input
+            type="radio"
+            id="register"
+            checked={mode === "register"}
+            onChange={() => setMode("register")}
+          />
+          </Label>
+          <Label>
+          <RadioLabel htmlFor="login">Login</RadioLabel>
+          <input
+            type="radio"
+            id="login"
+            checked={mode === "login"}
+            onChange={() => setMode("login")}
+          />
+          </Label>
+          </RadioButtonsWrapper>
+          <InputWrapper>
+          <Form onSubmit={onFormSubmit}>
+            <Label htmlFor="username">Username:</Label>
+            <Input
+              type="text"
+              id="username"
+              value={username}
+              placeholder="Enter your username"
+              onChange={(e) => setUsername(e.target.value)}
             />
-            </Label>
-            <Label>
-            <label htmlFor="login">Login</label>
-            <input
-              type="radio"
-              id="login"
-              checked={mode === "login"}
-              onChange={() => setMode("login")}
+            <Label htmlFor="password">Password:</Label>
+            <Input
+              type="password"
+              id="password"
+              value={password}
+              placeholder="Enter your password"
+              onChange={(e) => setPassword(e.target.value)}
             />
-            </Label>
-            </RadioButtonsWrapper>
-            <InputWrapper>
-            <Form onSubmit={onFormSubmit}>
-              <label htmlFor="username">Username</label>
-              <Input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <label htmlFor="password">Password</label>
-              <Input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <Button type="submit">Submit</Button>
-              {errorMessage && <div className="error">{errorMessage}</div>}
-            </Form>
-          </InputWrapper>
-        </FormWrapper>
-        </Wrapper>
-        </>
-      );
+            {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+            <Button type="submit">SUBMIT</Button>
+          </Form>
+        </InputWrapper>
+      </FormWrapper>
+      </Wrapper>
+      </>
+    );
 }
 
 export default Login;
@@ -106,7 +108,6 @@ const Wrapper = styled.div`
   height: 100vh;
   background: #f8f9fd;
   color: white;
-  
 `
 
 const FormWrapper = styled.div`
@@ -138,6 +139,16 @@ flex-direction: column;
 width: 300px;
 `
 
+const Label = styled.label`
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+`;
+
+const RadioLabel = styled.label`
+  font-size: 1.5rem;
+`;
+
+
 const RadioButtonsWrapper = styled.div`
 text-align: center;
 margin-bottom: 20px;
@@ -145,19 +156,15 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 color: black;
-`
-
-const Label = styled.div`
-margin: 10px;
+gap: 4rem;
 `
 
 const Input = styled.input`
 border-radius: 15px;
 padding: 8px;
 border: none;
-margin-bottom: 15px;
-font-size: 12px;
-
+font-size: 13px;
+margin-bottom: 1rem;
 `
 
 const Button = styled.button`
@@ -167,7 +174,8 @@ margin-top: 30px;
 background-color: #F2BA52;
 color: black;
 border: 1px solid black;
-
+font-family: 'Finlandica', sans-serif;
+font-size: 1.1rem;
 
 &:hover {
     background-color: white;
@@ -179,3 +187,10 @@ border: 1px solid black;
     width: 300px;
 }
 `
+
+const ErrorMessage = styled.div`
+  color: red;
+  margin-top: 0.5rem;
+  text-align: center;
+`;
+

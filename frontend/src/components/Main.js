@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import thoughts from "reducers/thoughts";
 import { API_URL } from "utils/urls";
 import user from "reducers/user";
+import styled from "styled-components";
+
 const Main = () => {
     const thoughtItems = useSelector((store) => store.thoughts.items);
     const dispatch = useDispatch();
@@ -46,13 +48,69 @@ const Main = () => {
     }
     return(
         <>
-            <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button>
-            {username ? (<h2>THESE ARE THE THOUGHTS OF {username.toUpperCase()}</h2>): ""}
+        <Container>
+            <Wrapper>
+            <StyledButton type="button" onClick={onLogoutButtonClick}>SIGN OUT</StyledButton>
+            {username ? (<H2>THESE ARE THE THOUGHTS OF {username.toUpperCase()}</H2>): ""}
             {thoughtItems.map(item => {
-                return(<p key={item._id}>{item.message}</p>)
+                return(<P key={item._id}>{item.message}</P>)
             })}
+            </Wrapper>
+        </Container>
         </>
     );
 }
 
 export default Main;
+
+const Container = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+`
+
+const Wrapper = styled.div`
+display: flex;
+align-items: center;
+flex-direction: column;
+color: black;
+width: 40%;
+padding: 50px;
+background: #F2BA52;
+border-radius: 15px;
+border: 1px solid black;
+
+&:hover {
+    box-shadow: 5px 5px 0 0 black;
+  }
+
+@media screen and (max-width: 400px) {
+    width: 60%;
+}
+`
+
+const StyledButton = styled.button`
+cursor: pointer; 
+color: white;
+text-decoration: none;
+border-radius: 15px;
+padding: 8px;
+gap: 1rem;
+background-color: #F2BA52;
+color: black;
+border: 1px solid black;
+font-family: 'Finlandica', sans-serif;
+font-size: 1.1rem;
+
+&:hover {
+    background-color: white;
+  }
+`
+const H2 = styled.h2`
+color: white;
+`
+const P = styled.p`
+color: white;
+font-size: 1.3rem;
+`
