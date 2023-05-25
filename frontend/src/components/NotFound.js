@@ -1,10 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NotFound = () => {
     return (
-        <p> Sorry, Nothing Here </p>
-    );
+        <>
+           <p>
+            <Link to ="/login">GO TO LOGIN</Link>
+           </p>
+           <p>
+            <Link to ="/">GO TO LOGIN</Link>
+           </p>
+           <p>Sorry, nothing here....</p>
+        </>
 
+    )
 }
-
-export default NotFound ;
+export default NotFound;
