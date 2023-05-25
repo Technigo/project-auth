@@ -1,11 +1,19 @@
+// //////////////////////////////////////////////////////////////////////// //
+// /////////////////////////////// IMPORTS //////////////////////////////// //
+// //////////////////////////////////////////////////////////////////////// //
+
 import React, { useEffect, useState } from "react"; // Import required modules from React
 import { useDispatch, useSelector } from "react-redux"; // Import required modules from React Redux
 import { useNavigate } from "react-router-dom"; // Import required modules from React Router
-import thoughts from "reducers/thoughts"; // Import the "thoughts" reducer from the "reducers" folder
+import { thoughts } from "reducers/thoughts"; // Import the "thoughts" reducer from the "reducers" folder
 import { API_URL } from "utils/urls"; // Import the "API_URL" constant from the "utils/urls" module
-import user from "reducers/user"; // Import the "user" reducer from the "reducers" folder
+import { user } from "reducers/user"; // Import the "user" reducer from the "reducers" folder
 
-const Main = () => {
+// //////////////////////////////////////////////////////////////////////// //
+// /////////////////////////////// MAIN APP /////////////////////////////// //
+// //////////////////////////////////////////////////////////////////////// //
+
+export const Main = () => {
     const thoughtItems = useSelector((store) => store.thoughts.items); // Access the "items" value from the "thoughts" reducer in the Redux store
     const dispatch = useDispatch(); // Access the Redux dispatch function
     const accessToken = useSelector((store) => store.user.accessToken); // Access the "accessToken" value from the Redux store
@@ -79,8 +87,10 @@ const Main = () => {
           });
       };
       
-      
-    
+      // //////////////////////////////////////////////////////////////////////// //
+      // ///////////////////////////// RETURN JSX /////////////////////////////// //
+      // //////////////////////////////////////////////////////////////////////// //
+
     return (
         <>
             <button type="button" onClick={onLogoutButtonClick}>
@@ -102,5 +112,3 @@ const Main = () => {
         </>
     );
 };
-
-export default Main;

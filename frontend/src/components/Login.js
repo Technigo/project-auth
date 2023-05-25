@@ -1,10 +1,18 @@
+// //////////////////////////////////////////////////////////////////////// //
+// /////////////////////////////// IMPORT ///////////////////////////////// //
+// //////////////////////////////////////////////////////////////////////// //
+
 import React, { useEffect, useState } from "react"; // Import required modules from React
 import { useDispatch, useSelector } from "react-redux"; // Import required modules from React Redux
 import { useNavigate } from "react-router-dom"; // Import required modules from React Router
 import user from "reducers/user"; // Import the "user" reducer from the "reducers" folder
 import { API_URL } from "utils/urls"; // Import the "API_URL" constant from the "utils/urls" module
 
-const Login = () => {
+// //////////////////////////////////////////////////////////////////////// //
+// //////////////////////////////// APP /////////////////////////////////// //
+// //////////////////////////////////////////////////////////////////////// //
+
+export const Login = () => {
     const [username, setUsername] = useState(""); // Create a state variable for the username
     const [password, setPassword] = useState(""); // Create a state variable for the password
     const [mode, setMode] = useState("login"); // Create a state variable for the login mode ("login" or "register")
@@ -49,6 +57,10 @@ const Login = () => {
                 }
             });
     };
+
+    // //////////////////////////////////////////////////////////////////////// //
+    // //////////////////////////////// RETURN JSX //////////////////////////// //
+    // //////////////////////////////////////////////////////////////////////// //
 
     return (
         <>
@@ -134,6 +146,3 @@ const Login = () => {
 
     );
 };
-
-export default Login;
-

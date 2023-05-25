@@ -1,12 +1,20 @@
+// //////////////////////////////////////////////////////////////////////// //
+// /////////////////////////////// IMPORT ///////////////////////////////// //
+// //////////////////////////////////////////////////////////////////////// //
+
 import React from 'react'; // Import the React library
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Import components from react-router-dom library
-import NotFound from 'components/NotFound'; // Import the NotFound component from the 'components' directory
-import Main from 'components/Main'; // Import the Main component from the 'components' directory
-import Login from 'components/Login'; // Import the Login component from the 'components' directory
+import { NotFound } from 'components/NotFound'; // Import the NotFound component from the 'components' directory
+import { Main } from 'components/Main'; // Import the Main component from the 'components' directory
+import { Login } from 'components/Login'; // Import the Login component from the 'components' directory
 import { combineReducers, configureStore } from '@reduxjs/toolkit'; // Import functions from the '@reduxjs/toolkit' library
-import user from 'reducers/user'; // Import the user reducer from the 'reducers/user' file
-import thoughts from 'reducers/thoughts'; // Import the thoughts reducer from the 'reducers/thoughts' file
+import { user } from 'reducers/user'; // Import the user reducer from the 'reducers/user' file
+import { thoughts } from 'reducers/thoughts'; // Import the thoughts reducer from the 'reducers/thoughts' file
 import { Provider } from 'react-redux'; // Import the Provider component from the 'react-redux' library
+
+// //////////////////////////////////////////////////////////////////////// //
+// //////////////////////////////// APP /////////////////////////////////// //
+// //////////////////////////////////////////////////////////////////////// //
 
 export const App = () => {
 
@@ -16,6 +24,10 @@ export const App = () => {
   }); // Combine the user and thoughts reducers into a single reducer using the combineReducers function
 
   const store = configureStore({ reducer }) // Create the Redux store using the combined reducer
+
+// //////////////////////////////////////////////////////////////////////// //
+// //////////////////////////////// RETURN JSX //////////////////////////// //
+// //////////////////////////////////////////////////////////////////////// //
 
   return (
     <Provider store={store}> {/* Wrap the entire application with the Redux store using the Provider component */}
