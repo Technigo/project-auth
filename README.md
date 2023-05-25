@@ -8,3 +8,4 @@ Frontend: React, React Router, React Redux, Redux Toolkit, Netlify
 ## View it live
 
 backend: https://project-auth-mfntgatb4a-lz.a.run.app
+frontend: https://projectauth-by-nina-yu.netlify.app/login
