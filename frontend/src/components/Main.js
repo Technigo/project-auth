@@ -36,6 +36,7 @@ const Main = () => {
                     dispatch(thoughts.actions.setItems([]));
                 }
             });
+        
     })
     const onLogoutButtonClick = () => {
         dispatch(user.actions.setAccessToken(null));
