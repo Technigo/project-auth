@@ -11,6 +11,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector(store => store.user.accessToken);
+  const error = useSelector(store => store.user.error);
   useEffect(() => {
     if (accessToken) {
       navigate("/")
@@ -81,6 +82,8 @@ const Login = () => {
           disabled={username.length < 2 || password.length < 8}
         >Submit</button>
       </form>
+      {error !== null && mode === "register" && (<p>Sorry, user already exists.</p>)}
+      {error !== null && mode === "login" && (<p>Pls make sure that you are a registered user and that you have filled in the correct login information.</p>)}
     </>
   );
 }
