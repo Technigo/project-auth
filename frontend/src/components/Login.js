@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -32,15 +31,16 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 const Login = () => {
-  const[username, setUsername] = useState("");
-  const[password, setPassword] = useState("");
-  const[email, setEmail] = useState("");
-    const [checked, setChecked] = useState(true);
-  const mode = useSelector(store => store.user.mode);
+const[username, setUsername] = useState("");
+const[password, setPassword] = useState("");
+const[email, setEmail] = useState("");
+const [checked, setChecked] = useState(true);
+const mode = useSelector(store => store.user.mode);
   console.log(checked)
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const accessToken = useSelector(store => store.user.accessToken);
+const dispatch = useDispatch();
+const navigate = useNavigate();
+const accessToken = useSelector(store => store.user.accessToken);
+  
   useEffect(() => {
    if(accessToken){
       navigate("/")
