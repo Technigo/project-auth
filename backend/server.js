@@ -21,6 +21,32 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
+//user schema
+const { schema } = mongoose;
+
+const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  accessToken: {
+    // npm install crypto
+    type: String,
+    // will create long string of random numbers and letters that will be token 
+    default: () => crypto.randomBytes(128).toString("hex")
+  }
+}) 
+
+// user model 
+const User = mongoose.model("User", UserSchema);
+
+//npm install bcrypt
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
