@@ -66,18 +66,20 @@ export const FormWrapper = styled.form`
     }
 
     .inputField {
-        font-size: 1.5rem;
-        color: darkgray;
-        font-family: 'Sora', helvetica, sans-serif;
-        font-weight: 800;
-        border: none;
-        // border: 5px solid darkgray;
-        padding: 10px;
-        border-radius: 5px;
-        width: 200px;
-        text-align: center;
-        margin-bottom: 40px;
+    font-size: 1.5rem;
+    color: darkgray;
+    font-family: 'Sora', helvetica, sans-serif;
+    font-weight: 800;
+    border: 1px solid darkgray;
+    padding: 10px;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+
+    &:focus {
+        outline: 2px solid pink; // this line changes the outline color to pink when the input field is focused
     }
+}
 
     .submitButton {
         margin: 40px 0px;
