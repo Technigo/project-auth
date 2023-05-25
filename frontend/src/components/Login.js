@@ -60,7 +60,7 @@ const Login = () => {
                     <p className="sign-up">Enter your personal details<br /> and start a journey with us</p>
                     <a
                         className={`button sign-up ${mode === 'register' ? 'active' : ''}`}
-                        href="/login"
+                        href="#cover"
                         onClick={() => setMode('register')}
                     >
                         Sign Up
@@ -106,7 +106,7 @@ const Login = () => {
                 {/* Register Box */}
                 <div id="register">
                     <h1>Create Account</h1>
-                    <form>
+                    <form onSubmit={onFormSubmit}>
                         <input
                             type="text"
                             placeholder="Username"
