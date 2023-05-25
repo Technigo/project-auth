@@ -1,4 +1,4 @@
-import express from "express";
+import express, { raw } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
@@ -7,6 +7,7 @@ import bcrypt from "bcrypt";
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
+mongoose.set('debug', true);
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -101,6 +102,71 @@ app.post("/login", async (req,res) => {
       response: e
     })    
   }
+});
+
+//Thoughts 
+const ThoughtSchema = new mongoose.Schema({
+  message: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+    default: 0
+  },
+  // user just created  - thought item matches specific user 
+  user: {
+    type: String,
+    require: true
+  }
+});
+
+const Thought = mongoose.model("Thought", ThoughtSchema);
+
+// Authenticate the user 
+
+const authenticateUser = async (req, res, next) => {
+  // access token in header of request 
+  const accessToken = req.header("Authorization");
+  try {
+    const user = await User.findOne({accessToken: accessToken});
+    if (user) {
+      next();
+    } else {
+      res.status(401).json({
+        success: false,
+        response: "Please log in"
+      })
+    }
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      response: e
+    })
+  }
+}
+
+app.get("/thoughts", authenticateUser);
+app.get("/thoughts", async (req, res) => {
+  const thoughts = await Thought.find({});
+  res.status(200).json({
+    // missing error catching 
+    success: true, 
+    response: thoughts})
+});
+
+app.post("/thoughts", authenticateUser);
+app.post("/thoughts", async (req, res) => {
+  const {message} = req.body;
+  const accessToken = req.header("Authorization");
+  const user = await User.findOne({accessToken: accessToken});
+  const thoughts = await new  Thought({
+    message: message,
+    user: user._id
+  }).save();
+  res.status(200).json({
+    // missing error catching 
+    success: true, 
+    response: thoughts})
 });
 
 // Start the server
