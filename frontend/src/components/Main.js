@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 // import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { user } from "./reducers/user";
 
 const Main = () => {
 
     const scoreItems = useSelector((store) => store.score.items);
     const dispatch = useDispatch();
     const accessToken = useSelector(store => store.user.accessToken);
-    const username = useSelector(store => store.user.username);
+    const email = useSelector(store => store.user.email);
     const navigate = useNavigate();
     useEffect(() => {
         if(!accessToken){
@@ -40,13 +41,15 @@ const Main = () => {
     const onLogoutButtonClick = () => {
         dispatch(user.actions.setAccessToken(null));
         dispatch(user.actions.setUsername(null));
+        dispatch(user.actions.setEmail(null));
         dispatch(user.actions.setUserId(null));
+        dispatch(user.actions.setPassword(null));
         dispatch(user.actions.setError(null))
     }    
      return(
     <>
       <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button>
-        {username ? (<h2>THESE ARE THE THOUGHT OF {username.toUpperCase()}</h2>): ""}
+        {email ? (<h2>THESE ARE THE THOUGHT OF {email.toUpperCase()}</h2>): ""}
         {scoreItems.map(item => {
             return(<p key={item._id}>Email registered {item.score}</p>)
             })}

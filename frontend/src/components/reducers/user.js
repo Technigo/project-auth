@@ -7,7 +7,7 @@ export const user = createSlice({
     initialState:{
         username:"",
         userId:null,
-        // email:"",
+        email:"",
         // password:null,
         badges:[],
         avatar:"",
@@ -18,21 +18,26 @@ export const user = createSlice({
     reducers:{
         setUsername:(store, action) =>{
             store.username = action.payload
+            console.log('username:',action.payload)
         },
-        // setEmail:(store, action) =>{
-        //     store.email = action.payload
-        // },
+        setEmail:(store, action) =>{
+            store.email = action.payload
+            console.log('email:',action.payload)
+        },
         //  setPassword:(store, action) =>{
         //     store.password = action.payload
         // },
         setUserId:(store, action) =>{
             store.userId = action.payload
+            console.log('userId:',action.payload)
         },
         setAccessToken:(store, action) =>{
             store.accessToken = action.payload
+            console.log('accessToken:', action.payload)
         },
         setError:(store, action) =>{
             store.error = action.payload
+            console.log('error:', action.payload)
         },
         setMode:(store, action )=>{
             store.mode = action.payload
@@ -97,7 +102,7 @@ export const loginUser = ( email, password) => {
          if(data.success) {
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setUsername(data.response.username));
-            // dispatch(user.actions.setEmail(data.response.email));
+            dispatch(user.actions.setEmail(data.response.email));
             // dispatch(user.actions.setPassword(data.response.password));
             dispatch(user.actions.setUserId(data.response.id));
             dispatch(user.actions.setError(null))
@@ -105,7 +110,7 @@ export const loginUser = ( email, password) => {
          } else {
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setUsername(null));
-            // dispatch(user.actions.setEmail(null));
+            dispatch(user.actions.setEmail(null));
             // dispatch(user.actions.setPassword(null));
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setError(data.response.message))
