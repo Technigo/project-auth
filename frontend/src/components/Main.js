@@ -22,7 +22,7 @@ const Main = () => {
             method:"GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": accessToken
+                "Authorization": accessTokenout
             }
         }
         fetch(API_URL("thoughts"), options)
