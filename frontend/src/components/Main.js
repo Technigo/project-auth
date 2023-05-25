@@ -99,7 +99,7 @@ const Main = () => {
 
             {/* Display username if available */}
             {username ? (
-                <h2>THESE ARE THE THOUGHTS OF {username.toUpperCase()}</h2>
+                <h2>Hi{username.toUpperCase()}! Suggestions by Students of Junior Science Lab®</h2>
             ) : (
                 ""
             )}
