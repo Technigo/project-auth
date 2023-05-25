@@ -5,6 +5,7 @@ import thoughts from "reducers/thoughts";
 import { API_URL } from "utils/urls";
 import user from "reducers/user";
 import { ThoughtList } from "./ThoughtList";
+import { NewThought } from "./NewThought";
 
 const Main = () => {
     const thoughtItems = useSelector((store) => store.thoughts.items);
@@ -54,7 +55,7 @@ const Main = () => {
             {/* {thoughtItems.map(item => {
                 return(<p key={item._id}>{item.message}</p>)
             })} */}
-         
+       {/* <NewThought /> */}
             <ThoughtList />
         </>
     );
