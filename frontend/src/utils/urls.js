@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080"; // Define the base URL for the API
+const BASE_URL = "https://project-auth-2knq6tzdfq-ew.a.run.app"; // Define the base URL for the API
 
 export const API_URL = (slug) => `${BASE_URL}/${slug}`; // Define a function called API_URL that takes a slug parameter
 

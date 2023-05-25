@@ -52,39 +52,89 @@ const Login = () => {
 
     return (
         <>
-            <label htmlFor="register">Register</label>
-            <input
-                type="radio"
-                id="register"
-                checked={mode === "register"}
-                onChange={() => setMode("register")}
-            />
-            <label htmlFor="login">Login</label>
-            <input
-                type="radio"
-                id="login"
-                checked={mode === "login"}
-                onChange={() => setMode("login")}
-            />
-            <form onSubmit={onFormSubmit}>
-                <label htmlFor="username">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <button type="submit">Submit</button>
-            </form>
+            <div id="container">
+                {/* Cover Box */}
+                <div id="cover">
+                    {/* Sign Up Section */}
+                    <h1 className="sign-up">Hello, Friend!</h1>
+                    <p className="sign-up">Enter your personal details<br /> and start a journey with us</p>
+                    <a
+                        className={`button sign-up ${mode === 'register' ? 'active' : ''}`}
+                        href="#cover"
+                        onClick={() => setMode('register')}
+                    >
+                        Sign Up
+                    </a>
+
+                    {/* Sign In Section */}
+                    <h1 className="sign-in">Welcome Back!</h1>
+                    <p className="sign-in">To keep connected with us please<br /> login with your personal info</p>
+                    <br />
+                    <a
+                        className={`button sub sign-in ${mode === 'login' ? 'active' : ''}`}
+                        href="#"
+                        onClick={() => setMode('login')}
+                    >
+                        Sign In
+                    </a>
+                </div>
+
+                {/* Login Box */}
+                <div id="login">
+                    <h1>Sign In</h1>
+                    <form onSubmit={onFormSubmit}>
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            autoComplete="off"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                        <br />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            autoComplete="off"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <br />
+                        <input className="submit-btn" type="submit" value="Sign In" />
+                    </form>
+                </div>
+
+                {/* Register Box */}
+                <div id="register">
+                    <h1>Create Account</h1>
+                    <form>
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            autoComplete="off"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                        <br />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            autoComplete="off"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <br />
+                        <input
+                            className="submit-btn"
+                            type="submit"
+                            value="Sign Up" />
+                    </form>
+                </div>
+            </div>
         </>
+
     );
 };
 
 export default Login;
+
+
