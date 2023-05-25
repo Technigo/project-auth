@@ -33,14 +33,15 @@ min-height: 100vh;
 width: 100vw;
 color: #bbe1c3;
 // background-color: #a7cdbd;
-background-color: #869d7a;
+// background-color: #869d7a;
 `;
 
 const StyledText = styled.h1`
 font-size: 1rem;
 color: #ffb140;
 padding-left: 1rem;
-background-color: #a7cdbd;
+// background-color: #a7cdbd;
+background-color: rgba(167, 205, 189, 0.5);
 `
 
 const StyledStart = styled.div`

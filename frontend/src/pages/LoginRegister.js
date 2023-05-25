@@ -55,7 +55,7 @@ const LoginRegister = ({ API_URL }) => {
   return (
     <>
     <StyledLogin> 
-      <h1>Please log in first ✨</h1>
+      <h1>Please log in to access the site ✨</h1>
       <LoginRegisterForm
         state={loginOrRegister}
         name={name}
