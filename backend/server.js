@@ -134,7 +134,9 @@ const authenticateUser = async (req, res, next) => {
 
 app.get(PATHS.secrets, authenticateUser);
 app.get(PATHS.secrets, async (req, res) => {
-  res.status(200).json({secret: 'This is a super secret message'})
+  const secretMessage = "This is the secret page! Woop woop";
+  
+  res.status(200).json({secret: secretMessage})
 });
 
 app.post(PATHS.sessions, async (req, res) => {
