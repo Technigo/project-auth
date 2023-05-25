@@ -8,9 +8,9 @@ import { API_URL } from "utils/urls";
 import { Button, Container } from "@mui/material";
 
 const Main = () => {
-    const thoughtItems = useSelector((store) => store.thoughts.items);
     // const memeItems = useSelector((store) => store.memes.memeItems)
     const dispatch = useDispatch();
+    const thoughtItems = useSelector((store) => store.thoughts.items);
     const accessToken = useSelector(store => store.user.accessToken);
     const username = useSelector(store => store.user.username);
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ const Main = () => {
         }
     }, [accessToken]);
 
-    // fetch thoughts
+    // Fetch thoughts
     useEffect(() => {
         const options = {
             method:"GET",
@@ -71,12 +71,12 @@ const Main = () => {
         dispatch(user.actions.setUserId(null));
         dispatch(user.actions.setError(null));
         dispatch(thoughts.actions.setItems([]));
-        dispatch(memes.actions.setMemeItems([]));
+        // dispatch(memes.actions.setMemeItems([]));
     }
     return(
-        <Container component="main" maxWidth="sm" sx={{marginTop: 8}}>  
+        <Container component="main" maxWidth="xs" sx={{marginTop: 8}}>  
             {/* <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button> */}
-            {username ? (<h2>Welcome to this very VIP page {username}!</h2>): ""}
+            {username ? (<h2>Welcome {username}!</h2>): ""}
             {thoughtItems.map(item => {
                 return(<p key={item._id}>{item.message}</p>)
             })}

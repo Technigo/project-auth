@@ -73,7 +73,7 @@ app.post("/register", async (req, res) => {
     })
   }
 })
-// Login / Sign in
+// Log in 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body
   try {
@@ -157,6 +157,7 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
+// Authenticated endpoint
 // First we authenticate our user
 app.get("/thoughts", authenticateUser)
 // If they "pass" this is the function that happens next()

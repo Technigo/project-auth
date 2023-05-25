@@ -50,7 +50,8 @@ const Login = () => {
 
     return (
         <Container component="main" maxWidth="xs" sx={{marginTop: 8}}>
-            <Typography component="h1">Welcome! Please register and/or login to continue.</Typography>
+            <Typography variant="h4" sx={{marginBottom: 2}}>Welcome!</Typography>
+            <Typography variant="h6">Please register and/or login to continue.</Typography>
             <FormControl id="register-or-login">
                 <RadioGroup
                     row
