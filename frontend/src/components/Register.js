@@ -78,6 +78,9 @@ const Register = () => {
                     dispatch(user.actions.setUserId(data.response.id))
                     dispatch(user.actions.setError(null))
                     setIsRegistered(true);
+                    setHelperTextUserName('')
+                    setErrorUserName(false)
+                    setErrorMsg('')
                     setSuccessMsg('User successfully created')
                 } else if (data.response.message === 'Username is already taken') {
                     dispatch(user.actions.setAccessToken(null))
