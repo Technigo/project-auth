@@ -38,6 +38,23 @@ const UserSchema = new Schema ({
 
 const User = mongoose.model("User", UserSchema)
 
+const QuoteSchema = new Schema ({
+  index: {
+    type: Number
+  },
+  category: {
+    type: String
+  },
+  quote: {
+    type: String
+  },
+  image_link: {
+    type: String
+  }
+})
+
+const Quote = mongoose.model("Quote", QuoteSchema)
+
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
@@ -117,8 +134,29 @@ const authenticateUser = async (req, res, next) => {
 }
 
 app.get("/secret", authenticateUser);
-app.get("/secret", (req, res) => {
-  res.send("A very secret secret");
+app.get("/secret", async (req, res) => {
+  // console.log("A very secret secret")
+  const response = {
+    success: true,
+    body: {}
+  }
+
+  try{
+    const selectedQuote = await Quote.aggregate().sample(1)
+    // const allQuotes = await Quote.find().sort({index: 'desc'}).limit(20)
+    if(selectedQuote){
+      response.body = selectedQuote
+      res.status(200).json(response)
+    } else {
+      response.success = false
+      response.body = {message: "No quotes found."}
+      res.status(404).json(response)
+    }
+  } catch (error) {
+    response.success = false
+    response.body = {message: error}
+    res.status(500).json(response)
+  }
 });
 
 // Start the server
