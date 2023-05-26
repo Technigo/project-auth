@@ -23,20 +23,17 @@ app.get("/", (req, res) => {
   res.send("Hello Auth project!");
 });
 
-// const { Schema } = mongoose;
+const { Schema } = mongoose;
 // userSchema
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
     required: true,
-    minlength: 6 // why not working?!!!!
-    // min-max length, regex for password?
-    // do not allow to leave empty
   },
   accessToken: {
     type: String,
@@ -49,6 +46,22 @@ const User = mongoose.model('User', UserSchema);
 // Registration
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*]).{8,32}$/;
+    // This regular expression ensures:
+    // At least one digit: (?=.*\d)
+    // At least one lowercase letter: (?=.*[a-z])
+    // At least one uppercase letter: (?=.*[A-Z])
+    // At least one special character: (?=.*[!@#\$%\^&\*])
+    // A total length of between 8 and 32 characters: .{8,32}
+
+  if (!passwordRegex.test(password)) {
+    return res.status(400).json({
+      success: false,
+      response: {
+        message: "Password needs to be between 8 and 32 characters, and include at least one number, one uppercase letter, one lowercase letter, and one special character."
+      }
+    })
+  }
 
   try {
     const salt = bcrypt.genSaltSync();
@@ -75,6 +88,7 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
+
   try {
     const user = await User.findOne({username});
     if (user && bcrypt.compareSync(password, user.password)) {
@@ -88,9 +102,11 @@ app.post("/login", async (req, res) => {
         }
       })
     } else {
-      res.status(400).json({
+      res.status(404).json({
         success: false,
-        response: 'Credentials do not match'
+        response: {
+          message: "Invalid credentials",
+        }
       })
     }
   } catch (error) {
@@ -109,9 +125,11 @@ const authenticateUser = async (req, res, next) => {
     if (user) {
       next();
     } else {
-      res.status(401).json({
+      res.status(400).json({
         success: false,
-        response: "You're not logged in"
+        response: {
+          message: "You're not logged in",
+        }
       });
     }
   } catch (error) {

@@ -27,7 +27,6 @@ const Register = () => {
             .then(data => {
                 if (data.success) {
                     console.log(data)
-                    // dispatch(user.actions.setAccessToken(data.response.accessToken))
                     dispatch(user.actions.setUserName(data.response.username))
                     dispatch(user.actions.setUserId(data.response.id))
                     dispatch(user.actions.setError(null))
@@ -68,6 +67,7 @@ const Register = () => {
                 variant="outlined"
                 onChange={event => setPassword(event.target.value)}
                 required
+                minLength="6"
             />
 
             <Button 
