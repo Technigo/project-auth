@@ -9,6 +9,8 @@ const Login = () => {
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
+    const [helperTextLogin, setHelperTextLogin] = useState("")
+    const [errorLogin, setErrorLogin] = useState(false);
     const accessToken = useSelector(store => store.user.accessToken);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -42,7 +44,9 @@ const Login = () => {
                     dispatch(user.actions.setUserName(null));
                     dispatch(user.actions.setUserId(null));
                     dispatch(user.actions.setError(data.response));
-                    setErrorMsg("Could not log in")
+                    setErrorLogin(true);
+                    setErrorMsg("Could not log in");
+                    setHelperTextLogin("Credentials do not match");
                 }
             })
             .catch(error => {
@@ -63,6 +67,8 @@ const Login = () => {
                 id="outlined-name-input-login"
                 label="Username"
                 variant="outlined"
+                helperText={helperTextLogin}
+                error={errorLogin}
                 onChange={event => setUserName(event.target.value)}
                 required />
 
@@ -71,6 +77,8 @@ const Login = () => {
                 id="outlined-password-input-login"
                 label="Password"
                 variant="outlined"
+                helperText={helperTextLogin}
+                error={errorLogin}
                 onChange={event => setPassword(event.target.value)}
                 required />
 
