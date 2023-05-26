@@ -100,6 +100,9 @@ const Main = () => {
         <OuterWrapper>
           <InnerWrapper>
             <Button type="button" onClick={onLogoutButtonClick}>Logout</Button>
+            <Header>Congratulations!</Header>
+            <Paragraph>🔮🕵🤫</Paragraph>
+            <Paragraph>You have entered the world of secret messages. You can read them below and even create your own secret message!</Paragraph>
             <Form onSubmit={addNewThought}>
                 <Label htmlFor="textarea">Enter secret message</Label>
                 <TextArea

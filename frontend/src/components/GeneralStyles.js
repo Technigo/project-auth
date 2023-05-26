@@ -21,6 +21,7 @@ background-color: #CA4E79;
 padding: 1rem;
 gap: 1rem;
 margin-top: 1rem;
+text-align: center;
 
 @media (min-width: 667px) {
     margin-top: 3rem;
