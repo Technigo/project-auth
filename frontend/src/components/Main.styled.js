@@ -44,6 +44,7 @@ export const Greetings = styled.div`
   color: #777;
   font-family: 'Sora', helvetica, sans-serif;
   font-weight: 800;
+  margin-top: 60px;
 `;
 
 export const ThoughtsContainer = styled.div`
