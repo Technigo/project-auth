@@ -39,7 +39,7 @@ export const Greetings = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #777;
   font-family: 'Sora', helvetica, sans-serif;
   font-weight: 800;
@@ -52,15 +52,6 @@ export const ThoughtsContainer = styled.div`
   gap: 20px;
   margin-top: 60px;
 `;
-
-export const Thought = styled.h3`
-  font-size: 1.2rem;
-  color: #777;
-  font-family: 'Sora', helvetica, sans-serif;
-  font-weight: 800;
-  text-align: center;
-`;
-
 
 export const Thought = styled.p`
   font-size: 1rem;
