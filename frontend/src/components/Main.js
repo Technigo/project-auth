@@ -82,8 +82,9 @@ justify-content: center;
 align-items: center;
 padding-top: 200px;
 h2 {
-font-size: 22px;
+font-size: 20px;
 color: black;
+align-self: center;
 }
 p {
     margin-bottom: 80px;
