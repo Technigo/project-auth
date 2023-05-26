@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { user } from 'reducers/user';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
@@ -31,13 +31,27 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const StyledLink = styled(Link)`
+  margin-top: 20px;
+  /* text-decoration: none; */
+  color: black;
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+const Error = styled.p`
+ width: 300px;
+ text-align: center;
+ margin-top: 20px;
+`
 
 export const Login = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  // const [mode, setMode] = useState("login")
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const error = useSelector(store => store.user.error);
   const accessToken = useSelector(store => store.user.accessToken);
 
   // If the access-token is present, redirects to /secret page.
@@ -101,6 +115,9 @@ export const Login = () => {
             </Label>
             <Button type="submit">Submit</Button>
           </Form>
+          {/* Shows different message, depending on error=false/true */}
+          {!error && <StyledLink to="/Register"><p>Not a user? Click here to register.</p></StyledLink>}
+          {error && <Error>Check that your username and password is correct or <StyledLink>register as a new user.</StyledLink></Error>}
       </Wrapper>
     )
 }
