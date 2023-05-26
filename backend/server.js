@@ -151,14 +151,14 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        resonse: "Credentionals do not match"
+        response: "Credentionals do not match"
       })
 
     }
   } catch (e) {
     res.status(500).json({
       success: false,
-      resonse: e
+      response: e
     })
   }
 })
@@ -176,13 +176,13 @@ app.get("/thoughts", async (req, res) => {
     } else {
       res.status(404).json({
         success: false,
-        resonse: "Thoughts not found"
+        response: "Thoughts not found"
       })
     }
   } catch (e) {
     res.status(500).json({
       success: false,
-      resonse: e
+      response: e
     })
   }
   

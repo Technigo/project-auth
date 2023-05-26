@@ -6,6 +6,8 @@ import { API_URL } from '../utils/urls'
 import { thoughts } from "../reducers/thoughts";
 import { user } from "../reducers/user";
 
+import { Button, Form } from "./GeneralStyles"
+
 const Main = () => {
     const [newThought, setNewThought] = useState("");
 
@@ -68,7 +70,7 @@ const Main = () => {
             if (responsedata.success) {
               // If the thought is successfully added, update the store with the new thought
               dispatch(thoughts.actions.setError(null));
-              dispatch(thoughts.actions.setItems([responsedata.response, ...items]));
+              dispatch(thoughts.actions.setItems([responsedata.response, ...thoughtItems]));
               setNewThought(""); // Clear the input field
             } else {
               // If there was an error adding the thought, update the store with the error message
@@ -78,10 +80,11 @@ const Main = () => {
           .catch(error => {
             // Handle any network or fetch errors
             dispatch(thoughts.actions.setError("An error occurred. Please try again."));
+          })
+          .finally(() => {
+            setNewThought(""); // Clear the input field
           });
       };
-      
-
     //////////////////LOGOUT BUTTON CLICK////////////////////
     //////////////////////////////////////////////////////
     const onLogoutButtonClick = () => {
@@ -95,9 +98,9 @@ const Main = () => {
 
     return(
         <>
-            <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button>
-            <form onSubmit={addNewThought}>
-                <label htmlFor="textarea">Enter thought here
+            <Button type="button" onClick={onLogoutButtonClick}>LOGOUT</Button>
+            <Form onSubmit={addNewThought}>
+                <label htmlFor="textarea">Enter message here
                 <textarea 
                 aria-label="textarea for input"
                 placeholer="Enter message here"
@@ -106,13 +109,14 @@ const Main = () => {
                 />
                 </label>
 
-            <button type="submit">Submit thought</button>
-            </form>
+            <Button type="submit">Submit thought</Button>
+            </Form>
 
             {username ? (<h2>THESE ARE THE THOUGHTS OF {username.toUpperCase()}</h2>): ""}
-            {thoughtItems.map(item => {
+            {thoughtItems.slice().reverse().map(item => {
                 return(<p key={item._id}>{item.message}</p>)
             })}
+
         </>
     );
 }
