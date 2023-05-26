@@ -4,7 +4,13 @@ export const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 60px; // Increased margin to avoid overlap with Logout button
+  width: 100%;
+  max-width: 800px;
+
+  @media (max-width: 490px) {
+    max-width: 300px;
+  }
 `;
 
 export const ButtonLogout = styled.button`
@@ -20,6 +26,7 @@ export const ButtonLogout = styled.button`
   position: fixed;
   right: 20px;
   top: 20px;
+  z-index: 100; // To make sure the button stays on top
 
   &:hover {
     background-color: #777;
@@ -27,12 +34,15 @@ export const ButtonLogout = styled.button`
   }
 `;
 
-export const Greetings = styled.h2`
+export const Greetings = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   font-size: 1.5rem;
   color: #777;
   font-family: 'Sora', helvetica, sans-serif;
   font-weight: 800;
-  text-align: center;
 `;
 
 export const ThoughtsContainer = styled.div`
