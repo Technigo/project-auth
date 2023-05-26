@@ -104,16 +104,18 @@ export const Main = () => {
   
   <div className="text">Logout</div>
       </button>
+      <div className="welcome">
       {username ? <p>WELCOME {username.toUpperCase()}!</p> : ''}
+      </div>
       <div className='sticky-notes-container'>
           <form className='messageForm' onSubmit={postNewThought}>
               <input
                   type="text"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Enter your message"
+                  placeholder="Write a note!"
               />
-              <button type="submit">Post Message</button>
+              <button className="postbutton" type="submit">Post-It</button>
           </form>
           <StickyNotes thoughts={thoughtItems} />
       </div>
