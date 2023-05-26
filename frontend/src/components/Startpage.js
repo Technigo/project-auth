@@ -1,30 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Box, Button } from "@mui/material";
+import { StyledButton } from "./Styled components/StyledButton";
+import { StyledBox } from "./Styled components/StyledBox";
+import { StyledButtonContainer } from "./Styled components/StyledButtonContainer";
+import { MainContainer } from "./Styled components/MainContainer";
 
 export const Startpage = () => {
     return (
-        <Box>
-            <h1>This is the startpage</h1>
+        <MainContainer imageUrl="https://images.unsplash.com/photo-1483706600674-e0c87d3fe85b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1814&q=80">
+            <StyledBox>
+                <h1>Do yo wanna know a secret?</h1>
+                <StyledButtonContainer>
+                    <Link to="/register">
+                        <StyledButton variant="outlined">
+                        GO TO REGISTER
+                        </StyledButton>
+                    </Link>
 
-            <Link to="/register">
-                <Button 
-                    type="submit" 
-                    variant="outlined"
-                >           
-                GO TO REGISTER
-                </Button>
-            </Link>
-            
-            <Link to="/login">
-                <Button 
-                    type="submit" 
-                    variant="outlined"
-                >           
-                GO TO LOGIN
-                </Button>
-            </Link>
-
-        </Box>
+                    <Link to="/login">
+                        <StyledButton variant="outlined">
+                        GO TO LOGIN
+                        </StyledButton>
+                    </Link>
+                </StyledButtonContainer>
+            </StyledBox>
+        </MainContainer>  
     )
-}
+};
