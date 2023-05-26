@@ -8,5 +8,5 @@ Some structure as to how login and register was to be done had to be reconsidere
 
 ## View it live
 
-Front end:
+Front end: https://project-authltjp.netlify.app/login
 Back end: https://project-auth-bkqekveefa-lz.a.run.app/
