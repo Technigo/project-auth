@@ -25,7 +25,7 @@ export const ButtonLogout = styled.button`
   cursor: pointer;
   transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out;
   position: fixed;
-  right: 50%;
+  right: 44%;
   top: 20px;
   z-index: 100; // To make sure the button stays on top
 
