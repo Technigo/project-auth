@@ -32,12 +32,13 @@ const Main = () => {
                     dispatch(thoughts.actions.setError(null));
                     dispatch(thoughts.actions.setItems(data.response));
                 } else {
-                    dispatch(thoughts.actions.setError(response));
+                    dispatch(thoughts.actions.setError(data.response));
                     dispatch(thoughts.actions.setItems([]));
                 }
             });
         
-    })
+    },[accessToken, dispatch])
+
     const onLogoutButtonClick = () => {
         dispatch(user.actions.setAccessToken(null));
         dispatch(user.actions.setUsername(null));

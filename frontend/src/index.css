@@ -5,6 +5,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(45deg,#845ec2,#b65db1,#ff6f91,#ff9671,#ffc75f);
+  background-size: 400%;
+  animation: bg-animation 5s infinite alternate;
+}
+@keyframes bg-animation {
+  0%{
+    background-position: left;
+  }
+  100%{
+    background-position: right;
+  }
+
 }
 
 code {

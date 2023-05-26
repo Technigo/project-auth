@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from "react";
+import styled  from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import user from "reducers/user";
 import { API_URL } from "utils/urls";
+
+const FormWrapper = styled.div `
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px;
+  margin: 120px;
+  
+`
 
 
 const Login = () => {
@@ -46,7 +59,7 @@ const Login = () => {
     }
 
     return (
-        <>
+        <FormWrapper>
             <label htmlFor="register">Register</label>
             <input 
                 type="radio" 
@@ -74,7 +87,7 @@ const Login = () => {
                     onChange={e => setPassword(e.target.value)} />
                 <button type="submit">Submit</button>
             </form>
-        </>
+        </FormWrapper>
         
     )
 }
