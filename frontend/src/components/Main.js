@@ -102,7 +102,8 @@ const Main = () => {
             {username ? (
                 <Greetings>
                     <h3>HEY {username.toUpperCase()}!</h3>
-                    <p>Here are the suggestions by the Students of Junior Science Lab®</p>
+                    <p>Here are the messages by the Students of Junior Science Lab®</p>
+                    <p>Their next projects will be about</p>
                 </Greetings>
 
             ) : (
