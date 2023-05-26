@@ -11,10 +11,12 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PetsIcon from '@mui/icons-material/Pets';
+// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {ThemeProvider, createTheme } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
+import { Alert, Stack } from "@mui/material";
 
 function Copyright(props) {
   return (
@@ -35,8 +37,9 @@ const[username, setUsername] = useState("");
 const[password, setPassword] = useState("");
 const[email, setEmail] = useState("");
 const [checked, setChecked] = useState(true);
-const mode = useSelector(store => store.user.mode);
-  console.log(checked)
+// const mode = useSelector(store => store.user.mode);
+const error = useSelector(store => store.user.error);
+console.log(error)
 const dispatch = useDispatch();
 const navigate = useNavigate();
 const accessToken = useSelector(store => store.user.accessToken);
@@ -83,7 +86,7 @@ dispatch(loginUser(email, password))
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
+              <PetsIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
              {checked ? 'Sign in' : 'Sign up'}
@@ -129,6 +132,9 @@ dispatch(loginUser(email, password))
                   control={<Switch checked={checked} on onChange={(event)=>setChecked(event.target.checked)} defaultChecked />}
                 label={checked ? 'Sign in' : 'Sign up'}
                 />
+                  {error!==null && <Stack sx={{ width: '100%' }} spacing={2}>
+                    <Alert severity="error">{error}</Alert>
+                  </Stack>}
               <Button
                 type="submit"
                 fullWidth
