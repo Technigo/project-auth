@@ -249,17 +249,30 @@ res.status(200).json({success: true, response: user})
 app.patch("/user",authenticateUser);
 app.patch("/user", async (req, res) => {
  try {
-const { totalScore, badges, avatar, history } = req.body;
+const { totalScoreIncrement, badges, avatar, history } = req.body;
     const accessToken = req.header("Authorization");
 
 const updateFields = {
-  $set: { totalScore: totalScore, avatar: avatar },// to change totalScore for $inc
-  $push: { badges: { $each: [badges] } }
   // add username and password -> stretch goal
 };
-if (history) {
-  updateFields.$push = { history: { $each: [history] } };
-}
+ if (history || totalScoreIncrement) {
+      updateFields.$push = {};
+      if (history) {
+        updateFields.$push.history = { $each: [history] };
+      }
+      if (totalScoreIncrement) {
+        updateFields.$inc = { totalScore: parseInt(totalScoreIncrement) };
+      }
+  }
+  if (badges) {
+      if (!updateFields.$push) {
+        updateFields.$push = {};
+      }
+      updateFields.$push.badges = { $each: [badges] };
+  }
+  if(avatar){
+      updateFields.$set= { avatar: avatar }
+  }
 
     const user = await User.findOneAndUpdate(
       { accessToken: accessToken },
@@ -273,7 +286,7 @@ if (history) {
       res.status(404).json({ success: false, response: "User not found." });
     }
   } catch (error) {
-    res.status(500).json({ success: false, response: "Internal server error." });
+    res.status(500).json({ success: false, response: error });
   }
 });
 
