@@ -12,7 +12,10 @@ const Register = () => {
     const [successMsg, setSuccessMsg] = useState("");
     const [isRegistered, setIsRegistered] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
-    const [helperText, setHelperText] = useState("");
+    const [errorUserName, setErrorUserName] = useState(false);
+    const [helperTextPassword, setHelperTextPassword] = useState("");
+    const [helperTextUserName, setHelperTextUserName] = useState("");
+
     const dispatch = useDispatch();
 
     // Password regex requirements
@@ -47,7 +50,12 @@ const Register = () => {
         }
 
         setErrorPassword(passwordErrMsg.length > 0);
-        setHelperText("Password also needs to contain: " + passwordErrMsg.join(","))
+
+        if (passwordErrMsg.length > 0) {
+            setHelperTextPassword("Password also needs to contain: " + passwordErrMsg.join(","))
+        } else {
+            setHelperTextPassword("");
+        }    
     };
 
     const handleSubmit = (event) => {
@@ -76,7 +84,8 @@ const Register = () => {
                     dispatch(user.actions.setUserName(null))
                     dispatch(user.actions.setUserId(null))
                     dispatch(user.actions.setError(data.response))
-                    setErrorMsg('Username is already taken')
+                    setHelperTextUserName('Username is already taken')
+                    setErrorUserName(true)
                 } else {
                     dispatch(user.actions.setAccessToken(null))
                     dispatch(user.actions.setUserName(null))
@@ -103,6 +112,8 @@ const Register = () => {
                     id="outlined-name-input" 
                     label="Username" 
                     variant="outlined"
+                    helperText={helperTextUserName}
+                    error={errorUserName}
                     onChange={event => setUserName(event.target.value)}
                     required
                 />
@@ -112,7 +123,7 @@ const Register = () => {
                     id="outlined-password-input" 
                     label="Password" 
                     variant="outlined"
-                    helperText={helperText}
+                    helperText={helperTextPassword}
                     error={errorPassword}
                     onChange={event => setPassword(event.target.value)}
                     required
