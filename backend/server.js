@@ -143,9 +143,9 @@ const authenticateUser = async (req, res , next) => {
 
 app.get ("/thoughts",authenticateUser);
 app.get ("/thoughts", async (req,res) => {
-const thougths =await Thought.find ({});
+const thougths =await Thought.find ({}).populate('user');
 res.status(200).json ({success:true, response: thougths})
-});
+}); 
 
 /* From wednesday live session
 app.get ("/thoughts", async (req,res) => {
