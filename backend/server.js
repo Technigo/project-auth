@@ -167,7 +167,7 @@ app.post("/login", async (req, res) => {
 app.get("/thoughts", authenticateUser)
 app.get("/thoughts", async (req, res) => {
   try {
-    const thoughts = await Thought.find({})
+    const thoughts = await Thought.find().limit(20).exec() 
     if (thoughts) {
       res.status(200).json({
         success: true, 
