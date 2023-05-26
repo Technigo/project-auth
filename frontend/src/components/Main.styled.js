@@ -62,14 +62,6 @@ export const Thought = styled.h3`
 `;
 
 
-export const Thought = styled.h5`
-  font-size: 1.2rem;
-  color: #777;
-  font-family: 'Sora', helvetica, sans-serif;
-  font-weight: 800;
-  text-align: center;
-`;
-
 export const Thought = styled.p`
   font-size: 1rem;
   color: #777;
