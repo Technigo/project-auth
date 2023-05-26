@@ -65,7 +65,7 @@ export const Secrets = () => {
                     <StyledBox>
                         <h2>This is your secret message {username}</h2>
                         <Link to="/">
-                            <StyledButton>
+                            <StyledButton onClick={onLogOutButtonClick}>
                                 LOGOUT
                             </StyledButton>
                         </Link>   
