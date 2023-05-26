@@ -2,8 +2,7 @@ import { Box, Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { API_URL } from 'utils/urls';
-import { BASE_URL } from 'utils/urls';
+import { REACT_APP_BASE_URL } from 'utils/urls';
 import user from 'reducers/user';
 
 const Register = () => {
@@ -23,7 +22,7 @@ const Register = () => {
             },
             body: JSON.stringify({username: username, password: password})
         };
-        fetch(`${BASE_URL}/register`, options)
+        fetch(`${REACT_APP_BASE_URL}/register`, options)
             .then((response) => response.json())
             .then(data => {
                 if (data.success) {

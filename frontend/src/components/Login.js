@@ -2,7 +2,7 @@ import { Box, Button, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { API_URL } from 'utils/urls';
-import { BASE_URL } from 'utils/urls';
+import { REACT_APP_BASE_URL } from 'utils/urls';
 import user from 'reducers/user';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,7 +32,7 @@ const Login = () => {
             body: JSON.stringify({username: username, password: password})
         };
 
-        fetch(`${BASE_URL}/login`, options)
+        fetch(`${REACT_APP_BASE_URL}/login`, options)
             .then((response) => response.json())
             .then(data => {
                 if (data.success) {

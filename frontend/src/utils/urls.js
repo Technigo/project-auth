@@ -1,3 +1,1 @@
-export const BASE_URL = "http://localhost:8080";
-
-export const API_URL = (slug) => `${BASE_URL}/${slug}`;
+export const REACT_APP_BASE_URL = 'https://project-auth-ntpvo35qja-lz.a.run.app/'

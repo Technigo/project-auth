@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { BASE_URL } from 'utils/urls';
+import { REACT_APP_BASE_URL } from 'utils/urls';
 import user from 'reducers/user';
 import secrets from 'reducers/secrets';
 import { Button } from '@mui/material';
@@ -27,7 +27,7 @@ export const Secrets = () => {
                 "Authorization": accessToken
             }
         }
-        fetch(`${BASE_URL}/secrets`, options)
+        fetch(`${REACT_APP_BASE_URL}/secrets`, options)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
