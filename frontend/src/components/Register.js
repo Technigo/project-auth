@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { user } from "../reducers/user";
 import styled from "styled-components";
 
 const FormContainer = styled.div`
@@ -35,41 +38,53 @@ const SubmitButton = styled.input`
 export const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const accessToken = useSelector((store) => store.user.accessToken);
 
-  const handleSubmit = async (event) => {
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     navigate("/");
+  //   }
+  // }, [accessToken]);
+
+  const onFormSubmit = (event) => {
     event.preventDefault();
-
-    try {
-      const response = await fetch("/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    };
+    fetch("https://project-auth-d77e5zoeyq-lz.a.run.app/register", options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          // Registration successful
+          dispatch(user.actions.setAccessToken(data.response.accessToken));
+          dispatch(user.actions.setUsername(data.response.username));
+          dispatch(user.actions.setUserId(data.response.id));
+          dispatch(user.actions.setError(null));
+          console.log("Registration successful");
+        } else {
+          // Registration failed
+          dispatch(user.actions.setAccessToken(null));
+          dispatch(user.actions.setUsername(null));
+          dispatch(user.actions.setUserId(null));
+          dispatch(user.actions.setError(data.response));
+          console.log("fail");
+        }
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Registration successful:", data);
-        // Perform any necessary actions after successful registration
-      } else {
-        const error = await response.json();
-        console.error("Registration failed:", error);
-        // Handle registration error
-      }
-    } catch (error) {
-      console.error("An error occurred during registration:", error);
-      // Handle any network or other errors
-    }
   };
 
   return (
     <FormContainer>
       <h2>Registration</h2>
-      <StyledForm onSubmit={handleSubmit}>
+      <StyledForm onSubmit={onFormSubmit}>
         <Label htmlFor="username">Username:</Label>
         <Input type="text" id="username" value={username} onChange={(event) => setUsername(event.target.value)} required />
         <Label htmlFor="password">Password:</Label>

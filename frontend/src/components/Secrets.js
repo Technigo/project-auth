@@ -14,6 +14,7 @@ export const Secrets = () => {
   return (
     <SecretsContainer>
       <p>This is a very secret message.</p>
+      {/* add sign out button */}
     </SecretsContainer>
   );
 };
