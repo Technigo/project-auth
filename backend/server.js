@@ -5,7 +5,9 @@ import crypto from "crypto";
 import bcrypt from "bcrypt";
 import e from "express";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+// i have changed from localhost to 127.0.0.1
+// original: "mongodb://localhost/project-mongo";
+const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -107,7 +109,8 @@ const ThoughtSchema = new mongoose.Schema ({
   },
   createdAt: {
     type: Date,
-    default:0
+    //default:0
+    default: () => new Date()
   },
   user: {
     type:String,
@@ -115,7 +118,7 @@ const ThoughtSchema = new mongoose.Schema ({
   }
 });
 
-const Thought = mongoose.model("thought", ThoughtSchema)
+const Thought = mongoose.model("Thought", ThoughtSchema)
 
 // Autehnticate the user
 const authenticateUser = async (req, res , next) => {
@@ -144,14 +147,33 @@ const thougths =await Thought.find ({});
 res.status(200).json ({success:true, response: thougths})
 });
 
+/* From wednesday live session
+app.get ("/thoughts", async (req,res) => {
+  try {
+    const allThoughts = await Thoughts.find(); // leaving find() empty will extract everything from all thoughts
+    res.status(200).json({
+      success: true,
+      response: allThoughts,
+      message: "All thoughts found successfully"
+    });
+  } catch (e) { //if there is an error before we get everything in the try block successfully, the catch block will run
+    res.status(400).json({
+      success: false,
+      response: e,
+      message: "Could not find all thoughts"
+    });
+  }
+});
+
+*/
 app.post ("/thoughts",authenticateUser);
 app.post ("/thoughts", async (req,res) => {
   const { message } = req.body;
   const accessToken = req.header("Authorization");
   const user = await User.findOne ({accessToken: accessToken});
 
-const thougths =await new Thought({message: message, user: user._id }).save();
-res.status(200).json ({success:true, response: thougths})
+const thoughts =await new Thought({message: message, user: user._id }).save();
+res.status(200).json ({success:true, response: thoughts})
 });
 
 
