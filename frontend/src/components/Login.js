@@ -1,4 +1,8 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
+import { StyledButton } from "./Styled components/StyledButton";
+import { StyledBox } from "./Styled components/StyledBox";
+import { MainContainer } from "./Styled components/MainContainer";
+import { StyledButtonContainer } from "./Styled components/StyledButtonContainer";
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { REACT_APP_BASE_URL } from 'utils/urls';
@@ -59,38 +63,47 @@ const Login = () => {
     };
 
     return (
-        <>
-        <h1>LOGIN HERE</h1>
-        <Box component="form" noValidate onSubmit={handleLoginButton} sx={{ mt: 3 }}>
-            <TextField
-                type="text"
-                id="outlined-name-input-login"
-                label="Username"
-                variant="outlined"
-                helperText={helperTextLogin}
-                error={errorLogin}
-                onChange={event => setUserName(event.target.value)}
-                required />
+        <MainContainer>
+            <StyledBox>
+                <h1>LOGIN</h1>
+                <p>{errorMsg}</p>
+                <Box component="form" noValidate onSubmit={handleLoginButton} sx={{ mt: 3 }}>
+                    <TextField
+                        type="text"
+                        id="outlined-name-input-login"
+                        label="Username"
+                        variant="outlined"
+                        helperText={helperTextLogin}
+                        error={errorLogin}
+                        onChange={event => setUserName(event.target.value)}
+                        required
+                        fullWidth
+                        margin="normal"
+                        />
 
-            <TextField
-                type="password"
-                id="outlined-password-input-login"
-                label="Password"
-                variant="outlined"
-                helperText={helperTextLogin}
-                error={errorLogin}
-                onChange={event => setPassword(event.target.value)}
-                required />
+                    <TextField
+                        type="password"
+                        id="outlined-password-input-login"
+                        label="Password"
+                        variant="outlined"
+                        helperText={helperTextLogin}
+                        error={errorLogin}
+                        onChange={event => setPassword(event.target.value)}
+                        required 
+                        fullWidth
+                        margin="normal"
+                        />
 
-            <Button
-                type="submit"
-                variant="outlined"
-            >
-                Login
-            </Button>
-        </Box>
-        <p>{errorMsg}</p>
-        </>
+                    <StyledButtonContainer />
+                    <StyledButton
+                        type="submit"
+                        variant="outlined"
+                    >
+                        Login
+                    </StyledButton>
+                </Box>
+            </StyledBox>
+        </MainContainer>
     )
 };
 
