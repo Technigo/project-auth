@@ -14,12 +14,12 @@ export const MainWrapper = styled.div`
 `;
 
 export const ButtonLogout = styled.button`
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: #777;
   font-family: 'Sora', helvetica, sans-serif;
   font-weight: 800;
-  padding: 10px 20px;
-  border: 4px solid #777;
+  padding: 8px 16px;
+  border: 3px solid #777;
   border-radius: 45px;
   cursor: pointer;
   transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out;
