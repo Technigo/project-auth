@@ -1,147 +1,114 @@
-// //////////////////////////////////////////////////////////////////////// //
-// /////////////////////////////// IMPORT ///////////////////////////////// //
-// //////////////////////////////////////////////////////////////////////// //
-
-import React, { useEffect, useState } from "react"; // Import required modules from React
-import { useDispatch, useSelector } from "react-redux"; // Import required modules from React Redux
-import { useNavigate } from "react-router-dom"; // Import required modules from React Router
-import { user } from "reducers/user"; // Import the "user" reducer from the "reducers" folder
-import { API_URL } from "utils/urls"; // Import the "API_URL" constant from the "utils/urls" module
-
-// //////////////////////////////////////////////////////////////////////// //
-// //////////////////////////////// APP /////////////////////////////////// //
-// //////////////////////////////////////////////////////////////////////// //
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { user } from "reducers/user";
+import { API_URL } from "utils/urls";
 
 export const Login = () => {
-    const [username, setUsername] = useState(""); // Create a state variable for the username
-    const [password, setPassword] = useState(""); // Create a state variable for the password
-    const [mode, setMode] = useState("login"); // Create a state variable for the login mode ("login" or "register")
-    const dispatch = useDispatch(); // Access the Redux dispatch function
-    const navigate = useNavigate(); // Access the navigation function from React Router
-    const accessToken = useSelector((store) => store.user.accessToken); // Access the "accessToken" value from the Redux store
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [mode, setMode] = useState("login");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const accessToken = useSelector((store) => store.user.accessToken);
 
-    useEffect(() => {
-        // Perform an action when the component mounts or when the "accessToken" value changes
-        if (accessToken) {
-            navigate("/"); // Navigate to the homepage if the user is already logged in
-        }
-    }, [accessToken]);
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/");
+    }
+  }, [accessToken, navigate]);
 
-    const onFormSubmit = (event) => {
-        event.preventDefault(); // Prevent the default form submission behavior
-
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ username: username, password: password }), // Create a JSON string from the username and password
-        };
-
-        fetch(API_URL(mode), options)
-            .then((response) => response.json()) // Parse the response as JSON
-            .then((data) => {
-                if (data.success) {
-                    // If the response is successful
-                    console.log(data);
-                    dispatch(user.actions.setAccessToken(data.response.accessToken)); // Update the "accessToken" value in the Redux store
-                    dispatch(user.actions.setUsername(data.response.username)); // Update the "username" value in the Redux store
-                    dispatch(user.actions.setUserId(data.response.id)); // Update the "userId" value in the Redux store
-                    dispatch(user.actions.setError(null)); // Clear any previous error in the Redux store
-                } else {
-                    // If the response is not successful
-                    dispatch(user.actions.setAccessToken(null)); // Clear the "accessToken" value in the Redux store
-                    dispatch(user.actions.setUsername(null)); // Clear the "username" value in the Redux store
-                    dispatch(user.actions.setUserId(null)); // Clear the "userId" value in the Redux store
-                }
-            });
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username, password: password }),
     };
 
-    // //////////////////////////////////////////////////////////////////////// //
-    // //////////////////////////////// RETURN JSX //////////////////////////// //
-    // //////////////////////////////////////////////////////////////////////// //
+    fetch(API_URL(mode), options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log(data);
+          dispatch(user.actions.setAccessToken(data.response.accessToken));
+          dispatch(user.actions.setUsername(data.response.username));
+          dispatch(user.actions.setUserId(data.response.id));
+          dispatch(user.actions.setError(null));
+        } else {
+          dispatch(user.actions.setAccessToken(null));
+          dispatch(user.actions.setUsername(null));
+          dispatch(user.actions.setUserId(null));
+          dispatch(user.actions.setError(data.response));
+        }
+      });
+  };
 
-    return (
-        <>
-            <div id="container">
-                {/* Cover Box */}
-                <div id="cover">
-                    {/* Sign Up Section */}
-                    <h1 className="sign-up">Hello, Friend!</h1>
-                    <p className="sign-up">Enter your personal details<br /> and start a journey with us</p>
-                    <a
-                        className={`button sign-up ${mode === 'register' ? 'active' : ''}`}
-                        href="#cover"
-                        onClick={() => setMode('register')}
-                    >
-                        Sign Up
-                    </a>
-
-                    {/* Sign In Section */}
-                    <h1 className="sign-in">Welcome Back!</h1>
-                    <p className="sign-in">To keep connected with us please<br /> login with your personal info</p>
-                    <br />
-                    <a
-                        className={`button sub sign-in ${mode === 'login' ? 'active' : ''}`}
-                        href="#"
-                        onClick={() => setMode('login')}
-                    >
-                        Sign In
-                    </a>
-                </div>
-
-                {/* Login Box */}
-                <div id="login">
-                    <h1>Sign In</h1>
-                    <form onSubmit={onFormSubmit}>
-                        <input
-                            type="text"
-                            placeholder="Username"
-                            autoComplete="off"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <br />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            autoComplete="off"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <br />
-                        <input className="submit-btn" type="submit" value="Sign In" />
-                    </form>
-                </div>
-
-                {/* Register Box */}
-                <div id="register">
-                    <h1>Create Account</h1>
-                    <form onSubmit={onFormSubmit}>
-                        <input
-                            type="text"
-                            placeholder="Username"
-                            autoComplete="off"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <br />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            autoComplete="off"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <br />
-                        <input
-                            className="submit-btn"
-                            type="submit"
-                            value="Sign Up" />
-                    </form>
-                </div>
-            </div>
-        </>
-
-    );
+  return (
+    <form className="form" onSubmit={onFormSubmit}>
+      <p id="heading">Login</p>
+      <div className="field">
+        <svg
+          className="input-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+        >
+          <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"></path>
+        </svg>
+        <input
+          className="input"
+          type="text"
+          name="username"
+          placeholder="Username"
+          autoComplete="off"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+          required
+        />
+      </div>
+      <div className="field">
+        <svg
+          className="input-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+        >
+          <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+        </svg>
+        <input
+          className="input"
+          type="password"
+          name="password"
+          placeholder="Password"
+          autoComplete="off"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          required
+        />
+      </div>
+      <div className="btn">
+        <button
+          className="button1"
+          type="submit"
+          onClick={() => setMode("login")}
+        >
+          Login
+        </button>
+        <button
+          className="button2"
+          type="submit"
+          onClick={() => setMode("register")}
+        >
+          Sign Up
+        </button>
+      </div>
+    </form>
+  );
 };

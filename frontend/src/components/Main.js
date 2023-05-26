@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"; // Import required modules from 
 import { thoughts } from "reducers/thoughts"; // Import the "thoughts" reducer from the "reducers" folder
 import { API_URL } from "utils/urls"; // Import the "API_URL" constant from the "utils/urls" module
 import { user } from "reducers/user"; // Import the "user" reducer from the "reducers" folder
+import { StickyNotes } from './StickyNotes'; // Import
 
 // //////////////////////////////////////////////////////////////////////// //
 // /////////////////////////////// MAIN APP /////////////////////////////// //
@@ -92,23 +93,23 @@ export const Main = () => {
       // //////////////////////////////////////////////////////////////////////// //
 
     return (
-        <>
-            <button type="button" onClick={onLogoutButtonClick}>
-                LOGOUT
-            </button>
-            {username ? <h2>THESE ARE THE THOUGHTS OF {username.toUpperCase()}</h2> : ""}
-            {thoughtItems.map((item) => {
-                return <p key={item._id}>{item.message}</p>; // Render paragraphs for each thought item in the "thoughtItems" array
-            })}
-             <form onSubmit={postNewThought}>
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Enter your message"
-        />
-        <button type="submit">Post Message</button>
-      </form>
-        </>
-    );
+      <>
+      <button type="button" onClick={onLogoutButtonClick}>
+          LOGOUT
+      </button>
+      {username ? <h2>THESE ARE THE THOUGHTS OF {username.toUpperCase()}</h2> : ''}
+      <div className='sticky-notes-container'>
+          <form className='messageForm' onSubmit={postNewThought}>
+              <input
+                  type="text"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Enter your message"
+              />
+              <button type="submit">Post Message</button>
+          </form>
+          <StickyNotes thoughts={thoughtItems} />
+      </div>
+  </>
+);
 };

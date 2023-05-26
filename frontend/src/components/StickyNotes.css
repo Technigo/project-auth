@@ -1,0 +1,54 @@
+@import url(https://fonts.googleapis.com/css?family=Gloria+Hallelujah);
+* { box-sizing:border-box; }
+body { background:url(https://subtlepatterns.com/patterns/little_pluses.png) #CACACA; margin:30px; }
+#create, textarea  {
+  float:left;
+  padding:25px 25px 40px;
+  margin:0 20px 20px 0;
+  width:250px;
+  height:250px;
+}
+textarea {
+  font:20px 'Gloria Hallelujah', cursive;
+  line-height:1.5;
+  border:0;
+  border-radius:3px;
+  background: linear-gradient(#F9EFAF, #F7E98D);
+  box-shadow:0 4px 6px rgba(0,0,0,0.1);
+  overflow:hidden;
+  transition:box-shadow 0.5s ease;
+  font-smoothing:subpixel-antialiased;
+  max-width:520px;
+  max-height:250px;
+}
+textarea:hover { box-shadow:0 5px 8px rgba(0,0,0,0.15); }
+textarea:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
+.sticky-notes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.messageForm {
+  display: flex;
+    flex-direction: column;
+}
+.stickyNotes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+@media (max-width: 768px) {
+  .stickyNotes {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .stickyNotes {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(16, 1fr);
+  }
+}
