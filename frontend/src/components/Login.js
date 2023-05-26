@@ -64,7 +64,7 @@ const Login = () => {
         <input
           type="text"
           id="username"
-          placeholder="Must be at least 2 characters"
+          placeholder="At least 2 characters"
           value={username}
           minLength="2"
           maxLength="14"
@@ -73,7 +73,7 @@ const Login = () => {
         <input
           type="password"
           id="password"
-          placeholder="Must be at least 8 characters"
+          placeholder="At least 8 characters"
           value={password}
           minLength="8"
           onChange={e => setPassword(e.target.value)} />
