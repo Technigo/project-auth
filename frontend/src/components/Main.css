@@ -1,3 +1,9 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .Btn {
     display: flex;
     align-items: center;
@@ -63,4 +69,8 @@
   /* button click effect*/
   .Btn:active {
     transform: translate(2px ,2px);
+  }
+
+  p {
+    font-size: 40px;
   }

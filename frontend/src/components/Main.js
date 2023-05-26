@@ -9,6 +9,7 @@ import { thoughts } from "reducers/thoughts"; // Import the "thoughts" reducer f
 import { API_URL } from "utils/urls"; // Import the "API_URL" constant from the "utils/urls" module
 import { user } from "reducers/user"; // Import the "user" reducer from the "reducers" folder
 import { StickyNotes } from './StickyNotes'; // Import
+import './Main.css';
 
 // //////////////////////////////////////////////////////////////////////// //
 // /////////////////////////////// MAIN APP /////////////////////////////// //
@@ -103,7 +104,7 @@ export const Main = () => {
   
   <div className="text">Logout</div>
       </button>
-      {username ? <h2>THESE ARE THE THOUGHTS OF {username.toUpperCase()}</h2> : ''}
+      {username ? <p>WELCOME {username.toUpperCase()}!</p> : ''}
       <div className='sticky-notes-container'>
           <form className='messageForm' onSubmit={postNewThought}>
               <input
