@@ -17,6 +17,7 @@ const Login = () => {
 
     useEffect(() => {
         if (accessToken) {
+          console.log("User is logged in");
             navigate("/")
         }
     }, [accessToken, navigate]);
