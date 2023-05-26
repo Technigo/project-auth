@@ -4,7 +4,8 @@ const thoughts = createSlice({
     name: "thoughts",
     initialState: {
         items: [],
-        error: null
+        error: null,
+        likeThought: 1
     },
     reducers: {
         setError: (store, action) => {
@@ -12,7 +13,10 @@ const thoughts = createSlice({
         },
         setItems: (store, action) => {
             store.items = action.payload
-        }
+        },
+        setLikeThought: (store, action) => {
+            store.likeThought = action.payload
+          },
     }
 });
 

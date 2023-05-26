@@ -73,33 +73,43 @@ export const App = () => {
   //     .finally(() => fetchThoughts())
   // } 
 
-  const onLikesIncrease = (LikeID) => {
-    const options = {
-      method: 'PATCH',
-      headers: {
-        'content-type': 'application/json'
-      }
-    };
+  // const onLikesIncrease = (LikeID) => {
+  //   const options = {
+  //     method: 'PATCH',
+  //     headers: {
+  //       'content-type': 'application/json'
+  //     }
+  //   };
 
-    fetch(
-      `https://project-happy-thoughts-api-oivc6zag6a-lz.a.run.app/thoughts/${LikeID}/like`,
-      options
-    )
+  //   // fetch(
+  //   //   `https://project-happy-thoughts-api-oivc6zag6a-lz.a.run.app/thoughts/${LikeID}/like`,
+  //   //   options
+  //   // )
+  //   fetch(
+  //     `https://localhost:8080/thoughts/${LikeID}/like`,
+  //     options
+  //   )
 
-    // `${API_URL}/thoughts/${LikeID}/like`, options
-      .then((res) => res.json())
-      .then((tomato) => { 
-        const updatedThoughts = thoughts.map((thought) => {
-          if (thought._id === tomato.response._id) {
-            thought.hearts += 1;
-          }
-          return thought;
-        });
-        setThoughts(updatedThoughts);
-      }) 
-      .catch((error) => error);
-      fetchThoughts();
-  };
+  //   `${API_URL}/thoughts/${LikeID}/like`, options
+  //     .then((res) => res.json())
+  //     .then((tomato) => { 
+  //       const updatedThoughts = thoughts.map((thought) => {
+  //         if (thought._id === tomato.response._id) {
+  //           thought.hearts += 1;
+  //         }
+  //         return thought;
+  //       });
+  //       setThoughts(updatedThoughts);
+  //     }) 
+  //     .catch((error) => error);
+  //     fetchThoughts();
+
+  //   //   .then((res) => res.json())
+  //   // .then(() => {
+  //   //   dispatch(thoughts.actions.likeThought({ LikeID }));
+  //   // })
+  //   // .catch((error) => console.error(error));
+  // };
 
   return (
     <div className="main-container">

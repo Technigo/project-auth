@@ -7,12 +7,13 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/urls';
 import user from 'reducers/user';
 import thoughts from 'reducers/thoughts';
+import { Hearts } from './Hearts';
 // the ThoughtList-component renders a list of thoughts that are passed in as props.
 // The loading state is used to render a loading message while the data is being fetched.
 // The onLikesIncrease function is called when the user clicks on the heart button to
 // increase the number of hearts for a specific thought.
-export const ThoughtList = ({ onLikesIncrease }) => {
-  console.log(onLikesIncrease, 'working')
+export const ThoughtList = ( {onLikesIncrease} ) => {
+  console.log(onLikesIncrease, 'prop passed')
     const thoughtItems = useSelector((store) => store.thoughts.items);
     const dispatch = useDispatch();
     const accessToken = useSelector(store => store.user.accessToken);
@@ -43,20 +44,17 @@ export const ThoughtList = ({ onLikesIncrease }) => {
                 dispatch(thoughts.actions.setItems([]));
             }
         });
-}, []);
-  
+});
+
+
   return (
-    <section>
-      {thoughtItems.map((list) => (
-        
+    <>
+      {thoughtItems.map((list) => ( 
         <div className="Thoughts" key={list._id}>
           <h1>{list.user.username}</h1>
           <p className="thought-text">{list.message}</p>
-          
 
-          <div className="likes">
-              {/* hand */}
-              <button
+          <button
               type="button"
               className={list.flames === 0 ? 'like-btn' : 'no-like-btn'}
               onClick={() => onLikesIncrease(list._id)}>
@@ -86,15 +84,8 @@ export const ThoughtList = ({ onLikesIncrease }) => {
               onClick={() => onLikesIncrease(list._id)}>              
                 <p className="counter">🍋  {list.hearts}</p>
             </button>
-
-            {/* <p className="date">
-              {formatDistance(new Date(list.createdAt), Date.now(), {
-                addSuffix: true
-              })}
-            </p> */}
           </div>
-        </div>
       ))}
-    </section>
+    </>
   );
 };
