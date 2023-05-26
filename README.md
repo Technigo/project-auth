@@ -1,13 +1,12 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This weeks project was done through pair-programming, a collaboration between Joanna Philips and Leo Thunell. The aim was to practice authentication and storing data in an API while taking adequate security measures when handling user data. During this week, we created a backend that handles requests and stores user data and a frontend connected to it which both display relevant error messages when called for.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+Some structure as to how login and register was to be done had to be reconsidered to make it as smooth of a user experience as possible, which took some time to remodel and get the right error messages on the front end.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Front end: https://project-authltjp.netlify.app/login
+Back end: https://project-auth-bkqekveefa-lz.a.run.app/
