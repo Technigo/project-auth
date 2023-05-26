@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { user, getUser } from "./reducers/user";
 import { Loading } from "./Loading"; 
 import Card from '@mui/material/Card';
+import Container from '@mui/material/Container';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -23,6 +24,7 @@ const Main = () => {
             navigate("/login")
         }else{
             dispatch(getUser())
+
         }
     },[accessToken]);
     
@@ -40,30 +42,32 @@ const Main = () => {
         dispatch(user.actions.setError(null))
     }    
      return(
-        <> {!isLoading ? (
-            <>
+        <> {!isLoading ?
+           (
+            <Container maxWidth="sm" sx={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', height:'100%'}}>
             <Card sx={{ maxWidth: 800 }}>
       <CardMedia
-        sx={{ height: 140 }}
-        image="/static/images/cards/contemplative-reptile.jpg"
-        title="green iguana"
+        sx={{ height: 140, display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}
+        image="./assets/chatbot.jpg"
+        title="chatbot"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Welcome! Your email {email ? (<p>{email.toUpperCase()}</p>) : null} and username {username ? (<p>{username}</p>) : null} have been registered. 
+          Welcome! <br/> Your email and username have been registered. {username ? (<p>{username}</p>) : null}  {email ? (<p>{email.toUpperCase()}</p>) : null}
         </Typography>
         <Typography variant="body2" color="text.secondary">
            Ready to learn about animals? This is a fun encyclopedia full of animal facts and games that you are going to love. Lets start learning!
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small" sx={{alignItems:'center'}}>Pick your Avatar Below</Button>
       </CardActions>
     </Card>
-              <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button>
+              <Button variant="contained" color="success" onClick={onLogoutButtonClick}>LOGOUT</Button>
               
-            </>
-          ) : <Loading />}
+            </Container>
+          ) 
+          : <Loading />}
           </>
           
      )
