@@ -14,12 +14,15 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { Link } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { generatePassword, generateRandomName } from "./GuestLoginUtils";
 
 export const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState("login");
+  const [guestLogin, setGuestLogin] = useState(false);
   const [loginError, setLoginError] = useState(false);
   const [loginErrorMessage, setLoginErrorMessage] = useState("");
 
@@ -32,10 +35,18 @@ export const LoginPage = () => {
       navigate("/");
     }
   }, [accessToken]);
-  console.log(username);
+
+  useEffect(() => {
+    if (guestLogin && (username !== "" && password !== "" && mode === "register")) {
+      onFormSubmit()
+    }
+  }, [guestLogin, username, password, mode]);
 
   const onFormSubmit = (event) => {
-    event.preventDefault();
+    if (event != null) {
+      event.preventDefault();
+    }
+    
     const options = {
       method: "POST",
       headers: {
@@ -64,6 +75,16 @@ export const LoginPage = () => {
       });
   };
 
+  
+  const GuestLogin = () => {
+  setUsername(generateRandomName());
+  setPassword(generatePassword());
+  setMode("register");
+  setGuestLogin(true);
+  };
+  
+
+  
   const defaultTheme = createTheme({
     typography: {
       fontFamily: ["VT323", "monospace"].join(","),
@@ -140,13 +161,6 @@ export const LoginPage = () => {
                       })()
                     : ""
                 }
-                //   helperText={
-                //     loginError
-                //       ? mode === "login"
-                //         ? "Credentials do not match"
-                //         : "Name taken, please register another username"
-                //       : ""
-                //   }
               />
               <TextField
                 margin="normal"
@@ -180,17 +194,17 @@ export const LoginPage = () => {
               >
                 {mode === "login" ? "Login" : "Register"}
               </Button>
+              <Button
+                type="button"
+                fullWidth
+                variant="outlined"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={GuestLogin}
+              >
+                Login as Guest
+              </Button>
               <Grid container>
-                {/* <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                                    </Link>
-                                </Grid> */}
-                <Grid item>
-                  {/* <Link href="#" variant="body2" onClick={handleModeChange}>
-                                    {mode === 'login' ? "Don't have an account? Register" : 'Already have an account? Login'}
-                                    </Link> */}
-                  <FormGroup>
+              <FormGroup>
                     {mode === "login"
                       ? "Don't have an account? →"
                       : "Already have an account? →"}
@@ -198,7 +212,7 @@ export const LoginPage = () => {
                       <FormControlLabel
                         control={
                           <Switch
-                            /* checked={checked} */ onChange={handleModeChange}
+                            onChange={handleModeChange}
                             inputProps={{ "aria-label": "controlled" }}
                           />
                         }
@@ -216,7 +230,12 @@ export const LoginPage = () => {
                       />
                     )}
                   </FormGroup>
-                </Grid>
+                {/* <Grid item>
+                  <Link href="#" variant="body3" onClick={GuestLogin}>
+                                Login as Guest
+                                    </Link>
+                  
+                </Grid> */}
               </Grid>
             </Box>
           </Box>
