@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import thoughts from "reducers/thoughts";
 import { API_URL } from "utils/urls";
 import user from "reducers/user";
+import { MainWrapper, ButtonLogout, Greetings, ThoughtsContainer, Thought } from './Main.styled.js';
 
 const Main = () => {
     // Selecting thought items from Redux store
@@ -91,24 +92,26 @@ const Main = () => {
     };
 
     return (
-        <>
+        <MainWrapper>
             {/* Logout button */}
-            <button type="button" onClick={onLogoutButtonClick}>
+            <ButtonLogout type="button" onClick={onLogoutButtonClick}>
                 LOGOUT
-            </button>
+            </ButtonLogout>
 
             {/* Display username if available */}
             {username ? (
-                <h2>HI {username.toUpperCase()}! Suggestions by Students of Junior Science Lab®</h2>
+                <Greetings>HI {username.toUpperCase()}! Suggestions by Students of Junior Science Lab®</Greetings>
             ) : (
                 ""
             )}
 
             {/* Display thought items */}
-            {thoughtItems.map((item) => {
-                return <p key={item._id}>{item.message}</p>;
-            })}
-        </>
+            <ThoughtsContainer>
+                {thoughtItems.map((item) => {
+                    return <Thought key={item._id}>{item.message}</Thought>;
+                })}
+            </ThoughtsContainer>
+        </MainWrapper>
     );
 };
 
