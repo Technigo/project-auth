@@ -15,10 +15,6 @@ const Register = () => {
     const [helperText, setHelperText] = useState("");
     const dispatch = useDispatch();
 
-/*     const validatePassword = (password) => {
-        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*]).{8,32}$/;
-        return passwordRegex.test(password)
-    }; */
     // Checks the password input against regex
     const handlePasswordChange = (event) => {
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*]).{8,32}$/;
@@ -71,7 +67,8 @@ const Register = () => {
         <>
             <h1>REGISTER HERE</h1>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <TextField 
+                <TextField
+                    error={username.length > MAX_LENGTH}
                     type="text" 
                     id="outlined-name-input" 
                     label="Username" 
@@ -80,7 +77,7 @@ const Register = () => {
                     required
                 />
 
-                <TextField 
+                <TextField
                     type="password" 
                     id="outlined-password-input" 
                     label="Password" 
