@@ -46,6 +46,12 @@ const Register = () => {
                     dispatch(user.actions.setError(null))
                     setIsRegistered(true);
                     setSuccessMsg('User successfully created')
+                } else if (data.response.message === 'Username is already taken') {
+                    dispatch(user.actions.setAccessToken(null))
+                    dispatch(user.actions.setUserName(null))
+                    dispatch(user.actions.setUserId(null))
+                    dispatch(user.actions.setError(data.response))
+                    setErrorMsg('Username is already taken')
                 } else {
                     dispatch(user.actions.setAccessToken(null))
                     dispatch(user.actions.setUserName(null))
@@ -68,7 +74,6 @@ const Register = () => {
             <h1>REGISTER HERE</h1>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <TextField
-                    error={username.length > MAX_LENGTH}
                     type="text" 
                     id="outlined-name-input" 
                     label="Username" 
