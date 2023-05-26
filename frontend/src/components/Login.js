@@ -140,6 +140,9 @@ export const Login = () => {
                             type="submit"
                             value="Sign Up" />
                     </form>
+                    {thoughtItems.map((item) => {
+                return <p>{response.error}</p>; // Render paragraphs for each thought item in the "thoughtItems" array
+            })}
                 </div>
             </div>
         </>
