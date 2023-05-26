@@ -26,7 +26,6 @@ export const ButtonLogout = styled.button`
   transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out;
   right: 44%;
   top: 20px;
-  
 
   &:hover {
     background-color: #777;
@@ -52,6 +51,7 @@ export const ThoughtsContainer = styled.div`
   align-items: center;
   gap: 20px;
   margin-top: 60px;
+  margin-bottom: 60px;
 `;
 
 export const Thought = styled.p`
