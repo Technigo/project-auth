@@ -1,1 +1,0 @@
-export const REACT_APP_BASE_URL = 'https://project-auth-ntpvo35qja-lz.a.run.app/'
