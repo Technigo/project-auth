@@ -1,9 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Box, Button } from "@mui/material";
-import { Directions } from "@mui/icons-material";
-import { grey } from "@mui/material/colors";
-
 
 export const Startpage = () => {
     return (
@@ -42,8 +39,8 @@ export const Startpage = () => {
                         gap: '30px',
                         margin: '20px',
                     }}
-                    >
-                    <Link to="/register">
+                >
+                <Link to="/register">
                         <Button
                             type="submit"
                             variant="outlined"
@@ -79,9 +76,7 @@ export const Startpage = () => {
                         </Button>
                     </Link>
                 </Box>
-
             </Box>
-        </Box>
-        
+        </Box>  
     )
-}
+};
