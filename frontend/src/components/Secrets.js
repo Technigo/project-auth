@@ -13,13 +13,6 @@ export const Secrets = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!accessToken) {
-            navigate("/login")
-        }
-    }, [accessToken]);
-
-
-    useEffect(() => {
         const options = {
             method: "GET",
             headers: {
@@ -48,20 +41,37 @@ export const Secrets = () => {
         dispatch(secrets.actions.setSecretMessage(null));
     }
 
-    return (
-        <>
-            <Link to="/">
-                <Button
-                    type="button"
-                    variant="outlined"
-                    onClick={onLogOutButtonClick}
-                >
-                LOGOUT
-                </Button>
-            </Link>
-            <p>This is a secret message</p>
-        </> 
-    )
+    
+        if (!accessToken) {
+            return (
+                <div>
+                    <p>Unauthorized. Please login to see secret page.</p>
+                    <Link to="/login">
+                        <Button 
+                            type="submit" 
+                            variant="outlined"
+                        >           
+                        GO TO LOGIN
+                        </Button>
+                    </Link>
+                </div>
+            )
+        } else {
+            return (
+                <>
+                    <Link to="/">
+                        <Button
+                            type="button"
+                            variant="outlined"
+                            onClick={onLogOutButtonClick}
+                        >
+                            LOGOUT
+                        </Button>
+                    </Link>
+                    <p>This is your secret message {username}</p>
+                </>
+            )
+        }
 };
 
         // the log in redirects here
