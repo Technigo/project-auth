@@ -4,30 +4,16 @@ import styled from 'styled-components/macro';
 import tigerAnimation from '../assets/tigerAnimation.json';
 
 export const Loading = () => {
-  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsAnimationComplete(true);
-    }, 10000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
+ 
   return (
     <LottieWrapper>
-      <div className="container">
+     <div className="container">
         <Player
-          loop={!isAnimationComplete}
-          autoplay={!isAnimationComplete}
+          loop ={false}
+          autoplay = {true}
           src={tigerAnimation}
           className="lottie"
           speed={1}
-          onComplete={() => {
-            setTimeout(() => {
-              setIsAnimationComplete(true);
-            }, 10000);
-          }}
         />
       </div>
     </LottieWrapper>

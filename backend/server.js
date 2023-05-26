@@ -253,8 +253,9 @@ const { totalScore, badges, avatar, history } = req.body;
     const accessToken = req.header("Authorization");
 
 const updateFields = {
-  $set: { totalScore: totalScore, avatar: avatar },
+  $set: { totalScore: totalScore, avatar: avatar },// to change totalScore for $inc
   $push: { badges: { $each: [badges] } }
+  // add username and password -> stretch goal
 };
 if (history) {
   updateFields.$push = { history: { $each: [history] } };

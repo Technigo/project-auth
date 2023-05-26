@@ -102,7 +102,7 @@ export const registerUser = (username, email, password) => {
             console.log(data)
          }
       })
-      .finally(() => dispatch(loading.actions.setLoading(false)))
+      .finally(dispatch(loading.actions.setLoading(false)))
   };
 };
 
@@ -141,7 +141,7 @@ export const loginUser = ( email, password) => {
          }
         
       })
-      .finally(() => dispatch(loading.actions.setLoading(false)))
+      .finally(dispatch(loading.actions.setLoading(false)))
   };
 };
 
@@ -178,6 +178,6 @@ export const getUser = () => {
           console.log('error')
          }
       })
-      .finally(() => dispatch(loading.actions.setLoading(false)))
+     .finally(() =>dispatch(loading.actions.setLoading(false)))
   };
 };

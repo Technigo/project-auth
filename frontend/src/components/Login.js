@@ -51,7 +51,7 @@ event.preventDefault()
 if(!checked){
 dispatch(registerUser(username, email, password))
 }else{
-   dispatch(loginUser(email, password))
+dispatch(loginUser(email, password))
 }
 }
      return(
