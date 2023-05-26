@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from "react"; // Import required modules from React
 import { useDispatch, useSelector } from "react-redux"; // Import required modules from React Redux
 import { useNavigate } from "react-router-dom"; // Import required modules from React Router
-import user from "reducers/user"; // Import the "user" reducer from the "reducers" folder
+import { user } from "reducers/user"; // Import the "user" reducer from the "reducers" folder
 import { API_URL } from "utils/urls"; // Import the "API_URL" constant from the "utils/urls" module
 
 // //////////////////////////////////////////////////////////////////////// //
@@ -140,9 +140,6 @@ export const Login = () => {
                             type="submit"
                             value="Sign Up" />
                     </form>
-                    {thoughtItems.map((item) => {
-                return <p>{response.error}</p>; // Render paragraphs for each thought item in the "thoughtItems" array
-            })}
                 </div>
             </div>
         </>
