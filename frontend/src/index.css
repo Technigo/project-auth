@@ -5,7 +5,31 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+  margin:30px;
+  
+/*BACKGROUND IMAGE*/
+  background-image: url('https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg');
+  background-size:cover;
+  -webkit-animation: slidein 100s;
+  animation: slidein 100s; 
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+   animation-direction: alternate;              
+    }
+    
+    @-webkit-keyframes slidein {
+    from {background-position: top; background-size:3000px; }
+    to {background-position: -100px 0px;background-size:2750px;}
+    }
+    
+    @keyframes slidein {
+    from {background-position: top;background-size:3000px; }
+    to {background-position: -100px 0px;background-size:2750px;}
+    }
+    /*END BACKGROUND IMAGE*/
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -13,106 +37,6 @@ code {
 }
 
 
-.main {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background-color: #240046;
-  max-height: 420px;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 7px 7px 10px 3px #24004628;
-  width: 237px;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 28px;
-  height: 366px;
-  width: 189px;
-}
-
-/*checkbox to switch from sign up to login*/
-#chk {
-  display: none;
-}
-
-/*Login*/
-.login {
-  position: relative;
-  width: 217px;
-  height: 430px;
-}
-
-.login label {
-  margin: 25% 0 5%;
-}
-
-label {
-  color: #fff;
-  font-size: 2rem;
-  justify-content: center;
-  display: flex;
-  font-weight: bold;
-  cursor: pointer;
-  transition: .5s ease-in-out;
-}
-
-.input {
-  width: 90%;
-  height: 25px;
-  background: #e0dede;
-  padding: 10px;
-  border: none;
-  outline: none;
-  border-radius: 4px;
-}
-
-/*Register*/
-.register {
-  height: 326px;
-  background: white;
-  border-radius: 50% / 10%;
-  margin: 0;
-  transform: translateY(-19%);
-  transition: .8s ease-in-out;
-}
-
-.register label {
-  color: #573b8a;
-  transform: scale(.6);
-}
-
-#chk:checked ~ .register {
-  transform: translateY(-60%);
-}
-
-#chk:checked ~ .register label {
-  transform: scale(1);
-  margin: 10% 0 5%;
-}
-
-#chk:checked ~ .login label {
-  transform: scale(.6);
-  margin: 5% 0 5%;
-}   
-/*Button*/
-.form button {
-  width: 85%;
-  height: 40px;
-  margin: 12px auto 10%;
-  color: #fff;
-  background: #573b8a;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: .2s ease-in;
-}
-
-.form button:hover {
-  background-color: #6d44b8;
+h2 {
+  text-align: center;
 }

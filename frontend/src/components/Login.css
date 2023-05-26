@@ -1,6 +1,169 @@
 .loginContainer {
-    display: flex;
-      align-items: center;
-      height: 80vh;
-      justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
+.main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(7.2px);
+  max-height: 420px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 7px 7px 10px 3px #24004628;
+  width: 237px;
+  align-items: center;
+  margin: 0 10px; /* Added margin for responsive spacing */
+  scale: 150%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 28px;
+  height: 100%;
+  width: 100%;
+}
+
+/* Checkbox to switch from sign up to login */
+#chk {
+  display: none;
+}
+
+/* Login */
+.login {
+  position: relative;
+  width: 100%; /* Adjusted width to fit container */
+  height: 430px;
+}
+
+.login label {
+  margin: 25% 0 5%;
+}
+
+label {
+  color: #fff;
+  font-size: 2rem;
+  justify-content: center;
+  display: flex;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .5s ease-in-out;
+}
+
+.input {
+  width: 100%;
+  height: 35px;
+  background: #e0dede;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+}
+
+/* Register */
+.register {
+  height: 326px;
+  background: white;
+  border-radius: 50% / 10%;
+  margin: 0;
+  transform: translateY(10%);
+  transition: .8s ease-in-out;
+}
+
+.register label {
+  color: rgba(68, 101, 64);
+  transform: scale(.6);
+}
+
+#chk:checked ~ .register {
+  transform: translateY(-75%);
+}
+
+#chk:checked ~ .register label {
+  transform: scale(1);
+  margin: 10% 0 5%;
+}
+
+#chk:checked ~ .login label {
+  transform: scale(.6);
+  margin: 35% 0 25%;
+}
+
+/* Button */
+.form button {
+  width: 85%;
+  height: 40px;
+  margin: 12px auto 10%;
+  color: #fff;
+  background: rgba(29, 55, 152, 0.4);
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: .2s ease-in;
+  padding: 0;
+}
+
+.form button:hover {
+  background-color: rgba(17, 70, 13, 0.4);
+}
+
+/* Media Queries */
+@media (max-width: 768px) and (max-height: 1024px) {
+  .main {
+    width: 34%; /* Adjusted width to fit smaller screens */
   }
+}
+
+@media (max-width: 480px) {
+
+  .loginContainer {
+    padding: 0 10px; /* Added padding for smaller screens */
+  }
+  
+  .main {
+    width: 70%;
+    scale: 150%;
+  }
+  
+  .form button {
+    width: 100%;
+    margin: -8% 0 25%;
+  }
+
+  #chk:checked ~ .register {
+    transform: translateY(-72%);
+}
+
+.form {
+  gap: 21px;
+}
+.register {
+  transform: translateY(3%);
+
+}
+#chk:checked ~ .login label {
+  margin: 20% 0 25%;
+}
+}
+
+@media (max-width: 320px) and (max-height: 568px) {
+  .form {
+    padding: 38px;
+  }
+  .register {
+    transform: translateY(-5%);
+  }
+
+  .main {
+    width: 100%;
+    scale: 115%;
+}
+}
