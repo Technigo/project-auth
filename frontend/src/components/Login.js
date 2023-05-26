@@ -50,6 +50,9 @@ export const Login = () => {
         <>
         <Hello><h1>Hello!</h1></Hello>
         <LoginWrapper>
+        <HelloText>
+        <p>Login to see your daily cheesy quote!</p>
+        </HelloText>
             <RegisterLogin>
             <label htmlFor="register">Register</label>
             <input
@@ -103,9 +106,19 @@ const Hello = styled.div`
 color: white;
 display: flex;
 justify-content: flex-start;
-margin: 30px 0 -20px 28px;
+margin: 0 0 -20px 28px;
 font-size: 42px;
 font-family: 'Cherry Bomb One', cursive;
+`
+const HelloText = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+padding-top: 70px;
+p {
+ font-size: 18px;
+ font-family: 'Montserrat', sans-serif;
+}
 `
 
 const LoginWrapper = styled.div`
@@ -128,7 +141,6 @@ flex-direction: row;
 justify-content: center;
 font-size: 18px;
 gap: 10px;
-padding-top: 130px;
 `
 const Inputs = styled.div`
 display: flex;
@@ -164,8 +176,10 @@ button {
     border-style: none;
     margin-top: 20px;
     font-family: 'Montserrat', sans-serif;
+    z-index: 1;
 }
 `
 const Monster = styled.div`
 margin: 0 0 -45px 55px;
+z-index: 0;
 `
