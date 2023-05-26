@@ -7,14 +7,21 @@ import { API_URL } from "utils/urls";
 
 const FormWrapper = styled.div `
   display: flex;
-  flex-direction: column;
+  height: 100vh;
+  width: 100%;
   justify-content: center;
   text-align: center;
-  border: 1px solid;
-  padding: 10px;
-  box-shadow: 5px 10px;
-  margin: 120px;
   
+`
+const InnerWrapper = styled.div `
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid #845ec2;
+    box-shadow: 4px 4px 8px #845ec2;
+    padding: 10px;
+    margin: 120px;
 `
 
 
@@ -60,33 +67,35 @@ const Login = () => {
 
     return (
         <FormWrapper>
-            <label htmlFor="register">Register</label>
-            <input 
-                type="radio" 
-                id="register" 
-                checked={mode === "register"}
-                onChange={() => setMode("register")}/>
-            <label htmlFor="login">Login</label>
-            <input 
-                type="radio" 
-                id="login" 
-                checked={mode === "login"}
-                onChange={() => setMode("login")}/>
-            <form onSubmit={onFormSubmit}>
-                <label htmlFor="username">Username</label>
+            <InnerWrapper>
+                <label htmlFor="register">Register</label>
                 <input 
-                    type="text" 
-                    id="username" 
-                    value={username} 
-                    onChange={e => setUsername(e.target.value)} />
-                <label htmlFor="password">Password</label>
+                    type="radio" 
+                    id="register" 
+                    checked={mode === "register"}
+                    onChange={() => setMode("register")}/>
+                <label htmlFor="login">Login</label>
                 <input 
-                    type="password" 
-                    id="password" 
-                    value={password} 
-                    onChange={e => setPassword(e.target.value)} />
-                <button type="submit">Submit</button>
-            </form>
+                    type="radio" 
+                    id="login" 
+                    checked={mode === "login"}
+                    onChange={() => setMode("login")}/>
+                <form onSubmit={onFormSubmit}>
+                    <label htmlFor="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        value={username} 
+                        onChange={e => setUsername(e.target.value)} />
+                    <label htmlFor="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        value={password} 
+                        onChange={e => setPassword(e.target.value)} />
+                    <button type="submit">Submit</button>
+                </form>
+            </InnerWrapper>
         </FormWrapper>
         
     )
