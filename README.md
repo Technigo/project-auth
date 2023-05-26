@@ -2,7 +2,7 @@ Project Authenticator -
 
 🏁 Goals:
 
-In this week's project, we were tasked with building a project where we can authenticate users and handle passwords using tokens. We worked on securely storing the passwords in our database thinking about security and defensive design when building the frontend and backend. We also worked on learning how to build a registration flow and how to build a frontend and a backend at the same time.
+In this week's project, we were tasked with building a frontend and backend where we can authenticate users and handle passwords using tokens. We worked on securely storing the passwords in our database thinking about security and defensive design when building the frontend and backend. We also worked on learning how to build a registration flow and how to build a frontend and a backend at the same time.
 
 The goal for this week was to build authentication for both backend and frontend in a secure and defensive way, protecting and storing sensitive information in a good way.
 
@@ -30,6 +30,6 @@ If we had more time, we would have challenged ourselves by implementing Google a
 
 💻 Tech stack:
 
-React Redux CSS HTML MongoDB Mongo Atlas POSTMAN Google Cloud Figma
+HTML - CSS - React - Redux - MongoDB - MongoDB Atlas - POSTMAN - Google Cloud - Figma
 
 View it live 
