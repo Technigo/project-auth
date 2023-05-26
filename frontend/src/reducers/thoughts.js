@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"; // Import the createSlice function from Redux Toolkit
 
-const thoughts = createSlice({
+export const thoughts = createSlice({
     name: "thoughts", // Specify the name of the slice
     initialState: {
         items: [], // Initialize the items array to an empty array
@@ -15,6 +15,4 @@ const thoughts = createSlice({
         }
     }
 });
-
-export default thoughts; // Export the thoughts slice
 

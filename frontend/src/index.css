@@ -13,151 +13,106 @@ code {
 }
 
 
-.button {
-  border: 1px solid #fff;
-  border-radius: 20px;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  padding: 15px 60px;
-  text-decoration: none;
-  text-transform: uppercase;
-  }
-  input[type="password"],
-  input[type="text"] {
-  background: #f4f8f7;
-  border: none;
-  font-weight: 300;
-  margin: 5px;
-  padding: 10px;
-  width: 280px;
-  }
-  .submit-btn {
-  border: none;
-  border-radius: 25px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 11px;
-  letter-spacing: 1px;
-  margin-top: 20px;
-  padding: 15px 50px;
-  text-transform: uppercase;
-  }
-  #login .submit-btn {
-  background: #3aa7b1;
-  }
-  #register .submit-btn {
-  background: #3aaf9f;
-  }
-  #container {
-  background: #ededed;
-  border-radius: 10px;
-  height: 550px;
-  margin: 5% auto;
+.main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #240046;
+  max-height: 420px;
   overflow: hidden;
-  width: 1000px;
-  }
-  .social-login {
-  border: 1px solid #ccc;
-  border-radius: 50px;
-  height: 15px;
-  padding: 10px;
-  width: 15px;
-  }
-  #login {
-  background: #fff;
-  float: left;
-  height: 100%;
+  border-radius: 12px;
+  box-shadow: 7px 7px 10px 3px #24004628;
+  width: 237px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px;
+  height: 366px;
+  width: 189px;
+}
+
+/*checkbox to switch from sign up to login*/
+#chk {
+  display: none;
+}
+
+/*Login*/
+.login {
   position: relative;
-  width: 50%;
-  text-align: center;
-  top: -550px;
-  z-index: 1;
-  }
-  #register {
-  background: #fff;
-  float: right;
-  height: 100%;
-  position: relative;
-  width: 50%;
-  text-align: center;
-  top: -550px;
-  z-index: 1;
-  }
-  #login h1,
-  #register h1 {
-  padding: 20% 0 25px;
-  }
-  #login h1 {
-  color: #3aa7b1;
-  }
-  #register h1 {
-  color: #3aaf9f;
-  }
-  #login p,
-  #register p {
-  font-size: 12px;
-  font-weight: 300;
-  letter-spacing: 0.3px;
-  padding: 20px;
-  }
-  #forgot-pass {
-  border-bottom: 1px solid #ccc;
-  color: #000;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  padding: 3px;
-  text-decoration: none;
-  }
-  #cover {
-  background: #3aa7b1;
+  width: 217px;
+  height: 430px;
+}
+
+.login label {
+  margin: 25% 0 5%;
+}
+
+label {
   color: #fff;
-  height: 550px;
-  margin: 0 0 0 50%;
-  position: relative;
-  text-align: center;
-  transition: margin 0.7s, background-color 0.5s, display 1s, width 1s;
-  width: 50%;
-  z-index: 5;
-  }
-  #cover h1 {
-  padding-top: 38%;
+  font-size: 2rem;
+  justify-content: center;
+  display: flex;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .5s ease-in-out;
+}
+
+.input {
+  width: 90%;
+  height: 25px;
+  background: #e0dede;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+}
+
+/*Register*/
+.register {
+  height: 326px;
+  background: white;
+  border-radius: 50% / 10%;
   margin: 0;
-  }
-  #cover p {
-  font-weight: 300;
-  line-height: 22px;
-  padding: 30px 45px 40px;
-  }
-  .sign-in {
-  display: none;
-  }
-  .sub {
-  position: relative;
-  top: -11px;
-  }
-  #cover:target {
-  background: #3aaf9f;
-  margin: 0;
-  }
-  #cover:target .sign-up {
-  display: none;
-  }
-  #cover:target .sign-in {
-  display: inline-block;
-  }
-  #cover:target .login-div {
-  width: 35%;
-  }
-  #credit {
-  color: #999;
-  font-size: 14px;
-  }
-  #info {
-  background: #eaeaea;
-  color: #555;
-  padding: 20px;
-  text-align: center;
-  }
+  transform: translateY(-19%);
+  transition: .8s ease-in-out;
+}
+
+.register label {
+  color: #573b8a;
+  transform: scale(.6);
+}
+
+#chk:checked ~ .register {
+  transform: translateY(-60%);
+}
+
+#chk:checked ~ .register label {
+  transform: scale(1);
+  margin: 10% 0 5%;
+}
+
+#chk:checked ~ .login label {
+  transform: scale(.6);
+  margin: 5% 0 5%;
+}   
+/*Button*/
+.form button {
+  width: 85%;
+  height: 40px;
+  margin: 12px auto 10%;
+  color: #fff;
+  background: #573b8a;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: .2s ease-in;
+}
+
+.form button:hover {
+  background-color: #6d44b8;
+}

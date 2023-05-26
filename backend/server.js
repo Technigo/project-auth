@@ -120,7 +120,7 @@ const ThoughtSchema = new mongoose.Schema({
   },
   user: {
     type: String,
-    require: true
+    required: true
   }
 });
 
