@@ -2,13 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import user from "reducers/user";
-// import memes from "reducers/memes";
 import thoughts from "reducers/thoughts";
 import { API_URL } from "utils/urls";
 import { Button, Container } from "@mui/material";
 
 const Main = () => {
-    // const memeItems = useSelector((store) => store.memes.memeItems)
     const dispatch = useDispatch();
     const thoughtItems = useSelector((store) => store.thoughts.items);
     const accessToken = useSelector(store => store.user.accessToken);
@@ -42,36 +40,12 @@ const Main = () => {
             });
     }, [])
 
-    // // Fetch memes
-    // useEffect(() => {
-    //     const options = {
-    //         method:"GET",
-    //         headers: {
-    //             // "Content-Type": "application/json",
-    //             "Authorization": accessToken
-    //         }
-    //     }
-    //     fetch('https://api.imgflip.com/get_memes', options)
-    //         .then(res => res.json())
-    //         .then(memeData => {
-    //             if(memeData.success) {
-    //                 console.log(memeData)
-    //                 dispatch(memes.actions.setMemeItems(memeData.memes));
-    //                 dispatch(memes.actions.setError(null));
-    //             } else {
-    //                 dispatch(memes.actions.setMemeItems([]));
-    //                 dispatch(memes.actions.setError(response));
-    //             }
-    //         });
-    // }, [])
-
     const onLogoutButtonClick = () => {
         dispatch(user.actions.setAccessToken(null));
         dispatch(user.actions.setUsername(null));
         dispatch(user.actions.setUserId(null));
         dispatch(user.actions.setError(null));
         dispatch(thoughts.actions.setItems([]));
-        // dispatch(memes.actions.setMemeItems([]));
     }
     return(
         <Container component="main" maxWidth="xs" sx={{marginTop: 8}}>  
@@ -80,9 +54,6 @@ const Main = () => {
             {thoughtItems.map(item => {
                 return(<p key={item._id}>{item.message}</p>)
             })}
-            {/* {memeItems.map(item => {
-                return(<p key={item.id}>{item.name}</p>)
-            })} */}
             <Button 
                 type="button" 
                 variant="contained"

@@ -158,29 +158,65 @@ const authenticateUser = async (req, res, next) => {
 }
 
 // Authenticated endpoint
+// The authenticated endpoint should return a 401 or 403 (see 401 vs. 403 on SO) 
+// with an error message if you try to access it without an Authentication access token 
+// or with an invalid token.
 // First we authenticate our user
 app.get("/thoughts", authenticateUser)
 // If they "pass" this is the function that happens next()
 app.get("/thoughts", async (req, res) => {
-  // The authenticated endpoint should return a 401 or 403 (see 401 vs. 403 on SO) 
-  // with an error message if you try to access it without an Authentication access token 
-  // or with an invalid token.
   const accessToken = req.header("Authorization")
-  const user = await User.findOne({accessToken: accessToken});
+  try {
+    const user = await User.findOne({accessToken: accessToken})
+    if (user) {
+      const thoughts = await Thought.find() // .populate('user') https://mongoosejs.com/docs/populate.html
+      res.status(200).json({
+        success: true,
+        response: thoughts,
+        message: "Thoughts found"
+      })
+    } else {
+      res.status(400).json({
+        success: false,
+        response: "Error, happy thoughts could not be found"
+      })
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      response: err
+    })
+  }
   // Thoughts of the specific user
-  const thoughts = await Thought.find({user: user._id}) // .populate('user') https://mongoosejs.com/docs/populate.html
-  res.status(200).json({success: true, response: thoughts})
-  // add if else block
+  // const thoughts = await Thought.find({user: user._id}) // .populate('user') https://mongoosejs.com/docs/populate.html
 })
+
 
 app.post("/thoughts", authenticateUser)
 app.post("/thoughts", async (req, res) => {
   const { message } = req.body
   const accessToken = req.header("Authorization")
-  const user = await User.findOne({accessToken: accessToken})
-  const thoughts = await new Thought({message: message, user: user._id}).save()
-  res.status(200).json({success: true, response: thoughts})
-  // add if else block
+  try {
+    const user = await User.findOne({accessToken: accessToken})
+    if (user) {
+      const newThought = await new Thought({message: message, user: user._id}).save()
+      res.status(201).json({
+        success: true,
+        response: newThought,
+        message: "New thought message successfully posted"
+      })
+    } else {
+      res.status(400).json({
+        success: false,
+        response: "Error, message could not be posted"
+      })
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      response: err
+    })
+  }
 })
 
 /////////////

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import user from "reducers/user";
 import { API_URL } from "utils/urls";
-import styled from "styled-components";
 import { Button, TextField, Alert, AlertTitle, Container, FormControl, RadioGroup, FormControlLabel, Radio, Typography, Box, Grid } from "@mui/material";
 
 const Login = () => {
@@ -14,6 +13,7 @@ const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const accessToken = useSelector(store => store.user.accessToken)
+    
     useEffect(() => {
         if (accessToken) {
             navigate("/")
@@ -73,20 +73,6 @@ const Login = () => {
                   </RadioGroup>
             </FormControl>
            
-            {/* <label htmlFor="register">Register</label>
-            <input
-                type="radio"
-                id="register"
-                checked={mode === "register"}
-                onChange={() => setMode("register")}
-            />
-            <label htmlFor="login">Login</label>
-            <input
-                type="radio"
-                id="login"
-                checked={mode === "login"}
-                onChange={() => setMode("login")}
-            /> */}
             <Box component="form" onSubmit={onFormSubmit}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -135,6 +121,21 @@ const Login = () => {
                     </Grid>
                 </Grid>
             </Box>
+
+            {/* <label htmlFor="register">Register</label>
+            <input
+                type="radio"
+                id="register"
+                checked={mode === "register"}
+                onChange={() => setMode("register")}
+            />
+            <label htmlFor="login">Login</label>
+            <input
+                type="radio"
+                id="login"
+                checked={mode === "login"}
+                onChange={() => setMode("login")}
+            /> */}
 
             {/* <form onSubmit={onFormSubmit}>
                 <label htmlFor="username">Username</label>
