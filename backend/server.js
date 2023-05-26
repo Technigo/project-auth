@@ -52,6 +52,20 @@ const User = mongoose.model("User", UserSchema);
 
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
+  //to make sure a password is created
+  if (!password) {
+    return res.status(400).json({
+      success: false,
+      response: "Password is required",
+    });
+  }
+ //ensure password is at least 6 characters long
+  if (password.length < 6) { 
+    return res.status(400).json({
+      success: false,
+      response: "Password needs to be at least 6 characters long",
+    });
+  }
   try {
     const salt = bcrypt.genSaltSync();
     const newUser = await new User({
@@ -94,21 +108,24 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: e,
-        message: "Credentials do not match"
+        response: "Credentials do not match",
+        message: "Credentials do not match",
+        error: null
       });
     }
   } catch (e) {
     res.status(500).json({
       success: false,
-      response: e,
+      response: "Internal server error",
+      message: "Internal server error",
+      error: e.errors
     });
   }
 });
 // Thoughts
-const ThoughtSchema = new mongoose.Schema ({
+const ThoughtSchema = new mongoose.Schema({
   message: {
-    type:String
+    type: String
   },
   createdAt: {
     type: Date,
@@ -116,7 +133,7 @@ const ThoughtSchema = new mongoose.Schema ({
     default: () => new Date()
   },
   user: {
-    type:String,
+    type: String,
     required: true
   }
 });
@@ -124,45 +141,45 @@ const ThoughtSchema = new mongoose.Schema ({
 const Thought = mongoose.model("Thought", ThoughtSchema)
 
 // Autehnticate the user
-const authenticateUser = async (req, res , next) => {
+const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
-    const user = await User.findOne({accessToken: accessToken}); // find the user with the access token they send in the header called Authorization
+    const user = await User.findOne({ accessToken: accessToken }); // find the user with the access token they send in the header called Authorization
     if (user) {
-      next ();
+      next();
     } else {
-     res.status(403).json({
-      sucess: false,
-      response: e,
-      message: "You must be logged in to see this page"
-     })
+      res.status(403).json({
+        sucess: false,
+        response: e,
+        message: "You must be logged in to see this page"
+      })
     }
   } catch (e) {
-    res.status(500).json ({
+    res.status(500).json({
       sucess: false,
-      response:e,
+      response: e,
       message: "Internal server error", error: e.errors
     });
   }
 }
 
-app.get ("/thoughts",authenticateUser); // this will run the function authenticateUser before the function below, to make sure the user is logged in
-app.get ("/thoughts", async (req,res) => {
+app.get("/thoughts", authenticateUser); // this will run the function authenticateUser before the function below, to make sure the user is logged in
+app.get("/thoughts", async (req, res) => {
   try {
-const thougths =await Thought.find ({}).populate('user');
-res.status(200).json ({
-  success:true,
-  message: "Retrieved thoughts successfully", 
-  response: thougths
-});
+    const thougths = await Thought.find({}).populate('user');
+    res.status(200).json({
+      success: true,
+      message: "Retrieved thoughts successfully",
+      response: thougths
+    });
   } catch (e) {
-    res.status(400).json ({
+    res.status(400).json({
       success: false,
       response: e,
       message: "Could not find thoughts"
     });
   }
-}); 
+});
 
 /* From wednesday live session
 app.get ("/thoughts", async (req,res) => {
@@ -183,30 +200,30 @@ app.get ("/thoughts", async (req,res) => {
 });
 */
 
-app.post ("/thoughts",authenticateUser);
+app.post("/thoughts", authenticateUser);
 //added try/catch to post thoughts, needs to be tested
-app.post ("/thoughts", async (req,res) => {
+app.post("/thoughts", async (req, res) => {
   try {
-  const { message } = req.body;
-  const accessToken = req.header("Authorization");
-  const user = await User.findOne ({accessToken: accessToken});
-if (user) {
-const thoughts = await new Thought({message: message, user: user._id }).save();
-res.status(200).json ({success:true, response: thoughts})
-  } else {
-    res.status(400).json ({
+    const { message } = req.body;
+    const accessToken = req.header("Authorization");
+    const user = await User.findOne({ accessToken: accessToken });
+    if (user) {
+      const thoughts = await new Thought({ message: message, user: user._id }).save();
+      res.status(200).json({ success: true, response: thoughts })
+    } else {
+      res.status(400).json({
+        success: false,
+        response: e,
+        message: "Could not post thought"
+      });
+    }
+  } catch (e) {
+    res.status(500).json({
       success: false,
       response: e,
-      message: "Could not post thought"
+      message: "Internal server error", error: e.errors
     });
-  } 
-} catch (e) {
-  res.status(500).json ({
-    success: false,
-    response: e,
-    message: "Internal server error", error: e.errors
-  });
-}
+  }
 });
 
 

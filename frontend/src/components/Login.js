@@ -42,7 +42,7 @@ const Login = () => {
                 dispatch(user.actions.setError(null));
 
             } else {
-
+                alert(data.response);
                 dispatch(user.actions.setAccessToken(null));
                 dispatch(user.actions.setUsername(null));
                 dispatch(user.actions.setUserId(null));
@@ -76,6 +76,7 @@ const Login = () => {
         <input 
                 type ="password"
                 id="password"
+                minlenght="6"
                 value={password}
                 onChange = {e => setPassword(e.target.value)}/>
 
