@@ -95,8 +95,8 @@ const Login = () => {
             disabled={username.length < 2 || password.length < 8}
           >{(mode === "register") ? "Register" : "Login"}</SubmitButton>
         </StyledForm>
-        {error !== null && mode === "register" && (<p>Sorry, user already exists.</p>)}
-        {error !== null && mode === "login" && (<p>Pls make sure that you are a registered user and that you have filled in the correct login information.</p>)}
+        {error !== null && mode === "register" && (<ErrorMessage>Sorry, user already exists.</ErrorMessage>)}
+        {error !== null && mode === "login" && (<ErrorMessage>Pls make sure that you are a registered user and that you have filled in the correct login information.</ErrorMessage>)}
       </InnerWrapper>
       <BackgroundContainer>
         <BackgroundImg src={ImageBackground} />
@@ -142,7 +142,10 @@ const StyledForm = styled.form`
   margin-bottom: 15px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 `
-
+const ErrorMessage = styled.p`
+  margin-top: 0;
+  text-align: center; 
+`
 const LabelForm = styled.label`
   display: flex;
   justify-content: space-between;
@@ -179,17 +182,22 @@ const SubmitButton = styled.button`
   border: 2px solid black;
   color: white;
   background-color: black;
-  width: 60px;
+  width: 68px;
   border-radius: 20px;
   font-family: Urbanist;
   cursor: pointer;
 
   &:hover {
-    border: 2px solid grey;
-    background-color: grey;
+    border: 2px solid #257ca3;
+    background-color: #257ca3;
     color: white;
   }
   
+  &:disabled {
+    background-color: #e3e4e6;
+    border: 2px solid #e3e4e6;
+    color: white;
+  }
 `
 
 export default Login;
