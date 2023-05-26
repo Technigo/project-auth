@@ -10,15 +10,20 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [mode, setMode] = useState("login")
     const [errorMessage, setErrorMessage] = useState("");
+    const [registrationMessage, setRegistrationMessage] = useState("")
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const accessToken = useSelector(store => store.user.accessToken)
-    
+
+    // Kan man lägga till här att man bara blir redirected om man är i mode "login"
+    // Just nu skickas man automatiskt till nästa sida när man registrerar sig
     useEffect(() => {
-        if (accessToken) {
+        console.log("accessToken:", accessToken);
+        console.log("mode:", mode);
+        if (accessToken && mode === "login") {
             navigate("/")
         }
-    }, [accessToken])
+    }, [accessToken, mode])
 
     const onFormSubmit = (event) => {
         event.preventDefault()
@@ -38,6 +43,9 @@ const Login = () => {
                     dispatch(user.actions.setUsername(data.response.username))
                     dispatch(user.actions.setUserId(data.response.id))
                     dispatch(user.actions.setError(null))
+                    setRegistrationMessage(data.message)
+                    setUsername(""); // Clear the username input field
+                    setPassword(""); // Clear the password input field
                 } else {
                     dispatch(user.actions.setAccessToken(null));
                     dispatch(user.actions.setUsername(null));
@@ -52,18 +60,22 @@ const Login = () => {
         <Container component="main" maxWidth="xs" sx={{marginTop: 8}}>
             <Typography variant="h4" sx={{marginBottom: 2}}>Welcome!</Typography>
             <Typography variant="h6">Please register and/or login to continue.</Typography>
+
             <FormControl id="register-or-login">
                 <RadioGroup
                     row
                     aria-labelledby="register-or-login-button-group"
-                    defaultValue={mode === "register"}
-                    name="register-or-login-button-group">
+                    name="register-or-login-button-group"
+                    // defaultValue={mode === "register"}
+                    value={mode}
+                    onChange={(event) => setMode(event.target.value)}>
                     <FormControlLabel 
                         value="register" 
                         control={<Radio />}
                         label="Register"
                         checked={mode === "register"}
-                        onChange={() => setMode("register")}/>
+                        onChange={() => setMode("register")}
+                        />
                     <FormControlLabel 
                         value="login" 
                         control={<Radio />}
@@ -84,7 +96,8 @@ const Login = () => {
                             label="Username"
                             variant="outlined"
                             value={username}
-                            onChange={event => setUsername(event.target.value)}
+                            onChange={event => {setUsername(event.target.value);
+                                event.target.value = ""}}
                             minLength="4"
                             maxLength="30"
                         />
@@ -98,7 +111,8 @@ const Login = () => {
                             label="Password"
                             variant="outlined"
                             value={password}
-                            onChange={event => setPassword(event.target.value)}
+                            onChange={event => {setPassword(event.target.value)
+                                event.target.value = ""}}
                             minLength="4"
                             maxLength="30"
                         />
@@ -116,6 +130,13 @@ const Login = () => {
                             <Alert severity="error">
                             <AlertTitle>Error</AlertTitle>
                             {errorMessage}
+                            </Alert>
+                        )}
+                        {/* Does not show because you are directly redirected */}
+                        {registrationMessage && (
+                            <Alert severity="success">
+                            <AlertTitle>Success</AlertTitle>
+                            {registrationMessage}
                             </Alert>
                         )}
                     </Grid>

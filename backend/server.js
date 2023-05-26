@@ -59,6 +59,7 @@ app.post("/register", async (req, res) => {
     }).save()
     res.status(201).json({
       success: true,
+      message: "Registration successful",
       response: {
         username: newUser.username,
         id: newUser._id,
@@ -117,10 +118,10 @@ const ThoughtSchema = new Schema({
     // trim removes unnecessary white spaces from string
     trim: true
   },
-  hearts: {
-    type: Number,
-    default: 0
-  },
+  // hearts: {
+  //   type: Number,
+  //   default: 0
+  // },
   createdAt: {
     type: Date,
     default: new Date()

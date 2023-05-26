@@ -12,6 +12,7 @@ const Main = () => {
     const accessToken = useSelector(store => store.user.accessToken);
     const username = useSelector(store => store.user.username);
     const navigate = useNavigate();
+
     useEffect(()=> {
         if (!accessToken) {
             navigate("/login")
@@ -47,13 +48,20 @@ const Main = () => {
         dispatch(user.actions.setError(null));
         dispatch(thoughts.actions.setItems([]));
     }
-    return(
+
+    return (
         <Container component="main" maxWidth="xs" sx={{marginTop: 8}}>  
             {/* <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button> */}
             {username ? (<h2>Welcome {username}!</h2>): ""}
-            {thoughtItems.map(item => {
+            {/* {thoughtItems.map(item => {
                 return(<p key={item._id}>{item.message}</p>)
-            })}
+            })} */}
+            {thoughtItems.map((thought) => (
+            <section key={thought._id}>
+                <p key={thought._id}>{thought.message}</p>
+                {/* <div>{formatDistance(new Date(thought.createdAt), Date.now(), { addSuffix: true })}</div> */}
+            </section>
+        ))}
             <Button 
                 type="button" 
                 variant="contained"
