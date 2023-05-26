@@ -121,7 +121,7 @@ app.post("/register", async (req, res) => {
     if (error.code === 11000) {
       res.status(400).json({
         success: false,
-        response: "Username already exists!"
+        response: "Username already exists! Try another one!"
       })
     } else {
     res.status(400).json({
@@ -151,7 +151,7 @@ app.post("/login", async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        response: "Credentionals do not match"
+        response: "Username and password do not match. Or the user doesn't exists"
       })
 
     }
@@ -176,7 +176,7 @@ app.get("/thoughts", async (req, res) => {
     } else {
       res.status(404).json({
         success: false,
-        response: "Thoughts not found"
+        response: "Secret messages not found."
       })
     }
   } catch (e) {

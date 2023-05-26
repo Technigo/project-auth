@@ -95,6 +95,7 @@ gap: 0.7rem;
 export const Paragraph = styled.p`
 font-size: 1rem;
 color: black;
+font-weight: ${(props) => (props.bold ? '600' : '')};
 
 @media (min-width: 667px) {
     font-size: 1.1rem;

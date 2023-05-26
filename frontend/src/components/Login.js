@@ -89,7 +89,7 @@ const Login = () => {
                         onChange={e => setPassword(e.target.value)} />
                     <Button type="submit">Submit</Button>
             </Form>
-            {registrationError && <p>{registrationError}</p>}
+            {registrationError && <Paragraph bold>{registrationError}</Paragraph>}
             </InnerWrapper>
         </OuterWrapper>
     );
