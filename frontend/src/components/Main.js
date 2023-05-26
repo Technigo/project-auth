@@ -112,7 +112,7 @@ const Main = () => {
             <Button type="submit">Submit message</Button>
             </Form>
              <Header>Secret message board</Header>            
-            {thoughtItems.slice().reverse().map(item => {
+            {thoughtItems.map(item => {
                 return(
                 <MessageWrapper>
                 <Paragraph key={item._id}>{item.message}</Paragraph>
