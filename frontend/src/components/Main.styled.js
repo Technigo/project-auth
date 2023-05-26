@@ -50,7 +50,7 @@ export const ThoughtsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  margin-top: 20px;
+  margin-top: 60px;
 `;
 
 export const Thought = styled.p`

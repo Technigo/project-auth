@@ -100,7 +100,12 @@ const Main = () => {
 
             {/* Display username if available */}
             {username ? (
-                <Greetings>HI {username.toUpperCase()}! Suggestions by Students of Junior Science Lab®</Greetings>
+                <Greetings>
+                    <p>HEY {username.toUpperCase()}!</p>
+                    <p>Here are the suggestions by </p>
+                    <p>the Students of Junior Science Lab®</p>
+                </Greetings>
+
             ) : (
                 ""
             )}
