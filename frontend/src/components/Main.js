@@ -40,6 +40,7 @@ const Main = () => {
         dispatch(user.actions.setAvatar(null));
         dispatch(user.actions.setTotalScore(null));
         dispatch(user.actions.setCreatedAt(null));
+        // dispatch(user.actions.setPassword(null));
         dispatch(user.actions.setError(null))
     }    
 
