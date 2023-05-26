@@ -4,7 +4,7 @@ export const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 60px; // Increased margin to avoid overlap with Logout button
+  margin: 60px; 
   width: 100%;
   max-width: 800px;
 
