@@ -65,11 +65,12 @@ app.post("/register", async (req, res) => {
         id: newUser._id,
         accessToken: newUser.accessToken,
       },
+      message: "User created successfully"
     });
   } catch (e) {
     res.status(400).json({
       success: false,
-      response: e,
+      response: "Could not create user", error: e.errors
     });
   }
 });
@@ -88,11 +89,13 @@ app.post("/login", async (req, res) => {
           id: user._id,
           accessToken: user.accessToken,
         },
+        message: "User logged in successfully"
       });
     } else {
       res.status(400).json({
         success: false,
-        response: "credentials do not match",
+        response: e,
+        message: "Credentials do not match"
       });
     }
   } catch (e) {
@@ -124,27 +127,41 @@ const Thought = mongoose.model("Thought", ThoughtSchema)
 const authenticateUser = async (req, res , next) => {
   const accessToken = req.header("Authorization");
   try {
-    const user = await User.findOne({accessToken: accessToken});
+    const user = await User.findOne({accessToken: accessToken}); // find the user with the access token they send in the header called Authorization
     if (user) {
       next ();
     } else {
-     res.status(401).json({
+     res.status(403).json({
       sucess: false,
-      response: e
+      response: e,
+      message: "You must be logged in to see this page"
      })
     }
   } catch (e) {
     res.status(500).json ({
       sucess: false,
-      response:e
+      response:e,
+      message: "Internal server error", error: e.errors
     });
   }
 }
 
-app.get ("/thoughts",authenticateUser);
+app.get ("/thoughts",authenticateUser); // this will run the function authenticateUser before the function below, to make sure the user is logged in
 app.get ("/thoughts", async (req,res) => {
+  try {
 const thougths =await Thought.find ({}).populate('user');
-res.status(200).json ({success:true, response: thougths})
+res.status(200).json ({
+  success:true,
+  message: "Retrieved thoughts successfully", 
+  response: thougths
+});
+  } catch (e) {
+    res.status(400).json ({
+      success: false,
+      response: e,
+      message: "Could not find thoughts"
+    });
+  }
 }); 
 
 /* From wednesday live session
@@ -164,16 +181,32 @@ app.get ("/thoughts", async (req,res) => {
     });
   }
 });
-
 */
+
 app.post ("/thoughts",authenticateUser);
+//added try/catch to post thoughts, needs to be tested
 app.post ("/thoughts", async (req,res) => {
+  try {
   const { message } = req.body;
   const accessToken = req.header("Authorization");
   const user = await User.findOne ({accessToken: accessToken});
-
-const thoughts =await new Thought({message: message, user: user._id }).save();
+if (user) {
+const thoughts = await new Thought({message: message, user: user._id }).save();
 res.status(200).json ({success:true, response: thoughts})
+  } else {
+    res.status(400).json ({
+      success: false,
+      response: e,
+      message: "Could not post thought"
+    });
+  } 
+} catch (e) {
+  res.status(500).json ({
+    success: false,
+    response: e,
+    message: "Internal server error", error: e.errors
+  });
+}
 });
 
 
