@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import user from "reducers/user";
 import { API_URL } from "utils/urls";
 
-const FormWrapper = styled.div `
+const OuterWrapper = styled.div `
   display: flex;
   height: 100vh;
   width: 100%;
@@ -22,6 +22,46 @@ const InnerWrapper = styled.div `
     box-shadow: 4px 4px 8px #845ec2;
     padding: 10px;
     margin: 120px;
+
+`
+const FormWrapper = styled.div `
+
+     form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 30vw;
+        height: auto;
+        padding: 20px;
+    }
+    input {  
+        display: flex;
+        margin: 5px;
+        padding: 10px;
+        border-radius: 5px;
+        width: 200px;
+        cursor: pointer;
+    }
+    button {
+        background-color: #FFDCB6;
+        border: none;
+        border-radius: 20px;
+        color: black;
+        padding: 10px 30px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 10px 2px;
+        cursor: pointer;
+    }
+
+`
+const RLWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 `
 
 
@@ -66,37 +106,43 @@ const Login = () => {
     }
 
     return (
-        <FormWrapper>
+        <OuterWrapper>
             <InnerWrapper>
-                <label htmlFor="register">Register</label>
-                <input 
-                    type="radio" 
-                    id="register" 
-                    checked={mode === "register"}
-                    onChange={() => setMode("register")}/>
-                <label htmlFor="login">Login</label>
-                <input 
-                    type="radio" 
-                    id="login" 
-                    checked={mode === "login"}
-                    onChange={() => setMode("login")}/>
-                <form onSubmit={onFormSubmit}>
-                    <label htmlFor="username">Username</label>
+                <FormWrapper>  
+                    <form onSubmit={onFormSubmit}>
+                        <label htmlFor="username">Username</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            value={username} 
+                            onChange={e => setUsername(e.target.value)} />
+                        <label htmlFor="password">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            value={password} 
+                            onChange={e => setPassword(e.target.value)} />
+                        <button type="submit">Submit</button>
+                    </form>
+                </FormWrapper>
+                 
+                <RLWrapper>
+                    <label htmlFor="register">Register</label>
                     <input 
-                        type="text" 
-                        id="username" 
-                        value={username} 
-                        onChange={e => setUsername(e.target.value)} />
-                    <label htmlFor="password">Password</label>
+                        type="radio" 
+                        id="register" 
+                        checked={mode === "register"}
+                        onChange={() => setMode("register")}/>
+
+                    <label htmlFor="login">Login</label>
                     <input 
-                        type="password" 
-                        id="password" 
-                        value={password} 
-                        onChange={e => setPassword(e.target.value)} />
-                    <button type="submit">Submit</button>
-                </form>
+                        type="radio" 
+                        id="login" 
+                        checked={mode === "login"}
+                        onChange={() => setMode("login")}/>
+                </RLWrapper>
             </InnerWrapper>
-        </FormWrapper>
+        </OuterWrapper>
         
     )
 }
