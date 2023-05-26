@@ -8,7 +8,9 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
 mongoose.Promise = Promise
 
-const User = mongoose.model('User', {
+const { Schema } = mongoose;
+
+const UserSchema = new mongoose.Schema( {
   name: {
     type: String,
     unique: true
@@ -26,6 +28,8 @@ const User = mongoose.model('User', {
     default: () => crypto.randomBytes(128).toString('hex')
   }
 });
+
+const User = mongoose.model("User", UserSchema)
 
 // This middleware function checks if a user is authenticated based on the access token
 // provided in the request headers. If the access token matches a user in the database, 
