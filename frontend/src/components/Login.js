@@ -53,7 +53,6 @@ export const Login = () => {
                     dispatch(user.actions.setAccessToken(null)); // Clear the "accessToken" value in the Redux store
                     dispatch(user.actions.setUsername(null)); // Clear the "username" value in the Redux store
                     dispatch(user.actions.setUserId(null)); // Clear the "userId" value in the Redux store
-                    dispatch(user.actions.setError(data.response)); // Set the error message in the Redux store
                 }
             });
     };
