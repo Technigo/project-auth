@@ -8,6 +8,7 @@ const Login = () => {
     const [username, setUsername] = useState ("");
     const [password, setPassword] = useState ("");
     const [mode, setMode] =useState("Login");
+    const [loginError, setLoginError] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const accessToken = useSelector(store => store.user.accessToken);
@@ -40,14 +41,14 @@ const Login = () => {
                 dispatch(user.actions.setUsername(data.response.username));
                 dispatch(user.actions.setUserId(data.response.id));
                 dispatch(user.actions.setError(null));
-
+                setLoginError(false);
             } else {
                 alert(data.response);
                 dispatch(user.actions.setAccessToken(null));
                 dispatch(user.actions.setUsername(null));
                 dispatch(user.actions.setUserId(null));
                 dispatch(user.actions.setError(data.response));
-
+                setLoginError(true);
             }
         })
     }
@@ -79,7 +80,7 @@ const Login = () => {
                 minlenght="6"
                 value={password}
                 onChange = {e => setPassword(e.target.value)}/>
-
+                {loginError && <p>Invalid username or password</p>}
                 <button type="submit">
                 submit
                 </button>
