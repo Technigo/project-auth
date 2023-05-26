@@ -4,7 +4,7 @@ import { user } from "../reducers/user";
 import { API_URL } from '../utils/urls'
 import { useNavigate } from "react-router-dom";
 
-import { OuterWrapper, InnerWrapper, Button, Form, RadioButtonWrapper } from "./GeneralStyles";
+import { OuterWrapper, InnerWrapper, Button, Form, RadioButtonWrapper, Header, DescriptionWrapper, Paragraph, Label } from "./GeneralStyles";
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -48,12 +48,19 @@ const Login = () => {
             })
     }
     return(
-        <OuterWrapper>
+        <OuterWrapper vh100>
             <InnerWrapper>
+                <DescriptionWrapper>
+                    <Header>
+                    SECRET MESSAGE BOARD
+                    </Header>
+                    <Header>🔮🕵🤫</Header>
+                    <Paragraph>Create a user and login to see the secret message board</Paragraph>
+                </DescriptionWrapper>
                 
             <Form onSubmit={onFormSubmit}>
                 <RadioButtonWrapper>
-                <label htmlFor="register">Register</label>
+                <Label htmlFor="register">Register</Label>
                 <input 
                     type="radio" 
                     id="register" 

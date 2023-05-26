@@ -6,7 +6,7 @@ import { API_URL } from '../utils/urls'
 import { thoughts } from "../reducers/thoughts";
 import { user } from "../reducers/user";
 
-import { Button, Form } from "./GeneralStyles"
+import { Button, Form, OuterWrapper, InnerWrapper, MessageWrapper, Header, Paragraph, Label, TextArea } from "./GeneralStyles"
 
 const Main = () => {
     const [newThought, setNewThought] = useState("");
@@ -48,7 +48,7 @@ const Main = () => {
                     dispatch(thoughts.actions.setItems(data.response));
                 } else {
                     //If the fetch is unsuccessful the error is set to the response that is returned from the server and the items(thoughtslist) is set to be an empty array.
-                    dispatch(thoughts.actions.setError(response)); 
+                    dispatch(thoughts.actions.setError(data.response)); 
                     dispatch(thoughts.actions.setItems([]));
                 }
             });
@@ -97,27 +97,30 @@ const Main = () => {
     }
 
     return(
-        <>
-            <Button type="button" onClick={onLogoutButtonClick}>LOGOUT</Button>
+        <OuterWrapper>
+          <InnerWrapper>
+            <Button type="button" onClick={onLogoutButtonClick}>Logout</Button>
             <Form onSubmit={addNewThought}>
-                <label htmlFor="textarea">Enter message here
-                <textarea 
+                <Label htmlFor="textarea">Enter secret message</Label>
+                <TextArea
+                required
                 aria-label="textarea for input"
                 placeholer="Enter message here"
                 value={newThought}
                 onChange={e => setNewThought(e.target.value)}
-                />
-                </label>
-
-            <Button type="submit">Submit thought</Button>
+                />              
+            <Button type="submit">Submit message</Button>
             </Form>
-
-            {username ? (<h2>THESE ARE THE THOUGHTS OF {username.toUpperCase()}</h2>): ""}
+             <Header>Secret message board</Header>            
             {thoughtItems.slice().reverse().map(item => {
-                return(<p key={item._id}>{item.message}</p>)
+                return(
+                <MessageWrapper>
+                <Paragraph key={item._id}>{item.message}</Paragraph>
+                </MessageWrapper>
+                )
             })}
-
-        </>
+          </InnerWrapper>
+        </OuterWrapper>
     );
 }
 
