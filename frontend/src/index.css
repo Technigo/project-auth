@@ -1,122 +1,118 @@
 body {
-  margin: 0 20vh 0 20vh;
+  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+
+.main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #240046;
+  max-height: 420px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 7px 7px 10px 3px #24004628;
+  width: 237px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-left: 2em;
-  padding-right: 2em;
-  padding-bottom: 0.4em;
-  background-color: #171717;
-  border-radius: 25px;
-  transition: .4s ease-in-out;
+  padding: 28px;
+  height: 366px;
+  width: 189px;
 }
 
-.form:hover {
-  transform: scale(1.05);
-  border: 1px solid black;
+/*checkbox to switch from sign up to login*/
+#chk {
+  display: none;
 }
 
-#heading {
-  text-align: center;
-  margin: 2em;
-  color: rgb(255, 255, 255);
-  font-size: 1.2em;
+/*Login*/
+.login {
+  position: relative;
+  width: 217px;
+  height: 430px;
 }
 
-.field {
-  display: flex;
-  align-items: center;
+.login label {
+  margin: 25% 0 5%;
+}
+
+label {
+  color: #fff;
+  font-size: 2rem;
   justify-content: center;
-  gap: 0.5em;
-  border-radius: 25px;
-  padding: 0.6em;
-  border: none;
-  outline: none;
-  color: white;
-  background-color: #171717;
-  box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
-}
-
-.input-icon {
-  height: 1.3em;
-  width: 1.3em;
-  fill: white;
-}
-
-.input-field {
-  background: none;
-  border: none;
-  outline: none;
-  width: 100%;
-  color: #d3d3d3;
-}
-
-.form .btn {
   display: flex;
-  justify-content: center;
-  flex-direction: row;
-  margin-top: 2.5em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .5s ease-in-out;
 }
 
-.button1 {
-  padding: 0.5em;
-  padding-left: 1.1em;
-  padding-right: 1.1em;
-  border-radius: 5px;
-  margin-right: 0.5em;
+.input {
+  width: 90%;
+  height: 25px;
+  background: #e0dede;
+  padding: 10px;
   border: none;
   outline: none;
-  transition: .4s ease-in-out;
-  background-color: #252525;
-  color: white;
+  border-radius: 4px;
 }
 
-.button1:hover {
-  background-color: black;
-  color: white;
+/*Register*/
+.register {
+  height: 326px;
+  background: white;
+  border-radius: 50% / 10%;
+  margin: 0;
+  transform: translateY(-19%);
+  transition: .8s ease-in-out;
 }
 
-.button2 {
-  padding: 0.5em;
-  padding-left: 2.3em;
-  padding-right: 2.3em;
-  border-radius: 5px;
+.register label {
+  color: #573b8a;
+  transform: scale(.6);
+}
+
+#chk:checked ~ .register {
+  transform: translateY(-60%);
+}
+
+#chk:checked ~ .register label {
+  transform: scale(1);
+  margin: 10% 0 5%;
+}
+
+#chk:checked ~ .login label {
+  transform: scale(.6);
+  margin: 5% 0 5%;
+}   
+/*Button*/
+.form button {
+  width: 85%;
+  height: 40px;
+  margin: 12px auto 10%;
+  color: #fff;
+  background: #573b8a;
+  font-size: 1rem;
+  font-weight: bold;
   border: none;
-  outline: none;
-  transition: .4s ease-in-out;
-  background-color: #252525;
-  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: .2s ease-in;
 }
 
-.button2:hover {
-  background-color: black;
-  color: white;
-}
-
-.button3 {
-  margin-bottom: 3em;
-  padding: 0.5em;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  transition: .4s ease-in-out;
-  background-color: #252525;
-  color: white;
-}
-
-.button3:hover {
-  background-color: red;
-  color: white;
+.form button:hover {
+  background-color: #6d44b8;
 }
