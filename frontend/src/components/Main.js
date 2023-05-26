@@ -41,7 +41,7 @@ export const Main = () => {
         <>
         <TextSquare>
         <Text>
-        <h2>Your Inspirational Quote for Today</h2>
+        <h2>Today's Cheesy Quote</h2>
         {quote.map(item => {
         return (<p key={item._id}>{item.quote}</p>)})}
         <Monster>
@@ -74,6 +74,7 @@ font-family: 'Montserrat', sans-serif;
     radial-gradient(65.38px at 50% calc(100% + 53.20px),#0000 99%,#000 101%) 50% calc(100% - 38px)/152px calc(51% - 38px) repeat-x;
   -webkit-mask: var(--mask);
           mask: var(--mask);
+
 `
 const Text = styled.div`
 display: flex;
@@ -90,6 +91,7 @@ p {
     margin-bottom: 80px;
     width: 370px;
     height: 50px;
+    text-align:center;
 }
 button {
     width: 230px;
@@ -105,12 +107,12 @@ button {
     z-index: 1;
 }
 @media (max-width: 375px){
-    p{
-    width: 290px;
-    }
-    h2 {
-    font-size: 20px;
-    }
+ p{
+  width: 290px;
+ }
+h2 {
+  font-size: 20px;
+   }
 }
 `
 const Monster = styled.div`
