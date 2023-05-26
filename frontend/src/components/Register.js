@@ -1,4 +1,8 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
+import { StyledButton } from "./Styled components/StyledButton";
+import { StyledBox } from "./Styled components/StyledBox";
+import { MainContainer } from "./Styled components/MainContainer";
+import { StyledButtonContainer } from "./Styled components/StyledButtonContainer";
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -52,7 +56,7 @@ const Register = () => {
         setErrorPassword(passwordErrMsg.length > 0);
 
         if (passwordErrMsg.length > 0) {
-            setHelperTextPassword("Password also needs to contain: " + passwordErrMsg.join(","))
+            setHelperTextPassword("Password also needs to contain: " + passwordErrMsg.join(", "))
         } else {
             setHelperTextPassword("");
         }    
@@ -107,43 +111,51 @@ const Register = () => {
     };
 
     return (
-        <>
-            <h1>REGISTER HERE</h1>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <TextField
-                    type="text" 
-                    id="outlined-name-input" 
-                    label="Username" 
-                    variant="outlined"
-                    helperText={helperTextUserName}
-                    error={errorUserName}
-                    onChange={event => setUserName(event.target.value)}
-                    required
-                />
-
-                <TextField
-                    type="password" 
-                    id="outlined-password-input" 
-                    label="Password" 
-                    variant="outlined"
-                    helperText={helperTextPassword}
-                    error={errorPassword}
-                    onChange={event => setPassword(event.target.value)}
-                    required
-                />
-
-                <Button 
-                    type="submit" 
-                    variant="outlined"
-                    component={isRegistered ? Link : "button"}
-                    to={isRegistered ? "/login" : undefined}
-                >
-                    {isRegistered ? "Go to login" : "Submit"}
-                </Button>
+        <MainContainer>
+            <StyledBox>
+                <h1>REGISTER</h1>
                 <p>{errorMsg}</p>
                 <p>{successMsg}</p>
-            </Box>
-        </>
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <TextField
+                        type="text" 
+                        id="outlined-name-input" 
+                        label="Username" 
+                        variant="outlined"
+                        helperText={helperTextUserName}
+                        error={errorUserName}
+                        onChange={event => setUserName(event.target.value)}
+                        required
+                        fullWidth
+                        margin="normal"
+                        disabled={isRegistered}
+                    />
+
+                    <TextField
+                        type="password" 
+                        id="outlined-password-input" 
+                        label="Password" 
+                        variant="outlined"
+                        helperText={helperTextPassword}
+                        error={errorPassword}
+                        onChange={event => setPassword(event.target.value)}
+                        required
+                        fullWidth
+                        margin="normal"
+                        disabled={isRegistered}
+                    />
+                    <StyledButtonContainer />
+                    <StyledButton 
+                        type="submit" 
+                        variant="outlined"
+                        component={isRegistered ? Link : "button"}
+                        to={isRegistered ? "/login" : undefined}
+                    >
+                        {isRegistered ? "Go to login" : "Submit"}
+                    </StyledButton>
+                </Box>
+            </StyledBox>
+        </MainContainer>
     )
 };
 
