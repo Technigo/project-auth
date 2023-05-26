@@ -19,7 +19,7 @@ export const ButtonLogout = styled.button`
   font-family: 'Sora', helvetica, sans-serif;
   font-weight: 800;
   padding: 8px 16px;
-  border-bottom: 40px;
+  margin-bottom: 70px;
   border: 3px solid #777;
   border-radius: 45px;
   cursor: pointer;
