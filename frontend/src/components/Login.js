@@ -41,7 +41,7 @@ const Login = () => {
                 dispatch(user.actions.setUserId(data.response.id));
                 dispatch(user.actions.setError(null));
 
-            }else {
+            } else {
 
                 dispatch(user.actions.setAccessToken(null));
                 dispatch(user.actions.setUsername(null));

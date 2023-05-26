@@ -17,7 +17,21 @@ export const App = () => {
     thoughts: thoughts.reducer,
    
   })
-  const store = configureStore ({reducer})
+
+  let preloadedState = {};
+  const preloadedStateJSON = localStorage.getItem('reduxState')
+
+  if (preloadedStateJSON) {
+    preloadedState = JSON.parse(preloadedStateJSON)
+    console.log(preloadedState)
+  }
+
+
+  const store = configureStore ({reducer, preloadedState})
+
+  store.subscribe(() => {
+    localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+  })
 
 
   return (
