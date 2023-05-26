@@ -150,7 +150,9 @@ app.get("/thoughts", async (req, res) => {
   const accessToken = req.header("Authorization");
   try {
   // const user = await User.findOne({accessToken: accessToken});
-  const thoughts = await Thought.find().populate('user')
+  // const thoughts = await Thought.find().populate('user')
+  const thoughts = await Thought.find().sort({createdAt: -1 }).populate('user'); //execute
+
   //https://mongoosejs.com/docs/populate.html
   res.status(200).json({success: true, response: thoughts})
   } catch (e) {
