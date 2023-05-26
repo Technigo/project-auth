@@ -17,7 +17,7 @@ code {
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: #240046;
+  background-color: #e63946;
   max-height: 420px;
   overflow: hidden;
   border-radius: 12px;
@@ -81,7 +81,7 @@ label {
 }
 
 .register label {
-  color: #573b8a;
+  color: #d90429;
   transform: scale(.6);
 }
 
@@ -104,7 +104,7 @@ label {
   height: 40px;
   margin: 12px auto 10%;
   color: #fff;
-  background: #573b8a;
+  background: #e71d36;
   font-size: 1rem;
   font-weight: bold;
   border: none;
@@ -114,5 +114,5 @@ label {
 }
 
 .form button:hover {
-  background-color: #6d44b8;
+  background-color: #ff6b6b;
 }
