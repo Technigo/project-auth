@@ -9,7 +9,7 @@ import { thoughts } from "reducers/thoughts"; // Import the "thoughts" reducer f
 import { API_URL } from "utils/urls"; // Import the "API_URL" constant from the "utils/urls" module
 import { user } from "reducers/user"; // Import the "user" reducer from the "reducers" folder
 import { StickyNotes } from './StickyNotes'; // Import
-import './Main.css';
+import './Main.sass';
 
 // //////////////////////////////////////////////////////////////////////// //
 // /////////////////////////////// MAIN APP /////////////////////////////// //

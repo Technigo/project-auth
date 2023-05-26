@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { user } from "reducers/user";
 import { API_URL } from "utils/urls";
-import "./Login.css";
+import "./Login.sass";
 
 // //////////////////////////////////////////////////////////////////////// //
 // /////////////////////////////// LOGIN APP /////////////////////////////// //
