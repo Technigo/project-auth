@@ -19,63 +19,59 @@ const Login = () => {
         if (accessToken) {
             navigate("/")
         }
-    }, [accessToken]);
+    }, [accessToken, navigate]);
 
     const onFormSubmit = (event) => {
         event.preventDefault();
-
+      
         const options = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ name: username, password: password }) // Updated "username" to "name"
-          };
-
-        // Update options.body and API_URL based on the selected mode
-        if (mode === "login") {
-            options.body = JSON.stringify({ name: username, password: password })
-        }
-
-        fetch(API_URL(mode), options)
-            .then(res => res.json())
-            .then(data => {
-                if (data.userId) {
-                    batch(() => {
-                        dispatch(user.actions.setUserId(data.userId))
-                        dispatch(user.actions.setAccessToken(data.accessToken))
-                        dispatch(user.actions.setUserName(data.username))
-                        dispatch(user.actions.setError(null))
-                        setLoginError(null)
-                    });
-                    navigate("/");
-                } else {
-                    batch(() => {
-                        dispatch(user.actions.setError(data.response))
-                        dispatch(user.actions.setUserId(null))
-                        dispatch(user.actions.setAccessToken(null))
-                        dispatch(user.actions.setUserName(null))
-                        setLoginError(data.response)
-                    })
-                }
-            })
-            .catch(error => {
-                console.log("Login error", error);
-                    batch(() => {
-                        dispatch(user.actions.setError("Something went wrong"));
-                        dispatch(user.actions.setUserId(null));
-                        dispatch(user.actions.setAccessToken(null));
-                        dispatch(user.actions.setUserName(null));
-                        setLoginError("Something went wrong");
-                    });
-                });
-            };
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name: username, password: password }),
+        };
+      
+        const url = mode === 'register' ? API_URL('register') : API_URL('login');
+      
+        fetch(url, options)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.userId) {
+              batch(() => {
+                dispatch(user.actions.setUserId(data.userId));
+                dispatch(user.actions.setAccessToken(data.accessToken));
+                dispatch(user.actions.setUserName(data.name));
+                dispatch(user.actions.setError(null));
+              });
+              navigate('/');
+            } else {
+              batch(() => {
+                dispatch(user.actions.setError(data.response));
+                dispatch(user.actions.setUserId(null));
+                dispatch(user.actions.setAccessToken(null));
+                dispatch(user.actions.setUserName(null));
+                setLoginError(data.response);
+              });
+            }
+          })
+          .catch((error) => {
+            console.log('Login error', error);
+            batch(() => {
+              dispatch(user.actions.setError('Something went wrong'));
+              dispatch(user.actions.setUserId(null));
+              dispatch(user.actions.setAccessToken(null));
+              dispatch(user.actions.setUserName(null));
+              setLoginError('Something went wrong');
+            });
+          });
+      };
 
     return (
         <>
             <section>
                 <div className="form-container">
-                    <h1>{mode === "register" ? "Reguster" : "Login"} page</h1>
+                    <h1>{mode === "register" ? "Register" : "Login"} page</h1>
                     <div className='radio-container'>
                         <label htmlFor="register">Register</label>
                         <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")} />

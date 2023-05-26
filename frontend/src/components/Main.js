@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../utils/utils";
+import { Navigate } from 'react-router-dom';
 
 const Main = () => {
     const accessToken = useSelector((store) => store.user.accessToken)
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [secretMessage, setSecretMessage] = useState(null);
-    
+      
+        if (!accessToken) {
+          return <Navigate to="/login" />;
+        }
+
     useEffect(() => {
         if (!accessToken) {
             navigate("/login");
