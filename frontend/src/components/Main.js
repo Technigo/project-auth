@@ -8,10 +8,10 @@ import { Button, Container } from "@mui/material";
 
 const Main = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const thoughtItems = useSelector((store) => store.thoughts.items);
     const accessToken = useSelector(store => store.user.accessToken);
     const username = useSelector(store => store.user.username);
-    const navigate = useNavigate();
 
     useEffect(()=> {
         if (!accessToken) {
@@ -52,7 +52,11 @@ const Main = () => {
     return (
         <Container component="main" maxWidth="xs" sx={{marginTop: 8}}>  
             {/* <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button> */}
-            {username ? (<h2>Welcome {username}!</h2>): ""}
+            {username ? (
+            <>
+                <h2>Welcome {username}!</h2>
+                <p>This is a secret page</p></>
+            ): ""}
             {/* {thoughtItems.map(item => {
                 return(<p key={item._id}>{item.message}</p>)
             })} */}
