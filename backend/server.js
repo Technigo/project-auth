@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto"
 import bcrypt from "bcrypt"
+import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -20,13 +21,10 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send(listEndpoints(app));
 });
 
-//////////////
-
-// const UserSchema = new mongoose.Schema 
-
+// User schema
 const { Schema } = mongoose
 
 const UserSchema = new Schema({
@@ -106,12 +104,10 @@ app.post("/login", async (req, res) => {
 })
 ////
 
-// Thoughts
+// Thought schema
 const ThoughtSchema = new Schema({
   message: {
-    // type is the most important one
     type: String,
-    // required will be true or false, strongly recommended to use
     required: true,
     minlength: 5,
     maxlength: 140,
@@ -138,7 +134,7 @@ const Thought = mongoose.model("Thought", ThoughtSchema)
 // Authenticate the user
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization")
-  // if we find the accessToken
+  // If we find the user's correct accessToken in the header "Authorization"
   try {
     const user = await User.findOne({accessToken: accessToken})
     if (user) {
