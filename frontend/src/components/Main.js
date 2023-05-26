@@ -55,7 +55,7 @@ const Main = () => {
       <Form />
       {useSelector((store) => store.surfPosts.items).map((item) => {
         return (
-          <div>
+          <div key={item.id}>
             <p>{item.headline}</p>
             <p>{item.location}</p>
             <p>{item.message}</p>
