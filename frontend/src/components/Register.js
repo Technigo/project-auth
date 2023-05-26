@@ -15,20 +15,45 @@ const Register = () => {
     const [helperText, setHelperText] = useState("");
     const dispatch = useDispatch();
 
-    // Checks the password input against regex
-    const handlePasswordChange = (event) => {
-        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*]).{8,32}$/;
-        if (passwordRegex.test(event.target.value)) {
-            setErrorPassword(false);
-            setHelperText("")
-        } else {
-            setErrorPassword(true);
-            setHelperText("Passwords needs be 8-32 characters long, contain one number, one uppercase letter, one lowercase letter and one special character")
+    // Password regex requirements
+    const MIN_LENGTH = 8;
+    const MAX_LENGTH = 32;
+    const numberRegex = /(?=.*\d)/;
+    const lowercaseRegex = /(?=.*[a-z])/;
+    const uppercaseRegex = /(?=.*[A-Z])/;
+    const specialCharRegex = /(?=.*[!@#\$%\^&\*])/;
+
+    // Checks the password input against same regex as in backend
+    const handlePasswordValue = (event) => {
+        const passwordErrMsg = [];
+
+        if (event.target.value.length < MIN_LENGTH) {
+            passwordErrMsg.push("at least 8 characters")
         }
+        if (event.target.value.length > MAX_LENGTH) {
+            passwordErrMsg.push("no more than 32 characters")
+        }
+        if (!numberRegex.test(event.target.value)) {
+            passwordErrMsg.push("at least one number")
+        }
+        if (!lowercaseRegex.test(event.target.value)) {
+            passwordErrMsg.push("at least one lowercase letter")
+        }
+        if (!uppercaseRegex.test(event.target.value)) {
+            passwordErrMsg.push("at least one uppercase letter")
+        }
+        if (!specialCharRegex.test(event.target.value)) {
+            passwordErrMsg.push("at least one special character")
+        }
+
+        setErrorPassword(passwordErrMsg.length > 0);
+        setHelperText("Password also needs to contain: " + passwordErrMsg.join(","))
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        handlePasswordValue({ target: { value: password } });
+
         const options = {
             method: "POST",
             headers: {
@@ -88,10 +113,8 @@ const Register = () => {
                     label="Password" 
                     variant="outlined"
                     helperText={helperText}
-                    onChange={event => {
-                        setPassword(event.target.value);
-                        handlePasswordChange(event);
-                    }}
+                    error={errorPassword}
+                    onChange={event => setPassword(event.target.value)}
                     required
                 />
 
