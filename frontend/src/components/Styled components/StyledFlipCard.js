@@ -6,6 +6,9 @@ export const StyledFlipCard = styled.div`
   height: 200px;
   perspective: 1000px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const StyledCardInner = styled.div`
