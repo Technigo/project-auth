@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { user, getUser } from "./reducers/user";
-import { Loading } from "./Loading"; 
 import Card from '@mui/material/Card';
 import Container from '@mui/material/Container';
 import CardActions from '@mui/material/CardActions';
@@ -12,6 +11,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
+import { Loading } from "./Loading";
 
 
 const Main = () => {
@@ -26,7 +26,6 @@ const Main = () => {
             navigate("/login")
         }else{
             dispatch(getUser())
-
         }
     },[accessToken]);
     
@@ -40,7 +39,6 @@ const Main = () => {
         dispatch(user.actions.setAvatar(null));
         dispatch(user.actions.setTotalScore(null));
         dispatch(user.actions.setCreatedAt(null));
-        // dispatch(user.actions.setPassword(null));
         dispatch(user.actions.setError(null))
     }    
 
@@ -52,8 +50,8 @@ const Main = () => {
 
 
      return(
-        <> {!isLoading ?
-           (
+        <>
+         {!isLoading ?
       <ThemeProvider theme={theme}>
         <Container maxWidth="sm" sx={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', height:'100%'}}>
           <Card sx={{ maxWidth: 800 }}>
@@ -76,11 +74,10 @@ const Main = () => {
         <Button size="small">Start Learning</Button>
         <Button variant="contained" color="primary" onClick={onLogoutButtonClick}>LOGOUT</Button>
       </CardActions>
-        </Card>   
+        </Card>  
       </Container>
     </ThemeProvider>
-          ) 
-          : <Loading />}
+ : <Loading />}
           </>
           
      )

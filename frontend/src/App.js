@@ -9,6 +9,7 @@ import score from 'components/reducers/leaderboard';
 import { Provider } from 'react-redux';
 import { loading } from 'components/reducers/loading';
 import leaderboard from 'components/reducers/leaderboard';
+import { Loading } from 'components/Loading';
 
 
 export const App = () => {

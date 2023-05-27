@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { registerUser, user, loginUser } from "./reducers/user";
+import { registerUser, loginUser } from "./reducers/user";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,7 +12,6 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import PetsIcon from '@mui/icons-material/Pets';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {ThemeProvider, createTheme } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
@@ -37,13 +36,11 @@ const[username, setUsername] = useState("");
 const[password, setPassword] = useState("");
 const[email, setEmail] = useState("");
 const [checked, setChecked] = useState(true);
-// const mode = useSelector(store => store.user.mode);
 const error = useSelector(store => store.user.error);
 console.log(error)
 const dispatch = useDispatch();
 const navigate = useNavigate();
 const accessToken = useSelector(store => store.user.accessToken);
-  
   useEffect(() => {
    if(accessToken){
       navigate("/")

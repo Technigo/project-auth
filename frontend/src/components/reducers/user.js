@@ -88,21 +88,19 @@ export const registerUser = (username, email, password) => {
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setUsername(data.response.username));
             dispatch(user.actions.setEmail(data.response.email));
-            // dispatch(user.actions.setPassword(data.response.password));
             dispatch(user.actions.setUserId(data.response.id));
             dispatch(user.actions.setError(null))
             console.log(data)
          } else {
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setUsername(null));
-            // dispatch(user.actions.setEmail(null));
-            // dispatch(user.actions.setPassword(null));
+            dispatch(user.actions.setEmail(null));
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setError(data.response))
-            console.log(data)
+          
          }
       })
-      .finally(dispatch(loading.actions.setLoading(false)))
+      .finally(console.log(data))
   };
 };
 
@@ -126,22 +124,18 @@ export const loginUser = ( email, password) => {
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setUsername(data.response.username));
             dispatch(user.actions.setEmail(data.response.email));
-            // dispatch(user.actions.setPassword(data.response.password));
             dispatch(user.actions.setUserId(data.response.id));
             dispatch(user.actions.setError(null))
-            console.log(data)
          } else {
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setEmail(null));
-            // dispatch(user.actions.setPassword(null));
             dispatch(user.actions.setUserId(null));
             dispatch(user.actions.setError(data.response))
-            console.log(data)
          }
         
       })
-      .finally(dispatch(loading.actions.setLoading(false)))
+        .finally(console.log(data))
   };
 };
 
@@ -149,7 +143,6 @@ export const loginUser = ( email, password) => {
 export const getUser = () => {
   return (dispatch, getState) => {
      const accessToken = getState().user.accessToken;
-    dispatch(loading.actions.setLoading(true))
     const options = {
       method: 'GET',
       mode: 'cors',
@@ -162,7 +155,6 @@ export const getUser = () => {
       .then((response) => response.json())
       .then(data => {
          if(data.success) {
-        //  dispatch(user.actions.setAccessToken(data.response.accessToken));
           dispatch(user.actions.setUsername(data.response.username));
           dispatch(user.actions.setAvatar(data.response.avatar));
           dispatch(user.actions.setBadges(data.response.badges));
@@ -170,14 +162,12 @@ export const getUser = () => {
           dispatch(user.actions.setTotalScore(data.response.totalScore));
           dispatch(user.actions.setHistory(data.response.history));
           dispatch(user.actions.setEmail(data.response.email));
-            // dispatch(user.actions.setPassword(data.response.password));
-          // dispatch(user.actions.setUserId(data.response.id));
           dispatch(user.actions.setError(null))
          }else{
           dispatch(user.actions.setError(data.response.message))
           console.log('error')
          }
       })
-     .finally(() =>dispatch(loading.actions.setLoading(false)))
+     .finally(() =>setTimeout(()=>dispatch(loading.actions.setLoading(false)),5000))
   };
 };
