@@ -4,6 +4,7 @@ import { StyledButton } from "./Styled components/StyledButton";
 import { StyledButtonContainer } from "./Styled components/StyledButtonContainer";
 import { StyledBox } from "./Styled components/StyledBox";
 import { MainContainer } from "./Styled components/MainContainer";
+import { StyledLink } from "./Styled components/StyledButton";
 
 export const NotFound = () => {
   return (
@@ -14,17 +15,17 @@ export const NotFound = () => {
 
         <StyledButtonContainer>
           
-          <Link to="/login">
+          <StyledLink to="/login">
             <StyledButton variant="outlined">
               GO TO LOGIN
             </StyledButton>
-          </Link>
+          </StyledLink>
 
-          <Link to="/">
+          <StyledLink to="/">
             <StyledButton variant="outlined">
               GO TO STARTPAGE
             </StyledButton>
-          </Link>
+          </StyledLink>
 
         </StyledButtonContainer>
       

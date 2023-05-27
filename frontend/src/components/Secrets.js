@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { REACT_APP_BASE_URL } from 'utils/urls';
@@ -7,11 +7,17 @@ import secrets from 'reducers/secrets';
 import { MainContainer } from './Styled components/MainContainer';
 import { StyledBox } from './Styled components/StyledBox';
 import { StyledButton } from './Styled components/StyledButton';
+import { StyledFlipCard, StyledCardInner } from './Styled components/StyledFlipCard';
 
 export const Secrets = () => {
     const accessToken = useSelector(store => store.user.accessToken);
     const username = useSelector(store => store.user.username);
     const dispatch = useDispatch();
+    const [isFlipped, setIsFlipped] = useState(false);
+
+    const handleCardClick = () => {
+        setIsFlipped(!isFlipped);
+    }
 
     useEffect(() => {
         const options = {
@@ -62,18 +68,25 @@ export const Secrets = () => {
         } else {
             return (
                 <MainContainer imageUrl="https://cdn.pixabay.com/photo/2014/04/05/11/40/diamond-316611_1280.jpg">
-                    <StyledBox>
-                        <h2>This is your secret message {username}</h2>
-                        <Link to="/">
-                            <StyledButton 
-                                variant='outlined'
-                                onClick={onLogOutButtonClick}
-                            >
-                                LOGOUT
-                            </StyledButton>
-                        </Link>   
-                    </StyledBox>
-                </MainContainer>
+                <StyledFlipCard onClick={handleCardClick}>
+                    <StyledCardInner isFlipped={isFlipped}>
+                        <div>
+                            <h2>Click the card for your secret message {username}</h2>
+                        </div>
+                        <div>
+                            <p>You're doing great!</p>
+                            <Link to="/">
+                                <StyledButton 
+                                    variant='outlined'
+                                    onClick={onLogOutButtonClick}
+                                >
+                                    LOGOUT
+                                </StyledButton>
+                            </Link>
+                        </div>
+                    </StyledCardInner>
+                </StyledFlipCard>
+            </MainContainer>
             )
         }
 };
