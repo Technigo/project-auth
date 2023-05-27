@@ -11,11 +11,13 @@ mongoose.Promise = Promise;
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    unique: true
+    unique: true,
+    required: true
   },
   email: {
     type: String,
-    unique: true
+    unique: true,
+    required: true
   },
   password: {
     type: String,
