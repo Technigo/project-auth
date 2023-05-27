@@ -48,27 +48,45 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
+flex-wrap: wrap;
+background-color: rgba(167, 205, 189, 0.9);
 
 h1 {
   font-size: 3rem;
-  color: #ffb140;
+  color: #56282d;
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+
+  h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 664px) {
+
+  h1 {
+    font-size: 1.5rem;
+  }
 }
 `
-
 const ProfileButton = styled.button`
 border-radius: 5px;
-border: 1px solid #ffffff;
+border: 3px solid #ffffff;
 cursor: pointer;
 width: 7rem;
-background-color: #a7cdbd;
-color: #ffb140;
+background-color: #ffb140;
+color: #56282d;
 font-size: 1rem;
 font-weight: bold;
 margin-top: 1.5rem;
+margin-bottom: 1.5rem;
 padding: 0.8rem;
 
 @media (max-width: 664px) {
   border-radius: 10px;
+  border: 1px solid #ffffff;
   padding: 0.3rem;
   }
 `;
