@@ -1,13 +1,13 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+With pair programming (Jennifer Feenstra-Arengård & Nora Terbocs) we worked to create a backend to securely store passwords and user information. Our site handles user authentication with user tokens and this repo contains both backend and frontend projects.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+First we created the backend in the server.js we tried to visualize all of the endpoints we would need for our application and then created the get/post/patch requests required. Once the backend functionality was setup and we saw that we can store user data in our mongoAtlas database we created the components for the frontend and styled them with MUI. If we had more time we could do the rest of the stretch goals including implementing Google authentication with Firebase. 
 
 ## View it live
+Backend: https://project-auth-hwmybixkua-lz.a.run.app
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend: https://technigo-week16-project-auth.netlify.app/login
+
