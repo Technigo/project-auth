@@ -137,7 +137,7 @@ export const Login = () => {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}>
                 {isLoading ? <CircularProgress size={10} thickness={5} sx={{ margin: '0 5px', color: '#ffffff' }} /> : ''}
-                {checked ? 'Sign in' : 'Sing up'}
+                {checked ? 'Sign in' : 'Sign up'}
               </Button>
               <Copyright sx={{ mt: 5 }} />
             </Box>
