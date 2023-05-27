@@ -179,17 +179,17 @@ const BackgroundImg = styled.img`
 `
 
 const SubmitButton = styled.button`
-  border: 2px solid black;
+  border: 2px solid #257ca3;
   color: white;
-  background-color: black;
+  background-color: #257ca3;
   width: 68px;
   border-radius: 20px;
   font-family: Urbanist;
   cursor: pointer;
 
   &:hover {
-    border: 2px solid #257ca3;
-    background-color: #257ca3;
+    border: 2px solid black;
+    background-color: black;
     color: white;
   }
   

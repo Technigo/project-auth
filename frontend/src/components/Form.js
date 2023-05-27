@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import surfPosts from "reducers/surfPosts";
 import { API_URL } from "utils/urls";
 import user from "reducers/user";
+import styled from "styled-components/macro";
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const Form = () => {
   };
   return (
     <>
-      <form onSubmit={onPostSubmit}>
+      <StyledForm onSubmit={onPostSubmit}>
         <label htmlFor="headline">Title</label>
         <input
           type="text"
@@ -69,10 +70,43 @@ const Form = () => {
           rows="4"
           cols="40"
           onChange={e => setMessage(e.target.value)} />
-        <button type="submit">Submit</button>
-      </form>
+        <SubmitButton type="submit">Submit</SubmitButton>
+      </StyledForm>
     </>
   )
 }
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column; 
+  width: 250px;
+  gap: 10px;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-weight: 500;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+`
+
+const SubmitButton = styled.button`
+  border: 2px solid #257ca3;
+  color: white;
+  background-color: #257ca3;
+  width: 68px;
+  border-radius: 20px;
+  font-family: Urbanist;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid black;
+    background-color: black;
+    color: white;
+  }
+  
+  &:disabled {
+    background-color: #e3e4e6;
+    border: 2px solid #e3e4e6;
+    color: white;
+  }
+`
 
 export default Form

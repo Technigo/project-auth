@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import user from "reducers/user";
 import surfPosts from "reducers/surfPosts";
 import { API_URL } from "utils/urls";
+import styled from "styled-components/macro";
 import Form from "./Form";
 
 const Main = () => {
@@ -49,23 +50,98 @@ const Main = () => {
   };
 
   return (
-    <>
-      <h2> Hi {username}! You are now logged in.</h2>
-      <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button>
-      <Form />
-      {useSelector((store) => store.surfPosts.items).map((item) => {
-        return (
-          <div key={item.id}>
-            <p>{item.headline}</p>
-            <p>{item.location}</p>
-            <p>{item.message}</p>
-            <p>{item.createdAt}</p>
-            <p>{item.likes}</p>
-          </div>
-        )
-      })}
-    </>
+    <StyledMainWrapper>
+      <InnerWrapper>
+        <GreetingText> Hi {username}! You are now logged in.</GreetingText>
+        <LogoutButton type="button" onClick={onLogoutButtonClick}>Log out</LogoutButton>
+        <Form />
+        <PostsWrapper>
+          {useSelector((store) => store.surfPosts.items).map((item) => {
+            return (
+              <SinglePostWrapper key={item.id}>
+                <Headline>{item.headline}</Headline>
+                <Location>{item.location}</Location>
+                <Message>{item.message}</Message>
+                <p>{new Date(item.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
+                <p>{item.likes}</p>
+              </SinglePostWrapper>
+            )
+          })}
+        </PostsWrapper>
+      </InnerWrapper>
+    </StyledMainWrapper>
   )
 }
+
+const StyledMainWrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+`
+const InnerWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  align-items: center;
+  gap: 15px;
+
+  @media (min-width: 667px){
+    width: 50vw;
+  }
+  @media (min-width: 1024px){
+    width: 50vw;
+  }
+  `
+const PostsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`
+const SinglePostWrapper = styled.div`
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+`
+
+const GreetingText = styled.h2`
+font-size: 2.4rem;
+color: #257ca3;
+text-align: center;
+font-family: Caveat;
+font-weight: 500;
+margin-bottom: 8px;
+`
+
+const LogoutButton = styled.button`
+  border: 2px solid #257ca3;
+  color: white;
+  background-color: #257ca3;
+  width: 80px;
+  border-radius: 20px;
+  font-family: Urbanist;
+  cursor: pointer;
+  margin-bottom: 16px;
+
+  &:hover {
+    border: 2px solid black;
+    background-color: black;
+    color: white;
+  }
+`
+
+const Headline = styled.p`
+  font-family: Caveat;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #257ca3;
+`
+
+const Location = styled.p`
+  font-weight: 400;
+`
+
+const Message = styled.p`
+  font-weight: 300;
+`
 
 export default Main;
