@@ -12,15 +12,11 @@ export const Startpage = () => {
                 <h1>Do yo wanna know a secret?</h1>
                 <StyledButtonContainer>
                     <Link to="/register">
-                        <StyledButton variant="outlined">
-                        GO TO REGISTER
-                        </StyledButton>
+                        <StyledButton variant="outlined">REGISTER</StyledButton>
                     </Link>
 
                     <Link to="/login">
-                        <StyledButton variant="outlined">
-                        GO TO LOGIN
-                        </StyledButton>
+                        <StyledButton variant="outlined">LOGIN</StyledButton>
                     </Link>
                 </StyledButtonContainer>
             </StyledBox>
