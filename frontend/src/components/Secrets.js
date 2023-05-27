@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { user } from "../reducers/user";
 import styled from "styled-components";
-import { useState } from "react";
 
 const SecretsContainer = styled.div`
   display: flex;

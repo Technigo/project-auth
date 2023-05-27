@@ -20,7 +20,7 @@ const Button = styled.button`
 `;
 
 const Text = styled.h1`
-
+  
 `
 
 export const Main = () => {
