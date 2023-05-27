@@ -9,5 +9,5 @@ First we created the backend in the server.js we tried to visualize all of the e
 ## View it live
 Backend: https://project-auth-hwmybixkua-lz.a.run.app
 
-Frontend: https://technigo-week16-project-auth.netlify.app/login
+Frontend: https://technigo-week16-project-auth.netlify.app
 
