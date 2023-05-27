@@ -20,7 +20,7 @@ const LoginRegisterForm = ({ state, name, setName, email, setEmail, password, se
         handleFormSubmit(event, state);
       }}
     >
-      <h1>Fill in your info to {state} here:</h1>
+
       <FormContainer>
       {state === "register" && ( 
         <StyledInput 
@@ -64,12 +64,6 @@ justify-content: center;
 width: 100vw;
 margin: 0;
 background-color: #869d7a;
-
-h1 {
-  color: #56282d;
-  font-size: 1.4rem;
-  margin-bottom: 1.5rem;
-}
 `;
 
 const FormContainer = styled.div`

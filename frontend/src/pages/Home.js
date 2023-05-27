@@ -43,7 +43,7 @@ background-color: rgba(167, 205, 189, 0.5);
 
 // media-q lyssnar ej
 
-@media (max-width 664px) {
+@media (max-width: 664px) {
     font-size: 0.7rem;
     padding-left: 0.7rem
     }
