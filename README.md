@@ -1,13 +1,18 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This React Redux project implements a full-stack application with a frontend and backend connected via an API. The API features registration and login routes, along with an authenticated endpoint. The frontend includes a registration form that communicates with the API to create new user accounts. Passwords in the database are encrypted using bcrypt, and the API performs input validation, returning error messages that can be displayed on the frontend.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+This project was done in pairs. We did some pair-programming and also did some programming apart using it branches that were merged. If we had more time we would implement the secret message in the backend instead of in the frontend. 
+Tools: MongoDB, Mongoose, Express, MongoDB Compass, MongoDB Atlas, Google Cloud.
 
 ## View it live
+(Not working yet)
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend: 
+https://emilia-michelle-project-auth.netlify.app
+
+
+Backend: 
+https://project-auth-c7x23fdnsa-lz.a.run.app
