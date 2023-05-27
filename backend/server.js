@@ -7,7 +7,7 @@ import e from "express";
 
 // i have changed from localhost to 127.0.0.1
 // original: "mongodb://localhost/project-mongo";
-const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1/project-mongo";
+const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1/Authentication";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -25,7 +25,7 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send("Hello !");
 });
 
 ///////////////////
