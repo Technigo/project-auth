@@ -16,6 +16,13 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'https://superb-alfajores-2745c6.netlify.app');
+  next();
+});
+
+
 const listEndpoints = require('express-list-endpoints');
 
 // Start defining your routes here
