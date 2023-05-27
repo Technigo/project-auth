@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LoginRegisterForm from "components/LoginRegisterForm";
+import styled from "styled-components";
 
 const LoginRegister = ({ API_URL }) => {
   const [loginOrRegister, setLoginOrRegister] = useState("login");
@@ -53,7 +54,8 @@ const LoginRegister = ({ API_URL }) => {
 
   return (
     <>
-      <h1>Please log in first:</h1>
+    <StyledLogin> 
+      <h1>Please log in to access the site ✨</h1>
       <LoginRegisterForm
         state={loginOrRegister}
         name={name}
@@ -64,7 +66,6 @@ const LoginRegister = ({ API_URL }) => {
         setPassword={setPassword}
         handleFormSubmit={handleFormSubmit}
       />
-
       {loginOrRegister === "login" ? (
         <p>
           No account?
@@ -80,8 +81,61 @@ const LoginRegister = ({ API_URL }) => {
           </a>
         </p>
       )}
+      </StyledLogin>
     </>
   );
 };
 
 export default LoginRegister;
+
+const StyledLogin = styled.div`
+background-color: #869d7a;
+font-size: 1.5 rem;
+text-align: center;
+
+h1 {
+  font-size: 4rem;
+}
+
+p {
+  font-size: 1.5rem;
+}
+
+a {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  color: #ffb140;
+}
+
+@media (max-width: 1024px) {
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  p {
+    font-size: 1.3rem;
+  }
+
+  a {
+    font-size: 1.3rem;
+    margin-left: 0.5rem;
+  }
+}
+
+@media (max-width: 664px) {
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  a {
+    font-size: 1rem;
+    margin-left: 0.4rem;
+  }
+}
+`
