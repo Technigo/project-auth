@@ -63,7 +63,7 @@ const Main = () => {
                 <Location>{item.location}</Location>
                 <Message>{item.message}</Message>
                 <p>{new Date(item.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
-                <p>{item.likes}</p>
+                <p>🌊 x {item.likes}</p>
               </SinglePostWrapper>
             )
           })}
@@ -99,7 +99,10 @@ const PostsWrapper = styled.div`
   gap: 10px;
 `
 const SinglePostWrapper = styled.div`
+  padding-left: 14px;
+  padding-right: 5px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  overflow-wrap: break-word; 
 `
 
 const GreetingText = styled.h2`

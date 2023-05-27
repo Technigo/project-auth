@@ -175,9 +175,8 @@ const BackgroundContainer = styled.div`
     height: 40%;
   }
   @media (min-width: 1024px){
-    height: 50%;
+    height: 60%;
   }
-
 `
 
 const BackgroundImg = styled.img`
