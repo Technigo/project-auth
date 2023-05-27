@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../utils/utils';
-
-import { user } from 'reducers/user';
+import user from 'reducers/user';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -44,7 +43,7 @@ const Login = () => {
           batch(() => {
             dispatch(user.actions.setUserId(data.userId));
             dispatch(user.actions.setAccessToken(data.accessToken));
-            dispatch(user.actions.setUserName(data.name));
+            dispatch(user.actions.setUsername(data.name));
             dispatch(user.actions.setError(null));
           });
           navigate('/');
