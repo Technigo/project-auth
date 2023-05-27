@@ -25,8 +25,13 @@ const InnerWrapper = styled.div `
 
 `
 const FormWrapper = styled.div `
-
-     form {
+    p {
+        font-size: 26px;
+        font-style: italic;
+        font-weight: 500;
+        color: purple;
+    }
+    form {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -109,6 +114,7 @@ const Login = () => {
         <OuterWrapper>
             <InnerWrapper>
                 <FormWrapper>  
+                    <p>Welcome to NinaW and YuM's project🙂</p>
                     <form onSubmit={onFormSubmit}>
                         <label htmlFor="username">Username</label>
                         <input 
