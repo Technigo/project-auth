@@ -16,7 +16,13 @@ const port = process.env.PORT || 8080;
 const app = express();
 
 // Add middlewares to enable cors and json body parsing
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://emilia-michelle-project-auth.netlify.app/", 
+    methods: ["GET", "POST"], // Specify the allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Specify the allowed headers
+  })
+); 
 app.use(express.json());
 
 // Defines endpoint paths as constants to be able to only update the paths in one place if needed
@@ -180,12 +186,5 @@ app.listen(port, () => {
 //     "name": "name",
 //     "password": "password"
 // }
-
-// Authenticated endpoint
-// Return a 401 or 403 with error message if someone tries to access it without an authentication
-
-// API should validate the user input when creating a new user, and return error messages which could be shown by the frontend 
-
-// localStorage.removeItem() for log out (to not lose everything when logging out)
 
 
