@@ -11,6 +11,9 @@ const OuterWrapper = styled.div`
   width: 100%;
   justify-content: center;
   text-align: center;
+  background-image: url('../images/secret.jpg'); 
+  background-size: cover;
+  background-position: center;
 `;
 
 const Secrets = () => {
