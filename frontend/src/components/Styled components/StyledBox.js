@@ -10,7 +10,8 @@ export const StyledBox = styled(Box)`
   width: 500px;
   max-width: 80%;
   padding: 20px;
-  color: white;
-  background: rgba(100, 120, 120, 0.8);
+  box-shadow: -1px 6px 43px 3px rgba(0,0,0,0.75);
+  border-radius: 12px;
+  background: rgb(245, 220, 200);
   `;
   
