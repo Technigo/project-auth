@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import e from "express";
+import listEndpoints from 'express-list-endpoints';
+
 
 // i have changed from localhost to 127.0.0.1
 // original: "mongodb://localhost/project-mongo";
@@ -25,9 +27,15 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello !");
+  res.send({
+    Welcome: "Welcome to the Authentication app",
+    Routes: listEndpoints(app)
+  });
 });
 
+app.get('/', (req, res) => {
+  res.json(routes);
+});
 ///////////////////
 const UserSchema = new mongoose.Schema({
   username: {
