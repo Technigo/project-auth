@@ -63,22 +63,23 @@ justify-content: center;
 // min-height: 100vh;
 width: 100vw;
 margin: 0;
-// color: #91785d;
 background-color: #869d7a;
 
-
 h1 {
-  // color: #493843;
   color: #56282d;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin-bottom: 1.5rem;
 }
 `;
 
 const FormContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+display: flex;
+flex-direction: row;
+justify-content: center;
+
+@media (max-width: 720px) {
+  flex-direction: column;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -91,7 +92,12 @@ color: #ffffff;
 font-size: 1rem;
 font-weight: bold;
 margin-top: 1.5rem;
-padding: 10px;
+padding: 0.8rem;
+
+@media (max-width: 664px) {
+  border-radius: 10px;
+  padding: 0.3rem;
+  }
 `;
 
 const StyledInput = styled.input`
@@ -100,5 +106,5 @@ border-radius: 5px;
 font-size: 1rem;
 font-weight: bold;
 margin-left: 1rem;
-// color: #160c28;
+color: #76b041;
 `;

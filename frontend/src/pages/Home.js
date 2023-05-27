@@ -32,22 +32,26 @@ align-content: flex-start;
 min-height: 100vh;
 width: 100vw;
 color: #bbe1c3;
-// background-color: #a7cdbd;
-// background-color: #869d7a;
+// color styr please log in samt already registered/no account
 `;
 
 const StyledText = styled.h1`
 font-size: 1rem;
 color: #ffb140;
 padding-left: 1rem;
-// background-color: #a7cdbd;
 background-color: rgba(167, 205, 189, 0.5);
+
+// media-q lyssnar ej
+
+@media (max-width 664px) {
+    font-size: 0.7rem;
+    padding-left: 0.7rem
+    }
 `
 
 const StyledStart = styled.div`
 display: flex;
-// flex-direction: column;
 align-items: center;
-justify-content: cebter;
+justify-content: center;
 margin-top: 2rem;
 `;
