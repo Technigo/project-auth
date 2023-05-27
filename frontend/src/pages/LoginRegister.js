@@ -21,7 +21,7 @@ const LoginRegister = ({ API_URL }) => {
           .then((data) => {
             if (data.success) {
             localStorage.setItem("token", data.response.accessToken);
-            window.location.reload(); } else { console.log("fel!") }
+            window.location.reload(); } else { alert("Login error!") }
           })
           .catch((error) => console.log(error))
 
@@ -37,7 +37,7 @@ const LoginRegister = ({ API_URL }) => {
           .then((data) => {
             if (data.success) {
             localStorage.setItem("token", data.response.accessToken);
-            window.location.reload(); } else { console.log("fel!") }
+            window.location.reload(); } else { alert("Registration error!") }
           })
           .catch((error) => console.log(error));
         break;
