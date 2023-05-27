@@ -44,6 +44,8 @@ const LoginRegisterForm = ({ state, name, setName, email, setEmail, password, se
           value={password} 
           placeholder="Enter your password" 
           onChange={handlePasswordChange}
+          required
+
       />
       </FormContainer>
       <StyledButton type="submit" className={state}>
