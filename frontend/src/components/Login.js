@@ -170,6 +170,14 @@ const SignUpText = styled.h2`
 const BackgroundContainer = styled.div`
   height: 20%;
   width: 100%;
+
+  @media (min-width: 667px){
+    height: 40%;
+  }
+  @media (min-width: 1024px){
+    height: 50%;
+  }
+
 `
 
 const BackgroundImg = styled.img`
