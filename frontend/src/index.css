@@ -1,13 +1,99 @@
 body {
   margin: 0;
+  height: 100vh;
+  color: #313131;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: rgb(191,244,115);
+background: linear-gradient(210deg, rgba(191,244,115,0.9556197478991597) 0%, rgba(183,248,213,1) 50%, rgba(133,243,202,1) 100%);
+background-attachment: fixed;
+}
+
+.allWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.contentContainer {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label[for="register"],
+label[for="login"] {
+  cursor: pointer;
+  border: 2px solid transparent;
+  padding: 0.3rem;
+}
+
+label[for="register"]:hover,
+label[for="login"]:hover {
+  /*border: 2px solid #7bf873;
+  background: rgb(191,244,115);
+  background: linear-gradient(90deg, rgba(191,244,115,0.9556197478991597) 0%, rgba(183,248,195,1) 50%, rgba(133,243,202,1) 100%);*/
+  border: 2px solid transparent;
+  border-image: linear-gradient(90deg, rgba(191,244,115,0.9556197478991597) 0%, rgba(183,248,213,1) 50%, rgba(133,243,202,1) 100%);
+  border-image-slice: 1;
+  background: none;
+}
+
+label[for="register"]:active,
+label[for="login"]:active {
+  background: rgb(191,244,115);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+ /* max-width: 265px; */
+  padding: 1rem;
+  margin: 1rem;
+  color: #F2F2F2;
+}
+
+form p {
+  color: #fc6767;
+}
+
+form label,
+form button {
+  display: block;
+}
+
+fieldset {
+  border: 2px groove rgb(133,243,202);
+  padding-right: 4rem;
+}
+
+
+@media screen and (min-width: 768px) {
+  .contentContainer {
+    width: 60%;
+  }
+}
+  @media screen and (min-width: 1024px) {
+    .contentContainer {
+      width: 50%;
+    }
+}
+  

@@ -23,7 +23,6 @@ export const App = () => {
 
   if (preloadedStateJSON) {
     preloadedState = JSON.parse(preloadedStateJSON)
-    console.log(preloadedState)
   }
 
 
