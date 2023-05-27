@@ -55,9 +55,9 @@ export const Main = () => {
       {!isLoading
         ? <ThemeProvider theme={theme}>
           <Container maxWidth="sm" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-            <Card sx={{ maxWidth: 800 }}>
+            <Card sx={{ maxWidth: 800, overflow: 'visible' }}>
               <CardMedia
-                sx={{ height: 240,
+                sx={{ minHeight: 240,
                   backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center' }} />

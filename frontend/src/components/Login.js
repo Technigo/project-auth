@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -23,10 +22,7 @@ const Copyright = (props) => {
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Nora and Jennifer&apos;s Website
-      </Link>{' '}
+      Copyright ©  Nora and Jennifer&apos;s Website {' '}
       {new Date().getFullYear()}
       .
     </Typography>
@@ -61,7 +57,7 @@ export const Login = () => {
   }
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main" sx={{ minHeight: '100vh' }}>
         <CssBaseline />
         <Grid
           item
