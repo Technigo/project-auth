@@ -7,7 +7,7 @@ import { MainContainer } from "./Styled components/MainContainer";
 
 export const NotFound = () => {
   return (
-    <MainContainer imageUrl="https://images.unsplash.com/photo-1546709843-e35cf3d3002d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=8">
+    <MainContainer imageUrl="https://cdn.pixabay.com/photo/2016/06/29/22/02/parking-space-1487891_1280.jpg">
       
       <StyledBox>
         <p>PAGE COULD NOT BE FOUND :(</p>

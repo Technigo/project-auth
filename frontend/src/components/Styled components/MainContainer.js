@@ -10,4 +10,5 @@ export const MainContainer = styled(Box)`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  filter: grayscale(50%);
 `;

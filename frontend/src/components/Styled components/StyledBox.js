@@ -11,6 +11,6 @@ export const StyledBox = styled(Box)`
   max-width: 80%;
   padding: 20px;
   color: white;
-  background: rgba(10, 10, 10, 0.5);
+  background: rgba(100, 120, 120, 0.8);
   `;
   

@@ -61,7 +61,7 @@ export const Secrets = () => {
             )
         } else {
             return (
-                <MainContainer imageUrl="">
+                <MainContainer imageUrl="https://cdn.pixabay.com/photo/2014/04/05/11/40/diamond-316611_1280.jpg">
                     <StyledBox>
                         <h2>This is your secret message {username}</h2>
                         <Link to="/">

@@ -111,7 +111,7 @@ const Register = () => {
     };
 
     return (
-        <MainContainer>
+        <MainContainer imageUrl="https://images.unsplash.com/photo-1546709843-e35cf3d3002d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=8">
             <StyledBox>
                 <h1>REGISTER</h1>
                 <p>{errorMsg}</p>
