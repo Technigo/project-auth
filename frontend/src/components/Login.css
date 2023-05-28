@@ -120,6 +120,12 @@ label {
   .main {
     width: 34%; /* Adjusted width to fit smaller screens */
   }
+  .register {
+    transform: translateY(-30%);
+  }
+  #chk:checked ~ .register {
+    transform: translateY(-90%);
+}
 }
 
 @media (max-width: 480px) {
@@ -138,15 +144,15 @@ label {
     margin: -8% 0 25%;
   }
 
-  #chk:checked ~ .register {
-    transform: translateY(-72%);
-}
+  .form {
+    gap: 21px;
+  }
 
-.form {
-  gap: 21px;
+  #chk:checked ~ .register {
+    transform: translateY(-90%);
 }
 .register {
-  transform: translateY(3%);
+  transform: translateY(-30%);
 
 }
 #chk:checked ~ .login label {
@@ -159,9 +165,11 @@ label {
     padding: 38px;
   }
   .register {
-    transform: translateY(-5%);
+    transform: translateY(-30%);
   }
-
+  #chk:checked ~ .register {
+    transform: translateY(-90%);
+}
   .main {
     width: 100%;
     scale: 115%;
