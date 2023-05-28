@@ -133,8 +133,9 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center; 
-gap: 0.7rem;
+gap: 1rem;
 text-align: center; 
+
 `
 
 ////////////MAIN/////////////

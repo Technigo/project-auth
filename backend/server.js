@@ -189,7 +189,8 @@ app.get("/thoughts", async (req, res) => {
 }) // add try catch blocks
 
 //////////////////////FIND SPECIFIC USER'S THOUGHTS???///////
-app.post("/thoughts", authenticateUser)
+// This code is not implemented in the project.
+/*app.post("/thoughts", authenticateUser)
 app.post("/thoughts", async (req, res) => {
   const { message } = req.body;
   const accessToken = req.header("Authorization");
@@ -218,7 +219,7 @@ app.post("/thoughts", async (req, res) => {
 
   
 })
-
+*/
 
 // Start the server
 app.listen(port, () => {
