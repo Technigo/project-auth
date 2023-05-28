@@ -92,7 +92,7 @@ const Login = () => {
             </label>
           </div>
           <button
-            class="form-submit-button"
+            className="form-submit-button"
             type="submit"
             onClick={onFormSubmit}
           >
