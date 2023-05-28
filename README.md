@@ -8,8 +8,6 @@ This project was done in pairs. We did some pair-programming and also did some p
 Tools: MongoDB, Mongoose, Express, MongoDB Compass, MongoDB Atlas, Google Cloud.
 
 ## View it live
-(Not working yet)
-
 Frontend: 
 https://emilia-michelle-project-auth.netlify.app
 
