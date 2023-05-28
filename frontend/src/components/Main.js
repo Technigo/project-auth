@@ -25,7 +25,7 @@ const Main = () => {
             }
         }
         fetch(API_URL("secrets"), options)
-            .then(res => res.json())
+            .then(response => response.json())
             .then(data => {
                 if(data.success) {
                     dispatch(secrets.actions.setError(null));
