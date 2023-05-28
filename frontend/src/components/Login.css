@@ -124,7 +124,7 @@ label {
     transform: translateY(-30%);
   }
   #chk:checked ~ .register {
-    transform: translateY(-90%);
+    transform: translateY(-95%);
 }
 }
 
