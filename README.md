@@ -21,5 +21,5 @@ Overall quite a hard week with some trouble-shooting but in the end all good and
 
 ## View it live
 
-Frontend: https://brilliant-youtiao-8567a7.netlify.app/login
+Frontend: https://brilliant-youtiao-8567a7.netlify.app/
 API: https://project-auth-vcssurlyqq-ez.a.run.app/
