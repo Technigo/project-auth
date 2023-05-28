@@ -52,7 +52,7 @@ const Main = () => {
     return(
         <>
             <button type="button" onClick={onLogoutButtonClick}>LOGOUT</button>
-            {username ? (<h2>THESE ARE THE THOUGHTS OF {username.toUpperCase()}</h2>): ""}
+            {username ? (<h2>These are the thoughts of {username.toUpperCase()}</h2>): ""}
             {secretItems.map(item => {
                 return(<p key={item._id}>{item.message}</p>)
             })}
