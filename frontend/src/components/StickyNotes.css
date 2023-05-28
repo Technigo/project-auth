@@ -11,17 +11,18 @@
 }
 
 textarea {
-  font:20px 'Gloria Hallelujah', cursive; 
   line-height:1.5;
   border:0;
   border-radius:3px;
-  background: linear-gradient(#F9EFAF, #F7E98D);
-  box-shadow:0 4px 6px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.54);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   overflow:hidden;
   transition:box-shadow 0.5s ease;
-  font-smoothing:subpixel-antialiased;
   max-width:520px;
   max-height:250px;
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 textarea:hover { box-shadow:0 5px 8px rgba(0,0,0,0.15); }
 textarea:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
@@ -31,6 +32,7 @@ textarea:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 85vh;
 }
 
 .messageForm {

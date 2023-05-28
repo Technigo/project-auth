@@ -64,11 +64,11 @@ label {
   border: none;
   outline: none;
   border-radius: 4px;
+  margin: 0;
 }
 
 /* Register */
 .register {
-  height: 326px;
   background: white;
   border-radius: 50% / 10%;
   margin: 0;
@@ -82,7 +82,7 @@ label {
 }
 
 #chk:checked ~ .register {
-  transform: translateY(-75%);
+  transform: translateY(-80%);
 }
 
 #chk:checked ~ .register label {

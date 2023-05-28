@@ -35,7 +35,10 @@ export const Login = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ username: loginUsername, password: loginPassword }),
+            body: JSON.stringify({
+                username: loginUsername.toLowerCase(), //convert username to lowercase 
+                password: loginPassword
+            }),
         };
 
         // Send login request to the server
@@ -69,7 +72,10 @@ export const Login = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ username: registerUsername, password: registerPassword }),
+            body: JSON.stringify({
+                username: registerUsername.toLowerCase(), //convert username to lowercase  
+                password: registerPassword
+            }),
         };
 
         // Send registration request to the server
