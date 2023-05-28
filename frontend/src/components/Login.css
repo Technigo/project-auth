@@ -116,7 +116,7 @@ label {
 }
 
 /* Media Queries */
-@media (max-width: 768px) and (max-height: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .main {
     width: 34%; /* Adjusted width to fit smaller screens */
   }
