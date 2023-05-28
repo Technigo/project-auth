@@ -1,5 +1,6 @@
 import React from "react";
 import { BottomNavigation, Typography, Link, Paper} from "@mui/material";
+import footerIMG from "../assets/footerbkgrnd.png"
 
 export const Footer = () => {
   return (
@@ -9,15 +10,24 @@ export const Footer = () => {
         left: 0,
         right: 0,
         color: "black",
-        height: 0.06
+        height: 0.07,
+        backgroundImage: `url(${footerIMG})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover"
       }} elevation={3}>
     <BottomNavigation
+      sx={{
+        backgroundColor: "transparent"
+      }}
     >
       <Typography
         variant="body1"
         color="text.secondary"
         fontFamily="VT323, monospace"
-        paddingTop={2}
+        fontSize="1.2rem"
+        fontWeight="700"
+        paddingTop={1}
+        textAlign="center"
       >
         {"Made by "}
         <Link
