@@ -11,11 +11,10 @@ import { Button, Form, OuterWrapper, InnerWrapper, MessageWrapper, Header, Parag
 const Main = () => {
     const [newThought, setNewThought] = useState("");
 
-    const thoughtItems = useSelector((store) => store.thoughts.items);
-    const dispatch = useDispatch();
-    const accessToken = useSelector(store => store.user.accessToken);
-    const username = useSelector(store => store.user.username);
-    const navigate = useNavigate();
+    const thoughtItems = useSelector((store) => store.thoughts.items); // We fint the thoughts in the store and set them to the variable thoughtItems
+    const dispatch = useDispatch(); // import dispatch hook in order to call upon the reducers in the store.
+    const accessToken = useSelector(store => store.user.accessToken); // We get the accessToken in the store
+    const navigate = useNavigate(); // import the useNavigate hook
 
     
     ///////////////////////USE EFFECT CHECK ACCESS KEY///////////////
@@ -36,7 +35,7 @@ const Main = () => {
             method:"GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": accessToken
+                "Authorization": accessToken // the accessToken is used for getting all the thoughts and display them for the user
             }
         }
         fetch(API_URL("thoughts"), options)
@@ -60,7 +59,7 @@ const Main = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": accessToken
+            "Authorization": accessToken // We need to use the access token if the user want to make a post. 
           },
           body: JSON.stringify({ message: newThought })
         };

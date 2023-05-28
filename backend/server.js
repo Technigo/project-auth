@@ -18,6 +18,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// We're using the 'express-list-endpoints' package to list all endpoints on the root route ("/")
+const listEndpoints = require('express-list-endpoints');
+
 ////////////////////////SCHEMAS/////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 const { Schema } = mongoose; 
@@ -96,7 +99,7 @@ const authenticateUser = async (req, res, next) => {
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello user!!");
+  res.send(listEndpoints(app))
 });
 
 

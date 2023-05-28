@@ -7,46 +7,46 @@ import { useNavigate } from "react-router-dom";
 import { OuterWrapper, InnerWrapper, Button, Form, RadioButtonWrapper, Header, DescriptionWrapper, Paragraph, Label } from "./GeneralStyles";
 
 const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [mode, setMode] = useState("login");
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const accessToken = useSelector(store => store.user.accessToken);
-    const registrationError = useSelector(store => store.user.error)
+    const [username, setUsername] = useState(""); // useState hook for holding the username
+    const [password, setPassword] = useState(""); // useState hook for holding the password
+    const [mode, setMode] = useState("login"); // useState hook for holding the mode (e.g., "login" or "register")
+    const dispatch = useDispatch(); // useDispatch hook from Redux for accessing the dispatch function
+    const navigate = useNavigate(); // useNavigate hook from React Router for navigation
+    const accessToken = useSelector(store => store.user.accessToken); // useSelector hook from Redux for accessing the access token from the store
+    const registrationError = useSelector(store => store.user.error); // useSelector hook from Redux for accessing the registration error from the store
 
     useEffect(() => {
-        if(accessToken) {
-            navigate("/")
+        if (accessToken) {
+            navigate("/"); // If an access token exists, navigate to the home page
         }
     }, [accessToken]);
 
     const onFormSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault(); // Prevent the default form submission behavior
         const options = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({username: username, password: password})
-        }
-        fetch(API_URL(mode), options)
-            .then(response => response.json())
+            body: JSON.stringify({ username: username, password: password }) // Convert the username and password to JSON string and set as the request body
+        };
+        fetch(API_URL(mode), options) // Make a POST request to the API URL based on the current mode
+            .then(response => response.json()) // Convert the response to JSON
             .then(responsedata => {
-                if(responsedata.success) {
-                    console.log(responsedata)
-                    dispatch(user.actions.setAccessToken(responsedata.response.accessToken));
-                    dispatch(user.actions.setUsername(responsedata.response.username));
-                    dispatch(user.actions.setUserId(responsedata.response.id));
-                    dispatch(user.actions.setError(null));
+                if (responsedata.success) {
+                    console.log(responsedata);
+                    dispatch(user.actions.setAccessToken(responsedata.response.accessToken)); // Dispatch an action to set the access token in the store
+                    dispatch(user.actions.setUsername(responsedata.response.username)); // Dispatch an action to set the username in the store
+                    dispatch(user.actions.setUserId(responsedata.response.id)); // Dispatch an action to set the user ID in the store
+                    dispatch(user.actions.setError(null)); // Dispatch an action to clear any previous error in the store
                 } else {
-                    dispatch(user.actions.setAccessToken(null));
-                    dispatch(user.actions.setUsername(null));
-                    dispatch(user.actions.setUserId(null));
-                    dispatch(user.actions.setError(responsedata.response))
+                    dispatch(user.actions.setAccessToken(null)); // Dispatch an action to clear the access token in the store
+                    dispatch(user.actions.setUsername(null)); // Dispatch an action to clear the username in the store
+                    dispatch(user.actions.setUserId(null)); // Dispatch an action to clear the user ID in the store
+                    dispatch(user.actions.setError(responsedata.response)); // Dispatch an action to set the error message in the store
                 }
-            })
-    }
+            });
+    };
     return(
         <OuterWrapper vh100>
             <InnerWrapper>

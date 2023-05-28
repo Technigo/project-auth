@@ -11,11 +11,11 @@ import Login from 'components/Login';
 
 export const App = () => {
   const reducer = combineReducers({ 
-    user: user.reducer,
-    thoughts: thoughts.reducer
-  })
+    user: user.reducer, // Combine the reducer for the 'user' slice of state
+    thoughts: thoughts.reducer // Combine the reducer for the 'thoughts' slice of state
+  });
 
-  const store = configureStore({ reducer })
+  const store = configureStore({ reducer }); // Create a Redux store using the combined reducer
   
   return (
     <Provider store={store}>
