@@ -42,6 +42,9 @@ code {
 }
 
 
-h2 {
+h1 {
   text-align: center;
+  font-weight: 400;
+  font-size: 30px;
+
 }
