@@ -48,7 +48,7 @@ const StyledLabel = styled.label`
 text-align: left;
 margin-top: 15px;
 font-size: 14px;
-padding: 0 0 3px 0
+padding: 0 0 3px 0;
 `
 const StyledForm = styled.form`
 display: flex;
