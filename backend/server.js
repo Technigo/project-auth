@@ -18,7 +18,7 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(
   cors({
-    origin: "https://emilia-michelle-project-auth.netlify.app/", 
+    origin: "https://emilia-michelle-project-auth.netlify.app", 
     methods: ["GET", "POST"], // Specify the allowed methods
     allowedHeaders: ["Content-Type", "Authorization"], // Specify the allowed headers
   })
@@ -138,29 +138,33 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-app.get(PATHS.secrets, authenticateUser);
+// Authenticate the user and return the secret message
 app.get(PATHS.secrets, async (req, res) => {
-  const secretMessage = "This is the secret page! Woop woop";
-  
-  res.status(200).json({secret: secretMessage})
-});
-
-app.post(PATHS.sessions, async (req, res) => {
-  const user = await User.findOne({ name: req.body.name });
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken });
-  } else {
-    res.json({ notFound: true });
+  const accessToken = req.header("Authorization");
+  try {
+    const user = await User.findOne({ accessToken: accessToken });
+    if (user) {
+      const secretMessage = "This is the secret page! Woop woop";
+      res.status(200).json({ secret: secretMessage });
+    } else {
+      res.status(401).json({
+        success: false,
+        response: "Please log in",
+        loggedOut: true,
+      });
+    }
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      response: e,
+    });
   }
 });
-
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
-
-
 
 // Test in postman
 
@@ -175,7 +179,6 @@ app.listen(port, () => {
 //     "name": "name",
 //     "password": "password"
 // }
-
 
 // Get   http://localhost:8080/secrets
 // Headers: Authorization
