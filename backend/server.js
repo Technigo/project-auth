@@ -4,7 +4,9 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt-nodejs';
 import crypto from 'crypto';
 
+require('dotenv').config();
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth"
+mongoose.set('strictQuery', false);
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
 mongoose.Promise = Promise
 
@@ -17,6 +19,19 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
+// CORS configuration
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "GET, POST");
+    return res.status(200).json({});
+  }
+  next();
+});
 
 // Start defining your routes here
 app.get("/", (req, res) => {
@@ -65,6 +80,7 @@ app.post("/register", async (req, res) => {
       }
     })
   } catch (e) {
+    console.log(e)
     res.status(400).json({
       success: false,
       response: e
@@ -87,7 +103,7 @@ app.post("/login", async (req, res) => {
         }
       });
     } else {
-      res.status(400).json({
+      res.status(401).json({
         success: false,
         response: "Credentials do not match"
       });
