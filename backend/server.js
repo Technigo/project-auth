@@ -8,43 +8,6 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
 mongoose.Promise = Promise
 
-const { Schema } = mongoose;
-
-const UserSchema = new mongoose.Schema( {
-  name: {
-    type: String,
-    unique: true
-  },
-  email: {
-    type: String,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  accessToken: {
-    type: String,
-    default: () => crypto.randomBytes(128).toString('hex')
-  }
-});
-
-const User = mongoose.model("User", UserSchema)
-
-// This middleware function checks if a user is authenticated based on the access token
-// provided in the request headers. If the access token matches a user in the database, 
-// the user is stored in the req.user property, and the next middleware or 
-// route handler is called. Otherwise, it sends a 401 Unauthorized response
-
-const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({accessToken: req.header('Authorization')});
-  if(user){
-    req.user = user;
-    next();
-  } else {
-    res.status(401).json({loggedOut: true});
-  }
-};
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
 // PORT=9000 npm start
@@ -59,32 +22,144 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
+////////////
+const { Schema } = mongoose;
 
-app.post('/register', async (req, res) => {
-  try{
-    const {name, email, password} = req.body;
-    // DO NOT STORE PLAINTEXT PASSWORDS
-    const user = new User ({name, email, password: bcrypt.hashSync(password)});
-    user.save();
-    res.status(201).json({id: user._id, accessToken: user.accessToken});
-  }catch(err){
-    res.status(400).json({messege: 'Could not create user', errors: err.errors});
-  }
-})
-
-app.get('/secrets', authenticateUser);
-app.get('/secrets', (req, res) =>{
-  res.json({secret: 'This is a super secret message.'});
-});
-
-app.post('/login', async (req, res) => {
-  const user = await User.findOne({email: req.body.email});
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({userId: user._id, accessToken: user.accessToken});
-  } else {
-    res.json({notFound: true});
+const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  accessToken: {
+    type: String,
+    default: () => crypto.randomBytes(128).toString("hex")
   }
 });
+
+const User = mongoose.model("User", UserSchema);
+/// Registration
+app.post("/register", async (req, res) => {
+  const { username, password } = req.body;
+  /// const code = [1, 2, 3, 4, 5]
+  /// const makeCodeSecret = (codeArray, salt) => {
+  /// const transformedCode = codeArray.map(singleNumber => singleNumber + salt)
+  /// return transformed array
+ /// }
+  try {
+    const salt = bcrypt.genSaltSync();
+    const newUser = await new User({
+      username: username,
+      password: bcrypt.hashSync(password, salt)
+    }).save();
+    res.status(201).json({
+      success: true,
+      response: {
+        username: newUser.username,
+        id: newUser._id,
+        accessToken: newUser.accessToken
+      }
+    })
+  } catch (e) {
+    res.status(400).json({
+      success: false,
+      response: e
+    })
+  }
+});
+/// Login
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({username: username})
+    // const user = await User.findOne({username})
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(200).json({
+        success: true,
+        response: {
+          username: user.username,
+          id: user._id,
+          accessToken: user.accessToken
+        }
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        response: "Credentials do not match"
+      });
+    }
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      response: e
+    });
+  }
+});
+
+// Secrets
+const SecretSchema = new mongoose.Schema({
+  message: {
+    type: String
+  },
+  createdAt: {
+    type: Date,
+    default: () => new Date()
+  },
+  hearts: {
+    type: Number,
+    default: 0
+  },
+  user: {
+    type: String,
+    require: true
+  }
+});
+
+const Secret = mongoose.model("Secret", SecretSchema);
+
+// Authenticate the user
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header("Authorization");
+  try {
+    const user = await User.findOne({accessToken: accessToken});
+    if (user) {
+      next();
+    } else {
+      res.status(401).json({
+        success: false,
+        response: "Please log in"
+      })
+    }
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      response: e
+    });
+  }
+}
+
+app.get("/secrets",authenticateUser);
+app.get("/secrets", async (req, res) => {
+  const accessToken = req.header("Authorization");
+  const user = await User.findOne({accessToken: accessToken});
+  const secrets = await Secret.find({user: user._id})
+  //https://mongoosejs.com/docs/populate.html
+  res.status(200).json({success: true, response: secrets})
+});
+
+app.post("/secrets",authenticateUser);
+app.post("/secrets", async (req, res) => {
+  const { message } = req.body;
+  const accessToken = req.header("Authorization");
+  const user = await User.findOne({accessToken: accessToken});
+  const secrets = await new Secret({message: message, user: user._id}).save();
+  res.status(200).json({success: true, response: secrets})
+});
+///////////
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
