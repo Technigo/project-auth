@@ -117,8 +117,8 @@ const Main = () => {
              <Header>Secret message board</Header>            
             {thoughtItems.map(item => {
                 return(
-                <MessageWrapper>
-                <Paragraph key={item._id}>{item.message}</Paragraph>
+                <MessageWrapper key={item._id}>
+                <Paragraph>{item.message}</Paragraph>
                 </MessageWrapper>
                 )
             })}
