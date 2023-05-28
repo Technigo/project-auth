@@ -31,11 +31,16 @@ const Main = () => {
                     dispatch(secrets.actions.setError(null));
                     dispatch(secrets.actions.setItems(data.response));
                 } else {
-                    dispatch(secrets.actions.setError(response));
+                    dispatch(secrets.actions.setError(data.error));
                     dispatch(secrets.actions.setItems([]));
                 }
-            });
-    })
+              })
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(secrets.actions.setError("An error occurred")); // Handle the error case
+                    dispatch(secrets.actions.setItems([]));
+              });
+    });
 
     const onLogoutButtonClick = () => {
         dispatch(user.actions.setAccessToken(null));
