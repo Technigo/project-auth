@@ -1,13 +1,16 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
+In this pair-project I worked with my friend Andreas. The assignment was to create a fullstack project with both an API in the backend and a frontend with a login-form.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We approached this task by coading along with some videos and then talked about how to connect the backend. We reused snippets of code from previus projects and also found a nice form that we implemented.
+
+
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend: https://ajmal-auth.netlify.app/
+Backend: https://project-auth-2knq6tzdfq-ew.a.run.app
