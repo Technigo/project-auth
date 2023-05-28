@@ -14,6 +14,7 @@ mongoose.set('debug', true);
 // PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
+const listEndpoints = require('express-list-endpoints');
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
