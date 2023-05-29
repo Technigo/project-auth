@@ -8,4 +8,4 @@ I started by coding along during the live session with Daniel. I started by crea
 
 ## View it live
 
-https://authorization-annikasonnek.netlify.app/
+https://authorization-annikasonnek.netlify.app/ 
