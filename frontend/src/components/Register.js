@@ -42,11 +42,11 @@ export const Register = () => {
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);
 
-  // useEffect(() => {
-  //   if (accessToken) {
-  //     navigate("/");
-  //   }
-  // }, [accessToken]);
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/success");
+    }
+  }, [accessToken]);
 
   const onFormSubmit = (event) => {
     event.preventDefault();
