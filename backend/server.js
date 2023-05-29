@@ -86,34 +86,87 @@ try {
   }
 })
 
-/// Login
+// Login
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  try {
-    const user = await User.findOne({username: username})
-    // const user = await User.findOne({username})
-    if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(200).json({
-        success: true,
-        response: {
-          username: user.username,
-          id: user._id,
-          accessToken: user.accessToken
-        }
-      });
-    } else {
-      res.status(400).json({
+
+    // Handle regular user login
+    try {
+      const user = await User.findOne({ username: username });
+      if (user && bcrypt.compareSync(password, user.password)) {
+        res.status(200).json({
+          success: true,
+          response: {
+            username: user.username,
+            id: user._id,
+            accessToken: user.accessToken,
+          },
+        });
+      } else {
+        res.status(400).json({
+          success: false,
+          response: "Credentials do not match",
+        });
+      }
+    } catch (e) {
+      res.status(500).json({
         success: false,
-        response: "Credentials do not match"
+        response: e,
       });
     }
-  } catch (e) {
-    res.status(500).json({
+  }
+);
+
+// guest login
+app.post("/login/guest", async (req, res) => {
+  const guestUser = await User.findOne({ username: "guest" });
+  if (guestUser) {
+    res.status(200).json({
+      success: true,
+      response: {
+        username: guestUser.username,
+        id: guestUser._id,
+        accessToken: guestUser.accessToken,
+      },
+    });
+  } else {
+    res.status(400).json({
       success: false,
-      response: e
+      response: "Guest login failed",
     });
   }
 });
+
+/// Login
+// app.post("/login", async (req, res) => {
+//   const { username, password } = req.body;
+
+  
+//   try {
+//     const user = await User.findOne({username: username})
+//     // const user = await User.findOne({username})
+//     if (user && bcrypt.compareSync(password, user.password)) {
+//       res.status(200).json({
+//         success: true,
+//         response: {
+//           username: user.username,
+//           id: user._id,
+//           accessToken: user.accessToken
+//         }
+//       });
+//     } else {
+//       res.status(400).json({
+//         success: false,
+//         response: "Credentials do not match"
+//       });
+//     }
+//   } catch (e) {
+//     res.status(500).json({
+//       success: false,
+//       response: e
+//     });
+//   }
+// });
 ////
 // Thoughts
 
