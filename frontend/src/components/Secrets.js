@@ -5,15 +5,12 @@ import user from '../reducers/user';
 import { batch } from 'react-redux';
 import { API_URL } from '../utils/utils';
 
-import secretImage from '../images/secret.jpg';
-
 const OuterWrapper = styled.div`
   display: flex;
   height: 100vh;
   width: 100%;
   justify-content: center;
   text-align: center;
-  background-image: url(${secretImage}); 
   background-size: cover;
   background-position: center;
 `;
