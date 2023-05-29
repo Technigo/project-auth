@@ -121,7 +121,8 @@ const Login = () => {
                             type="password" 
                             id="password" 
                             value={password} 
-                            onChange={e => setPassword(e.target.value)} />
+                            onChange={e => setPassword(e.target.value)} 
+                            autoComplete="off" /> 
                         <button type="submit">Submit</button>
                     </form>
                 </FormWrapper>
