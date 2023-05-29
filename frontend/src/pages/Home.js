@@ -32,7 +32,6 @@ align-content: flex-start;
 min-height: 100vh;
 width: 100vw;
 color: #bbe1c3;
-// color styr please log in samt already registered/no account
 `;
 
 const StyledText = styled.h1`
@@ -40,8 +39,6 @@ font-size: 1rem;
 color: #ffb140;
 padding-left: 1rem;
 background-color: rgba(167, 205, 189, 0.5);
-
-// media-q lyssnar ej
 
 @media (max-width: 664px) {
     font-size: 0.7rem;
