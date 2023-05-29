@@ -5,13 +5,15 @@ import user from '../reducers/user';
 import { batch } from 'react-redux';
 import { API_URL } from '../utils/utils';
 
+import secretImage from '../images/secret.jpg';
+
 const OuterWrapper = styled.div`
   display: flex;
   height: 100vh;
   width: 100%;
   justify-content: center;
   text-align: center;
-  background-image: url('../images/secret.jpg'); 
+  background-image: url(${secretImage}); 
   background-size: cover;
   background-position: center;
 `;
@@ -19,7 +21,7 @@ const OuterWrapper = styled.div`
 const Secrets = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.accessToken);
-  const [secretMessage, setSecretMessage] = useState(null);
+  const [setSecretMessage] = useState(null);
 
   useEffect(() => {
     const options = {
