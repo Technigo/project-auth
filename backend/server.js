@@ -47,7 +47,7 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model("User", UserSchema);
 
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
@@ -105,8 +105,6 @@ try {
 const ThoughtSchema = new Schema({
   message: {
     type: String,
-    required: true,
-    trim: true
   },
   createdAt: {
     type: Date,
@@ -122,11 +120,11 @@ const ThoughtSchema = new Schema({
   }
 })
 
-const Thought = mongoose.model('Thought', ThoughtSchema);
+const Thought = mongoose.model("Thought", ThoughtSchema);
 
 // Authenticate the User
 const authenticateUser = async (req, res, next) => {
-  const accessToken = req.header('Authorization');
+  const accessToken = req.header("Authorization");
   try {
     const user = await User.findOne({accessToken: accessToken})
     if (user) {
@@ -146,9 +144,12 @@ const authenticateUser = async (req, res, next) => {
 }
 
 app.get('/thoughts', authenticateUser)
-app.get('/thoughts', async (req, res) => {
-  const thoughts = await Thought.find({});
-  res.status(200).json({success: true, response: thoughts})
+app.get("/thoughts", async (req, res) => {
+  const accessToken = req.header("Authorization");
+  const user = await User.findOne({ accessToken: accessToken }); 
+  const thoughts = await Thought.find({ user: user._id });
+
+  res.status(200).json({ success: true, response: thoughts })
 });
 
 app.post('/thoughts', authenticateUser);
@@ -156,10 +157,10 @@ app.post('/thoughts', async (req, res) => {
   const { message } = req.body;
 
   const accessToken = req.header("Authorization")
-  const user = await User.findOne({accessToken: accessToken})
+  const user = await User.findOne({ accessToken: accessToken })
 
-  const thoughts = await new Thought({message: message, user: user._id}).save();
-  res.status(200).json({success: true, response: thoughts})
+  const thoughts = await new Thought({ message: message, user: user._id }).save();
+  res.status(200).json({ success: true, response: thoughts }).save()
 });
 
 
