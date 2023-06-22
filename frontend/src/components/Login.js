@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "utils/utils";
 import { useNavigate } from "react-router-dom";
+import user from "reducers/user";
+import "./Login.css"
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -10,6 +12,8 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const accessToken = useSelector(store => store.user.accessToken)
+    const regError = useSelector(store => store.user.error)
+
     useEffect(() => {
         if(accessToken) {
             navigate("/")
@@ -20,9 +24,9 @@ const Login = () => {
         const options = {
             method: "POST",
             headers: {
-                "contentType": "application/json"
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({username: username, password: setPassword})
+            body: JSON.stringify({username: username, password: password})
         }
         fetch(API_URL(mode), options)
             .then(response => response.json())
@@ -42,7 +46,7 @@ const Login = () => {
     }
 
     return(
-        <>
+        <section className="login-wrapper">
         <label htmlFor="register">Register</label>
         <input
             type="radio"
@@ -70,7 +74,8 @@ const Login = () => {
             onChange={e => setPassword(e.target.value)} />
             <button type="submit">Submit</button>
         </form>
-        </>
+        {regError && <p>{regError}</p>}
+        </section>
     )
 }
 
