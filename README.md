@@ -1,4 +1,5 @@
 # Project Auth API
+### Week 16 Technigo Bootcamp
 
 With pair programming (Jennifer Feenstra-Arengård & Nora Terbocs) we worked to create a backend to securely store passwords and user information. Our site handles user authentication with user tokens and this repo contains both backend and frontend projects.
 
