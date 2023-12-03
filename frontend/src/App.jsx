@@ -141,3 +141,4 @@ function RegisterForm({ onRegister }) {
 
 
 export default App;
+//Change api endpoints to the real endpoints!
