@@ -7,6 +7,7 @@ import bcrypt from "bcrypt";
 // Defines the router and makes it available to other files
 export const router = express();
 
+// Creates a route creating a user
 router.post("/users", asyncHandler(async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -28,9 +29,10 @@ router.post("/users", asyncHandler(async (req, res) => {
     }
 }));
 
-router.get("/secrets", authenticateUser)
-router.get("/secrets", (req, res) => {
-    res.send({ secret: "This is a secret message" });
+// Creates a route only reachable for logged in users, the middleware authenticateUser is used to check if the user is logged in
+router.get("/dashboard", authenticateUser, (req, res) => {
+    const { username } = req.user; // gets the username from the authenticated user
+    res.send(`Welcome to your Dashboard, ${username}!`);
 });
 
 // Creates a route for sessions - showing logged in users. The information shown is the accessToken and the user id

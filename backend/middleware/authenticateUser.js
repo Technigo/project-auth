@@ -8,6 +8,6 @@ export const authenticateUser = async (req, res, next) => {
         req.user = user;
         next();
     } else {
-        res.status(401).json({ loggedOut: true }); // Returns an error if the user is not logged in
+        res.status(403).send("You need to sign in!"); // Returns an error if the user is not logged in
     }
 };

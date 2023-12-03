@@ -1,3 +1,16 @@
+import { BrowserRouter, Routes } from "react-router-dom";
+import { routes } from "./routes/routes";
+import { Welcome } from "./pages/Welcome"
+
 export const App = () => {
-  return <div>Find me in src/app.jsx!</div>;
+  return (
+    <>
+      <Welcome />
+      <BrowserRouter>
+        <main>
+          <Routes>{routes}</Routes>
+        </main>
+      </BrowserRouter>
+    </>
+  );
 };
