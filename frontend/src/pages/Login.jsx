@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Welcome = () => {
+export const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,9 +14,8 @@ export const Welcome = () => {
     const handleLogin = async (event) => {
         event.preventDefault();
 
-
         try {
-            const response = await fetch(withEndpoint("sessions"), {
+            const response = await fetch(withEndpoint("login"), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,7 +34,10 @@ export const Welcome = () => {
             console.log(data);
             // Handle login success (e.g., store access token, redirect to dashboard)
             setIsLoggedIn(true);
+
+
             if (isLoggedIn) {
+                console.log(`${username} is logged in`);
                 navigate("/dashboard");
                 return;
             }
@@ -53,6 +55,7 @@ export const Welcome = () => {
                 <input
                     type="text"
                     id="username"
+                    placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required />
@@ -64,7 +67,6 @@ export const Welcome = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required />
                 <button type="submit">Login</button>
-                <button type="submit">Register</button>
             </form>
         </>
     )

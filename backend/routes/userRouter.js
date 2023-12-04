@@ -33,7 +33,7 @@ userRouter.post("/register", asyncHandler(async (req, res) => {
 
         await user.save();
 
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             response: {
                 id: user._id,
@@ -52,7 +52,7 @@ userRouter.post("/register", asyncHandler(async (req, res) => {
             });
         } else {
             // Handle other errors
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 response: {
                     message: "Could not create user",
@@ -70,15 +70,15 @@ userRouter.post("/login", asyncHandler(async (req, res) => {
     try {
         // First check if there is no user with that name, then ask the user to register
         if (!user) {
-            res.status(404).json({ message: "User not found, please register for an account" })
+            return res.status(404).json({ message: "User not found, please register for an account" })
         }
 
         // Then check if the password is correct, if not, return an error
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) {
-            res.status(401).json({ message: "Incorrect password" })
+            return res.status(401).json({ message: "Incorrect password" })
         } else {
-            res.status(201).json({
+            return res.status(201).json({
                 success: true,
                 response: {
                     id: user._id,
