@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { userRouter } from "./routes/userRouter";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth2";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 

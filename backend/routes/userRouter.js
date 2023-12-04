@@ -41,14 +41,25 @@ userRouter.post("/register", asyncHandler(async (req, res) => {
                 accessToken: user.accessToken
             }
         })
-    } catch (err) { // Checks against the rules in the model, if any of them are broken, it will return an error
-        res.status(400).json({
-            success: false,
-            response: {
-                message: "Could not create user",
-                errors: err
-            }
-        })
+    } catch (err) {
+        if (err.code === 11000) {
+            return res.status(400).json({
+                success: false,
+                response: {
+                    message: "Username already exists. Please choose another username.",
+                    errors: err
+                }
+            });
+        } else {
+            // Handle other errors
+            res.status(400).json({
+                success: false,
+                response: {
+                    message: "Could not create user",
+                    errors: err
+                }
+            });
+        }
     }
 }));
 
@@ -104,4 +115,13 @@ userRouter.post("/login", asyncHandler(async (req, res) => {
 userRouter.get("/dashboard", authenticateUser, (req, res) => {
     const { username } = req.user; // gets the username from the authenticated user
     res.send(`Welcome to your Dashboard, ${username}!`);
+});
+
+userRouter.get("/users", async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
 });
