@@ -14,9 +14,9 @@ router.post("/login", loginUserController);
 // router.get("/secret", authenticateUser, secrect);
 
 // New endpoint to display all registered endpoints
-router.get("/endpoints", (req, res) => {
-  const endpoints = listEndpoints(router);
-  res.json(endpoints);
-});
+// router.get("/endpoints", (req, res) => {
+//   const endpoints = listEndpoints(router);
+//   res.json(endpoints);
+// });
 
 export default router;
