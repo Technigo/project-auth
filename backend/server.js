@@ -6,10 +6,12 @@ import crypto from "crypto";
 
 //Har kört npm i och install mongoose && bcryptjs
 
+// Set up MongoDB connection
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
+// Define the User model for MongoDB
 const User = mongoose.model('User', {
   name: {
     type: String,
@@ -29,6 +31,7 @@ const User = mongoose.model('User', {
   }
 });
 
+// Middleware to authenticate users based on the access token
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({accessToken: req.header('Authorization')});
   if (user) { 
@@ -39,9 +42,7 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
+// Define the port for the server
 const port = process.env.PORT || 8080;
 const app = express();
 var bcrypt = require('bcryptjs'); //Hämtat från https://www.npmjs.com/package/bcryptjs som var länkad i technigos material
@@ -51,13 +52,17 @@ app.use(cors());
 app.use(express.json());
 
 // Start defining your routes here
+
+// Root route
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
+// Route to create users
 app.post('/users', async (req, res) => {
   try {
     const {name, email, password} = req.body;
+    // Hash the password before saving it to the database
     const user = new User({name, email, password: bcrypt.hashSync(password)});
     user.save();
     res.status(201).json({id: user._id, accessToken: user.accessToken})
@@ -67,13 +72,16 @@ app.post('/users', async (req, res) => {
   }
 })
 
+// Protected route with user authentication middleware
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
   res.json({secret: "Super secret message"})
 });
 
+// Route for user login sessions
 app.post('/sessions', async (req, res) => {
   const user = await User.findOne({email: req.body.email});
+  // Compare the hashed password with the provided password
   if (user && bcrypt.compareSync(req.body.password , user.password)){
     res.json({userId: user._id, accessToken: user.accessToken});
   } else {
