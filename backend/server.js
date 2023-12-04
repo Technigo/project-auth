@@ -1,8 +1,9 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import Routes from "Routes.js";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -12,14 +13,14 @@ mongoose.Promise = Promise;
 const port = process.env.PORT || 8080;
 const app = express();
 
+// Imported routes in the app
+app.use(Routes); // Mounting routes in the Express app
+
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
-
-// Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
-});
+//Behövs denna?
+// app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 
 // Start the server
 app.listen(port, () => {
