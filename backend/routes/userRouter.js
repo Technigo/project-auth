@@ -114,7 +114,17 @@ userRouter.post("/login", asyncHandler(async (req, res) => {
 // Creates a route only reachable for logged in users, the middleware authenticateUser is used to check if the user is logged in
 userRouter.get("/dashboard", authenticateUser, (req, res) => {
     const { username } = req.user; // gets the username from the authenticated user
-    res.send(`Welcome to your Dashboard, ${username}!`);
+    try {
+        res.send(`Welcome to your Dashboard, ${username}!`);
+    } catch (err) {
+        res.status(400).json({
+            success: false,
+            response: {
+                errors: err.errors
+            }
+        })
+    }
+
 });
 
 userRouter.get("/users", async (req, res) => {
