@@ -3,9 +3,9 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-import { router } from "./routes/userRouter";
+import { userRouter } from "./routes/userRouter";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth2";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
@@ -16,7 +16,7 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
-app.use("/", router);
+app.use("/", userRouter);
 
 // Start the server
 app.listen(port, () => {
