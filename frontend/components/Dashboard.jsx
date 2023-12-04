@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Header, Button } from './StyledComponents';
 
 const Dashboard = ({ user, setToken }) => {
   const handleSignOut = () => {
@@ -7,11 +8,10 @@ const Dashboard = ({ user, setToken }) => {
   };
 
   return (
-    <div>
-      <p>Welcome, {user?.username}</p>
-      <button onClick={handleSignOut}>Sign Out</button>
-
-    </div>
+    <Container>
+      <Header>Welcome, {user?.username}</Header>
+      <Button onClick={handleSignOut}>Sign Out</Button>
+    </Container>
   );
 };
 

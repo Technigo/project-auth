@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Container, Header, Input, Button, Paragraph, Error } from './StyledComponents';
+
 
 const API_REGISTER_URL = 'http://localhost:8080/api/users/register';
 
