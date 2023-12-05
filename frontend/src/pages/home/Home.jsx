@@ -17,7 +17,7 @@ export const Home = () => {
               weekly bouquest
             </Link>
             <Link to="/login" className={styles.linkContainer}>
-              <code></code>art
+              cart
             </Link>
           </ul>
         </nav>
