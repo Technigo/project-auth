@@ -1,5 +1,5 @@
 # This file tells netlify where the code for this project is and.
-# how it should build the JavaScript assets to deploy from.
+# how it should build the JavaScript assets to deploy from..
 [build]
 command = "npm run build"
 base = "frontend"
