@@ -4,12 +4,16 @@ import { useState } from "react";
 export const Login = () => {
   const [userName, setuserName] = useState("");
   const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
 
   //----- Function to process the login -----//
   const handleLogin = async (event) => {
+    if (!userName || !password) {
+      alert("Plase enter both username and password");
+      return;
+    }
     //what happens once sign in button is clicked
-    const options = {
+    const text = {
       method: "POST",
       body: JSON.stringify({
         name: `${userName}`,
@@ -21,7 +25,7 @@ export const Login = () => {
       },
     };
 
-    await fetch("mongodb://127.0.0.1:27017/auth", options)
+    await fetch("mongodb://127.0.0.1:27017/auth", text)
       .then((response) => response.json())
       .then(newUser);
   };

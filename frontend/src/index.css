@@ -48,7 +48,7 @@ textarea {
   border-radius: 4px;
   margin-bottom: 20px;
   width: 300px;
-  background-color: #f4dc94;
+  background-color: #fbf8be;
 }
 
 .formContainer {
@@ -66,8 +66,8 @@ textarea {
 }
 
 .bodyContainer {
-  background-color: #e9b929;
-  color: white;
+  background-color: #fbf8be;
+  color: #234e70;
   padding-bottom: 20em;
   padding-left: 0.5em;
   padding-right: 0.5em;
