@@ -1,0 +1,11 @@
+.section{
+    border:2px solid slateblue;
+    margin:1.5rem;
+}
+
+
+.loginSection{
+    border:1px solid saddlebrown;
+    display: flex;
+    flex-direction: column;
+}

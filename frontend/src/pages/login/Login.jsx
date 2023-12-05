@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
-import { userStore } from "../stores/userStore";
+import { userStore } from "../../stores/userStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Logo } from "../../components/logo/Logo";
+import styles from "../login/login.module.css";
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +36,7 @@ export const Login = () => {
     navigate("/");
   };
   return (
-    <div>
+    <section className={styles.section}>
       <nav>
         <ul>
           <li>
@@ -45,8 +47,8 @@ export const Login = () => {
           </li>
         </ul>
       </nav>
-
-      <div>
+      <Logo />
+      <div className={styles.loginSection}>
         <input
           type="text"
           placeholder="Username"
@@ -63,6 +65,6 @@ export const Login = () => {
 
         <button onClick={onLoginClick}>Login</button>
       </div>
-    </div>
+    </section>
   );
 };
