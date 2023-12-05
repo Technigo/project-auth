@@ -1,0 +1,108 @@
+.section{
+    margin:1.5rem;
+    width:90%;
+    height:100vh;
+    position: relative;
+}
+/* nav */
+nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+li{
+    list-style: none;
+}
+li a {
+    text-decoration: none;
+    position: absolute;
+    top:0.4rem;
+    left:0;
+    color:var(--main-color);
+    font-weight:600;
+    font-size:18px;
+}
+
+li a:hover{
+    text-decoration:underline 1px var(--main-color);
+}
+/* logo */
+.logo{
+    display: flex;
+    justify-content: center;
+   
+}
+
+/* sign up section */
+.signUp{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 3rem;
+    height:88vh;
+}
+
+.title{
+    margin:4rem 0 2rem 0;
+    font-size: 22px;
+
+}
+/* input field */
+input{
+    background-color: transparent;
+    line-height: 2.5rem;
+    border-bottom: 1px solid var(--main-color);
+    margin-bottom: 2rem;
+    outline:none;
+    font-size:18px;
+    color:var(--main-color)
+}
+
+input:focus::after {
+    border:none;
+  }
+
+input::placeholder{
+    font-size: 14px;
+    color:var(--main-color)
+}
+
+/* text */
+p{
+    font-size:16px;
+}
+.firstText{
+    margin-bottom: 1rem;
+    margin-top:-1.5rem;
+    font-weight: 100;
+    font-size: 14px;
+}
+
+/* sign up button */
+button{
+    width:8rem;
+    height:2.5rem;
+    background-color: var(--button-color);
+    font-weight:800;
+    margin-top: 1.5rem;
+}
+/* desktop */
+@media (min-width:1024px) {
+  .section{
+    width:97%; 
+  }
+  .signUp{
+    width:70%;
+    margin-left: 15%;
+    height:80vh;
+  }
+}
+/* table */
+@media (min-width:668px) and (max-width:1023px) {
+    .section{
+        width:95%;
+    }
+    .signUp{
+        height:80vh;
+    }
+}

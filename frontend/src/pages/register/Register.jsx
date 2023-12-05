@@ -1,7 +1,9 @@
-import { userStore } from "../stores/userStore";
+import { userStore } from "../../stores/userStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import styles from "../register/register.module.css";
+import { Logo } from "../../components/logo/Logo";
 
 export const Register = () => {
   const [username, setUsername] = useState("");
@@ -29,19 +31,20 @@ export const Register = () => {
   };
 
   return (
-    <>
+    <section className={styles.section}>
       <nav>
         <ul>
           <li>
             <Link to="/login">Login</Link>
           </li>
-          <li>
-            <Link to="/register">Sign Up</Link>
-          </li>
         </ul>
       </nav>
-      <h2>Sign up</h2>
-      <div>
+      <div className={styles.logo}>
+        <Logo />
+      </div>
+
+      <div className={styles.signUp}>
+        <h2 className={styles.title}>Sign Up</h2>
         <input
           type="text"
           placeholder="Email"
@@ -60,13 +63,17 @@ export const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <p>
+        <p className={styles.firstText}>
+          Password (must be 12 characters or more, including both uppercase,
+          lowercase letters and a number).
+        </p>
+        <p className={styles.secondText}>
           Your personal data will be used to support your experience throughout
           this website, to manage access to your account, and for other purposes
           described in our private policy.
         </p>
-        <button onClick={onSignupClick}>Sign up</button>
+        <button onClick={onSignupClick}>Sign Up</button>
       </div>
-    </>
+    </section>
   );
 };
