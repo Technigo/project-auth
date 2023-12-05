@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
-const RegistrationForm = () => {
+const LoginForm = () => {
     const [formData, setFormData] = useState({
-        name: '',
         email: '',
         password: '',
     });
@@ -14,11 +13,11 @@ const RegistrationForm = () => {
         });
     };
 
-    const handleRegistration = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://authentication-j1oa.onrender.com/', {
+            const response = await fetch('https://authentication-j1oa.onrender.com/sessions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -28,27 +27,21 @@ const RegistrationForm = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log('Registration successful:', data);
-                // Handle successful registration (e.g., redirect to login page)
+                console.log('Login successful:', data);
+                // Handle successful login (e.g., store token in local storage and redirect)
             } else {
                 const errorData = await response.json();
-                console.error('Registration failed:', errorData);
-                // Handle registration error (e.g., display error message to the user)
+                console.error('Login failed:', errorData);
+                // Handle login error (e.g., display error message to the user)
             }
         } catch (error) {
-            console.error('Error during registration:', error);
+            console.error('Error during login:', error);
             // Handle other errors (e.g., network issues)
         }
     };
 
     return (
-        <form onSubmit={handleRegistration}>
-            <h1>Registration Form</h1>
-            <label>
-                Name:
-                <input type="text" name="name" value={formData.name} onChange={handleInputChange} />
-            </label>
-            <br />
+        <form onSubmit={handleLogin}>
             <label>
                 Email:
                 <input type="email" name="email" value={formData.email} onChange={handleInputChange} />
@@ -59,9 +52,9 @@ const RegistrationForm = () => {
                 <input type="password" name="password" value={formData.password} onChange={handleInputChange} />
             </label>
             <br />
-            <button type="submit">Register</button>
+            <button type="submit">Login</button>
         </form>
     );
 };
 
-export default RegistrationForm;
+export default LoginForm;
