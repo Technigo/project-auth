@@ -1,19 +1,39 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export const Register = () => {
   const [userName, setuserName] = useState("");
   const [userEmail, setuserEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  //store the sign up information
-  //const storeSignUp = useStore((state) => state.handleSignUp);
+  //add my API link here
 
-  //function to handle sign up button click
-  const handleSignupClick = async () => {
+  //----Function to handle sign up button click----//
+
+  const handleRegistration = async (event) => {
+    //what happens once sign in button is clicked
     // if (!userName || !password || !email) {
     //   alert("Please enter an email, username and password");
     //   return;
+    const options = {
+      method: "POST",
+      body: JSON.stringify({
+        name: `${userName}`,
+        email: `${userEmail}`,
+        password: `${password}`,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorisation: localStorage.getItem("accessToken"),
+      },
+    };
+
+    await fetch("mongodb://127.0.0.1:27017/auth", options)
+      .then((response) => response.json())
+      .then((newUser) => {
+        alert(newUser, `You have registered successfully`);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -21,7 +41,7 @@ export const Register = () => {
       <div>
         <h2>Create a new account and sign up here!</h2>
         <p>Enter your new details:</p>
-        <form onSubmit={handleSignupClick}>
+        <form onSubmit={handleRegistration}>
           <p>
             User Name:
             <textarea
@@ -52,7 +72,11 @@ export const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </p>
-          <button className="buttons" type="submit" onClick={handleSignupClick}>
+          <button
+            className="buttons"
+            type="submit"
+            onClick={handleRegistration}
+          >
             Sign up!
           </button>
         </form>
