@@ -5,6 +5,7 @@
     "postinstall": "npm install --prefix backend"
   },
   "dependencies": {
-    "mongoose": "^8.0.2"
+    "mongoose": "^8.0.2",
+    "nodejs": "^0.0.0"
   }
 }
