@@ -24,5 +24,53 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post("/register", asyncHandler(async (req, res) => {
+  const { name, password } = req.body;
+  
+  try {
+    if (!name || !password) {
+      res.status(400);
+      throw new Error("Missing name or password");
+    }
+    const existingUser = await UserModel.findOne({
+      $or: [{name}, {email}],
+    }); 
+    if (existingUser) {
+      res.status(400);
+      throw new Error(
+        'User with ${existingUser.name === name ? "name" : "email"} already exists'
+      );
+        
+  }
+
+
+router.post("/register", asyncHandler(async (req, res) => {
+  const { name, password } = req.body;
+  
+  try {
+    if (!name || !password) {
+      res.status(400);
+      throw new Error("Missing name or password");
+    }
+    const existingUser = await UserModel.findOne({
+      $or: [{ name }, { email: name }], // Corrected the object structure
+    }); 
+    if (existingUser) {
+      res.status(400);
+      throw new Error(
+        `User with ${existingUser.name === name ? "name" : "email"} already exists` // Corrected the template literal
+      );
+    }
+    // Rest of your registration logic
+  } catch (error) {
+    // Handle errors appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}));
+
+
+
+
 // Export the router for use in the main application
 module.exports = router;
