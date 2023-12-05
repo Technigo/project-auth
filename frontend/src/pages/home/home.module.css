@@ -1,0 +1,29 @@
+.section{
+    /* border:2px solid red; */
+    height:100vh;
+    margin:0 1rem 0 1rem;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    border-bottom:1px solid var(--main-color);
+    margin-top: 2.5rem;
+    justify-content:space-between;
+    align-items: baseline;
+}
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.linkContainer{
+    margin-right: 1rem;
+    text-decoration: none;
+    color:var(--main-color)
+}
+
+.linkContainer:hover{
+    color:var(--home-button-color);
+    font-weight: bolder;
+}

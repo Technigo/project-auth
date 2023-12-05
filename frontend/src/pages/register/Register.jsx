@@ -32,11 +32,10 @@ export const Register = () => {
 
   return (
     <section className={styles.section}>
-      <nav>
+      <nav className={styles.register}>
         <ul>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
+          <Link to="/">Back</Link>
+          <Link to="/login">Login</Link>
         </ul>
       </nav>
       <div className={styles.logo}>

@@ -37,17 +37,18 @@ export const Login = () => {
   };
   return (
     <section className={styles.section}>
-      <nav>
+      <nav className={styles.login}>
         <ul>
-          <li>
-            <Link to="/">Back</Link>
-          </li>
+          <Link to="/">Back</Link>
           <li type="button" onClick={onLogoutClick}>
             Sign Out
           </li>
         </ul>
       </nav>
-      <Logo />
+      <div className={styles.logo}>
+        <Logo />
+      </div>
+
       <div className={styles.loginSection}>
         <input
           type="text"
