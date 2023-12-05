@@ -21,15 +21,15 @@ h2 {
 }
 
 p {
-  font-size: 18px;
+  font-size: 26px;
 }
 
 button {
-  background-color: #335383;
+  background-color: #349ba2;
   color: #fff;
   padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
+  border: 1px solid #1a4d51;
+  border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
   margin: 10px;
@@ -40,13 +40,19 @@ a {
   text-decoration: none;
 }
 
-input {
+textarea {
   padding: 10px;
-  font-size: 16px;
+  font-size: 26px;
+  font-family: "Golos Text", sans-serif;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 20px;
   width: 300px;
+  background-color: #f4dc94;
+}
+
+.formContainer {
+  border-top: 3px solid #1a4d51;
 }
 
 .buttons {

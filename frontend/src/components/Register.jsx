@@ -38,35 +38,35 @@ export const Register = () => {
 
   return (
     <>
-      <div>
-        <h2>Create a new account and sign up here!</h2>
-        <p>Enter your new details:</p>
-        <form onSubmit={handleRegistration}>
+      <div className="bodyContainer">
+        <h2>Want to join? </h2>
+        <p>CREATE AN ACCOUNT</p>
+        <form className="formContainer" onSubmit={handleRegistration}>
           <p>
-            User Name:
+            User Name: &nbsp;
             <textarea
               rows="1"
-              cols="50"
+              cols="40"
               placeholder="user name"
               value={userName}
               onChange={(e) => setuserName(e.target.value)}
             />
           </p>
           <p>
-            Email:
+            Email: &nbsp;
             <textarea
               rows="1"
-              cols="50"
+              cols="40"
               placeholder="email"
               value={userEmail}
               onChange={(e) => setuserEmail(e.target.value)}
             />
           </p>
           <p>
-            Password:
+            Password: &nbsp;
             <textarea
               rows="1"
-              cols="50"
+              cols="40"
               placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -80,8 +80,8 @@ export const Register = () => {
             Sign up!
           </button>
         </form>
+        <div>DISPLAY RESULTS HERE</div>
       </div>
-      <div>DISPLAY RESULTS HERE</div>
     </>
   );
 };

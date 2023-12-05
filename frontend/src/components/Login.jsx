@@ -21,10 +21,9 @@ export const Login = () => {
       },
     };
 
-    await fetch("mongodb://127.0.0.1:27017/auth", options
-    )
-    .then((response) => response.json())
-    .then((newUser))
+    await fetch("mongodb://127.0.0.1:27017/auth", options)
+      .then((response) => response.json())
+      .then(newUser);
   };
 
   const fetchUserInfo = async () => {
@@ -33,10 +32,10 @@ export const Login = () => {
 
   return (
     <>
-      <div>
+      <div className="bodyContainer">
         <h2>Welcome back </h2>
         <p>LOGIN TO YOUR ACCOUNT</p>
-        <form onSubmit={handleLogin}>
+        <form className="formContainer" onSubmit={handleLogin}>
           <p>
             <textarea
               rows="1"
@@ -53,12 +52,14 @@ export const Login = () => {
             Log in
           </button>
         </form>
-      </div>
-      <div>
-        DISPLAY RESULTS HERE
-        <button className="buttons" type="submit">
-          Log out
-        </button>
+        <div>
+          DISPLAY RESULTS HERE
+          <p>
+            <button className="buttons" type="submit">
+              Log out
+            </button>
+          </p>
+        </div>
       </div>
     </>
   );
