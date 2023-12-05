@@ -51,6 +51,7 @@ app.get("/", (req, res) => {
 });
 
 // to store a users access token here
+// so, we store using here, but how we see it back?
 app.post('/users', async (req, res) => {
   try {
     const {name, email, password} = req.body
