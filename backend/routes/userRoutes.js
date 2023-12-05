@@ -62,10 +62,13 @@ router.post("/login", async (req, res) => {
 
 // TEST IDAH FRÅN VAN ca 20 min in. Instructions: An authenticated endpoint which only returns content if the `Authorization` header with the user's token was correct.
 
-// Endpoint: POST "/myfood"
+// Endpoint: GET "/starter"
 // An authenticated endpoint which only returns content if the 'Authorization' header with the user's token was correct (will only happen if the next() function is called from the middleware)
-router.post('/myfood', authenticateUser)
+router.get('/starter', authenticateUser)
 // Route handler for the authenticated endpoint
-router.post('/myfood', async (req, res) => { })
+router.get('/starter', async (req, res) => {
+    res.json({ secret: "Super secret starter page!" })
+
+})
 
 export default router
