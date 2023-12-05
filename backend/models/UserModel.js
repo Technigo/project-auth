@@ -13,7 +13,8 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        minlength: [10, 'Password must be at least 10 characters long, please try again!'] 
     },
     // Add any other user properties as needed
 }, {

@@ -8,12 +8,6 @@ const LoginForm = ({ setToken, setUser }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  // Reset the form fields when the component mounts
-  useEffect(() => {
-    setUsername('');
-    setPassword('');
-  }, []);
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -29,11 +23,17 @@ const LoginForm = ({ setToken, setUser }) => {
       setToken(data.token);
       localStorage.setItem('token', data.token);
       setUser({ username });
+
+      // Force clear input fields on successful login
+      setUsername('');
+      setPassword('');
+
+      // Optionally handle redirection or state update here
     } catch (err) {
       setError(err.message || 'Login failed');
     }
   };
-
+  
   return (
     <Container>
       <Header>Login</Header>

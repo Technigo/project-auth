@@ -4,36 +4,35 @@ import { Container, Header, Input, Form, StyledButton, Paragraph, Error } from '
 const API_REGISTER_URL = 'http://localhost:8080/api/users/register';//check endpoint!!!
 
 const RegisterForm = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-
-  useEffect(() => {
-    setUsername('');
-    setEmail('');
-    setPassword('');
-  }, []);
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(API_REGISTER_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password })
-      });
-
-      if (!response.ok) throw new Error('Registration failed');
-
-      const data = await response.json();
-      console.log('Registration successful:', data);
-      // Optionally handle redirection or state update here
-    } catch (err) {
-      setError(err.message || 'Registration failed');
-    }
-  };
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+  
+    const handleRegister = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await fetch(API_REGISTER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, password })
+        });
+  
+        if (!response.ok) throw new Error('Registration failed');
+  
+        const data = await response.json();
+        console.log('Registration successful:', data);
+  
+        // Force clear input fields on successful registration
+        setUsername('');
+        setEmail('');
+        setPassword('');
+  
+        // Optionally handle redirection or state update here
+      } catch (err) {
+        setError(err.message || 'Registration failed');
+      }
+    };
 
   return (
     <Container>
