@@ -60,71 +60,72 @@ app.get("/", (req, res) => {
 });
 
 // Route to create users
-// app.post('/users', async (req, res) => {
-//   try {
-//     const {name, email, password} = req.body;
-//     // Hash the password before saving it to the database
-//     const user = new User({name, email, password: bcrypt.hashSync(password)});
-//     user.save();
-//     res.status(201).json({id: user._id, accessToken: user.accessToken})
-//   }
-//   catch (err) {
-//     res.status(400).json({message: 'Could not create user', errors: err.errors});
-//   }
-// });
-
 app.post('/users', async (req, res) => {
-  // Extract email, username and password from the request body
-  const { username, password, email } = req.body;
-
   try {
-   
-    if (!username || !email || !password) {
-      // if so, set http status to a 400code
-      res.status(400);
-      // and throw new error with some info
-      throw new Error("Please add all fields");
-    }
-  
-    const existingUser = await UserModel.findOne({
-      $or: [{ username }, { email }],
-    });
-    if (existingUser) {
-      res.status(400);
-      throw new Error(
-        `User with ${
-          existingUser.username === username ? "username" : "email"
-        } already exists`
-      );
-    }
-
-
-    const salt = bcrypt.genSaltSync(10);
-
-    const hashedPassword = bcrypt.hashSync(password, salt);
-    
-    const newUser = new UserModel({
-      username,
-      email,
-      password: hashedPassword,
-    });
-
-    await newUser.save();
-
-   
-    res.status(201).json({
-      success: true,
-      response: {
-        username: newUser.username,
-        email: newUser.email,
-        id: newUser._id,
-        accessToken: generateToken(newUser._id), // Generate a JWT token for the new user using the user Id :)
-      },
-    });
-  } catch (e) {
-    res.status(500).json({ success: false, response: e.message });
+    const {name, email, password} = req.body;
+    // Hash the password before saving it to the database
+    const user = new User({name, email, password: bcrypt.hashSync(password)});
+    user.save();
+    res.status(201).json({id: user._id, accessToken: user.accessToken})
+  }
+  catch (err) {
+    res.status(400).json({message: 'Could not create user', errors: err.errors});
   }
 });
+
+// app.post('/users', async (req, res) => {
+//   // Extract email, username and password from the request body
+//   const { username, password, email } = req.body;
+
+//   try {
+   
+//     if (!username || !email || !password) {
+//       // if so, set http status to a 400code
+//       res.status(400);
+//       // and throw new error with some info
+//       throw new Error("Please add all fields");
+//     }
+  
+//     const existingUser = await UserModel.findOne({
+//       $or: [{ username }, { email }],
+//     });
+//     if (existingUser) {
+//       res.status(400);
+//       throw new Error(
+//         `User with ${
+//           existingUser.username === username ? "username" : "email"
+//         } already exists`
+//       );
+//     }
+
+
+//     const salt = bcrypt.genSaltSync(10);
+
+//     const hashedPassword = bcrypt.hashSync(password, salt);
+    
+//     const newUser = new UserModel({
+//       username,
+//       email,
+//       password: hashedPassword,
+//     });
+
+//     await newUser.save();
+
+//     res.status(201).json({id: user._id, accessToken: user.accessToken})
+   
+//     res.status(201).json({
+//       success: true,
+//       response: {
+//         username: newUser.username,
+//         email: newUser.email,
+//         id: newUser._id,
+//         accessToken: generateToken(newUser._id), // Generate a JWT token for the new user using the user Id :)
+//       },
+//     });
+//   } catch (e) {
+//     res.status(500).json({ success: false, response: e.message });
+//   }
+// });
 
 
 
