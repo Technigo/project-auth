@@ -16,6 +16,10 @@
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "mongoose": "^8.0.0",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "typescript": "^5.3.2"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.11.97"
   }
 }
