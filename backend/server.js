@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
-import jwt from "jsonwebtoken";
+//import jwt from "jsonwebtoken";
 //import bcrypt from "bcryptjs"; //? 
 
 //Har kört npm i och install mongoose && bcryptjs
