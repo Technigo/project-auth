@@ -1,16 +1,19 @@
 import express from "express";
 import { AdvertiserModel } from "../models/advertiser";
+import bcrypt from "bcrypt";
 import listEndpoints from "express-list-endpoints";
 import asyncHandler from "express-async-handler";
 import { jwt } from "jsonwebtoken";
 
 const router = express.Router();
 
-const generateToken = (advertisement) => {
+// Generate a JWT token containing the user's unique ID, with an optional secret key and a 24-hour expiration time
+const generateToken = (advertiser) => {
     return jwt.sign({ id: advertiser._id}, process.env.JWT_SECRET, {
         expires: "24h"
     });
-}
+};
+
 // Endpoint to show documentation of all endpoints
 router.get(
     "/", 
@@ -20,16 +23,24 @@ router.get(
     })
 );
 
+router.get(
+    "/users", 
+    asyncHandler(async (req, res) => {
+        const users = await AdvertiserModel.find();
+        res.status(200).json(users);
+    })
+);
+
 // USER REGISTRATION ROUTE
 router.post(
     "/register",
-    asyncHandler(async (req, res) => {
+    asyncHandler(async (req, res, err) => {
         const { username, email, password } = req.body;
         try {
             if (!username || !email || !password) {
                 res.status(400).json({message: "Please add all fields", error: err.errors});
             } else {
-                const existingUser = AdvertiserModel.findOne({
+                const existingUser = await AdvertiserModel.findOne({
                     $or: [{ username }, { email }]
                 });
                 
