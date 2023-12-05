@@ -1,10 +1,27 @@
-import React from "react";
-import LoginForm from "./LoginForm";
-import RegistrationForm from "./RegistrationForm";
+import React, { useState } from "react";
+import AuthContainer from "./components/AuthContainer";
 
 export const App = () => {
-  return <div className="main">
-    <RegistrationForm />
-    <LoginForm />
-  </div>;
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  const handleLoginSuccess = () => {
+    setIsUserLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsUserLoggedIn(false);
+  };
+
+  return (
+    <div className="main">
+      {isUserLoggedIn ? (
+        <div>
+          <h1>Welcome!</h1>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      ) : (
+        <AuthContainer onLoginSuccess={handleLoginSuccess} />
+      )}
+    </div>
+  );
 };
