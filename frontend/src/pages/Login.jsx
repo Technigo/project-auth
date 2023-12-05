@@ -1,43 +1,20 @@
-import { useState } from "react";
+import { useUserStore } from "../stores/useUserStore";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
 
-    // const API_URL = import.meta.env.API_KEY;
-    const API_URL = "http://localhost:8080";
-    const withEndpoint = (endpoint) => `${API_URL}/${endpoint}`;
+    // Destructures the function loginUser from the useUserStore hook
+    const { loginUser, username, setUsername, password, setPassword } = useUserStore();
 
     const handleLogin = async (event) => {
         event.preventDefault();
 
         try {
-            const response = await fetch(withEndpoint("login"), {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    username,
-                    password,
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error(`${response.status} ${response.statusText}`);
-            }
-
-            const data = await response.json();
-            console.log(data);
-            // Handle login success (e.g., store access token, redirect to dashboard)
-            setIsLoggedIn(true);
-
-
+            await loginUser(username, password);
+            const isLoggedIn = useUserStore.getState().isLoggedIn;
+            // If the user is logged in, the accessToken will be saved in localStorage and the user will be redirected to the dashboard
             if (isLoggedIn) {
-                console.log(`${username} is logged in`);
                 navigate("/dashboard");
                 return;
             }
@@ -50,7 +27,7 @@ export const Login = () => {
         <>
             <h1>Welcome here!</h1>
             <h2>Please sign in to see the content 🧡</h2>
-            <form onSubmit={handleLogin} >
+            <form>
                 <label htmlFor="username">Username</label>
                 <input
                     type="text"
@@ -66,7 +43,7 @@ export const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required />
-                <button type="submit">Login</button>
+                <button onClick={handleLogin} type="submit">Login</button>
             </form>
         </>
     )
