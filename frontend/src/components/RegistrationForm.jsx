@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ onRegistration }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -16,29 +16,8 @@ const RegistrationForm = () => {
 
     const handleRegistration = async (e) => {
         e.preventDefault();
-
-        try {
-            const response = await fetch('https://authentication-j1oa.onrender.com/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log('Registration successful:', data);
-                // Handle successful registration (e.g., redirect to login page)
-            } else {
-                const errorData = await response.json();
-                console.error('Registration failed:', errorData);
-                // Handle registration error (e.g., display error message to the user)
-            }
-        } catch (error) {
-            console.error('Error during registration:', error);
-            // Handle other errors (e.g., network issues)
-        }
+        // Trigger the registration process through the callback prop
+        onRegistration(formData);
     };
 
     return (
