@@ -8,4 +8,4 @@ export const routes = (
      <Route path="/" element={<Homepage />}></Route>
      <Route path="/loggedIn" element={<LoggedInPage/>}></Route>
     </>
-)
+);
