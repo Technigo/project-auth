@@ -34,6 +34,27 @@ export const Button = styled.button`
   }
 `;
 
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const StyledButton = styled.button`
+  background-color: #82C0CC;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: #16697A;
+  }
+`;
+
 export const Error = styled.p`
   color: red;
+  text-align: center;
 `;

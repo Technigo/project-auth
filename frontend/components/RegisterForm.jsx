@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
-import { Container, Header, Input, Button, Paragraph, Error } from './StyledComponents';
+import React, { useState, useEffect } from 'react';
+import { Container, Header, Input, Form, StyledButton, Paragraph, Error } from './StyledComponents';
 
-const API_REGISTER_URL = 'http://localhost:8080/api/users/register';
+const API_REGISTER_URL = 'http://localhost:8080/api/users/register';//check endpoint!!!
 
-function RegisterForm() {
+const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+
+  useEffect(() => {
+    setUsername('');
+    setEmail('');
+    setPassword('');
+  }, []);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -31,18 +38,19 @@ function RegisterForm() {
   return (
     <Container>
       <Header>Register</Header>
-      <form onSubmit={handleRegister}>
-      <Paragraph>Username:</Paragraph>
+      <Form onSubmit={handleRegister} autoComplete="off">
+        <Paragraph>Username:</Paragraph>
         <Input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
         <Paragraph>E-mail:</Paragraph>
         <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
         <Paragraph>Password of choice:</Paragraph>
         <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
-        <Button type="submit">Register</Button>
+        <StyledButton type="submit">Register</StyledButton>
         {error && <Error>{error}</Error>}
-      </form>
+      </Form>
     </Container>
   );
 }
 
 export default RegisterForm;
+
