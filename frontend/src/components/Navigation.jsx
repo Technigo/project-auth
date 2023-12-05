@@ -10,6 +10,7 @@ export const Navigation = () => {
         try {
             await logoutUser();
             navigate("/");
+            console.clear(); // Clears the console after the logout
         } catch (error) {
             console.error("There was an error during logout =>", error);
         }

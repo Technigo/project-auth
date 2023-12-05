@@ -114,7 +114,7 @@ export const useUserStore = create((set, get) => ({
             console.log(data.response.username, get().isLoggedIn ? "is logged in" : "is not logged in");
 
         } catch (error) {
-            if (error.message == 401) {
+            if (error.message == 401 || error.message == 404) {
                 alert("Wrong username or password, please try again");
                 set({
                     username: "",
@@ -126,8 +126,10 @@ export const useUserStore = create((set, get) => ({
     },
 
     logoutUser: () => {
-        // Removes the accessToken from the store and sets isLoggedIn to false
+        // Removes the accessToken from the store and sets isLoggedIn to false. Also empties the username and password fields
         set({
+            username: "",
+            password: "",
             accessToken: null,
             isLoggedIn: false
         });
