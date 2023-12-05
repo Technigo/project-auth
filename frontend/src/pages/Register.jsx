@@ -19,9 +19,8 @@ export const Register = () => {
     }
     try {
       await storeHandleSignup(username, password, email);
-      if (username && password) {
-        navigate("/"); // Replace with your desired path
-      }
+
+      navigate("/login");
     } catch (error) {
       // Handle any errors that occur during signup
       console.error("Signup error:", error);

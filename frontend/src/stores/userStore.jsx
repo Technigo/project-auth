@@ -28,14 +28,15 @@ export const userStore = create((set, get) => ({
       });
 
       const data = await response.json();
-      if (data.success) {
+      console.log(data);
+      if (response.ok) {
         set({ username });
         // Redirect or update UI
         alert("Signup successful!");
         console.log("Signing up with:", username);
       } else {
         // Display error message from server
-        alert(data.response || "Signup failed");
+        alert(data.message || "Signup failed");
       }
     } catch (error) {
       console.error("Signup error:", error);
