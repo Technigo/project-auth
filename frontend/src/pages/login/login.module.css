@@ -36,10 +36,7 @@
     justify-content: center;
     margin-bottom: 5rem;
 }
-/* sign out */
-.logout:hover{
-    text-decoration: underline;
-}
+
 
 /* login section  */
 .loginSection{
