@@ -1,4 +1,4 @@
-const crypto = require("crypto");
+import * as crypto from "crypto";
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt-nodejs");
 

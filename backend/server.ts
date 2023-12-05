@@ -17,7 +17,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const authenticateUser = async (req, res, nect) => {
+const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({ accessToken: req.header("Authorization") });
   if (user) {
     req.user = user;

@@ -6,7 +6,16 @@ export const App = () => {
     <div className="bg-gradient-to-r from-amber-200 to-yellow-500 min-h-screen">
       <div className="max-w-[600px] mx-auto pt-20">
         <h2 className="text-4xl font-bold text-teal-900 text-center mb-6">Sign in</h2>
-        <form className="w-96 sm:w-full">
+        <form
+          className="w-96 sm:w-full"
+          onSubmit={(event) => {
+            event.preventDefault();
+            const formData = new FormData(event.currentTarget);
+            const formJson = Object.fromEntries(formData.entries() as any);
+            alert(JSON.stringify(formJson));
+            console.log(formJson);
+          }}
+        >
           <FormControl id="name">
             <FormLabel required={true}>Name</FormLabel>
             <Input name="name" placeholder="Tom Tayler" className="p-2 mb-4 " />
@@ -25,6 +34,7 @@ export const App = () => {
           </FormControl>
           <div className="flex items-center justify-center">
             <Button
+              type="submit"
               endDecorator={<ArrowForwardIosIcon />}
               color="success"
               variant="outlined"
