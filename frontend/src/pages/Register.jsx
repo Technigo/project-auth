@@ -33,7 +33,7 @@ export const Register = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/loggin">Login</Link>
+            <Link to="/login">Login</Link>
           </li>
           <li>
             <Link to="/register">Sign Up</Link>
