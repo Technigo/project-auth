@@ -18,7 +18,6 @@ export const advertiserSchema = new Schema(
         },
         password: {
             type: String,
-            unique: true, // does password need this?
             required: true, 
             minlength: 6
         },

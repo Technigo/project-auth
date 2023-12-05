@@ -10,7 +10,7 @@ const router = express.Router();
 // Generate a JWT token containing the user's unique ID, with an optional secret key and a 24-hour expiration time
 const generateToken = (advertiser) => {
     return jwt.sign({ id: advertiser._id}, process.env.JWT_SECRET, {
-        expires: "24h"
+        expiresIn: "24h"
     });
 };
 
@@ -23,6 +23,7 @@ router.get(
     })
 );
 
+// Endpoint to show all users
 router.get(
     "/users", 
     asyncHandler(async (req, res) => {
@@ -73,7 +74,39 @@ router.post(
             res.status(500).json({ success: false, response: err.message });
         }
     })
-)
+);
 
+// USER LOG-IN ROUTE
+router.post(
+    "/signin", 
+    asyncHandler(async (req, res) => {
+        // Retrieve username and password from req.body
+        const { username, password } = req.body;
+        
+        // Find a user with the provided username in the database
+        try {
+            const user = await AdvertiserModel.findOne({ username });
+            if (!user) {
+                // If no user is found with the provided username, return status 401 Unauthorized and message "User not found"
+                res.status(401).json({ success: false, response: "User not found"}); 
+            };
+
+            // If a user is found with the provided username, compare the provided password with the hashed password in the database
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                res.status(401).json({ success: false, response: "Incorrect password"});
+            };
+
+            res.status(200).json({ success: true, response: {
+                username: user.username,
+                id: user._id,
+                accessToken: generateToken(user._id)
+            }});
+
+        } catch (err) {
+            res.status(500).json({ success: false, response: err.message});
+        };
+    })
+);
 
 export default router;
