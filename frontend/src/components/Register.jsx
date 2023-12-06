@@ -24,7 +24,6 @@ export const Register = () => {
       await storeHandleSignup(username, password, email);
       if (username && password) {
         setIsRegistered(true);
-        navigate("/");
       }
     } catch (error) {
       // Handle any errors that occur during signup
