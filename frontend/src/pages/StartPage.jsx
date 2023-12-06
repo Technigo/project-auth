@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -16,7 +16,7 @@ const Buttons = styled.div`
 export const StartPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleRegister = async () => {
     try {
@@ -34,7 +34,7 @@ export const StartPage = () => {
       console.log(data); // Handle the success response
 
       // Navigate to a new route after successful registration
-      history.push("/");
+      navigate("/");
     } catch (error) {
       console.error(error); // Handle the error response
     }
@@ -56,7 +56,7 @@ export const StartPage = () => {
       console.log(data); // Handle the success response
 
       // Navigate to a new route after successful login
-      history.push("/secrets");
+      navigate("/secrets");
     } catch (error) {
       console.error(error); // Handle the error response
     }

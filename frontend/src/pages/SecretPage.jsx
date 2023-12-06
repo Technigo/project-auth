@@ -15,9 +15,8 @@ const StyledSecretPage = styled.div`
 export const SecretPage = () => {
   return (
     <StyledSecretPage>
+      <h1>Schhh! This is super duper</h1>
       <TopSecretAnimation />
-      <h2>Schhh! This is super duper</h2>
-      <h1>TOP SECRET!</h1>
       <img src="/src/assets/puppy.jpg" />
     </StyledSecretPage>
   );
