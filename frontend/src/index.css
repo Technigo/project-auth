@@ -1,13 +1,24 @@
+
+/* ------------ CUSTOM PROPERTIES ------------ */
 :root {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Colors */
+  --primary: #FFC440;
+  --text: #331616;
+  --background: #F7F6F0;
+  --placeholder-text: #00000080;
+
+  /* Font */
+  --font: "Poppins", sans-serif;
+
+  /* Other styles */
+  --border-radius: 8px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+/* Removes margin on all relevant tags. Body for an edge-to-edge look on sections, and headings/paragraphs to easier follow sketch */
+body,
+h1,
+h2,
+h3,
+p {
+  margin: 0;
 }

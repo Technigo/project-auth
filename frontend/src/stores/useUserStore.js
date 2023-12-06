@@ -22,6 +22,12 @@ export const useUserStore = create((set, get) => ({
 
     // Creates a function for registering a user
     registerUser: async (username, password) => {
+        // Checks if the username or password is empty, and if so, alerts the user and returns
+        if (!username || !password) {
+            alert("Please enter both username and password");
+            return;
+        }
+
         try {
             const response = await fetch(withEndpoint("register"), {
                 method: "POST", // Uses the POST method
@@ -52,7 +58,11 @@ export const useUserStore = create((set, get) => ({
             }
 
             // Alerts to the user that the username has been registered
-            alert(data.response.username, successfullFetch ? "has been registered" : "has not been registered");
+            alert(successfullFetch ? `The user ${data.response.username} has been created` : `The username ${data.response.username} couldn't be registered`);
+
+            set({
+                password: "" // Sets the password to empty, indicating to the user that they can now try logging in
+            })
 
         } catch (error) {
             // If the error message is 400, the username already exists, so an alert is shown and the fields are emptied
@@ -69,6 +79,12 @@ export const useUserStore = create((set, get) => ({
 
     // Creates a function for logging in a user
     loginUser: async (username, password) => {
+        // Checks if the username or password is empty, and if so, alerts the user and returns
+        if (!username || !password) {
+            alert("Please enter both username and password");
+            return;
+        }
+
         try {
             const response = await fetch(withEndpoint("login"), {
                 method: "POST", // Uses the POST method
@@ -108,14 +124,18 @@ export const useUserStore = create((set, get) => ({
                 });
             }
 
-            // Sets the loggedIn state to true if it was a success and otherwise sets it to false
-            // get().setIsLoggedIn(data.success ? true : false);
             // Logs a response to the console
             console.log(data.response.username, get().isLoggedIn ? "is logged in" : "is not logged in");
 
         } catch (error) {
-            if (error.message == 401 || error.message == 404) {
+            if (error.message == 401) {
                 alert("Wrong username or password, please try again");
+                set({
+                    username: "",
+                    password: ""
+                })
+            } else if (error.message == 404) {
+                alert("Username not found, please try again");
                 set({
                     username: "",
                     password: ""

@@ -1,25 +1,24 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Login } from "./pages/Login";
-import { Register } from "./pages/Register";
+import { GetStarted } from "./pages/GetStarted";
 import { ErrorPage } from "./pages/ErrorPage";
 import { Dashboard } from "./pages/Dashboard";
-import { Navigation } from "./components/Navigation";
+import { LogOut } from "./components/LogOut";
+import { Home } from "./pages/Home";
+import "./App.css"
 
 
 export const App = () => {
   return (
     <BrowserRouter>
-      <header>
-        <Navigation />
-      </header>
-      <main>
+      <main className="main">
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/getstarted" element={<GetStarted />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </main>
+      <LogOut />
     </BrowserRouter>
   );
 };

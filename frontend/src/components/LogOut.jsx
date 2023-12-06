@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useUserStore } from "../stores/useUserStore";
 import { useNavigate } from "react-router-dom";
+import { Button } from "./Button"
 
-export const Navigation = () => {
+export const LogOut = () => {
     const { isLoggedIn, logoutUser } = useUserStore();
     const navigate = useNavigate();
 
@@ -17,15 +18,12 @@ export const Navigation = () => {
     }
 
     return (
-        <nav>
+        <div className="logOut">
             {isLoggedIn ? (
-                <Link to="/logout" onClick={handleLogout}>Logout</Link>
+                <Link to="/logout" onClick={handleLogout}><Button className="primary" btnText="Log out" /></Link>
             ) : (
-                <>
-                    <Link to="/">Login</Link>
-                    <Link to="/register">Register</Link>
-                </>
+                null
             )}
-        </nav>
+        </div>
     )
 }
