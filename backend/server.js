@@ -46,6 +46,7 @@ const authenticateUser = async (req, res, next) => {
 // Define the port for the server
 const port = process.env.PORT || 8080;
 const app = express();
+const listEndpoints = require("express-list-endpoints");
 var bcrypt = require('bcryptjs'); //Hämtat från https://www.npmjs.com/package/bcryptjs som var länkad i technigos material
 
 // Add middlewares to enable cors and json body parsing
@@ -56,7 +57,7 @@ app.use(express.json());
 
 // Root route
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send(listEndpoints(app));
 });
 
 // Route to create users
