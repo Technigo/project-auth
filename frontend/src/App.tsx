@@ -1,55 +1,18 @@
 import "@fontsource/inter";
-import { Button, FormControl, FormLabel, Input } from "@mui/joy";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { Typography } from "@mui/joy";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
 export const App = () => {
+  const navigate = useNavigate();
   return (
-    <div className="bg-gradient-to-r from-amber-200 to-yellow-500 min-h-screen">
-      <div className="max-w-[600px] mx-auto pt-20">
-        <h2 className="text-4xl font-bold text-teal-900 text-center mb-6">Sign in</h2>
-        <form
-          className="w-96 sm:w-full"
-          onSubmit={(event) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries(formData.entries() as any);
-            alert(JSON.stringify(formJson));
-            console.log(formJson);
-          }}
-        >
-          <FormControl id="name">
-            <FormLabel required={true}>Name</FormLabel>
-            <Input name="name" placeholder="Tom Tayler" className="p-2 mb-4 " />
-          </FormControl>
-          <FormControl id="email">
-            <FormLabel required={true}>Email</FormLabel>
-            <Input name="email" placeholder="example@gmail.com" className="p-2 mb-4" />
-          </FormControl>
-          <FormControl id="password">
-            <FormLabel required={true}>Password</FormLabel>
-            <Input name="password" placeholder="password..." className="p-2 mb-4" />
-          </FormControl>
-          <FormControl id="confirmPassword">
-            <FormLabel required={true}>Confirm Password</FormLabel>
-            <Input name="confirmPassword" placeholder="password..." className="p-2 mb-4" />
-          </FormControl>
-          <div className="flex items-center justify-center">
-            <Button
-              type="submit"
-              endDecorator={<ArrowForwardIosIcon />}
-              color="success"
-              variant="outlined"
-              sx={{
-                marginTop: "20px",
-                border: "#3f6212 solid 1px",
-                fontWeight: 800,
-                fontSize: 20,
-              }}
-            >
-              Go to checkout
-            </Button>
-          </div>
-        </form>
-      </div>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <Typography level="h1" sx={{ color: "#042f2e" }}>
+        Welcome to Saku TODO 🌸
+      </Typography>
+      <Button variant="outlined" color="success" onClick={() => navigate("/login")}>
+        Start Here
+      </Button>
     </div>
   );
 };
