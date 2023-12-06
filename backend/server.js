@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt-nodejs";
+//import listEndpoints from "express-list-endpoints";
+import { User } from "../backend/models/user";
 
 dotenv.config();
 
@@ -11,24 +13,24 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-const User = mongoose.model("User", {
-  name: {
-    type: String,
-    unique: true,
-  },
-  email: {
-    type: String,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  accessToken: {
-    type: String,
-    default: () => crypto.randomBytes(128).toString("hex"),
-  },
-});
+// const User = mongoose.model("User", {
+//   name: {
+//     type: String,
+//     unique: true,
+//   },
+//   email: {
+//     type: String,
+//     unique: true,
+//   },
+//   password: {
+//     type: String,
+//     required: true,
+//   },
+//   accessToken: {
+//     type: String,
+//     default: () => crypto.randomBytes(128).toString("hex"),
+//   },
+// });
 
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({ accessToken: req.header("Authorization") });
@@ -58,9 +60,11 @@ app.use(express.json());
 //   }
 // });
 
+const listEndpoints = require("express-list-endpoints");
+
 //routes
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.send(listEndpoints(app));
 });
 
 app.post("/users", async (req, res) => {
@@ -76,8 +80,18 @@ app.post("/users", async (req, res) => {
   }
 });
 
+app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
   res.json({ secret: "This is super secret message." });
+});
+
+app.post("/sessions", async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    res.json({ userId: user._id, accessToken: user.accessToken });
+  } else {
+    res.json({ notFound: true });
+  }
 });
 
 // Start the server
