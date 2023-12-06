@@ -17,13 +17,13 @@ router.post('/register', asyncHandler(async (req, res) => {
 
     if (!username || !email || !password) {
         res.status(400);
-        throw new Error("Please add all fields");
+        throw new Error("Please add an input in all fields");
     }
 
     const userExists = await UserModel.findOne({ $or: [{ username }, { email }] });
     if (userExists) {
         res.status(400);
-        throw new Error("User already exists");
+        throw new Error("User already exists, please try again");
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -63,7 +63,7 @@ router.post('/login', asyncHandler(async (req, res) => {
         });
     } else {
         res.status(401);
-        throw new Error("Invalid credentials");
+        throw new Error("Sonething went wrong, please try again");
     }
 }));
 
@@ -73,7 +73,7 @@ router.get('/content', asyncHandler(async (req, res) => {
 
     if (!token) {
         res.status(401);
-        throw new Error("Not authorized, no token");
+        throw new Error("You do not have the possibiliy to view this content.");
     }
 
     try {
@@ -81,13 +81,13 @@ router.get('/content', asyncHandler(async (req, res) => {
         const user = await UserModel.findById(decoded.id).select('-password');
 
         if (!user) {
-            throw new Error("Not authorized");
+            throw new Error("You donäthave access.");
         }
 
-        res.json({ message: "This is a protected content", user });
+        res.json({ message: "This is content is protected.", user });
     } catch (error) {
         res.status(401);
-        throw new Error("Not authorized, token failed");
+        throw new Error("You do not have the possibiliy to view this content.");
     }
 }));
 
