@@ -13,7 +13,7 @@ export const userStore = create((set, get) => ({
   setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
 
   //function to register users
-  handleSignUp: async (username, password, email) => {
+  handleSignup: async (username, password, email) => {
     if (!username || !password || !email) {
       alert("Please enter username, email and password");
       return;

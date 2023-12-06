@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { userStore } from "../Stores/userStore";
 
 export const Register = () => {
   const [username, setUsername] = useState("");
@@ -9,7 +10,7 @@ export const Register = () => {
 
   const navigate = useNavigate();
 
-  //const storeHandleSignup = userStore((state) => state.handleSignup);
+  const storeHandleSignup = userStore((state) => state.handleSignup);
 
   const onSignupClick = async () => {
     if (!username || !password || !email) {
@@ -19,7 +20,7 @@ export const Register = () => {
     try {
       await storeHandleSignup(username, password, email);
       if (username && password) {
-        navigate("/"); //replace with your path
+        navigate("/users"); //replace with your path
       }
     } catch (err) {
       // handle any errors that occur during signup
@@ -40,7 +41,7 @@ export const Register = () => {
       <nav>
         <ul className="app-ul">
           <li className="app-li">
-            <Link to="/">Login</Link>
+            <Link to="/sessions">Login</Link>
           </li>
           <li className="app-li">
             <Link to="/users">Sign Up</Link>
