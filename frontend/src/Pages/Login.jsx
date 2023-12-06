@@ -78,6 +78,7 @@ const setPassword = userStore((state) => state.setPassword);
     </>
   );
 };*/
+
 export const Login = () => {
   const navigate = useNavigate();
 
@@ -104,7 +105,7 @@ export const Login = () => {
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("An error occurred during login");
+      alert("Invalid username or password");
     }
   };
 
