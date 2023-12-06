@@ -54,6 +54,12 @@ export const StyledButton = styled.button`
   }
 `;
 
+export const Success = styled.p`
+color: green;
+font-weight: bold;
+margin-top: 10px;
+`;
+
 export const Error = styled.p`
   color: red;
   text-align: center;
