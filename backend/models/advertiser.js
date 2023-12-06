@@ -31,4 +31,4 @@ export const advertiserSchema = new Schema(
     }
 );
 
-export const AdvertiserModel = mongoose.model("advertiser", advertiserSchema);
+export const AdvertiserModel = mongoose.model("Advertiser", advertiserSchema);
