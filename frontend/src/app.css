@@ -63,12 +63,12 @@ input::placeholder {
 
 /* ------------ MEDIA QUERIES ------------ */
 /* ------------ Tablet ------------ */
-@media (max-width: 1279px) and (min-width: 744px) {
+/*@media (max-width: 1279px) and (min-width: 744px) {
 
 
 }
 
-/* ------------ Desktop ------------ */
+/* ------------ Desktop ------------ *//*
 @media (min-width: 1280px) {
 
 

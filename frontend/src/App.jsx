@@ -4,7 +4,7 @@ import { Register } from "./pages/Register.jsx";
 import { ErrorPage } from "./pages/ErrorPage";
 import { Dashboard } from "./pages/Dashboard";
 import { Home } from "./pages/Home";
-import "./App.css"
+import "./app.css"
 
 
 export const App = () => {
