@@ -1,5 +1,5 @@
 import { create } from "zustand";
-const myAPI = "mongodb://127.0.0.1:27017/project-auth";
+const myAPI = "https://project-auth-0x8y.onrender.com";
 
 export const StoreUser = create((set, get) => ({
   username: "",
