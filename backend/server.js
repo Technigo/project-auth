@@ -14,7 +14,7 @@ mongoose.Promise = Promise;
 
 // Define the User model for MongoDB
 const User = mongoose.model('User', {
-  name: {
+  username: {
     type: String,
     unique: true
   },
