@@ -2,6 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 
+const apiEnv = import.meta.env.VITE_BACKEND_API;
+console.log(apiEnv);
+
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -20,16 +23,13 @@ export const StartPage = () => {
 
   const handleRegister = async () => {
     try {
-      const response = await fetch(
-        "https://project-authentication-vbzx.onrender.com/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }),
-        }
-      );
+      const response = await fetch(`${apiEnv}/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
       const data = await response.json();
       console.log(data); // Handle the success response
 
@@ -42,16 +42,13 @@ export const StartPage = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch(
-        "https://project-authentication-vbzx.onrender.com/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }),
-        }
-      );
+      const response = await fetch(`${apiEnv}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
       const data = await response.json();
       console.log(data); // Handle the success response
 

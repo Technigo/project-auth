@@ -17,7 +17,7 @@ export const SecretPage = () => {
     <StyledSecretPage>
       <h1>Schhh! This is super duper</h1>
       <TopSecretAnimation />
-      <img src="/src/assets/puppy.jpg" />
+      <img src="/puppy.jpg" />
     </StyledSecretPage>
   );
 };
