@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 
 //----- The User model -------//
 const userSchema = new Schema({
-  name: {
+  username: {
     type: String,
     required: true,
     unique: true,

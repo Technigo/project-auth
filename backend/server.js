@@ -2,14 +2,14 @@ import express from "express";
 import cors from "cors";
 import listEndpoints from "express-list-endpoints";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-import { UserModel } from "./models/UserModel";
+//import dotenv from "dotenv";
 // dotenv.config();
 
 import userRoutes from "./routes/userRoutes";
 
 //connect to database
-const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/auth";
+const mongoUrl =
+  process.env.MONGO_URL || "mongodb://127.0.0.1:27017/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 

@@ -17,15 +17,15 @@ const generateToken = (user) => {
 
 //register endpoint, assigns a name, email and password into the database
 export const registerUserController = asyncHandler(async (req, res) => {
-  const { name, password, email } = req.body;
+  const { username, password, email } = req.body;
   try {
-    if (!name || !email || !password) {
+    if (!username || !email || !password) {
       res.status(400);
       throw new Error("Please enter name, email and password");
     }
     //check if user exists
     const userExists = await UserModel.findOne({
-      $or: [{ name }, { email }],
+      $or: [{ username }, { email }],
     });
     if (userExists) {
       res.status(400);
@@ -39,7 +39,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
     // or can use this from code along
     // const user = new User({ name, email, password: bcrypt.hashSync(password) });
     const newUser = new UserModel({
-      name,
+      username,
       email,
       password: hashedPW,
     });
@@ -49,7 +49,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
     res.status(201).json({
       success: true,
       response: {
-        name: newUser.name,
+        username: newUser.name,
         email: newUser.email,
         id: newUser._id,
         accessToken: newUser.accessToken,
@@ -79,10 +79,10 @@ export const registerUserController = asyncHandler(async (req, res) => {
 
 //register endpoint, assigns a name, email and password into the database
 export const loginUserController = asyncHandler(async (req, res) => {
-  const { name, password } = req.body;
+  const { username, password } = req.body;
 
   try {
-    const user = await UserModel.findOne({ name });
+    const user = await UserModel.findOne({ username });
     if (!user) {
       return res
         .status(401)
@@ -99,7 +99,7 @@ export const loginUserController = asyncHandler(async (req, res) => {
     res.status(200).json({
       success: true,
       response: {
-        name: user.name,
+        username: user.name,
         id: user._id,
         accessToken: user.accessToken,
       },

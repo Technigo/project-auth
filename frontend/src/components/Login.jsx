@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 export const Login = () => {
-  const [userName, setuserName] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   // const [loggedIn, setLoggedIn] = useState(false);
 
@@ -41,16 +41,24 @@ export const Login = () => {
         <p>LOGIN TO YOUR ACCOUNT</p>
         <form className="formContainer" onSubmit={handleLogin}>
           <p>
+            User Name: &nbsp;
             <textarea
               rows="1"
-              cols="50"
-              placeholder="USER NAME"
+              cols="40"
+              placeholder="user name"
               value={userName}
-              onChange={(e) => setLogin(e.target.value)}
+              onChange={(e) => setUserName(e.target.value)}
             />
           </p>
           <p>
-            <textarea rows="1" cols="50" placeholder="PASSWORD" />
+            Password: &nbsp;
+            <textarea
+              rows="1"
+              cols="40"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </p>
           <button className="buttons" type="submit">
             Log in

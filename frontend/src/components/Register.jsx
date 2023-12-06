@@ -1,55 +1,70 @@
 import React from "react";
 import { useState } from "react";
+import { StoreUser } from "../stores/StoreUser";
 
 export const Register = () => {
-  const [userName, setuserName] = useState("");
-  const [userEmail, setuserEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   //add my API link here
 
   //----Function to handle sign up button click----//
+  const storeHandleSignup = StoreUser((state) => state.handleSignup);
 
-  const handleRegistration = async (event) => {
-    //what happens once sign in button is clicked
-    // if (!userName || !password || !email) {
-    //   alert("Please enter an email, username and password");
-    //   return;
-    const options = {
-      method: "POST",
-      body: JSON.stringify({
-        name: `${userName}`,
-        email: `${userEmail}`,
-        password: `${password}`,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        Authorisation: localStorage.getItem("accessToken"),
-      },
-    };
-
-    await fetch("mongodb://127.0.0.1:27017/auth", options)
-      .then((response) => response.json())
-      .then((newUser) => {
-        alert(newUser, `You have registered successfully`);
-      })
-      .catch((error) => console.log(error));
+  const onSignupClick = async () => {
+    if (!username || !password || !email) {
+      alert("Please enter an email, username and password");
+      return;
+    }
+    try {
+      await storeHandleSignup(username, password, email);
+      if (username && password) {
+        navigate("/"); // Replace with your desired path
+      }
+    } catch (error) {
+      // Handle any errors that occur during signup
+      console.error("Signup error:", error);
+      alert("An error occurred during signup");
+    }
   };
+
+  //NOTE the below is moved to the stores folder
+  //   const options = {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       name: `${username}`,
+  //       email: `${email}`,
+  //       password: `${password}`,
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorisation: localStorage.getItem("accessToken"),
+  //     },
+  //   };
+
+  //   await fetch("mongodb://127.0.0.1:27017/auth", options)
+  //     .then((response) => response.json())
+  //     .then((newUser) => {
+  //       alert(newUser, `You have registered successfully`);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
 
   return (
     <>
       <div className="bodyContainer">
         <h2>Want to join? </h2>
         <p>CREATE AN ACCOUNT</p>
-        <form className="formContainer" onSubmit={handleRegistration}>
+        <form className="formContainer">
           <p>
             User Name: &nbsp;
             <textarea
               rows="1"
               cols="40"
               placeholder="user name"
-              value={userName}
-              onChange={(e) => setuserName(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </p>
           <p>
@@ -58,8 +73,8 @@ export const Register = () => {
               rows="1"
               cols="40"
               placeholder="email"
-              value={userEmail}
-              onChange={(e) => setuserEmail(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </p>
           <p>
@@ -72,11 +87,7 @@ export const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </p>
-          <button
-            className="buttons"
-            type="submit"
-            onClick={handleRegistration}
-          >
+          <button className="buttons" type="submit" onClick={onSignupClick}>
             Sign up!
           </button>
         </form>
