@@ -6,32 +6,30 @@ const { Schema } = mongoose; //destructures the Schema class from Mongoose to cr
 //Below Schema defines the structure of the user document in the MongoDB collection
 export const userSchema = new Schema(
     {
-        // Define the 'username' field with a String data type
         username: {
-            type: String, // Specifies that 'username' should be a string
-            required: true, // Indicates that 'username' is a required field
-            unique: true, // Ensures that 'username' values are unique
-            minlength: 2, // Sets a minimum length of 2 characters for 'username'
+            type: String, 
+            required: true, 
+            unique: true, 
+            minlength: 2, 
         },
-        // Define the 'password' field with a String data type
         password: {
-            type: String, // Specifies that 'password' should be a string
-            required: true, // Indicates that 'password' is a required field
-            minlength: 6, // Sets a minimum length of 6 characters for 'password'
+            type: String, 
+            required: true, 
+            minlength: 6,
         },
         email: {
             type: String,
             required: true,
             unique: true,
         },
-        //Define the 'accessToken' field with a String data type
         accessToken: {
-            type: String, // Specifies that 'accessToken' should be a string
-            default: () => crypto.randomBytes(128).toString("hex"), // Sets a default value using a cryptographic random string
+            type: String,
+            default: () => crypto.randomBytes(128).toString("hex"),
         },
     },
+    // Add timestamp to tell when the user object is created 
     {
-        timestamps: true,
+        timestamps: true, //always outside of the initial object you create in the schema
     }
 );
 
