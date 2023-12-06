@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 import advertiserRoutes from "./routes/advertiserRoutes";
+import advertRoutes from "./routes/advertRoutes";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -20,7 +21,8 @@ app.use(cors());
 app.use(express.json());
 
 // Start defining your routes here
-app.use("/", advertiserRoutes);
+app.use(advertiserRoutes);
+app.use(advertRoutes);
 
 // Start the server
 app.listen(port, () => {
