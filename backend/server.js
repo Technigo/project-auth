@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import listEndpoints from "express-list-endpoints";
 import mongoose from "mongoose";
+
 //import dotenv from "dotenv";
 // dotenv.config();
 
@@ -25,6 +25,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); //don't know what this line is for?
 
 //-----Routes------//
+
+// Start defining your routes here
 
 app.use("/", userRoutes);
 
