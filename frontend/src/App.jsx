@@ -1,3 +1,12 @@
+import { BrowserRouter, Routes, Link } from "react-router-dom";
+import { Register } from "./Register";
+
 export const App = () => {
-  return <div>LOOOK we are here!</div>;
+  return (
+    <>
+      <BrowserRouter>
+        <Register />
+      </BrowserRouter>
+    </>
+  );
 };
