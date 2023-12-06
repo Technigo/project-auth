@@ -3,8 +3,9 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv"; // Import dotenv for environment variables
 import userRouter from './routes/UserRoutes.js'; // Import the user routes
+import listEndpoints from "express-list-endpoints";
 
-dotenv.config();
+dotenv.config()
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/projectauth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -17,9 +18,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Existing route
+//Endpoint to list all available endpoints
 app.get("/", (req, res) => {
-  res.send("Hello user!");
+  const endpoints = listEndpoints(app);
+  res.json(endpoints);
 });
 
 // User related routes
