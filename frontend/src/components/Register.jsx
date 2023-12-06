@@ -1,11 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { StoreUser } from "../stores/StoreUser";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const [isRegistered, setIsRegistered] = useState(false);
 
@@ -21,7 +24,7 @@ export const Register = () => {
       await storeHandleSignup(username, password, email);
       if (username && password) {
         setIsRegistered(true);
-        //navigate("/"); // Replace with your desired path
+        navigate("/");
       }
     } catch (error) {
       // Handle any errors that occur during signup

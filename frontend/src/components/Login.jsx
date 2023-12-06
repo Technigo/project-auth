@@ -8,26 +8,25 @@ export const Login = () => {
 
   //----- Function to process the login -----//
   const handleLogin = async (event) => {
-    if (!userName || !password) {
-      alert("Plase enter both username and password");
-      return;
-    }
-    //what happens once sign in button is clicked
-    const text = {
-      method: "POST",
-      body: JSON.stringify({
-        name: `${userName}`,
-        password: `${password}`,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        Authorisation: localStorage.getItem("accessToken"),
-      },
-    };
-
-    await fetch("mongodb://127.0.0.1:27017/auth", text)
-      .then((response) => response.json())
-      .then(newUser);
+    // if (!userName || !password) {
+    //   alert("Plase enter both username and password");
+    //   return;
+    // }
+    // //what happens once sign in button is clicked
+    // const text = {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     name: `${userName}`,
+    //     password: `${password}`,
+    //   }),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorisation: localStorage.getItem("accessToken"),
+    //   },
+    // };
+    // await fetch("https://project-auth-0x8y.onrender.com/", text)
+    //   .then((response) => response.json())
+    //   .then(newUser);
   };
 
   const fetchUserInfo = async () => {
