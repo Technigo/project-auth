@@ -2,6 +2,7 @@ import { UserModel } from "../models/UserModel";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { authenticateUser } from "../middleware/authenticateUser";
 
 // const bcrypt = require("bcrypt");
 
@@ -95,3 +96,6 @@ export const loginUserController = asyncHandler(async (req, res) => {
     res.status(500).json({ success: false, response: e.message });
   }
 });
+
+// router.post("/secrets", authenticateUser);
+// router.post("/secrets", async (req, res) => {});
