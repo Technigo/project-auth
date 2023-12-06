@@ -7,7 +7,7 @@ export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  //add my API link here
+  const [isRegistered, setIsRegistered] = useState(false);
 
   //----Function to handle sign up button click----//
   const storeHandleSignup = StoreUser((state) => state.handleSignup);
@@ -20,7 +20,8 @@ export const Register = () => {
     try {
       await storeHandleSignup(username, password, email);
       if (username && password) {
-        navigate("/"); // Replace with your desired path
+        setIsRegistered(true);
+        //navigate("/"); // Replace with your desired path
       }
     } catch (error) {
       // Handle any errors that occur during signup
@@ -91,7 +92,7 @@ export const Register = () => {
             Sign up!
           </button>
         </form>
-        <div>DISPLAY RESULTS HERE</div>
+        <div>{isRegistered && <p>display results here</p>}</div>
       </div>
     </>
   );
