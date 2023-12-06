@@ -70,7 +70,7 @@ router.post("/register", asyncHandler(async (req, res) => {
 
 //Set up a route for logging in 
 router.post("/login", asyncHandler(async (req, res) => {
-    const { username, password } = req.body:
+    const { username, password } = req.body;
 
     try {
         const user = await UserModel.findOne({ username });
