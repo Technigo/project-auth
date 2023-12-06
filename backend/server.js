@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import asyncHandler from "express-async-handler";
+import listEndpoints from "express-list-endpoints";
 import advertiserRoutes from "./routes/advertiserRoutes";
 import advertRoutes from "./routes/advertRoutes";
 import { connectDB } from "./config/db";
@@ -18,6 +20,14 @@ app.use(cors());
 app.use(express.json());
 
 // Start defining your routes here
+// Endpoint to show documentation of all endpoints
+app.get(
+  "/", 
+  asyncHandler(async (req, res) => {
+      const endpoints = listEndpoints(router);
+      res.json(endpoints);
+  })
+);
 app.use(advertiserRoutes);
 app.use(advertRoutes);
 
