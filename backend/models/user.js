@@ -1,6 +1,8 @@
-/*import mongoose from "mongoose";
+import mongoose from "mongoose";
+import crypto from "crypto";
+import bcrypt from "bcrypt-nodejs";
 
-const User = mongoose.model("User", {
+export const User = mongoose.model("User", {
   name: {
     type: String,
     unique: true,
@@ -17,4 +19,4 @@ const User = mongoose.model("User", {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
   },
-});*/
+});

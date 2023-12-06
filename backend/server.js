@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt-nodejs";
+//import listEndpoints from "express-list-endpoints";
+import { User } from "../backend/models/user";
 
 dotenv.config();
 
@@ -11,24 +13,24 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-const User = mongoose.model("User", {
-  name: {
-    type: String,
-    unique: true,
-  },
-  email: {
-    type: String,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  accessToken: {
-    type: String,
-    default: () => crypto.randomBytes(128).toString("hex"),
-  },
-});
+// const User = mongoose.model("User", {
+//   name: {
+//     type: String,
+//     unique: true,
+//   },
+//   email: {
+//     type: String,
+//     unique: true,
+//   },
+//   password: {
+//     type: String,
+//     required: true,
+//   },
+//   accessToken: {
+//     type: String,
+//     default: () => crypto.randomBytes(128).toString("hex"),
+//   },
+// });
 
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({ accessToken: req.header("Authorization") });
@@ -39,7 +41,6 @@ const authenticateUser = async (req, res, next) => {
     res.status(401).json({ loggedOut: true });
   }
 };
-
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
 // PORT=9000 npm start
@@ -58,9 +59,11 @@ app.use(express.json());
 //   }
 // });
 
+const listEndpoints = require("express-list-endpoints");
+
 //routes
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.send(listEndpoints(app));
 });
 
 app.post("/users", async (req, res) => {
@@ -74,13 +77,4 @@ app.post("/users", async (req, res) => {
       .status(400)
       .json({ message: "Could not create user", errors: err.errors });
   }
-});
-
-app.get("/secrets", (req, res) => {
-  res.json({ secret: "This is super secret message." });
-});
-
-// Start the server
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
 });
