@@ -108,3 +108,16 @@ export const loginUserController = asyncHandler(async (req, res) => {
     res.status(500).json({ success: false, response: e.message });
   }
 });
+
+//same as above but done with codealong
+//login endpoint called session which does nearly the same thing as the registration endpoint but it does not create the user, it finds one!
+// app.post("/sessions", async (req, res) => {
+//   const user = await User.findOne({ email: req.body.email });
+//   if (user && bcrypt.compareSync(req.body.password, user.password)) {
+//     //authentification successful
+//     res.json({ userId: user._id, accessToken: user.accessToken });
+//   } else {
+//     //failed a. user doesn't exist or b. encrypted pw does not match
+//     res.json({ notFound: true });
+//   }
+// });
