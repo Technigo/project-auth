@@ -1,35 +1,33 @@
 import { useUserStore } from "../stores/useUserStore";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
 import "./getStarted.css";
 
-export const GetStarted = () => {
+export const Register = () => {
     const navigate = useNavigate();
 
     // Destructures the function loginUser from the useUserStore hook
-    const { loginUser, username, setUsername, password, setPassword } = useUserStore();
+    const { registerUser, username, setUsername, password, setPassword } = useUserStore();
 
-    const handleLogin = async (event) => {
+    const handleRegister = async (event) => {
         event.preventDefault();
 
         try {
-            await loginUser(username, password);
-            const isLoggedIn = useUserStore.getState().isLoggedIn;
-            // If the user is logged in, the accessToken will be saved in localStorage and the user will be redirected to the dashboard
-            if (isLoggedIn) {
-                navigate("/dashboard");
+            await registerUser(username, password);
+            if (username && password) {
+                navigate("/getstarted");
                 return;
             }
         } catch (error) {
-            console.error("There was an error =>", error);
+            console.error("There was an error during signup =>", error);
         }
     }
 
     return (
         <>
-            <h1>Welcome here!</h1>
-            <h2>Please sign in to see the content 🧡</h2>
+            <h1>New here?</h1>
+            <h2>No worries, just create a new account to be able to join the community!</h2>
             <form className="form-wrapper">
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
@@ -46,14 +44,13 @@ export const GetStarted = () => {
                     <input
                         type="password"
                         id="password"
-                        placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required />
                 </div>
                 <div className="loginAndRegisterBtns">
-                    <Button className={"primary"} handleOnClick={handleLogin} btnText={"Login"} />
-                    <Link to="/register"><Button className={"secondary"} btnText={"Register"} /></Link>
+                    <Button className={"secondary"} handleOnClick={handleRegister} btnText={"Register"} />
+                    <Link to="/"><Button className={"primary"} btnText={"Start over"} /></Link>
                 </div>
             </form>
         </>

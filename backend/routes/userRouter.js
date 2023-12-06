@@ -11,6 +11,7 @@ export const userRouter = express();
 userRouter.post("/register", asyncHandler(async (req, res) => {
     try {
         const { username, password } = req.body;
+        username = username.toLowerCase(); // Converts the username to lowercase, so that the user can log in with both uppercase and lowercase letters
 
         // First check if the username already exists in the database
         const userExists = await User.findOne({ username });
