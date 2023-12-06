@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; // Import useEffect here
-import { Container, Header, Input, Form, StyledButton, Paragraph, Success, Error } from './StyledComponents';
+import { Container, Header, Input, Form, StyledButton, Paragraph, Error } from './StyledComponents';
+import { useNavigate } from 'react-router-dom';
 
 const API_LOGIN_URL = 'http://localhost:8080/api/users/login'; //check endpoint!!!
 
@@ -7,7 +8,7 @@ const LoginForm = ({ setToken, setUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -31,21 +32,15 @@ const LoginForm = ({ setToken, setUser }) => {
       const data = await response.json();
       setToken(data.token);
       localStorage.setItem('token', data.token);
-      setUser({ username });
+      setUser(data);
 
-      //Set success message
-      setSuccess(true);
-
-      //Set user information
-      setUser({ 
-        username: data.username, 
-      });
 
       // Force clear input fields on successful login
       setUsername('');
       setPassword('');
 
-      // Optionally handle redirection or state update here
+      //Navigate to the dashboard
+      navigate('/dashboard');
     } catch (err) {
       setError(err.message || 'Login failed');
     }
@@ -61,7 +56,6 @@ const LoginForm = ({ setToken, setUser }) => {
         <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
         <StyledButton type="submit">Login</StyledButton>
         {error && <Error>{error}</Error>}
-        {success && <Success>Login successful!</Success>}
       </Form>
     </Container>
   );

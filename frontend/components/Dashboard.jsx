@@ -7,6 +7,7 @@ const Dashboard = ({ user, setToken }) => {
   const [content, setContent] = useState('');
 
   useEffect(() => {
+    console.log('User in Dashboard:', user);
     const fetchContent = async () => {
       const token = localStorage.getItem('token');
       try {
@@ -36,8 +37,13 @@ const Dashboard = ({ user, setToken }) => {
   return (
     <Container>
       <Header>Welcome, {user?.username}</Header>
+      {user && (
+        <>
+      
       <Paragraph>{content || "Loading content..."}</Paragraph>
       <StyledButton onClick={handleSignOut}>Sign Out</StyledButton>
+      </>
+     )}
     </Container>
   );
 };
