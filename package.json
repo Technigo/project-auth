@@ -6,16 +6,21 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
+    "bcrypt": "^5.1.1",
     "bcrypt-nodejs": "^0.0.3",
     "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
     "express-endpoints": "^1.0.0",
+    "express-list-endpoints": "^6.0.0",
+    "mongodb": "^6.3.0",
     "mongoose": "^8.0.2",
     "nodejs": "^0.0.0",
     "react-router-dom": "^6.20.1",
     "styled-components": "^6.1.1"
   },
   "devDependencies": {
-    "vite": "^5.0.5"
+    "vite": "^5.0.6"
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -32,6 +32,11 @@ const ListItem = styled.li`
 `;
 
 function App() {
+
+  //State to hold the authentication token
+  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
+
   return (
     <Router>
       <Nav>
@@ -50,9 +55,9 @@ function App() {
       </Nav>
 
       <Routes>
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/login" element={<LoginForm setToken={setToken} setUser={setUser} />} />
+        <Route path="/register" element={<RegisterForm setToken={setToken} />} />
+        <Route path="/dashboard" element={<Dashboard setToken={setToken}/>} />
         <Route path="/" element={<Home />} />
       </Routes>
     </Router>

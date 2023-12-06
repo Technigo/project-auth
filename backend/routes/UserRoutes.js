@@ -81,7 +81,7 @@ router.get('/content', asyncHandler(async (req, res) => {
         const user = await UserModel.findById(decoded.id).select('-password');
 
         if (!user) {
-            throw new Error("You donäthave access.");
+            throw new Error("You don't have access.");
         }
 
         res.json({ message: "This is content is protected.", user });

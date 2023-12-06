@@ -17,12 +17,24 @@ const LoginForm = ({ setToken, setUser }) => {
         body: JSON.stringify({ username, password })
       });
 
-      if (!response.ok) throw new Error('Login failed');
+      if (!response.ok) {
+        console.error('Login failed:', response.statusText);
+        let errorMessage = 'Login failed';
+        if (response.status === 401) {
+          errorMessage = 'Invalid username or password';
+        }
+        throw new Error(errorMessage);
+      }
+      
 
       const data = await response.json();
       setToken(data.token);
       localStorage.setItem('token', data.token);
-      setUser({ username });
+
+      //Set user information
+      setUser({ 
+        username: data.username, 
+      });
 
       // Force clear input fields on successful login
       setUsername('');
