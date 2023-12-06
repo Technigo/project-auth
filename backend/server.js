@@ -24,7 +24,7 @@ app.use(express.json());
 app.get(
   "/", 
   asyncHandler(async (req, res) => {
-      const endpoints = listEndpoints(router);
+      const endpoints = listEndpoints(app);
       res.json(endpoints);
   })
 );
