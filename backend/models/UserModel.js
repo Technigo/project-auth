@@ -5,14 +5,10 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 export const userSchema = new Schema({
-  name: {
+  username: {
     type: String,
     unique: true,
   },
-  //   email: {
-  //     type: String,
-  //     unique: true,
-  //   },
   password: {
     type: String,
     required: true,
@@ -22,4 +18,4 @@ export const userSchema = new Schema({
     default: () => crypto.randomBytes(128).toString("hex"),
   },
 });
-export const UserModel = mongoose.model("User", userSchema);
+export const UserModel = mongoose.model("user", userSchema);
