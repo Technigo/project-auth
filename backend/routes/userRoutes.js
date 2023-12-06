@@ -67,7 +67,10 @@ router.post("/login", async (req, res) => {
 router.get('/starter', authenticateUser)
 // Route handler for the authenticated endpoint
 router.get('/starter', async (req, res) => {
+    //Successful request
     res.json({ secret: "Super secret starter page!" })
+
+    //Error handling: 
 
 })
 

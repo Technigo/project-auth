@@ -6,8 +6,8 @@ export const Landingpage = () => {
     return (
         <div>
             <p>I'm in Landingpage.jsx</p>
-            <Login />
             <SignUp />
+            <Login />
         </div>
     )
 }
