@@ -12,6 +12,16 @@ code {
     monospace;
 }
 
+html,
+body {
+  background-color: #f2ede2;
+}
+
+h1 {
+  color: #3EC3CE;
+  font-family: 'Poppins', sans-serif;
+}
+
 .main {
   padding: 50px;
 }
