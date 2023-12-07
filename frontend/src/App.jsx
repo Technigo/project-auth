@@ -7,12 +7,14 @@ export const App = () => {
     try {
       const response = await fetch('https://one8-y5ov.onrender.com/users', {
         method: 'POST',
-        // do i need headers? what for?
         headers: {
           'Content-Type' : 'application/json'
         },
         body: JSON.stringify({ data: inputID })
       }) 
+
+      // handle response
+      const data = await response.json()
     } catch (error) {
       console.error('error:', error)
     }
@@ -28,3 +30,7 @@ export const App = () => {
   }
   return <div><input type="text" value={inputID} onChange={handleInputChange} /><button onClick={handleButtonClick}>submit</button></div>;
 };
+
+
+// handle error when post failed - i guess i have so? then where to check it?
+// try to get the data at cloud.mongodb.com when you post
