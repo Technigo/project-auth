@@ -1,169 +1,41 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-import crypto from "crypto";
-//import jwt from "jsonwebtoken";
-//import bcrypt from "bcryptjs"; //? 
+// Import necessary libraries and modules
+import express from "express"; // Import the Express.js framework
+import cors from "cors"; // Import the CORS middleware
+import mongoose from "mongoose"; // Import Mongoose, an ODM for MongoDB
+import dotenv from "dotenv"; // Import dotenv for environment variables
+dotenv.config(); // Load environment variables from the .env file
+// DIEGO -- IMPORT After Creating!
+import userRoutes from "./routes/userRoutes"; // Import custom user routes
+import userRoutesUpgraded from "./routes/userRoutesUpgraded"; // Import custom user routes
+import { connectDB } from "./config/db"; // Import database connection function (not used here)
 
-//Har kört npm i och install mongoose && bcryptjs
-
-// Set up MongoDB connection
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.Promise = Promise;
-
-// Define the User model for MongoDB
-const User = mongoose.model('User', {
-  username: {
-    type: String,
-    unique: true
-  },
-  email: {
-    type: String,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  accessToken: {
-    type: String,
-    default: () => crypto.randomBytes(128).toString('hex')
-  }
-});
-
-// Middleware to authenticate users based on the access token
-const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({accessToken: req.header('Authorization')});
-  if (user) { 
-    req.user = user;
-    next();
-  } else {
-    res.status(400).json({loggedOut: true});
-  }
-};
-
-// Define the port for the server
-const port = process.env.PORT || 8080;
-const app = express();
-const listEndpoints = require("express-list-endpoints");
-var bcrypt = require('bcryptjs'); //Hämtat från https://www.npmjs.com/package/bcryptjs som var länkad i technigos material
+// Defines the port the app will run on. Defaults to 8080, but can be overridden
+const port = process.env.PORT; // Set the port number for the server
+const app = express(); // Create an instance of the Express application
 
 // Add middlewares to enable cors and json body parsing
-app.use(cors());
-app.use(express.json());
+app.use(cors()); // Enable CORS (Cross-Origin Resource Sharing)
+app.use(express.json()); // Parse incoming JSON data
+app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 
-// Start defining your routes here
+// Use the routes for handling API requests
 
-// Root route
-app.get("/", (req, res) => {
-  res.send(listEndpoints(app));
-});
+// ROUTES - These routes DO NOT USE controller functions ;)
+// app.use(taskRoutes); // Use the task routes for task-related requests
+// app.use(userRoutes); // Use the user routes for user-related requests
 
-// Route to create users
-app.post('/users', async (req, res) => {
-  try {
-    const {name, email, password} = req.body;
-    // Hash the password before saving it to the database
-    const user = new User({name, email, password: bcrypt.hashSync(password)});
-    user.save();
-    res.status(201).json({id: user._id, accessToken: user.accessToken})
-  }
-  catch (err) {
-    res.status(400).json({message: 'Could not create user', errors: err.errors});
-  }
-});
+// ROUTES - These routes USE controller functions ;)
+app.use(userRoutesUpgraded); // Use the user-controlled routes for user-related requests
 
-// app.post('/users', async (req, res) => {
-//   // Extract email, username and password from the request body
-//   const { username, password, email } = req.body;
+// Connection to the database through Mongoose (commented out in this version)
+connectDB();
 
-//   try {
-   
-//     if (!username || !email || !password) {
-//       // if so, set http status to a 400code
-//       res.status(400);
-//       // and throw new error with some info
-//       throw new Error("Please add all fields");
-//     }
-  
-//     const existingUser = await UserModel.findOne({
-//       $or: [{ username }, { email }],
-//     });
-//     if (existingUser) {
-//       res.status(400);
-//       throw new Error(
-//         `User with ${
-//           existingUser.username === username ? "username" : "email"
-//         } already exists`
-//       );
-//     }
+// Connection to the database through Mongoose (for local development)
+// const mongoUrl = process.env.MONGO_URL; // Get the MongoDB connection URL from environment variables
+// mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true }); // Connect to the MongoDB database
+// mongoose.Promise = Promise; // Set Mongoose to use ES6 Promises
 
-
-//     const salt = bcrypt.genSaltSync(10);
-
-//     const hashedPassword = bcrypt.hashSync(password, salt);
-    
-//     const newUser = new UserModel({
-//       username,
-//       email,
-//       password: hashedPassword,
-//     });
-
-//     await newUser.save();
-
-//     res.status(201).json({id: user._id, accessToken: user.accessToken})
-   
-//     res.status(201).json({
-//       success: true,
-//       response: {
-//         username: newUser.username,
-//         email: newUser.email,
-//         id: newUser._id,
-//         accessToken: generateToken(newUser._id), // Generate a JWT token for the new user using the user Id :)
-//       },
-//     });
-//   } catch (e) {
-//     res.status(500).json({ success: false, response: e.message });
-//   }
-// });
-
-
-
-
-
-
-
-
-// Protected route with user authentication middleware
-app.get("/secrets", authenticateUser);
-app.get("/secrets", (req, res) => {
-  res.json({secret: "Super secret message"})
-});
-
-// Route for user login sessions
-app.post('/sessions', async (req, res) => {
-  const user = await User.findOne({email: req.body.email});
-  // Compare the hashed password with the provided password
-  if (user && bcrypt.compareSync(req.body.password , user.password)){
-    res.json({userId: user._id, accessToken: user.accessToken});
-  } else {
-    res.json({notFound:true});
-  }
-});
-
-
-// Route to get all users
-app.get('/users', async (req, res) => {
-  try {
-    const users = await User.find();
-    res.status(200).json(users);
-  } catch (error) {
-    res.status(500).json({ message: 'Internal Server Error', error: error.message });
-  }
-});
-
-// Start the server
+// Start the server and listen for incoming requests on the specified port
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on http://localhost:${port}`); // Display a message when the server is successfully started
 });
