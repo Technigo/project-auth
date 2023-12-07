@@ -24,7 +24,7 @@ export const userStore = create((set, get) => ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, username, password }),
+        body: JSON.stringify({ name: username, email, password }),
       });
       const data = await response.json();
       if (data.success) {
@@ -34,7 +34,7 @@ export const userStore = create((set, get) => ({
         console.log("sign up with:", username);
       } else {
         //Display errormessage from server
-        alert(data.response || "signup failed");
+        alert(data.message || "signup failed");
       }
     } catch (error) {
       console.error("Signup error:", error);
@@ -54,22 +54,23 @@ export const userStore = create((set, get) => ({
         body: JSON.stringify({ username, password }),
       });
       const data = await response.json();
+      console.log("Login response data:", data); // Log for debugging
       if (data.success) {
         set({
-          username,
-          accessToken: data.response.accessToken,
+          username: data.username || username,
+          accessToken: data.accessToken,
           isLoggedIn: true,
         }); //update the state with username and accesstoken
         //redirect or update UI
-        localStorage.setItem("accessToken", data.response.accessToken);
+        localStorage.setItem("accessToken", data.accessToken);
         alert("Login successful!");
         console.log("Loging up with:", username, password);
       } else {
-        alert(data.response || "Login failed");
+        alert(data.message || "Login failed");
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("An error occured during login");
+      alert("An error occurred during login");
     }
   },
 

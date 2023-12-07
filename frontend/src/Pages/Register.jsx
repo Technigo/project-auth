@@ -20,7 +20,7 @@ export const Register = () => {
     try {
       await storeHandleSignup(username, password, email);
       if (username && password) {
-        navigate("/users"); //replace with your path
+        navigate("/home"); //replace with your path
       }
     } catch (err) {
       // handle any errors that occur during signup
