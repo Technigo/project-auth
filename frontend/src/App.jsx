@@ -15,6 +15,7 @@ export const App = () => {
 
       // handle response
       const data = await response.json()
+      console.log(data)
     } catch (error) {
       console.error('error:', error)
     }
