@@ -4,6 +4,7 @@ import asyncHandler from 'express-async-handler';
 import UserModel from '../models/UserModel.js';
 import jwt from 'jsonwebtoken';
 
+
 const router = express.Router();
 
 // JWT Token Generation
@@ -12,7 +13,7 @@ const generateToken = (id) => {
 };
 
 // Register User
-router.post('/register', asyncHandler(async (req, res) => {
+router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
 
     if (!username || !email || !password) {
@@ -46,10 +47,10 @@ router.post('/register', asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error("Invalid user data");
     }
-}));
+});
 
 // Authenticate User
-router.post('/login', asyncHandler(async (req, res) => {
+router.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
     const user = await UserModel.findOne({ username });
@@ -65,7 +66,7 @@ router.post('/login', asyncHandler(async (req, res) => {
         res.status(401);
         throw new Error("Something went wrong, please try again");
     }
-}));
+});
 
 // Authenticated Endpoint
 router.get('/content', asyncHandler(async (req, res) => {

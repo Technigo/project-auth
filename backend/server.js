@@ -9,16 +9,25 @@ dotenv.config()
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/projectauth";
 
-mongoose.connect(mongoUrl, { 
-  useNewUrlParser: true, 
-  useUnifiedTopology: true,
-});
+async function connectToDatabase() {
+  try {
+    await mongoose.connect(mongoUrl, { 
+      useNewUrlParser: true, 
+      useUnifiedTopology: true,
+    });
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+    process.exit(1);
+  }
+}
+connectToDatabase();
+
 mongoose.Promise = Promise;
 
 const port = process.env.PORT || 8080;
-const express = require('express');
 const app = express();
-const cors = require('cors');
+
 
 // Add middlewares to enable CORS and JSON body parsing
 app.use(cors());
@@ -34,6 +43,6 @@ app.get("/", (req, res) => {
 app.use('/api/users', userRouter);
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
 });
