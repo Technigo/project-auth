@@ -68,7 +68,7 @@ router.post(
         },
       });
     } catch (e) {
-      // Handle any errors that occur during the registration process
+      // Handle any errors that occur during the registration process.
       res.status(500).json({ success: false, response: e.message });
     }
   })
@@ -78,7 +78,7 @@ router.post(
 router.post(
   "/login",
   asyncHandler(async (req, res) => {
-    // Extract email, username and password from the request body
+    // Extract email, username and password from the request body.
     const { username, password } = req.body;
 
     try {

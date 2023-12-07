@@ -4,11 +4,11 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 import userRoutes from "./routes/userRoutes";
-// import { connectDB } from "./config/db";
+import { connectDB } from "./config/db";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/user";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.Promise = Promise;
+// const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/user";
+// mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.Promise = Promise;
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -27,7 +27,7 @@ app.use(userRoutes);
 //   res.send("Hello Technigo!");
 // });
 
-// connectDB();
+connectDB();
 
 // Start the server
 app.listen(port, () => {
