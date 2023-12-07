@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import Animation from "../assets/Animation.json";
 
-
 export const Login = () => {
   const navigate = useNavigate();
 
@@ -31,7 +30,7 @@ export const Login = () => {
         navigate("/home"); // Redirect to home on successful login
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Log in error:", error);
       alert("Invalid username or password");
     }
   };
@@ -42,9 +41,9 @@ export const Login = () => {
 
   // Text for UI
   const text = {
-    heading: "Login Page",
-    intro: "login here...",
-    loremIpsum: "Login to see the super secret page!",
+    heading: "Log In Page",
+    intro: "Log in here...",
+    loremIpsum: "Log in to see the super secret page!",
   };
 
   return (
@@ -66,7 +65,7 @@ export const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button onClick={onLoginClick}>Login</button>
+          <button onClick={onLoginClick}>Log In</button>
           <button className="app-li" onClick={handleSignUpClick}>
             Sign Up
           </button>

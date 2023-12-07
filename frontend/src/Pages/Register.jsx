@@ -24,15 +24,15 @@ export const Register = () => {
       }
     } catch (err) {
       // handle any errors that occur during signup
-      console.error("Signup error:", err);
-      alert("An error occurred during signup");
+      console.error("Sign up error:", err);
+      alert("An error occurred during sign up");
     }
   };
 
   console.log(email);
   const text = {
-    heading: "SignUp Page",
-    intro: "signup here...",
+    heading: "Sign Up Page",
+    intro: "Sign up here...",
     loremIpsum: "Sign up to see the super secret message!",
   };
 
@@ -43,9 +43,9 @@ export const Register = () => {
           <li className="app-li">
             <Link to="/sessions">Login</Link>
           </li>
-          <li className="app-li">
+          {/* <li className="app-li">
             <Link to="/sessions">Sign Up</Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
       <div>

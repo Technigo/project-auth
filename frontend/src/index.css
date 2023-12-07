@@ -59,7 +59,7 @@ h2 {
 }
 
 .user-login input,
-.user-registration {
+.user-registration input {
   margin: 20px;
   padding: 15px;
   border-color: rgb(0, 95, 95);
