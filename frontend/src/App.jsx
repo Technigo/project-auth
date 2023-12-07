@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import AuthContainer from "./components/AuthContainer";
+import React, { useState } from 'react';
+import AuthContainer from './components/AuthContainer';
+import Dashbord from './components/Dashbord';
 
 export const App = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -15,10 +16,7 @@ export const App = () => {
   return (
     <div className="main">
       {isUserLoggedIn ? (
-        <div>
-          <h1>Welcome!</h1>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
+        <Dashbord onLogout={handleLogout} />
       ) : (
         <AuthContainer onLoginSuccess={handleLoginSuccess} />
       )}

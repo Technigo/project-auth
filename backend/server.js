@@ -57,6 +57,7 @@ app.get("/", (req, res) => {
   res.json(endpoints);
 });
 
+
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -68,9 +69,9 @@ app.post('/users', async (req, res) => {
 
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
     await user.save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
+    res.status(201).json({ message: 'Yay, you are now a member!', id: user._id, accessToken: user.accessToken });
   } catch (err) {
-    res.status(400).json({ error: 'Could not create user', errors: err.errors });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -89,7 +90,6 @@ app.post('/sessions', async (req, res) => {
   }
 });
 
-// Move the authentication middleware before the route handler for /secrets
 app.use('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
   res.json({ secret: 'This is a secret message for logged-in users' });
