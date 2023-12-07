@@ -1,8 +1,10 @@
-import { Register } from "../../components/register-form/register-form"
+import { Register } from "../../components/Register/Register"
+
 
 export const Homepage = () => {
   return (
     <div>
+      Hello
         <Register />
     </div>
   )
