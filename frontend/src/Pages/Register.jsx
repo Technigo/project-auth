@@ -18,7 +18,7 @@ export const Register = () => {
       return;
     }
     try {
-      await storeHandleSignup(username, password, email);
+      await storeHandleSignup(username, password, email, navigate);
       if (username && password) {
         navigate("/home"); //replace with your path
       }
@@ -44,7 +44,7 @@ export const Register = () => {
             <Link to="/sessions">Login</Link>
           </li>
           <li className="app-li">
-            <Link to="/users">Sign Up</Link>
+            <Link to="/sessions">Sign Up</Link>
           </li>
         </ul>
       </nav>

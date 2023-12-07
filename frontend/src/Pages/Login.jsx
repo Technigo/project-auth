@@ -6,23 +6,14 @@ export const Login = () => {
   const navigate = useNavigate();
 
   // Access state and actions from userStore
- // const setUsername = userStore((state) => state.setUsername);
-  //const setPassword = userStore((state) => state.setPassword);
-  //const storeHandleLogin = userStore((state) => state.handleLogin);
-
-  // Username and password retrieved from userStore
-  //const username = userStore((state) => state.username);
-  //const password = userStore((state) => state.password);
-
-  // Access state and actions from userStore
-  const { setUsername, setPassword, handleLogin, username, password } = userStore((state) => ({
-    setUsername: state.setUsername,
-    setPassword: state.setPassword,
-    handleLogin: state.handleLogin,
-    username: state.username,
-    password: state.password,
-  }));
-
+  const { setUsername, setPassword, handleLogin, username, password } =
+    userStore((state) => ({
+      setUsername: state.setUsername,
+      setPassword: state.setPassword,
+      handleLogin: state.handleLogin,
+      username: state.username,
+      password: state.password,
+    }));
 
   // Function to handle the click event of the login button
   const onLoginClick = async () => {

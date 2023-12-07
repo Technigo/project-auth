@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 const apiEnv = import.meta.env.VITE_BACKEND_API;
-export const userStore = create((set, get) => ({
+export const userStore = create((set) => ({
   username: "",
   setUsername: (username) => set({ username }),
   email: "",
@@ -13,7 +13,7 @@ export const userStore = create((set, get) => ({
   setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
 
   //function to register users
-  handleSignup: async (username, password, email) => {
+  handleSignup: async (username, password, email, navigate) => {
     if (!username || !password || !email) {
       alert("Please enter username, email and password");
       return;
@@ -32,6 +32,7 @@ export const userStore = create((set, get) => ({
         // redirect or update UI
         alert("Sign up successful");
         console.log("sign up with:", username);
+        navigate("/");
       } else {
         //Display errormessage from server
         alert(data.message || "signup failed");
