@@ -24,18 +24,36 @@ router.get("/", (req, res) => {
   res.send(listEndpoints(router));
 });
 
-router.post("/users", async (req, res) => {
+router.post("/sessions", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-    const user = new User({ name, email, password: bcrypt.hashSync(password) });
-    await user.save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
+    const { username, password } = req.body;
+    const user = await User.findOne({ name: username });
+
+    if (user && bcrypt.compareSync(req.body.password, user.password)) {
+      res.json({ success: true, userId: user._id, accessToken: user.accessToken });
+    } else {
+      res.json({ success: false, message: "Invalid username or password" });
+    }
   } catch (err) {
-    res
-      .status(400)
-      .json({ message: "Could not create user", errors: err.errors });
+    console.error("Error during login:", err);
+    res.status(400).json({ message: "Login failed", error: err.message });
   }
 });
+
+
+/*router.post("/users", async (req, res) => {
+  console.log("Received registration request with body:", req.body);
+  try {
+    const user = new User({ name: req.body.name, email: req.body.email, password: bcrypt.hashSync(req.body.password) });
+    await user.save();
+    console.log("User created successfully:", user);
+    res.status(201).json({ success: true, id: user._id, accessToken: user.accessToken });
+  } catch (err) {
+    console.error("Error during registration:", err);
+    res.status(400).json({ message: "Could not create user", error: err.message });
+  }
+});*/
+
 
 router.get("/secrets", authenticateUser);
 router.get("/secrets", (req, res) => {
