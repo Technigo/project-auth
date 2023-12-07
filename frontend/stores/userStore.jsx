@@ -43,12 +43,15 @@ export const userStore = create((set, get) => ({
       return;
     }
     try {
+      console.log("fetching log in");
       const response = await fetch(`${apiEnv}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
+      console.log("TEST!", response.status);
       const data = await response.json();
+      console.log("TEST2", data);
       if (data.success) {
         set({
           username,
