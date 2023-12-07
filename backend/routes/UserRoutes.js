@@ -1,8 +1,8 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
 import UserModel from '../models/UserModel.js';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
@@ -63,32 +63,32 @@ router.post('/login', asyncHandler(async (req, res) => {
         });
     } else {
         res.status(401);
-        throw new Error("Sonething went wrong, please try again");
+        throw new Error("Something went wrong, please try again");
     }
 }));
 
 // Authenticated Endpoint
 router.get('/content', asyncHandler(async (req, res) => {
-    const token = req.headers.authorization.split(' ')[1];
+    const authorizationHeader = req.header('Authorization');
+    console.log('Received Authorization header:', authorizationHeader);
 
-    if (!token) {
-        res.status(401);
-        throw new Error("You do not have the possibiliy to view this content.");
+    if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
+        res.status(401).json({ error: "Unauthorized: Missing or invalid token" });
+        return;
     }
-
+    
+    const token = authorizationHeader.replace('Bearer ', '');
+    console.log('Received token:', token);
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log('Decoded payload:', decoded);
+
         const user = await UserModel.findById(decoded.id).select('-password');
-
-        if (!user) {
-            throw new Error("You don't have access.");
-        }
-
-        res.json({ message: "This is content is protected.", user });
+        res.json({ message: "This content is protected.", user });
     } catch (error) {
-        res.status(401);
-        throw new Error("You do not have the possibiliy to view this content.");
+        res.status(401).json({ error: "You do not have the possibility to view this content." });
     }
 }));
+
 
 export default router;

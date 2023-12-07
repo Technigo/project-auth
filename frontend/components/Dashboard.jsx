@@ -7,18 +7,28 @@ const API_CONTENT_URL = 'http://localhost:8080/api/users/content'; // Adjust the
 const Dashboard = ({ user, setToken }) => {
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('User in Dashboard:', user);
     const fetchContent = async () => {
-      const token = localStorage.getItem('token');
-      console.log('Token:', token)
       try {
+        const token = localStorage.getItem('token');
+        console.log('Stored token:', token);
+
+        if (!token) {
+          setLoading(false);
+          return;
+        }
+        
         const response = await fetch(API_CONTENT_URL, {
           headers: {
-            'Authorization': `Bearer ${token}`
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
           }
         });
+       
         if (!response.ok) {
           throw new Error('Content fetch failed');
         }
@@ -26,13 +36,14 @@ const Dashboard = ({ user, setToken }) => {
         setContent(data.message); // Update this line based on your actual response structure
       } catch (error) {
         console.error('Error fetching content:', error);
+        setError('Failed to fetch content');
       } finally {
         setLoading(false);
       }
     };
 
     fetchContent();
-  }, []);
+  }, [user]);
 
   const handleSignOut = () => {
     setToken(null);
@@ -42,15 +53,19 @@ const Dashboard = ({ user, setToken }) => {
 
   return (
     <Container>
-      <Header>
-        {loading ? 'Loading...' : `Welcome, ${user?.username || 'Guest'}`}
-      </Header>
-      {!loading && (
+      <Header>Welcome, {user?.username} </Header>
+      {loading ? (
+        <Paragraph>Loading content...</Paragraph>
+      ) : (
         <>
-      <Paragraph>{content || "Loading content..."}</Paragraph>
-      <StyledButton onClick={handleSignOut}>Sign Out</StyledButton>
-      </>
-     )}
+        {error ? (
+          <Paragraph>Error: {error}</Paragraph>
+        ) : (
+          <Paragraph>{content}</Paragraph>
+        )}
+         <StyledButton onClick={handleSignOut}>Sign Out</StyledButton>
+        </>
+      )}
     </Container>
   );
 };

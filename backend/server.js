@@ -8,7 +8,11 @@ import listEndpoints from "express-list-endpoints";
 dotenv.config()
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/projectauth";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connect(mongoUrl, { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true,
+});
 mongoose.Promise = Promise;
 
 const port = process.env.PORT || 8080;
