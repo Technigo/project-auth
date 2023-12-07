@@ -7,6 +7,7 @@ import { AppLayout } from "./pages/AppLayout.tsx";
 import { SignUp } from "./pages/SignUp.tsx";
 import { LogIn } from "./pages/LogIn.tsx";
 import { SignOut } from "./pages/SignOut.tsx";
+import { Home } from "./pages/Home.tsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
@@ -14,6 +15,11 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     // errorElement: <Error />,
     children: [
+      {
+        path: "/home",
+        element: <Home />,
+        // errorElement: <Error />,
+      },
       {
         path: "/signup",
         element: <SignUp />,

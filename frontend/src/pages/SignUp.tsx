@@ -4,6 +4,7 @@ import { submitForm } from "../actions/action";
 import { FormEvent, useState } from "react";
 import { createUser } from "../sevices/apis";
 import { FormError } from "../types/formType";
+import { redirect, useNavigate } from "react-router-dom";
 
 const initialState = {
   name: { error: false, message: "" },
@@ -12,11 +13,19 @@ const initialState = {
   passwordConfirm: { error: false, message: "" },
 };
 
+const initialDBerror = {
+  status: false,
+  message: "",
+};
+
 export const SignUp = () => {
   const [formError, setFormError] = useState<FormError>(initialState);
+  const [dbError, setDbError] = useState(initialDBerror);
+  const navigate = useNavigate();
 
-  const hanldleSubmit = (e: FormEvent<HTMLFormElement> | undefined) => {
+  const hanldleSubmit = async (e: FormEvent<HTMLFormElement> | undefined) => {
     const result = submitForm(e);
+    setDbError(initialDBerror);
     let userObj;
     if (!result.success) {
       result.error.issues.map((issue, index) => {
@@ -34,8 +43,12 @@ export const SignUp = () => {
         passwordConfirm: data.data.passwords.passwordConfirm,
       };
     }
+    let res;
+    if (userObj) res = await createUser(userObj);
 
-    userObj && createUser(userObj);
+    if (!res.status) {
+      setDbError({ status: true, message: res.message });
+    } else navigate("/home");
   };
 
   return (
@@ -63,6 +76,7 @@ export const SignUp = () => {
           <div className="flex items-center justify-center">
             <ButtonSubmit text="Submit" icon={true} />
           </div>
+          {dbError && <p>{dbError.message}</p>}
         </form>
       </div>
     </div>

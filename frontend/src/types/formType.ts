@@ -11,3 +11,19 @@ export type FormError = {
   password: { error: boolean; message: string };
   passwordConfirm: { error: boolean; message: string };
 };
+
+export type UpdateUserBody = {
+  name?: string;
+  email?: string;
+  newPassword?: string;
+};
+
+export type LoginBody = {
+  email: string;
+  password: string;
+};
+
+export type UserRes = {
+  id: string;
+  accessToken: string;
+};
