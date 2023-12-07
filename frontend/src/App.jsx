@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { AppRoutes } from "./routes/AppRoutes";
+import { AppRoutes } from "./routes/appRoutes";
 
 // Set up the routing and display the navigation links
 export const App = () => {
