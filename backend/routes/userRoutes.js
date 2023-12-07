@@ -1,14 +1,8 @@
-import listEndpoints from "express-list-endpoints";
 import express from "express";
 import bcrypt from "bcrypt";
 import User from "../models/User";
 
 const router = express.Router();
-
-// Start defining your routes here
-router.get("/", (_, res) => {
-    res.json(listEndpoints(router));
-});
 
 router.post("/register", async (req, res) => {
     try {
@@ -23,7 +17,7 @@ router.post("/register", async (req, res) => {
         const passwordHash = await bcrypt.hash(password, saltRounds);
         const user = await User.create({ email, userName, passwordHash });
 
-        res.status(201).json({ email: user.email, userName: user.userName, accessToken: "Test" });
+        res.status(201).json({ email: user.email, userName: user.userName, accessToken: user.accessToken });
     } catch (error) {
         res.status(400).json({ message: "Could not register" });
     }
@@ -36,7 +30,7 @@ router.post("/signin", async (req, res) => {
     if (user) {
         const hasCorrectPassword = await bcrypt.compare(password, user.passwordHash);
         if (hasCorrectPassword) {
-            res.status(200).json({ email: user.email, userName: user.userName, accessToken: "Test" });
+            res.status(200).json({ email: user.email, userName: user.userName, accessToken: user.accessToken });
         } else {
             res.status(401).json({ message: "Could not sign in" });
         }
