@@ -14,6 +14,7 @@ export const App = () => {
       }) 
       
       // handle error response till.ex. cors error
+      // it is currently not working, then what is this for?
       if (!response.ok) {
         const errorData = await response.json()
         console.error('Error response:', errorData)
