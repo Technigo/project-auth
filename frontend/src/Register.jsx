@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Button } from './components/Button';
 
 export const Register = () => {
     const [name, setName] = useState('');
@@ -29,26 +29,26 @@ export const Register = () => {
 
     return (
         <div>
-            <h2>Register</h2>
-            <input
+            <h2 className='text-3xl font-bold mt-10'>Register</h2>
+            <input className='display: block mt-2'
                 type="text"
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
-            <input
+            <input className='display: block mt-2'
                 type="text"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
             />
-            <input
+            <input className='display: block mt-2'
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <button onClick={handleRegister}>Register</button>
+            <Button onClick={handleRegister} text="Register" />
         </div>
     );
 };

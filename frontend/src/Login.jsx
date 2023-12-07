@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button } from './components/Button';
+import { Heading } from './components/Heading';
 
 export const Login = ({ onLogin }) => {
     const [email, setEmail] = useState('');
@@ -27,20 +29,21 @@ export const Login = ({ onLogin }) => {
 
     return (
         <div>
-            <h2>Login</h2>
+            <Heading text="Login" />
             <input
                 type="text"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
+                onChange={(e) => setEmail(e.target.value)} />
+
+            <input className='display: block mt-2'
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <button onClick={handleLogin}>Login</button>
+            <Button onClick={handleLogin} text="Login" />
+
         </div>
     );
 };
