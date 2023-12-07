@@ -110,18 +110,10 @@ export const Register = () => {
           {isRegistered && (
             <>
               <p>`Welcome!` {username} `You are now registered`</p>
-              <button
-                className="buttons"
-                type="submit"
-                onClick={onReturnHomeClick}
-              >
+              <button className="buttons" onClick={onReturnHomeClick}>
                 Home
               </button>
-              <button
-                className="buttons"
-                type="submit"
-                onClick={onSignOutClick}
-              >
+              <button className="buttons" onClick={onSignOutClick}>
                 Sign Out
               </button>
             </>
