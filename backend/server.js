@@ -1,13 +1,11 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
+import { connectToMongoDB } from "./config/db";
 import { userRouter } from "./routes/userRouter";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
-mongoose.connect(mongoUrl);
-mongoose.Promise = Promise;
+connectToMongoDB();
 
 // Defines the port the app will run on
 const port = process.env.PORT || 8080;
