@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt-nodejs";
 import { User } from "../models/user";
+import listEndpoints from "express-list-endpoints";
 
 const router = express.Router();
 
