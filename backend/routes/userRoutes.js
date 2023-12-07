@@ -2,9 +2,9 @@ import express from "express";
 import bcrypt from "bcrypt";
 import User from "../models/User";
 
-const router = express.Router();
+const userRoutes = express.Router();
 
-router.post("/register", async (req, res) => {
+userRoutes.post("/register", async (req, res) => {
     try {
         const { email, userName, password } = req.body;
 
@@ -17,20 +17,28 @@ router.post("/register", async (req, res) => {
         const passwordHash = await bcrypt.hash(password, saltRounds);
         const user = await User.create({ email, userName, passwordHash });
 
-        res.status(201).json({ email: user.email, userName: user.userName, accessToken: user.accessToken });
+        res.status(201).json({
+            email: user.email,
+            userName: user.userName,
+            accessToken: user.accessToken,
+        });
     } catch (error) {
         res.status(400).json({ message: "Could not register" });
     }
 });
 
-router.post("/signin", async (req, res) => {
+userRoutes.post("/signin", async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
     if (user) {
         const hasCorrectPassword = await bcrypt.compare(password, user.passwordHash);
         if (hasCorrectPassword) {
-            res.status(200).json({ email: user.email, userName: user.userName, accessToken: user.accessToken });
+            res.status(200).json({
+                email: user.email,
+                userName: user.userName,
+                accessToken: user.accessToken,
+            });
         } else {
             res.status(401).json({ message: "Could not sign in" });
         }
@@ -40,6 +48,6 @@ router.post("/signin", async (req, res) => {
     } else {
         res.status(401).json({ message: "Could not sign in" });
     }
-})
+});
 
-export default router;
+export default userRoutes;

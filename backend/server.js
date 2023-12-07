@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoutes";
 import listEndpoints from "express-list-endpoints";
+import secretRoutes from "./routes/secretRoutes";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -24,6 +25,7 @@ app.get("/", (_, res) => {
 });
 
 app.use(userRoutes);
+app.use(secretRoutes);
 
 // Start the server
 app.listen(port, () => {
