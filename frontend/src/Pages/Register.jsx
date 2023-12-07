@@ -33,7 +33,7 @@ export const Register = () => {
   const text = {
     heading: "SignUp Page",
     intro: "signup here...",
-    loremIpsum: "Lorem ipsum dolor sit amet",
+    loremIpsum: "Sign up to see the super secret message!",
   };
 
   return (
