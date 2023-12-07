@@ -5,8 +5,12 @@ import crypto from 'crypto';
 import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints';
 
+//Mongo db connection is set up
+const mongoUrl = process.env.MONGO_URI || "mongodb://localhost/project-mongo";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.Promise = Promise;
+
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
