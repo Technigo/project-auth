@@ -7,7 +7,7 @@ export const authenticateUser = async (req, res, next) => {
     if (!accessToken) {
       return res.status(401).json({ success: false, response: "Unauthorized" });
     }
-
+    console.log("accessToken", accessToken);
     // Decode the token
     const decoded = jwt.verify(
       accessToken,
@@ -26,7 +26,7 @@ export const authenticateUser = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    res.status(500).json({ success: false, response: error.message });
+    res.status(401).json({ success: false, response: error.message });
   }
 };
 

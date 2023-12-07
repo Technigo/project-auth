@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 
-const apiEnv = import.meta.env.VITE_BACKEND_API;
+const apiEnv = import.meta.env.VITE_BACKEND_API || "http://localhost:8080";
+
 console.log(apiEnv);
 
 const StyledForm = styled.form`
@@ -12,9 +13,7 @@ const StyledForm = styled.form`
 
 const FormFields = styled.div``;
 
-const Buttons = styled.div`
-  display: flex;
-`;
+const Buttons = styled.div``;
 
 export const StartPage = () => {
   const [username, setUsername] = useState("");
@@ -32,9 +31,10 @@ export const StartPage = () => {
       });
       const data = await response.json();
       console.log(data); // Handle the success response
-
+      localStorage.setItem("accessToken", data.response.accessToken);
+      alert("You have successfully registered!");
       // Navigate to a new route after successful registration
-      navigate("/");
+      navigate("/secrets");
     } catch (error) {
       console.error(error); // Handle the error response
     }
@@ -51,7 +51,7 @@ export const StartPage = () => {
       });
       const data = await response.json();
       console.log(data); // Handle the success response
-
+      localStorage.setItem("accessToken", data.response.accessToken);
       // Navigate to a new route after successful login
       navigate("/secrets");
     } catch (error) {
@@ -62,6 +62,7 @@ export const StartPage = () => {
   return (
     <div>
       <h1>Welcome!</h1>
+      <h2>Register or sign in to get access to some secret stuff</h2>
       <StyledForm>
         <FormFields>
           <input
