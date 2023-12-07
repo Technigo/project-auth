@@ -16,42 +16,64 @@ const Dashboard = ({ user, setToken }) => {
       try {
         const token = localStorage.getItem('token');
         console.log('Token from localStorage:', token);
-    
 
         if (!token) {
           setLoading(false);
+          navigate('/'); //Redirect to login if no token is found
           return;
         }
+
         const authorizationHeader = `Bearer ${token}`;
         console.log('Authorization header:', authorizationHeader);
-       
-        
-        const response = await fetch(API_CONTENT_URL, {
+
+        //Handle GET request
+        const getResponse = await fetch(API_CONTENT_URL, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          }
+            Authorization: authorizationHeader,
+          },
+        });
+        
+        //Handle POST request
+        const postData = {};
+        const postResponse = await fetch(API_CONTENT_URL, {
+          method:'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: authorizationHeader,
+          },
+          body: JSON.stringify(postData),
         });
 
-        if (!response.ok) {
+        // Process GET response
+        if (getResponse.ok) {
+          const getData = await getResponse.json();
+          setContent(getData.userDetails ? getData.userDetails.username : '');
+          setProfile(getData.userDetails);
+        } else {
           throw new Error('Content fetch failed');
         }
-        const data = await response.json();
-        
-        setContent(data.message); // Update this line based on your actual response structure
-        setProfile(data.user);
-
-      } catch (error) {
-        console.error('Error fetching content:', error);
-        setError('Failed to fetch content');
-      } finally {
-        setLoading(false);
+       
+        // Process POST response (example)
+      if (postResponse.ok) {
+        const postData = await postResponse.json();
+        console.log('POST Response:', postData);
+        // Process the POST response as needed
+      } else {
+        throw new Error('POST request failed');
       }
-    };
+    } catch (error) {
+      console.error('Error fetching content:', error);
+      setError('Failed to fetch content');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchContent();
-  }, [user]);
+  fetchContent();
+}, [user, navigate]);
+
 
   const handleSignOut = () => {
     setToken(null);
