@@ -12,6 +12,13 @@ export const App = () => {
         },
         body: JSON.stringify({ data: inputID })
       }) 
+      
+      // handle error response till.ex. cors error
+      if (!response.ok) {
+        const errorData = await response.json()
+        console.error('Error response:', errorData)
+        return
+      }
 
       // handle response
       const data = await response.json()
