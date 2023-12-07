@@ -16,7 +16,9 @@ mongoose.connect(mongoUrl, {
 mongoose.Promise = Promise;
 
 const port = process.env.PORT || 8080;
+const express = require('express');
 const app = express();
+const cors = require('cors');
 
 // Add middlewares to enable CORS and JSON body parsing
 app.use(cors());
@@ -32,6 +34,6 @@ app.get("/", (req, res) => {
 app.use('/api/users', userRouter);
 
 // Start the server
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
