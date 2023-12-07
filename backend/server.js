@@ -4,15 +4,22 @@ import mongoose from "mongoose";
 import crypto from 'crypto';
 import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints';
+// In your script
+require('dotenv').config();
 
+//Configure mengoose to allow flexible queries
+mongoose.set('strictQuery', false);
 //Mongo db connection is set up
 const mongoUrl = process.env.MONGO_URI || "mongodb://localhost/project-mongo";
-
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.Promise = Promise;
+const port = process.env.PORT || 8080;
+const app = express();
+
+// Add middlewares to enable cors and json body parsing
+app.use(cors());
+app.use(express.json());
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -47,12 +54,7 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-const port = process.env.PORT || 8080;
-const app = express();
 
-// Add middlewares to enable cors and json body parsing
-app.use(cors());
-app.use(express.json());
 
 // Define root endpoint to display all available endpoints
 app.get('/', (req, res) => {
