@@ -1,8 +1,7 @@
 import express from "express";
-// import listEndpoints from "express-list-endpoints";
-import cryto from "crypto";
 import bcrypt from "bcrypt-nodejs";
 import { User } from "../models/user";
+import listEndpoints from "express-list-endpoints";
 
 const router = express.Router();
 
@@ -13,42 +12,63 @@ const authenticateUser = async (req, res, next) => {
     req.user = user;
     next();
   } else {
-    res.status(401).json({ loggedOut: true });
+    res.status(401).json({ loggedOut: true, message: "Unauthorized access" });
   }
 };
 
-const listEndpoints = require("express-list-endpoints");
+// Register Route
+router.post("/users", async (req, res) => {
+  try {
+    // Basic input validation (can be enhanced)
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+      res.status(400).json({ message: "All fields are required" });
+      return;
+    }
 
-//routes
+    const hashedPassword = bcrypt.hashSync(password);
+    const user = new User({ name, email, password: hashedPassword });
+    await user.save();
+    res
+      .status(201)
+      .json({ success: true, id: user._id, accessToken: user.accessToken });
+  } catch (err) {
+    res
+      .status(400)
+      .json({ message: "Could not create user", error: err.message });
+  }
+});
+
+// Login Route
+router.post("/sessions", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ name: username });
+
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.json({
+        success: true,
+        userId: user._id,
+        accessToken: user.accessToken,
+      });
+    } else {
+      res
+        .status(401)
+        .json({ success: false, message: "Invalid username or password" });
+    }
+  } catch (err) {
+    res.status(400).json({ message: "Login failed", error: err.message });
+  }
+});
+
+// Authenticated Route
+router.get("/secrets", authenticateUser, (req, res) => {
+  res.json({ secret: "This is a super-secret message." });
+});
+
 router.get("/", (req, res) => {
   res.send(listEndpoints(router));
 });
 
-router.post("/users", async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
-    const user = new User({ name, email, password: bcrypt.hashSync(password) });
-    await user.save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
-  } catch (err) {
-    res
-      .status(400)
-      .json({ message: "Could not create user", errors: err.errors });
-  }
-});
-
-router.get("/secrets", authenticateUser);
-router.get("/secrets", (req, res) => {
-  res.json({ secret: "This is super secret message." });
-});
-
-router.post("/sessions", async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken });
-  } else {
-    res.json({ notFound: true });
-  }
-});
 export { router as routes };
 export default router;

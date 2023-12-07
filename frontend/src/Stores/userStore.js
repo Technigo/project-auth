@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 const apiEnv = import.meta.env.VITE_BACKEND_API;
-export const userStore = create((set, get) => ({
+export const userStore = create((set) => ({
   username: "",
   setUsername: (username) => set({ username }),
   email: "",
@@ -13,7 +13,7 @@ export const userStore = create((set, get) => ({
   setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
 
   //function to register users
-  handleSignup: async (username, password, email) => {
+  handleSignup: async (username, password, email, navigate) => {
     if (!username || !password || !email) {
       alert("Please enter username, email and password");
       return;
@@ -24,7 +24,7 @@ export const userStore = create((set, get) => ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, username, password }),
+        body: JSON.stringify({ name: username, email, password }),
       });
       const data = await response.json();
       if (data.success) {
@@ -32,9 +32,10 @@ export const userStore = create((set, get) => ({
         // redirect or update UI
         alert("Sign up successful");
         console.log("sign up with:", username);
+        navigate("/");
       } else {
         //Display errormessage from server
-        alert(data.response || "signup failed");
+        alert(data.message || "signup failed");
       }
     } catch (error) {
       console.error("Signup error:", error);
@@ -54,22 +55,23 @@ export const userStore = create((set, get) => ({
         body: JSON.stringify({ username, password }),
       });
       const data = await response.json();
+      console.log("Login response data:", data); // Log for debugging
       if (data.success) {
         set({
-          username,
-          accessToken: data.response.accessToken,
+          username: data.username || username,
+          accessToken: data.accessToken,
           isLoggedIn: true,
         }); //update the state with username and accesstoken
         //redirect or update UI
-        localStorage.setItem("accessToken", data.response.accessToken);
+        localStorage.setItem("accessToken", data.accessToken);
         alert("Login successful!");
         console.log("Loging up with:", username, password);
       } else {
-        alert(data.response || "Login failed");
+        alert(data.message || "Login failed");
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("An error occured during login");
+      alert("An error occurred during login");
     }
   },
 

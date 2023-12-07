@@ -18,9 +18,9 @@ export const Register = () => {
       return;
     }
     try {
-      await storeHandleSignup(username, password, email);
+      await storeHandleSignup(username, password, email, navigate);
       if (username && password) {
-        navigate("/users"); //replace with your path
+        navigate("/home"); //replace with your path
       }
     } catch (err) {
       // handle any errors that occur during signup
@@ -33,7 +33,7 @@ export const Register = () => {
   const text = {
     heading: "SignUp Page",
     intro: "signup here...",
-    loremIpsum: "Lorem ipsum dolor sit amet",
+    loremIpsum: "Sign up to see the super secret message!",
   };
 
   return (
@@ -44,7 +44,7 @@ export const Register = () => {
             <Link to="/sessions">Login</Link>
           </li>
           <li className="app-li">
-            <Link to="/users">Sign Up</Link>
+            <Link to="/sessions">Sign Up</Link>
           </li>
         </ul>
       </nav>

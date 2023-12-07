@@ -14,10 +14,14 @@ import { routes } from "../backend/routes/routes";
 
 dotenv.config();
 
+
+
 const mongoUrl =
   process.env.MONGO_URL || "mongodb://127.0.0.1:27017/project-auth";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.Promise = Promise;
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => console.log('Successfully connected to MongoDB'))
+   .catch((error) => console.error('Error connecting to MongoDB:', error.message));
+//mongoose.Promise = Promise;
 
 <<<<<<< HEAD
 // const User = mongoose.model("User", {
