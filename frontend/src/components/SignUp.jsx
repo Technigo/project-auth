@@ -14,8 +14,9 @@ export const SignUp = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, username, password }),
+                body: JSON.stringify({ name, userName: username, password }),
             })
+            console.log(username, password, name)
 
             if (response.ok) {
                 alert('Signup was successful, please log in!')

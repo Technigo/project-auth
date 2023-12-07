@@ -1,21 +1,60 @@
 import React from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 export const Login = () => {
+    const signupAPI = "http://localhost:8081"
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [user, setUser] = useState(null) //I think this state needs to be moved up! Pref. to App.jsx. But because of prop drilling it would be better to use Zustand:) 
+
+    const handleLogin = async () => {
+        try {
+            const response = await fetch(`${signupAPI}/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userName: username, password }),
+            });
+            console.log(response)
+
+            if (response.ok) {
+                const data = await response.json();
+                setUser(data) //Updating the userData
+                alert("Login successful!")
+            
+            } else {
+                const errorData = await response.json(); // Extracting error message from response
+                alert(`Login failed: ${errorData.error}`);
+            }
+        } catch (error) {
+            alert('Error during login:', error.message);
+        }
+
+    }
+    
+    //just a console logging the user for debuggning purposes: 
+    useEffect(() => {
+        console.log(user);
+    }, [user]);
+
     return (
         <div className="login">
             <input
                 type="text"
                 placeholder="Username"
-            // value={username}
-            // onChange={(e) => setUsername(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
             />
             <input
                 type="password"
                 placeholder="Password"
-            // value={password}
-            // onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
             />
-            <button>Login</button>
+            <button onClick={handleLogin}>Login</button>
         </div>
     )
+
 }

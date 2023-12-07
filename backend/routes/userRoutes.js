@@ -51,13 +51,25 @@ router.post("/signup", async (req, res) => {
 // Handles user login by checking credentials agains the database. 
 // Returns user details and access token on successful login; otherwise, returns a notFound status.
 router.post("/login", async (req, res) => {
-    const user = await UserModel.findOne({ userName: req.body.userName }) //getting the user from the database
-    if (user && bcrypt.compareSync(req.body.password, user.password)) {
-        res.json({ userId: user._id, accessToken: user.accessToken })
-    } else {
-        res.json({ notFound: true })
+    try {
+        const user = await UserModel.findOne({ userName: req.body.userName });
+
+        if (user) {
+            const passwordMatch = bcrypt.compareSync(req.body.password, user.password);
+
+            if (passwordMatch) {
+                res.json({ userId: user._id, accessToken: user.accessToken });
+            } else {
+                res.status(401).json({ error: "Invalid password" });
+            }
+        } else {
+            res.status(404).json({ error: "User not found" });
+        }
+    } catch (error) {
+        console.error("Login error:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
-})
+});
 
 
 // TEST IDAH FRÅN VAN ca 20 min in. Instructions: An authenticated endpoint which only returns content if the `Authorization` header with the user's token was correct.
