@@ -69,6 +69,7 @@ router.post('/login', asyncHandler(async (req, res) => {
 
 // Authenticated Endpoint
 router.get('/content', asyncHandler(async (req, res) => {
+    console.log('Entire request object:', req);
     const authorizationHeader = req.header('Authorization');
     console.log('Received Authorization header:', authorizationHeader);
 
@@ -78,13 +79,21 @@ router.get('/content', asyncHandler(async (req, res) => {
     }
     
     const token = authorizationHeader.replace('Bearer ', '');
-    console.log('Received token:', token);
+    
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log('Decoded payload:', decoded);
 
         const user = await UserModel.findById(decoded.id).select('-password');
-        res.json({ message: "This content is protected.", user });
+
+        //Send additional user information in the response
+        res.json({ 
+            message: "This content is protected.", 
+            user: {
+                _id: user._id,
+                username: user.username,
+                email: user.email,
+            }
+        });
     } catch (error) {
         res.status(401).json({ error: "You do not have the possibility to view this content." });
     }

@@ -30,6 +30,8 @@ const LoginForm = ({ setToken, setUser }) => {
       
 
       const data = await response.json();
+      console.log('Received token:', data.token);
+      
       setToken(data.token);
       localStorage.setItem('token', data.token);
       setUser(data);
