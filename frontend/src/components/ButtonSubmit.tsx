@@ -11,6 +11,7 @@ export const ButtonSubmit = ({ text, icon }: Props) => {
     <Button
       color="success"
       variant="outlined"
+      type="submit"
       endDecorator={icon ? <ArrowForwardIosIcon /> : ""}
       sx={{
         marginTop: "20px",
