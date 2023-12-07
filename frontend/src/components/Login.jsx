@@ -1,38 +1,8 @@
 import React from "react";
 import { useState } from "react";
+import { useUserStore } from "../stores/useUserStore";
 
 export const Login = () => {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  // const [loggedIn, setLoggedIn] = useState(false);
-
-  //----- Function to process the login -----//
-  const handleLogin = async (event) => {
-    // if (!userName || !password) {
-    //   alert("Plase enter both username and password");
-    //   return;
-    // }
-    // //what happens once sign in button is clicked
-    // const text = {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     name: `${userName}`,
-    //     password: `${password}`,
-    //   }),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorisation: localStorage.getItem("accessToken"),
-    //   },
-    // };
-    // await fetch("https://project-auth-0x8y.onrender.com/", text)
-    //   .then((response) => response.json())
-    //   .then(newUser);
-  };
-
-  const fetchUserInfo = async () => {
-    //get info now once
-  };
-
   return (
     <>
       <div className="bodyContainer">
@@ -45,7 +15,7 @@ export const Login = () => {
               rows="1"
               cols="40"
               placeholder="user name"
-              value={userName}
+              value={username}
               onChange={(e) => setUserName(e.target.value)}
             />
           </p>

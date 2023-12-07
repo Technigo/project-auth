@@ -8,7 +8,7 @@ export const Home = () => {
   return (
     <>
       <div>
-        <Header />{" "}
+        <Header />
         <div className="bodyContainer">
           <h2>Create a new account and sign up here!</h2>
           <Link to={`/register`}>Sign Up</Link>

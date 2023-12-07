@@ -1,58 +1,48 @@
 import React from "react";
 import { useState } from "react";
-import { StoreUser } from "../stores/StoreUser";
-import { useNavigate } from "react-router-dom";
+//import { useUserStore } from "../stores/useUserStore";
+//import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigate = useNavigate();
-
   const [isRegistered, setIsRegistered] = useState(false);
+  //const navigate = useNavigate();
 
   //----Function to handle sign up button click----//
-  const storeHandleSignup = StoreUser((state) => state.handleSignup);
+  //const storeHandleSignup = useUserStore((state) => state.SignupNewUser);
 
-  const onSignupClick = async () => {
+  //const myAPI = "https://mongodb://127.0.0.1:27017/project-auth";
+
+  const myAPI = "http://localhost:8000";
+
+  const onSignupClick = async (event) => {
+    event.preventDefault();
+
     if (!username || !password || !email) {
       alert("Please enter an email, username and password");
       return;
     }
-    try {
-      await storeHandleSignup(username, password, email);
-      if (username && password) {
+
+    const info = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, username, password }),
+    };
+
+    await fetch(`${myAPI}/register`, info)
+      .then((response) => response.json())
+      .then((newUser) => {
+        console.log(newUser);
+        alert(`You have registered successfully`);
+        //PUT CODE HERE for what happens once there was a successful registration.
         setIsRegistered(true);
-      }
-    } catch (error) {
-      // Handle any errors that occur during signup
-      console.error("Signup error:", error);
-      alert("An error occurred during signup");
-    }
+      })
+      .catch((error) => console.log(error));
   };
-
-  //NOTE the below is moved to the stores folder
-  //   const options = {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       name: `${username}`,
-  //       email: `${email}`,
-  //       password: `${password}`,
-  //     }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorisation: localStorage.getItem("accessToken"),
-  //     },
-  //   };
-
-  //   await fetch("mongodb://127.0.0.1:27017/auth", options)
-  //     .then((response) => response.json())
-  //     .then((newUser) => {
-  //       alert(newUser, `You have registered successfully`);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
 
   return (
     <>
