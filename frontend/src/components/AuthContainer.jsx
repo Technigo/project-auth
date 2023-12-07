@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import LoginForm from './LoginForm';
 import RegistrationForm from './RegistrationForm';
+import LoginForm from './LoginForm';
 
 const AuthContainer = ({ onLoginSuccess }) => {
     const [error, setError] = useState(null);
@@ -16,10 +16,9 @@ const AuthContainer = ({ onLoginSuccess }) => {
             });
 
             if (response.ok) {
-                // Registration successful
-                setError(null);
-                console.log('Registration successful');
-                // You can add any additional logic here
+                const data = await response.json();
+                console.log('Registration successful:', data);
+                onLoginSuccess(data.accessToken);
             } else {
                 const errorData = await response.json();
                 setError(errorData.error);
@@ -32,8 +31,28 @@ const AuthContainer = ({ onLoginSuccess }) => {
     };
 
     const handleLogin = async (formData) => {
-        // Login logic remains here
-        // ...
+        try {
+            const response = await fetch('https://authentication-j1oa.onrender.com/sessions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Login successful:', data);
+                onLoginSuccess(data.accessToken);
+            } else {
+                const errorData = await response.json();
+                setError(errorData.error);
+                console.error('Login failed:', errorData.error);
+            }
+        } catch (error) {
+            setError('Error during login. Please try again.');
+            console.error('Error during login:', error);
+        }
     };
 
     return (

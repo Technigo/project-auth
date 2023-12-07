@@ -1,37 +1,25 @@
 import React, { useState } from 'react';
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
 
-    const handleInputChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
-    const handleLogin = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
-        // Handle login logic...
+        onLogin(formData);
     };
 
     return (
-        <form onSubmit={handleLogin}>
-            <h1>Login</h1>
-            <label>
-                Email:
-                <input type="email" name="email" value={formData.email} onChange={handleInputChange} />
-            </label>
-            <br />
-            <label>
-                Password:
-                <input type="password" name="password" value={formData.password} onChange={handleInputChange} />
-            </label>
-            <br />
+        <form onSubmit={handleSubmit}>
+            <input type="email" name="email" placeholder="Email" onChange={handleChange} />
+            <input type="password" name="password" placeholder="Password" onChange={handleChange} />
             <button type="submit">Login</button>
         </form>
     );

@@ -69,11 +69,18 @@ app.post('/users', async (req, res) => {
 
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
     await user.save();
-    res.status(201).json({ message: 'Yay, you are now a member!', id: user._id, accessToken: user.accessToken });
+
+    // Include user data in the response
+    res.status(201).json({
+      message: 'Yay, you are now a member!',
+      user: { id: user._id, name: user.name, email: user.email },
+      accessToken: user.accessToken,
+    });
   } catch (err) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 app.post('/sessions', async (req, res) => {
   try {
@@ -92,8 +99,11 @@ app.post('/sessions', async (req, res) => {
 
 app.use('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
-  res.json({ secret: 'This is a secret message for logged-in users' });
+  const { name } = req.user;
+
+  res.json({ secret: `Hello, ${name}! This is a secret message for logged-in users` });
 });
+
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

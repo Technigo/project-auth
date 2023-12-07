@@ -1,72 +1,30 @@
 import React, { useState } from 'react';
-import LoginForm from './LoginForm';
-import RegistrationForm from './RegistrationForm';
 
-const AuthContainer = ({ onLoginSuccess }) => {
-    const [error, setError] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // New state for login status
+const RegistrationForm = ({ onRegistration }) => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+    });
 
-    const handleRegistration = async (formData) => {
-        try {
-            const response = await fetch('https://authentication-j1oa.onrender.com/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-
-            if (response.ok) {
-                // Registration successful
-                setError(null);
-                console.log('Registration successful');
-                // You can add any additional logic here
-            } else {
-                const errorData = await response.json();
-                setError(errorData.error);
-                console.error('Registration failed:', errorData.error);
-            }
-        } catch (error) {
-            setError('Error during registration. Please try again.');
-            console.error('Error during registration:', error);
-        }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
-    const handleLogin = async (formData) => {
-        try {
-            const response = await fetch('https://authentication-j1oa.onrender.com/sessions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log('Login successful:', data);
-                setIsLoggedIn(true); // Update login status
-                onLoginSuccess(); // Call the callback function
-            } else {
-                const errorData = await response.json();
-                setError(errorData.error);
-                console.error('Login failed:', errorData.error);
-            }
-        } catch (error) {
-            setError('Error during login. Please try again.');
-            console.error('Error during login:', error);
-        }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onRegistration(formData);
     };
 
     return (
-        <div>
-            <h1>Authentication</h1>
-            {isLoggedIn && <p style={{ color: 'green' }}>You are now logged in!</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <RegistrationForm onRegistration={handleRegistration} />
-            <LoginForm onLogin={handleLogin} />
-        </div>
+        <form onSubmit={handleSubmit}>
+            <input type="text" name="name" placeholder="Name" onChange={handleChange} />
+            <input type="email" name="email" placeholder="Email" onChange={handleChange} />
+            <input type="password" name="password" placeholder="Password" onChange={handleChange} />
+            <button type="submit">Register</button>
+        </form>
     );
 };
 
-export default AuthContainer;
+export default RegistrationForm;

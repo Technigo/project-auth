@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
 import AuthContainer from './components/AuthContainer';
-import Dashbord from './components/Dashbord';
+import Dashboard from './components/Dashbord';
 
 export const App = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [accessToken, setAccessToken] = useState('');
 
-  const handleLoginSuccess = () => {
+  const handleLoginSuccess = (token) => {
     setIsUserLoggedIn(true);
+    setAccessToken(token);
   };
 
   const handleLogout = () => {
     setIsUserLoggedIn(false);
+    setAccessToken('');
   };
 
   return (
     <div className="main">
       {isUserLoggedIn ? (
-        <Dashbord onLogout={handleLogout} />
+        <Dashboard accessToken={accessToken} onLogout={handleLogout} />
       ) : (
         <AuthContainer onLoginSuccess={handleLoginSuccess} />
       )}
