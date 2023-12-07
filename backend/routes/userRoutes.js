@@ -80,6 +80,31 @@ router.post(
   asyncHandler(async (req, res) => {
     // Extract email, username and password from the request body
     const { username, password } = req.body;
+
+    try {
+      const user = await UserModel.findOne({ username });
+      if (!user) {
+        return res
+          .status(401)
+          .json({ success: false, response: "User not found" });
+      }
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res
+          .status(401)
+          .json({ success: false, response: "Incorrect password" });
+      }
+      res.status(200).json({
+        success: true,
+        response: {
+          username: user.username,
+          id: user._id,
+          accessToken: user.accessToken,
+        },
+      });
+    } catch (e) {
+      res.status(500).json({ success: false, response: e.message });
+    }
   })
 );
 
