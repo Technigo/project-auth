@@ -46,6 +46,9 @@ export const Register = () => {
       .catch((error) => {
         console.log(error);
         alert("User already exists, please try again");
+        setUsername("");
+        setPassword("");
+        setEmail("");
         setIsRegistered(false);
       });
   };
@@ -60,6 +63,7 @@ export const Register = () => {
     setEmail("");
     setIsRegistered(false);
     localStorage.removeItem("accessToken");
+    navigateToPage("/");
   };
 
   return (
@@ -109,7 +113,8 @@ export const Register = () => {
         <div>
           {isRegistered && (
             <>
-              <p>`Welcome!` {username} `You are now registered`</p>
+              <p>Welcome!</p>
+              <p>{username}, you are now registered.</p>
               <button className="buttons" onClick={onReturnHomeClick}>
                 Home
               </button>

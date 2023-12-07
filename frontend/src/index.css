@@ -11,13 +11,21 @@ code {
     monospace;
 }
 
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 h1 {
   font-size: 45px;
   font-weight: 700;
 }
 
 h2 {
-  font-size: 45px;
+  font-size: 36px;
+  padding-bottom: 1em;
 }
 
 p {
@@ -25,7 +33,7 @@ p {
 }
 
 button {
-  background-color: #349ba2;
+  background-color: #03c485;
   color: #fff;
   padding: 10px 20px;
   border: 1px solid #1a4d51;
@@ -51,6 +59,25 @@ textarea {
   background-color: #fbf8be;
 }
 
+.optionBox {
+  padding: 20px;
+  margin: 1rem;
+  border: 1px solid #1a4d51;
+  border-radius: 50px;
+}
+
+.links {
+  background-color: #03c485;
+  color: #fff;
+  padding: 10px 20px;
+  border: 1px solid #1a4d51;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  text-decoration: none;
+}
+
 .formContainer {
   border-top: 3px solid #1a4d51;
 }
@@ -66,8 +93,7 @@ textarea {
 }
 
 .bodyContainer {
-  background-color: #fbf8be;
-  color: #234e70;
+  color: #0f3a2b;
   padding-bottom: 20em;
   padding-left: 0.5em;
   padding-right: 0.5em;

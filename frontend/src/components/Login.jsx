@@ -54,11 +54,11 @@ export const Login = () => {
     setIsRegistered(false);
     localStorage.removeItem("accessToken");
     console.log("entered onlogoutclick");
+    navigateToPage("/");
   };
 
   const onReturnHomeClick = () => {
     navigateToPage("/");
-    console.log("entered onlogoutclick");
   };
 
   return (
@@ -67,35 +67,40 @@ export const Login = () => {
         <h2>Welcome back </h2>
         <p>LOGIN TO YOUR ACCOUNT</p>
         <form className="formContainer" onSubmit={onLoginClick}>
-          <p>
-            User Name: &nbsp;
-            <textarea
-              rows="1"
-              cols="40"
-              placeholder="user name"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </p>
-          <p>
-            Password: &nbsp;
-            <textarea
-              rows="1"
-              cols="40"
-              placeholder="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </p>
-          <button className="buttons" type="submit">
-            Log in
-          </button>
+          {!isLoggedin && (
+            <>
+              <p>
+                User Name: &nbsp;
+                <textarea
+                  rows="1"
+                  cols="40"
+                  placeholder="user name"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </p>
+              <p>
+                Password: &nbsp;
+                <textarea
+                  rows="1"
+                  cols="40"
+                  placeholder="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </p>
+              <button className="buttons" type="submit">
+                Log in
+              </button>
+            </>
+          )}
         </form>
         <div></div>
         <div>
           {isLoggedin && (
             <>
-              <p>`Welcome back!` {username} `You are now logged in`</p>
+              <p>Welcome back!</p>
+              <p>{username}, you are now logged in.</p>
               <button className="buttons" onClick={onReturnHomeClick}>
                 Home
               </button>
