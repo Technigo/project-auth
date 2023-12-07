@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { UserModel } from "../models/UserModel";
 import asyncHandler from "express-async-handler";
+import { authenticateUser } from "../middleware/authenticateUser";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -111,5 +112,12 @@ router.post(
 // AUTHENTICATED ENDPOINT - only returns content if the Authorization header with the user's token was correct.
 // Return a 401 or 403 with an error message if you try to access it without an Authentication access token or with an invalid token.
 // 401 Unauthorized & 403 Forbidden
+router.get("/logged-in", authenticateUser, (req, res) => {
+  try {
+    res.send("On secret site");
+  } catch (e) {
+    res.status(401).json({ success: false, response: e.message });
+  }
+});
 
 export default router;
