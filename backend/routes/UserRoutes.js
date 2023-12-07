@@ -12,6 +12,27 @@ const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '24h' });
 };
 
+//Authentication Middleware
+const authMiddleware = async (req, res, next) => {
+    const authorizationHeader = req.header('Authorization');
+if (!authorizationHeader && req.method !== 'POST') {
+    return res.status(401).json({ error: "Unauthorized: Missing or invalid token" });
+}
+//Extract token from Authorization header
+const token = authorizationHeader ? authorizationHeader.replace('Bearer ', '') : '';
+
+try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await UserModel.findById(decoded.id).select('-password');
+
+    req.user = user;
+    next();
+} catch (error) {
+    res.status(401).json({ error: "You do not have the possibility to view this content." });
+    }
+};
+
 // Register User
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
@@ -69,36 +90,37 @@ router.post('/login', async (req, res) => {
 });
 
 // Authenticated Endpoint
-router.get('/content', asyncHandler(async (req, res) => {
-    console.log('Entire request object:', req);
-    const authorizationHeader = req.header('Authorization');
-    console.log('Received Authorization header:', authorizationHeader);
-
-    if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
-        res.status(401).json({ error: "Unauthorized: Missing or invalid token" });
-        return;
-    }
+router.route('/content')
+    .all(authMiddleware) // Apply authMiddleware to all methods
+    .get(asyncHandler(async (req, res) => {
     
-    const token = authorizationHeader.replace('Bearer ', '');
-    
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+     // Send additional user information in the GET response
+     res.json({ 
+        success: true,
+        message: "This content is protected.", 
+        userDetails: {
+            username: req.user.username,
+            email: req.user.email,
+        },
+        customData: {
+            // Add any additional data you want to include
+            example: "Additional information here",
+        }
+    });
+}))
+    .post(asyncHandler(async (req, res) => {
+// Handle POST request logic here
+        // For example, you can access data from req.body
+        const postData = req.body;
 
-        const user = await UserModel.findById(decoded.id).select('-password');
+        // Process the data as needed
 
-        //Send additional user information in the response
-        res.json({ 
-            message: "This content is protected.", 
-            user: {
-                _id: user._id,
-                username: user.username,
-                email: user.email,
-            }
+        // Send a response
+        res.json({
+            success: true,
+            message: "POST request processed successfully",
+            data: postData,
         });
-    } catch (error) {
-        res.status(401).json({ error: "You do not have the possibility to view this content." });
-    }
-}));
-
+    }));
 
 export default router;
