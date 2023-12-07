@@ -50,8 +50,11 @@ export const Home = () => {
           </li>
         </ul>
       </nav>
-      <h1 className="heading">{text.heading}</h1>
-      <h2>{text.subheading}</h2>
+
+      <div className="message-wrapping">
+        <h1 className="heading">{text.heading}</h1>
+        <h2>{text.subheading}</h2>
+      </div>
       <p>Welcome to the Home Page!</p>
       {/* Add more content relevant to the home page here */}
     </>
