@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useUserStore } from "../stores/useUserStore";
+import { useNavigate } from "react-router";
 
 export const Login = () => {
   return (

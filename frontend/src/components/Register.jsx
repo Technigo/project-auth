@@ -1,22 +1,21 @@
 import React from "react";
 import { useState } from "react";
-//import { useUserStore } from "../stores/useUserStore";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+//NOTE didn't use Zustand to store info, this confused me a lot!
 
 export const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
-  //const navigate = useNavigate();
 
-  //----Function to handle sign up button click----//
-  //const storeHandleSignup = useUserStore((state) => state.SignupNewUser);
+  const navigateToPage = useNavigate();
 
-  //const myAPI = "https://mongodb://127.0.0.1:27017/project-auth";
-
+  //API TO TEST ON LOCAL HOST
   const myAPI = "http://localhost:8000";
 
+  //----Function to handle sign up button click----//
   const onSignupClick = async (event) => {
     event.preventDefault();
 
@@ -34,14 +33,33 @@ export const Register = () => {
     };
 
     await fetch(`${myAPI}/register`, info)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((newUser) => {
         console.log(newUser);
-        alert(`You have registered successfully`);
-        //PUT CODE HERE for what happens once there was a successful registration.
         setIsRegistered(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        alert("User already exists, please try again");
+        setIsRegistered(false);
+      });
+  };
+
+  const onReturnHomeClick = () => {
+    navigateToPage("/");
+  };
+
+  const onSignOutClick = () => {
+    setUsername("");
+    setPassword("");
+    setEmail("");
+    setIsRegistered(false);
+    localStorage.removeItem("accessToken");
   };
 
   return (
@@ -50,41 +68,65 @@ export const Register = () => {
         <h2>Want to join? </h2>
         <p>CREATE AN ACCOUNT</p>
         <form className="formContainer">
-          <p>
-            User Name: &nbsp;
-            <textarea
-              rows="1"
-              cols="40"
-              placeholder="user name"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </p>
-          <p>
-            Email: &nbsp;
-            <textarea
-              rows="1"
-              cols="40"
-              placeholder="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </p>
-          <p>
-            Password: &nbsp;
-            <textarea
-              rows="1"
-              cols="40"
-              placeholder="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </p>
-          <button className="buttons" type="submit" onClick={onSignupClick}>
-            Sign up!
-          </button>
+          {!isRegistered && (
+            <>
+              <p>
+                User Name: &nbsp;
+                <textarea
+                  rows="1"
+                  cols="40"
+                  placeholder="user name"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </p>
+              <p>
+                Email: &nbsp;
+                <textarea
+                  rows="1"
+                  cols="40"
+                  placeholder="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </p>
+              <p>
+                Password: &nbsp;
+                <textarea
+                  rows="1"
+                  cols="40"
+                  placeholder="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </p>
+              <button className="buttons" type="submit" onClick={onSignupClick}>
+                Sign Up!
+              </button>
+            </>
+          )}
         </form>
-        <div>{isRegistered && <p>display results here</p>}</div>
+        <div>
+          {isRegistered && (
+            <>
+              <p>`Welcome!` {username} `You are now registered`</p>
+              <button
+                className="buttons"
+                type="submit"
+                onClick={onReturnHomeClick}
+              >
+                Home
+              </button>
+              <button
+                className="buttons"
+                type="submit"
+                onClick={onSignOutClick}
+              >
+                Sign Out
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </>
   );
