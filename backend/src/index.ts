@@ -1,10 +1,13 @@
 import express from "express";
 import cors from "cors";
-
-const dotenv = require("dotenv");
-dotenv.config();
+import * as dotenv from "dotenv";
+import helmet from "helmet";
+const mongoose = require("./config/db");
 
 const bcrypt = require("bcrypt-nodejs");
+dotenv.config();
+
+mongoose.connectDB();
 
 const User = require("./models/userModel");
 const listEndpoints = require("express-list-endpoints");
@@ -14,6 +17,7 @@ const app = express();
 
 const userRouter = require("./routes/userRoutes");
 
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
@@ -30,19 +34,6 @@ app.all("*", (req, res, next) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
-
-// const authenticateUser = async (req, res, next) => {
-//   const user = await User.findOne({ accessToken: req.header("Authorization") });
-//   if (user) {
-//     req.user = user;
-//     next();
-//   } else {
-//     req.status(401).json({ loggedOut: true });
-//   }
-// };
-
-// const dbEntry = { name: "bob", password: "Sabbc32983def" };
-// bcrypt.compareSync(request.password, dbEntry.password);
 
 app.post("/users", async (req, res) => {
   try {
@@ -66,6 +57,3 @@ app.post("/sessions", async (req, res) => {
     res.json({ notFound: true });
   }
 });
-
-// app.post("/tweet", authenticateUser);
-// app.post("/tweet", async (req, res) => {});
