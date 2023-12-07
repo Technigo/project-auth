@@ -2,7 +2,7 @@ import { User } from "../models/userModel";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 
-// Creates a route for creating a user
+// Creates a controller function for the route that is used to create a user
 export const registerUserController = asyncHandler(async (req, res) => {
     const { username, password } = req.body;
 
@@ -60,6 +60,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
     }
 });
 
+// Creates a controller function for the route that is used to log in a user
 export const loginUserController = asyncHandler(async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -97,7 +98,7 @@ export const loginUserController = asyncHandler(async (req, res) => {
     }
 });
 
-// Creates a route only reachable for logged in users, the middleware authenticateUser is used to check if the user is logged in
+// Creates a controller function for the route that is used to get the dashboard, which is only accessible if the user is logged in. The authentication is done in the routes-file
 export const getDashboardController = (req, res) => {
     const { username } = req.user; // gets the username from the authenticated user
     try {
@@ -112,6 +113,7 @@ export const getDashboardController = (req, res) => {
     }
 };
 
+// Creates a controller function for the route that is used to get all users
 export const getUsersController = async (req, res) => {
     try {
         const users = await User.find();
