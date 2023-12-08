@@ -43,9 +43,16 @@ body {
   display: flex;
   place-items: center;
   justify-content: center;
-  min-width: 320px;
   min-height: 100vh;
   font-family: "Montserrat", sans-serif;
+  background-image: linear-gradient(
+    to right top,
+    #a9d98b,
+    #56d2b5,
+    #14c2db,
+    #63abe4,
+    #9f8fc9
+  );
 }
 
 .wrapper {
@@ -53,7 +60,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
   gap: 2rem;
 }
 
@@ -62,9 +68,52 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 2rem 4rem;
+  border-radius: 1rem;
+}
+
+.password-input,
+.username-input,
+.email-input {
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
+  align-items: center;
+}
+
+label {
+  color: #000;
 }
 
 input {
   margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  border: none;
+}
+
+input::placeholder {
+  padding-left: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  border: 1px solid grey;
+  border-radius: 10rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 400px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+}
+
+@media ((min-width: 401px) and (max-width: 600px)) {
+  header h1 {
+    font-size: 1.5rem;
+  }
 }

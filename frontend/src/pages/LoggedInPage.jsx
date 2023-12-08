@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { userStore } from "../../stores/userStore";
+import { LottieComp } from "../components/LottieComp";
 
 export const LoggedInPage = () => {
   const storeHandleLogOut = userStore((state) => state.handleLogOut);
@@ -10,7 +11,7 @@ export const LoggedInPage = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-    fetchLoggedInData();
+      fetchLoggedInData();
     } else {
       alert("no permission");
       navigate("/register");
@@ -24,10 +25,10 @@ export const LoggedInPage = () => {
   };
 
   return (
-    <div>
-      <h1>Hej</h1>
-      <p>Data from /logged-in {loggedInData}</p>
+    <>
+      <h1>{loggedInData}</h1>
+      <LottieComp />
       <button onClick={onLogOutClick}>Bye Log out</button>
-    </div>
+    </>
   );
 };

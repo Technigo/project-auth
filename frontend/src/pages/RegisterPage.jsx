@@ -30,7 +30,7 @@ export const RegisterPage = () => {
   console.log(email);
 
   return (
-    <div>
+    <>
       <RegisterForm
         email={email}
         setEmail={setEmail}
@@ -40,6 +40,6 @@ export const RegisterPage = () => {
         setPassword={setPassword}
         onSignUpClick={onSignUpClick}
       />
-    </div>
+    </>
   );
 };

@@ -28,7 +28,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <div>
+    <>
       <LoginForm
         username={username}
         setUsername={setUsername}
@@ -36,7 +36,7 @@ export const LoginPage = () => {
         setPassword={setPassword}
         onLogInClick={onLogInClick}
       />
-    </div>
+    </>
   );
 };
 
