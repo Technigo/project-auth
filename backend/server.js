@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
-import bcrypt from "bcrypt-nodejs";
+import bcrypt from "bcrypt";
 import listEndpoints from 'express-list-endpoints';
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
@@ -77,7 +77,8 @@ app.post('/users', async (req, res) => {
       accessToken: user.accessToken,
     });
   } catch (err) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Registration Error:', err);
+    res.status(500).json({ error: 'Internal Server Error during registration' });
   }
 });
 
