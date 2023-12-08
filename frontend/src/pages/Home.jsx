@@ -1,4 +1,4 @@
-import SignOutButton from "../components/SingOutButton";
+import SignOutButton from "../components/SignOutButton";
 import Adverts from "../sections/Adverts";
 
 const Home = () => {
