@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { useNavigate } from "react-router-dom";
 // const apiEnv = import.meta.env.VITE_BACKEND_API;
 // console.log(apiEnv);
 
@@ -15,8 +16,10 @@ export const userStore = create((set, get) => ({
     isLoggedIn: false,
     setIsLoggedIn: (isLoggedIn) => set({isLoggedIn}),
 
+
     // Function to handle sign-up: First extracting the username, password, email from the fields; then making a POST request to the signup endpoint in database, where the authentication is carried out
     handleSignUp: async (username, password, email) => {
+        const navigate = useNavigate();
         if (!username || !password || !email) {
             alert("Please fill in all the fields");
             return;
@@ -37,6 +40,9 @@ export const userStore = create((set, get) => ({
                 set({username, password, email});
                 alert("Sign up successful");
                 console.log("Signing up with: ", username);
+                // if (username && password && email) {
+                    navigate("/home");
+                // }
             } else {
                 alert(data.response || "Sign up failed");
             }
@@ -48,6 +54,7 @@ export const userStore = create((set, get) => ({
 
     // Function to handle log-in: First extracting the username, password from the fields; then making a POST request to the signin endpoint in database, where the authentication is carried out
     handleLogIn: async (username, password) => {
+        const navigate = useNavigate();
         if (!username || !password) {
             alert("Please fill in all the fields");
             return;
@@ -73,6 +80,7 @@ export const userStore = create((set, get) => ({
                 localStorage.setItem("accessToken", data.response.accessToken);
                 alert("Log in successful");
                 console.log("Logging in with: ", username);
+                navigate("/home");
             } else {
                 alert(data.response || "Login failed");
             }
