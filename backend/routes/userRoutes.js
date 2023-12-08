@@ -19,7 +19,7 @@ const generateToken = (user) => {
   });
 };
 
-// ----- ROUTES STARTS HERE -----
+// ----- ROUTES STARTS HERE ----
 
 // Endpoint "/" to return documentation of API using Express List Endpoints.
 router.get("/", (req, res) => {
