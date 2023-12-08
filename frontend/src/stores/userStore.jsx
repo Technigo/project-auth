@@ -37,7 +37,12 @@ export const userStore = create((set, get) => ({
             const data = await response.json();
 
             if (data.success) {
-                set({username, password, email});
+                set({
+                    username, 
+                    password, 
+                    email,
+                    isLoggedIn: true
+                });
                 alert("Sign up successful");
                 console.log("Signing up with: ", username);
 

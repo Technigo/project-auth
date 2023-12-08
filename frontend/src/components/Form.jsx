@@ -39,7 +39,8 @@ const Form = () => {
     e.preventDefault();
 
     await storeHandleSignup(username, password, email);
-    if (username && password && email) {
+    const isLoggedIn = userStore.getState().isLoggedIn;
+    if (isLoggedIn) {
       navigate("/home");
     }
   };
@@ -48,7 +49,9 @@ const Form = () => {
     e.preventDefault();
 
     await storeHandleLogin(username, password);
-    if (username && password) {
+
+    const isLoggedIn = userStore.getState().isLoggedIn;
+    if (isLoggedIn) {
       navigate("/home");
     }
   };
