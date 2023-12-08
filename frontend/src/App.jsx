@@ -8,7 +8,9 @@ export const App = () => {
     <>
       <BrowserRouter>
         <div className="wrapper">
-          <Routes>{routes}</Routes>
+          <Routes>
+            {routes}
+          </Routes>
         </div>
       </BrowserRouter>
     </>
