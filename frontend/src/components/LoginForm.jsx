@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "../index.css";
 
 const LoginForm = ({ onLogin }) => {
     const [formData, setFormData] = useState({
@@ -17,11 +18,14 @@ const LoginForm = ({ onLogin }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-            <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-            <button type="submit">Login</button>
-        </form>
+        <div className='login'>
+            <h3>Already a member? Log in:</h3>
+            <form onSubmit={handleSubmit}>
+                <input type="email" name="email" placeholder="Email" onChange={handleChange} />
+                <input type="password" name="password" placeholder="Password" onChange={handleChange} />
+                <button type="submit">Login</button>
+            </form>
+        </div>
     );
 };
 

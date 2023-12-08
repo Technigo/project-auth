@@ -60,7 +60,7 @@ const AuthContainer = ({ onLoginSuccess }) => {
 
     return (
         <div>
-            <h1>Authentication</h1>
+            <h1>Project Authentication</h1>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <RegistrationForm onRegistration={handleRegistration} />
             <LoginForm onLogin={handleLogin} />
