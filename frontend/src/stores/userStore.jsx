@@ -64,7 +64,7 @@ export const userStore = create((set, get) => ({
       });
 
       const data = await response.json();
-      if (data.success) {
+      if (response.ok) {
         set({
           username,
           accessToken: data.response.accessToken,
@@ -76,7 +76,7 @@ export const userStore = create((set, get) => ({
         console.log("Loging up with:", username, password);
       } else {
         // Display error message from server
-        alert(data.response || "Login failed");
+        alert(data.message || "Login failed");
       }
     } catch (error) {
       console.error("Login error:", error);
