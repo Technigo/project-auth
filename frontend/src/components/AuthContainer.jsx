@@ -6,6 +6,7 @@ const AuthContainer = ({ onLoginSuccess }) => {
     const [error, setError] = useState(null);
 
     const handleRegistration = async (formData) => {
+        console.log('Form Data:', formData);
         try {
             const response = await fetch('https://authentication-j1oa.onrender.com/users', {
                 method: 'POST',
@@ -23,6 +24,8 @@ const AuthContainer = ({ onLoginSuccess }) => {
                 const errorData = await response.json();
                 setError(errorData.error);
                 console.error('Registration failed:', errorData.error);
+                console.log('Server Response:', response);
+                console.log('Error Data:', errorData);
             }
         } catch (error) {
             setError('Error during registration. Please try again.');
