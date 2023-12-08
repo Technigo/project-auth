@@ -41,6 +41,12 @@ router.post('/login', async (req, res) => {
 // Export the router for use in other files
 export default router;
 
+// 'authUser.js':
+// Uses the comparePassword method from the User model to check if the entered password matches the hashed password stored in the database.
+// This middleware is applied to routes where user authentication is required.
+
+
+
 //Explanation:This middleware defines a route ('/login') for handling user login.
 // It retrieves the username and password from the request body.
 // It searches for the user in the database by the provided username.

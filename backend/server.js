@@ -1,7 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import authUserMiddleware from './authUser';
+import authUserMiddleware from '../backend/middleware/authUser';
+import userRoutes from './models/userModel';
+import secretRoute from './routes/secretRoutes';
+import listEndpoints from 'express-list-endpoints';
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -19,11 +22,19 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.json(listEndpoints(app));
 });
 
 // Use the authUserMiddleware for authentication routes
 app.use('/auth', authUserMiddleware);
+// Use the userRoutes for registration and sign-in routes
+app.use('/user', userRoutes);
+// Use the secretRoute for the authenticated secret content route
+app.use('/secret', secretRoute);
+
+// Display a list of available endpoints
+console.log(listEndpoints(app));
+
 
 // Start the server
 app.listen(port, () => {

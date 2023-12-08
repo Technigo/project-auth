@@ -56,14 +56,18 @@ const User = mongoose.model('User', userSchema);
 export default User;
 
 
+// 'userModel.js':
+// Contains a Mongoose middleware (pre-save hook) that automatically hashes the password before saving it to the database.
+// This middleware is applied to the User schema using userSchema.pre('save', ...).
+// The hashed password is stored in the database.
+
+
 //In cryptography, a "salt" is random data that is generated and used as an additional input to a one-way function (in this case, a password hashing function). The primary purpose of using a salt is to defend against dictionary attacks, pre-computed rainbow table attacks, and similar techniques.
 
+
 // Explanation of key points:
-
 // userSchema: This defines the structure of the user document in the MongoDB collection. It includes fields for username, password, and accessToken.
-
 // pre('save') middleware: This middleware runs before saving a new user or updating an existing user. It hashes the password using bcrypt before saving it to the database.
-
 // comparePassword method: This method is added to the user schema to compare entered passwords with the hashed password stored in the database.
-
 // User model: This is created using the mongoose.model function, which takes the model name ('User') and the user schema.
+

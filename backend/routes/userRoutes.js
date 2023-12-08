@@ -62,3 +62,14 @@ export default router;
 // The '/register' route handles user registration. It creates a new user instance, saves it to the database, and returns a success message.
 // The '/signin' route handles user sign-in. It searches for the user by the provided username, compares the entered password with the hashed password in the database, and returns a success message if the credentials are valid.
 // Both routes handle potential errors and return appropriate responses.
+
+// Registration (/register route):
+
+// When a new user is registered, you create a new instance of the User model using const newUser = new User({ username, password });.
+// The userModel.js file contains a pre-save middleware using bcrypt that automatically hashes the password before saving it to the database. This ensures that the actual password is not stored in the database.
+
+// Sign-In (/signin route):
+
+// When a user attempts to sign in, you find the user in the database based on the provided username using const user = await User.findOne({ username });.
+// If the user is found, you use the comparePassword method from the userModel.js file. This method compares the entered password with the hashed password stored in the database. It internally uses bcrypt to perform this comparison.
+// If the password is valid, the user is signed in successfully.

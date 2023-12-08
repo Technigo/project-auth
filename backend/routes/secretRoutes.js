@@ -1,5 +1,5 @@
 import express from 'express';
-import authenticateUser from './authUser'; // Import the authentication middleware
+import authenticateUser from '../middleware/authUser'; // Import the authentication middleware
 
 // Create an instance of the Express Router
 const router = express.Router();
