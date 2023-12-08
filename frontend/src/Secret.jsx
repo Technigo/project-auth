@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
+
+//components
 import { Button } from './components/Button';
+import { Heading } from './components/Heading';
+import { Paragraph } from './components/Paragraph';
 
 export const Secret = ({ user }) => {
     const [secretMessage, setSecretMessage] = useState(null);
@@ -29,6 +33,7 @@ export const Secret = ({ user }) => {
         }
     };
 
+    //get secrets
     const handleGenerateNewSecret = async () => {
         try {
             const response = await fetch('https://backend-auth-vxpp.onrender.com/secrets', {
@@ -52,10 +57,10 @@ export const Secret = ({ user }) => {
 
     return (
         <div className='text-center'>
-            <h2>Secret Message</h2>
+            <Heading text="Secret message" />
             {secretMessage ? (
                 <div>
-                    <p>{secretMessage}</p>
+                    <Paragraph text={secretMessage} size="xl p-2" />
                     <Button onClick={handleGenerateNewSecret} text="Generate New Secret" />
                 </div>
             ) : (

@@ -5,7 +5,7 @@ import { Secret } from './Secret';
 
 //components
 import { Button } from './components/Button';
-
+import { Heading } from './components/Heading';
 
 export const App = () => {
   const [user, setUser] = useState(null);
@@ -19,10 +19,11 @@ export const App = () => {
   };
 
   return (
-    <div className="text-center flex flex-col items-center justify-center h-screen">
+    <div className="text-center flex flex-col items-center justify-center h-screen bg-indigo-300">
       {user ? (
         <div>
-          <p>Welcome {user.name}!</p>
+          <Heading text={`Welcome ${user.name}!`} size="xl" />
+
           <Secret user={user} />
           <Button onClick={handleLogout} text="Logout" />
         </div>
