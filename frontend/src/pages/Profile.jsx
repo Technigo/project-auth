@@ -1,3 +1,16 @@
+import { userStore } from "../stores/userStore";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 export const Profile = () => {
-  return <div>Profile- Secret</div>;
+  const { isLoggedIn } = userStore();
+  const navigate = useNavigate();
+
+  if (!isLoggedIn) {
+    alert("You don't have permission, please log in first😍");
+    navigate("/login");
+  }
+  return (
+    <div>We will continue to work with this profile page with private part</div>
+  );
 };
