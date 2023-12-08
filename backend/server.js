@@ -70,8 +70,8 @@ app.post('/users', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ name, email, password: hashedPassword });
+    console.log('Attempting to save user:', user);
     await user.save();
-
     console.log('User saved successfully:', user);
 
     // Include user data in the response
