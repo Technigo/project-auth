@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import authUserMiddleware from './authUser';
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -20,6 +21,9 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
+
+// Use the authUserMiddleware for authentication routes
+app.use('/auth', authUserMiddleware);
 
 // Start the server
 app.listen(port, () => {
