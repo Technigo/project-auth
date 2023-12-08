@@ -39,6 +39,8 @@ const Form = () => {
     e.preventDefault();
 
     await storeHandleSignup(username, password, email);
+
+    // Only successfully signed-up user can see the authenticated content
     const isLoggedIn = userStore.getState().isLoggedIn;
     if (isLoggedIn) {
       navigate("/home");
@@ -50,6 +52,7 @@ const Form = () => {
 
     await storeHandleLogin(username, password);
 
+    // Only successfully signed-up user can see the authenticated content
     const isLoggedIn = userStore.getState().isLoggedIn;
     if (isLoggedIn) {
       navigate("/home");
@@ -85,7 +88,7 @@ const Form = () => {
           </div>
         ) : null}
 
-        <button type="submit" onClick={signUpMode ? onSignUpClick : onLogInClick}>
+        <button type="submit" className="button" onClick={signUpMode ? onSignUpClick : onLogInClick}>
           {signUpMode ? "SIGN UP" : "LOG IN"}
         </button>
       </form>
