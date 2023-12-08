@@ -1,4 +1,4 @@
-// server.js
+// // server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -10,7 +10,14 @@ require('dotenv').config(); // Load environment variables
 const app = express();
 const PORT = 3002;
 
-mongoose.connect('mongodb+srv://innak:QcivkJ43dXnGpCDq@cluster0.2gg8hqf.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect('mongodb://localhost/your-database-name', { useNewUrlParser: true, useUnifiedTopology: true });
+
+
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.Promise = Promise;
+
+
 
 app.use(bodyParser.json());
 
@@ -50,3 +57,4 @@ app.get('/api/endpoints', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
