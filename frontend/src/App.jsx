@@ -1,5 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
-import { AppRoutes } from "./routes/appRoutes";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import LandingPage from "./pages/LandingPage";
 
 // Set up the routing and display the navigation links
 export const App = () => {
@@ -8,7 +10,10 @@ export const App = () => {
     <>
       <BrowserRouter>
         {/* Defining the routes for the application */}
-        <AppRoutes />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<Home />} />
+        </Routes>
       </BrowserRouter>
     </>
   )
