@@ -89,7 +89,6 @@ export const userStore = create((set, get) => ({
       }
     } catch (error) {
       console.error("Error fetching /logged-in:", error)
-
     } 
   },
   handleLogOut: () => {
