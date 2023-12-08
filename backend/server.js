@@ -1,25 +1,27 @@
 // // server.js
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const authRoutes = require('./routes/auth');
-const jwt = require('jsonwebtoken');
-const listEndpoints = require('express-list-endpoints');
-require('dotenv').config(); // Load environment variables
+
+import express from 'express';
+import { connect, Promise as _Promise } from 'mongoose';
+import { json } from 'body-parser';
+import authRoutes from './routes/auth';
+import { verify } from 'jsonwebtoken';
+import listEndpoints from 'express-list-endpoints';
+const dotenv = require('dotenv').config();
+//require('dotenv').config(); // Load environment variables
 
 const app = express();
 const PORT = 3002;
 
-// mongoose.connect('mongodb://localhost/your-database-name', { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect('mongodb://localhost/your-database-name', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-// mongoose.Promise = Promise;
+connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+_Promise = Promise;
 
 
 
-app.use(bodyParser.json());
+app.use(json());
 
 // Middleware to check the authentication token for protected routes
 const authenticateToken = (req, res, next) => {
@@ -28,7 +30,7 @@ const authenticateToken = (req, res, next) => {
     return res.status(401).send('Authentication token is missing');
   }
 
-  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
+  verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
     if (err) {
       if (err.name === 'TokenExpiredError') {
         return res.status(401).send('Authentication token has expired');
