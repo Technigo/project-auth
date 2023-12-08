@@ -27,7 +27,7 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 10%;
-  background-image: url("./public/background.jpg");
+  background-image: url(../public/background.jpg);
   background-size: cover;
   background-repeat: no-repeat;
 }
