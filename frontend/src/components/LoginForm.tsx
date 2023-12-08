@@ -9,7 +9,7 @@ export const LoginForm = () => {
       </FormControl>
       <FormControl id="password">
         <FormLabel required={true}>Password</FormLabel>
-        <Input name="password" placeholder="password..." className="p-2 mb-4" />
+        <Input name="password" type="password" placeholder="password..." className="p-2 mb-4" />
       </FormControl>
     </>
   );

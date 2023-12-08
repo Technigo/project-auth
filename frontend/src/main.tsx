@@ -8,32 +8,33 @@ import { SignUp } from "./pages/SignUp.tsx";
 import { LogIn } from "./pages/LogIn.tsx";
 import { SignOut } from "./pages/SignOut.tsx";
 import { Home } from "./pages/Home.tsx";
+import { Page404 } from "./pages/404.tsx";
 
 const router = createBrowserRouter([
-  { path: "/", element: <App /> },
+  { path: "/", element: <App />, errorElement: <Page404 /> },
   {
     element: <AppLayout />,
-    // errorElement: <Error />,
+    errorElement: <Page404 />,
     children: [
       {
         path: "/home",
         element: <Home />,
-        // errorElement: <Error />,
+        errorElement: <Page404 />,
       },
       {
         path: "/signup",
         element: <SignUp />,
-        // errorElement: <Error />,
+        errorElement: <Page404 />,
       },
       {
         path: "/login",
         element: <LogIn />,
-        // errorElement: <Error />,
+        errorElement: <Page404 />,
       },
       {
         path: "/signout",
         element: <SignOut />,
-        // errorElement: <Error />,
+        errorElement: <Page404 />,
       },
     ],
   },

@@ -31,20 +31,22 @@ exports.createNewUser = async (req: Request, res: Response) => {
 exports.loginUser = async (req: Request, res: Response) => {
   const user = await User.findOne({ email: req.body.email });
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ id: user._id, accessToken: user.accessToken });
+    res.status(200).json({ status: true, name: user.name, accessToken: user.accessToken });
   } else {
-    res.status(400).json({ notFound: true });
+    res.status(400).json({ status: false, notFound: true });
   }
 };
+
+////// not tested yet ///////
 
 exports.getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.find();
     console.log(users);
-    res.status(200).json({ status: "success", users });
+    res.status(200).json({ status: true, users });
   } catch (err) {
     console.error(err);
-    res.status(400).json({ status: "error", message: err.error });
+    res.status(400).json({ status: false, message: err.error });
   }
 };
 
