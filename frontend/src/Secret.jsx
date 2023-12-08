@@ -10,7 +10,7 @@ export const Secret = ({ user }) => {
 
     const fetchSecretMessage = async () => {
         try {
-            const response = await fetch('http://localhost:8080/secrets', {
+            const response = await fetch('https://backend-auth-vxpp.onrender.com/secrets', {
                 headers: {
                     Authorization: user.accessToken,
                 },
@@ -31,7 +31,7 @@ export const Secret = ({ user }) => {
 
     const handleGenerateNewSecret = async () => {
         try {
-            const response = await fetch('http://localhost:8080/secrets', {
+            const response = await fetch('https://backend-auth-vxpp.onrender.com/secrets', {
                 headers: {
                     Authorization: user.accessToken,
                 },
