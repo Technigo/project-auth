@@ -15,15 +15,22 @@ export const registerUserController = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Please add all fields");
     }
+
     // second condition
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\S]{6,}$/;
+    if (!passwordRegex.test(password)) {
+      res.status(400);
+      throw new Error("Password must be at least 6 characters and include lowercase, uppercase, and a number.");
+    }
+
+    // third condition
     const existingUser = await UserModel.findOne({
       $or: [{ username }, { email }],
     });
     if (existingUser) {
       res.status(400);
       throw new Error(
-        `User with ${
-          existingUser.username === username ? "username" : "email"
+        `User with ${existingUser.username === username ? "username" : "email"
         } already exists`
       );
     }

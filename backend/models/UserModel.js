@@ -14,7 +14,13 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      minlength: 6,
+      validate: {
+        validator: (password) => {
+          const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\S]{6,}$/;
+          return regex.test(password);
+        },
+        message: 'Password must be at least 6 characters and include lowercase, uppercase, and a number.',
+      },
     },
     email: {
       type: String,

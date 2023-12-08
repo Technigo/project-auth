@@ -16,12 +16,20 @@ export const Register = () => {
 
   const onSignupClick = async () => {
     if (!username || !password || !email) {
-      alert("Please enter email, username and password");
+      alert("Please enter email, username, and password");
       return;
     }
+  
+    // THIS IS NEW: Password validation using Regex
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\S]{6,}$/;
+    if (!passwordRegex.test(password)) {
+      alert("Password must be at least 6 characters and include lowercase, uppercase, and a number.");
+      return;
+    }
+  
     try {
       await storeHandleSignup(username, password, email);
-
+  
       navigate("/login");
     } catch (error) {
       // Handle any errors that occur during signup
