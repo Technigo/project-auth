@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 export const RegisterForm = ({
   email,
@@ -11,7 +11,7 @@ export const RegisterForm = ({
 }) => {
   return (
     <div>
-      <form className="register-form">
+      <div className="register-form">
         <label htmlFor="userName">Username</label>
         <input
           type="text"
@@ -39,15 +39,11 @@ export const RegisterForm = ({
           placeholder="email"
           required
         />
-        <button onClick={onSignUpClick}>
-          Register
-        </button>
-      </form>
+        <button onClick={onSignUpClick}>Register</button>
+      </div>
+      <Link to="/">
+        <button>Login</button>
+      </Link>
     </div>
   );
 };
-
-// A registration form.
-// A sign-in form.
-// A page to show the authenticated content from the API.
-// A 'sign out' button that removes the saved access token and redirects the user to the login form.

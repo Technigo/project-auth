@@ -9,7 +9,7 @@ export const LoginForm = ({
 }) => {
   return (
     <div>
-      <form className="login-form">
+      <div className="login-form">
         <label htmlFor="userName">Username</label>
         <input
           type="text"
@@ -29,7 +29,7 @@ export const LoginForm = ({
           required
         />
         <button onClick={onLogInClick}>Log in</button>
-      </form>
+      </div>
       <Link to="/register">
         <button>Create a account</button>
       </Link>
