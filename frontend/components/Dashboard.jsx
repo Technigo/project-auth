@@ -85,7 +85,7 @@ const Dashboard = ({ user, setToken }) => {
     <Container>
       <Header>Welcome, {user?.username}! </Header>
       {loading ? (
-        <Paragraph>Loading content...</Paragraph>
+        <Paragraph>Hope you are having an amazing day!</Paragraph>
       ) : (
         <>
         {error ? (
