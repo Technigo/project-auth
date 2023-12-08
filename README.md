@@ -12,5 +12,3 @@ Describe how you approached to problem, and what tools and techniques you used t
 
 Frontend: https://master--thunderous-fox-950320.netlify.app/
 Backend: https://emmylj-project-auth-l1i0.onrender.com/
-
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
