@@ -19,17 +19,19 @@ export const Register = () => {
       alert("Please enter email, username, and password");
       return;
     }
-  
+
     // Password validation using Regex
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\S]{6,}$/;
     if (!passwordRegex.test(password)) {
-      alert("Password must be at least 6 characters and include lowercase, uppercase, and a number.");
+      alert(
+        "Password must be at least 6 characters and include lowercase, uppercase, and a number."
+      );
       return;
     }
-  
+
     try {
       await storeHandleSignup(username, password, email);
-  
+
       navigate("/login");
     } catch (error) {
       // Handle any errors that occur during signup
@@ -71,7 +73,7 @@ export const Register = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <p className={styles.firstText}>
-          Password (must be 12 characters or more, including both uppercase,
+          Password (must be 6 characters or more, including both uppercase,
           lowercase letters and a number).
         </p>
         <p className={styles.secondText}>
