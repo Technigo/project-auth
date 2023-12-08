@@ -1,21 +1,44 @@
 import { Link } from "react-router-dom";
 import { LoginForm } from "../components/LoginForm";
 import { ButtonSubmit } from "../components/ButtonSubmit";
+import { loginUser } from "../sevices/apis";
+import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { userState } from "../atoms/userAtom";
+import { useSetAtom } from "jotai";
 
 export const LogIn = () => {
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
+  const setCurrentUser = useSetAtom(userState);
+
+  const handleLogin = async (event: FormEvent<HTMLFormElement> | undefined) => {
+    event?.preventDefault();
+    setError(false);
+    const formData = new FormData(event?.currentTarget);
+    const formJson = Object.fromEntries((formData as any).entries());
+
+    const loginData = {
+      email: formJson.email,
+      password: formJson.password,
+    };
+
+    const logined = await loginUser(loginData);
+    console.log(logined);
+    if (logined.notFound) {
+      setError(true);
+      alert("User doesn't exist");
+    } else {
+      alert("You are logged in!!");
+      setCurrentUser({ name: logined.name, accessToken: logined.accessToken, login: true });
+      navigate("/home");
+    }
+  };
+
   return (
     <div className="w-full sm:max-w-[400px]">
       <h2 className="text-3xl text-center font-bold text-lime-900">Saku TODO 🌸</h2>
-      <form
-        className="w-96 sm:w-full"
-        onSubmit={(event) => {
-          event.preventDefault();
-          const formData = new FormData(event.currentTarget);
-          const formJson = Object.fromEntries((formData as any).entries());
-          alert(JSON.stringify(formJson));
-          console.log(formJson);
-        }}
-      >
+      <form className="w-96 sm:w-full" onSubmit={handleLogin}>
         <LoginForm />
         <div className="flex flex-col items-center justify-center">
           <ButtonSubmit text="Log in" />
