@@ -19,7 +19,9 @@ export const registerUserController = asyncHandler(async (req, res) => {
     // second condition
     if (!passwordRegex.test(password)) {
       res.status(400);
-      throw new Error("Password must be at least 6 characters and include lowercase, uppercase, and a number.");
+      throw new Error(
+        "Password must be at least 6 characters and include lowercase, uppercase, and a number."
+      );
     }
 
     // third condition
@@ -29,7 +31,8 @@ export const registerUserController = asyncHandler(async (req, res) => {
     if (existingUser) {
       res.status(400);
       throw new Error(
-        `User with ${existingUser.username === username ? "username" : "email"
+        `User with ${
+          existingUser.username === username ? "username" : "email"
         } already exists`
       );
     }
@@ -99,9 +102,9 @@ export const loginUserController = asyncHandler(async (req, res) => {
   }
 });
 
-//@desc Get user private page
-//@rounte Get /secrect
-//@access Private
-// export const secrect = asyncHandler(async (req, res) => {
-//   res.status(200).json(req.user);
-// });
+// @desc Get user private page
+// @rounte Get /secret
+// @access Private
+export const secret = asyncHandler(async (req, res) => {
+  res.status(200).json(req.user);
+});
