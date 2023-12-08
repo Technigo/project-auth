@@ -74,16 +74,22 @@ router.post("/login", async (req, res) => {
 
 // TEST IDAH FRÅN VAN ca 20 min in. Instructions: An authenticated endpoint which only returns content if the `Authorization` header with the user's token was correct.
 
+
 // Endpoint: GET "/starter"
 // An authenticated endpoint which only returns content if the 'Authorization' header with the user's token was correct (will only happen if the next() function is called from the middleware)
-router.get('/starter', authenticateUser)
-// Route handler for the authenticated endpoint
-router.get('/starter', async (req, res) => {
-    //Successful request
-    res.json({ secret: "Super secret starter page!" })
+router.get('/logged-in', authenticateUser, async (req, res) => {
+    // Successful request
+    res.json({ secret: "Super secret starter page!" });
 
-    //Error handling: 
+    // You can add additional logic here if needed
 
-})
+    // Error handling if necessary
+    try {
+        // Additional logic here if needed
+    } catch (error) {
+        console.error("Error in /starter endpoint:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
 
 export default router

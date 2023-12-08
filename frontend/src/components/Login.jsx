@@ -1,11 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import {useNavigate } from "react-router-dom"
 import { userStore } from "../stores/userStore"
 
 export const Login = () => {
     const signupAPI = "http://localhost:8081"
     const { username, setUsername, password, setPassword, user, setUser } = userStore()
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
@@ -22,6 +24,7 @@ export const Login = () => {
                 const data = await response.json();
                 setUser(data) //Updating the userData
                 alert("Login successful!")
+                navigate("/logged-in")
 
             } else {
                 const errorData = await response.json(); // Extracting error message from response
