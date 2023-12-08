@@ -1,6 +1,6 @@
 import { create } from "zustand";
-const apiEnv = import.meta.env.BACKEND_API;
-console.log(apiEnv);
+// const apiEnv = import.meta.env.VITE_BACKEND_API;
+// console.log(apiEnv);
 
 export const userStore = create((set, get) => ({
     // Using same properties as those in AdvertiserModel
@@ -23,7 +23,7 @@ export const userStore = create((set, get) => ({
         }
 
         try {
-            const response = await fetch(`${apiEnv}/register`, {
+            const response = await fetch("https://hang-authentication-project.onrender.com/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -54,7 +54,7 @@ export const userStore = create((set, get) => ({
         }
 
         try {
-            const response = await fetch(`${apiEnv}/signin`, {
+            const response = await fetch("https://hang-authentication-project.onrender.com/signin", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
