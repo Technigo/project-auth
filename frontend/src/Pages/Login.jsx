@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import Animation from "../assets/Animation.json";
 
+
 export const Login = () => {
   const navigate = useNavigate();
 
@@ -31,7 +32,7 @@ export const Login = () => {
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("An error occurred during login");
+      alert("Invalid username or password");
     }
   };
 
