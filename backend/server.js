@@ -60,6 +60,7 @@ app.get("/", (req, res) => {
 
 app.post('/users', async (req, res) => {
   try {
+    console.log('Received registration request:', req.body);
     const { name, email, password } = req.body;
     const existingUser = await User.findOne({ email });
 
@@ -69,6 +70,8 @@ app.post('/users', async (req, res) => {
 
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
     await user.save();
+
+    console.log('User saved successfully:', user);
 
     // Include user data in the response
     res.status(201).json({
