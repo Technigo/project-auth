@@ -20,6 +20,7 @@ export const userStore = create((set, get) => ({
       return;
     }
     try {
+      console.log("apiEnv:", apiEnv);
       const response = await fetch(`${apiEnv}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
