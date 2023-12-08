@@ -3,6 +3,8 @@ import crypto from "crypto";
 
 const { Schema } = mongoose;
 
+export const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\S]{6,}$/;
+
 const userSchema = new Schema(
   {
     username: {
@@ -15,10 +17,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       validate: {
-        validator: (password) => {
-          const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\S]{6,}$/;
-          return regex.test(password);
-        },
+        validator: (password) => passwordRegex.test(password),
         message: 'Password must be at least 6 characters and include lowercase, uppercase, and a number.',
       },
     },

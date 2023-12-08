@@ -1,4 +1,4 @@
-import { UserModel } from "../models/UserModel";
+import { UserModel, passwordRegex } from "../models/UserModel";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -17,7 +17,6 @@ export const registerUserController = asyncHandler(async (req, res) => {
     }
 
     // second condition
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\S]{6,}$/;
     if (!passwordRegex.test(password)) {
       res.status(400);
       throw new Error("Password must be at least 6 characters and include lowercase, uppercase, and a number.");

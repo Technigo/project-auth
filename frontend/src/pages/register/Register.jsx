@@ -20,7 +20,7 @@ export const Register = () => {
       return;
     }
   
-    // THIS IS NEW: Password validation using Regex
+    // Password validation using Regex
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\S]{6,}$/;
     if (!passwordRegex.test(password)) {
       alert("Password must be at least 6 characters and include lowercase, uppercase, and a number.");
