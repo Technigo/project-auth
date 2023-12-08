@@ -68,7 +68,8 @@ app.post('/users', async (req, res) => {
       return res.status(400).json({ error: 'Email already in use' });
     }
 
-    const user = new User({ name, email, password: bcrypt.hashSync(password) });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({ name, email, password: hashedPassword });
     await user.save();
 
     console.log('User saved successfully:', user);
@@ -84,6 +85,7 @@ app.post('/users', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error during registration' });
   }
 });
+
 
 
 app.post('/sessions', async (req, res) => {
