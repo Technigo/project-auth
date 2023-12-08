@@ -1,11 +1,11 @@
 import React from "react"
 import { Route } from "react-router-dom"
-import { Landingpage } from "../Pages/Landingpage"
-import { Loggedin } from "../Pages/Loggedin"
+import { LandingPage } from "../pages/LandingPage"
+import { LoggedinPage} from "../pages/LoggedinPage"
 
 export const routes = (
     <>
-        <Route path="/" element={<Landingpage />}></Route>
-        <Route path="/logged-In" element={<Loggedin />}></Route>
+        <Route path="/" element={<LandingPage />}></Route>
+        <Route path="/logged-In" element={<LoggedinPage />}></Route>
     </>
 )

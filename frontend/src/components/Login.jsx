@@ -6,10 +6,16 @@ import { userStore } from "../stores/userStore"
 
 export const Login = () => {
     const signupAPI = "http://localhost:8081"
-    const { username, setUsername, password, setPassword, user, setUser } = userStore()
+    const { username, setUsername, password, setPassword, user, setUser, setAccessToken, setIsLoggedIn } = userStore()
     const navigate = useNavigate();
 
     const handleLogin = async () => {
+
+         if (!username || !password) {
+             alert("Please enter both username and password");
+             return
+         }
+
         try {
             const response = await fetch(`${signupAPI}/login`, {
                 method: 'POST',
@@ -22,7 +28,9 @@ export const Login = () => {
 
             if (response.ok) {
                 const data = await response.json();
+                setAccessToken(data.accessToken)
                 setUser(data) //Updating the userData
+                localStorage.setItem("accessToken", data.accessToken);
                 alert("Login successful!")
                 navigate("/logged-in")
 
@@ -38,7 +46,7 @@ export const Login = () => {
 
     //just a console logging the user for debuggning purposes: 
     useEffect(() => {
-        console.log(user);
+        console.log("User:", user);
     }, [user]);
 
     return (
