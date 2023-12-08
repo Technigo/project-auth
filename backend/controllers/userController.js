@@ -1,4 +1,4 @@
-import { UserModel } from "../models/UserModel";
+import { UserModel, passwordRegex } from "../models/UserModel";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -15,15 +15,21 @@ export const registerUserController = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Please add all fields");
     }
+
     // second condition
+    if (!passwordRegex.test(password)) {
+      res.status(400);
+      throw new Error("Password must be at least 6 characters and include lowercase, uppercase, and a number.");
+    }
+
+    // third condition
     const existingUser = await UserModel.findOne({
       $or: [{ username }, { email }],
     });
     if (existingUser) {
       res.status(400);
       throw new Error(
-        `User with ${
-          existingUser.username === username ? "username" : "email"
+        `User with ${existingUser.username === username ? "username" : "email"
         } already exists`
       );
     }
