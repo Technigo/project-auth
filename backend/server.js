@@ -1,25 +1,21 @@
-// // server.js
+// server.js
 
 import express from 'express';
-import { connect, Promise as _Promise } from 'mongoose';
+import { connect } from 'mongoose';
 import { json } from 'body-parser';
+import cors from 'cors';  // Import the cors middleware
 import authRoutes from './routes/auth';
 import { verify } from 'jsonwebtoken';
 import listEndpoints from 'express-list-endpoints';
 const dotenv = require('dotenv').config();
-//require('dotenv').config(); // Load environment variables
 
 const app = express();
 const PORT = 3002;
 
-//mongoose.connect('mongodb://localhost/your-database-name', { useNewUrlParser: true, useUnifiedTopology: true });
-
-
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-Promise = Promise;
 
-
+app.use(cors());  // Use cors middleware here
 
 app.use(json());
 
@@ -59,4 +55,3 @@ app.get('/api/endpoints', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-
