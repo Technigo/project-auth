@@ -1,5 +1,5 @@
 import { create } from "zustand";
-const apiEnv = import.meta.env.VITE_BACKEND_API;
+const apiEnv = import.meta.env.BACKEND_API;
 
 export const userStore = create((set, get) => ({
     // Using same properties as those in AdvertiserModel
