@@ -1,4 +1,5 @@
 /*---------- GOOGLE FONTS -  ----------*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
 
 /*---------- BASE ----------*/
 * {
@@ -35,26 +36,33 @@ img {
 
 button {
   cursor: pointer;
-  border: none;
-  outline: none;
 }
 
 /*---------- LAYOUT ----------*/
 body {
-  width: 100%;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
 }
 
 .wrapper {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 3rem;
-  gap: 3rem;
+  font-size: 2rem;
+  gap: 2rem;
 }
 
 form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 input {

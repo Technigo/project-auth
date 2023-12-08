@@ -109,6 +109,16 @@ router.post(
   })
 );
 
+// LIST USERS ROUTE ENDPOINT - retrieve the list of registered users.
+router.get("/users", asyncHandler(async (req, res) => {
+  try {
+    const users = await UserModel.find({}, { password: 0, accessToken: 0 }); // Exclude sensitive fields from the response
+    res.status(200).json({ success: true, response: users });
+  } catch (e) {
+    res.status(500).json({ success: false, response: e.message });
+  }
+}));
+
 // AUTHENTICATED ENDPOINT - only returns content if the Authorization header with the user's token was correct.
 // Return a 401 or 403 with an error message if you try to access it without an Authentication access token or with an invalid token.
 // 401 Unauthorized & 403 Forbidden

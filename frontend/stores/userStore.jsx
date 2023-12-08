@@ -66,7 +66,7 @@ export const userStore = create((set, get) => ({
       }
     } catch (error) {
       console.error("Log in error:", error);
-      alert("An error occured during log in");
+      alert("An error occurred during log in");
     }
   },
   handleLogOut: () => {
