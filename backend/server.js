@@ -1,51 +1,32 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import crypto from 'crypto';
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from 'bcryptjs';
 import listEndpoints from 'express-list-endpoints';
-// In your script
-require('dotenv').config();
+import dotenv from 'dotenv';
+import User from './models/userModel';
 
-//Configure mengoose to allow flexible queries
+dotenv.config();
+
+// Set mongoose to allow flexible queries
 mongoose.set('strictQuery', false);
-//Mongo db connection is set up
+
+// Connect to MongoDB
 const mongoUrl = process.env.MONGO_URI || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
+// Set up express app
 const port = process.env.PORT || 8080;
 const app = express();
 
-// Add middlewares to enable cors and json body parsing
+// Enable cors and JSON body parsing
 app.use(cors());
 app.use(express.json());
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
-
-const User = mongoose.model('user', {
-  name: {
-    type: String,
-    unique: true
-  },
-  email: {
-    type: String,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  accessToken: {
-    type: String,
-    default: () => crypto.randomBytes(128).toString('hex')
-  }
-});
-
+// Middleware to authenticate user based on access token
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header('Authorization') })
+  const user = await User.findOne({ accessToken: req.header('Authorization') });
   if (user) {
     req.user = user;
     next();
@@ -54,33 +35,36 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-
-
-// Define root endpoint to display all available endpoints
+// Root endpoint to display available endpoints
 app.get('/', (req, res) => {
   try {
-    // Gets a list of required endpoints
     const endpoints = listEndpoints(app);
-
-    // Respond with the list of endpoints
     res.json({ endpoints });
   } catch (error) {
-    // Handle the error appropriately for the root endpoint
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
-//endpoint to post userdata
+
+// Endpoint for user registration
 app.post('/users', async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
-    user.save();
+
+    await user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
+
   } catch (err) {
-    res.status(400).json({ message: 'Could not create user', errors: err.errors })
+    console.error('User Registration Error:', err);
+    if (err.code === 11000) {
+      res.status(400).json({ message: 'Email is already in use.' });
+    } else {
+      res.status(500).json({ message: 'Could not create user. Please try again later.' });
+    }
   }
-})
+});
+
 const secrets = [
   'I have a hidden talent for juggling flaming torches while riding a unicycle.',
   'Every Friday night, I secretly host a karaoke party for my collection of talking houseplants.',
@@ -94,27 +78,31 @@ const secrets = [
   'I believe in the existence of a parallel universe where everyone communicates through interpretive dance.'
 ];
 
-// Protected endpoint, accessible only when the user is logged in
+//Protected endpoint, accessible only when the user is logged in
 app.get('/secrets', authenticateUser);
 app.get('/secrets', (req, res) => {
-  // The authenticateUser middleware ensures that only logged-in users reach this point
-  // Randomly select a secret from the array
   const randomSecret = secrets[Math.floor(Math.random() * secrets.length)];
   res.json({ secret: randomSecret });
 });
 
-
+// Endpoint for user login
 app.post('/sessions', async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
 
-  if (user && bcrypt.compareSync(password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken, name: user.name });
-  } else {
-    res.status(401).json({ error: 'Invalid email or password' });
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.json({ userId: user._id, accessToken: user.accessToken, name: user.name });
+    } else {
+      res.status(401).json({ error: 'Invalid email or password' });
+    }
+  } catch (err) {
+    console.error('User Login Error:', err);
+    res.status(500).json({ message: 'Could not authenticate. Please try again later.' });
   }
 });
-// Start the server 
+
+// Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
