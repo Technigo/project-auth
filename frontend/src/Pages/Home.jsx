@@ -53,10 +53,13 @@ export const Home = () => {
 
       <div className="message-wrapping">
         <h1 className="heading">{text.heading}</h1>
-        <h2>{text.subheading}</h2>
+        <div className="secret-message" style={{ whiteSpace: "pre-line" }}>
+          {text.subheading}
+        </div>
       </div>
-      <p>Welcome to the Home Page!</p>
-      {/* Add more content relevant to the home page here */}
+      <div className="final-welcome">
+        <p>Welcome to the Home Page!</p>
+      </div>
     </>
   );
 };

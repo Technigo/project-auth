@@ -42,6 +42,8 @@ body {
 
 .app-li {
   margin: 4px;
+  font-size: 20px;
+  padding-left: 8%;
 }
 
 .login-content {
@@ -96,4 +98,16 @@ button:hover {
 
 .message-wrapping h2 {
   font-size: 30px;
+}
+
+.secret-message {
+  padding-bottom: 10%;
+}
+
+.final-welcome {
+  font-size: 30px;
+  padding-left: 10%;
+  padding-bottom: 10%;
+  color: rgb(0, 95, 95);
+  font-style: oblique;
 }
