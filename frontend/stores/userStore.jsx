@@ -13,6 +13,7 @@ export const userStore = create((set, get) => ({
   setAccessToken: (token) => set({ accessToken: token }),
   isLoggedIn: false,
   setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
+  loggedInData: null, 
   handleSignUp: async (username, password, email) => {
     if (!username || !password || !email) {
       alert("Please enter username, password and email");
@@ -68,6 +69,28 @@ export const userStore = create((set, get) => ({
       console.error("Log in error:", error);
       alert("An error occurred during log in");
     }
+  },
+  fetchLoggedInData: async () => {
+    try {
+      const accessToken = get().accessToken
+      const response = await fetch(`${apiEnv}/logged-in`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${accessToken}`
+        }
+      })
+       const data = await response.json()
+      if (data.success) {
+        set({loggedInData: data.response})
+        console.log("Data from /logged-in", data);
+      } else {
+        console.error(data.response || "Failed to fetch /logged-in")
+      }
+    } catch (error) {
+      console.error("Error fetching /logged-in:", error)
+
+    } 
   },
   handleLogOut: () => {
     set({ username: "", accessToken: null, isLoggedIn: false });

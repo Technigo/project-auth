@@ -12,14 +12,14 @@ const router = express.Router();
 const listEndpoints = require("express-list-endpoints");
 
 // Function to generate a JWT token for user authentication.
-const generateToken = (user) => {
-  // Generate a JWT token containing the user's unique ID, with an optional secret key and a 24-hour expiration time.
-  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "24h", // Token expires in 24 hours.
-  });
-};
+// const generateToken = (user) => {
+//   // Generate a JWT token containing the user's unique ID, with an optional secret key and a 24-hour expiration time.
+//   return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+//     expiresIn: "24h", // Token expires in 24 hours.
+//   });
+// };
 
-// ----- ROUTES STARTS HERE ----
+// ----- ROUTES STARTS HERE --------
 
 // Endpoint "/" to return documentation of API using Express List Endpoints.
 router.get("/", (req, res) => {
@@ -124,7 +124,7 @@ router.get("/users", asyncHandler(async (req, res) => {
 // 401 Unauthorized & 403 Forbidden
 router.get("/logged-in", authenticateUser, (req, res) => {
   try {
-    res.send("On secret site");
+    res.status(200).json({ success: true, response: "On secret site"});
   } catch (e) {
     res.status(401).json({ success: false, response: e.message });
   }
