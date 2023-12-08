@@ -17,7 +17,7 @@ const PORT = 3002;
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-_Promise = Promise;
+Promise = Promise;
 
 
 
