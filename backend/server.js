@@ -1,6 +1,6 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
 import authUserMiddleware from './authUser';
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";

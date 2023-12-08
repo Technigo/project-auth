@@ -41,3 +41,10 @@ router.post('/login', async (req, res) => {
 // Export the router for use in other files
 export default router;
 
+//Explanation:This middleware defines a route ('/login') for handling user login.
+// It retrieves the username and password from the request body.
+// It searches for the user in the database by the provided username.
+// If the user is found, it compares the entered password with the hashed password in the database using the comparePassword method from the 'userModel.js'.
+// If the credentials are valid, it generates an access token (you need to replace the placeholder with your actual token generation logic) and attaches it to the user in the database.
+// The middleware then sends a response with the access token.
+
