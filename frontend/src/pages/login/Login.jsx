@@ -23,7 +23,6 @@ export const Login = () => {
 
       if (isLoggedIn) {
         navigate("/profile");
-        return;
       }
     } catch (error) {
       console.error("Login error:", error);

@@ -5,7 +5,7 @@ import {
   loginUserController,
   secret,
 } from "../controllers/userController";
-// import { authenticateUser } from "../middleware/authenticateUser";
+import { authenticateUser } from "../middleware/authenticateUser";
 
 const router = express.Router();
 
