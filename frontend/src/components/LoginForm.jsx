@@ -9,7 +9,7 @@ export const LoginForm = ({
 }) => {
   return (
     <div>
-      <div className="login-form">
+      <div className="form">
         <label htmlFor="userName">Username</label>
         <input
           type="text"

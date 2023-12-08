@@ -11,7 +11,7 @@ export const RegisterForm = ({
 }) => {
   return (
     <div>
-      <div className="register-form">
+      <div className="form">
         <label htmlFor="userName">Username</label>
         <input
           type="text"
