@@ -12,10 +12,17 @@ export const GetStarted = () => {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-
+    
         try {
+            console.log('Logging in with username:', username);
+            console.log('Logging in with password:', password);
+    
+            // Wait for loginUser to complete and update the state
             await loginUser(username, password);
+    
+            // Now, check the updated state
             const isLoggedIn = useUserStore.getState().isLoggedIn;
+    
             // If the user is logged in, the accessToken will be saved in localStorage and the user will be redirected to the dashboard
             if (isLoggedIn) {
                 navigate("/dashboard");
@@ -25,12 +32,13 @@ export const GetStarted = () => {
             console.error("There was an error =>", error);
         }
     }
+    
 
     return (
         <>
             <h1>Welcome here!</h1>
             <h2>Please sign in to see the content 🧡</h2>
-            <form className="form-wrapper">
+            <div className="form-wrapper">
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
                     <input
@@ -55,7 +63,7 @@ export const GetStarted = () => {
                     <Button className={"primary"} handleOnClick={handleLogin} btnText={"Login"} />
                     <Link to="/register"><Button className={"secondary"} btnText={"Register"} /></Link>
                 </div>
-            </form>
+            </div>
         </>
     )
 }

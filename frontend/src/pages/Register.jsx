@@ -14,8 +14,8 @@ export const Register = () => {
         event.preventDefault();
 
         try {
-            await registerUser(username, password);
-            if (username && password) {
+            await registerUser(username, password, email);
+            if (username && password && email) {
                 navigate("/getstarted");
                 return;
             }
@@ -28,7 +28,7 @@ export const Register = () => {
         <>
             <h1>New here?</h1>
             <h2>No worries, just create a new account to be able to join the community!</h2>
-            <form className="form-wrapper">
+            <div className="form-wrapper">
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
                     <input
@@ -62,7 +62,7 @@ export const Register = () => {
                     <Button className={"secondary"} handleOnClick={handleRegister} btnText={"Register"} />
                     <Link to="/"><Button className={"primary"} btnText={"Start over"} /></Link>
                 </div>
-            </form>
+            </div>
         </>
     )
 }
