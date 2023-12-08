@@ -1,18 +1,18 @@
 import Logos from "../components/Logos";
 import { Link } from "react-router-dom";
-import { userStore } from "../stores/userStore"; // Make sure this is correctly imported
+import { userStore } from "../stores/userStore"; 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // Function to handle the click event of the login button
+  
   const storeHandleLogin = userStore((state) => state.handleLogin);
 
-  // Combined function for handling the login click event
+  
   const onLoginClick = async () => {
     if (!username || !password) {
       alert("Please enter both username and password");
@@ -21,58 +21,74 @@ export const Login = () => {
     try {
       await storeHandleLogin(username, password);
       const isLoggedIn = userStore.getState().isLoggedIn;
-      //console.log(storeIsLoggedIn);
+      
       if (isLoggedIn) {
         navigate("/home");
       }
-      // Additional logic after successful login can be added here
+      
     } catch (error) {
-      // Handle any errors that occur during login
+      
       console.error("Login error:", error);
       alert("An error occurred during login");
     }
   };
 
-  // Text
+  
   const text = {
-    heading: "Login Page",
-    intro: "login here...",
-    loremIpsum:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae fugit ipsam quo accusantium autem officia necessitatibus ullam voluptati",
+    heading: "Login",
+    intro: "Welcome back! Log in to your account.",
+    details: "Enter your username and password to access your account.",
+    usernamePlaceholder: "Username",
+    passwordPlaceholder: "Password",
+    loginButtonText: "Login",
+    additionalText: "Don't have an account? ",
+    registrationLinkText: "Sign Up",
   };
+  
 
   return (
     <>
       <nav>
         <ul className="app-ul">
           <li className="app-li">
-            <Link to="/">Login</Link>
+            <Link to="/" className="app-link">Login</Link>
           </li>
           <li className="app-li">
-            <Link to="/register">Sign Up</Link>
+            <Link to="/register" className="app-link">Sign Up</Link>
           </li>
         </ul>
       </nav>
       <Logos />
-      <div>
-        <h2>{text.heading}</h2>
+      <div className="card-container">
+        <h2 className="card-heading">{text.heading}</h2>
         <p>{text.intro}</p>
-        <p>{text.loremIpsum}</p>
+        <p>{text.details}</p>
         <div className="user-login">
           <input
+            className="card-input"
             type="text"
-            placeholder="Username"
+            placeholder={text.usernamePlaceholder}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
+            className="card-input"
             type="password"
-            placeholder="Password"
+            placeholder={text.passwordPlaceholder}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button onClick={onLoginClick}>Login</button>
+          <button className="card-button" onClick={onLoginClick}>
+            {text.loginButtonText}
+          </button>
         </div>
+        {/* Additional text or links */}
+        <p>
+          {text.additionalText}
+          <Link className="card-link" to="/register">
+            {text.registrationLinkText}
+          </Link>
+        </p>
       </div>
     </>
   );

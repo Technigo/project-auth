@@ -12,28 +12,28 @@ export const Home = () => {
 
   const { isLoggedIn } = userStore();
   console.log(isLoggedIn);
-  // You can use the useNavigate hook to programmatically navigate
+  
   const navigate = useNavigate();
   if (!isLoggedIn) {
-    // If the user is not logged in, you can navigate to a different route or display a login page
+    
     alert("no permission");
-    navigate("/register"); // You can change this to the login route
+    navigate("/register"); 
   }
 
-  // Function to handle the click event of the logout button
+  
   const onLogoutClick = () => {
     storeHandleLogout();
-    // Additional logic after logout can be added here
+    
     alert("Log out succesfull");
-    navigate("/"); // You can change this to the login route
+    navigate("/"); 
   };
 
   return (
     <>
-      <nav>
+      <nav className="Nav-wrapper">
         <ul className="app-ul">
           <li className="app-li">
-            <Link to="/home">Home</Link>
+            <Link to="/home" >Home</Link>
           </li>
           <li className="app-li">
             <Link to="/tasks">Tasks</Link>

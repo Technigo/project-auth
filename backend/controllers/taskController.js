@@ -24,26 +24,56 @@ export const getTasksController = asyncHandler(async (req, res) => {
 // desciption: POST Tasks
 // route: /add
 // access: Private
+// export const addTaskController = asyncHandler(async (req, res) => {
+//   try {
+//     // Extract the task data from the request body
+//     const { task } = req.body;
+//     // Extract the accessToken from the request object, but it is not going to be from the req.body but, its going to be from the req.header
+//     const accessToken = req.header("Authorization"); // we are requesting the Authorization key from the headerObject
+//     // get the user and matchIt with the user from the db - remmeber that we are using the accessToken to do so :)
+//     const userFromStorage = await UserModel.findOne({
+//       accessToken: accessToken,
+//     });
+//     // Define var to pass new task
+//     const newTask = new TaskModel({
+//       task: task,
+//       user: userFromStorage,
+//     }).save();
+//     res.json(newTask);
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// });
+
+// desciption: POST Tasks
+// route: /add
+// access: Private
 export const addTaskController = asyncHandler(async (req, res) => {
   try {
     // Extract the task data from the request body
     const { task } = req.body;
-    // Extract the accessToken from the request object, but it is not going to be from the req.body but, its going to be from the req.header
-    const accessToken = req.header("Authorization"); // we are requesting the Authorization key from the headerObject
-    // get the user and matchIt with the user from the db - remmeber that we are using the accessToken to do so :)
+    // Extract the accessToken from the request object
+    const accessToken = req.header("Authorization");
+    // Get the user based on the accessToken
     const userFromStorage = await UserModel.findOne({
       accessToken: accessToken,
     });
-    // Define var to pass new task
+
+    // Define the new task without saving it immediately
     const newTask = new TaskModel({
       task: task,
       user: userFromStorage,
-    }).save();
-    res.json(newTask);
+    });
+
+    // Save the new task
+    const savedTask = await newTask.save();
+
+    res.json(savedTask); // Respond with the saved task in JSON format
   } catch (error) {
     res.status(500).json(error);
   }
 });
+
 
 // desciption: PUT/PATCH a specific task to mark it complete
 // route: /update/:id"

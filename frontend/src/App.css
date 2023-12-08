@@ -1,9 +1,20 @@
 #root {
-    max-width: 1280px;
+    
     margin: 0 auto;
-    padding: 2rem;
     min-height: 100vh;
     text-align: center;
+  }
+
+  body {
+    background: linear-gradient(to right, #1e5799, #2989d8, #7db9e8); /* Adjust colors as needed */
+    margin: 0;
+    font-family: 'Arial', sans-serif; 
+  }
+
+  nav {
+    background: linear-gradient(to right, #4caf50, #45a049); /* Your gradient color */
+    padding: 2em;
+    margin: 0;
   }
   
   .logo {
@@ -18,15 +29,25 @@
   }
   
   .app-ul {
-    list-style-type: none; /* Remove bullets */
-    padding: 0; /* Remove padding */
-    margin: 0; /* Remove margin */
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0; 
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
   
   .app-li {
-    margin-bottom: 10px; /* Add some space between list items */
+    margin-bottom: 0; 
+    margin-left: 1em; 
+  }
+
+  .app-link {
+    color: white; 
+    text-decoration: none;
+  }
+  
+  .app-link:hover {
+    text-decoration: underline;
   }
   
   .heading {
@@ -55,9 +76,53 @@
   }
   
   .card-container {
-    border: 1px solid red;
-    margin-bottom: 1em;
-    padding: 1em;
+    background: linear-gradient(to right, #4caf50, #2196f3); /* Adjust colors as needed */
+    max-width: 400px;
+    margin: 0 auto; /* Center the card horizontally */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    color: #fff; /* Adjust text color for better visibility on the gradient */
+  }
+  
+  .card-heading {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #1b7021;
+  }
+  
+  .card-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .card-button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .card-button:hover {
+    background-color: #45a049;
+  }
+  
+  .card-link {
+    color: #1b7021;
+    text-decoration: none;
+  }
+  
+  .card-link:hover {
+    text-decoration: underline;
   }
   
   .green-border {
@@ -67,3 +132,113 @@
   .red-border {
     border: 1px solid red;
   }
+
+  /* Registration Styles */
+.user-registration > input,
+.user-registration > button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.user-registration > button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.user-registration > button:hover {
+  background-color: #45a049;
+}
+
+
+
+/* Desktop Styles */
+@media screen and (min-width: 1024px) {
+  .logo {
+    height: 3em; /* Increase logo size for desktop */
+    padding: 2em;
+  }
+
+  .heading {
+    font-size: 1.8em; /* Increase heading font size for desktop */
+  }
+
+  .card {
+    padding: 2.5em; /* Adjust padding for cards on desktop */
+  }
+
+  .user-login > input,
+  .user-registration > input {
+    height: 2.5em; /* Adjust input height for desktop */
+  }
+
+  .card-container {
+    margin-bottom: 1.5em; /* Adjust margin for card containers on desktop */
+  }
+}
+
+/* Tablet Styles */
+@media screen and (max-width: 768px) {
+  /* Adjustments for tablet screens */
+
+  .logo {
+    height: 1.8em; /* Decrease logo size */
+    padding: 1em;
+  }
+
+  .heading {
+    font-size: 1.2em;
+  }
+
+  .card {
+    padding: 1.5em; /* Adjust padding for cards on tablets */
+  }
+
+  .user-login > input,
+  .user-registration > input {
+    height: 1.8em; /* Adjust input height for tablets */
+  }
+
+  .card-container {
+    margin-bottom: 1em; 
+    margin-right: 1em; 
+    margin-left: 1em; 
+  }
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 480px) {
+  /* Adjustments for mobile screens */
+
+  .logo {
+    height: 1.2em; /* Decrease logo size */
+    padding: 0.5em;
+  }
+
+  .heading {
+    font-size: 1em;
+  }
+
+  .card {
+    padding: 1em; /* Adjust padding for cards on mobile */
+  }
+
+  .user-login > input,
+  .user-registration > input {
+    height: 1.5em; /* Adjust input height for mobile */
+  }
+
+  .card-container {
+    margin-bottom: 0.8em; 
+    margin-right: 1em; 
+    margin-left: 1em; 
+  }
+}

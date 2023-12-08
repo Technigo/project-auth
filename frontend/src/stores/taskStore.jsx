@@ -9,6 +9,7 @@ export const taskStore = create((set) => ({
   userId: userStore.userId,
   addTask: (newTask) => set((state) => ({ tasks: [...state.tasks, newTask] })),
   setTasks: (tasks) => set({ tasks }),
+
   // New action to delete all tasks
   deleteAllTasks: async () => {
     try {
@@ -24,6 +25,7 @@ export const taskStore = create((set) => ({
       console.error(error);
     }
   },
+
   // New action to fetch tasks
   fetchTasks: async () => {
     try {
@@ -43,14 +45,15 @@ export const taskStore = create((set) => ({
       console.error(error);
     }
   },
+
   // New action to add a task to the server and then to the store
   addTaskToServer: async (task) => {
     try {
       const response = await fetch(`${apiEnv}/add`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          Authorization: localStorage.getItem("accessToken"),
-          "Content-Type": "application/json",
+          'Authorization': localStorage.getItem('accessToken'),
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ task: task }),
       });
@@ -67,7 +70,8 @@ export const taskStore = create((set) => ({
       console.error(error);
     }
   },
-  // New action to update the boolean is done value in the store -
+
+  // New action to update the boolean is done value in the store
   handleEdit: async (id) => {
     try {
       const response = await fetch(`${apiEnv}/update/${id}`, {
@@ -93,7 +97,8 @@ export const taskStore = create((set) => ({
       console.error(error);
     }
   },
-  // New action to ddelete the specific task by its id
+
+  // New action to delete the specific task by its id
   deleteTaskById: async (id) => {
     try {
       const response = await fetch(`${apiEnv}/delete/${id}`, {

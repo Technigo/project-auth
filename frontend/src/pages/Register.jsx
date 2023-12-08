@@ -5,17 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export const Register = () => {
-  // TEST
+  
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // Initialize the navigate function
+  
   const navigate = useNavigate();
 
-  // Function to handle the click event of the signup button
+  
   const storeHandleSignup = userStore((state) => state.handleSignup);
 
-  // Combined function for handling the signup click event
+  
   const onSignupClick = async () => {
     if (!username || !password || !email) {
       alert("Please enter email, username and password");
@@ -24,10 +24,10 @@ export const Register = () => {
     try {
       await storeHandleSignup(username, password, email);
       if (username && password) {
-        navigate("/"); // Replace with your desired path
+        navigate("/"); 
       }
     } catch (error) {
-      // Handle any errors that occur during signup
+      
       console.error("Signup error:", error);
       alert("An error occurred during signup");
     }
@@ -37,9 +37,9 @@ export const Register = () => {
   // Text
   const text = {
     heading: "SignUp Page",
-    intro: "signup here...",
-    loremIpsum:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae fugit ipsam quo accusantium autem officia necessitatibus ullam voluptati",
+    intro: "Create your account and join us!",
+    welcome:
+      "Welcome to our community. Sign up to discover amazing features and connect with others.",
   };
 
   return (
@@ -47,18 +47,18 @@ export const Register = () => {
       <nav>
         <ul className="app-ul">
           <li className="app-li">
-            <Link to="/">Login</Link>
+            <Link to="/" className="app-link">Login</Link>
           </li>
           <li className="app-li">
-            <Link to="/register">Sign Up</Link>
+            <Link to="/register" className="app-link">Sign Up</Link>
           </li>
         </ul>
       </nav>
       <Logos />
-      <div>
+      <div className="card-container">
         <h2>{text.heading}</h2>
         <p>{text.intro}</p>
-        <p>{text.loremIpsum}</p>
+        <p>{text.welcome}</p>
         <div className="user-registration">
           <input
             type="text"

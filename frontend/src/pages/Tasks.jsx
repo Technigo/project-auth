@@ -6,7 +6,7 @@ import { userStore } from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 export const Tasks = () => {
-  // Text
+  
   const text = {
     heading: "Tasks Page",
     intro: "Tasks Here",
@@ -24,7 +24,7 @@ export const Tasks = () => {
 
   const navigate = useNavigate();
   const storeHandleLogout = userStore((state) => state.handleLogout);
-  // Function to handle the click event of the logout button
+  
   const onLogoutClick = () => {
     storeHandleLogout();
     // Additional logic after logout can be added here
