@@ -9,6 +9,7 @@ export const Profile = () => {
   if (!isLoggedIn) {
     alert("You don't have permission, please log in first😍");
     navigate("/login");
+    return null;
   }
   return (
     <div>We will continue to work with this profile page with private part</div>
