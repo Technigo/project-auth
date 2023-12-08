@@ -10,7 +10,7 @@ require('dotenv').config(); // Load environment variables
 const app = express();
 const PORT = 3002;
 
-mongoose.connect('mongodb://localhost/your-database-name', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://innak:QcivkJ43dXnGpCDq@cluster0.2gg8hqf.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(bodyParser.json());
 
