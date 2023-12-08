@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { TopSecretAnimation } from "../TopSecretAnimation";
 
@@ -13,11 +14,17 @@ const StyledSecretPage = styled.div`
     width: 400px;
     object-fit: cover;
   }
+
+  button {
+    margin-top: 20px;
+  }
 `;
 
 export const SecretPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +36,9 @@ export const SecretPage = () => {
           },
         });
         setLoading(false);
-        if (response.status !== 200) {
+        if (response.status == 200) {
+          setIsLoggedIn(true); // Set isLoggedIn to true if authorized
+        } else {
           setError("You are not authorized to see this page");
         }
       } catch (error) {
@@ -40,6 +49,12 @@ export const SecretPage = () => {
 
     fetchData();
   }, []);
+
+  const handleLogout = () => {
+    // Clear the access token from localStorage and navigate to the start page
+    localStorage.removeItem("accessToken");
+    navigate("/");
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -54,6 +69,7 @@ export const SecretPage = () => {
       <h1>Schhh! This is super duper</h1>
       <TopSecretAnimation />
       <img src="/puppy.jpg" alt="Puppy" />
+      {isLoggedIn && <button onClick={handleLogout}>Log out</button>}
     </StyledSecretPage>
   );
 };

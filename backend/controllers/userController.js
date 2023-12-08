@@ -2,7 +2,7 @@ import { UserModel } from "../models/UserModel";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { authenticateUser } from "../middleware/authenticateUser";
+//import { authenticateUser } from "../middleware/authenticateUser";
 
 // const bcrypt = require("bcrypt");
 
@@ -27,15 +27,28 @@ export const addRegisterController = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
   try {
     if (!username || !password) {
-      res.status(400);
-      throw new Error("Missing username or password");
+      res.status(400).json({ error: "Missing username or password" });
+      return;
     }
+    // if (!username || !password) {
+    //   res.status(400);
+    //   throw new Error("Missing username or password");
+    // }
+
     const existingUser = await UserModel.findOne({ username });
 
     if (existingUser) {
-      res.status(400);
-      throw new Error(`User with username '${username}' already exists`);
+      res
+        .status(409)
+        .json({ error: `User with username '${username}' already exists` });
+      return;
     }
+
+    // if (existingUser) {
+    //   res.status(400);
+    //   throw new Error(`User with username '${username}' already exists`);
+    // }
+
     // Generate a salt and hash the password. We are using the bcrypt library to create a randon value (salt) and then hash the password with the salt. The salt is then stored in the database with the hashed password. This is making it harder for hackers to crack the password.
     const salt = bcrypt.genSaltSync(10);
 
@@ -59,8 +72,8 @@ export const addRegisterController = asyncHandler(async (req, res) => {
         accessToken: generateToken(newUser._id), // Generate a JWT token for the user for the new user using the user Id.
       },
     });
-  } catch (e) {
-    res.status(500).json({ success: false, response: e.message }); // Return an error message if something goes wrong with the database, the server or connection.
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message }); // Return an error message if something goes wrong with the database, the server or connection.
   }
 });
 
@@ -92,8 +105,8 @@ export const loginUserController = asyncHandler(async (req, res) => {
         accessToken: generateToken(user._id), // Generate a JWT token for the user for the new user using the user Id.
       },
     });
-  } catch (e) {
-    res.status(500).json({ success: false, response: e.message });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 
