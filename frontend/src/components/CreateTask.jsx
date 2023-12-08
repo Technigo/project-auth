@@ -13,7 +13,7 @@ export const CreateTask = () => {
   const addTaskLocal = async () => {
     if (task.trim() !== "") {
       await addTaskToServer(task);
-      setTask(""); // Clear the input field after the task is added
+      setTask(""); 
     }
   };
   return (
@@ -24,7 +24,9 @@ export const CreateTask = () => {
         onChange={taskInput}
         value={task}
       />
+      <div>
       <button onClick={addTaskLocal}>Add Task</button>
+      </div>
     </>
   );
 };

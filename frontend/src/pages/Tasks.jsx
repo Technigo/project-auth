@@ -9,10 +9,11 @@ export const Tasks = () => {
   
   const text = {
     heading: "Tasks Page",
-    intro: "Tasks Here",
-    loremIpsum:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae fugit ipsam quo accusantium autem officia necessitatibus ullam voluptati",
+    intro: "Manage your tasks here",
+    taskManagementGuide:
+      "To make the most out of this task management app, start by inputting your tasks in the field provided. Click on each task to edit its details. You can mark a task as completed or delete it entirely. Use the 'Delete All Tasks' button to clear your task list. Stay organized and boost your productivity!",
   };
+  
 
   const { tasks, deleteAllTasks, fetchTasks, handleEdit, deleteTaskById } =
     taskStore();
@@ -27,32 +28,33 @@ export const Tasks = () => {
   
   const onLogoutClick = () => {
     storeHandleLogout();
-    // Additional logic after logout can be added here
     alert("Log out succesfull");
-    navigate("/"); // You can change this to the login route
+    navigate("/"); 
   };
 
   return (
     <>
-      <nav>
+      <nav className="app-button-wrapper">
         <ul className="app-ul">
           <li className="app-li">
-            <Link to="/home">Home</Link>
+            <Link to="/home" className="app-link">Home</Link>
           </li>
           <li className="app-li">
-            <Link to="/tasks">Tasks</Link>
+            <Link to="/tasks" className="app-link">Tasks</Link>
           </li>
           <li className="app-li">
-            <button onClick={onLogoutClick}>Sign Out</button>
+            <button onClick={onLogoutClick} className="app-button">Sign Out</button>
           </li>
         </ul>
       </nav>
       <Logos />
-      <div>
+      <div className="card-container">
         <h2>{text.heading}</h2>
         <p>{text.intro}</p>
-        <p>{text.loremIpsum}</p>
+        <p>{text.taskManagementGuide}</p>
+        <div>
         <CreateTask />
+        </div>
         <button onClick={deleteAllTasks}>Delete All Tasks</button>
         {tasks.length === 0 ? (
           <>
