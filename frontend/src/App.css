@@ -49,6 +49,22 @@
   .app-link:hover {
     text-decoration: underline;
   }
+
+  .app-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .app-button {
+    background-color: #1b7021;
+    color: #ffffff;
+    
+  }
+
+  .app-button:hover {
+    background-color: #4caf50;
+  }
   
   .heading {
     font-size: 1.5em;
