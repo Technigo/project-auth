@@ -29,7 +29,7 @@ export const userStore = create((set, get) => ({
 
       const data = await response.json();
       console.log(data);
-      if (data.success) {
+      if (response.ok) {
         set({ username });
         // Redirect or update UI
         alert("Signup successful!");
@@ -37,7 +37,7 @@ export const userStore = create((set, get) => ({
       } else {
         // Display error message from server
         alert(
-          data.response ||
+          data.message ||
             "Password must be at least 6 characters and include lowercase, uppercase, and a number."
         );
       }
@@ -66,14 +66,13 @@ export const userStore = create((set, get) => ({
       const data = await response.json();
       if (response.ok) {
         set({
-          username,
+          username: username,
           accessToken: data.response.accessToken,
           isLoggedIn: true,
         }); // Update the state with username and accessToken
         // Redirect or update UI
         localStorage.setItem("accessToken", data.response.accessToken);
         alert("Login successful!");
-        console.log("Loging up with:", username, password);
       } else {
         // Display error message from server
         alert(data.message || "Login failed");
