@@ -55,7 +55,7 @@ export const Tasks = () => {
         <div>
         <CreateTask />
         </div>
-        <button onClick={deleteAllTasks}>Delete All Tasks</button>
+        <button onClick={deleteAllTasks} className="task-button">Delete All Tasks</button>
         {tasks.length === 0 ? (
           <>
             <p>No tasks yet...</p>
@@ -63,7 +63,7 @@ export const Tasks = () => {
         ) : (
           tasks.map((task, index) => (
             <div
-              className={`card-container ${
+              className={`card-container2 ${
                 task.done ? "green-border" : "red-border"
               }`}
               key={index}
@@ -71,7 +71,7 @@ export const Tasks = () => {
             >
               <p>{task.task}</p>
               <p>{task.done ? "Task is Completed" : "Not Completed"}</p>
-              <button onClick={() => deleteTaskById(task._id)}>Delete</button>
+              <button onClick={() => deleteTaskById(task._id)} className="task-button">Delete</button>
             </div>
           ))
         )}

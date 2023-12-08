@@ -23,9 +23,10 @@ export const CreateTask = () => {
         placeholder="enter task"
         onChange={taskInput}
         value={task}
+        className="task-input"
       />
       <div>
-      <button onClick={addTaskLocal}>Add Task</button>
+      <button onClick={addTaskLocal} className="task-button">Add Task</button>
       </div>
     </>
   );
