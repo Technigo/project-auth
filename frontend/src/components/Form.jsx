@@ -1,4 +1,4 @@
-
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { userStore } from "../stores/userStore";
 
@@ -7,6 +7,8 @@ const Form = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [signUpMode, setSignUpMode] = useState(true);
+
+  const navigate = useNavigate();
 
   const storeHandleSignup = userStore((state) => state.handleSignUp);
   const storeHandleLogin = userStore((state) => state.handleLogIn);
@@ -37,15 +39,18 @@ const Form = () => {
     e.preventDefault();
 
     await storeHandleSignup(username, password, email);
+    if (username && password && email) {
+      navigate("/home");
+    }
   };
 
   const onLogInClick = async (e) => {
     e.preventDefault();
 
     await storeHandleLogin(username, password);
-    // if (username && password) {
-      // navigate("/home");
-    // }
+    if (username && password) {
+      navigate("/home");
+    }
   };
 
   return (
