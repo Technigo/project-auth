@@ -4,8 +4,8 @@ import User from './userModel'; // Import the User model
 // Create an instance of the Express Router
 const router = express.Router();
 
-// Route for user registration ('/register')
-router.post('/register', async (req, res) => {
+// Route for user registration ('/signup')
+router.post('/signup', async (req, res) => {
     // Extract user input from the request body
     const { username, password } = req.body;
 
@@ -19,6 +19,7 @@ router.post('/register', async (req, res) => {
         // Send a success response
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
+        console.error(error);
         // Handle validation errors or other issues during registration
         res.status(400).json({ error: 'Registration failed. Please check your input.' });
     }

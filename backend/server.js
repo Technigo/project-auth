@@ -20,6 +20,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Add logging middleware to log incoming requests
+app.use((req, res, next) => {
+  console.log(`Received ${req.method} request at ${req.url}`);
+  next();
+});
+
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.json(listEndpoints(app));
@@ -31,10 +37,6 @@ app.use('/auth', authUserMiddleware);
 app.use('/user', userRoutes);
 // Use the secretRoute for the authenticated secret content route
 app.use('/secret', secretRoute);
-
-// Display a list of available endpoints
-console.log(listEndpoints(app));
-
 
 // Start the server
 app.listen(port, () => {
