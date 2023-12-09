@@ -1,10 +1,11 @@
 // routes/auth.js
 const express = require('express');
-const bcrypt = require('bcrypt'); // Library for hashing passwords
+const bcrypt = require('bcryptjs'); // Library for hashing passwords
 const jwt = require('jsonwebtoken'); // JSON Web Token for user authentication
 const User = require('../models/user'); // Importing the User model
 
 const router = express.Router(); // Creating an instance of an Express router
+
 
 // Endpoint for user registration
 router.post('/register', async (req, res) => {

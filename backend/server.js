@@ -47,7 +47,7 @@ app.get('/api/protected', authenticateToken, (req, res) => {
 });
 
 // Endpoint to list all routes
-app.get('/api/endpoints', (req, res) => {
+app.get('/', (req, res) => {
   const endpoints = listEndpoints(app);
   res.status(200).json(endpoints);
 });
