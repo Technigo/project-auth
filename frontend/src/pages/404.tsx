@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export const Page404 = () => {
   const navigate = useNavigate();
   return (
-    <div className="w-full h-screen flex flex-col lg:flex-row items-center justify-center space-y-16 lg:space-y-0 space-x-8 2xl:space-x-0">
+    <div className="w-full h-screen flex flex-col lg:flex-row items-center justify-center space-y-16 lg:space-y-0 space-x-8 2xl:space-x-0 bg-yellow-100">
       <div className="w-full lg:w-1/2 flex flex-col items-center justify-center lg:px-2 xl:px-0 text-center">
         <p className="text-7xl md:text-8xl lg:text-9xl font-bold tracking-wider text-green-700">
           404
@@ -90,14 +90,14 @@ export const Page404 = () => {
             ry="10.96996"
             fill="#084f39"
           ></ellipse>
-          <circle cx="97.08375" cy="566.26982" r="79" fill="#2f2e41"></circle>
+          <circle cx="97.08375" cy="566.26982" r="79" fill="#ffc65c"></circle>
           <rect
             x="99.80546"
             y="689.02332"
             width="24"
             height="43"
             transform="translate(-31.32451 -62.31008) rotate(0.67509)"
-            fill="#2f2e41"
+            fill="#ffc65c"
           ></rect>
           <rect
             x="147.80213"
@@ -105,7 +105,7 @@ export const Page404 = () => {
             width="24"
             height="43"
             transform="translate(-31.31452 -62.87555) rotate(0.67509)"
-            fill="#2f2e41"
+            fill="#ffc65c"
           ></rect>
           <ellipse
             cx="119.54569"
@@ -113,7 +113,7 @@ export const Page404 = () => {
             rx="7.5"
             ry="20"
             transform="translate(-654.1319 782.47948) rotate(-89.32491)"
-            fill="#2f2e41"
+            fill="#ffc65c"
           ></ellipse>
           <ellipse
             cx="167.55414"
@@ -121,7 +121,7 @@ export const Page404 = () => {
             rx="7.5"
             ry="20"
             transform="translate(-606.25475 830.05533) rotate(-89.32491)"
-            fill="#2f2e41"
+            fill="#ffc65c"
           ></ellipse>
           <circle cx="99.31925" cy="546.29477" r="27" fill="#fff"></circle>
           <circle cx="99.31925" cy="546.29477" r="9" fill="#084f39"></circle>
@@ -140,14 +140,14 @@ export const Page404 = () => {
             transform="translate(-39.70387 -61.04208)"
             fill="#084f39"
           ></path>
-          <circle cx="712.48505" cy="565.41532" r="79" fill="#2f2e41"></circle>
+          <circle cx="712.48505" cy="565.41532" r="79" fill="#ffc65c"></circle>
           <rect
             x="741.77716"
             y="691.82355"
             width="24"
             height="43"
             transform="translate(-215.99457 191.86399) rotate(-17.08345)"
-            fill="#2f2e41"
+            fill="#ffc65c"
           ></rect>
           <rect
             x="787.6593"
@@ -155,7 +155,7 @@ export const Page404 = () => {
             width="24"
             height="43"
             transform="matrix(0.95588, -0.29376, 0.29376, 0.95588, -209.82788, 204.72037)"
-            fill="#2f2e41"
+            fill="#ffc65c"
           ></rect>
           <ellipse
             cx="767.887"
@@ -163,7 +163,7 @@ export const Page404 = () => {
             rx="20"
             ry="7.5"
             transform="translate(-220.8593 196.83312) rotate(-17.08345)"
-            fill="#2f2e41"
+            fill="#ffc65c"
           ></ellipse>
           <ellipse
             cx="813.47537"
@@ -171,7 +171,7 @@ export const Page404 = () => {
             rx="20"
             ry="7.5"
             transform="translate(-214.42477 209.56103) rotate(-17.08345)"
-            fill="#2f2e41"
+            fill="#ffc65c"
           ></ellipse>
           <circle cx="708.52153" cy="545.71023" r="27" fill="#fff"></circle>
           <circle cx="708.52153" cy="545.71023" r="9" fill="#084f39"></circle>
@@ -206,7 +206,7 @@ export const Page404 = () => {
             rx="12.40027"
             ry="39.5"
             transform="translate(-220.83517 966.22323) rotate(-64.62574)"
-            fill="#2f2e41"
+            fill="#ffc65c"
           ></ellipse>
           <ellipse
             cx="112.51694"
