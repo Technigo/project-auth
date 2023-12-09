@@ -230,13 +230,9 @@ export const StartPage = () => {
         ) {
           console.log("Unauthorized access detected");
           // Show an alert for unauthorized access
-          window.alert(
+          alert(
             "Unauthorized access. Please check your credentials and try again."
           );
-
-          // alert(
-          //   "Unauthorized access. Please check your credentials and try again."
-          // );
         } else {
           // Handle other error cases
           console.error(data);
