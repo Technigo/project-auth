@@ -12,14 +12,14 @@ export const useUserStore = create((set, get) => ({
   email:"",
   username: "",
   password: "",
-  accessToken: null,
+  token: null,
   isLoggedIn: false,
 
   // Sets the values of the state variables to the values being passed in
   setUsername: (username) => set({ username }),
   setPassword: (password) => set({ password }),
   setEmail:(email) => set({email}),
-  setAccessToken: (accessToken) => set({ accessToken }),
+  setAccessToken: (token) => set({ token }),
   setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn: isLoggedIn }),
 
   // Creates a function for registering a user
@@ -85,8 +85,49 @@ export const useUserStore = create((set, get) => ({
     }
   },
 
-  // LOGIN
-  loginUser: async (username, password) => {
+  // // LOGIN
+  // loginUser: async (username, password) => {
+  //   if (!username || !password) {
+  //     alert("Please enter both username and password");
+  //     return;
+  //   }
+
+  //   try {
+  //     const response = await fetch(withEndpoint("signin"), {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ username, password }),
+  //     });
+
+      
+
+  //     const data = await response.json();
+  //     console.log("Server response:", data);
+      
+  //     if (data.success) {
+  //       set({
+  //         username,
+  //         token: data.response.token,
+  //         isLoggedIn: true,
+  //       }); // Update the state with username and accessToken
+  //       // Redirect or update UI
+  //       localStorage.setItem("token", data.response.token);
+  //       alert("Login successful!");
+  //       console.log("Loging up with:", username, password);
+  //     } else {
+  //       // Display error message from server
+  //       alert(data.response || "Login failed");
+  //     }
+  //   } catch (error) {
+  //     console.error("Login error:", error);
+  //     alert("An error occurred during login");
+  //   }
+  // },
+
+
+ loginUser: async (username, password) => {
     if (!username || !password) {
       alert("Please enter both username and password");
       return;
@@ -101,24 +142,23 @@ export const useUserStore = create((set, get) => ({
         body: JSON.stringify({ username, password }),
       });
 
-      
-
       const data = await response.json();
-      console.log("Server response:", data);
-      
-      if (data.success) {
-        set({
-          username,
-          accessToken: data.response.accessToken,
-          isLoggedIn: true,
-        }); // Update the state with username and accessToken
-        // Redirect or update UI
-        localStorage.setItem("accessToken", data.response.accessToken);
-        alert("Login successful!");
-        console.log("Loging up with:", username, password);
+
+      if (response.ok) {
+        if (data.token) {
+          set({
+            username,
+            token: data.token,
+            isLoggedIn: true,
+          });
+          localStorage.setItem("token", data.token);
+          alert("Login successful!");
+        } else {
+          alert("Login failed. Invalid username or password.");
+        }
       } else {
-        // Display error message from server
-        alert(data.response || "Login failed");
+        console.error("Login error:", response.status);
+        alert("An error occurred during login");
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -126,82 +166,18 @@ export const useUserStore = create((set, get) => ({
     }
   },
 
-  // // Creates a function for logging in a user
-  // loginUser: async (username, password) => {
-  //   // Checks if the username or password is empty, and if so, alerts the user and returns
-  //   if (!username || !password) {
-  //     alert("Please enter both username and password");
-  //     return;
-  //   }
 
-  //   try {
-  //     const response = await fetch(withEndpoint("signin"), {
-  //       method: "POST", // Uses the POST method
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       // Sends the username and password in the body of the request
-  //       body: JSON.stringify({
-  //         username,
-  //         password,
-  //       }),
-  //     });
 
-  //     // If the response is not ok, throw an error
-  //     if (!response.ok) {
-  //       throw new Error(`${response.status} ${response.statusText}`);
-  //     }
-
-  //     // If the response is ok, saves the response as a variable called data
-  //     const data = await response.json();
-  //     const successfullFetch = data.success;
-
-  //     // In case of a successfull fetch, sets the state variables to the values from the response
-  //     if (successfullFetch) {
-  //       set({
-  //         username, 
-  //         accessToken: data.response.accessToken,
-  //         isLoggedIn: true,
-  //       })
-  //       // Saves the accessToken in localStorage
-  //       localStorage.setItem("accessToken", data.response.accessToken);
-  //     } else {
-  //       set({
-  //         username: "",
-  //         accessToken: null,
-  //         isLoggedIn: false,
-  //       });
-  //     }
-
-  //     // Logs a response to the console
-  //     console.log(data.response.username, get().isLoggedIn ? "is logged in" : "is not logged in");
-
-  //   } catch (error) {
-  //     if (error.message == 401) {
-  //       alert("Wrong username or password, please try again");
-  //       set({
-  //         username: "",
-  //         password: ""
-  //       })
-  //     } else if (error.message == 404) {
-  //       alert("Username not found, please try again");
-  //       set({
-  //         username: "",
-  //         password: ""
-  //       })
-  //     }
-  //     console.error("There was an error =>", error);
-  //   }
-  // },
+  
 
   fetchLoggedInData: async () => {
     try {
-      const accessToken = get().accessToken
+      const token = get().token
       const response = await fetch(withEndpoint("protected"), {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${accessToken}`
+          Authorization: `${token}`
         }
       })
       const data = await response.json()
@@ -224,10 +200,10 @@ export const useUserStore = create((set, get) => ({
     set({
       username: "",
       password: "",
-      accessToken: null,
+      token: null,
       isLoggedIn: false
     });
     // Removes the accessToken from localStorage
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("token");
   },
 }));

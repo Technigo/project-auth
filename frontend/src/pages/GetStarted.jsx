@@ -1,69 +1,121 @@
-import { useUserStore } from "../stores/useUserStore";
-import { Link } from "react-router-dom";
+// import { useUserStore } from "../stores/useUserStore";
+// import { Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+// import { Button } from "../components/Button";
+// // import "./getStarted.css";
+
+// export const GetStarted = () => {
+//     const navigate = useNavigate();
+
+//     // Destructures the function loginUser from the useUserStore hook
+//     const { loginUser, username, setUsername, password, setPassword } = useUserStore();
+
+//     const handleLogin = async (event) => {
+//         event.preventDefault();
+    
+//         try {
+//             console.log('Logging in with username:', username);
+//             console.log('Logging in with password:', password);
+    
+//             // Wait for loginUser to complete and update the state
+//             await loginUser(username, password);
+    
+//             // Now, check the updated state
+//             const isLoggedIn = useUserStore.getState().isLoggedIn;
+    
+//             // If the user is logged in, the accessToken will be saved in localStorage and the user will be redirected to the dashboard
+//             if (isLoggedIn) {
+//                 navigate("/dashboard");
+//                 return;
+//             }
+//         } catch (error) {
+//             console.error("There was an error =>", error);
+//         }
+//     }
+    
+
+//     return (
+//         <>
+//             <h1>Welcome here!</h1>
+//             <h2>Please sign in to see the content 🧡</h2>
+//             <div className="form-wrapper">
+//                 <div className="form-group">
+//                     <label htmlFor="username">Username</label>
+//                     <input
+//                         type="text"
+//                         id="username"
+//                         placeholder="Username"
+//                         value={username}
+//                         onChange={(e) => setUsername(e.target.value)}
+//                         required />
+//                 </div>
+//                 <div className="form-group">
+//                     <label htmlFor="password">Password</label>
+//                     <input
+//                         type="password"
+//                         id="password"
+//                         placeholder="Password"
+//                         value={password}
+//                         onChange={(e) => setPassword(e.target.value)}
+//                         required />
+//                 </div>
+//                 <div className="loginAndRegisterBtns">
+//                     <Button className={"primary"} handleOnClick={handleLogin} btnText={"Login"} />
+//                     <Link to="/register"><Button className={"secondary"} btnText={"Register"} /></Link>
+//                 </div>
+//             </div>
+//         </>
+//     )
+// }
+
+
+// LoginForm.js
+
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../components/Button";
-// import "./getStarted.css";
+import { useUserStore } from "../stores/useUserStore";
 
 export const GetStarted = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { loginUser } = useUserStore();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-    // Destructures the function loginUser from the useUserStore hook
-    const { loginUser, username, setUsername, password, setPassword } = useUserStore();
-
-    const handleLogin = async (event) => {
-        event.preventDefault();
-    
-        try {
-            console.log('Logging in with username:', username);
-            console.log('Logging in with password:', password);
-    
-            // Wait for loginUser to complete and update the state
-            await loginUser(username, password);
-    
-            // Now, check the updated state
-            const isLoggedIn = useUserStore.getState().isLoggedIn;
-    
-            // If the user is logged in, the accessToken will be saved in localStorage and the user will be redirected to the dashboard
-            if (isLoggedIn) {
-                navigate("/dashboard");
-                return;
-            }
-        } catch (error) {
-            console.error("There was an error =>", error);
-        }
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    await loginUser(username, password);
+    if (useUserStore.getState().isLoggedIn) {
+      navigate("/dashboard");
     }
-    
+  };
 
-    return (
-        <>
-            <h1>Welcome here!</h1>
-            <h2>Please sign in to see the content 🧡</h2>
-            <div className="form-wrapper">
-                <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <input
-                        type="text"
-                        id="username"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required />
-                </div>
-                <div className="loginAndRegisterBtns">
-                    <Button className={"primary"} handleOnClick={handleLogin} btnText={"Login"} />
-                    <Link to="/register"><Button className={"secondary"} btnText={"Register"} /></Link>
-                </div>
-            </div>
-        </>
-    )
-}
+  return (
+    <form onSubmit={handleLogin}>
+      <div>
+        <label htmlFor="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <button type="submit">Login</button>
+      </div>
+    </form>
+  );
+};
+
+// export default GetStarted;
