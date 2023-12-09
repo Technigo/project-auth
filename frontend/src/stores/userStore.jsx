@@ -33,7 +33,6 @@ export const userStore = create((set, get) => ({
         set({ username });
         // Redirect or update UI
         alert("Signup successful!");
-        console.log("Signing up with:", username);
       } else {
         // Display error message from server
         alert(

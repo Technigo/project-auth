@@ -3,7 +3,7 @@ import { Register } from "../pages/register/Register";
 import { Login } from "../pages/login/Login";
 import { Home } from "../pages//home/Home";
 import { Flowers } from "../pages/flowers/Flowers";
-import { Profile } from "../pages/Profile";
+import { Profile } from "../pages/profile/Profile";
 import { Cart } from "../pages/Cart";
 import { NotFound } from "../pages/NotFound";
 
