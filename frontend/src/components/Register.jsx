@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-//NOTE didn't use Zustand to store info, this confused me a lot!
+//NOTE didn't use Zustand to store info, this confused me a lot! I need to spend more time learning global state management
 
 export const Register = () => {
   const [username, setUsername] = useState("");
@@ -13,7 +13,9 @@ export const Register = () => {
   const navigateToPage = useNavigate();
 
   //API TO TEST ON LOCAL HOST
-  const myAPI = "http://localhost:8000";
+  //const myAPI = "http://localhost:8000";
+  //API FOR DEPLOYED BACKEND
+  const myAPI = "https://project-auth-0x8y.onrender.com/";
 
   //----Function to handle sign up button click----//
   const onSignupClick = async (event) => {
