@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": " npm run build:live",
-    "build": " npm run build",
+    "build": " tsc -p .",
     "build:live": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts"
   },
   "author": "",
