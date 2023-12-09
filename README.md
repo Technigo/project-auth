@@ -24,4 +24,5 @@ Server: https://project-authentication-vbzx.onrender.com/
 
 ## Links
 
-Hitta Anna på [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/anna-robertsson-829967272//) Hitta Susanne på [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/susanne-e-6915a087//)
+Hitta Anna på [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/anna-robertsson-829967272//)  
+Hitta Susanne på [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/susanne-e-6915a087//)

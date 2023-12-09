@@ -192,19 +192,20 @@ export const SecretPage = () => {
         </p>
         <br />
         <p>
-          Here, it's about uplifting each other, where a simple gesture can make
-          a tremendous difference. Perhaps there's an elderly neighbor who needs
-          help raking leaves, someone requiring assistance with grocery
-          shopping, or an individual unable to walk their four-legged friend.
-          Our platform serves as a bridge connecting needs with helpful souls.
+          Here, it&apos;s about uplifting each other, where a simple gesture can
+          make a tremendous difference. Perhaps there&apos;s an elderly neighbor
+          who needs help raking leaves, someone requiring assistance with
+          grocery shopping, or an individual unable to walk their four-legged
+          friend. Our platform serves as a bridge connecting needs with helpful
+          souls.
         </p>
         <br />
         <p>
           We believe in fostering an inclusive community where goodwill and
           kindness are the currency. Here, commitment and generosity matter
           most. With us, every effort is a step towards a warmer, more
-          empathetic world. Together, we're building a place where hearts meet
-          to make a difference. Welcome to being a part of this beautiful
+          empathetic world. Together, we&apos;re building a place where hearts
+          meet to make a difference. Welcome to being a part of this beautiful
           movement of humanity.
         </p>
       </StyledSecretPage>
