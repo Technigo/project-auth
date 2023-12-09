@@ -2,8 +2,11 @@ import { NavLink } from "react-router-dom";
 
 export const Header = () => {
   return (
-    <header className="w-screen h-20 bg-yellow-200 flex items-center justify-center">
-      <nav className="flex list-none gap-7 text-green-800">
+    <header className="w-screen h-fit p-4 bg-yellow-200 flex flex-col items-center justify-center">
+      <h1 className="text-2xl sm:text-3xl font-bold text-center text-green-800 mb-6">
+        🌸SgifigS🌸
+      </h1>
+      <nav className="flex list-none gap-4 sm:gap-7 text-green-800">
         <NavLink to="/signup">
           <li className="hover:translate-y-1 transition cursor-pointer">Sign up</li>
         </NavLink>

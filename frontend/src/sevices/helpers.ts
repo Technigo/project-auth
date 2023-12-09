@@ -15,6 +15,7 @@ export const USER_SCHEMA = z.object({
         .min(8, { message: "password should be longer than 8 letters" }),
     })
     .refine((data) => data.password === data.passwordConfirm, {
+      path: ["passwordConfirm"],
       message: "password is not correct",
     }),
 });

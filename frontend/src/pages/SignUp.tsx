@@ -1,6 +1,13 @@
-import { FormControl, FormLabel, Input, LinearProgress, Typography } from "@mui/joy";
+import {
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
+  LinearProgress,
+  Typography,
+} from "@mui/joy";
 import { ButtonSubmit } from "../components/ButtonSubmit";
-import { checkFormIsValid } from "../actions/action";
+import { checkFormIsValid, selectErrorMessage } from "../actions/action";
 import { FormEvent, useState } from "react";
 import { createUser } from "../sevices/apis";
 import { FormError } from "../types/formType";
@@ -34,13 +41,11 @@ export const SignUp = () => {
     const result = checkFormIsValid(e);
     setDbError(initialDBerror);
     let userObj;
+
     if (!result.success) {
-      result.error.issues.map((issue, index) => {
-        const key = issue.path[0];
-        Object.hasOwn(formError, key)
-          ? setFormError((prev) => ({ [key]: { error: true, message: issue.message }, ...prev }))
-          : "";
-      });
+      const selectedMessage = selectErrorMessage(result);
+
+      return setFormError(selectedMessage);
     } else {
       const data = result;
       userObj = {
@@ -49,67 +54,80 @@ export const SignUp = () => {
         password: data.data.passwords.password,
         passwordConfirm: data.data.passwords.passwordConfirm,
       };
-    }
-    let res;
-    if (userObj) res = await createUser(userObj);
 
-    if (!res.status) {
-      setDbError({ status: true, message: res.message });
-    } else if (userObj) {
-      setCurrentUser({ name: userObj.name, accessToken: res.accessToken, login: true });
-      navigate("/home");
+      let res;
+      if (userObj) res = await createUser(userObj);
+
+      if (!res.status) {
+        setDbError({ status: true, message: res.message });
+      } else if (userObj) {
+        setCurrentUser({ name: userObj.name, accessToken: res.accessToken, login: true });
+        navigate("/home");
+      }
     }
   };
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-center text-green-800">Sgifigs 🌸</h1>
-      <div className="w-[300px] sm:w-[500px] mx-auto pt-10">
-        <h2 className="text-2xl font-bold text-teal-900 text-center mb-4">Sign Up</h2>
-        <form className="w-96 sm:w-full" onSubmit={hanldleSubmit}>
-          <FormControl id="name" error={formError.name.error}>
+      <div className="w-[300px] sm:w-[500px] mx-auto pt-4">
+        <h2 className="text-2xl sm:text-3xl font-bold text-teal-900 text-center mb-4">Sign Up</h2>
+        <form className="w-full" onSubmit={hanldleSubmit}>
+          <FormControl id="name" className="mb-4" error={formError.name.error}>
             <FormLabel required={true}>Name</FormLabel>
-            <Input name="name" placeholder="Harry Potter" className="p-2 mb-4 " />
+            <Input name="name" placeholder="Harry Potter" className="p-2  " />
+            <FormHelperText>{formError.name.error && formError.name.message}</FormHelperText>
           </FormControl>
-          <FormControl id="email" error={formError.email.error}>
+          <FormControl id="email" className="mb-4" error={formError.email.error}>
             <FormLabel required={true}>Email</FormLabel>
-            <Input name="email" placeholder="harry@hogwarts.ed" className="p-2 mb-4" />
+            <Input name="email" placeholder="harry@hogwarts.ed" className="p-2 " />
+            <FormHelperText>{formError.email.error && formError.email.message}</FormHelperText>
           </FormControl>
-          <FormControl id="password" error={formError.password.error}>
-            <FormLabel required={true}>Password</FormLabel>
+          <FormControl id="password" className="mb-4" error={formError.password.error}>
+            <FormLabel required={true}>Password : (at least 8 letters)</FormLabel>
             <Input
               name="password"
               type="password"
               startDecorator={<Key />}
               placeholder="password..."
-              className="p-2 mb-4"
+              className="p-2 "
               onChange={(event) => setValue(event.target.value)}
             />
+            <FormHelperText>
+              {formError.password.error && formError.password.message}
+            </FormHelperText>
             <LinearProgress
               determinate
               size="sm"
               value={Math.min((value.length * 100) / minLength, 100)}
               sx={{
-                bgcolor: "background.level3",
+                bgcolor: "orange",
                 color: "#4d7c0f",
+                marginTop: "10px",
               }}
             />
-            <Typography level="body-xs" sx={{ alignSelf: "flex-end", color: "#052e16" }}>
+            <Typography level="body-xs" sx={{ alignSelf: "flex-end", color: "darkGreen" }}>
               {value.length < 3 && "Very weak"}
               {value.length >= 3 && value.length < 6 && "Weak"}
               {value.length >= 6 && value.length < 10 && "Strong"}
               {value.length >= 10 && "Very strong"}
             </Typography>
           </FormControl>
-          <FormControl id="passwordConfirm" error={formError.passwordConfirm.error}>
+          <FormControl
+            id="passwordConfirm"
+            className="mb-4"
+            error={formError.passwordConfirm.error}
+          >
             <FormLabel required={true}>Confirm Password</FormLabel>
             <Input
               name="passwordConfirm"
               placeholder="password..."
-              className="p-2 mb-4"
+              className="p-2 "
               type="password"
               startDecorator={<Key />}
             />
+            <FormHelperText>
+              {formError.passwordConfirm.error && formError.passwordConfirm.message}
+            </FormHelperText>
           </FormControl>
           <div className="flex items-center justify-center">
             <ButtonSubmit text="Submit" icon={true} />

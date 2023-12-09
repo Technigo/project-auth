@@ -36,13 +36,13 @@ export const LogIn = () => {
   };
 
   return (
-    <div className="w-full sm:max-w-[400px]">
-      <h2 className="text-3xl text-center font-bold text-lime-900">Sgifigs 🌸</h2>
-      <form className="w-96 sm:w-full" onSubmit={handleLogin}>
+    <div className="w-[300px] sm:w-[400px]">
+      <h2 className="text-3xl text-center font-bold text-lime-900">Log In</h2>
+      <form className="w-full" onSubmit={handleLogin}>
         <LoginForm />
         <div className="flex flex-col items-center justify-center">
-          <ButtonSubmit text="Log in" />
-          <p className="text-center mt-2">
+          <ButtonSubmit text="log in ⭐️" />
+          <p className="text-center mt-4 text-sm">
             You don't have your account yet?
             <br />
             <Link

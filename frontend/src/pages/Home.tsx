@@ -17,7 +17,7 @@ export const Home = () => {
       const allGifs = await getAllGifs();
       setAllStoredGifs(allGifs.gifs);
     })();
-  }, []);
+  }, [gif]);
 
   const handleSearch = async () => {
     const gifs = await getGifs(value);
@@ -62,20 +62,28 @@ export const Home = () => {
         </div>
       )}
       <div>
-        <h3 className="text-blue-600 font-bold text-center text-2xl">All your searched gifs 👻</h3>
-        <div className="flex flex-wrap gap-10 px-20 py-10 ">
-          {allStoredGifs &&
-            allStoredGifs.map((gif) => (
-              <div className="h-32 w-32 relative z-0 mx-auto">
-                <iframe
-                  className="w-full h-full top-0 left-0 z-1 absolute"
-                  src={gif?.path}
-                  allow="encrypted-media;"
-                ></iframe>
-                <div className="w-full h-full border-none top-0 left-0 z-1 absolute"></div>
-              </div>
-            ))}
-        </div>
+        {allStoredGifs.length > 0 ? (
+          <>
+            <h3 className="text-blue-600 font-bold text-center text-2xl">
+              All your searched gifs 👻
+            </h3>
+            <div className="flex flex-wrap  gap-3 sm:gap-8 px-4 sm:px-20 py-10 ">
+              {allStoredGifs &&
+                allStoredGifs.map((gif) => (
+                  <div className="h-32 w-32 relative z-0 mx-auto">
+                    <iframe
+                      className="w-full h-full top-0 left-0 z-1 absolute"
+                      src={gif?.path}
+                      allow="encrypted-media;"
+                    ></iframe>
+                    <div className="w-full h-full border-none top-0 left-0 z-1 absolute"></div>
+                  </div>
+                ))}
+            </div>
+          </>
+        ) : (
+          <p className="text-center text-purple-600 text-lg font-bold">No Gif stored yet</p>
+        )}
       </div>
     </div>
   );

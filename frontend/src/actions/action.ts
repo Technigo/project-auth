@@ -1,5 +1,6 @@
 import { FormEvent } from "react";
 import { USER_SCHEMA } from "../sevices/helpers";
+import { ZodError } from "zod";
 
 export const checkFormIsValid = (event: FormEvent<HTMLFormElement> | undefined) => {
   event?.preventDefault();
@@ -24,6 +25,25 @@ export const checkFormIsValid = (event: FormEvent<HTMLFormElement> | undefined) 
   const result = USER_SCHEMA.safeParse(newFormData);
 
   return result;
+};
+
+export const selectErrorMessage = (result: { success: false; error: ZodError }) => {
+  let formError = {
+    name: { error: false, message: "" },
+    email: { error: false, message: "" },
+    password: { error: false, message: "" },
+    passwordConfirm: { error: false, message: "" },
+  };
+  console.log(result);
+  result.error.issues.forEach((issue) => {
+    const key = issue.path.at(-1);
+    if (key === undefined) return;
+    console.log(Object.hasOwn(formError, key), formError, key);
+    Object.hasOwn(formError, key)
+      ? (formError = { ...formError, [key]: { error: true, message: issue.message } })
+      : "";
+  });
+  return formError;
 };
 
 const API_KEY = "PCiF89exyOd5S5oBlLZEZNWmrPTiyTy5";
