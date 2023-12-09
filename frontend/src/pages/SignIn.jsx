@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useUser } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+    const { signIn } = useUser();
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -8,7 +13,9 @@ const SignIn = () => {
 
     const handleSignIn = async () => {
         try {
+            setError(false);
             setLoading(true);
+
             const response = await fetch(`${import.meta.env.VITE_API_URL}/signin`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -17,7 +24,8 @@ const SignIn = () => {
 
             if (response.ok) {
                 const userData = await response.json();
-                console.log(userData);
+                signIn(userData);
+                navigate("/");
             } else {
                 setError(true);
             }

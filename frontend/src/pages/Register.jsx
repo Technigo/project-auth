@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useUser } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+    const { signIn } = useUser();
+    const navigate = useNavigate();
+
     const [username, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -9,6 +14,7 @@ const Register = () => {
 
     const handleRegister = async () => {
         try {
+            setError(false);
             setLoading(true);
             const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
                 method: "POST",
@@ -18,7 +24,8 @@ const Register = () => {
 
             if (response.ok) {
                 const userData = await response.json();
-                console.log(userData);
+                signIn(userData);
+                navigate("/");
             } else {
                 setError(true);
             }
