@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const gifSchema = new mongoose.Schema(
   {
     word: { type: String, required: [true, "gif needs the word to search"] },
@@ -17,4 +16,4 @@ const gifSchema = new mongoose.Schema(
 
 const Gif = mongoose.model("Gif", gifSchema);
 
-exports.module = Gif;
+module.exports = Gif;

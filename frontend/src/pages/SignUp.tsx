@@ -21,7 +21,7 @@ const initialDBerror = {
   message: "",
 };
 
-const minLength = 12;
+const minLength = 8;
 
 export const SignUp = () => {
   const [formError, setFormError] = useState<FormError>(initialState);
@@ -63,7 +63,7 @@ export const SignUp = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-center text-green-800">Saku TODO 🌸</h1>
+      <h1 className="text-3xl font-bold text-center text-green-800">Sgifigs 🌸</h1>
       <div className="w-[300px] sm:w-[500px] mx-auto pt-10">
         <h2 className="text-2xl font-bold text-teal-900 text-center mb-4">Sign Up</h2>
         <form className="w-96 sm:w-full" onSubmit={hanldleSubmit}>

@@ -16,12 +16,14 @@ const port = process.env.PORT || 8080;
 const app = express();
 
 const userRouter = require("./routes/userRoutes");
+const gifRouter = require("./routes/gifRoutes");
 
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/gif", gifRouter);
 app.use("/", (req, res) => {
   res.json(listEndpoints(app));
 });
@@ -33,27 +35,4 @@ app.all("*", (req, res, next) => {
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
-});
-
-app.post("/users", async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
-    console.log(req.body);
-    const user = new User({ name, email, password: bcrypt.hashSync(password) });
-
-    user.save();
-    res.status(201).json({ is: user._id, accessToken: user.accessToken });
-    console.log(res);
-  } catch (err) {
-    res.status(400).json({ message: "Could not create user", errors: err });
-  }
-});
-
-app.post("/sessions", async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken });
-  } else {
-    res.json({ notFound: true });
-  }
 });
