@@ -1,13 +1,119 @@
-:root {
+/*---------- GOOGLE FONTS -  ----------*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
+
+/*---------- BASE ----------*/
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+html {
+  scroll-behavior: smooth;
+}
+
+/* Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+}
+
+/*---------- LAYOUT ----------*/
+body {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
+  background-image: linear-gradient(
+    to right top,
+    #a9d98b,
+    #56d2b5,
+    #14c2db,
+    #63abe4,
+    #9f8fc9
+  );
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 2rem 4rem;
+  border-radius: 1rem;
+}
+
+.password-input,
+.username-input,
+.email-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+label {
+  color: #000;
+}
+
+input {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  border: none;
+}
+
+input::placeholder {
+  padding-left: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  border: 1px solid grey;
+  border-radius: 10rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 400px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+}
+
+@media ((min-width: 401px) and (max-width: 600px)) {
+  header h1 {
+    font-size: 1.5rem;
+  }
 }
