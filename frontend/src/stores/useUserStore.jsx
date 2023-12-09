@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { create } from "zustand";
 
 // Gets the url to the API from the env file
@@ -85,47 +86,6 @@ export const useUserStore = create((set, get) => ({
     }
   },
 
-  // // LOGIN
-  // loginUser: async (username, password) => {
-  //   if (!username || !password) {
-  //     alert("Please enter both username and password");
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await fetch(withEndpoint("signin"), {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ username, password }),
-  //     });
-
-      
-
-  //     const data = await response.json();
-  //     console.log("Server response:", data);
-      
-  //     if (data.success) {
-  //       set({
-  //         username,
-  //         token: data.response.token,
-  //         isLoggedIn: true,
-  //       }); // Update the state with username and accessToken
-  //       // Redirect or update UI
-  //       localStorage.setItem("token", data.response.token);
-  //       alert("Login successful!");
-  //       console.log("Loging up with:", username, password);
-  //     } else {
-  //       // Display error message from server
-  //       alert(data.response || "Login failed");
-  //     }
-  //   } catch (error) {
-  //     console.error("Login error:", error);
-  //     alert("An error occurred during login");
-  //   }
-  // },
-
 
  loginUser: async (username, password) => {
     if (!username || !password) {
@@ -168,30 +128,6 @@ export const useUserStore = create((set, get) => ({
 
 
 
-  
-
-  fetchLoggedInData: async () => {
-    try {
-      const token = get().token
-      const response = await fetch(withEndpoint("protected"), {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${token}`
-        }
-      })
-      const data = await response.json()
-      if (data.success) {
-        set({ loggedInData: data.response })
-        console.log("Data from /logged-in", data);
-      } else {
-        console.error(data.response || "Failed to fetch /logged-in")
-      }
-    } catch (error) {
-      console.error("Error fetching /logged-in:", error)
-
-    }
-  },
 
 
 

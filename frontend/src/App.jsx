@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { GetStarted } from "./pages/GetStarted";
+import { Login } from "./pages/Login.jsx";
 import { Register } from "./pages/Register.jsx";
 import { ErrorPage } from "./pages/ErrorPage";
-import { Dashboard } from "./pages/Dashboard";
+import { SecretPage } from "./pages/SecretPage.jsx";
 import { Home } from "./pages/Home";
-//import "./app.css"
+
 
 
 export const App = () => {
@@ -13,9 +13,9 @@ export const App = () => {
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/getstarted" element={<GetStarted />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/secretpage" element={<SecretPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </main>

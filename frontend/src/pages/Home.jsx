@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "../components/Button"
-// import "./home.css";
+import "./home.css";
 
 export const Home = () => {
 
     return (
-        <>
-            <h1>Welcome to</h1>
-            <Link to="/getstarted"><Button className="primary" btnText="Get started" /></Link>
-        </>
+        <div className="home-container">
+            <h1>Welcome</h1>
+            <Link to="/login"><Button className={"button"} btnText={"Get started"} /></Link>
+        </div>
     )
 }
