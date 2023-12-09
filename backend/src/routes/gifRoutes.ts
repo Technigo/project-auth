@@ -1,9 +1,13 @@
+import express from "express";
+import { authenticateUser } from "../middleware/auth";
+
+const router = express.Router();
+
 const gifController = require("../controllers/gifController");
 
-router.get("/", gifController.getAllUsers);
-router.post("/signup", gifController.createNewUser);
-router.post("/login", gifController.loginUser);
-router.put("/:id", gifController.updateUser);
-router.delete("/delete/:id", gifController.deleteUser);
+router
+  .route("/")
+  .post(authenticateUser, gifController.createGif)
+  .get(authenticateUser, gifController.getGifs);
 
 module.exports = router;

@@ -1,5 +1,5 @@
-import { CREATE_USER_API, DELETE_USER_API, LOGIN_USER_API, UPDATE_USER_API } from "../statics/apis";
-import { CreateUser, LoginBody, UpdateUserBody } from "../types/formType";
+import { ADD_GIF_API, CREATE_USER_API, LOGIN_USER_API } from "../statics/apis";
+import { CreateUser, LoginBody } from "../types/formType";
 import { StoreGif } from "../types/common";
 
 export const createUser = async (formData: CreateUser) => {
@@ -49,38 +49,42 @@ export const loginUser = async (formData: LoginBody) => {
   }
 };
 
-// not tested yet
-export const deleteUser = async (id: string) => {
+export const storeGif = async (body: StoreGif) => {
+  const accessToken = localStorage.getItem("accessToken");
+  if (!accessToken) return alert("Please check in first");
   try {
-    const res = await fetch(DELETE_USER_API(id), {
+    const res = await fetch(ADD_GIF_API, {
+      method: "POST",
       headers: {
+        Authorization: accessToken,
         "Content-Type": "application/json",
       },
-      method: "POST",
+      body: JSON.stringify(body),
     });
-    if (res.status !== 200) throw new Error();
-    localStorage.removeItem("accessToken");
-    return res.json();
+    const newGif = await res.json();
+
+    return newGif;
   } catch (err) {
-    console.error(err);
     return err;
   }
 };
 
-export const updateUser = async (id: string, body: UpdateUserBody) => {
+export const getGifs = async () => {
+  const accessToken = localStorage.getItem("accessToken");
+  if (!accessToken) return alert("Please check in first");
   try {
-    const res = await fetch(UPDATE_USER_API(id), {
+    const res = await fetch(ADD_GIF_API, {
+      method: "Get",
       headers: {
+        Authorization: accessToken,
         "Content-Type": "application/json",
       },
-      method: "POST",
     });
-    if (res.status !== 200) throw new Error();
-    return res.json();
+    const gifs = await res.json();
+    console.log(gifs);
+
+    return gifs;
   } catch (err) {
-    console.error(err);
     return err;
   }
 };
-
-export const storeGif = async (body: StoreGif) => {};

@@ -37,7 +37,7 @@ export const LogIn = () => {
 
   return (
     <div className="w-full sm:max-w-[400px]">
-      <h2 className="text-3xl text-center font-bold text-lime-900">Saku TODO 🌸</h2>
+      <h2 className="text-3xl text-center font-bold text-lime-900">Sgifigs 🌸</h2>
       <form className="w-96 sm:w-full" onSubmit={handleLogin}>
         <LoginForm />
         <div className="flex flex-col items-center justify-center">

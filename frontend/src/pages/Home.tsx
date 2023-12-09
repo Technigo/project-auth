@@ -1,27 +1,35 @@
 import { useAtomValue } from "jotai";
 import { userState } from "../atoms/userAtom";
 import { Input } from "@mui/joy";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { getGifs } from "../actions/action";
+import { storeGif as storeGifAction, getGifs as getAllGifs } from "../sevices/apis";
 
 export const Home = () => {
   const [value, setValue] = useState("");
   const currentUser = useAtomValue(userState);
   const [gif, setGif] = useState("");
+  const [allStoredGifs, setAllStoredGifs] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const allGifs = await getAllGifs();
+      setAllStoredGifs(allGifs.gifs);
+    })();
+  }, []);
 
   const handleSearch = async () => {
     const gifs = await getGifs(value);
-    console.log(gifs);
+    setValue("");
     if (gifs && gifs.data.length > 0) {
       setGif(gifs.data[0].embed_url);
       const storeGif = {
         word: value,
-        path: gifs.data[0].embed_url,
-        name: currentUser.name,
-        accessToken: currentUser.accessToken,
+        path: gifs.data[0].embed_url as string,
       };
-      storeGif(storeGif);
+      const storedGif = await storeGifAction(storeGif);
+      if (!storedGif?.status) alert("Please login to add Gif");
     } else {
       alert("Couldn't get a gif!");
     }
@@ -34,6 +42,7 @@ export const Home = () => {
         placeholder="Search gif with a word"
         onChange={(e) => setValue(e.target.value)}
         className="py-2 px-1 w-[300px]"
+        value={value}
       />
       <button
         onClick={handleSearch}
@@ -52,6 +61,22 @@ export const Home = () => {
           <div className="w-full h-full border-none top-0 left-0 z-1 absolute"></div>
         </div>
       )}
+      <div>
+        <h3 className="text-blue-600 font-bold text-center text-2xl">All your searched gifs 👻</h3>
+        <div className="flex flex-wrap gap-10 px-20 py-10 ">
+          {allStoredGifs &&
+            allStoredGifs.map((gif) => (
+              <div className="h-32 w-32 relative z-0 mx-auto">
+                <iframe
+                  className="w-full h-full top-0 left-0 z-1 absolute"
+                  src={gif?.path}
+                  allow="encrypted-media;"
+                ></iframe>
+                <div className="w-full h-full border-none top-0 left-0 z-1 absolute"></div>
+              </div>
+            ))}
+        </div>
+      </div>
     </div>
   );
 };
