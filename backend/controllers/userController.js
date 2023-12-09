@@ -103,8 +103,17 @@ export const loginUserController = asyncHandler(async (req, res) => {
 });
 
 // @desc Get user private page
-// @rounte Get /secret
+// @route Get /secret
 // @access Private
 export const secret = asyncHandler(async (req, res) => {
-  res.status(200).json(req.user);
+  try {
+    if (!req.user) {
+      return res.status(401).json({ success: false, response: "Unauthorized" });
+    }
+    // if authenticated, return user information
+    res.status(200).json({ success: true, response: req.user });
+  } catch (error) {
+    console.error("Error in secret route:", error);
+    res.status(500).json({ success: false, response: "Internal Server Error" });
+  }
 });
