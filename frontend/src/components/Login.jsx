@@ -50,7 +50,7 @@ export const Login = () => {
   };
 
   const onLogoutClick = () => {
-    setUsername("");
+    setUsername("Loggedout");
     setPassword("");
     setEmail("");
     setIsRegistered(false);
