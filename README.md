@@ -16,6 +16,20 @@ A sign-in form.
 A page to show the authenticated content from the API.
 A 'sign out' button that removes the saved access token and redirects the user to the login form.
 
+<ins>My endpoints/routes</ins>: 
+
+    "path": "/",
+    "methods": "GET"
+    
+    "path": "/users",
+    "methods": "GET"
+
+    "path": "/login",
+    "methods": "POST"
+
+    "path": "/register",
+    "methods":"POST"
+
 ## The problem
 
 <ins>Describe how you approached to problem</ins>: I first tackled the backend and wrote simple endpoints with everything in the Server.js file, I then refactored my structure and followed Diego's examples, trying to follow each line of code, there are several things I am still confused about! I had issues with the Bcrypt when deploying the backend and realised i was using bcrypt-nodejs. 
