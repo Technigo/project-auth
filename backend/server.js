@@ -5,8 +5,11 @@ import authUserMiddleware from '../backend/middleware/authUser';
 import userRoutes from './models/userModel';
 import secretRoute from './routes/secretRoutes';
 import listEndpoints from 'express-list-endpoints';
+import 'dotenv/config';
+require('dotenv').config();
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+
+const mongoUrl = process.env.MONGO_URI || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
