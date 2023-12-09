@@ -15,7 +15,7 @@ export const Register = () => {
   //API TO TEST ON LOCAL HOST
   //const myAPI = "http://localhost:8000";
   //API FOR DEPLOYED BACKEND
-  const myAPI = "https://project-auth-0x8y.onrender.com";
+  const myAPI = "https://project-auth-0x8y.onrender.com/register";
 
   //----Function to handle sign up button click----//
   const onSignupClick = async (event) => {
@@ -34,7 +34,7 @@ export const Register = () => {
       body: JSON.stringify({ email, username, password }),
     };
 
-    await fetch(`${myAPI}/register`, info)
+    await fetch(myAPI, info)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Server error: ${response.status}`);
