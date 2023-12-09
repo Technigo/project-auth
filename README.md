@@ -12,14 +12,37 @@ If we had more time we would add a loader to the page.
 
 ## API Documentation
 
-This API allows users to register, sign in, access authenticated content, and sign out.
+The APIs allows users to register, sign in, access authenticated content, and sign out.
 
 ### Base URL
 
-The base URL for all API endpoints is:
-https://auth-julia-vera.netlify.app
+FRONTEND: https://auth-julia-vera.netlify.app
 
-### Endpoints
+BACKEND: https://register-login-auth.onrender.com
+
+### Frontend Endpoints
+
+1. Login Page
+Endpoint: /
+Method: GET
+Description: Displays the login page for users to enter their username and password.
+
+2. Registration Page
+Endpoint: /register
+Method: GET
+Description: Displays the registration page for users to sign up by providing a username, password and email.
+
+3. Authenticated Content Page
+Endpoint: /logged-in
+Method: GET
+Description: Displays content that is accessible only to authenticated users after successful login.
+
+4. Logout
+Endpoint: /logout
+Method: POST
+Description: Logs the user out, clearing user information and redirecting to the login page.
+
+### Backend Endpoints
 
 1. Get API Documentation
 Endpoint: /
@@ -55,4 +78,5 @@ Request Headers:
 ## View it live
 
 FRONTEND: https://auth-julia-vera.netlify.app
+
 BACKEND: https://register-login-auth.onrender.com
