@@ -1,9 +1,10 @@
 import Lottie from "lottie-react";
-import TopSecret from "./assets/animation/Animation - 1701879216835.json";
+import CommunityAnimation from "./assets/animation/Animation - 1702137897744.json";
 
-export const TopSecretAnimation = () => {
+// Animation
+export const Animation = () => {
   const options = {
-    animationData: TopSecret,
+    animationData: CommunityAnimation,
     style: {
       margin: 25,
       height: 200,
