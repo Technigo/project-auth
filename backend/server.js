@@ -1,12 +1,11 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
 import { connectDB } from "./config/db";
 import dotenv from "dotenv";
-import routes from "../frontend/src/assets/routes/routes";
+import route from "./routes/routes";
 dotenv.config();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 const app = express();
 
 // Add middlewares to enable cors and json body parsing

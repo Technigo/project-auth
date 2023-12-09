@@ -16,7 +16,7 @@ const generateToken = (user) => {
   );
 };
 //Registration endpoint, to create a new user.
-export const registerUserController = asyncHandler(async (req, res) => {
+export const registerUserController = asyncHadler(async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
