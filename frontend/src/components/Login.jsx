@@ -12,7 +12,7 @@ export const Login = () => {
   //API TO TEST ON LOCAL HOST
   //const myAPI = "http://localhost:8000";
   //API FOR DEPLOYED BACKEND
-  const myAPI = "https://project-auth-0x8y.onrender.com/";
+  const myAPI = "https://project-auth-0x8y.onrender.com";
 
   //----Function to handle sign up button click----//
   const onLoginClick = async (event) => {
