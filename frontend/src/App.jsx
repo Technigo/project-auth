@@ -4,11 +4,11 @@ import { Header } from "./components/Header";
 import { userStore } from "../stores/userStore";
 
 export const App = () => {
-  const {isLoggedIn} = userStore()
+  const { isLoggedIn } = userStore();
 
   return (
     <div className="wrapper">
-      {isLoggedIn ? ("") : <Header />}
+      {isLoggedIn ? "" : <Header />}
       <BrowserRouter>
         <Routes>{routes}</Routes>
       </BrowserRouter>

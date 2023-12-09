@@ -2,7 +2,6 @@ import { LoginForm } from "../components/LoginForm";
 import { userStore } from "../../stores/userStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 export const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -39,5 +38,3 @@ export const LoginPage = () => {
     </>
   );
 };
-
-//hej

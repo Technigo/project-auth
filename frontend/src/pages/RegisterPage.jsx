@@ -2,7 +2,6 @@ import { RegisterForm } from "../components/RegisterForm";
 import { userStore } from "../../stores/userStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 export const RegisterPage = () => {
   const [username, setUsername] = useState("");
@@ -18,7 +17,8 @@ export const RegisterPage = () => {
     }
     try {
       await storeHandleSignUp(username, password, email);
-      if (username && password) {
+      const isLoggedIn = userStore.getState().isLoggedIn;
+      if (isLoggedIn) {
         navigate("/");
       }
     } catch (error) {
@@ -26,8 +26,6 @@ export const RegisterPage = () => {
       alert("An error occured during sign up");
     }
   };
-
-  console.log(email);
 
   return (
     <>

@@ -1,5 +1,8 @@
+// Make it easy to make schemas and connect to mongodb.
 import mongoose from "mongoose";
-import crypto from "crypto"; //  Imports the Node.js crypto library for generating secure random strings.
+
+// Imports the Node.js crypto library for generating secure random strings.
+import crypto from "crypto";
 
 const { Schema } = mongoose;
 

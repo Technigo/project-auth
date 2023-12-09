@@ -28,7 +28,7 @@ export const LoggedInPage = () => {
     <>
       <h1>{loggedInData}</h1>
       <LottieComp />
-      <button onClick={onLogOutClick}>Bye Log out</button>
+      <button onClick={onLogOutClick}>Log out</button>
     </>
   );
 };
