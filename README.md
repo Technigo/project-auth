@@ -16,9 +16,8 @@ The APIs allows users to register, sign in, access authenticated content, and si
 
 ### Base URL
 
-FRONTEND: https://auth-julia-vera.netlify.app
-
-BACKEND: https://register-login-auth.onrender.com
+Frontend: https://auth-julia-vera.netlify.app
+Backend: https://register-login-auth.onrender.com
 
 ### Frontend Endpoints
 
