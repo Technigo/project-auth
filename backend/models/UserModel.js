@@ -16,7 +16,7 @@ export const userSchema = new Schema({
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString("hex"),
+    default: () => crypto.randomBytes(128).toString("hex"), // Generate a random 128 byte hex string for the access token
   },
 });
 export const UserModel = mongoose.model("user", userSchema);

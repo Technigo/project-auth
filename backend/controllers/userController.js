@@ -2,16 +2,6 @@ import { UserModel } from "../models/UserModel";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-//import { authenticateUser } from "../middleware/authenticateUser";
-
-// const bcrypt = require("bcrypt");
-
-// Generate a JWT token for user authentication
-// const generateToken = (user) => {
-//   return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-//     expiresIn: "24h",
-//   });
-// };
 
 // Generate a JWT token for user authentication
 const generateToken = (user) => {
@@ -23,33 +13,26 @@ const generateToken = (user) => {
   });
 };
 
+// Controller to check if the user is authenticated
 export const addRegisterController = asyncHandler(async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password } = req.body; // Get the username and password from the request body.
   try {
+    // Check if the username and password are provided
     if (!username || !password) {
-      res.status(400).json({ error: "Missing username or password" });
+      res.status(401).json({ error: "Missing username or password" }); // 401 is unauthorized
       return;
     }
-    // if (!username || !password) {
-    //   res.status(400);
-    //   throw new Error("Missing username or password");
-    // }
-
+    // Check if the user already exists in the database.
     const existingUser = await UserModel.findOne({ username });
-
+    // If the user already exists, return an error message.
     if (existingUser) {
       res
         .status(409)
-        .json({ error: `User with username '${username}' already exists` });
+        .json({ error: `User with username '${username}' already exists` }); // 409 is conflict, a user with the same username already exists.
       return;
     }
 
-    // if (existingUser) {
-    //   res.status(400);
-    //   throw new Error(`User with username '${username}' already exists`);
-    // }
-
-    // Generate a salt and hash the password. We are using the bcrypt library to create a randon value (salt) and then hash the password with the salt. The salt is then stored in the database with the hashed password. This is making it harder for hackers to crack the password.
+    // Generate a salt and hash the password. We are using the bcrypt library to create a random value (salt) and then hash the password with the salt. The salt is then stored in the database with the hashed password. This is making it harder for hackers to crack the password.
     const salt = bcrypt.genSaltSync(10);
 
     // Hash the password with the salt.
@@ -63,10 +46,11 @@ export const addRegisterController = asyncHandler(async (req, res) => {
 
     // Save the user to the database.
     await newUser.save();
-
+    // Return a success message with the user details.
     res.status(201).json({
       success: true,
       response: {
+        // Return the user details and a JWT token for the user.
         id: newUser._id,
         username: newUser.username,
         accessToken: generateToken(newUser._id), // Generate a JWT token for the user for the new user using the user Id.
@@ -84,19 +68,20 @@ export const loginUserController = asyncHandler(async (req, res) => {
     // Check if the username and password are provided
     const user = await UserModel.findOne({ username });
     if (!user) {
+      // If the user does not exist, return an error message.
       return res
-        .status(401)
-        .json({ success: false, response: "User not found" });
+        .status(401) // 401 is unauthorized
+        .json({ success: false, response: "User not found" }); // Return an error message if the user does not exist.
     }
 
     // Check if the password is correct
     const isMatch = await bcrypt.compare(password, user.password); // Compare the password provided with the hashed password in the database.
     if (!isMatch) {
       return res
-        .status(401)
-        .json({ success: false, response: "Incorrect password" });
+        .status(401) // 401 is unauthorized
+        .json({ success: false, response: "Incorrect password" }); // Return an error message if the password is incorrect.
     }
-
+    // Return a success message with the user details.
     res.status(200).json({
       success: true,
       response: {
@@ -106,9 +91,6 @@ export const loginUserController = asyncHandler(async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: error.message }); // Return an error message if something goes wrong with the database, the server or connection.
   }
 });
-
-// router.post("/secrets", authenticateUser);
-// router.post("/secrets", async (req, res) => {});

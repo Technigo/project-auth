@@ -2,16 +2,85 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 
+// API URL from .env file or default value
 const apiEnv = import.meta.env.VITE_BACKEND_API || "http://localhost:8080";
-
 console.log(apiEnv);
 
-const StyledStartPage = styled.div`
+const StartpageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
   align-items: center;
   justify-content: center;
+
+  img {
+    width: 400px;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 20px 0 20px 0;
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+  }
+`;
+
+const StyledStartPage = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+
+  h1 {
+    font-size: 32px;
+    //color: #6c4e40;
+    color: #b29a74;
+  }
+
+  h2 {
+    margin: 30px 0;
+    text-align: center;
+    font-size: 24px;
+    color: #38634b;
+  }
+
+  p {
+    color: #808080;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #38634b;
+  }
+
+  @media screen and (min-width: 668px) and (max-width: 1023px) {
+    h1 {
+      font-size: 54px;
+    }
+
+    h2 {
+      font-size: 32px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    h1 {
+      font-size: 80px;
+    }
+
+    h2 {
+      font-size: 40px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
 `;
 
 const StyledForm = styled.form`
@@ -24,10 +93,9 @@ const FormFields = styled.div`
   input {
     height: 35px;
     width: 250px;
-  }
-
-  input::placeholder {
-    padding-left: 5px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding-left: 10px;
   }
 `;
 
@@ -39,65 +107,81 @@ const Buttons = styled.div`
 
   button {
     cursor: pointer;
-    border: 1px solid #000;
     border-radius: 10px;
     padding: 5px 15px;
     font-size: 18px;
+    background-color: #38634b;
+    color: #fff;
+  }
+
+  button:hover {
+    background-color: #959781;
   }
 `;
 
 export const StartPage = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [username, setUsername] = useState(""); // Add username state
+  const [password, setPassword] = useState(""); // Add password state
+  const navigate = useNavigate(); // Add navigate function
 
   const handleRegister = async () => {
     try {
+      // Make a POST request (registration) to the backend with username and password
       const response = await fetch(`${apiEnv}/register`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", // Tell the backend that we are sending JSON data
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password }), // Add username and password to body
       });
 
       if (response.ok) {
+        // Check if response is ok (200)
         const data = await response.json();
-        console.log(data); // Handle the success response
+        console.log(data);
+        // Store the access token in localStorage
         localStorage.setItem("accessToken", data.response.accessToken);
+        // Show success message
         alert("You have successfully registered!");
         // Navigate to a new route after successful registration
         navigate("/secrets");
       } else {
-        let errorData;
+        let errorData; // Define errorData variable
 
         try {
+          // Try to parse response as JSON
           errorData = await response.json();
-          console.error(errorData); // Log the error response
+          console.error(errorData); // Log errorData to console
         } catch (error) {
-          console.error(error); // Handle parsing error
+          // Catch errors if response is not JSON
+          console.error(error); // Log error to console
         }
 
         if (response.status === 409) {
-          // Check for specific error messages and handle them
+          // 409 is a conflict with existing data in the database
+          // If the user already exists, show a specific error message
           if (errorData.error === "User with this username already exists") {
             alert(
               "Username already exists. Please choose a different username."
             );
           } else {
+            // If the usernamme already exists, show a generic error message
             alert("Username already exists");
           }
+          // 400 is a bad request (missing data)
         } else if (response.status === 400) {
-          // Check for other specific error messages and handle them
+          // If username or password is missing, show a specific error message
           if (errorData.error === "Missing username or password") {
             alert("Please provide both username and password.");
           } else {
             alert(
+              // If username or password is missing, show a generic error message
               "An error occurred during registration. Please try again later."
             );
           }
         } else {
           alert(
+            // Show generic error message for all other errors
             "An error occurred during registration. Please try again later."
           );
         }
@@ -107,7 +191,7 @@ export const StartPage = () => {
         setPassword("");
       }
     } catch (error) {
-      console.error(error); // Handle network errors
+      console.error(error); // Log network error to console
       alert("An error occurred during registration. Please try again later.");
 
       // Reset form fields on error
@@ -116,78 +200,63 @@ export const StartPage = () => {
     }
   };
 
-  //       if (response.status === 409) {
-  //         alert("Username already exists");
-  //       } else {
-  //         alert(
-  //           "An error occurred during registration. Please try again later."
-  //         );
-  //       }
-  //       // Reset form fields on unsuccessful registration
-  //       setUsername("");
-  //       setPassword("");
-  //     }
-  //   } catch (error) {
-  //     console.error(error); // Handle network errors
-  //     alert("An error occurred during registration. Please try again later.");
-
-  //     // Reset form fields on error
-  //     setUsername("");
-  //     setPassword("");
-  //   }
-  // };
-
   const handleLogin = async () => {
     try {
+      // Make a POST request (login) to the backend with username and password
       const response = await fetch(`${apiEnv}/login`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", // Tell the backend that we are sending JSON data
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password }), // Add username and password to body
       });
-      const data = await response.json();
-      console.log(data); // Handle the success response
+      const data = await response.json(); // Get JSON data from response
+      console.log(data); // Log data to console
+      // Store the access token in localStorage
       localStorage.setItem("accessToken", data.response.accessToken);
       // Navigate to a new route after successful login
       navigate("/secrets");
     } catch (error) {
-      console.error(error); // Handle the error response
+      console.error(error); // Log network error to console
     }
   };
 
   return (
-    <StyledStartPage>
-      <h1>Welcome!</h1>
-      <h2>Register or sign in to get access to some secret stuff</h2>
-      <StyledForm>
-        <FormFields>
-          <input
-            label="Username"
-            type="text"
-            id="username"
-            placeholder="Username"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-            required
-          />
-        </FormFields>
-        <FormFields>
-          <input
-            label="Password"
-            type="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-          />
-        </FormFields>
-      </StyledForm>
-      <Buttons>
-        <button onClick={handleRegister}>Register</button>
-        <button onClick={handleLogin}>Log in</button>
-      </Buttons>
-    </StyledStartPage>
+    <StartpageContainer>
+      <StyledStartPage>
+        <h1>Welcome!</h1>
+        <h2>Want to take a sneak peek of our secret content?</h2>
+        <p>Please register or login</p>
+        <StyledForm>
+          <FormFields>
+            <input
+              label="Username"
+              type="text"
+              id="username"
+              placeholder="Username"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)} // Update username state
+              required
+            />
+          </FormFields>
+          <FormFields>
+            <input
+              label="Password"
+              type="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)} // Update password state
+              required
+            />
+          </FormFields>
+        </StyledForm>
+        <Buttons>
+          <button onClick={handleRegister}>Register</button>
+          <button onClick={handleLogin}>Log in</button>
+        </Buttons>
+      </StyledStartPage>
+      <img src="/pexels-noel-blck.jpg" alt="Woman peaking through leaves" />
+    </StartpageContainer>
   );
 };

@@ -1,12 +1,10 @@
 import express from "express";
 import listEndpoints from "express-list-endpoints";
-// import dotenv from "dotenv";
-// dotenv.config();
+import { authenticateUser } from "../middleware/authenticateUser.js";
 import {
   addRegisterController,
   loginUserController,
 } from "../controllers/userController.js";
-import { authenticateUser } from "../middleware/authenticateUser.js";
 
 // Creating an instance of the Express router
 const router = express.Router();
@@ -23,7 +21,7 @@ router.get("/", async (req, res) => {
       },
     });
   } catch (error) {
-    // Error handling
+    // 500 is internal server error, the server cannot process the request for an unknown reason.
     res.status(500).send({
       success: false,
       message: "Internal Server Error",
@@ -38,12 +36,11 @@ router.post("/register", addRegisterController);
 // Route to login and authenticate a user
 router.post("/login", loginUserController);
 
+// Add the authenticateUser middleware to the route to protect it
 router.get("/secrets", authenticateUser);
 router.get("/secrets", async (req, res) => {
   res.json({ secret: "This is top secret" });
 });
 
 // Export the router for use in the main application
-//module.exports = router;
-//export default router;
 export { router };
