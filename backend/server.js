@@ -24,13 +24,10 @@ const User = mongoose.model("User", {
     required: true,
     unique: true,
     minlength: 5,
-    maxlength: 30,
   },
   password: {
     type: String,
     required: true,
-    minlength: 5,
-    maxlength: 60,
   },
   accessToken: {
     type: String,
@@ -57,18 +54,20 @@ app.post("/users", async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    if (existingUser) {
-      throw new Error("User already exists");
-    } else {
+    // if (existingUser) {
+    //   throw new Error("User already exists");
+    // } else {
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
     await user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
     }
-  } catch (err) {
+   catch (err) {
+    console.log(err);
     res.status(400).json({ message: "Could not create user", errors: err.errors });
   }
-}
-);
+  
+});
+
 
 
 const authenticateUser = async (req, res, next) => {
