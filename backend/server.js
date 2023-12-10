@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
+//import mongoose from "mongoose";
 import dotenv from "dotenv"; // Import dotenv for environment variables
 import listEndpoints from 'express-list-endpoints';
 dotenv.config(); // Load environment variables from the .env file
