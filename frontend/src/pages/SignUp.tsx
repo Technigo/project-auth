@@ -40,6 +40,7 @@ export const SignUp = () => {
   const hanldleSubmit = async (e: FormEvent<HTMLFormElement> | undefined) => {
     const result = checkFormIsValid(e);
     setDbError(initialDBerror);
+    setFormError(initialState);
     let userObj;
 
     if (!result.success) {
