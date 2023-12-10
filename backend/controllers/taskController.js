@@ -21,29 +21,6 @@ export const getTasksController = asyncHandler(async (req, res) => {
     .catch((err) => res.json(err)); // Handle any errors that occur during the operation
 });
 
-// desciption: POST Tasks
-// route: /add
-// access: Private
-// export const addTaskController = asyncHandler(async (req, res) => {
-//   try {
-//     // Extract the task data from the request body
-//     const { task } = req.body;
-//     // Extract the accessToken from the request object, but it is not going to be from the req.body but, its going to be from the req.header
-//     const accessToken = req.header("Authorization"); // we are requesting the Authorization key from the headerObject
-//     // get the user and matchIt with the user from the db - remmeber that we are using the accessToken to do so :)
-//     const userFromStorage = await UserModel.findOne({
-//       accessToken: accessToken,
-//     });
-//     // Define var to pass new task
-//     const newTask = new TaskModel({
-//       task: task,
-//       user: userFromStorage,
-//     }).save();
-//     res.json(newTask);
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// });
 
 // desciption: POST Tasks
 // route: /add
