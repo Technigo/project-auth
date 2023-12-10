@@ -1,11 +1,11 @@
+// secretRoute.js
 import express from 'express';
-import authenticateUser from '../middleware/authUser'; // Import the authentication middleware
+import authenticateUser from '../middleware/authMiddleware';
 
-// Create an instance of the Express Router
 const router = express.Router();
 
 // Route for accessing the secret content ('/secret')
-router.get('/secret', authenticateUser, async (req, res) => {
+router.get('/', authenticateUser, async (req, res) => {
     try {
         // Access the authenticated user from the request object
         const authenticatedUser = req.user;
@@ -19,8 +19,36 @@ router.get('/secret', authenticateUser, async (req, res) => {
     }
 });
 
-// Export the router for use in other files
 export default router;
+
+
+
+
+
+// import express from 'express';
+// import authUserMiddleware from 'backend/middleware/authMiddleware.js'; // Import the authentication middleware
+
+// // Create an instance of the Express Router
+// const router = express.Router();
+
+// // Route for accessing the secret content ('/secret')
+// router.get('/secret', authUserMiddleware, async (req, res) => {
+//     try {
+//         // Access the authenticated user from the request object
+//         const authenticatedUser = req.user;
+
+//         // You can now use the authenticatedUser to fetch user-specific content from the database
+//         // For simplicity, let's just return a success message
+//         res.json({ message: `Hello, ${authenticatedUser.username}! Welcome to the secret route.` });
+//     } catch (error) {
+//         // Handle any errors that may occur
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
+
+// // Export the router for use in other files
+// export default router;
+
 
 // Explanation:
 
