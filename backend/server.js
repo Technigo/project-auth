@@ -1,27 +1,47 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
+// Import necessary libraries and modules
+import express from "express"; // Import the Express.js framework
+import cors from "cors"; 
+import mongoose from "mongoose"; 
+import dotenv from "dotenv"; 
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.Promise = Promise;
+import taskRoutesUpgraded from "./routes/taskRoutesUpgraded"; 
+import userRoutesUpgraded from "./routes/userRoutesUpgraded"; 
+import { connectDB } from "./config/db"; 
+import listEndpoints from 'express-list-endpoints';
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
-const port = process.env.PORT || 8080;
-const app = express();
 
-// Add middlewares to enable cors and json body parsing
-app.use(cors());
-app.use(express.json());
+dotenv.config();
 
-// Start defining your routes here
+// const handlePreflight = require('./corsMiddleware'); // Remove this line
+
+const port = process.env.PORT || 3002; 
+const app = express(); 
+
+// Add middlewares 
+app.use(cors()); // Enable CORS (Cross-Origin Resource Sharing)
+app.use(express.json()); // Parse incoming JSON data
+app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
+
+// const handlePreflight = require('./corsMiddleware'); // Remove this line
+
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send(listEndpoints(app));
 });
 
-// Start the server
+const handlePreflight = require('./middleware/corsMiddleware');
+
+// Use the routes for handling API requests
+
+// ROUTES - These routes DO NOT USE controller functions ;)
+// app.use(taskRoutes); // Use the task routes for task-related requests
+// app.use(userRoutes); // Use the user routes for user-related requests
+
+// ROUTES - These routes USE controller functions ;)
+app.use(taskRoutesUpgraded); // Use the task-controlled routes for task-related requests
+app.use(userRoutesUpgraded); // Use the user-controlled routes for user-related requests
+app.use(handlePreflight);
+connectDB();
+
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on http://localhost:${port}`); // Display a message when the server is successfully started
 });

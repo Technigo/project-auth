@@ -1,6 +1,9 @@
 # This file tells netlify where the code for this project is and
 # how it should build the JavaScript assets to deploy from.
+# netlify.toml
+
 [build]
   base = "frontend/"
-  publish = "build/"
+  publish = "build"  # Remove the trailing slash
   command = "npm run build"
+
