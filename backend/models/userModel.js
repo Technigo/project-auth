@@ -10,6 +10,11 @@ const userSchema = new mongoose.Schema({
         required: true, // Username is required
         trim: true, // Removes any leading or trailing whitespaces
     },
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+    },
     password: {
         type: String,
         required: true,
