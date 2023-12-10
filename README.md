@@ -66,4 +66,4 @@ Check out the deployed project:
 - **Backend Deploy:** [Project Auth API](https://project-auth-1.onrender.com/)
 - **Frontend Deploy:** [Project Auth Frontend](https://6572f11d60878875620f10bf--steady-queijadas-17fe7d.netlify.app/home)
 
-
+Thank you
