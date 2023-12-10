@@ -1,10 +1,11 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import userRoutes from "./routes/userRoutes"
+import userRoutes from "./routes/userRoutes";
 
 // Setting up the MongoDB connection URL, defaulting to a local database
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/Project-Authentication";
+const mongoUrl =
+  process.env.MONGO_URL || "mongodb://localhost/Project-Authentication";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -18,7 +19,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(userRoutes)
+app.use(userRoutes);
 
 // Start the server
 app.listen(port, () => {
