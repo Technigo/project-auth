@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import { LandingPage } from "frontend/src/pages/LandingPage.jsx"
+import { LandingPage } from "../pages/LandingPage";
 import { LoggedinPage } from "../pages/LoggedinPage";
  
 export const routes = (
