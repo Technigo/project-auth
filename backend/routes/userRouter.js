@@ -15,7 +15,7 @@ export const userRouter = express();
 userRouter.post("/register", registerUserController);
 userRouter.post("/login", loginUserController);
 userRouter.get("/dashboard", authenticateUser, getDashboardController); // The authenticateUser middleware is used to check if the user is logged in
-userRouter.get("/users", getUsersController);
+userRouter.get("/users", authenticateUser, getUsersController);
 
 // Displays endpoints
 userRouter.get("/", asyncHandler(async (req, res) => {

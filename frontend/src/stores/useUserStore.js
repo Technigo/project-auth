@@ -156,4 +156,22 @@ export const useUserStore = create((set, get) => ({
         // Removes the accessToken from localStorage
         localStorage.removeItem("accessToken");
     },
+
+    // Function to check if there's a stored token in localStorage, to allow for refresh of secret page
+    initAuth: () => {
+        const storedToken = localStorage.getItem("accessToken");
+
+        if (storedToken) {
+            set({
+                accessToken: storedToken,
+                isLoggedIn: true,
+            });
+        }
+    },
 }));
+
+// Initialize authentication when the store is created
+const userStore = useUserStore.getState();
+userStore.initAuth();
+
+export default userStore;
