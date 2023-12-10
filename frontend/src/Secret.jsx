@@ -1,5 +1,6 @@
-// Secret.jsx
 import React, { useState, useEffect } from 'react';
+
+//components
 import { Button } from './components/Button';
 import { Heading } from './components/Heading';
 import { Paragraph } from './components/Paragraph';
@@ -32,6 +33,7 @@ export const Secret = ({ user }) => {
         }
     };
 
+    //get secrets
     const handleGenerateNewSecret = async () => {
         try {
             const response = await fetch('https://backend-auth-vxpp.onrender.com/secrets', {
