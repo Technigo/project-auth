@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+html,
+body {
+  background-color: #f2ede2;
+}
+
+h1 {
+  color: #3EC3CE;
+  font-family: 'Poppins', sans-serif;
+}
+
+.main {
+  padding: 50px;
+}
+
+.login {
+  margin-top: 80px;
+}
+
+h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
