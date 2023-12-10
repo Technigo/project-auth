@@ -6,10 +6,11 @@ const SignOutButton = () => {
     
     const onSignOutClick = () => {
         storeHandleSignout();
+        alert("Sign out successful");
     };
     
     return (
-        <Link to="/" className="button" onClick={onSignOutClick}>
+        <Link to="/" className="button sign-out" onClick={onSignOutClick}>
             Sign Out
         </Link>
     );

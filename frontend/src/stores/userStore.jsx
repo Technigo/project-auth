@@ -36,6 +36,7 @@ export const userStore = create((set) => ({
 
             const data = await response.json();
 
+            console.log(data);
             if (data.success) {
                 set({
                     username, 
@@ -73,6 +74,8 @@ export const userStore = create((set) => ({
             });
 
             const data = await response.json();
+            console.log(data);
+            
             if (data.success) {
                 set({
                     username,

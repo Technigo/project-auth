@@ -1,11 +1,30 @@
 import SignOutButton from "../components/SignOutButton";
-import Adverts from "../sections/Adverts";
+import Lottie from "lottie-react";
+import animation from "../assets/animation/Animation.json";
 
 const Home = () => {
+  // Create settings for animation
+  const options = {
+    animationData: animation,
+    style: {
+      height: 250
+    },
+    loop: true,
+    autoplay: true
+  }
+
   return (
     <div>
+      <div className="button-wrapper">
         <SignOutButton />
-        <Adverts />
+      </div>
+      <h1>Welcome to the world of secrets!</h1>
+      <Lottie 
+        animationData={options.animationData} 
+        style={options.style} 
+        loop={options.loop} 
+        autoplay={options.autoplay} 
+      />
     </div>
   );
 };

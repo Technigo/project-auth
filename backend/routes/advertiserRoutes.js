@@ -1,6 +1,4 @@
 import express from "express";
-import asyncHandler from "express-async-handler";
-import listEndpoints from "express-list-endpoints";
 import { 
     registerUserController,
     showAllUsersController,
@@ -8,15 +6,6 @@ import {
 } from "../controllers/advertiserControllers";
 
 const router = express.Router();
-
-// Endpoint to show documentation of all endpoints
-router.get(
-    "/", 
-    asyncHandler(async (req, res) => {
-        const endpoints = listEndpoints(router);
-        res.json(endpoints);
-    })
-);
 
 // Endpoint to show all users
 router.get(

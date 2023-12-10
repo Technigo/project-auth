@@ -4,7 +4,6 @@ import cors from "cors";
 import asyncHandler from "express-async-handler";
 import listEndpoints from "express-list-endpoints";
 import advertiserRoutes from "./routes/advertiserRoutes";
-import advertRoutes from "./routes/advertRoutes";
 import { connectDB } from "./config/db";
 
 mongoose.Promise = Promise;
@@ -29,7 +28,6 @@ app.get(
   })
 );
 app.use(advertiserRoutes);
-app.use(advertRoutes);
 
 // Connect to the database
 connectDB();

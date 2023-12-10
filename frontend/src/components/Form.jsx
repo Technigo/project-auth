@@ -60,33 +60,42 @@ const Form = () => {
   };
 
   return (
-    <div>
+    <div className="form-container">
       <form>
         <h1>Welcome to GreenBuddy</h1>
         
-        <div>
-          <label htmlFor="signup">Sign up</label>
-          <input type="radio" name="what-to-do" id="signup" value={signUpMode} onChange={handleSignUpChange} />
-          <label htmlFor="login">Log in</label>
-          <input type="radio" name="what-to-do" id="login" value={signUpMode} onChange={handleLoginChange}/>
-        </div>
-        
-        <div>
-          <label htmlFor="username">Username</label>
-          <input type="text" name="username" id="username" value={username} placeholder="John Doe" onChange={handleUserNameChange} />
-        </div>
-
-        <div>
-          <label htmlFor="password">Password</label>
-          <input type="password" name="password" id="password" value={password} placeholder="******" onChange={handlePasswordChange} />
-        </div>
-        
-        {signUpMode ? (
-          <div>
-            <label htmlFor="email">Email address</label>
-            <input type="email" name="email" id="email" value={email} placeholder="john@gmail.com" onChange={handleEmailChange} />
+        <div className="options">
+          <div className="option">
+            <label htmlFor="signup">Sign up</label>
+            <input type="radio" className="radio" name="what-to-do" id="signup" value={signUpMode} onChange={handleSignUpChange} />
           </div>
-        ) : null}
+          
+          <div className="option">
+            <label htmlFor="login">Log in</label>
+            <input type="radio" className="radio" name="what-to-do" id="login" value={signUpMode} onChange={handleLoginChange}/>
+          </div>
+          
+        </div>
+        
+        <div className="user-info-wrapper">
+          <div className="user-info">
+            <label htmlFor="username">Username</label>
+            <input type="text" className="info-field" name="username" id="username" value={username} placeholder="John Doe" onChange={handleUserNameChange} />
+          </div>
+
+          <div className="user-info">
+            <label htmlFor="password">Password</label>
+            <input type="password" className="info-field" name="password" id="password" value={password} placeholder="******" onChange={handlePasswordChange} />
+          </div>
+          
+          {signUpMode ? (
+            <div className="user-info">
+              <label htmlFor="email">Email address</label>
+              <input type="email" className="info-field" name="email" id="email" value={email} placeholder="john@gmail.com" onChange={handleEmailChange} />
+            </div>
+          ) : null}
+        </div>
+        
 
         <button type="submit" className="button" onClick={signUpMode ? onSignUpClick : onLogInClick}>
           {signUpMode ? "SIGN UP" : "LOG IN"}

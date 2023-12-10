@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 // Generate a JWT token containing the user's unique ID, with an optional secret key and a 24-hour expiration time
 const generateToken = (advertiser) => {
     return jwt.sign({ id: advertiser._id}, process.env.JWT_SECRET, {
-        expiresIn: "24h"
+        expiresIn: "1h"
     });
 };
 
@@ -76,7 +76,8 @@ export const signinUserController = asyncHandler(async (req, res) => {
         res.status(200).json({ success: true, response: {
             username: user.username,
             id: user._id,
-            accessToken: generateToken(user._id)
+            // accessToken: generateToken(user._id)
+            accessToken: user.accessToken
         }});
 
     } catch (err) {
