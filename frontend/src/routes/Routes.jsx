@@ -1,7 +1,7 @@
 import { Route } from "react-router-dom";
-import { LandingPage } from "../pages/LandingPage";
+import { LandingPage } from "../pages/LandingPage"
 import { LoggedinPage } from "../pages/LoggedinPage";
-
+ 
 export const routes = (
   <>
     <Route path="/" element={<LandingPage />}></Route>
