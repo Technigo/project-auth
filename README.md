@@ -26,7 +26,7 @@ Description: Requires authentication using the authenticateUser middleware
 ## View it live
 
 Backend: https://dieden-collin-auth.onrender.com/
-Frontent: https://dieden-collin-auth.netlify.app/
+Frontend: https://dieden-collin-auth.netlify.app/
 
 ## Connect with us
 
