@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import { useEffect, useState } from "react";
 import { useUser } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -5,67 +6,68 @@ import Text from "../components/Text";
 import Card from "../components/Card";
 import Button from "../components/Button";
 
+// Define Secret component
 const Secret = () => {
+    // Get user and signOut function from User context
     const { user, signOut } = useUser();
+    // Get navigate function from react-router
     const navigate = useNavigate();
 
+    // Initialize state variables
     const [secretMessage, setSecretMessage] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
+    // Define handleSignOut function
     const handleSignOut = () => {
+        // Sign out user and navigate to sign in page
         signOut();
         navigate("/signin")
     };
 
+    // Use useEffect to fetch secret message when component mounts
     useEffect(() => {
         const getSecret = async () => {
             try {
+                // Send GET request to /secret endpoint
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/secret`, {
                     method: "GET",
                     headers: {
+                        // Include access token in Authorization header
                         Authorization: user.accessToken,
                     },
                 });
 
+                // If request is successful, set secret message
                 if (response.ok) {
                     const secretData = await response.json();
                     setSecretMessage(secretData.message);
                 } else {
+                    // If request is not successful, set error state
                     setError(true);
                 }
             } catch (err) {
-                console.error(err.message);
+                // If an error occurs, set error state
                 setError(true);
             } finally {
+                // Reset loading state
                 setLoading(false);
             }
         };
 
+        // Call getSecret function
         getSecret();
-    }, [user.accessToken]);
+    }, []); // Empty dependency array means this effect runs once on mount
 
+    // Render Secret component
     return (
         <Card>
-            <h1 className="text-3xl mb-2 text-slate-700">{`Hello ${user.userName}`}</h1>
-            {loading && (
-                <Text>
-                    Loading...
-                </Text>
-            )}
-            {error && (
-                <Text>
-                    Something went wrong...
-                </Text>
-            )}
-            {!loading && !error && (
-                <Text>
-                    {secretMessage}
-                </Text>
-            )}
+            {loading ? <p>Loading...</p> : <Text>{secretMessage}</Text>}
+            {error && <p>Something went wrong!</p>}
             <Button onClick={handleSignOut}>Sign Out</Button>
-        </Card >
-    )
-}
+        </Card>
+    );
+};
 
+// Export Secret component
 export default Secret;

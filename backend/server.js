@@ -20,10 +20,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Documents my API
 app.get("/", (_, res) => {
   res.json(listEndpoints(app));
 });
 
+// Add routes for user and secret
 app.use(userRoutes);
 app.use(secretRoutes);
 
