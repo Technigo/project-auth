@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const crypto = require('crypto'); // Import the crypto module
+const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -17,10 +17,10 @@ const userSchema = new mongoose.Schema({
     },
     accessToken: {
         type: String,
-        default: () => crypto.randomBytes(128).toString('hex')
+        default: () => crypto.randomBytes(48).toString('hex')
     }
 },
-    { timestamps: true }); // Fix the typo in timestamps
+    { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
