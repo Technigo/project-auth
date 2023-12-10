@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
-// const apiEnv = import.meta.env.VITE_BACKEND_API;
+// const apiEnv = import.meta.env.VITE_BACKEND_API; // The import does not work, therefore I had to put the URL directly in the fetch function
 // console.log(apiEnv);
 
-export const userStore = create((set, get) => ({
+export const userStore = create((set) => ({
     // Using same properties as those in AdvertiserModel
     username: "",
     setUsername: (username) => set({username}),

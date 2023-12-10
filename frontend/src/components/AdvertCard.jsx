@@ -1,13 +1,13 @@
 
-const AdvertCard = () => {
+const AdvertCard = ({ advert }) => {
   return (
     <div>
-        <h2>Product: </h2>
-        <h2>Amount: </h2>
-        <h2>Unit: </h2>
-        <h2>Address: </h2>
-        <h2>Pick-up time: </h2>
-        <h2>Advertiser: </h2>
+        <p>Product: {advert.product}</p>
+        <p>Amount: {advert.amount}</p>
+        <p>Unit: {advert.unit}</p>
+        <p>Address: {advert.address}</p>
+        <p>Pick-up time: {advert.pickUpTime}</p>
+        <p>Advertiser: {advert.advertiser}</p>
     </div>
   );
 };
