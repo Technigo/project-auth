@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080/";
+const BASE_URL = "https://project-auth-jab0.onrender.com/";
 
 export const CREATE_USER_API = `${BASE_URL}api/v1/user/signup`;
 export const UPDATE_USER_API = (id: string) => `${BASE_URL}api/v1/user/${id}`;
