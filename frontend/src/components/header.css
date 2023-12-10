@@ -1,0 +1,21 @@
+.logo-container{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.the-logo{
+    height: 100px;
+    width: 135px;
+    object-fit: cover;
+    margin-left: 2dvw;
+}
+
+.the-header, .the-subheader {
+    margin: 0.5dvh 0;
+}
+.the-header{
+    font-size: 2.5em;
+}
+.the-subheader{
+    font-size: 1em;
+}

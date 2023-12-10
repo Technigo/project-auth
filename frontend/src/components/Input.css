@@ -1,0 +1,45 @@
+/* Input.css */
+.task-add {
+  background: #f5f5f5;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  position: absolute;
+  overflow: hidden; /* Hide any content that overflows */
+}
+.button-task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+}
+
+.button-image {
+  display: block;
+  margin: 0 auto;
+  height: 5rem;
+  cursor: pointer;
+}
+
+.button-image:hover {
+  opacity: 0.8;
+}
+
+.input-input {
+  flex: 1;
+}
+
+.input-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  box-sizing: border-box;
+  align-items: center;
+  margin-top: auto;
+}
+.add-button {
+  background-color: var(--primary-color);
+  border-radius: 20px;
+}

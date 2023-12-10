@@ -1,0 +1,66 @@
+/* Style for the Task container */
+.task-container {
+  border-radius: 20px;
+  background-color: var(--secondary-color);
+  width: 100%;
+  height: 100%;
+  margin-top: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+/* Style for the Task wrapper */
+.task-wrapper {
+  width: 100%;
+  height: 70%;
+  margin-top: auto;
+  background-color: var(--background-color);
+  border-radius: 3rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+}
+
+.task-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+.task-details {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  padding: 0.5rem;
+  margin-top: 2rem;
+}
+.task-name {
+  max-width: 250px;
+  overflow-wrap: break-word;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+h5 {
+  font-size: 1rem;
+  margin-left: 1rem;
+}
+
+.button-wrapper {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.task-button {
+  background-color: var(--primary-color);
+  border-radius: 50px;
+}
+
+.delete-button {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
