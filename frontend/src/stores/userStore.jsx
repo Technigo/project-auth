@@ -28,7 +28,6 @@ export const userStore = create((set, get) => ({
       });
 
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
         set({ username });
         // Redirect or update UI
