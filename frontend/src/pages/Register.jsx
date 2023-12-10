@@ -6,7 +6,6 @@ import Button from "../components/Button";
 import Card from "../components/Card";
 import Input from "../components/Input";
 
-// Define Register component
 const Register = () => {
     // Get signIn function from User context
     const { signIn } = useUser();
@@ -20,7 +19,6 @@ const Register = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    // Define handleRegister function
     const handleRegister = async () => {
         try {
             // Reset error state and set loading state
@@ -52,7 +50,6 @@ const Register = () => {
         }
     };
 
-    // Render Register component
     return (
         <Card>
             <Input placeholder="Username" value={userName} onChange={(e) => setUserName(e.target.value)} />
@@ -67,5 +64,4 @@ const Register = () => {
     )
 };
 
-// Export Register component
 export default Register;    

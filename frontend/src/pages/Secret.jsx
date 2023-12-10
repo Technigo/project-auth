@@ -6,7 +6,6 @@ import Text from "../components/Text";
 import Card from "../components/Card";
 import Button from "../components/Button";
 
-// Define Secret component
 const Secret = () => {
     // Get user and signOut function from User context
     const { user, signOut } = useUser();
@@ -59,15 +58,14 @@ const Secret = () => {
         getSecret();
     }, []); // Empty dependency array means this effect runs once on mount
 
-    // Render Secret component
     return (
         <Card>
-            {loading ? <p>Loading...</p> : <Text>{secretMessage}</Text>}
-            {error && <p>Something went wrong!</p>}
+            <h1 className="text-slate-700 text-3xl mb-2">{`Hello ${user.userName}`}</h1>
+            {loading ? <Text>Loading...</Text> : <Text>{secretMessage}</Text>}
+            {error && <Text>Something went wrong!</Text>}
             <Button onClick={handleSignOut}>Sign Out</Button>
         </Card>
     );
 };
 
-// Export Secret component
 export default Secret;

@@ -51,7 +51,6 @@ const SignIn = () => {
         }
     };
 
-    // Render SignIn component
     return (
         <Card>
             <Input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -65,5 +64,4 @@ const SignIn = () => {
     );
 };
 
-// Export SignIn component
 export default SignIn;

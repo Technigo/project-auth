@@ -4,12 +4,10 @@ import { createContext, useContext, useState } from "react";
 // Create User context
 const UserContext = createContext();
 
-// Define useUser hook
 const useUser = () => {
     return useContext(UserContext);
 };
 
-// Define UserProvider component
 const UserProvider = ({ children }) => {
     // Define key for storing user data in local storage
     const userStorageKey = "user";
@@ -19,7 +17,6 @@ const UserProvider = ({ children }) => {
     // Initialize user state from local storage
     const [user, setUser] = useState(userInStorage ? JSON.parse(userInStorage) : null);
 
-    // Define signIn function
     const signIn = (userData) => {
         // Store user data in local storage
         localStorage.setItem(userStorageKey, JSON.stringify(userData));
@@ -27,7 +24,6 @@ const UserProvider = ({ children }) => {
         setUser(userData);
     }
 
-    // Define signOut function
     const signOut = () => {
         // Remove user data from local storage
         localStorage.removeItem(userStorageKey);
@@ -35,7 +31,6 @@ const UserProvider = ({ children }) => {
         setUser(null);
     }
 
-    // Render UserProvider component
     return (
         <UserContext.Provider
             value={{
@@ -50,5 +45,4 @@ const UserProvider = ({ children }) => {
     );
 }
 
-// Export UserProvider component and useUser hook
 export { UserProvider, useUser };
