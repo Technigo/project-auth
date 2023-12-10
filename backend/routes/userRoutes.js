@@ -13,6 +13,10 @@ const authenticateUser = async (req, res, next) => {
     //Find the user based on the access token
     const user = await UserModel.findOne({ accessToken: accessToken });
 
+    if(!accessToken){
+      return res.status(401).json({ error: 'Unauthorized - Access Token is missing' });
+    }
+
     // If user found, add user to the request object and proceed to the next middleware or route
     if (user) {
       req.user = user; //add user to the request object
