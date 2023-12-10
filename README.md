@@ -1,3 +1,4 @@
+
 # Project Authorization
 
 As part of a Technigo Web Dev Bootcamp project, this project was created as a monorepo, with the backend including an API created using Express JS, MongoDB and Mongoose, and a frontend using a React. 
@@ -58,10 +59,13 @@ To run this project, you will need to add the following environment variables to
 
 ```http
   POST /users
-```## View it live
+```
+## View it live
 Backend only: [![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)](https://user-authentication-p09v.onrender.com)
 
 With frontend: [![Netlify Status](https://api.netlify.com/api/v1/badges/a058da08-22d3-4898-8913-fba7338c9a1c/deploy-status)](https://login-to-see.netlify.app/)
+
+
 ## 🔗 Links
 
 [![portfolio](https://img.shields.io/badge/my_portfolio-1DA1F2?style=for-the-badge&logo=ko-fi&logoColor=white)](https://portfolio-laura-lyckholm.netlify.app/)
