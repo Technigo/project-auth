@@ -32,7 +32,7 @@ app.use(userRoutes); //Access the userRoutes
 app.get(
   "/", 
   asyncHandler(async (req, res) => {
-      const endpoints = listEndpoints(router);
+      const endpoints = listEndpoints(app);
       res.json(endpoints);
   })
 );
