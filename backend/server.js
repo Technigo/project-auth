@@ -18,6 +18,17 @@ mongoose.Promise = Promise;
 const port = process.env.PORT || 8080;
 const app = express();
 
+// Start defining your routes here
+app.get("/", (req, res) => {
+  res.json(listEndpoints(app));
+});
+
+app.use('/auth', authUserMiddleware);
+// Use the userRoutes for registration and sign-in routes
+app.use('/user', userRoutes);
+// Use the secretRoute for the authenticated secret content route
+app.use('/secret', secretRoute);
+
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
@@ -28,19 +39,23 @@ app.use((req, res, next) => {
   next();
 });
 
-// Start defining your routes here
-app.get("/", (req, res) => {
-  res.json(listEndpoints(app));
-});
-
-// Use the authUserMiddleware for authentication routes
-app.use('/auth', authUserMiddleware);
-// Use the userRoutes for registration and sign-in routes
-app.use('/user', userRoutes);
-// Use the secretRoute for the authenticated secret content route
-app.use('/secret', secretRoute);
-
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+
+
+
+// Use the authUserMiddleware for authentication routes
+//The old code 
+
+// app.use('/auth', (req, res, next) => {
+//   console.log('Auth middleware log:', req.url);
+//   authUserMiddleware(req, res, next);
+// });
+
+
+
+
+

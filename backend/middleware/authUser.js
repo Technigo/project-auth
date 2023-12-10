@@ -1,5 +1,8 @@
 import express from 'express';
 import User from '../models/userModel'; // Import the User model
+import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+
 
 // Create an instance of the Express Router
 const router = express.Router();
@@ -26,9 +29,11 @@ router.post('/login', async (req, res) => {
         }
 
         // If the password is valid, generate and attach the access token to the request object
-        const accessToken = 'generateYourAccessTokenHere'; // Replace with your token generation logic
+        const secretKey = generateRandomKey();
+        const accessToken = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '24h' });
         user.accessToken = accessToken;
         await user.save(); // Save the updated user with the access token
+
 
         // Send a response with the access token
         res.json({ accessToken });
@@ -37,6 +42,12 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+
+// Function to generate a random secret key
+const generateRandomKey = () => {
+    return crypto.randomBytes(32).toString('hex');
+};
 
 // Export the router for use in other files
 export default router;
