@@ -1,13 +1,21 @@
 # Project Auth API
-
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This project has it's focus on authentication. We had to create our own API, icluding authentication that integrates to a frontend. 
+The main purpose is to connect everything that we have learned in this course.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+I had some struggle with the deployment on Vercel. It turned out to be minor change that had to be done in the vercel.json file to allow any host in the cors rules.
+
+Code wise I had struggle with understanding, especially the frontend part. I had to split up all the tasks and steps in the process in order to structure my workload. I implemented useContext in this project, which is new to me as I only have used Zustand in a previous project where we digged deeper in to global state management. I did a lot of research to figure how to make it work.
+I also found it quite tricky to grasp how local storage works and how to implement it.
+
+To solve this questions I have used Google and chatGPT a lot.
+
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Backend:
+https://project-auth-backend-nine.vercel.app/
+
+Frontend:
+https://project-auth-frontend.vercel.app/
