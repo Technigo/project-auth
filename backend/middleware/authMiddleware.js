@@ -5,27 +5,34 @@ const authenticateUser = async (req, res, next) => {
     const { authorization } = req.headers;
 
     try {
+        console.log('Received token:', authorization);
         if (!authorization || !authorization.startsWith('Bearer ')) {
-            return res.status(401).json({ error: 'Unauthorized' });
+            return res.status(401).json({ error: 'Unauthorized - Missing or invalid token' });
         }
 
         const token = authorization.split(' ')[1];
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+        if (!decoded || !decoded.userId) {
+            return res.status(401).json({ error: 'Unauthorized - Invalid token content' });
+        }
+
         // Attach the user to the request object
         req.user = await User.findById(decoded.userId);
 
         if (!req.user) {
-            return res.status(401).json({ error: 'Unauthorized' });
+            return res.status(401).json({ error: 'Unauthorized - User not found' });
         }
 
         next();
     } catch (error) {
-        res.status(401).json({ error: 'Unauthorized' });
+        console.error('Error during token verification:', error);
+        res.status(401).json({ error: 'Unauthorized - Token verification failed' });
     }
 };
 
 export default authenticateUser;
+
 
 
 

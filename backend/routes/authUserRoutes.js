@@ -27,7 +27,7 @@ router.post('/register', async (req, res) => {
         await newUser.save();
 
         // Use jsonwebtoken to create a token
-        const accessToken = jwt.sign({ userId: newUser._id }, secretKey, { expiresIn: '24h' });
+        const accessToken = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
 
         res.status(201).json({ accessToken });
     } catch (error) {
