@@ -6,6 +6,7 @@ import listEndpoints from 'express-list-endpoints';
 dotenv.config(); // Load environment variables from the .env file
 import { connectDB } from "./config/db"; // Import database connection function 
 import userRoutes from "./routes/userRoutes";
+import asyncHandler from "express-async-handler";
 
 
 // Connection to the database through Mongoose (commented out in this version)
@@ -25,12 +26,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 
 
-// Start defining your routes here
-//Route to list all the endpoints
-app.get("/", (req, res) => {
-  res.json({ endpoints: listEndpoints(app) });
-});
+// Defining routes here
 app.use(userRoutes); //Access the userRoutes
+// Endpoint to show documentation of all endpoints
+app.get(
+  "/", 
+  asyncHandler(async (req, res) => {
+      const endpoints = listEndpoints(router);
+      res.json(endpoints);
+  })
+);
 
 // Start the server
 app.listen(port, () => {

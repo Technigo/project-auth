@@ -2,8 +2,6 @@ import { UserModel } from "../models/UserModel";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-dotenv.config();
 
 
 // Set up a function that generates a JWT token for user authentication
@@ -14,8 +12,13 @@ const generateToken = (user) => { //param = user
     });
 };
 
+export const showAllUsersController = asyncHandler(async (req, res) => {
+    const users = await AdvertiserModel.find();
+    res.status(200).json(users);
+});
+
 //Set up a route to handle user registration (Sign-up)
-export const registerUsercontroller = asyncHandler(async (req, res) => {
+export const registerUserController = asyncHandler(async (req, res) => {
 
     const { username, password, email } = req.body; //defines what to request from the body
 
@@ -56,12 +59,12 @@ export const registerUsercontroller = asyncHandler(async (req, res) => {
                 username: newUser.username,
                 email: newUser.email,
                 id: newUser._id,
-                accessToken: newUser.accessToken, // Generate a JWT token
+                accessToken: generateToken(newUser._id), // Generate a JWT token
             },
         });
-    } catch (e) {
+    } catch (err) {
         // Handle any errors that occur during the registration process
-        res.status(500).json({ success: false, response: e.message });
+        res.status(500).json({ success: false, response: err.message });
     }
 });
 
@@ -88,12 +91,12 @@ export const loginUserController = asyncHandler(async (req, res) => {
             response: {
                 username: user.username,
                 id: user._id,
-                accessToken: user.accessToken,
+                accessToken: generateToken(user._id),
             },
         });
-    } catch (e) {
+    } catch (err) {
         // Handle any errors that occur during the login process
-        res.status(500).json({ success: false, response: e.message });
+        res.status(500).json({ success: false, response: err.message });
     }
 });
 
