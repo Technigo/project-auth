@@ -6,10 +6,15 @@
             "use": "@now/node"
         }
     ],
-    "routes": [
+    "rewrites": [
         {
-            "src": "/(.*)",
-            "dest": "server.js",
+            "source": "/(.*)",
+            "destination": "server.js"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
             "headers": [
                 {
                     "key": "Access-Control-Allow-Credentials",
