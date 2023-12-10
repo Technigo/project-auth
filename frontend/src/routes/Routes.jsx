@@ -1,6 +1,6 @@
 import { Route } from "react-router-dom";
-import { LandingPage } from "../pages/LandingPage";
-import { LoggedinPage } from "../pages/LoggedinPage";
+import { LandingPage } from "../pages2/LandingPage";
+import { LoggedinPage } from "../pages2/LoggedinPage";
  
 export const routes = (
   <>
