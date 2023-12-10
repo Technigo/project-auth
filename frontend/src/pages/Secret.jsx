@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+const Secret = () => {
     const { user, signOut } = useUser();
     const navigate = useNavigate();
 
@@ -53,4 +53,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default Secret;
