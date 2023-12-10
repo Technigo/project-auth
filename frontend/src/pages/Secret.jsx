@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import Text from "../components/Text";
+import Card from "../components/Card";
+import Button from "../components/Button";
 
 const Secret = () => {
     const { user, signOut } = useUser();
@@ -43,13 +46,25 @@ const Secret = () => {
     }, [user.accessToken]);
 
     return (
-        <div>
-            <h1>{`Hello ${user.userName}`}</h1>
-            {loading && <p>Loading...</p>}
-            {error && <p>Something went wrong...</p>}
-            {!loading && !error && <p>{secretMessage}</p>}
-            <button onClick={handleSignOut}>Sign Out</button>
-        </div>
+        <Card>
+            <h1 className="text-3xl mb-2 text-slate-700">{`Hello ${user.userName}`}</h1>
+            {loading && (
+                <Text>
+                    Loading...
+                </Text>
+            )}
+            {error && (
+                <Text>
+                    Something went wrong...
+                </Text>
+            )}
+            {!loading && !error && (
+                <Text>
+                    {secretMessage}
+                </Text>
+            )}
+            <Button onClick={handleSignOut}>Sign Out</Button>
+        </Card >
     )
 }
 
