@@ -1,26 +1,24 @@
-const mongoose = require('mongoose');
-const crypto = require('crypto'); // Import the crypto module
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'Please add a name']
+        required: true
     },
     email: {
         type: String,
-        unique: true,
-        required: [true, 'Please add an email']
+        required: true,
+        unique: true
     },
     password: {
         type: String,
-        required: [true, 'Please add a password']
+        required: true
     },
     accessToken: {
-        type: String,
-        default: () => crypto.randomBytes(128).toString('hex')
+        type: String
     }
-},
-    { timestamps: true }); // Fix the typo in timestamps
+});
 
 const User = mongoose.model('User', userSchema);
-module.exports = User;
+
+export default User;
