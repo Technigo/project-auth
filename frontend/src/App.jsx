@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import { UserProvider } from "./contexts/UserContext";
+import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {
     return (
@@ -11,7 +12,14 @@ const App = () => {
                 <Routes>
                     <Route path="/register" element={<Register />} />
                     <Route path="/signin" element={<SignIn />} />
-                    <Route path="/" element={<Home />} />
+                    <Route
+                        path="/"
+                        element={(
+                            <PrivateRoute>
+                                <Home />
+                            </PrivateRoute>
+                        )}
+                    />
                 </Routes>
             </Router>
         </UserProvider>

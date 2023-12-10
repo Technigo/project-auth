@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useUser } from "../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
     const { signIn } = useUser();
     const navigate = useNavigate();
 
-    const [username, setUserName] = useState("");
+    const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -16,10 +16,11 @@ const Register = () => {
         try {
             setError(false);
             setLoading(true);
+
             const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, email, password }),
+                body: JSON.stringify({ userName, email, password }),
             });
 
             if (response.ok) {
@@ -39,11 +40,12 @@ const Register = () => {
 
     return (
         <div>
-            <input placeholder="Username" value={username} onChange={(e) => setUserName(e.target.value)} />
+            <input placeholder="Username" value={userName} onChange={(e) => setUserName(e.target.value)} />
             <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <input placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            {error === true && <p>Something went wrong!</p>}
+            {error && <p>Something went wrong!</p>}
             <button disabled={loading} onClick={handleRegister}>Register</button>
+            <Link to="/signin">Sign In</Link>
         </div>
     )
 };

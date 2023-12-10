@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useUser } from "../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
     const { signIn } = useUser();
@@ -41,8 +41,9 @@ const SignIn = () => {
         <div>
             <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <input placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            {error === true && <p>Something went wrong!</p>}
+            {error && <p>Something went wrong!</p>}
             <button disabled={loading} onClick={handleSignIn}>Sign In</button>
+            <Link to="/register">Register</Link>
         </div>
     );
 };

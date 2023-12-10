@@ -1,7 +1,7 @@
 import User from "../models/User";
 
 const authenticateUser = async (req, res, next) => {
-    const accessToken = req.headers.Authorization;
+    const accessToken = req.headers.authorization;
     const user = await User.findOne({ accessToken });
 
     if (user) {
