@@ -3,11 +3,8 @@ import { authenticateUser } from "../middleware/auth";
 
 const router = express.Router();
 
-const gifController = require("../controllers/gifController");
+import { getGifs, createGif } from "../controllers/gifController";
 
-router
-  .route("/")
-  .post(authenticateUser, gifController.createGif)
-  .get(authenticateUser, gifController.getGifs);
+router.route("/").post(authenticateUser, createGif).get(authenticateUser, getGifs);
 
-module.exports = router;
+export { router };

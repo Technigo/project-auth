@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-const bcrypt = require("bcrypt-nodejs");
-const User = require("../models/userModel");
+import bcrypt from "bcrypt-nodejs";
+import { User } from "../models/userModel";
 
-exports.createNewUser = async (req: Request, res: Response) => {
+export const createNewUser = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
@@ -28,9 +28,9 @@ exports.createNewUser = async (req: Request, res: Response) => {
   }
 };
 
-exports.loginUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response) => {
   const user = await User.findOne({ email: req.body.email });
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+  if (user?.password && bcrypt.compareSync(req.body.password, user.password)) {
     res.status(200).json({ status: true, name: user.name, accessToken: user.accessToken });
   } else {
     res.status(400).json({ status: false, notFound: true });
@@ -39,7 +39,7 @@ exports.loginUser = async (req: Request, res: Response) => {
 
 ////// not tested yet ///////
 
-exports.getAllUsers = async (req: Request, res: Response) => {
+export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.find();
     console.log(users);
@@ -50,7 +50,7 @@ exports.getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-exports.updateUser = async (req: Request, res: Response) => {
+export const updateUser = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
     const updatedUser = await User.findOneAndUpdate({ _id: id }, req.body);
@@ -62,7 +62,7 @@ exports.updateUser = async (req: Request, res: Response) => {
   }
 };
 
-exports.deleteUser = async (req: Request, res: Response) => {
+export const deleteUser = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
     const updatedUser = await User.findOneAndDelete({ _id: id });

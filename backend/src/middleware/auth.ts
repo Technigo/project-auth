@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-const User = require("../models/userModel");
+import { User } from "../models/userModel";
 
 export const authenticateUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -15,6 +15,3 @@ export const authenticateUser = async (req: Request, res: Response, next: NextFu
     res.status(500).json({ success: false, response: err.message });
   }
 };
-
-// const dbEntry = { name: "bob", password: "Sabbc32983def" };
-// bcrypt.compareSync(request.password, dbEntry.password);

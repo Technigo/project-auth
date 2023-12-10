@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-const Gif = require("../models/gifModel");
-const User = require("../models/userModel");
+import { Gif } from "../models/gifModel";
+import { User } from "../models/userModel";
 
-exports.getGifs = async (req: Request, res: Response) => {
+export const getGifs = async (req: Request, res: Response) => {
   try {
     const accessToken = req.headers.authorization;
     const userStorage = await User.findOne({ accessToken: accessToken });
@@ -18,7 +18,7 @@ exports.getGifs = async (req: Request, res: Response) => {
   }
 };
 
-exports.createGif = async (req: Request, res: Response) => {
+export const createGif = async (req: Request, res: Response) => {
   try {
     const accessToken = req.headers.authorization;
 
@@ -38,4 +38,4 @@ exports.createGif = async (req: Request, res: Response) => {
   }
 };
 
-exports.deleteGif = async (req: Request, res: Response) => {};
+export const deleteGif = async (req: Request, res: Response) => {};

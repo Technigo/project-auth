@@ -2,21 +2,19 @@ import express from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import helmet from "helmet";
-const mongoose = require("./config/db");
+import mongoose from "mongoose";
+import { router as userRouter } from "./routes/userRoutes";
+import { router as gifRouter } from "./routes/gifRoutes";
+import listEndpoints from "express-list-endpoints";
 
-const bcrypt = require("bcrypt-nodejs");
 dotenv.config();
 
-mongoose.connectDB();
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017/project-auth";
 
-const User = require("./models/userModel");
-const listEndpoints = require("express-list-endpoints");
+mongoose.connect(mongoUrl).then(() => console.log("connected"));
 
 const port = process.env.PORT || 8080;
 const app = express();
-
-const userRouter = require("./routes/userRoutes");
-const gifRouter = require("./routes/gifRoutes");
 
 app.use(helmet());
 app.use(cors());

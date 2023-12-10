@@ -1,6 +1,6 @@
 import * as crypto from "crypto";
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt-nodejs");
+import mongoose from "mongoose";
+import bcrypt from "bcrypt-nodejs";
 
 const userShema = new mongoose.Schema(
   {
@@ -28,4 +28,4 @@ const userShema = new mongoose.Schema(
 
 const User = mongoose.model("User", userShema);
 
-module.exports = User;
+export { User };
