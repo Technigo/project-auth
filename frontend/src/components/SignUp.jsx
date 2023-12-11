@@ -13,6 +13,8 @@ export const SignUp = () => {
   // Function to handle the sign-up process
   const handleSignup = async () => {
     try {
+      console.log("URL:", `${apiEnv}/signup`);
+    console.log("Request Body:", { name, userName: username, password });
         // Making a POST request to the backend signup endpoint
       const response = await fetch(`${apiEnv}/signup`, {
         method: "POST",
@@ -25,6 +27,13 @@ export const SignUp = () => {
 
       // Loggin user input for debugging purposes
       console.log(username, password, name);
+      console.log(response)
+
+      if(!response.ok) {
+        const data = await response.json().catch(() => ({}))
+        console.error("Signup failed:" + (data.message || response.statusText))
+        return
+      }
 
       // Checking if the signup was successful (status code 200)
       if (response.ok) {
