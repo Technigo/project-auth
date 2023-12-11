@@ -19,7 +19,7 @@ const PromotionItem = () => {
     storeHandleLogout();
     // Additional logic after logout can be added here
     alert("Log out succesfull");
-    navigate("/home"); // You can change this to the login route
+    navigate("/"); // You can change this to the login route
   };
 
   const onGenerateItemClick = () => {

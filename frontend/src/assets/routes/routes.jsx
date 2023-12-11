@@ -6,7 +6,7 @@ import PromotionItem from "../Pages/PromotionItem";
 
 const routes = (
   <>
-    <Route path="/home" element={<Home />} />
+    <Route path="/" element={<Home />} />
     <Route path="/register" element={<Registration />} />
     <Route path="/signin" element={<SignIn />} />
     <Route path="/items" element={<PromotionItem />} />
