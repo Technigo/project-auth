@@ -11,7 +11,7 @@ export const authenticateUser = async (req, res, next) => {
 
     // Find the user in the database that has the same accessToken
     try {
-        const user = await AdvertiserModel.findOne({ accessToken });
+        const user = await AdvertiserModel.findOne({ accessToken: accessToken });
 
         // If that user exists, add the user object to the request object and hand over it to the next middleware or routes. Otherwise, return status 401 Unauthorized and message "Please log in".
         if (user) {
