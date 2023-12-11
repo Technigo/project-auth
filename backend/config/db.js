@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import asyncHandler from "express-async-handler";
 import dotenv from "dotenv";
+
 dotenv.config();
 
+console.log("MONGO_URI:", process.env.MONGO_URI);
 export const connectDB = asyncHandler(async () => {
   try {
     mongoose.set("strictQuery", false);

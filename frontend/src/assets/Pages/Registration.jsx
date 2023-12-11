@@ -13,7 +13,8 @@ const Registration = () => {
   const storeHandleSignup = userStore((state) => state.handleSignup);
 
   // Combined function for handling the signup click event
-  const onSignupClick = async () => {
+  const onSignupClick = async (event) => {
+    event.preventDefault();
     if (!username || !password || !email) {
       alert("Please enter email, username and password");
       return;
@@ -32,7 +33,7 @@ const Registration = () => {
       await storeHandleSignup(username, password, email);
       if (username && password) {
         //Once the user has successfully sign up, the user will be directed to the log in page
-        console.log("Navigating to /home");
+        console.log("Signup successful. Navigating to /home");
         navigate("/home");
       }
     } catch (error) {
@@ -80,7 +81,7 @@ const Registration = () => {
         <button onClick={onSignupClick}>Sign up</button>
       </form>
       <h5>Already a user?</h5>
-      <Link to="/">HOME</Link>
+      <Link to="/home">HOME</Link>
       <Link to="/signin">LOGIN</Link>
     </div>
   );

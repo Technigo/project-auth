@@ -5,7 +5,7 @@ import route from "./routes/routes";
 import dotenv from "dotenv";
 dotenv.config();
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT;
 const app = express();
 
 // Add middlewares to enable cors and json body parsing

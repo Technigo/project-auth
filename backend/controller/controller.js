@@ -69,7 +69,7 @@ export const registerUserController = asyncHadler(async (req, res) => {
 //Sign-in endpoint, to authenticate a returning user.
 export const loginUserController = asyncHadler(async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, password } = req.body;
     //Find the user by username
     const user = await UserModel.findOne({ username });
 
@@ -77,7 +77,7 @@ export const loginUserController = asyncHadler(async (req, res) => {
     if (!user) {
       return res
         .status(401)
-        .json({ sucess: false, response: "User not found" });
+        .json({ success: false, response: "User not found" });
     }
     //Compare the provided password with the hashed password in the database
     const passwordMatch = await bcrypt.compare(password, user.password);
@@ -85,27 +85,27 @@ export const loginUserController = asyncHadler(async (req, res) => {
     if (!passwordMatch) {
       return res
         .status(401)
-        .json({ sucess: false, response: "Incorrect password" });
-      //Generate a jwt token with the environment variable if the password is correct
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
-      });
-
-      res.status(200).json({
-        sucess: true,
-        response: {
-          userId: user._id,
-          username: user.username,
-          email: user.email,
-          accessToken: token,
-        },
-      });
+        .json({ success: false, response: "Incorrect password" });
     }
+    //Generate a jwt token with the environment variable if the password is correct
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({
+      success: true,
+      response: {
+        userId: user._id,
+        username: user.username,
+        email: user.email,
+        accessToken: token,
+      },
+    });
   } catch (error) {
     console.error(error);
     res
       .status(500)
-      .json({ sucess: false, response: "Cannot connect to the server" });
+      .json({ success: false, response: "Cannot connect to the server" });
   }
 });
 

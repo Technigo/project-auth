@@ -57,6 +57,7 @@ export const userStore = create((set, get) => ({
     }
 
     try {
+      console.log("Before API call");
       const response = await fetch(`${apiEnv}/signin`, {
         method: "POST",
         headers: {
@@ -64,24 +65,27 @@ export const userStore = create((set, get) => ({
         },
         body: JSON.stringify({ username, password }),
       });
-
-      const data = await response.json();
-      if (data.success) {
-        set({
-          username,
-          accessToken: data.response.accessToken,
-          isLoggedIn: true,
-        }); // Update the state with username and accessToken
-        // Redirect or update UI
-        localStorage.setItem("accessToken", data.response.accessToken);
-        alert("Login successful!");
-        console.log("Loging up with:", username, password);
+      console.log("After API call");
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          set({
+            username,
+            accessToken: data.response.accessToken,
+            isLoggedIn: true,
+          }); // Update the state with username and accessToken
+          // Redirect or update UI
+          localStorage.setItem("accessToken", data.response.accessToken);
+          alert(`Login successful!Welcome, ${data.response.username}!`);
+          console.log("Loging up with:", username, password);
+        } else {
+          // Display error message from server
+          alert("Login failed");
+        }
       } else {
-        // Display error message from server
-        alert(data.response || "Login failed");
+        console.error("Server error:", response.statusText);
       }
     } catch (error) {
-      console.error("Login error:", error);
       alert("An error occurred during login");
     }
   },

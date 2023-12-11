@@ -24,6 +24,10 @@ const userSchema = new Schema({
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export const UserModel = mongoose.model("User", userSchema);

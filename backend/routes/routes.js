@@ -17,6 +17,6 @@ route.post("/signin", loginUserController);
 //The route which let the registered user to access promotion info
 route.get("/get", authenticateUser, getInfoController);
 //Get the items which are on promotion
-route.get("/promotions", getInfoController);
+route.get("/items", getInfoController);
 
 export default route;

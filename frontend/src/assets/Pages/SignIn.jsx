@@ -7,15 +7,19 @@ const SignIn = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const storeHandleLogin = userStore((state) => state.handleLogin);
-  const onLoginClick = async () => {
+
+  const onLoginClick = async (event) => {
+    event.preventDefault();
     if (!username || !password) {
       setErrorMessage("Please enter both username and password");
       return;
     }
     try {
+      setLoading(true);
       //Attempt to log in
       await storeHandleLogin(username, password);
       //Check if login was successful
@@ -23,8 +27,7 @@ const SignIn = () => {
       console.log("Before navigate");
       //If login is successful
       if (isLoggedIn) {
-        console.log("Navigating to /home");
-        navigate("/home");
+        navigate("/items");
       } else {
         setErrorMessage("Incorrect username or password. Please try again.");
       }
@@ -33,12 +36,14 @@ const SignIn = () => {
       // Handle any errors that occur during login
       console.error("Login error:", error);
       alert("An error occurred during login");
+    } finally {
+      setLoading(false); // Set loading back to false, regardless of login success or failure
     }
   };
 
   return (
     <div>
-      <form className="login-form">
+      <form className="login-form" onSubmit={onLoginClick}>
         <h1>Login to Your Account</h1>
         <label className="username">
           UserName:
@@ -55,15 +60,18 @@ const SignIn = () => {
           <input
             type="password"
             placeholder="Password"
-            name={password}
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
         <br />
-        <button onClick={onLoginClick}>Sign In</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Signing In..." : "Sign In"}
+        </button>
         {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+
         <h5>Haven't sign up as a member yet?</h5>
-        <Link to="/">HOME</Link>
+        <Link to="/home">HOME</Link>
         <Link to="/register">Sign up</Link>
       </form>
     </div>
