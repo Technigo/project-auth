@@ -42,7 +42,7 @@ export const SignUp = () => {
   // Rendering the sign-up form with input fields and a sign-up button
   return (
     <>
-      <div className="signup">
+      <form className="signup-form">
         <input
           type="text"
           placeholder="Name"
@@ -62,7 +62,7 @@ export const SignUp = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button onClick={handleSignup}>Sign Up</button>
-      </div>
+      </form>
     </>
   );
 };
