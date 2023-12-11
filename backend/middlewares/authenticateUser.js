@@ -3,7 +3,7 @@ import { UserModel } from "../models/UserModel";
 
 export const authenticateUser = async (req, res, next) => {
     //retrieve the access token from the request header (why is it sometimes header and not body?)
-    const accessToken = req.header("Autorisation");
+    const accessToken = req.header("Autorization");
     try {
         const user = await UserModel.findOneAndDelete({ accessToken: accessToken });
         if (user) {

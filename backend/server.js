@@ -8,14 +8,6 @@ import { connectDB } from "./config/db"; // Import database connection function
 import userRoutes from "./routes/userRoutes";
 import asyncHandler from "express-async-handler";
 
-
-// Connection to the database through Mongoose (commented out in this version)
-connectDB();
-
-//const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
-//mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-//mongoose.Promise = Promise;
-
 // Defines the port the app will run on. 
 const port = process.env.PORT;
 const app = express();
@@ -27,6 +19,7 @@ app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 
 
 // Defining routes here
+app.use(advertRoutes); //Access the advertRoutes
 app.use(userRoutes); //Access the userRoutes
 // Endpoint to show documentation of all endpoints
 app.get(
@@ -36,6 +29,13 @@ app.get(
       res.json(endpoints);
   })
 );
+
+// Connection to the database through Mongoose (commented out in this version)
+connectDB();
+
+//const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
+//mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.Promise = Promise;
 
 // Start the server
 app.listen(port, () => {
