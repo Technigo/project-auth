@@ -2,7 +2,7 @@
 import asyncHandler from "express-async-handler";
 // We need to import the userModel to check for the accesstoken
 import { UserModel } from "../models/UserModel";
-import { AdvertModel } from "../models/AdvertModel";
+import { AdvertModel } from "../models/advertModel";
 
 // desciption: Get Ads
 // route: /get
