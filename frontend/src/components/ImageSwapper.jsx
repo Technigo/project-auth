@@ -20,7 +20,7 @@ export const ImageSwapper = () => {
 
     return (
         <>
-            <h1>Ready share your sneakers?</h1>
+            <h1>Ready to share your sneakers?</h1>
             <div className="image-wrapper">
                 <img src={images[currentImage]} alt={`Image ${currentImage + 1}`} />
             </div>
