@@ -1,6 +1,7 @@
 import SignOutButton from "../components/SignOutButton";
 import Lottie from "lottie-react";
 import animation from "../assets/animation/Animation.json";
+import Adverts from "../sections/Adverts";
 
 const Home = () => {
   // Create settings for animation
@@ -25,6 +26,7 @@ const Home = () => {
         loop={options.loop} 
         autoplay={options.autoplay} 
       />
+      <Adverts />
     </div>
   );
 };
