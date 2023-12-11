@@ -15,6 +15,13 @@ const generateToken = (user) => {
     { expiresIn: "24h" }
   );
 };
+
+//Show all user result
+export const showUsersController = asyncHadler(async (req, res) => {
+  await UserModel.find()
+    .then((result) => res.json(result))
+    .catch((err) => res.status(404).json({ err: "Cannot get user list" }));
+});
 //Registration endpoint, to create a new user.
 export const registerUserController = asyncHadler(async (req, res) => {
   try {

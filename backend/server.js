@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db";
-import dotenv from "dotenv";
 import route from "./routes/routes";
+import dotenv from "dotenv";
 dotenv.config();
 
 const port = process.env.PORT || 8080;
