@@ -47,7 +47,7 @@ const Registration = () => {
     <div className="reg-page">
       <Link to="/">
         <img
-          src="/src/assets/icon/home-icon.png"
+          src="/src/assets/home-icon.png"
           alt="home-icon"
           className="home-icon"
         />

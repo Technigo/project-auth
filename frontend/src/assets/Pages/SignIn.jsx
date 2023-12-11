@@ -44,9 +44,9 @@ const SignIn = () => {
 
   return (
     <div className="login-page">
-      <Link to="/home">
+      <Link to="/">
         <img
-          src="/src/assets/icon/home-icon.png"
+          src="/src/assets/home-icon.png"
           alt="home-icon"
           className="home-icon"
         />
