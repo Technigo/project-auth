@@ -22,4 +22,3 @@ export const advertSchema = new Schema(
 );
 
 export const AdvertModel = mongoose.model("Advertisement", advertSchema);
-
