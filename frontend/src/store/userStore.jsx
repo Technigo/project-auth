@@ -2,7 +2,6 @@
 //Meanwhile, I will use this to try out if my front end would work
 
 import { create } from "zustand";
-const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 export const userStore = create((set, get) => ({
   username: "",
@@ -15,8 +14,10 @@ export const userStore = create((set, get) => ({
   setAccessToken: (token) => set({ accessToken: token }),
   isLoggedIn: false, // Added to track if the user is logged in
   setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
+
   // FUNCTION TO REGISTER USERS
   handleSignup: async (username, password, email) => {
+    const apiEnv = import.meta.env.VITE_BACKEND_API;
     if (!username || !password || !email) {
       alert("Please enter username, email and password");
       return;
@@ -49,13 +50,14 @@ export const userStore = create((set, get) => ({
 
   // LOGIN
   handleLogin: async (username, password) => {
+    const apiEnv = import.meta.env.VITE_BACKEND_API;
     if (!username || !password) {
       alert("Please enter both username and password");
       return;
     }
 
     try {
-      const response = await fetch(`${apiEnv}/login`, {
+      const response = await fetch(`${apiEnv}/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

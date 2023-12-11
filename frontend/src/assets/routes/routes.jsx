@@ -5,7 +5,7 @@ import Home from "../Pages/Home";
 
 const routes = (
   <>
-    <Route path="/" element={<Home />} />
+    <Route path="/home" element={<Home />} />
     <Route path="/register" element={<Registration />} />
     <Route path="/signin" element={<SignIn />} />
   </>

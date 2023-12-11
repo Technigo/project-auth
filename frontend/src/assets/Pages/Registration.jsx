@@ -32,7 +32,8 @@ const Registration = () => {
       await storeHandleSignup(username, password, email);
       if (username && password) {
         //Once the user has successfully sign up, the user will be directed to the log in page
-        navigate("/");
+        console.log("Navigating to /home");
+        navigate("/home");
       }
     } catch (error) {
       // Handle any errors that occur during signup
