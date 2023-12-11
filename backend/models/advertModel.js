@@ -4,13 +4,28 @@ const { Schema } = mongoose;
 
 export const advertSchema = new Schema(
   {
-    // Define the 'task' field with a String data type
-    description: {
-      type: String, 
-      required: true, 
-      minlength: 5, // Sets a minimum length of 5 characters for 'description'
+    brand: {
+      type: String,
+      required: true,
+      minlength: 2,
     },
-    // Define the rlaitonship between the user and his/her tasks --  1:1 relationship with the user or 1 usar can have many tasks
+    imageUrl: {
+      type: String,
+      required: true,
+    },
+    size: {
+      type: String,
+      required: true,
+    },
+    model: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    // Define the relaitonship between the user and his/her ad --  1:1 relationship with the user or 1 usar can have many tasks
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
