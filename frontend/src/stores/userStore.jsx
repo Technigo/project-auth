@@ -1,5 +1,7 @@
 import { create } from "zustand";
+
 const API = import.meta.env.API;
+
 export const userStore = create((set, get) => ({
     // State variables and their setter methods
     username: "",

@@ -11,7 +11,7 @@ export const Navbar = ({ isLoggedIn, username, handleLogout }) => {
               <Link to="/login">Login</Link>
             </li>
             <li>
-              <Link to="/signup">Signup</Link>
+              <Link to="/register">Signup</Link>
             </li>
           </>
         ) : (
