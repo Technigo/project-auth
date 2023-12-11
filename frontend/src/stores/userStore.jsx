@@ -26,7 +26,7 @@ export const userStore = create((set) => ({
         }
 
         try {
-            const response = await fetch("http://localhost:8000/register", {
+            const response = await fetch("https://hang-authentication-project.onrender.com/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -65,7 +65,7 @@ export const userStore = create((set) => ({
         }
 
         try {
-            const response = await fetch("http://localhost:8000/signin", {
+            const response = await fetch("https://hang-authentication-project.onrender.com/signin", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

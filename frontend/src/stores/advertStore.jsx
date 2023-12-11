@@ -10,7 +10,7 @@ export const advertStore = create((set) => ({
     // Function to fetch adverts belonging to a user based on their accessToken stored in the localStorage
     fetchAdverts: async () => {
         try {
-            const response = await fetch("https://localhost:8000/get", {
+            const response = await fetch("https://hang-authentication-project.onrender.com/get", {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("accessToken")}`
@@ -34,7 +34,7 @@ export const advertStore = create((set) => ({
     // Function to add a new advert to the server and then to the store
     addAdvertToServer: async (advert) => {
         try {
-            const response = await fetch("https://localhost:8000/add", {
+            const response = await fetch("https://hang-authentication-project.onrender.com/add", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
