@@ -10,6 +10,7 @@ export const getOwnAdvertsController = asyncHandler(async (req, res) => {
         // Find the user in the database that has the same accessToken
         const userFromStorage = await AdvertiserModel.findOne({ accessToken: accessToken});
 
+        console.log(userFromStorage);
         // Get all the adverts in the database that belong to the user
         const userAdverts = await AdvertModel.find({advertiser: userFromStorage}).sort({createdAt: -1});
         res.status(200).json(userAdverts);
