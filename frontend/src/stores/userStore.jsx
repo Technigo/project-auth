@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-const API = import.meta.env.API;
+const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 export const userStore = create((set, get) => ({
     // State variables and their setter methods
@@ -11,7 +11,7 @@ export const userStore = create((set, get) => ({
     password: "",
     setPassword: (password) => set({ password }),
     accessToken: null,
-    setAcessToken: (token) => set({ accessToken: token }),
+    setAccessToken: (token) => set({ accessToken: token }),
     isLoggedIn: false,
     setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
     handleSignup: async (username, password, email) => {
@@ -21,7 +21,7 @@ export const userStore = create((set, get) => ({
         }
 
         try {
-            const response = await fetch(`${API}/register`, {
+            const response = await fetch(`${apiEnv}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -53,7 +53,7 @@ export const userStore = create((set, get) => ({
         }
 
         try {
-            const response = await fetch(`${API}/login`, {
+            const response = await fetch(`${apiEnv}/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
