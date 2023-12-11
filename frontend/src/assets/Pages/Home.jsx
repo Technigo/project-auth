@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom";
-
+import "./login.css";
 const Home = () => {
   return (
     <div>
-      <div>
-        <h1>Log in to see the latest promotion for member</h1>
+      <div className="home-page">
+        <h1>
+          ✨ Login to use our generator to pick a gift for your beloved one! 👇
+        </h1>
         <div>
           <Link to="/signin">
-            <button className="signin">Sign In</button>
+            <button className="signin-btn">Log In</button>
           </Link>
+
+          <h1>Not registered? Become a memeber now!</h1>
           <Link to="/register">
-            <button className="register">Sign Up</button>
+            <button className="register-btn">Sign Up</button>
           </Link>
         </div>
       </div>

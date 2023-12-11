@@ -1,0 +1,113 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+body {
+  background: #76b852; /* fallback for old browsers */
+  background: rgb(141, 194, 111);
+  background: linear-gradient(90deg, #926cfa 0%, rgb(36, 86, 238) 50%);
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  font-size: 1.2em;
+  margin-top: 1em;
+  color: rgb(84, 84, 84);
+}
+
+.login-memeber,
+.login-title {
+  font-size: 1em;
+  color: rgb(84, 84, 84);
+}
+
+.login-page,
+.home-page,
+.reg-page,
+.info-page {
+  font-family: "Roboto", sans-serif;
+  width: 50%;
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  margin: 100px auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.list-promo {
+  list-style: none;
+  line-height: 2em;
+}
+
+form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.signin-btn,
+.register-btn,
+.sign-up-btn,
+.sign-out-btn,
+.random-btn {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  background: #926cfa;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  margin-top: 1em;
+  cursor: pointer;
+}
+
+button:hover {
+  background: rgb(202, 117, 255);
+}
+
+.home-icon {
+  width: 10%;
+  cursor: pointer;
+}
+
+.generator-container {
+  background-color: #e9e0ff;
+  width: 100%;
+  border: none;
+  padding: 2em 0 2em 0;
+  margin-top: 1em;
+}
+
+.random-btn {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  background: rgb(195, 107, 250);
+  width: 50%;
+  border-radius: 1.5em;
+  border: none;
+  padding: 20px;
+  color: #ffffff;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  margin-top: 1em;
+  cursor: pointer;
+  border-style: dotted;
+  border-color: #ffffff;
+  border-width: 0.5em;
+}
+
+.random-result {
+  margin: 1em;
+  font-size: 1.5em;
+}

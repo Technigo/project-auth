@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Link } from "react-router-dom";
 import { userStore } from "../../store/userStore";
 import { useState } from "react";
@@ -42,11 +43,19 @@ const SignIn = () => {
   };
 
   return (
-    <div>
-      <form className="login-form" onSubmit={onLoginClick}>
-        <h1>Login to Your Account</h1>
+    <div className="login-page">
+      <Link to="/home">
+        <img
+          src="/src/assets/icon/home-icon.png"
+          alt="home-icon"
+          className="home-icon"
+        />
+        <img />
+      </Link>
+
+      <form onSubmit={onLoginClick}>
+        <h1 className="login-title">Login to Your Account</h1>
         <label className="username">
-          UserName:
           <input
             type="text"
             placeholder="Username"
@@ -56,7 +65,6 @@ const SignIn = () => {
         </label>
         <br />
         <label className="pw">
-          Password:
           <input
             type="password"
             placeholder="Password"
@@ -65,13 +73,13 @@ const SignIn = () => {
           />
         </label>
         <br />
-        <button type="submit" disabled={loading}>
+        <button type="submit" disabled={loading} className="signin-btn">
           {loading ? "Signing In..." : "Sign In"}
         </button>
         {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
 
-        <h5>Haven't sign up as a member yet?</h5>
-        <Link to="/home">HOME</Link>
+        <h5 className="login-memeber">Haven't sign up as a member yet?</h5>
+
         <Link to="/register">Sign up</Link>
       </form>
     </div>

@@ -76,7 +76,7 @@ export const userStore = create((set, get) => ({
           }); // Update the state with username and accessToken
           // Redirect or update UI
           localStorage.setItem("accessToken", data.response.accessToken);
-          alert(`Login successful!Welcome, ${data.response.username}!`);
+          alert(`Login successful! Welcome, ${data.response.username}!`);
           console.log("Loging up with:", username, password);
         } else {
           // Display error message from server
@@ -93,6 +93,5 @@ export const userStore = create((set, get) => ({
     // Clear user information and set isLoggedIn to false
     set({ username: "", accessToken: null, isLoggedIn: false });
     localStorage.removeItem("accessToken");
-    // Additional logout logic if needed
   },
 }));

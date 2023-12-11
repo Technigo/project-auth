@@ -44,13 +44,20 @@ const Registration = () => {
   };
 
   return (
-    <div>
+    <div className="reg-page">
+      <Link to="/home">
+        <img
+          src="/src/assets/icon/home-icon.png"
+          alt="home-icon"
+          className="home-icon"
+        />
+        <img />
+      </Link>
       <div>
-        <h2>Sign up to receive the latest promotion!</h2>
+        <h2>Sign up to check out the latest Christmas promotion!</h2>
       </div>
-      <form className="login-form">
+      <form>
         <label className="username">
-          UserName:
           <input
             type="text"
             placeholder="username"
@@ -59,8 +66,7 @@ const Registration = () => {
           />
         </label>
         <br />
-        <label className="pw">
-          Password:
+        <label>
           <input
             type="password"
             placeholder="password"
@@ -69,8 +75,7 @@ const Registration = () => {
           />
         </label>
         <br />
-        <label className="email">
-          E-mail:
+        <label>
           <input
             type="text"
             placeholder="e-mail"
@@ -78,11 +83,12 @@ const Registration = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
-        <button onClick={onSignupClick}>Sign up</button>
+        <button onClick={onSignupClick} className="sign-up-btn">
+          Submit
+        </button>
       </form>
       <h5>Already a user?</h5>
-      <Link to="/home">HOME</Link>
-      <Link to="/signin">LOGIN</Link>
+      <Link to="/signin">Sign in</Link>
     </div>
   );
 };
