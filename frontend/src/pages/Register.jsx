@@ -32,7 +32,6 @@ export const Register = () => {
         }
     };
 
-    console.log(email);
     // Text
     const text = {
         heading: "SignUp Page",

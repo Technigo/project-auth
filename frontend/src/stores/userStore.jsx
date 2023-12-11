@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 const apiEnv = import.meta.env.VITE_BACKEND_API;
 
-export const userStore = create((set, get) => ({
+export const userStore = create((set) => ({
     // State variables and their setter methods
     username: "",
     setUsername: (username) => set({ username }),
