@@ -7,6 +7,7 @@ dotenv.config(); // Load environment variables from the .env file
 import { connectDB } from "./config/db"; // Import database connection function 
 import userRoutes from "./routes/userRoutes";
 import asyncHandler from "express-async-handler";
+import advertRoutes from "./routes/advertRoutes";
 
 // Defines the port the app will run on. 
 const port = process.env.PORT;
