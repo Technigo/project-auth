@@ -16,12 +16,9 @@ export const advertStore = create((set) => ({
                     Authorization: localStorage.getItem("accessToken")
                 }
             });
-            
-            const data = await response.json();
-
-            console.log(data);
-
-            if (data.success) {
+                      
+            if (response.ok) {
+                const data = await response.json();
                 set({ adverts: data });
             } else {
                 console.error("Failed to fetch adverts");
