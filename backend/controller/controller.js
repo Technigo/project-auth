@@ -4,17 +4,17 @@ import asyncHadler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { authenticateUser } from "../middleware/authenticateUser";
+
 dotenv.config();
 
 // Gernerate JWT token for user autehntication
-const generateToken = (user) => {
-  return (
-    jwt.sign({ accessToken: user.acessToken }),
-    process.env.JWT_SECRET,
-    { expiresIn: "24h" }
-  );
-};
+// const generateToken = (user) => {
+//   return (
+//     jwt.sign({ accessToken: user.acessToken }),
+//     process.env.JWT_SECRET,
+//     { expiresIn: "24h" }
+//   );
+// };
 
 //Show all user result
 export const showUsersController = asyncHadler(async (req, res) => {
@@ -22,6 +22,7 @@ export const showUsersController = asyncHadler(async (req, res) => {
     .then((result) => res.json(result))
     .catch((err) => res.status(404).json({ err: "Cannot get user list" }));
 });
+
 //Registration endpoint, to create a new user.
 export const registerUserController = asyncHadler(async (req, res) => {
   try {

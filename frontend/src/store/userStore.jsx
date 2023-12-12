@@ -65,6 +65,7 @@ export const userStore = create((set, get) => ({
         },
         body: JSON.stringify({ username, password }),
       });
+
       console.log("After API call");
       if (response.ok) {
         const data = await response.json();
@@ -77,7 +78,7 @@ export const userStore = create((set, get) => ({
           // Redirect or update UI
           localStorage.setItem("accessToken", data.response.accessToken);
           alert(`Login successful! Welcome, ${data.response.username}!`);
-          console.log("Loging up with:", username, password);
+          console.log("Loging up with:", username, data.response.accessToken);
         } else {
           // Display error message from server
           alert("Login failed");

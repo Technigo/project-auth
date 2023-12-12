@@ -6,6 +6,7 @@ export const authenticateUser = async (req, res, next) => {
     const user = await UserModel.findOne({ accessToken: accessToken });
     if (user) {
       req.user = user;
+      console.log(accessToken);
       next();
     } else {
       res
