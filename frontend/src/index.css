@@ -27,6 +27,22 @@ p {
   padding: 2rem;
 }
 
+.logged-in-content img{
+  max-width: 100%; 
+}
+
+.logged-in-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; 
+  max-width: 250px;
+  background-color: #e24752;
+  border-radius: 5px;
+  padding: 1rem; 
+  text-align: center;
+}
+
 .login-container {
   display: flex; 
   flex-direction: column;
@@ -81,12 +97,8 @@ button:hover {
   cursor: pointer;
 }
 
-.signup-container p {
+p {
   font-weight: 700;
   color: white; 
 }
 
-.login-container p {
-  font-weight: 700;
-  color: white; 
-}

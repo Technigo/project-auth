@@ -49,13 +49,13 @@ export const LoggedinComp = () => {
   // Rendering the component content bawsed on the user's logged-in status
   return (
     isLoggedIn && (
-      <div>
+      <div className="logged-in-content">
         <img
           src="https://cdn.pixabay.com/photo/2023/11/24/17/13/ai-generated-8410330_1280.png"
           alt="AI Generated Image"
           style={{ width: "50vh", height: "auto" }}
         ></img>
-        Congratulations! You are logged in. Here is a cute puppy for you!
+        <p>Congratulations! You are logged in. Here is a cute puppy for you!</p>
       </div>
     )
   );
