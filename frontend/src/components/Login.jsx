@@ -67,7 +67,7 @@ export const Login = () => {
   }, [user]);
 
   return (
-    <form className="login-form">
+    <div className="login-form">
       <input
         type="text"
         placeholder="Username"
@@ -81,6 +81,6 @@ export const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Login</button>
-    </form>
+    </div>
   );
 };
