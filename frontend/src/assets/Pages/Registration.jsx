@@ -46,11 +46,7 @@ const Registration = () => {
   return (
     <div className="reg-page">
       <Link to="/">
-        <img
-          src="/src/assets/home-icon.png"
-          alt="home-icon"
-          className="home-icon"
-        />
+        <img src="./home-icon.png" alt="home-icon" className="home-icon" />
         <img />
       </Link>
       <div>
