@@ -6,8 +6,14 @@ import {
   showUsersController,
 } from "../controller/controller";
 import { authenticateUser } from "../middleware/authenticateUser";
+import listEndpoints from "express-list-endpoints";
 
 const route = express.Router();
+
+// Fetch the whole set of data
+route.get("/", async (req, res) => {
+  res.send(listEndpoints(route));
+});
 //Get the users
 route.get("/users", showUsersController);
 //Registration endpoint, to create a new user.
