@@ -1,13 +1,15 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This project is a very simple authentication API built with Node.js and Express. It allows users to sign up, log in, and access protected routes with a valid token.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+The main challenge was to implement user authentication and authorization. I started by setting up the server with Node.js and Express, and then used the bcrypt library to hash user passwords for secure storage. 
+
+If I had more time, I would implement a password reset feature, add email verification for sign up, and refine the error handling.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend: https://simple-authentication-app.netlify.app/
+
+Backend: https://project-auth-backend.onrender.com/ 
