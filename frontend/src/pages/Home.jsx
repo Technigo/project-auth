@@ -19,7 +19,7 @@ const Home = () => {
       <div className="button-wrapper">
         <SignOutButton />
       </div>
-      <h1>Welcome to the world of secrets!</h1>
+      <h1>Welcome to your own world in GreenBuddy!</h1>
       <Lottie 
         animationData={options.animationData} 
         style={options.style} 

@@ -1,7 +1,7 @@
 
 const AdvertCard = ({ advert }) => {
   return (
-    <div>
+    <div className="advert-card">
         <p>Product: {advert.product}</p>
         <p>Amount: {advert.amount}</p>
         <p>Unit: {advert.unit}</p>

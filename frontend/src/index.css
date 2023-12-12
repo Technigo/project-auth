@@ -9,6 +9,7 @@ body {
   text-align: center;
 }
 
+/* Form for sign up or log in */
 .form-container {
   display: flex;
   align-items: center;
@@ -44,6 +45,7 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   gap: 10px;
   font-size: 1.5rem;
 }
@@ -66,13 +68,14 @@ h1 {
   font-size: 1rem;
 }
 
-.info-field {
+.info-field, .advert-info {
   border: 2px solid #ccc;
   border-radius: 0.25rem;
   padding: 0.5rem;
   font-size: 1rem;
 }
 
+/* Buttons */
 .button {
   background-color: #335383;
   border: none;
@@ -88,8 +91,47 @@ h1 {
   margin-bottom: 2rem;
 }
 
-.sign-out {
+.sign-out, .create {
   text-decoration: none;
+}
+
+/* Adverts in home page */
+.adverts-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.adverts-wrapper {
+  display: flex;
+  flex-direction: wrap;
+  gap: 1rem;
+}
+
+.no-advert {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.advert-card {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Create Advert Page*/
+.create-advert {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
 }
 
 @media (min-width: 768px) {
@@ -105,7 +147,7 @@ h1 {
     font-size: 1.5rem;
   }
   
-  .info-field {
+  .info-field, .advert-info {
     border: 2px solid #ccc;
     border-radius: 0.25rem;
     padding: 0.5rem;
