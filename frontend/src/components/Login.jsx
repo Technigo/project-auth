@@ -47,6 +47,8 @@ export const Login = () => {
         setUser(data);
         //Store the access token in local storage (NOT SURE THIS IS NECESSARY - Updating accesstoken state instead?)
         localStorage.setItem("accessToken", data.accessToken);
+        setUsername("");
+        setPassword("");
         //Display a success alert and navigate to the "/logged-in" route
         alert("Login successful!");
         navigate("/logged-in");

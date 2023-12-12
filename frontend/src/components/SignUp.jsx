@@ -26,13 +26,12 @@ export const SignUp = () => {
 
       });
 
-      console.log(response)
-
-  
-
       // Checking if the signup was successful (status code 200)
       if (response.ok) {
         alert("Signup was successful, please log in!");
+        setName("")
+        setUsername("")
+        setPassword("")
       } else {
         const data = await response.json();
         console.log(data)
