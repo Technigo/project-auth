@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/register", registerUserController);
 router.post("/login", loginUserController);
-router.get("/profile", authenticateUser, secret);
+// router.get("/profile", authenticateUser, secret);
 
 // New endpoint to display all registered endpoints
 router.get("/", (req, res) => {

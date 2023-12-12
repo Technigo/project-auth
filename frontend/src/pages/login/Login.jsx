@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Logo } from "../../components/logo/Logo";
 import styles from "../login/login.module.css";
 export const Login = () => {
+  //can use get method from the userStore
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();

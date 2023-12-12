@@ -6,6 +6,7 @@ import styles from "../register/register.module.css";
 import { Logo } from "../../components/logo/Logo";
 
 export const Register = () => {
+  // can use get method from the userStore
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +27,13 @@ export const Register = () => {
       alert(
         "Password must be at least 6 characters and include lowercase, uppercase, and a number."
       );
+      return;
+    }
+
+    // Email validation using Regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address");
       return;
     }
 

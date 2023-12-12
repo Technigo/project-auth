@@ -1,5 +1,6 @@
 import { create } from "zustand";
 const apiEnv = import.meta.env.VITE_BACKEND_API;
+
 export const userStore = create((set, get) => ({
   username: "",
   setUsername: (username) => set({ username }),
@@ -28,16 +29,14 @@ export const userStore = create((set, get) => ({
       });
 
       const data = await response.json();
-      if (response.ok) {
-        set({ username });
+
+      if (data.success) {
+        set({ username, email, password });
         // Redirect or update UI
         alert("Signup successful!");
       } else {
         // Display error message from server
-        alert(
-          data.message ||
-            "Password must be at least 6 characters and include lowercase, uppercase, and a number."
-        );
+        alert(data.response || "Signup not successful!");
       }
     } catch (error) {
       console.error("Signup error:", error);
@@ -80,6 +79,7 @@ export const userStore = create((set, get) => ({
       alert("An error occurred during login");
     }
   },
+
   handleLogout: () => {
     // Clear user information and set isLoggedIn to false
     set({ username: "", accessToken: null, isLoggedIn: false });
