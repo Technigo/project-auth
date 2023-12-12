@@ -13,7 +13,7 @@ export const advertStore = create((set) => ({
             const response = await fetch("https://hang-authentication-project.onrender.com/get", {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+                    Authorization: localStorage.getItem("accessToken")
                 }
             });
             
@@ -37,7 +37,7 @@ export const advertStore = create((set) => ({
             const response = await fetch("https://hang-authentication-project.onrender.com/add", {
                 method: "POST",
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                    Authorization: localStorage.getItem("accessToken"),
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ advert: advert })
