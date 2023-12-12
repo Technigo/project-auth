@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 const profileSchema = mongoose.Schema(
   {
-    //? Is it possible to add the user_id
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
