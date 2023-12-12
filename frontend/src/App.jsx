@@ -15,14 +15,19 @@ const Container = styled.div`
   column-gap: 10px;
 `;
 
+const Loading = () => <div>Loading...</div>; // Define a loading component
+
+
 
 const App = () => {
   const [user, setUser] = useState({ name: '', email: '', password: '' });
   const [token, setToken] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
-  };
+  }
+
 
   const handleSignup = async () => {
     const response = await fetch(`${API_URL}/signup`, {
@@ -32,9 +37,11 @@ const App = () => {
     });
     const data = await response.json();
     setToken(data.accessToken);
-  };
+  }
 
   const handleLogin = async () => {
+    try {
+      setLoading(true);
     const response = await fetch(`${API_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -42,7 +49,10 @@ const App = () => {
     });
     const data = await response.json();
     setToken(data.accessToken);
-  };
+  } finally {
+    setLoading(false);
+  }
+  }
 
   const handleLogout = async () => {
     await fetch(`${API_URL}/logout`, {
@@ -86,7 +96,10 @@ const App = () => {
       <button onClick={handleSignup}>Sign Up</button>
       <button onClick={handleLogin}>Log In</button>
       <button onClick={handleLogout}>Log Out</button>
-      
+      {loading ? (
+        <Loading /> 
+      ) : (
+        <>
       {token && <input value={newSecret} onChange={(event) => setNewSecret(event.target.value)} placeholder="Enter your secret here" />}
       {token && <button onClick={handlePostSecret}>Post Secret</button>}
 
@@ -94,12 +107,15 @@ const App = () => {
       {secrets && secrets.map((secret, index) => (
   <div key={index}>
     {secret.message}
+    
   </div>
 ))}
-    
-    </Container>
+      </>
+      )}
+    </Container> 
   );
-};
+}
+
 
 
 export default App;
