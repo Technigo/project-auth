@@ -1,16 +1,6 @@
 import { UserModel } from "../models/UserModel";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-
-
-// Set up a function that generates a JWT token for user authentication
-const generateToken = (user) => { //param = user
-    return jwt.sign({ accessToken: user.accessToken }, process.env.JWT_SECRET, {
-        //JWT_SECRET to be defined in .env for security reasons
-        expiresIn: "24h", // Token expires after 24 hours
-    });
-};
 
 export const showAllUsersController = asyncHandler(async (req, res) => {
     const users = await UserModel.find();
@@ -59,7 +49,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
                 username: newUser.username,
                 email: newUser.email,
                 id: newUser._id,
-                accessToken: generateToken(newUser._id), // Generate a JWT token
+                accessToken: newUser.accessToken, 
             },
         });
     } catch (err) {
@@ -91,8 +81,8 @@ export const loginUserController = asyncHandler(async (req, res) => {
             response: {
                 username: user.username,
                 id: user._id,
-                accessToken: generateToken(user._id),
-            },
+                accessToken: user.accessToken,
+            }
         });
     } catch (err) {
         // Handle any errors that occur during the login process
