@@ -1,0 +1,1 @@
+// Cannot deploy on Netlify as it doesn't find this file. Therefore, move everything to App.jsx

@@ -1,9 +1,12 @@
 import express from "express";
-import cors from "cors";
 import mongoose from "mongoose";
+import cors from "cors";
+import asyncHandler from "express-async-handler";
+import listEndpoints from "express-list-endpoints";
+import advertiserRoutes from "./routes/advertiserRoutes";
+import advertRoutes from "./routes/advertRoutes";
+import { connectDB } from "./config/db";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
@@ -17,9 +20,19 @@ app.use(cors());
 app.use(express.json());
 
 // Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
-});
+// Endpoint to show documentation of all endpoints
+app.get(
+  "/", 
+  asyncHandler(async (req, res) => {
+      const endpoints = listEndpoints(app);
+      res.json(endpoints);
+  })
+);
+app.use(advertiserRoutes);
+app.use(advertRoutes);
+
+// Connect to the database
+connectDB();
 
 // Start the server
 app.listen(port, () => {
