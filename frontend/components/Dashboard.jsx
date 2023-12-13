@@ -42,15 +42,21 @@ const Dashboard = () => {
         }
     }, [accessToken]);
 
+    // Handle sign-out button click
     const handleSignOut = () => {
         // Remove the access token from local storage
+        localStorage.removeItem('accessToken');
         // Redirect to the sign-in page
+        // You can use the useHistory hook from react-router-dom for navigation
+        // Example: import { useHistory } from 'react-router-dom'; const history = useHistory(); history.push('/sign-in');
     };
 
     return (
         <div>
             <h2>Dashboard</h2>
+            {/* Sign-out button */}
             <button onClick={handleSignOut}>Sign Out</button>
+            {/* Display the content */}
             <div>{content}</div>
         </div>
     );
