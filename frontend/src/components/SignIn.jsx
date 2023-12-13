@@ -1,12 +1,12 @@
 // src/components/SignIn.js
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
     // State to store form data
     const [formData, setFormData] = useState({ username: '', password: '' });
     // Access the history object to navigate between pages
-    const history = useHistory();
+    const navigate = useNavigate();
 
     // Handle form submission
     const handleSubmit = async (e) => {
@@ -21,26 +21,18 @@ const SignIn = () => {
                 body: JSON.stringify(formData),
             });
 
-            // Check if the request was successful (status code 2xx)
             if (response.ok) {
-                // Parse the response JSON to get the access token
                 const data = await response.json();
-
-                // Save the access token to local storage
                 localStorage.setItem('accessToken', data.accessToken);
-
-                // Redirect to the dashboard page
-                history.push('/dashboard');
+                navigate('/dashboard'); // Use navigate to redirect
             } else {
-                // Handle login error (status code is not 2xx)
                 const errorData = await response.json();
                 console.error('Login error:', errorData.error);
-                // Display an error message to the user, e.g., set a state variable for displaying an error message
+                // Handle login error
             }
         } catch (error) {
-            // Handle network errors or other unexpected errors
             console.error('Unexpected error during login:', error);
-            // Display a generic error message to the user
+            // Handle unexpected error
         }
     };
 

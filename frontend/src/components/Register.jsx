@@ -1,12 +1,12 @@
 // src/components/Register.js
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     // State to store form data
     const [formData, setFormData] = useState({ username: '', email: '', password: '' });
     // Access the history object to navigate between pages
-    const history = useHistory();
+    const navigate = useNavigate();
 
     // Handle form submission
     const handleSubmit = async (e) => {
@@ -33,7 +33,7 @@ const Register = () => {
                 localStorage.setItem('accessToken', data.accessToken);
 
                 // Redirect to the dashboard page
-                history.push('/dashboard');
+                navigate.push('/dashboard');
             } else {
                 // Handle registration error (status code is not 2xx)
                 const errorData = await response.json();
