@@ -34,7 +34,7 @@ const Registration = () => {
       if (username && password) {
         //Once the user has successfully sign up, the user will be directed to the log in page
         console.log("Signup successful. Navigating to /home");
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       // Handle any errors that occur during signup
