@@ -1,0 +1,23 @@
+nav {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5%;
+}
+
+.signin-register {
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}

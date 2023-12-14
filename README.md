@@ -1,13 +1,19 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+Project Team:
+<a href="https://github.com/Isaackamran">Isaac</a>,
+<a href="https://github.com/andrkavr">Andrej</a>,
+<a href="https://github.com/majoh23">Manne</a>,
+This week we are diving deeper into backend and connecting it to a frontend page. Using different components in the backend as well as the frontend. A team project where we are using our strenghts to achieve a fully functioned authentication project. You could say this project is a summary of what we have learnt at the bootcamp so far.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+Connecting the dots. Errors in creating an authenticated account.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Backend deploy:
+https://auth-api-olz1.onrender.com/
+
+Frontend deploy:
+https://authentic-api.netlify.app/
