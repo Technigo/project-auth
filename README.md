@@ -12,4 +12,4 @@ Describe how you approached to problem, and what tools and techniques you used t
 
 Backend project deployed at: https://project-authorization-fullstack.onrender.com
 
-Frontend project deployed at: 
+Frontend project deployed at: https://fullstack-auth-project.netlify.app/
