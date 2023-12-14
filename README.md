@@ -1,13 +1,12 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+A fullstack project which allows user to log in and access certain content once the user has signed in.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+The hard lesson I learnt from this week project was I should always remember to put the environment variables in my deployment setting. It took me quite a while to understand why my site work locally but not the deployment version. This is a nice project to practice authentication and understand how to set up on both frontend and backend.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Front end -https://project-auth-janice.netlify.app/
+Back end -https://project-auth-d5lo.onrender.com
