@@ -30,13 +30,6 @@ export const Register = () => {
       return;
     }
 
-    // Email validation using Regex
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address");
-      return;
-    }
-
     try {
       await storeHandleSignup(username, password, email);
 

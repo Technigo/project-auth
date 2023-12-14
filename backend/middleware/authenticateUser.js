@@ -10,7 +10,6 @@ export const authenticateUser = async (req, res, next) => {
     try {
       // Get token from header
       accessToken = req.headers.authorization.split(" ")[1];
-
       // Verify token
       const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
       const user = await UserModel.findById(decoded.id).select("-password");

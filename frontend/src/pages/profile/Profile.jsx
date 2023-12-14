@@ -1,6 +1,6 @@
-import { userStore } from "../../stores/userStore";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { userStore } from "../../stores/userStore";
 
 export const Profile = () => {
   const { isLoggedIn, accessToken } = userStore();
@@ -22,9 +22,9 @@ export const Profile = () => {
   if (!isLoggedIn) {
     return null;
   }
+
   return (
     <div>
-      <h1>We will continue to work with this profile page with private part</h1>
       <nav>
         <ul>
           <li type="button" onClick={onLogoutClick}>
@@ -35,3 +35,5 @@ export const Profile = () => {
     </div>
   );
 };
+
+export default Profile;

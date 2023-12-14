@@ -25,10 +25,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      validate: {
-        validator: (email) => emailRegex.test(email),
-        message: "Invalid email format.",
-      },
     },
   },
   { timestamps: true }
