@@ -1,6 +1,9 @@
-import express from "express";
+import express, { urlencoded } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config()
+import userRoutes from "./routes/userRoutes"
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -15,6 +18,10 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended: false}))
+app.use(userRoutes);
+
+
 
 // Start defining your routes here
 app.get("/", (req, res) => {
