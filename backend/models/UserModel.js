@@ -17,7 +17,7 @@ const userSchema = new Schema({
         minlenght: 6
 
     },
-    emaill: {
+    email: {
         type: String,
         required: true,
         unique: true,
@@ -25,7 +25,8 @@ const userSchema = new Schema({
     },
     accessToken: {
         type: String,
-        default: () => crypto.randomBytes(128).toString("hex")
+        default: () => crypto.randomBytes(128).toString("hex"),
+        required: false
     }
 },
 {

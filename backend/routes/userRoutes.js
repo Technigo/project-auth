@@ -1,7 +1,7 @@
 
 import  express from "express";
 import bcrypt from "bcrypt";
-import { Jwt } from "jsonwebtoken";
+import jwt  from "jsonwebtoken";
 
 import { UserModel } from "../models/userModel";
 import asyncHandler from "express-async-handler";
@@ -50,7 +50,7 @@ router.post("/register" , asyncHandler(async(req , res) => {
                 username: newUser.username,
                 email: newUser.email,
                 id: newUser._id,
-                accessToken: geneerateToken(newUser._id)
+                accessToken: geneerateToken(newUser)
 
             }
         });
@@ -60,7 +60,7 @@ router.post("/register" , asyncHandler(async(req , res) => {
 
 }));
 
-router.post("/login", authenticateUser , asyncHandler(async(req , res) => {
+router.post("/login", asyncHandler(async(req , res) => {
     const { username , password} = req.body;
     try {
         const user = await UserModel.findOne({username});
@@ -72,12 +72,28 @@ router.post("/login", authenticateUser , asyncHandler(async(req , res) => {
             return res.status(401).json({success: false , response: "incorrect password"});
         }
         res.status(200).json({success: true , response: {
+            
+                username: user.username,
+                email: user.email,
+                id: user._id,
+                accessToken: geneerateToken(user)
 
+            
         }})
     } catch (error) {
+        res.status(500).json({success: false , response: {
+            
+            message: error.message
+
         
+    }})
     }
 
 }))
+
+router.get("/logged-in", authenticateUser, asyncHandler(async (req, res) => {
+    res.status(200).json({success: true , response: {
+        message: "user is logged in" }})
+    }))
 
 export default router
