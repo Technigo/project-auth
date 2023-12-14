@@ -8,7 +8,7 @@ const PromotionItem = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8080/items")
+    fetch("https://project-auth-d5lo.onrender.com/items")
       .then((res) => res.json())
       .then((data) => setItems(data))
       .catch((error) => console.error("Error fetching data:", error));
