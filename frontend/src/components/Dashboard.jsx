@@ -1,18 +1,20 @@
 // src/components/Dashboard.js
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import UseAuthStore from '../store/authStore'; // Adjust the path
 
 const Dashboard = () => {
     const [content, setContent] = useState('');
-    const accessToken = localStorage.getItem('accessToken');
-    const navigate = useNavigate(); // Use useNavigate instead of useHistory
+    const accessToken = UseAuthStore((state) => state.accessToken);
+    const logout = UseAuthStore((state) => state.logout);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!accessToken) {
             // Redirect to the sign-in page using useNavigate
             navigate('/login');
         } else {
-            fetch('`${import.meta.env.VITE_API_URL}/user/protected`', {
+            fetch(`${import.meta.env.VITE_API_URL}/user/protected`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -33,10 +35,11 @@ const Dashboard = () => {
                     setContent('Error fetching content');
                 });
         }
-    }, [accessToken, navigate]); // Include navigate in the dependencies
+    }, [accessToken, navigate]);
 
     const handleSignOut = () => {
-        localStorage.removeItem('accessToken');
+        // Use the logout action from the store
+        logout();
         navigate('/login'); // Redirect to the sign-in page
     };
 
@@ -50,3 +53,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

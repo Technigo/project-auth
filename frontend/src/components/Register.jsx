@@ -1,23 +1,23 @@
 // src/components/Register.js
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAuthStore from '../store/authStore';
 
 const Register = () => {
     // State to store form data
     const [formData, setFormData] = useState({ username: '', email: '', password: '' });
     // Access the history object to navigate between pages
     const navigate = useNavigate();
+    const { login } = useAuthStore();
 
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData)
-        // Make a POST request to your registration endpoint with formData
-        // Handle success by saving the access token to local storage
-        // Redirect to the dashboard page
+        console.log(formData);
+
         try {
             // Make a POST request to the registration endpoint
-            const response = await fetch('`${import.meta.env.VITE_API_URL}/user/register`', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/user/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,12 +29,8 @@ const Register = () => {
             if (response.ok) {
                 // Parse the response JSON to get the access token
                 const data = await response.json();
-
-                // Save the access token to local storage
-                localStorage.setItem('accessToken', data.accessToken);
-
-                // Redirect to the dashboard page
-                navigate.push('/dashboard');
+                login(data.accessToken); // Use the login action from the store
+                navigate('/dashboard');
             } else {
                 // Handle registration error (status code is not 2xx)
                 const errorData = await response.json();
@@ -85,3 +81,4 @@ const Register = () => {
 };
 
 export default Register;
+
