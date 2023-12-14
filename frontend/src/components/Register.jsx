@@ -11,12 +11,13 @@ const Register = () => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(formData)
         // Make a POST request to your registration endpoint with formData
         // Handle success by saving the access token to local storage
         // Redirect to the dashboard page
         try {
             // Make a POST request to the registration endpoint
-            const response = await fetch('http://your-api-url/auth/register', {
+            const response = await fetch('https://project-auth-api-mnx9.onrender.com/user/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

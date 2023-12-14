@@ -15,7 +15,7 @@ const Dashboard = () => {
             // Example: import { useHistory } from 'react-router-dom'; const history = useHistory(); history.push('/sign-in');
         } else {
             // Make a GET request to your authenticated endpoint with the access token
-            fetch('http://your-api-url/auth/protected', {
+            fetch('https://project-auth-api-mnx9.onrender.com/protected', {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${accessToken}`, // Include the access token in the Authorization header
