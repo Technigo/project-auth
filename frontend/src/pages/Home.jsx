@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { userStore } from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
-import { AdList } from "../components/AdvertList";
+import { AdList } from "../components/AdList";
 
 export const Home = () => {
     // Define text content for the heading and subheading.

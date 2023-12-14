@@ -1,6 +1,7 @@
 // Import the necessary modules and functions
 import express from "express";
 import { authenticateUser } from "../middlewares/authenticateUser"; // Import middleware for user authentication
+import { validateInputData } from "../middlewares/validateInputData";
 import {
     getAdController,
     updateAdController,
@@ -25,7 +26,7 @@ router.delete("/deleteAll", deleteAllAdsController); // When a DELETE request is
 router.delete("/delete/:id", deleteSpecificAdController); // When a DELETE request is made to /delete/:id, execute the deleteSpecificAdController function
 
 // Define a route for handling POST requests to add a new AD
-router.post("/add", authenticateUser, addAdController); // When a POST request is made to /add, authenticate the user using middleware and then execute the addAdController function
+router.post("/add", authenticateUser, validateInputData, addAdController); // When a POST request is made to /add, authenticate the user using middleware and then execute the addAdController function
 
 // Export the router for use in the main application
 export default router;

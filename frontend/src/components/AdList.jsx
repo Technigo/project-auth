@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { userStore } from "../stores/userStore";
 import { adStore } from "../stores/adStore";
-import { CreateAd } from "./CreateAdvert";
-import { AdCard } from "./AdvertCard";
+import { CreateAd } from "./CreateAd";
+import { AdCard } from "./AdCard";
 
 
 export const AdList = () => {
@@ -20,7 +20,7 @@ export const AdList = () => {
 
     return (
         <>
-
+            <CreateAd />
             <h1>Your ads</h1>
             <div className="ad-wrapper">
                 {ads.length === 0 ? (

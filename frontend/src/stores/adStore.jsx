@@ -7,7 +7,7 @@ import { userStore } from "./userStore";
 const apiEnv = import.meta.env.VITE_BACKEND_API;
 console.log(apiEnv);
 
-// Create and export a Zustand store for managing tasks
+// Create and export a Zustand store for managing ads
 export const adStore = create((set) => ({
   // Initialize the ad state with an empty array
   ads: [],
@@ -66,7 +66,7 @@ export const adStore = create((set) => ({
   },
 
   // New action to add an ad to the server and then to the store
-  addAdToServer: async (task) => {
+  addAdToServer: async (ad) => {
     try {
       // Send a POST request to the backend API to add a new ad
       const response = await fetch(`${apiEnv}/add`, {
@@ -75,7 +75,7 @@ export const adStore = create((set) => ({
           Authorization: localStorage.getItem("accessToken"),
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ task: task }),
+        body: JSON.stringify({ ad: ad }),
       });
       // Parse the response data
       const data = await response.json();
@@ -84,7 +84,7 @@ export const adStore = create((set) => ({
         // Add the new ad to the ads state
         set((state) => ({ ads: [...state.ads, data] }));
       } else {
-        console.error("Failed to add task");
+        console.error("Failed to add ad");
       }
     } catch (error) {
       console.error(error);
@@ -106,7 +106,7 @@ export const adStore = create((set) => ({
       const updatedAd = await response.json();
       // Check if the request was successful
       if (response.ok) {
-        // Update the task in the tasks state
+        // Update the ad in the ads state
         set((state) => ({
           ads: state.ads.map((ad) =>
             ad._id === id ? { ...ad, ...updatedAd } : ad

@@ -22,6 +22,7 @@ export const getAdController = asyncHandler(async (req, res) => {
 // access: Private
 export const addAdController = asyncHandler(async (req, res) => {
   try {
+    console.log("Request body:", req.body); // Log the entire request body
     // Extract the task data from the request body
     const { brand, imageUrl, size, model, price } = req.body;
     // Extract the accessToken from the request object, but it is not going to be from the req.body but, its going to be from the req.header
