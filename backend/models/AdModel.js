@@ -13,10 +13,6 @@ export const adSchema = new Schema(
             required: true,
             minlength: 2,
         },
-        imageUrl: {
-            type: String,
-            required: false,
-        },
         size: {
             type: String,
             required: true,

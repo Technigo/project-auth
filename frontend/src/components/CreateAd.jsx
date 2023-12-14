@@ -10,7 +10,7 @@ export const CreateAd = () => {
         price: 0,
     });
 
-    const storeAddAdToServer = adStore((state) => state.addAdToServer);
+    const { addAdToServer } = adStore();
 
     const adInput = (e) => {
         const { name, value } = e.target;
@@ -21,17 +21,18 @@ export const CreateAd = () => {
     };
 
     const addAdLocal = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent the default form submission
+
         const { brand, size, model, price } = ad;
 
         if (!brand || !size || !model || !price) {
-            alert("Please fill in the required fields");
+            alert("Please fill in all the fields");
             return;
         }
 
         try {
-            await storeAddAdToServer(brand, size, model, price);
-            setAd({
+            await addAdToServer(ad); // Add the ad to the server
+            setAd({  // Clear the input fields after adding the ad
                 brand: "",
                 imageUrl: "",
                 size: "",
@@ -39,7 +40,7 @@ export const CreateAd = () => {
                 price: 0,
             });
         } catch (error) {
-            console.error("Couldn't add the ad :", error);
+            console.error("Couldn't add the ad:", error);
             alert("Something went wrong");
         }
     };
@@ -54,13 +55,13 @@ export const CreateAd = () => {
                     value={ad.brand}
                     onChange={adInput}
                 />
-                <input
-                    type="text"
+                {/* <input
+                    type="text" 
                     name="imageUrl"
                     placeholder="Image URL"
                     value={ad.imageUrl}
                     onChange={adInput}
-                />
+                />*/}
                 <input
                     type="text"
                     name="size"

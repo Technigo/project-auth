@@ -75,7 +75,7 @@ export const adStore = create((set) => ({
           Authorization: localStorage.getItem("accessToken"),
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ad: ad }),
+        body: JSON.stringify({ad}),
       });
       // Parse the response data
       const data = await response.json();
