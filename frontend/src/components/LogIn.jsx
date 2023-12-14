@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SignIn = () => {
+const LogIn = () => {
     // State to store form data
     const [formData, setFormData] = useState({ username: '', password: '' });
     // Access the history object to navigate between pages
@@ -13,7 +13,7 @@ const SignIn = () => {
         e.preventDefault();
         try {
             // Make a POST request to the login endpoint
-            const response = await fetch('http://your-api-url/auth/login', {
+            const response = await fetch('`${import.meta.env.VITE_API_URL}/user/login`', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ const SignIn = () => {
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('accessToken', data.accessToken);
-                navigate('/dashboard'); // Use navigate to redirect
+                navigate.push('/dashboard'); // Use navigate to redirect
             } else {
                 const errorData = await response.json();
                 console.error('Login error:', errorData.error);
@@ -38,7 +38,7 @@ const SignIn = () => {
 
     return (
         <div>
-            <h2>Sign In</h2>
+            <h2>Log In</h2>
             <form onSubmit={handleSubmit}>
                 {/* Sign-in form fields */}
                 <label htmlFor="username">Username:</label>
@@ -64,4 +64,4 @@ const SignIn = () => {
     );
 };
 
-export default SignIn;
+export default LogIn;

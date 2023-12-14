@@ -2,7 +2,7 @@
 import 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Register from './components/Register';
-import SignIn from './components/SignIn';
+import LogIn from './components/LogIn';
 import Dashboard from './components/Dashboard';
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/register" element={<Register />} />
-          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/login" element={<LogIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>

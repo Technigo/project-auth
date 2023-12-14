@@ -17,7 +17,7 @@ const Register = () => {
         // Redirect to the dashboard page
         try {
             // Make a POST request to the registration endpoint
-            const response = await fetch('https://project-auth-api-mnx9.onrender.com/user/register', {
+            const response = await fetch('`${import.meta.env.VITE_API_URL}/user/register`', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
