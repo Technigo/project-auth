@@ -3,7 +3,7 @@ import  express from "express";
 import bcrypt from "bcrypt";
 import jwt  from "jsonwebtoken";
 
-import { UserModel } from "../models/userModel";
+import { UserModel } from "../models/UserModel";
 import asyncHandler from "express-async-handler";
 import dotenv from "dotenv";
 import { authenticateUser } from "../authenticateUser";
