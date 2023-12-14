@@ -10,7 +10,7 @@ export const CreateAd = () => {
         price: 0,
     });
 
-    const { addAdToServer } = adStore();
+    const { createAd } = adStore();
 
     const adInput = (e) => {
         const { name, value } = e.target;
@@ -31,7 +31,7 @@ export const CreateAd = () => {
         }
 
         try {
-            await addAdToServer(ad); // Add the ad to the server
+            await createAd(ad); // Add the ad to the server
             setAd({  // Clear the input fields after adding the ad
                 brand: "",
                 imageUrl: "",
@@ -40,7 +40,7 @@ export const CreateAd = () => {
                 price: 0,
             });
         } catch (error) {
-            console.error("Couldn't add the ad:", error);
+            console.error("Couldn't create the ad:", error);
             alert("Something went wrong");
         }
     };

@@ -15,7 +15,7 @@ export const adStore = create((set) => ({
   userId: userStore.userId,
 
   // Define an action to add an AD to the state
-  addAd: (newAd) => set((state) => ({ ads: [...state.ads, newAd] })),
+  addAd: (ad) => set((state) => ({ ads: [...state.ads, ad] })),
 
   // Define an action to set the ads state to a new array of ads
   setads: (ads) => set({ ads }),
@@ -66,32 +66,36 @@ export const adStore = create((set) => ({
   },
 
   // New action to add an ad to the server and then to the store
-  addAdToServer: async (ad) => {
+  createAd: async (newAdData) => {
     try {
-      // Send a POST request to the backend API to add a new ad
+      // Send the request to create a new ad
       const response = await fetch(`${apiEnv}/add`, {
         method: "POST",
         headers: {
           Authorization: localStorage.getItem("accessToken"),
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ad}),
+        body: JSON.stringify(newAdData),
       });
-      // Parse the response data
-      const data = await response.json();
-      // Check if the request was successful
+
+      const newAd = await response.json();
+      console.log("Server response for new ad:", newAd);
+
       if (response.ok) {
-        // Add the new ad to the ads state
-        set((state) => ({ ads: [...state.ads, data] }));
+        set((state) => {
+          const updatedAds = [...state.ads, newAd];
+          console.log("Updated ads state:", updatedAds); // Log updated state here
+          return { ads: updatedAds };
+        });
       } else {
-        console.error("Failed to add ad");
+        console.error("Failed to create ad");
       }
     } catch (error) {
       console.error(error);
     }
   },
 
-  // New action to update the boolean isSold value in the store
+  // New action to update the boolean isAvailable value in the store
   handleEdit: async (id) => {
     try {
       // Send a PUT request to the backend API to update an ad by its ID

@@ -23,16 +23,17 @@ export const getAdController = asyncHandler(async (req, res) => {
 export const addAdController = asyncHandler(async (req, res) => {
   try {
     console.log("Request body:", req.body); // Log the entire request body
-    // Extract the task data from the request body
+    // Extract the ad data from the request body
     const { brand, size, model, price } = req.body;
-    // Extract the accessToken from the request object, but it is not going to be from the req.body but, its going to be from the req.header
+    
+    // Extract the accessToken from the request header key "Authorization"
     const accessToken = req.header("Authorization"); // we are requesting the Authorization key from the headerObject
-    // get the user and matchIt with the user from the db - remmeber that we are using the accessToken to do so :)
-    const userFromStorage = await UserModel.findOne({
-      accessToken: accessToken,
-    });
-    // Define var to pass new task
-    const newAd = new AdModel({
+    
+    //Find the user that matches the accessToken stored in the db
+    const userFromStorage = await UserModel.findOne({accessToken: accessToken});
+   
+    // Define var to pass new AD
+    const newAd = await new AdModel({  //wait for the save() operation to complete before sending back the response
       brand: brand,
       size: size,
       model: model,
