@@ -1,4 +1,5 @@
 // App.jsx
+import "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Register from './components/Register';
 import LogIn from './components/LogIn';

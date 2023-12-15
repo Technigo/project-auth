@@ -1,45 +1,59 @@
 // src/components/Register.js
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useAuthStore from '../store/authStore';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { authStore } from "../store/authStore";
 
 const Register = () => {
     // State to store form data
-    const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+    const [formData, setFormData] = useState({
+        username: "",
+        email: "",
+        password: "",
+    });
+
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     // Access the history object to navigate between pages
     const navigate = useNavigate();
-    const { login } = useAuthStore();
+    const { login } = authStore();
 
     // Handle form submission
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(formData);
+    const handleSubmit = async () => {
+        if (!username || !password || !email) {
+            // Display an alert if any of the required fields are empty.
+            alert("Please enter email, username, and password");
+            return;
+        }
+        //e.preventDefault();
+        console.log(username, email, password);
 
         try {
             // Make a POST request to the registration endpoint
             const response = await fetch(`${import.meta.env.VITE_API_URL}/user/register`, {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({ email, username, password }),
             });
 
             // Check if the request was successful (status code 2xx)
-            if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            if (data.success) {
                 // Parse the response JSON to get the access token
-                const data = await response.json();
-                login(data.accessToken); // Use the login action from the store
-                navigate('/dashboard');
+                // login(data.accessToken); // Use the login action from the store
+                //navigate("/dashboard");
             } else {
                 // Handle registration error (status code is not 2xx)
-                const errorData = await response.json();
-                console.error('Registration error:', errorData.error);
+                // const errorData = await response.json();
+                //console.error("Registration error:", errorData.error);
                 // Display an error message to the user, e.g., set a state variable for displaying an error message
             }
         } catch (error) {
             // Handle network errors or other unexpected errors
-            console.error('Unexpected error during registration:', error);
+            console.error("Unexpected error during registration:", error);
             // Display a generic error message to the user
         }
     };
@@ -47,35 +61,35 @@ const Register = () => {
     return (
         <div>
             <h2>Register</h2>
-            <form onSubmit={handleSubmit}>
+            <div>
                 {/* Registration form fields */}
                 <label htmlFor="username">Username:</label>
                 <input
                     type="text"
-                    id="username"
-                    value={formData.username}
-                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                 />
 
                 <label htmlFor="email">Email:</label>
                 <input
-                    type="email"
-                    id="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
 
                 <label htmlFor="password">Password:</label>
                 <input
                     type="password"
-                    id="password"
-                    value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
 
                 {/* Submit button */}
-                <button type="submit">Register</button>
-            </form>
+                <button onClick={handleSubmit}>Register</button>
+            </div>
         </div>
     );
 };

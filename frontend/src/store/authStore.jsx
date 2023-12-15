@@ -1,11 +1,11 @@
 // authStore.js
-import { createStore } from 'zustand';
+import { create } from 'zustand';
 
-const useAuthStore = createStore((set) => ({
+export const authStore = create((set, get) => ({
     accessToken: localStorage.getItem('accessToken') || null,
     login: (token) => set({ accessToken: token }),
     logout: () => set({ accessToken: null }),
 }));
 
-export default useAuthStore;
+
 
