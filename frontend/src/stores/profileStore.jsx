@@ -1,17 +1,13 @@
 import { create } from "zustand";
 const apiEnv = import.meta.env.VITE_BACKEND_API;
+import { userStore } from "../stores/userStore";
 
 export const profileStore = create((set) => ({
   // Set the initial data
-  lastName: "",
-  firstName: "",
-  phone: "",
-  important: "",
-  color: "",
-  flower: "",
+  profile: [],
 
-  // Create a generic setter function
-  setField: (field, value) => set({ [field]: value }),
+  // Initialize the userId state
+  userID: userStore.userID,
 
   handleAddProfile: async (firstName, lastName, phone) => {
     if (!lastName || !firstName || !phone) {
