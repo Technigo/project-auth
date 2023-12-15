@@ -1,15 +1,16 @@
 // src/components/Register.js
+import { authStore } from "../store/authStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authStore } from "../store/authStore";
+
 
 const Register = () => {
     // State to store form data
-    const [formData, setFormData] = useState({
-        username: "",
-        email: "",
-        password: "",
-    });
+    // const [formData, setFormData] = useState({
+    //     username: "",
+    //     email: "",
+    //     password: "",
+    // });
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -45,11 +46,17 @@ const Register = () => {
                 // Parse the response JSON to get the access token
                 // login(data.accessToken); // Use the login action from the store
                 //navigate("/dashboard");
+
+                // If registration is successful, update the accessToken using the login function from the store
+                login(data.accessToken);
+                // Optionally, navigate to the dashboard or another page
+                navigate("/dashboard");
             } else {
                 // Handle registration error (status code is not 2xx)
                 // const errorData = await response.json();
                 //console.error("Registration error:", errorData.error);
                 // Display an error message to the user, e.g., set a state variable for displaying an error message
+                console.error("Registration error:", data.error);
             }
         } catch (error) {
             // Handle network errors or other unexpected errors

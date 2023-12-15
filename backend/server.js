@@ -27,7 +27,6 @@ app.use((req, res, next) => {
 
 app.use('/auth', authUserMiddleware);
 app.use('/user', authUserRoutes);
-// app.use('/auth', authUserRoutes);
 app.use('/secret', secretRoute); // Add this line
 
 app.get("/", (req, res) => {

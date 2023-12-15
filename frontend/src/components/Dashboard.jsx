@@ -1,7 +1,8 @@
 // src/components/Dashboard.js
+import { authStore } from "../store/authStore";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authStore } from "../store/authStore"; // Adjust the path
+
 
 const Dashboard = () => {
     const [content, setContent] = useState("");

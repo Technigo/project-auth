@@ -15,7 +15,7 @@ const LogIn = () => {
         e.preventDefault();
         try {
             // Make a POST request to the login endpoint
-            const response = await fetch(`http://localhost:3000/user/login`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/protected`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
