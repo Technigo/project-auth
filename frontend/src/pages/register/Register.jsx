@@ -56,7 +56,7 @@ export const Register = () => {
       <div className={styles.signUp}>
         <h2 className={styles.title}>Sign Up</h2>
         <input
-          type="text"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
