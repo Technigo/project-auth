@@ -15,15 +15,19 @@ export const adSchema = new Schema(
         },
         size: {
             type: String,
-            required: true,
+            required: false,
         },
         model: {
             type: String,
             required: true,
         },
+        imagePath: {
+            type: String, // Field to store the image path
+            required: true
+        },
         price: {
             type: Number,
-            required: true,
+            required: false,
         },
         sold: {
             type: Boolean, // Specifies that 'sold' should be a Boolean
