@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { adStore } from "../stores/adStore";
+import dummyImage from "../assets/upload.png";
 
 export const CreateAd = () => {
-    const [ad, setAd] = useState({
+    const initialAdState = {
         brand: "",
-        imageUrl: "",
+        image: "",
         size: "",
         model: "",
-        price: 0,
-    });
+    };
+    const [ad, setAd] = useState(initialAdState);
+    const [showForm, setShowForm] = useState(true);
 
     const { createAd } = adStore();
 
@@ -20,71 +22,83 @@ export const CreateAd = () => {
         }));
     };
 
-    const addAdLocal = async (e) => {
-        e.preventDefault(); // Prevent the default form submission
-
-        const { brand, size, model, price } = ad;
-
-        if (!brand || !size || !model || !price) {
-            alert("Please fill in all the fields");
-            return;
-        }
-
-        try {
-            await createAd(ad); // Add the ad to the server
-            setAd({  // Clear the input fields after adding the ad
-                brand: "",
-                imageUrl: "",
-                size: "",
-                model: "",
-                price: 0,
-            });
-        } catch (error) {
-            console.error("Couldn't create the ad:", error);
-            alert("Something went wrong");
+    const handleFileUpload = async (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const base64 = await convertToBase64(file);
+            setAd({ image: base64 });
         }
     };
 
+    const createAdLocal = async (e) => {
+        e.preventDefault();
+        try {
+            await createAd(ad); // Pass the ad state directly
+            setAd(initialAdState); // Reset the form fields
+            setShowForm(false); // Hide the form
+        } catch (error) {
+            console.error("Error in creating ad:", error);
+        }
+    };
+
+    const handleShowForm = () => {
+        setShowForm(true); // Show the form
+    };
+
+
     return (
         <div>
-            <form onSubmit={addAdLocal}>
-                <input
-                    type="text"
-                    name="brand"
-                    placeholder="Brand"
-                    value={ad.brand}
-                    onChange={adInput}
-                />
-                {/* <input
-                    type="text" 
-                    name="imageUrl"
-                    placeholder="Image URL"
-                    value={ad.imageUrl}
-                    onChange={adInput}
-                />*/}
-                <input
-                    type="text"
-                    name="size"
-                    placeholder="Size"
-                    value={ad.size}
-                    onChange={adInput}
-                />
-                <input
-                    type="text"
-                    name="model"
-                    placeholder="Model"
-                    value={ad.model}
-                    onChange={adInput}
-                />
-                <input
-                    type="number"
-                    name="price"
-                    placeholder="Price"
-                    value={ad.price}
-                    onChange={adInput}
-                />
-                <button type="submit">Create Ad</button>
-            </form>
+            {showForm ? (
+                <form onSubmit={createAdLocal}>
+                    <label htmlFor="file-upload" className="custom-file-upload">
+                        <img
+                            src={ad ? ad.image : dummyImage}
+                            alt="Upload"
+                            style={{ width: '200px', height: 'auto' }} // Set the width and let the height adjust automatically
+                        />
+                    </label>
+                    <input
+                        type="file"
+                        name="image"
+                        id="file-upload"
+                        accept=".jpeg, .png, .jpg"
+                        onChange={handleFileUpload}
+                    />
+                    <input
+                        type="text"
+                        name="brand"
+                        placeholder="Brand"
+                        value={ad.brand}
+                        onChange={adInput}
+                    />
+                    <input
+                        type="text"
+                        name="model"
+                        placeholder="Model"
+                        value={ad.model}
+                        onChange={adInput}
+                    />
+                    <button type="submit">Create Ad</button>
+
+
+                </form>
+            ) : (
+                <button onClick={handleShowForm}>Create Another Ad</button>
+            )}
         </div>
     );
+};
+
+
+const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+            resolve(fileReader.result);
+        };
+        fileReader.onerror = (error) => {
+            reject(error);
+        };
+    });
 };

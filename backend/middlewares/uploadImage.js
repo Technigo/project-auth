@@ -1,14 +1,6 @@
 import multer from 'multer';
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        //This calls the callback function cb with two arguments. The first argument is null, indicating that there is no error. The second argument is the generated filename. Calling the callback in this way tells Multer to proceed with saving the file with the given filename.
-        cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
-    }
-});
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
@@ -20,11 +12,9 @@ const fileFilter = (req, file, cb) => {
 };
 
 export const uploadImage = multer({ 
-    storage, 
-    fileFilter,
-    limits: {
-        fileSize: 1024 * 1024 * 5 // Limit of 5MB
-    } 
+    storage,
+    fileFilter, 
+    limits: { fileSize: 1024 * 1024 * 5 }
 }).single('image');
 
 

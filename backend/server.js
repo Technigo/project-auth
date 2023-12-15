@@ -1,44 +1,27 @@
 import express from "express";
 import cors from "cors";
-//import mongoose from "mongoose";
-import dotenv from "dotenv"; // Import dotenv for environment variables
+import dotenv from "dotenv";
 import listEndpoints from 'express-list-endpoints';
-dotenv.config(); // Load environment variables from the .env file
-import { connectDB } from "./config/db"; // Import database connection function 
+import { connectDB } from "./config/db";
 import userRoutes from "./routes/userRoutes";
-import asyncHandler from "express-async-handler";
 import adRoutes from "./routes/adRoutes";
 
-// Defines the port the app will run on. 
-const port = process.env.PORT;
+dotenv.config();
 const app = express();
+const port = process.env.PORT;
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
+app.use(adRoutes);
+app.use(userRoutes);
 
-// Defining routes here
-app.use(adRoutes); //Access the advertRoutes
-app.use(userRoutes); //Access the userRoutes
-// Endpoint to show documentation of all endpoints
-app.get(
-  "/", 
-  asyncHandler(async (req, res) => {
-      const endpoints = listEndpoints(app);
-      res.json(endpoints);
-  })
-);
+app.get("/", (req, res) => {
+    res.json(listEndpoints(app));
+});
 
-// Connection to the database through Mongoose (commented out in this version)
 connectDB();
-
-//const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
-//mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-//mongoose.Promise = Promise;
-
-// Start the server
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+    console.log(`Server running on http://localhost:${port}`);
 });

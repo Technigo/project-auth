@@ -7,7 +7,7 @@ import { UserModel } from "../models/UserModel";
 // desciption: Get Ads
 // route: /get
 // access: Private
-export const getAdController = asyncHandler(async (req, res) => {
+export const getAdsController = asyncHandler(async (req, res) => {
   // get the user and matchIt with the user from the db - remmeber that we are using the accessToken to do so :)
   const userStorage = req.user;
   // Use the AdModel to find all ads associated with the logged-in user
@@ -20,28 +20,28 @@ export const getAdController = asyncHandler(async (req, res) => {
 // desciption: POST Ad
 // route: /add
 // access: Private
-export const addAdController = asyncHandler(async (req, res) => {
+export const createAdController = asyncHandler(async (req, res) => {
   try {
     console.log("Request body:", req.body); // Log the entire request body
     // Extract the ad data from the request body
-    const { brand, size, model, price } = req.body;
-    
+    const { brand, model, image } = req.body;
+
     // Extract the accessToken from the request header key "Authorization"
     const accessToken = req.header("Authorization"); // we are requesting the Authorization key from the headerObject
-    
+
     //Find the user that matches the accessToken stored in the db
-    const userFromStorage = await UserModel.findOne({accessToken: accessToken});
-   
+    const userFromStorage = await UserModel.findOne({ accessToken: accessToken });
+
     // Define var to pass new AD
     const newAd = await new AdModel({  //wait for the save() operation to complete before sending back the response
-      brand: brand,
-      size: size,
-      model: model,
-      price: price,
+      brand,
+      model,
+      image,
       user: userFromStorage,
     }).save();
     res.json(newAd);
   } catch (error) {
+    console.error(error); // Log the detailed error
     res.status(500).json(error);
   }
 });

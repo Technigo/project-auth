@@ -46,7 +46,7 @@ export const adStore = create((set) => ({
   fetchAds: async () => {
     try {
       // Send a GET request to the backend API to fetch ads
-      const response = await fetch(`${apiEnv}/get`, {
+      const response = await fetch(`${apiEnv}/getAds`, {
         method: "GET",
         headers: {
           Authorization: localStorage.getItem("accessToken"),
@@ -69,7 +69,7 @@ export const adStore = create((set) => ({
   createAd: async (newAdData) => {
     try {
       // Send the request to create a new ad
-      const response = await fetch(`${apiEnv}/add`, {
+      const response = await fetch(`${apiEnv}/createAd`, {
         method: "POST",
         headers: {
           Authorization: localStorage.getItem("accessToken"),
@@ -94,6 +94,7 @@ export const adStore = create((set) => ({
       console.error(error);
     }
   },
+
 
   // New action to update the boolean isAvailable value in the store
   handleEdit: async (id) => {

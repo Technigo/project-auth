@@ -5,6 +5,7 @@
     "postinstall": "npm install --prefix backend"
   },
   "dependencies": {
-    "express-list-endpoints": "^6.0.0"
+    "express-list-endpoints": "^6.0.0",
+    "multer": "^1.4.5-lts.1"
   }
 }

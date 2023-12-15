@@ -13,25 +13,13 @@ export const adSchema = new Schema(
             required: true,
             minlength: 2,
         },
-        size: {
-            type: String,
-            required: false,
-        },
         model: {
             type: String,
             required: true,
         },
         image: {
-            type: Buffer, // Store the image as binary data
+            type: String, // Store the image as Base64
             required: true
-        },
-        price: {
-            type: Number,
-            required: false,
-        },
-        sold: {
-            type: Boolean, // Specifies that 'sold' should be a Boolean
-            default: false, // Sets a default value of 'false' for 'sold'
         },
         // Define the relaitonship between the user and his/her ad --  1:1 relationship with the user or 1 usar can have many ads
         user: {
