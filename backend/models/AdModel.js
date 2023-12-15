@@ -21,8 +21,8 @@ export const adSchema = new Schema(
             type: String,
             required: true,
         },
-        imagePath: {
-            type: String, // Field to store the image path
+        image: {
+            type: Buffer, // Store the image as binary data
             required: true
         },
         price: {
@@ -48,4 +48,3 @@ export const adSchema = new Schema(
 // This model is used to interact with the "ads" collection in the MongoDB database. It allows you to perform CRUD operations on documents in that collection and provides methods for data validation based on the schema.
 export const AdModel = mongoose.model("Ad", adSchema);
 
-// In summary, this code defines a Mongoose schema (adSchema) that describes the structure of documents for ads in a MongoDB collection. It also creates a Mongoose model (AdModel) associated with the "ads" collection, which can be used to interact with the database and perform operations like creating, reading, updating, and deleting ads.
