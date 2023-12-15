@@ -1,7 +1,5 @@
 // App.jsx
-import 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import UseAuthStore from './store/authStore';
 import Register from './components/Register';
 import LogIn from './components/LogIn';
 import Dashboard from './components/Dashboard';
@@ -11,13 +9,11 @@ const App = () => {
   return (
     <div className="container mx-auto">
       <BrowserRouter>
-        <UseAuthStore.Provider>
-          <Routes>
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<LogIn />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Routes>
-        </UseAuthStore.Provider>
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
       </BrowserRouter>
     </div>
   );
