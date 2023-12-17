@@ -5,7 +5,15 @@ import asyncHandler from "express-async-handler";
 import { UserModel } from "../models/UserModel";
 
 // desciption: Get Ads
-// route: /get
+// route: /getAllAds
+// access: Private
+export const getAllAdsController = asyncHandler(async (req, res) => {
+  const allAds = await AdModel.find();
+  res.status(200).json(allAds);
+});
+
+// desciption: Get Ads
+// route: /getAds
 // access: Private
 export const getAdsController = asyncHandler(async (req, res) => {
   // get the user and matchIt with the user from the db - remmeber that we are using the accessToken to do so :)

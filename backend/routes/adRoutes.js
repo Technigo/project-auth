@@ -2,18 +2,20 @@
 import express from "express";
 import { authenticateUser } from "../middlewares/authenticateUser"; // Import middleware for user authentication
 //import { validateInputData } from "../middlewares/validateInputData";
-import { uploadImage } from "../middlewares/uploadImage";
 import {
+    getAllAdsController,
     getAdsController,
     updateAdController,
     deleteAllAdsController,
     deleteSpecificAdController,
     createAdController,
 } from "../controllers/adController"; // Import controller functions for ads
-import multer from "multer";
 
 // Create an instance of the Express router
 const router = express.Router();
+
+// Define a route for handling GET requests to retrieve all ads
+router.get("/getAllAds", getAllAdsController); // When a GET request is made to /get, authenticate the user using middleware and then execute the getAdsController function
 
 // Define a route for handling GET requests to retrieve all ads
 router.get("/getAds", authenticateUser, getAdsController); // When a GET request is made to /get, authenticate the user using middleware and then execute the getAdsController function
