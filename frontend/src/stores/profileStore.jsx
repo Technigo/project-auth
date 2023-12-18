@@ -17,7 +17,9 @@ export const profileStore = create((set) => ({
   important: null,
   setImportant: (important) => set({ important }),
   image: null,
-  setImage: (imageUrl) => set({ imageUrl }),
+  setImage: (image) => set({ image }),
+  userHasProfile: false,
+  setUserHasProfile: (userHasProfile) => set({ userHasProfile }),
 
   //  add profile
   // handleAddProfile: async (formData) => {
@@ -60,6 +62,7 @@ export const profileStore = create((set) => ({
   //     alert("An error occurred during adding profile process");
   //   }
   // },
+
   //fetch profile
   fetchProfile: async () => {
     const id = userStore.getState().id;
@@ -71,27 +74,36 @@ export const profileStore = create((set) => ({
           "Content-Type": "application/json",
         },
       });
-
       const data = await response.json();
-      if (data.success) {
-        // Assuming the profile data is returned in data.response
-        const profileData = data.response;
-        console.log(profileData);
-        // Update the state with the fetched profile data
+      if (!data.success) {
+        // console.log(data.response || "Fetch profile not successful!");
         set({
-          firstName: profileData.firstName,
-          lastName: profileData.lastName,
-          phone: profileData.phone,
-          color: profileData.color,
-          flower: profileData.flower,
-          important: profileData.important,
-          image: profileData.image,
+          firstName: "",
+          lastName: "",
+          phone: "",
+          color: "",
+          flower: "",
+          important: null,
+          image: "https://picsum.photos/id/306/200/200",
         });
-
-        console.log("Fetch profile successful!");
-      } else {
-        console.log(data.response || "Fetch profile not successful!");
+        return;
       }
+
+      // Assuming the profile data is returned in data.response
+      const profileData = data.response;
+
+      // Update the state with the fetched profile data
+      set({
+        firstName: profileData.firstName,
+        lastName: profileData.lastName,
+        phone: profileData.phone,
+        color: profileData.color,
+        flower: profileData.flower,
+        important: profileData.important,
+        image: profileData.image,
+      });
+
+      console.log("Fetch profile successful!");
     } catch (error) {
       console.error("Fetch profile error", error);
     }

@@ -21,9 +21,9 @@ export const Login = () => {
     try {
       await storeHandleLogin(username, password);
       const isLoggedIn = userStore.getState().isLoggedIn;
-
+      const id = userStore.getState().id;
       if (isLoggedIn) {
-        navigate("/profile");
+        navigate(`/profile/${id}`);
       }
     } catch (error) {
       console.error("Login error:", error);
