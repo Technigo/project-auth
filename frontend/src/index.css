@@ -5,6 +5,16 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+    /* Light mode colors */
+    --background-color: #ffffff; /* off-white */
+    --text-color: #333333; /* off-black */
+    --heading-color: #212121; /* slightly darker for contrast */
+  
+    /* Dark mode colors (can be toggled) */
+    --background-color-dark: #333333; /* off-black */
+    --text-color-dark: #f5f5f5; /* off-white */
+    --heading-color-dark: #ffffff; /* pure white for contrast */
 }
 
 code {
@@ -12,7 +22,61 @@ code {
     monospace;
 }
 
-.image-wrapper img {
-  width: 400px;
-  height: auto;
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Arial', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+body.dark-mode {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+h1, h2, h3 {
+  color: var(--heading-color);
+  font-family: 'Helvetica Neue', sans-serif;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2.5em; /* Large, attention-grabbing titles */
+}
+
+h2 {
+  font-size: 2em; /* Subtitles */
+}
+
+h3 {
+  font-size: 1.5em; /* Section headings */
+}
+
+.dark-mode h1, .dark-mode h2, .dark-mode h3 {
+  color: var(--heading-color-dark);
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.6;
+  margin-bottom: 1em;
+}
+
+.toggle-dark-mode {
+  cursor: pointer;
+  padding: 10px 15px;
+  background-color: var(--background-color);
+  border: none;
+  border-radius: 5px;
+  color: var(--text-color);
+  font-size: 1em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.toggle-dark-mode:hover {
+  background-color: var(--heading-color);
+  color: var(--background-color);
+}
+
+
