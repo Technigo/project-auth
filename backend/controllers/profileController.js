@@ -28,12 +28,6 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
         error: "User not found",
       });
     } else {
-      console.log("0");
-      console.log(req.body.firstName);
-      console.log(req.body.lastName);
-      console.log(req.body.phone);
-      console.log(req.file);
-
       const newProfile = new ProfileModel({
         user_id: req.user.id,
         // Add profile fields based on requirements
@@ -48,18 +42,15 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
           ? req.file.path
           : "https://picsum.photos/id/306/200/200",
       });
-      console.log("1");
+
       const updatedFields = {};
       // Only update the image if a file is provided
       if (req.file) {
-        console.log("2");
         updatedFields.image = req.file.path;
-        console.log(updatedFields);
-        console.log("3");
       }
       // Save the new profile to the database
       await newProfile.save();
-      console.log("4");
+
       res.status(201).json({ success: true, response: newProfile });
     }
   } catch (error) {
