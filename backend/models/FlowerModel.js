@@ -6,9 +6,6 @@ const flowerSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
-    image: {
-      type: String,
-    },
     flower: {
       type: String,
       enum: ["basic", "standard", "large"],
@@ -32,7 +29,6 @@ const flowerSchema = mongoose.Schema(
     deliveryMethod: {
       type: String,
       default: "self-pickup",
-      enum: ["self-pickup", "delivery"],
     },
   },
   {

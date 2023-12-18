@@ -5,7 +5,6 @@ import { UserModel } from "../models/UserModel";
 // @desc Post user's profile information
 // @route POST /profile:_id
 // @access Private
-
 export const addUserProfileController = asyncHandler(async (req, res) => {
   try {
     // Check if a profile already exists for the user
@@ -19,6 +18,7 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
         error: "Profile already exists for this user",
       });
     }
+
     //find the correct user and the user get the authorization
     const user = await UserModel.findById(req.user.id);
     console.log(user);
@@ -37,6 +37,8 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
         important: req.body.important,
         color: req.body.color,
         flower: req.body.flower,
+        //Add the imagePath to the profile
+        image: req.file.path,
       });
 
       // Save the new profile to the database
@@ -53,6 +55,13 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
 // @route PUT /profile:_id
 // @access Private
 export const updateUserProfileController = asyncHandler(async (req, res) => {
+  // Check if req.file is available
+  // if (!req.file) {
+  //   return res.status(400).json({
+  //     success: false,
+  //     error: "No file uploaded",
+  //   });
+  // }
   try {
     const updatedProfile = await ProfileModel.findOneAndUpdate(
       { user_id: req.user.id },
@@ -63,6 +72,8 @@ export const updateUserProfileController = asyncHandler(async (req, res) => {
         important: req.body.important,
         color: req.body.color,
         flower: req.body.flower,
+        // Update the imagePath in the profile
+        image: req.file.path,
       },
       { new: true } // Return the updated document
     );
