@@ -37,10 +37,12 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
         important: req.body.important,
         color: req.body.color,
         flower: req.body.flower,
-        //Add the imagePath to the profile
-        image: req.file.path,
       });
 
+      // Only update the image if a file is provided
+      if (req.file) {
+        updatedFields.image = req.file.path;
+      }
       // Save the new profile to the database
       await newProfile.save();
 
@@ -55,26 +57,24 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
 // @route PUT /profile:_id
 // @access Private
 export const updateUserProfileController = asyncHandler(async (req, res) => {
-  // Check if req.file is available
-  // if (!req.file) {
-  //   return res.status(400).json({
-  //     success: false,
-  //     error: "No file uploaded",
-  //   });
-  // }
   try {
+    const updatedFields = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phone: req.body.phone,
+      important: req.body.important,
+      color: req.body.color,
+      flower: req.body.flower,
+    };
+
+    // Only update the image if a file is provided
+    if (req.file) {
+      updatedFields.image = req.file.path;
+    }
+
     const updatedProfile = await ProfileModel.findOneAndUpdate(
       { user_id: req.user.id },
-      {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        phone: req.body.phone,
-        important: req.body.important,
-        color: req.body.color,
-        flower: req.body.flower,
-        // Update the imagePath in the profile
-        image: req.file.path,
-      },
+      updatedFields,
       { new: true } // Return the updated document
     );
 
