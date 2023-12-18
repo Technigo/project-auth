@@ -54,7 +54,6 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
       res.status(201).json({ success: true, response: newProfile });
     }
   } catch (error) {
-    console.log(error.message);
     res.status(500).json({ success: false, error: error.message });
   }
 });
