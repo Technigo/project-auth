@@ -32,7 +32,6 @@ export const userStore = create((set, get) => ({
       });
 
       const data = await response.json();
-      console.log(data);
       if (data.success) {
         set({ username, email, password });
         // Redirect or update UI
@@ -64,7 +63,6 @@ export const userStore = create((set, get) => ({
       });
 
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
         set({
           username: username,
