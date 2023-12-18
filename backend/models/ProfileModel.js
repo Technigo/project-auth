@@ -31,6 +31,10 @@ const profileSchema = mongoose.Schema(
       type: String,
       default: null,
     },
+    image: {
+      type: String,
+      default: "https://picsum.photos/id/306/200/200",
+    },
   },
   {
     timestamps: true,

@@ -5,7 +5,6 @@ import { UserModel } from "../models/UserModel";
 // @desc Post user's profile information
 // @route POST /profile:_id
 // @access Private
-
 export const addUserProfileController = asyncHandler(async (req, res) => {
   try {
     // Check if a profile already exists for the user
@@ -19,6 +18,7 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
         error: "Profile already exists for this user",
       });
     }
+
     //find the correct user and the user get the authorization
     const user = await UserModel.findById(req.user.id);
     console.log(user);
@@ -37,8 +37,14 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
         important: req.body.important,
         color: req.body.color,
         flower: req.body.flower,
+        //Add the imagePath to the profile
+        image: req.file.path,
       });
 
+      // Only update the image if a file is provided
+      if (req.file) {
+        updatedFields.image = req.file.path;
+      }
       // Save the new profile to the database
       await newProfile.save();
 
@@ -54,16 +60,23 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
 // @access Private
 export const updateUserProfileController = asyncHandler(async (req, res) => {
   try {
+    const updatedFields = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phone: req.body.phone,
+      important: req.body.important,
+      color: req.body.color,
+      flower: req.body.flower,
+    };
+
+    // Only update the image if a file is provided
+    if (req.file) {
+      updatedFields.image = req.file.path;
+    }
+
     const updatedProfile = await ProfileModel.findOneAndUpdate(
       { user_id: req.user.id },
-      {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        phone: req.body.phone,
-        important: req.body.important,
-        color: req.body.color,
-        flower: req.body.flower,
-      },
+      updatedFields,
       { new: true } // Return the updated document
     );
 
