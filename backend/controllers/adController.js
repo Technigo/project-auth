@@ -33,30 +33,41 @@ export const getAdsController = asyncHandler(async (req, res) => {
 export const createAdController = asyncHandler(async (req, res) => {
   try {
     console.log("Request body:", req.body); // Log the entire request body
-    // Extract the ad data from the request body
     const { brand, model } = req.body;
+    const accessToken = req.header("Authorization");
+    const userFromStorage = await UserModel.findOne({ accessToken });
 
-    // Extract the accessToken from the request header key "Authorization"
-    const accessToken = req.header("Authorization"); // we are requesting the Authorization key from the headerObject
+    if (!userFromStorage) {
+      return res.status(401).json({ message: "Unauthorized: User not found." });
+    }
 
-    //Find the user that matches the accessToken stored in the db
-    const userFromStorage = await UserModel.findOne({ accessToken: accessToken });
+    if (!req.file) {
+      return res.status(400).json({ message: "No image file provided." });
+    }
 
-    // Upload the image file to Cloudinary
-    const result = await cloudinary.uploader.upload(req.file.path);
-    const imageUrl = result.url;
+    let imageUrl;
+    try {
+      // Upload the image file to Cloudinary
+      const result = await cloudinary.uploader.upload(req.file.path);
+      imageUrl = result.url;
+    } catch (uploadError) {
+      console.error('Cloudinary Upload Error:', uploadError);
+      return res.status(500).json({ message: "Error uploading image to Cloudinary.", error: uploadError });
+    }
 
-    // Define var to pass new AD
-    const newAd = await new AdModel({  //wait for the save() operation to complete before sending back the response
+    // Define and save new AD
+    const newAd = new AdModel({
       brand,
       model,
       image: imageUrl,
       user: userFromStorage,
-    }).save();
-    res.json(newAd);
+    });
+
+    const savedAd = await newAd.save();
+    res.json(savedAd);
   } catch (error) {
     console.error(error); // Log the detailed error
-    res.status(500).json(error);
+    res.status(500).json({ message: "Internal server error", error });
   }
 });
 
