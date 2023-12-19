@@ -3,6 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { userStore } from "../../stores/userStore";
 import { useParams } from "react-router-dom";
 import { profileStore } from "../../stores/profileStore";
+import styles from "./profile.module.css";
+import { Logo } from "../../components/logo/Logo";
 export const Profile = () => {
   const { id } = useParams();
   const { isLoggedIn, accessToken } = userStore();
@@ -23,7 +25,10 @@ export const Profile = () => {
     alert("Log out successfull");
     navigate("/login");
   };
-
+  const backClick = async () => {
+    storeHandleLogout();
+    navigate("/");
+  };
   if (!isLoggedIn) {
     return null;
   }
@@ -32,25 +37,49 @@ export const Profile = () => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.profile}>
       <nav>
-        <ul>
+        <ul className={styles.title}>
+          <Link to="/" onClick={backClick}>
+            Back
+          </Link>
+          <Logo />
           <li type="button" onClick={onLogoutClick}>
-            Sign Out
+            Log Out
           </li>
+        </ul>
+        <img src={image} alt="profile image" className={styles.profile_image} />
+        <ul className={styles.cart_profile}>
           <Link to={`/cart/${id}`}>Cart</Link>
           <br />
           <Link to={`/profile/${id}/edit`}>Edit Profile</Link>
         </ul>
       </nav>
-      <div>
-        <img src={image} alt="profile image" />
-        <h1>last name: {lastName}</h1>
-        <h1>first name:{firstName}</h1>
-        <p>phone number:{phone}</p>
-        <p>favourite color:{color}</p>
-        <p>favourite flower:{flower}</p>
-        <p>important day: {important}</p>
+      <div className={styles.info}>
+        <h1>personal information:</h1>
+        <div className={styles.text}>
+          <p>
+            last name <span>{lastName}</span>
+          </p>
+
+          <p>
+            first name <span>{firstName}</span>
+          </p>
+
+          <p>
+            phone number <span>{phone}</span>
+          </p>
+          <p>
+            favourite color <span>{color}</span>
+          </p>
+
+          <p>
+            favourite flower <span>{flower}</span>
+          </p>
+          <p>
+            important day <span>{important}</span>
+          </p>
+        </div>
       </div>
     </div>
   );
