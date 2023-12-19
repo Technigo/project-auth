@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { userStore } from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
-import { AdList } from "../components/AdList";
+import { AdsList } from "../components/AdsList";
 
 export const Home = () => {
     // Define text content for the heading and subheading.
@@ -43,7 +43,7 @@ export const Home = () => {
             <button onClick={onLogoutClick}>Sign Out</button>
             <h1>{text.heading}</h1>
             <h2>{text.subheading}</h2>
-            <AdList />
+            <AdsList />
         </>
     )
 };

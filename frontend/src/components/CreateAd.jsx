@@ -1,104 +1,47 @@
-import { useState } from "react";
-import { adStore } from "../stores/adStore";
-import dummyImage from "../assets/upload.png";
+import { useState } from 'react';
+import { adStore } from './path/to/adStore';
 
 export const CreateAd = () => {
-    const initialAdState = {
-        brand: "",
-        image: "",
-        size: "",
-        model: "",
-    };
-    const [ad, setAd] = useState(initialAdState);
-    const [showForm, setShowForm] = useState(true);
+    const [brand, setBrand] = useState('');
+    const [model, setModel] = useState('');
+    const [image, setImage] = useState(null);
 
     const { createAd } = adStore();
 
-    const adInput = (e) => {
-        const { name, value } = e.target;
-        setAd((prevAd) => ({
-            ...prevAd,
-            [name]: value,
-        }));
-    };
-
-    const handleFileUpload = async (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const base64 = await convertToBase64(file);
-            setAd({ image: base64 });
-        }
-    };
-
-    const createAdLocal = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await createAd(ad); // Pass the ad state directly
-            setAd(initialAdState); // Reset the form fields
-            setShowForm(false); // Hide the form
-        } catch (error) {
-            console.error("Error in creating ad:", error);
+
+        // Basic validation
+        if (!brand || !model || !image) {
+            alert("All fields are required");
+            return;
         }
-    };
 
-    const handleShowForm = () => {
-        setShowForm(true); // Show the form
-    };
+        await createAd({ brand, model }, image);
 
+        // Reset form fields after submission
+        setBrand('');
+        setModel('');
+        setImage(null);
+    };
 
     return (
-        <div>
-            {showForm ? (
-                <form onSubmit={createAdLocal}>
-                    <label htmlFor="file-upload" className="custom-file-upload">
-                        <img
-                            src={ad ? ad.image : dummyImage}
-                            alt="Upload"
-                            style={{ width: '200px', height: 'auto' }} // Set the width and let the height adjust automatically
-                        />
-                    </label>
-                    <input
-                        type="file"
-                        name="image"
-                        id="file-upload"
-                        accept=".jpeg, .png, .jpg"
-                        onChange={handleFileUpload}
-                    />
-                    <input
-                        type="text"
-                        name="brand"
-                        placeholder="Brand"
-                        value={ad.brand}
-                        onChange={adInput}
-                    />
-                    <input
-                        type="text"
-                        name="model"
-                        placeholder="Model"
-                        value={ad.model}
-                        onChange={adInput}
-                    />
-                    <button type="submit">Create Ad</button>
-
-
-                </form>
-            ) : (
-                <button onClick={handleShowForm}>Create Another Ad</button>
-            )}
-        </div>
+        <form onSubmit={handleSubmit}>
+            <div>
+                <label>Brand:</label>
+                <input type="text" value={brand} onChange={(e) => setBrand(e.target.value)} />
+            </div>
+            <div>
+                <label>Model:</label>
+                <input type="text" value={model} onChange={(e) => setModel(e.target.value)} />
+            </div>
+            <div>
+                <label>Image:</label>
+                <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+            </div>
+            <button type="submit">Create Ad</button>
+        </form>
     );
 };
 
 
-const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onload = () => {
-            resolve(fileReader.result);
-        };
-        fileReader.onerror = (error) => {
-            reject(error);
-        };
-    });
-};

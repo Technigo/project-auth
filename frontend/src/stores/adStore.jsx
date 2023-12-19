@@ -86,16 +86,21 @@ export const adStore = create((set) => ({
   },
 
   // New action to add an ad to the server and then to the store
-  createAd: async (newAdData) => {
+  createAd: async (newAdData, imageFile) => {
     try {
-      // Send the request to create a new ad
+      const formData = new FormData();
+      formData.append('brand', newAdData.brand);
+      formData.append('model', newAdData.model);
+      formData.append('image', imageFile);
+
+      // Send the request to create a new ad with form data
       const response = await fetch(`${apiEnv}/createAd`, {
         method: "POST",
         headers: {
           Authorization: localStorage.getItem("accessToken"),
-          "Content-Type": "application/json",
+          // "Content-Type" is not needed when using FormData
         },
-        body: JSON.stringify(newAdData),
+        body: formData,
       });
 
       const newAd = await response.json();
@@ -117,15 +122,22 @@ export const adStore = create((set) => ({
 
 
   // New action to update the boolean isAvailable value in the store
-  handleEdit: async (id) => {
+  handleEdit: async (id, updatedAdData, imageFile) => {
     try {
-      // Send a PUT request to the backend API to update an ad by its ID
+      const formData = new FormData();
+      formData.append('brand', updatedAdData.brand);
+      formData.append('model', updatedAdData.model);
+      if (imageFile) {
+        formData.append('image', imageFile);
+      }
+
+      // Send a PUT request with form data
       const response = await fetch(`${apiEnv}/update/${id}`, {
         method: "PUT",
         headers: {
           Authorization: localStorage.getItem("accessToken"),
-          "Content-Type": "application/json",
         },
+        body: formData,
       });
       // Parse the updated ad data
       const updatedAd = await response.json();
