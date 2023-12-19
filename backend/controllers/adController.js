@@ -10,21 +10,21 @@ import cloudinary from "../config/cloudinaryConfig";
 // route: /getAllAds
 // access: Private
 export const getAllAdsController = asyncHandler(async (req, res) => {
-  const allAds = await AdModel.find();
+  const allAds = await AdModel.find().populate("user", "username");
   res.status(200).json(allAds);
 });
+
 
 // desciption: Get Ads
 // route: /getAds
 // access: Private
 export const getAdsController = asyncHandler(async (req, res) => {
-  // get the user and matchIt with the user from the db - remmeber that we are using the accessToken to do so :)
   const userStorage = req.user;
-  // Use the AdModel to find all ads associated with the logged-in user
-  await AdModel.find({ user: userStorage })
+  const ads = await AdModel.find({ user: userStorage })
     .sort("-createdAt")
-    .then((result) => res.json(result)) // Respond with the found ads in JSON format
-    .catch((err) => res.json(err)); // Handle any errors that occur during the operation
+    .populate("user", "username"); // Populate the user field
+
+  res.json(ads);
 });
 
 // desciption: POST Ad
@@ -117,7 +117,7 @@ export const updateAdController = asyncHandler(async (req, res) => {
 // access: Private
 export const deleteAllAdsController = asyncHandler(async (req, res) => {
   const accessToken = req.header("Authorization");
-  
+
   const userFromStorage = await UserModel.findOne({ accessToken });
   if (!userFromStorage) {
     return res.status(401).json({ message: "Unauthorized: User not found." });
