@@ -3,6 +3,8 @@ import { AdModel } from "../models/AdModel";
 import asyncHandler from "express-async-handler";
 // We need to import the userModel to check for the famous accesstoken
 import { UserModel } from "../models/UserModel";
+// Import cloudinary configuration
+import cloudinary from "../config/cloudinaryConfig";
 
 // desciption: Get Ads
 // route: /getAllAds
@@ -32,7 +34,7 @@ export const createAdController = asyncHandler(async (req, res) => {
   try {
     console.log("Request body:", req.body); // Log the entire request body
     // Extract the ad data from the request body
-    const { brand, model, image } = req.body;
+    const { brand, model } = req.body;
 
     // Extract the accessToken from the request header key "Authorization"
     const accessToken = req.header("Authorization"); // we are requesting the Authorization key from the headerObject
@@ -40,11 +42,15 @@ export const createAdController = asyncHandler(async (req, res) => {
     //Find the user that matches the accessToken stored in the db
     const userFromStorage = await UserModel.findOne({ accessToken: accessToken });
 
+    // Upload the image file to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const imageUrl = result.url;
+
     // Define var to pass new AD
     const newAd = await new AdModel({  //wait for the save() operation to complete before sending back the response
       brand,
       model,
-      image,
+      image: imageUrl,
       user: userFromStorage,
     }).save();
     res.json(newAd);

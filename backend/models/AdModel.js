@@ -18,7 +18,7 @@ export const adSchema = new Schema(
             required: true,
         },
         image: {
-            type: String, // Store the image as Base64
+            type: String, // Store URL for the image
             required: true
         },
         // Define the relaitonship between the user and his/her ad --  1:1 relationship with the user or 1 usar can have many ads
