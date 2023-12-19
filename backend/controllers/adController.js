@@ -45,7 +45,7 @@ export const createAdController = asyncHandler(async (req, res) => {
       return res.status(400).json({ message: "No image file provided." });
     }
 
-    let imageUrl;
+    let imageUrl, imageId;
     try {
       // Upload the image file to Cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
