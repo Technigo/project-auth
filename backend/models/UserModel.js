@@ -15,6 +15,11 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+      validate: {
+        validator: (password) => passwordRegex.test(password),
+        message:
+          "Password must be at least 6 characters and include lowercase, uppercase, and a number.",
+      },
     },
     email: {
       type: String,
