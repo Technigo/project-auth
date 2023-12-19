@@ -16,7 +16,7 @@ router.post(
   addUserProfileController
 );
 router.get("/profile/:userId", authenticateUser, getUserProfileController);
-router.put(
+router.patch(
   "/profile/:userId",
   authenticateUser,
   upload.single("image"),

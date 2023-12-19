@@ -1,0 +1,71 @@
+.profileForm nav{
+    display: flex;
+    flex-direction:column;
+    padding:2rem 1rem;
+}
+.back a{
+    text-decoration: none;
+    font-size: 18px;
+    color:var(--main-color)
+}
+
+.back a:hover{
+    text-decoration: underline;
+}
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* form part */
+.formContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    padding:1rem 2rem;
+    justify-content: center;
+    margin:2rem 0;
+}
+
+.form input[value]{
+    text-align: center;
+}
+
+.form input[type=file]::file-selector-button{
+border-radius: 4px;
+  padding: 0 16px;
+  height: 30px;
+  cursor: pointer;
+  background-color: var(--button-color);
+  border: none;
+  margin-right: 16px;
+  font-size: 16px;
+  margin-left: 2rem;
+}
+
+.updateBt{
+    display: flex;
+    justify-content: center;
+}
+/* table */
+@media (min-width:668px) and (max-width:1023px) {
+    .form{
+        width:80%;
+    }
+    .form input[type=file]::file-selector-button{
+        margin-left: 9rem;
+    }
+}
+/* desktop */
+@media (min-width:1023px) {
+    .form{
+        width:70%;
+    }
+    .form input[type=file]::file-selector-button{
+        margin-left:20rem;
+    }
+}

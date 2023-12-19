@@ -21,48 +21,6 @@ export const profileStore = create((set) => ({
   userHasProfile: false,
   setUserHasProfile: (userHasProfile) => set({ userHasProfile }),
 
-  //  add profile
-  // handleAddProfile: async (formData) => {
-  //   if (!lastName || !firstName || !phone) {
-  //     alert("Please enter last name, first name, and phone");
-  //     return;
-  //   }
-  //   const id = userStore.getState().id;
-  //   console.log(id);
-
-  //   try {
-  //     const response = await fetch(`${apiEnv}/profile/${id}`, {
-  //       method: "POST",
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: formData,
-  //     });
-
-  //     const data = await response.json();
-  //     if (data.success) {
-  //       set((state) => ({
-  //         ...state,
-  //         firstName,
-  //         lastName,
-  //         phone,
-  //         color,
-  //         flower,
-  //         important,
-  //         imageUrl,
-  //       }));
-
-  //       alert("Add profile successful!");
-  //     } else {
-  //       console.log(data.response);
-  //     }
-  //   } catch (error) {
-  //     console.error("Add profile error:", error);
-  //     alert("An error occurred during adding profile process");
-  //   }
-  // },
-
   //fetch profile
   fetchProfile: async () => {
     const id = userStore.getState().id;
@@ -76,7 +34,7 @@ export const profileStore = create((set) => ({
       });
       const data = await response.json();
       if (!data.success) {
-        // console.log(data.response || "Fetch profile not successful!");
+        // If fetch data not successfully, return the default value in the profile page
         set({
           firstName: "",
           lastName: "",
@@ -102,56 +60,9 @@ export const profileStore = create((set) => ({
         important: profileData.important,
         image: profileData.image,
       });
-
       console.log("Fetch profile successful!");
     } catch (error) {
       console.error("Fetch profile error", error);
     }
   },
-  // update a profile
-  // handleUpdateProfile: async (formData) => {
-  //   const id = userStore.getState().id;
-  //   console.log(id);
-  //   try {
-  //     const response = await fetch(`${apiEnv}/profile/${id}`, {
-  //       method: "PUT", // Use PUT for updating
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //         // "Content-Type": "multipart/form-data",
-  //       },
-  //       // body: JSON.stringify({
-  //       //   firstName,
-  //       //   lastName,
-  //       //   phone,
-  //       //   color,
-  //       //   flower,
-  //       //   important,
-  //       //   imageUrl,
-  //       // }),
-  //       body: formData,
-  //     });
-
-  //     const data = await response.json();
-  //     console.log(data);
-  //     if (data.success) {
-  //       set((state) => ({
-  //         ...state,
-  //         firstName: data.response.firstName,
-  //         lastName: data.response.lastName,
-  //         phone: data.response.phone,
-  //         color: data.response.color,
-  //         flower: data.response.flower,
-  //         important: data.response.important,
-  //         image: data.response.image,
-  //       }));
-
-  //       console.log("Update profile successful!");
-  //     } else {
-  //       console.log(data.response || "Update profile not successful!");
-  //     }
-  //   } catch (error) {
-  //     console.error("Update profile error", error);
-  //     alert("An error occurred during updating the profile.");
-  //   }
-  // },
 }));
