@@ -1,0 +1,5 @@
+[
+    { "type": "basic", "price": 150 },
+    { "type": "standard", "price": 250 },
+    { "type": "large", "price": 350 }
+  ]

@@ -1,58 +1,33 @@
-import mongoose from "mongoose";
-const flowerSchema = mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "User",
-    },
-    flower: {
-      type: String,
-      enum: ["basic", "standard", "large"],
-      required: [
-        true,
-        "Please provide a valid flower type (basic, standard, large)",
-      ],
-    },
-    options: {
-      type: String,
-      enum: ["weekly", "monthly", "yearly"],
-      required: [
-        true,
-        "Please provide a valid option (weekly, monthly, yearly)",
-      ],
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
-    deliveryMethod: {
-      type: String,
-      default: "self-pickup",
+
+const mongoose = require('mongoose');
+const flowerOptions = require('./flowers.json');
+
+// Schema definition for the Flower model
+const flowerSchema = new mongoose.Schema({
+  // 'type' defines the category of the flower (e.g., 'basic', 'standard', 'large')
+  type: {
+    type: String,
+    enum: flowerOptions.map(option => option.type), // Restricts to predefined types
+    required: [true, 'Flower type is required'], // Makes field mandatory with a custom error message
+  },
+  // 'price' indicates the cost of the flower type
+  price: {
+    type: Number,
+    required: true,
+    default: function () {
+      // Determine price based on the type of the flower
+      const selectedType = flowerOptions.find(option => option.type === this.type);
+      if (!selectedType) {
+        // Error handling if the flower type is not found in the predefined options
+        console.error(`Invalid flower type: ${this.type}`);
+        throw new Error('Invalid flower type specified');
+      }
+      return selectedType.price;
     },
   },
-  {
-    timestamps: true,
-  }
-);
+}, { timestamps: true }); // Automatically adds createdAt and updatedAt timestamps
 
-// Calculate price based on flower type and options
-//Pre middleware functions are executed one after another, when each middleware calls next.
-flowerSchema.pre("save", function (next) {
-  const basePrice = 150; // base price for all flower services
+// Creating the Flower model from the schema
+const Flower = mongoose.model('Flower', flowerSchema);
 
-  if (this.options === "weekly") {
-    this.price = basePrice;
-  } else if (this.options === "monthly") {
-    this.price = basePrice * 4;
-  } else if (this.options === "yearly") {
-    this.price = basePrice * 4 * 12;
-  } else {
-    // Handle any other cases or throw an error if needed
-    return next(new Error("Invalid flower option"));
-  }
-
-  next();
-});
-
-export const FlowerModel = mongoose.model("Flower", flowerSchema);
+module.exports = Flower;
