@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Schema for a user's subscription to flowers
 const subscriptionSchema = new mongoose.Schema({
@@ -63,7 +63,5 @@ subscriptionSchema.methods.calculateTotalPrice = function () {
   this.totalPrice = this.quantity * this.price;
 };
 
-
-const Subscription = mongoose.model('Subscription', subscriptionSchema);
-
-module.exports = Subscription;
+// Creating the Subscription model from the schema
+export const Subscription = mongoose.model('Subscription', subscriptionSchema);
