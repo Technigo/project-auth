@@ -17,11 +17,10 @@ export const addUserCartController = asyncHandler(async (req, res) => {
         error: "User not found",
       });
     } else {
-      const newCart = new CartModel({
+      const newShoppingCart = new CartModel({
         user_id: req.user.id,
         // Filling in cart fields
-        flower: req.body.flower,
-        quantity: req.body.quantity,
+        flower: req.body.flower,        
         options: req.body.options,
         price: req.body.price,
         deliveryCost: req.body.deliveryCost,
@@ -29,13 +28,43 @@ export const addUserCartController = asyncHandler(async (req, res) => {
       });
 
       // Save the new cart to the database
-      await newCart.save();
+      await newShoppingCart.save();
 
-      res.status(201).json({ success: true, response: newCart });
+      res.status(201).json({ success: true, response: newShoppingCart });
     }
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
+});
+
+
+// @desc Delete user's cart information
+// @route DELETE /cart/:user_id
+// @access Private
+export const deleteUserCartController = asyncHandler(async (req, res) => {
+  try {
+       
+    //find all matching shopping carts to the user
+    const shoppingCarts = await CartModel.find({ user_id: req.params.user_id});
+    console.log(shoppingCarts);
+    // if (!shoppingCarts) not working giving 201 status with empty array
+    if (shoppingCarts.length == 0) {
+      res.status(404).json({
+        success: false,
+        error: "No previous shopping cart was registered in our system",
+      });
+    }else{
+      // each shopping cart (element) will then be deleted
+      for (const element of shoppingCarts){
+        console.log(element._id);
+        await CartModel.findByIdAndDelete(element._id);           
+      };    
+        res.status(201).json({ success: true, response: "Shopping cart deleted successfully" });
+    }
+    
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  };
 });
 
 // @desc Get user's cart information
@@ -45,14 +74,21 @@ export const getUserCartController = asyncHandler(async (req, res) => {
     //find the user's profile information
   
     try {
-      const userCart = await CartModel.find({ user_id: req.user.id });
-      console.log(userCart);
-      if (!userCart) {
+      console.log("shopping cart")
+      console.log(req.params.user_id) // Comes from /cart/:user_id
+      console.log(req.user.id) // comes from decoded token in authneticateUser.js
+      const shoppingCart = await CartModel.find({ user_id: req.params.user_id });
+      //console.log(shoppingCart);
+//       if(!shoppingCart) ==> {
+//     "success": true,
+//     "response": []
+// }
+      if (shoppingCart.length == 0) {
         res.status(404).json({ success: false, response: "Shopping order not found" });
-      }
-  
-      res.status(200).json({ success: true, response: userCart });
-    } catch (error) {
+      }else{
+        res.status(200).json({ success: true, response: shoppingCart });
+      } 
+      } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
   });
