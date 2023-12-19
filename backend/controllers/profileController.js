@@ -38,9 +38,12 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
         color: req.body.color,
         flower: req.body.flower,
         //Add the imagePath to the profile
-        image: req.file.path,
+        image: req.file
+          ? req.file.path
+          : "https://picsum.photos/id/306/200/200",
       });
 
+      const updatedFields = {};
       // Only update the image if a file is provided
       if (req.file) {
         updatedFields.image = req.file.path;
