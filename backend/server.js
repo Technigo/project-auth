@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import userRoutes from "./routes/userRoutes";
 import profileRoutes from "./routes/profileRoutes";
+import flowerRoutes from "./routes/flowerRoutes"
 import { connectDB } from "./config/db";
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(userRoutes);
 app.use(profileRoutes);
+app.use(flowerRoutes);
 
 connectDB();
 
