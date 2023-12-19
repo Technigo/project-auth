@@ -17,15 +17,8 @@ const cartSchema = mongoose.Schema (
         // flower:{
         //   type: mongoose.Schema.Types.ObjectId,
         //   required: true,
-        //   ref: "Flower"
+        //   ref: "Subscription"
         // },
-        quantity:{
-          type: Number,
-          required: [
-            true,
-            "Please confirm the desired number of weekly bouquets"
-          ],
-        },
         options:{
           type: String,
           enum: [
@@ -34,7 +27,15 @@ const cartSchema = mongoose.Schema (
           required: [
             true,
             "Please specify a valid option, i.e. weekly, monthly or yearly"
-          ],        
+          ],   
+        // options:{
+        //   type:mongoose.Schema.Types.ObjectId,
+        //   required:[
+        //     true,
+        //     "Please specify the subscription type: weekly, monthly, yearly"
+        //   ],
+        //   ref: "Subscription"
+        // },     
         },
         price:{
           type: Number,
@@ -69,11 +70,11 @@ const cartSchema = mongoose.Schema (
      // base price for all flower services
 
     if (this.options === "weekly") {
-      this.price = basePrice * this.quantity;
+      this.price = basePrice;
     } else if (this.options === "monthly") {
-      this.price = basePrice * this.quantity * 4;
+      this.price = basePrice * 4;
     } else if (this.options === "yearly") {
-      this.price = basePrice * this.quantity * 52;
+      this.price = basePrice * 52;
     } else {
       // Handle any other cases or throw an error if needed
       return next(new Error("Invalid flower option"));
