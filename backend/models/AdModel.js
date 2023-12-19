@@ -21,6 +21,10 @@ export const adSchema = new Schema(
             type: String, // Store URL for the image
             required: true
         },
+        imageId: {
+            type: String, // Store the unique identifier for the image
+            required: true
+        },
         // Define the relaitonship between the user and his/her ad --  1:1 relationship with the user or 1 usar can have many ads
         user: {
             type: mongoose.Schema.Types.ObjectId,

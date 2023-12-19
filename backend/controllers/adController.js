@@ -50,6 +50,8 @@ export const createAdController = asyncHandler(async (req, res) => {
       // Upload the image file to Cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
       imageUrl = result.url;
+      imageId = result.public_id; // or use req.file.filename for filename
+
     } catch (uploadError) {
       console.error('Cloudinary Upload Error:', uploadError);
       return res.status(500).json({ message: "Error uploading image to Cloudinary.", error: uploadError });
@@ -60,6 +62,7 @@ export const createAdController = asyncHandler(async (req, res) => {
       brand,
       model,
       image: imageUrl,
+      imageId: imageId,
       user: userFromStorage,
     });
 
