@@ -2,7 +2,16 @@ import { Link as RouterLink } from 'react-router-dom';
 import styled from "styled-components";
 
 const NavBar = styled.div`
-  width: 100%; // Full width
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%; // Full width
+  max-width: 100%;
+  margin: auto; // Center the NavBar
+
+  @media (min-width: 768px) {
+    max-width: 80%; // Match the width of ImageSwapper on larger screens
+  }
 
   nav {
     display: flex;
@@ -35,7 +44,8 @@ const NavBar = styled.div`
 
     ul {
       flex-direction: row; // Align li items in a row on larger screens
-      align-items: center; // Center align li items vertically
+      align-items: center;
+      justify-content: flex-end; // Center align li items vertically
     }
 
     li {

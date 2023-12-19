@@ -5,14 +5,17 @@ import styled from "styled-components";
 const LandingPage = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  width: 90%;
+  margin: auto; // Center horizontally
+  align-items: center; // Center children horizontally within LandingPage
 `;
+
 
 export const Landing = () => {
   return (
     <>
+      <Header />
       <LandingPage>
-        <Header />
         <ImageSwapper />
       </LandingPage>
     </>
