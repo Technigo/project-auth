@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import flowerOptions from './flowers.json';
+import flowerOptions from '../flowers.json';
 
 // Schema definition for the Flower model
 const flowerSchema = new mongoose.Schema({
