@@ -36,6 +36,10 @@ export const Login = () => {
     alert("Log out successfull");
     navigate("/");
   };
+
+  const signUpClick = async () => {
+    navigate("/register");
+  };
   return (
     <section className={styles.section}>
       <nav className={styles.login}>
@@ -64,8 +68,10 @@ export const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        <button onClick={onLoginClick}>Login</button>
+        <div className={styles.loginBtw}>
+          <button onClick={onLoginClick}>Login</button>
+          <button onClick={signUpClick}>Sign Up</button>
+        </div>
       </div>
     </section>
   );

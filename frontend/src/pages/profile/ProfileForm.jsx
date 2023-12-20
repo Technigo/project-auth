@@ -150,18 +150,11 @@ export const ProfileForm = () => {
     }
   };
 
-  const backClick = () => {
-    storeHandleLogout();
-    navigate("/");
-  };
-
   return (
     <div className={styles.profileForm}>
       <nav>
         <ul className={styles.back}>
-          <Link to={`/profile/${id}`} onClick={backClick}>
-            Back
-          </Link>
+          <Link to={`/profile/${id}`}>Back</Link>
         </ul>
         <ul className={styles.logo}>
           <Logo />
