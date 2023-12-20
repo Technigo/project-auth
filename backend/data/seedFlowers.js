@@ -1,4 +1,4 @@
-import { Flower } from '../models/FlowerModel.js';
+import { FlowerModel } from '../models/FlowerModel.js';
 import { connectDB } from '../config/db.js';
 import flowerData from './flowers.json';
 
@@ -7,10 +7,10 @@ const seedFlowerData = async () => {
         await connectDB(); // Connect to the database
 
         // Clear existing data (optional)
-        await Flower.deleteMany({});
+        await FlowerModel.deleteMany({});
 
         // Insert new data
-        await Flower.insertMany(flowerData);
+        await FlowerModel.insertMany(flowerData);
 
         console.log('Data seeding completed successfully');
     } catch (error) {

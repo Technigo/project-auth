@@ -27,4 +27,4 @@ flowerSchema.pre('save', function(next) {
 });
 
 // Creating the Flower model from the schema
-export const Flower = mongoose.model('Flower', flowerSchema);
+export const FlowerModel = mongoose.model('Flower', flowerSchema);
