@@ -13,12 +13,13 @@ export const getAllFlowers = asyncHandler(async (req, res) => {
     }
 });
 
-// @desc Get a single flower by ID
-// @route GET /flowers/:id
+
+// @desc Get a flower by type
+// @route GET /flowers/:type
 // @access Public
-export const getFlowerById = asyncHandler(async (req, res) => {
+export const getFlowerByType = asyncHandler(async (type, req, res) => {
     try {
-        const flower = await Flower.findById(req.params.id);
+        const flower = await Flower.findOne({ type: type });
         if (!flower) {
             res.status(404).json({ success: false, response: 'Flower not found' });
         } else {
@@ -28,4 +29,5 @@ export const getFlowerById = asyncHandler(async (req, res) => {
         res.status(500).json({ success: false, error: error.message });
     }
 });
+
 

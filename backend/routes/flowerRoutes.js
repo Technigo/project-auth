@@ -1,12 +1,12 @@
 import express from 'express';
-import { getAllFlowers, getFlowerById } from '../controllers/flowerController'; 
+import { getAllFlowers, getFlowerById, getFlowerByType } from '../controllers/flowerController'; 
 
 const router = express.Router();
 
-// Route to get all flowers
-router.get('/flowers', getAllFlowers);
 
-// Route to get a single flower by ID
-router.get('/flowers/:id', getFlowerById);
+router.get('/flowers', getAllFlowers);
+router.get('/flowers/basic', (req, res) => getFlowerByType('basic', req, res));
+router.get('/flowers/standard', (req, res) => getFlowerByType('standard', req, res));
+router.get('/flowers/large', (req, res) => getFlowerByType('large', req, res));
 
 export default router;
