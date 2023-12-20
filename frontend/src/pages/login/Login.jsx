@@ -21,9 +21,9 @@ export const Login = () => {
     try {
       await storeHandleLogin(username, password);
       const isLoggedIn = userStore.getState().isLoggedIn;
-
+      const id = userStore.getState().id;
       if (isLoggedIn) {
-        navigate("/profile");
+        navigate(`/profile/${id}`);
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -35,6 +35,10 @@ export const Login = () => {
     storeHandleLogout();
     alert("Log out successfull");
     navigate("/");
+  };
+
+  const signUpClick = async () => {
+    navigate("/register");
   };
   return (
     <section className={styles.section}>
@@ -64,8 +68,10 @@ export const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        <button onClick={onLoginClick}>Login</button>
+        <div className={styles.loginBtw}>
+          <button onClick={onLoginClick}>Login</button>
+          <button onClick={signUpClick}>Sign Up</button>
+        </div>
       </div>
     </section>
   );
