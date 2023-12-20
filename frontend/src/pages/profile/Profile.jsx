@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { profileStore } from "../../stores/profileStore";
 import styles from "./profile.module.css";
 import { Logo } from "../../components/logo/Logo";
+import { format } from "date-fns";
 export const Profile = () => {
   const { id } = useParams();
   const { isLoggedIn, accessToken } = userStore();
@@ -77,7 +78,7 @@ export const Profile = () => {
             favourite flower <span>{flower}</span>
           </p>
           <p>
-            important day <span>{important}</span>
+            important day <span>{format(new Date(important), "dd-MM")}</span>
           </p>
         </div>
       </div>

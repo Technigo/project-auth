@@ -3,6 +3,7 @@ import { userStore } from "../../stores/userStore";
 import { useNavigate, Link } from "react-router-dom";
 import { Logo } from "../../components/logo/Logo";
 import styles from "./profileForm.module.css";
+import { format } from "date-fns";
 const apiEnv = import.meta.env.VITE_BACKEND_API;
 export const ProfileForm = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export const ProfileForm = () => {
   const { lastName, firstName, phone, color, flower, important, image } =
     profileState;
   const [hasProfile, setHasProfile] = useState(false);
-  const storeHandleLogout = userStore((state) => state.handleLogout);
+
   // check if the user has the profile
   const checkProfileStatus = async () => {
     try {
@@ -32,7 +33,15 @@ export const ProfileForm = () => {
 
       const data = await response.json();
       if (data.success) {
-        setProfileState(data.response);
+        setProfileState({
+          firstName: data.response.firstName,
+          lastName: data.response.lastName,
+          phone: data.response.phone,
+          color: data.response.color,
+          flower: data.response.flower,
+          important: format(new Date(data.response.important), "dd-MM"),
+          image: data.response.image,
+        });
         setHasProfile(true);
       } else {
         setHasProfile(false);
