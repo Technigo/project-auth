@@ -1,6 +1,6 @@
 import { Flower } from '../models/FlowerModel.js';
 import { connectDB } from '../config/db.js';
-import flowerData from '../flowers.json';
+import flowerData from './flowers.json';
 
 const seedFlowerData = async () => {
     try {

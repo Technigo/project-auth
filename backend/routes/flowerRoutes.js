@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllFlowers, getFlowerById, getFlowerByType } from '../controllers/flowerController'; 
+import { getAllFlowers, getFlowerByType } from '../controllers/flowerController'; 
 
 const router = express.Router();
 
