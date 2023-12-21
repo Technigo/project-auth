@@ -93,7 +93,7 @@ export const getUserCartController = asyncHandler(async (req, res) => {
     }
   });
 
-  // @desc Update user's cart information (Note: Dead-end with findOneAndUpdate method that has no save() to work with save() hook for maths logic.  Also, updates only already made purchases- not fit for user usage/access)
+  // @desc Update user's cart information (Note: Dead-end with findOneAndUpdate method that has no save() to work with save() hook for maths logic. Edit:No pre-middleware needed.  Also, updates only already made purchases- not fit for user usage/access)
 // @route PUT (or PATCH?) /cart/:cart_id
 // @access Private
 export const updateUserCartController = asyncHandler(async (req, res) => {
@@ -101,16 +101,9 @@ export const updateUserCartController = asyncHandler(async (req, res) => {
 
   try {
     console.log("updating cart values")
-    // have the _id of the element the cart and the actuall element changed
-    // for example you want to update the flower then the input json would look like :
-    // {"_id": ####,
-    // "flower": updated_value
-    // }
-    console.log(req.params.cart_id) // Comes from /cart/:user_id
-    console.log(req.user.id) // comes from decoded token in authenticateUser.js
     const cart_id = req.params.cart_id ;
     if (!cart_id){
-      return res.status(404).json({success:false, response: `Error occured: Your shopping cart no ${cart_id} was not found.`})
+      return res.status(404).json({success:false, response: `Error occured: Your shopping cart ${cart_id} was not found.`})
     }
     const updateFlower = req.body.flower;
     const updateOption = req.body.options;
@@ -120,18 +113,19 @@ export const updateUserCartController = asyncHandler(async (req, res) => {
     if(updateFlower){
       console.log(updateFlower);
        updatedCart = await CartModel.findOneAndUpdate(
-          {_id:cart_id} ,
+        {_id:cart_id} ,
         {flower: updateFlower},
-        { new: true } // Return the updated document
+        { new: true } // Return the updated document        
       );
-      
+      updatedCart.save(); //Triggers the price update
     }
     if(updateOption){
        updatedCart = await CartModel.findByIdAndUpdate(
          cart_id,
         {options: updateOption},
         { new: true } // Return the updated document
-      );    
+      );   
+      updatedCart.save(); //Triggers the price update 
     }
     
     res.status(200).json({ success: true, response: updatedCart });
