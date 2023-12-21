@@ -38,10 +38,10 @@ export const addUserCartController = asyncHandler(async (req, res) => {
 });
 
 
-// @desc Delete all user's shopping carts (note: no GUI for neither delete all nor specific cart in DB and not fit for user usage/access. Also, no method of data transfer from product page to cart page yet)
-// @route DELETE /cart/:user_id
+// @desc Delete all user's shopping carts (note: no GUI for neither delete all nor specific cart in DB, also, not fit for user usage/access. PS: no method of data transfer from product page to cart page yet)
+// @route DELETE /cart/all/:user_id
 // @access Private
-export const deleteUserCartController = asyncHandler(async (req, res) => {
+export const deleteAllUserCartsController = asyncHandler(async (req, res) => {
   try {
        
     //find all matching shopping carts to the user
@@ -54,16 +54,33 @@ export const deleteUserCartController = asyncHandler(async (req, res) => {
         error: "No previous shopping cart was registered in our system",
       });
     }else{
-      // each shopping cart (element) will then be deleted
+      // each shopping cart (element) owned by the customer will then be deleted
       for (const element of shoppingCarts){
         console.log(element._id);
         await CartModel.findByIdAndDelete(element._id);           
       };    
-        res.status(201).json({ success: true, response: "Shopping cart deleted successfully" });
+        res.status(201).json({ success: true, response: "Shopping carts deleted successfully" });
     }
     
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
+  };
+});
+
+// @desc Delete shopping cart by id (note: no GUI for neither delete all nor specific cart in DB, also, not fit for user usage/access. PS: no method of data transfer from product page to cart page yet)
+// @route DELETE /cart/:cart_id
+// @access Private
+
+export const deleteUserCartController = asyncHandler(async (req, res)=>{
+  try{
+    const cart_id = req.params.cart_id ;
+    if (!cart_id){
+      return res.status(404).json({success:false, response: `Error occured: Shopping cart ${cart_id} was not found.`})
+    }
+    await CartModel.findByIdAndDelete(cart_id);
+    res.status(200).json({success:true, response: `Shopping cart ${cart_id} deleted successfully`});    
+  } catch(error){
+    res.status(500).json({success:false, error: error.message});
   };
 });
 
@@ -117,17 +134,18 @@ export const updateUserCartController = asyncHandler(async (req, res) => {
         {flower: updateFlower},
         { new: true } // Return the updated document        
       );
-      updatedCart.save(); //Triggers the price update
+      // updatedCart.save(); //Triggers the quantity and price update
     }
     if(updateOption){
-       updatedCart = await CartModel.findByIdAndUpdate(
-         cart_id,
+       updatedCart = await CartModel.findOneAndUpdate(
+        {_id:cart_id},
         {options: updateOption},
         { new: true } // Return the updated document
       );   
-      updatedCart.save(); //Triggers the price update 
+      // updatedCart.save(); //Triggers the quantity and price update but only after two PUT req
     }
-    
+    updatedCart.save(); //Triggers the quantity and price update
+    updatedCart = await CartModel.findById(cart_id);
     res.status(200).json({ success: true, response: updatedCart });
     } catch (error) {
     res.status(500).json({ success: false, error: error.message });
