@@ -27,14 +27,14 @@
     color:#fff;
     border-radius:30px;
     padding:0 1rem;
-    width:140px;
+    width:160px;
 }
 
 .half{
-    width:80px;
-    height:80px;
+    width:90px;
+    height:60px;
     position:absolute;
-    bottom:-2rem;
+    bottom:-1rem;
     left:40%;
 }
 
@@ -48,7 +48,7 @@
        width:100%;
     }
     .text p{
-        font-size:16px;
+        font-size:18px;
     }
     .hero_img img{
         width:100%;
@@ -65,17 +65,24 @@
 @media (min-width:1024px) {
     .hero{
         flex-direction: row;
-        border-bottom: 1px solid var(--main-color);;
+        border-bottom: 1px solid var(--main-color);
     }
     .hero_text{
         width:50vw;
         line-height: 3.5rem;
     }
+    .text{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+    }
     .text p{
-        font-size: 18px;
+        text-align: start;
     }
     .hero_text h1{
         font-size: 30px;
+        text-align: start;
     }
     .hero_text p{
         font-size: 20px;
@@ -89,4 +96,5 @@
         left:47%;
         bottom: -1rem;
     }
+   
 }

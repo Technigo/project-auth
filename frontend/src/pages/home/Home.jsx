@@ -1,11 +1,10 @@
 import styles from "../home/home.module.css";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { Logo } from "../../components/logo/Logo";
-import down from "../../assets/icons/icons8-down-64.png";
 import hero from "../../assets/images/bg.jpeg";
 import half from "../../assets/images/half_circle.png";
 import { Navbar } from "../../components/navbar/Navbar";
+import { MiddleSection } from "./MiddleSection";
+import { Stories } from "./Stories";
+import { NiceToMeet } from "./NiceToMeet";
 export const Home = () => {
   return (
     <>
@@ -30,6 +29,9 @@ export const Home = () => {
           <img src={hero} alt="hero image" />
         </div>
       </section>
+      <MiddleSection />
+      <Stories />
+      <NiceToMeet />
     </>
   );
 };

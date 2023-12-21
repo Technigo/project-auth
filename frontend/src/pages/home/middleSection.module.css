@@ -1,0 +1,64 @@
+.middle{
+    padding:2rem 1rem;
+    margin-top: 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.greenBg{
+    width:400px;
+    height:50%;
+    background-color: #8BAB94;
+    position: absolute;
+    top:0;
+    z-index:-1;
+}
+
+
+.arrow{
+    width:30px;
+    margin-left: 1rem;
+}
+.flowers{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border:1px solid var(--main-color);
+    margin-bottom:2rem
+}
+
+.box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* desktop */
+@media (min-width:1024px) {
+    .middle{
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .greenBg{
+        top:-2rem;
+        width:50vw;
+        height:70%;
+        left:1rem;
+    }
+    
+}
+
+/* table */
+@media (min-width:668px)and (max-width:1023px) {
+    .greenBg{
+        left:1rem;
+        width:96%;
+        height:50%;
+    }
+}
