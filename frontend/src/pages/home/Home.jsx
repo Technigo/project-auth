@@ -5,7 +5,12 @@ import { Navbar } from "../../components/navbar/Navbar";
 import { MiddleSection } from "./MiddleSection";
 import { Stories } from "./Stories";
 import { NiceToMeet } from "./NiceToMeet";
+import { useNavigate } from "react-router-dom";
 export const Home = () => {
+  const navigate = useNavigate();
+  const linkToFlower = () => {
+    navigate("/flowers/basic");
+  };
   return (
     <>
       <Navbar />
@@ -19,7 +24,11 @@ export const Home = () => {
             </p>
             <p>“The beauty of a flower is that it will wither.”</p>
 
-            <button type="button" className={styles.weekly}>
+            <button
+              type="button"
+              className={styles.weekly}
+              onClick={linkToFlower}
+            >
               Weekly Bouquet
             </button>
           </div>

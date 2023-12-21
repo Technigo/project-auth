@@ -9,7 +9,7 @@ const buttonStyle = {
   border: "none",
   background: "none",
   width: "30px",
-  margin: "0 1rem",
+  margin: "0 2px 0 -7px",
 };
 const properties = {
   prevArrow: (
