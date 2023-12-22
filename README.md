@@ -199,3 +199,80 @@ VM15:1 error: TypeError: Failed to fetch
     at processDispatchQueueItemsInOrder (react-dom_client.js?v=ba23b5ff:7034:15)
     at processDispatchQueue (react-dom_client.js?v=ba23b5ff:7043:13)
     at dispatchEventsForPlugins (react-dom_client.js?v=ba23b5ff:7051:11)
+
+
+has same result when i tried with deployed version. what is all this about??????
+
+
+Access to fetch at 'https://one8-y5ov.onrender.com/users' from origin 'https://reliable-wisp-a561e3.netlify.app' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+index-95a77c2d.js:40 
+        
+        
+       POST https://one8-y5ov.onrender.com/users net::ERR_FAILED 502 (Bad Gateway)
+t @ index-95a77c2d.js:40
+l @ index-95a77c2d.js:40
+Fc @ index-95a77c2d.js:37
+Uc @ index-95a77c2d.js:37
+$c @ index-95a77c2d.js:37
+si @ index-95a77c2d.js:37
+Gs @ index-95a77c2d.js:37
+(anonym) @ index-95a77c2d.js:37
+xu @ index-95a77c2d.js:40
+ws @ index-95a77c2d.js:37
+Dl @ index-95a77c2d.js:37
+bo @ index-95a77c2d.js:37
+nf @ index-95a77c2d.js:37
+index-95a77c2d.js:40 error: TypeError: Failed to fetch
+    at t (index-95a77c2d.js:40:57449)
+    at l (index-95a77c2d.js:40:57767)
+    at Object.Fc (index-95a77c2d.js:37:9852)
+    at Uc (index-95a77c2d.js:37:10006)
+    at $c (index-95a77c2d.js:37:10063)
+    at si (index-95a77c2d.js:37:31442)
+    at Gs (index-95a77c2d.js:37:31859)
+    at index-95a77c2d.js:37:36771
+    at xu (index-95a77c2d.js:40:36724)
+    at ws (index-95a77c2d.js:37:8988)
+
+
+# https://stackoverflowteams.com/c/technigo/questions/4977
+although this seems to be only temporary suggestion,
+it got rid of cors error.
+instead, im getting the error that i supposed to get,
+saying this is not expected data. exactly, i wanted this.
+
+VM86:1 error: SyntaxError: Unexpected end of input (at App.jsx:20:42)
+    at postID (App.jsx:20:42)
+
+
+# the info i got to get rid of cors err
+
+1 Answer
+Sorted by:
+
+ 
+0
+
+Hej Irupé!
+Here's a temporary suggestion on how to work around this problem, by adding the no-cors mode to the fetch:
+
+    // Send a POST request to the backend API
+    try {
+      const response = await fetch('https://backend-mentorshipproject-zzac2sf6oa-no.a.run.app/register', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      });
+Share
+Edit
+Follow
+answered Jun 5 at 15:33
+Matilda Brunemalm's user avatar
+Matilda BrunemalmAdmin
+4,45911 gold badge55 silver badges9
+
+
+
