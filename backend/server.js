@@ -60,6 +60,8 @@ app.post('/users', async (req, res) => {
     res.status(201).json({id: user._id, accessToken: user.accessToken})
   } catch (error) {
     res.status(400).json({message: 'could not create user', errors: err.errors})
+    // get err
+    // open diegos codealong
   }
 })
 
@@ -67,3 +69,7 @@ app.post('/users', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+
+/// need data validation because regardless of what i input, it creates new user
+// then there should be user list that has plenty of user. where is it?
