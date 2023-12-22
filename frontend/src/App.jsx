@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const App = () => {
   const [inputName, setInputName] = useState('')
   const [inputEmail, setInputEmail] = useState('')
   const [inputPassword, setInputPassword] = useState('')
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    // check if the user is already logged in by looking for the access token in local storage
+    const accessToken = localStorage.getItem('accessToken')
+    if (accessToken) {
+      setIsLoggedIn(true)
+    }
+  }, [])
 
   const postID = async () => {
     try {
@@ -30,6 +39,7 @@ export const App = () => {
 
       // store the access token in local storage
       localStorage.setItem('accessToken', data.accessToken)
+      setIsLoggedIn(true) // update state bcs the localstorage has accesstoken saved
     } catch (error) {
       console.error('error:', error)
     }
@@ -53,10 +63,18 @@ export const App = () => {
   }
   return (
     <div>
-      <input type="text" placeholder="Name" value={inputName} onChange={handleNameChange} />
-      <input type="text" placeholder="Email" value={inputEmail} onChange={handleEmailChange} />
-      <input type="password" placeholder="Password" value={inputPassword} onChange={handlePasswordChange} />
-      <button onClick={handleButtonClick}>submit</button>
+      {isLoggedIn ? (
+        <div>
+          <h1>Welcone, User!</h1>
+        </div>
+      ) : (
+        <div>
+          <input type="text" placeholder="Name" value={inputName} onChange={handleNameChange} />
+          <input type="text" placeholder="Email" value={inputEmail} onChange={handleEmailChange} />
+          <input type="password" placeholder="Password" value={inputPassword} onChange={handlePasswordChange} />
+          <button onClick={handleButtonClick}>submit</button>
+        </div>
+      )}
     </div>
   )
 };

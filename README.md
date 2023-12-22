@@ -330,3 +330,7 @@ Visa färre
 
 
 # so.. regardless of some unexplained happenings, i was able to post by this way. what next? time to look into requirements for w16 again. -> to store access token using local storage
+
+# whats next? "and then use that token when making other requests to your API"
+so.. lets say ill show secret page using that token,
+just like at fridays demo, one of oranges showed us.
