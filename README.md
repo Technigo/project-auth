@@ -334,3 +334,23 @@ Visa färre
 # whats next? "and then use that token when making other requests to your API"
 so.. lets say ill show secret page using that token,
 just like at fridays demo, one of oranges showed us.
+
+-> so... ive made welcoming msg using that token.
+but is this token used when making other requests to API? no. 
+like, when user is logged in, it might bring special page from the api,
+for example, if im making to do app, it should show todo list for that certain user.
+what else? im tired of to do app.
+lets say it shows the time the user created the id(or accesstoken),
+and how much time flowed from that moment showing like seconds 00:00:00 things like this?
+bcs it might use createdAT, which i didnt declared it yet,
+which is supposed to stored at API,
+when the user create the accesstoken.
+so.. the next step is to create createdAt!!!
+
+since its 15:25, and since im scared snowy days, bcs its rly hard to get back to home
+with such horrible weather, ill stop here leaving this to tomorrow ❤️❤️❤️❤️❤️❤️❤️❤️❤️
+was happy to manage this to this much! like i was lost for last 2-3 weeks,
+or i was actually was lost for the day i started to learn backend! more than a month!!! (without the help that i needed!!!! but probably that was not happened bcs i didnt know what i didnt know, was not clear what to ask, so nothing more to complain.)
+but i just felt, i started the real start!! im not lost anymore,
+though there is hundreds of things to catch up this much late haha xDDDDD !!!!!
+anyway anyway im sooo much happy, and hope i dont die while back home xD 
