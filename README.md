@@ -276,3 +276,52 @@ Matilda BrunemalmAdmin
 
 
 
+# i made proper input field, and what i got back is err. nothing new at db
+
+VM15:1 error: SyntaxError: Unexpected end of input (at App.jsx:22:42)
+    at postID (App.jsx:22:42)
+eval @ VM15:1
+overrideMethod @ console.js:213
+postID @ App.jsx:31
+await in postID (asynkron)
+handleButtonClick @ App.jsx:49
+callCallback2 @ react-dom_client.js?v=ba23b5ff:3672
+invokeGuardedCallbackDev @ react-dom_client.js?v=ba23b5ff:3697
+invokeGuardedCallback @ react-dom_client.js?v=ba23b5ff:3731
+invokeGuardedCallbackAndCatchFirstError @ react-dom_client.js?v=ba23b5ff:3734
+executeDispatch @ react-dom_client.js?v=ba23b5ff:7014
+processDispatchQueueItemsInOrder @ react-dom_client.js?v=ba23b5ff:7034
+processDispatchQueue @ react-dom_client.js?v=ba23b5ff:7043
+dispatchEventsForPlugins @ react-dom_client.js?v=ba23b5ff:7051
+(anonym) @ react-dom_client.js?v=ba23b5ff:7175
+batchedUpdates$1 @ react-dom_client.js?v=ba23b5ff:18907
+batchedUpdates @ react-dom_client.js?v=ba23b5ff:3577
+dispatchEventForPluginEventSystem @ react-dom_client.js?v=ba23b5ff:7174
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ react-dom_client.js?v=ba23b5ff:5476
+dispatchEvent @ react-dom_client.js?v=ba23b5ff:5470
+dispatchDiscreteEvent @ react-dom_client.js?v=ba23b5ff:5447
+Visa 16 ramar till
+Visa färre
+App.jsx:10 
+        
+        
+       POST https://one8-y5ov.onrender.com/users net::ERR_ABORTED 502 (Bad Gateway)
+postID @ App.jsx:10
+handleButtonClick @ App.jsx:49
+callCallback2 @ react-dom_client.js?v=ba23b5ff:3672
+invokeGuardedCallbackDev @ react-dom_client.js?v=ba23b5ff:3697
+invokeGuardedCallback @ react-dom_client.js?v=ba23b5ff:3731
+invokeGuardedCallbackAndCatchFirstError @ react-dom_client.js?v=ba23b5ff:3734
+executeDispatch @ react-dom_client.js?v=ba23b5ff:7014
+processDispatchQueueItemsInOrder @ react-dom_client.js?v=ba23b5ff:7034
+processDispatchQueue @ react-dom_client.js?v=ba23b5ff:7043
+dispatchEventsForPlugins @ react-dom_client.js?v=ba23b5ff:7051
+(anonym) @ react-dom_client.js?v=ba23b5ff:7175
+batchedUpdates$1 @ react-dom_client.js?v=ba23b5ff:18907
+batchedUpdates @ react-dom_client.js?v=ba23b5ff:3577
+dispatchEventForPluginEventSystem @ react-dom_client.js?v=ba23b5ff:7174
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ react-dom_client.js?v=ba23b5ff:5476
+dispatchEvent @ react-dom_client.js?v=ba23b5ff:5470
+dispatchDiscreteEvent @ react-dom_client.js?v=ba23b5ff:5447
+Visa 15 ramar till
+Visa färre

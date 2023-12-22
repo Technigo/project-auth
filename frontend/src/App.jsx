@@ -1,7 +1,9 @@
 import { useState } from "react";
 
 export const App = () => {
-  const [inputID, setInputID] = useState('')
+  const [inputName, setInputName] = useState('')
+  const [inputEmail, setInputEmail] = useState('')
+  const [inputPassword, setInputPassword] = useState('')
 
   const postID = async () => {
     try {
@@ -11,7 +13,7 @@ export const App = () => {
         headers: {
           'Content-Type' : 'application/json'
         },
-        body: JSON.stringify({ data: inputID })
+        body: JSON.stringify({ name: inputName, email: inputEmail, password: inputPassword })
       }) 
       
       // handle error response till.ex. cors error
@@ -30,15 +32,30 @@ export const App = () => {
     }
   }
 
-  const handleInputChange = (event) => {
-    setInputID(event.target.value)
+  const handleNameChange = (event) => {
+    setInputName(event.target.value)
+  }
+
+  const handleEmailChange = (event) => {
+    setInputEmail(event.target.value)
+  }
+
+  const handlePasswordChange = (event) => {
+    setInputPassword(event.target.value)
   }
 
   const handleButtonClick = () => {
     // trigger the POST request when the button is clicked
     postID()
   }
-  return <div><input type="text" value={inputID} onChange={handleInputChange} /><button onClick={handleButtonClick}>submit</button></div>;
+  return (
+    <div>
+      <input type="text" placeholder="Name" value={inputName} onChange={handleNameChange} />
+      <input type="text" placeholder="Email" value={inputEmail} onChange={handleEmailChange} />
+      <input type="password" placeholder="Password" value={inputPassword} onChange={handlePasswordChange} />
+      <button onClick={handleButtonClick}>submit</button>
+    </div>
+  )
 };
 
 
