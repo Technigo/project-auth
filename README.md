@@ -138,3 +138,7 @@ but to be assisted with my stupidness, i think i paid and put time and energy to
 there is actually no one to watch what i am doing,
 and my whole learning is done by me, im almost feeling like that.
 wish i could get active help... not like in this way...
+
+# haha, come on git, you are ready to log the change. 
+
+# why my git is not taking this change at readme?
