@@ -325,3 +325,5 @@ dispatchEvent @ react-dom_client.js?v=ba23b5ff:5470
 dispatchDiscreteEvent @ react-dom_client.js?v=ba23b5ff:5447
 Visa 15 ramar till
 Visa färre
+
+# i found out this comes from mode no cors. so disabled it and was able to submit, see the result from the cloud

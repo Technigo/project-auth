@@ -59,6 +59,8 @@ app.get("/", (req, res) => {
 // to store a users access token here
 // so, we store using here, but how we see it back?
 app.post('/users', async (req, res) => {
+  // this is not working. why??
+  console.log('Incoming Data:', req.body)
   try {
     const {name, email, password} = req.body
     const user = new User({name, email, password: bcrypt.hashSync(password)})
