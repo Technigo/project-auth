@@ -156,3 +156,46 @@ it is clear if i send validate info(or not, ive not tested it),
 the database will be uploaded with my submitting,
 but what if that i send wrong info?
 where i can see something is wrong?
+
+# lets look into frontend
+bcs i submit via frontend
+
+and yea, my old fellow cors error xD
+from dev console of frontend
+
+
+Access to fetch at 'https://one8-y5ov.onrender.com/users' from origin 'http://localhost:5173' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+App.jsx:8 
+        
+        
+       POST https://one8-y5ov.onrender.com/users net::ERR_FAILED
+postID @ App.jsx:8
+handleButtonClick @ App.jsx:38
+callCallback2 @ react-dom_client.js?v=ba23b5ff:3672
+invokeGuardedCallbackDev @ react-dom_client.js?v=ba23b5ff:3697
+invokeGuardedCallback @ react-dom_client.js?v=ba23b5ff:3731
+invokeGuardedCallbackAndCatchFirstError @ react-dom_client.js?v=ba23b5ff:3734
+executeDispatch @ react-dom_client.js?v=ba23b5ff:7014
+processDispatchQueueItemsInOrder @ react-dom_client.js?v=ba23b5ff:7034
+processDispatchQueue @ react-dom_client.js?v=ba23b5ff:7043
+dispatchEventsForPlugins @ react-dom_client.js?v=ba23b5ff:7051
+(anonym) @ react-dom_client.js?v=ba23b5ff:7175
+batchedUpdates$1 @ react-dom_client.js?v=ba23b5ff:18907
+batchedUpdates @ react-dom_client.js?v=ba23b5ff:3577
+dispatchEventForPluginEventSystem @ react-dom_client.js?v=ba23b5ff:7174
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ react-dom_client.js?v=ba23b5ff:5476
+dispatchEvent @ react-dom_client.js?v=ba23b5ff:5470
+dispatchDiscreteEvent @ react-dom_client.js?v=ba23b5ff:5447
+Visa 15 ramar till
+Visa färre
+VM15:1 error: TypeError: Failed to fetch
+    at postID (App.jsx:8:30)
+    at handleButtonClick (App.jsx:38:5)
+    at HTMLUnknownElement.callCallback2 (react-dom_client.js?v=ba23b5ff:3672:22)
+    at Object.invokeGuardedCallbackDev (react-dom_client.js?v=ba23b5ff:3697:24)
+    at invokeGuardedCallback (react-dom_client.js?v=ba23b5ff:3731:39)
+    at invokeGuardedCallbackAndCatchFirstError (react-dom_client.js?v=ba23b5ff:3734:33)
+    at executeDispatch (react-dom_client.js?v=ba23b5ff:7014:11)
+    at processDispatchQueueItemsInOrder (react-dom_client.js?v=ba23b5ff:7034:15)
+    at processDispatchQueue (react-dom_client.js?v=ba23b5ff:7043:13)
+    at dispatchEventsForPlugins (react-dom_client.js?v=ba23b5ff:7051:11)
