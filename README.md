@@ -142,3 +142,17 @@ wish i could get active help... not like in this way...
 # haha, come on git, you are ready to log the change. 
 
 # why my git is not taking this change at readme?
+
+# yea, so this is connected to mongodb. what next?
+
+right before i gave up, i was trying talk to server, that i have something to talk,
+by submitting couple of words. 
+i was curious whether this server is actually taking my words,
+or it is actually rejecting.
+i thought when i go to cloud.mongodb.com,
+there should be log that server rejected my request,
+but it is likely to be said, they dont have that feature. 
+it is clear if i send validate info(or not, ive not tested it),
+the database will be uploaded with my submitting,
+but what if that i send wrong info?
+where i can see something is wrong?
