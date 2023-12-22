@@ -7,7 +7,13 @@ import crypto from "crypto"
 import bcrypt from "bcrypt-nodejs"
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB')
+  })
+  .catch((err) => {
+    console.error('Error connecting to MongoDB:', err)
+  })
 mongoose.Promise = Promise;
 
 // create a user model using mongoose
