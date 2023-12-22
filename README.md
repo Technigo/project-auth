@@ -327,3 +327,6 @@ Visa 15 ramar till
 Visa färre
 
 # i found out this comes from mode no cors. so disabled it and was able to submit, see the result from the cloud
+
+
+# so.. regardless of some unexplained happenings, i was able to post by this way. what next? time to look into requirements for w16 again. -> to store access token using local storage

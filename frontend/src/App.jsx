@@ -27,6 +27,9 @@ export const App = () => {
       // handle response
       const data = await response.json()
       console.log(data)
+
+      // store the access token in local storage
+      localStorage.setItem('accessToken', data.accessToken)
     } catch (error) {
       console.error('error:', error)
     }
