@@ -40,3 +40,6 @@ and i made the whole repo again,
 go get back git.
 probably restarted, almost reworked the repo.
 im afraid, but idk, lets do that
+
+# did i lost connection with this repo with git?
+lets test this out
