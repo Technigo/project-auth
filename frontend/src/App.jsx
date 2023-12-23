@@ -18,7 +18,7 @@ export const App = () => {
     try {
       const response = await fetch('https://one8-y5ov.onrender.com/users', {
         method: 'POST',
-        mode: 'no-cors',
+        // mode: 'no-cors',
         headers: {
           'Content-Type' : 'application/json'
         },

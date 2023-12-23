@@ -187,3 +187,42 @@ and getting this. rly clear.
 
 VM15:1 error: SyntaxError: Unexpected end of input (at App.jsx:31:42)
     at postID (App.jsx:31:42)
+
+
+-> i think im having this bcs i enabled 'no-cors', which blocks to make valid JSON.
+so.. not related to no-cors probably?
+but, like before, yesterday, when i handle 1 2 3 submit, i had same problem with cors,
+and i solved this with 1.having valid input first 2. and then disable no-cors
+this is related with cors error. what was yesterday?
+#1. without having no cors mode, i had cors error.
+#2. with having enabled no cors mode, i had probably input err, probably. i cant remember but likely like this. 
+#3. by fixing input problem, and disabling no cors mode, i could access to welcome page? or i could manage create user? or i could store the accesstoken? cant remember rly, but something between this, meaning i felt ive solved the problem at that time yesterday.
+
+# so... what to do now?
+make sure my current input is valid.
+-> haha, chatgpt says 4,5,6 is no problem. then what?
+would 1,2,3 had problem also?
+then how would i post at the cloud database? no clue at all xDDDDD
+if i cant fix input bcs i cant find any problem there, then no meaning of taking care of cors now. bcs it seemed work yesterday, but not for today. cant take same approach,
+or i might mistaken something. probably i failed yesterday and thoought i was succeed with input and cloud and things like that xDDDD rly not sure how to start or what to continue
+
+lets disable no cors first then
+and then forget everything that happened today,
+and then try to take a look again with current err msg that i got from dev console from browser,
+which saying
+
+VM15:1 error: SyntaxError: Unexpected end of input (at App.jsx:31:42)
+    at postID (App.jsx:31:42)
+
+
+
+
+# was able to inject accesstoken direct to local storage and see the result saying welcome user.
+what next?
+so token is working
+but creating user is not working
+but was working yesterday, or seemed to at least
+so... like why? rly frustrated
+
+
+# i cant register user and dont know why
