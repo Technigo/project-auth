@@ -68,10 +68,20 @@ app.post('/users', async (req, res) => {
   try {
     const {name, email, password} = req.body
     const user = new User({name, email, password: bcrypt.hashSync(password)})
-    user.save()
+
+    // check before save
+    console.log('user data before saving:', user)
+
+    await user.save()
+
+    // check after save to make sure the line is being reached or not
+    console.log('user data after saving:', user)
+
     res.status(201).json({id: user._id, accessToken: user.accessToken})
+    console.log('User saved successfully', user)
   } catch (error) {
-    res.status(400).json({message: 'could not create user', errors: err.errors})
+    console.error('Error creating user:', error)
+    res.status(400).json({message: 'could not create user', errors: error.message})
     // get err
     // open diegos codealong
   }
