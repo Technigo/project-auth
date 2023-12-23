@@ -71,7 +71,7 @@ export const App = () => {
     <div>
       {isLoggedIn ? (
         <div>
-          <h1>Welcone, User!</h1>
+          <h1>Welcome, User!</h1>
           <button onClick={handleLogout}>try again?</button>
         </div>
       ) : (

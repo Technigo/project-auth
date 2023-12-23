@@ -226,3 +226,72 @@ so... like why? rly frustrated
 
 
 # i cant register user and dont know why
+
+# i register 1 2 3 just like ive did yesterday, and chrome dev console is not responding. might server is too slow or having problem somewhere. rly feel bad about this slow process. but no. while i try this and that while waiting, it spitted out this familiar console log at chorme dev console.
+
+saying,
+{id: '6586e0515cd947fdd72e65a9', accessToken: 'c46daf26ac72a15ac28378af23f4bfbcb11c3325eaa1f6be94…6a1aacb8408632505d779badbf24499859651c33b194bc5b1'}
+
+showing, 
+welcome, user
+
+
+where this accesstoken comes from?
+super sure not comes from, or stored at cloud mongodb.
+bcs when i refresh, what i see is only this,
+
+_id
+6585928bba80c151c3f2452f
+name
+"1"
+email
+"2"
+password
+"$2a$10$tV310roYSSsAlMmOmRjn9u0dTq2m1wJ4/.aSy0iNIao0Lx/D.Gqu2"
+accessToken
+"9d618fd67e409361a70c34c80d7cf0e72487c430b05d12bf92d48dd53e0e1a58457399…"
+__v
+0
+
+
+which is very much different from what i got.
+
+
+it seems pretty sure it generetes token and stuff when i submit at register.
+but it seems it is not storing the data at cloud mongodb.
+but bcs it stores 'this' data, not loads the data from 'cloud mongo', at localstorage,
+the browser uses this token to log in,
+so pretty much not about the mongodb cloud itself.
+haha having been doing wrong structure. this is not communicating with cloud server but with my very local.
+
+
+so the correct following step should be,
+when i register,
+it stores the user data at cloud first.
+idk why 123 before seemed to be happen to be stored for cloud.
+
+but it is clear that the data im seeing from cloud
+{"_id":{"$oid":"6585928bba80c151c3f2452f"},"name":"1","email":"2","password":"$2a$10$tV310roYSSsAlMmOmRjn9u0dTq2m1wJ4/.aSy0iNIao0Lx/D.Gqu2","accessToken":"9d618fd67e409361a70c34c80d7cf0e72487c430b05d12bf92d48dd53e0e1a58457399671f4f08011f0aca161c1a212e33a0295bcf108bb41b73707faf6248c65338d357ba8c737956950c27f901e8a0f2d18ec7200a63dc7a4d857180b6870f5be49cc2d4407b78299df5263ce5a332fd964cfe9fd9652cb435bbee778029c5","__v":{"$numberInt":"0"}}
+this one, happened to be stored accidently, or some process with i dont know,
+or by mistake,
+
+
+and i just want to make sure my app is currently not storing user at cloud. 
+i think there is possiblity , regardless of trial of 456, 
+when i try 123, there is already 123.
+there is no process for validate this already existing data or not
+so can be this-related-problem,
+
+but just wanted to make sure i can register first.
+
+it is 14:36
+but im rly feeling uncomfortable bcs of problem that related to the place i chose
+for todays work
+im not sure. will i be able to manage recover myself today within this short moment?
+
+idk. im not sure. but i want to give try,
+bcs today is good day, i dont want to lose today
+just due to minor problem such like this. 
+
+wish me to manage to come back.
+i will register the user somehow, i strongly want this
