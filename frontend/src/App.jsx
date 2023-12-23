@@ -45,6 +45,12 @@ export const App = () => {
     }
   }
 
+  const handleLogout = () => {
+    // clear the access token from local storage
+    localStorage.removeItem('accessToken')
+    setIsLoggedIn(false) // update state saying the user is logged out
+  }
+
   const handleNameChange = (event) => {
     setInputName(event.target.value)
   }
@@ -66,6 +72,7 @@ export const App = () => {
       {isLoggedIn ? (
         <div>
           <h1>Welcone, User!</h1>
+          <button onClick={handleLogout}>try again?</button>
         </div>
       ) : (
         <div>
