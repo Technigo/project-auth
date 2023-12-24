@@ -5,12 +5,15 @@ export const App = () => {
   const [inputEmail, setInputEmail] = useState('')
   const [inputPassword, setInputPassword] = useState('')
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userData, setUserData] = useState(null)
 
   useEffect(() => {
     // check if the user is already logged in by looking for the access token in local storage
     const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
       setIsLoggedIn(true)
+      // fetch user data using the access token
+      fetchUserData(accessToken)
     }
   }, [])
 
@@ -41,6 +44,7 @@ export const App = () => {
       // store the access token in local storage
       localStorage.setItem('accessToken', data.accessToken)
       setIsLoggedIn(true) // update state bcs the localstorage has accesstoken saved
+      fetchUserData(data.accessToken) // fetch user data after successful login
     } catch (error) {
       console.error('error:', error)
     }
@@ -68,11 +72,28 @@ export const App = () => {
     // trigger the POST request when the button is clicked
     postID()
   }
+
+  const fetchUserData = async (accessToken) => {
+    try {
+      const response = await fetch('http://localhost:8080/user', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+
+      const userData = await response.json()
+      setUserData(userData) // store fetched userdata in state
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
+
   return (
     <div>
       {isLoggedIn ? (
         <div>
           <h1>Welcome, User!</h1>
+          <p>You are joined on {new Date(userData?.createdAt).toLocaleString()}</p>
           <button onClick={handleLogout}>try again?</button>
         </div>
       ) : (

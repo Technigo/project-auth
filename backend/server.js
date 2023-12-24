@@ -88,6 +88,20 @@ app.post('/users', async (req, res) => {
   }
 })
 
+app.get('/user', async (req, res) => {
+  try {
+    // get access token from request header
+    const accessToken = req.headers.authorization
+    // find user in the database with access token
+    const user = await User.findOne({ accessToken })
+    // return user information
+    res.status(200).json({ createdAt: user.createdAt })
+  } catch (error) {
+    console.error('error fetching user:', error)
+    res.status(500).json({ message: 'Internar Server Error' })
+  }
+})
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
