@@ -67,6 +67,7 @@ app.post('/users', async (req, res) => {
   console.log('Incoming Data:', req.body)
   try {
     const {name, email, password} = req.body
+    console.log('Received Data:', { name, email, password })
     const user = new User({name, email, password: bcrypt.hashSync(password)})
 
     // check before save
