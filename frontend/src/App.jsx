@@ -83,6 +83,8 @@ export const App = () => {
 
       const userData = await response.json()
       setUserData(userData) // store fetched userdata in state
+      // const { createdAt } = await response.json()
+      // setUserData({ createdAt }) // store fetched creatAt in state
     } catch (error) {
       console.error('Error:', error)
     }
@@ -93,7 +95,9 @@ export const App = () => {
       {isLoggedIn ? (
         <div>
           <h1>Welcome, User!</h1>
-          <p>You are joined on {new Date(userData?.createdAt).toLocaleString()}</p>
+          {/* <p>to see userData exists or not, i add ternary operator to check</p> */}
+          {/* <p>You are joined on {new Date(userData?.createdAt).toLocaleString()}</p> */}
+          <p>You are joined on {userData && userData.createdAt ? new Date(userData?.createdAt).toLocaleString() : 'there is no such thing'}</p>
           <button onClick={handleLogout}>try again?</button>
         </div>
       ) : (

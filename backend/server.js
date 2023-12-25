@@ -91,14 +91,21 @@ app.post('/users', async (req, res) => {
 app.get('/user', async (req, res) => {
   try {
     // get access token from request header
-    const accessToken = req.headers.authorization
+    const accessToken = req.headers.authorization.split(' ')[1]
+    console.log('Received Access Token:', accessToken)
     // find user in the database with access token
     const user = await User.findOne({ accessToken })
+    console.log('User:', user)
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
     // return user information
     res.status(200).json({ createdAt: user.createdAt })
   } catch (error) {
     console.error('error fetching user:', error)
-    res.status(500).json({ message: 'Internar Server Error' })
+    res.status(500).json({ message: 'Internal Server Error' })
   }
 })
 

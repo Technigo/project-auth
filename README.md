@@ -1,132 +1,74 @@
-# from 11 till 3, was doing the stupidest thing.
-got out of bed late as before. was putting 4 hrs of mobile gaming, 6 hr sleeping,
-and then another 8 hrs for mobile game. 
-idk where my life goes lol but this is what im currently on.
-so yesterday was like that
-and today, i had to think where to move
-likely to russia, idk, cant stay here long
-this made me feel rly insecure
-so i rly wanted to apply somewhere that would keep me here
-i knew that certain school, certain program that i wanted to apply 
-require me math and programming for high school
-i quit school when i was young so i dont have such like that
-i knew but wanted to ignore
-so used 11-3 imagining that im already at that school program
-very stupid, i know, but felt happy once there 
+# im back. as like yesterday, had time of stupidity for future education bcs i was scard of moving away from here. but everything i put to any further education turned out to be nothing, because i need portfolio for that as well, just like job application. i mean i can try without that, stating i dont have that and want to do this or that, but i just wanted to be confident. so it is just matter of the thoought that i always need something prior to learn something, not the system or process itself, but that is what i currently feel, so i say i wasted today again.
 
+but what i need to do? it is clear. i need portfolio to present. so after i compelet w16, or in base of the knowledge i got from w16, nevertheless how late my final project would be, i will dive into it and use the result as my portfolio. i mean, once it is done, i need thousands of times for make use of it, to show it good to be shown to others, but regardless of it, i can say i have good reason to proceed, so no need to burn away every my remaining time and energy with anger, to be nothing.
 
-so the fact is, this bootcamp is where that accepts me
-i had no alternative
-and have no alternative currently
-which is sad
-bcs ive already wasted this much
-gotting almost nothing
-saying that i was unlucky doesnt make time go back
+and the thing is, im enjoying this. if i hated this just for a little bit, i would be already quit. for many other lives in general, i was needed something to focus on, achieve, learn, and make use out of what ive done. so this period played perfect role for me in that way, so even i get up in anger towards here every morning, ill say this gave me reason to be alive. it is good to achieve little thing in daily or weekly or short term basis. is that agile method or something? like poya said at very first day about how our class is organaizzed? ill never know, but it is way better than nothing. just wish, would be much better, if i did better than this......
 
-1458,
-and need to leave before 1600
-couldnt rly look on user.save() not working
-bcs i wasted all my energy imagining things that not likely come to me
-so hard to work,
-but to just not cry, i try write this
+so, dont be lost, and make use of it, by wrap this up fast as possible, and dive into the real project. i mean, if i can xD it is already 25/12... haha
 
+# You are joined on Invalid Date
 
-so user.save() is not actually saving
-what could be the reason
-i can ask chatgpt and see what it answers
+welcome, user!
+you are joined on 'invalid date'
+try again? (button)
 
+err msg from chrome dev console, gone, due to reconnect.
 
+currently, im getting 
 
+GET http://localhost:8080/user 500 (Internal Server Error)
 
+from
 
-# things having been rly bad.
-now it is not responding with 
-{id: '6586cd1f40383a4d4046ca18', accessToken: 'a77e03cc5eb178cbd396a6bcc2045b9171f5fc5c6cb2228a2f…cccc2395ac235887c4b469fc204ccfe8f8883cdf26f9af1c2'}
-this, like yesterday, when i submit.
-
-
-what i see now is just nothing, exactly nothing, no err, just white area. 
-
-
-i cant even imagine what is the problem.
-i rly want to restart the whole from the beginning
-if so, at least ill see what is working for fresh built out app xD
-
-
-now, now i see the err.
-why, why is this this much slow?
-
-
-seems like couple of minutes, is others getting things like this?
-this is probably ive already deployed the backend?
-render is amazing slow, and can this be based on that?
-this makes me feel rly bad xD
-
-
-anyway, familiar cors err currently.
-werent i getting another err? like validating or syntax err when i submit?
-why everyday different err even i didnt changed anything?
-will this meaningful to handle this?
-bcs this err seems to have nowhere that made from.
-but i cant say im unlucky
-and i dont want to cry
-
-cant i just start over everything?
-i dont want to stay here forever
-
-
-# const response = await fetch('https://one8-y5ov.onrender.com/users', {
-    this one had been problem. dk why, but i changed this to
-    const response = await fetch('http://localhost:8080/users', {
-        and, it started to work smoothly just like ive intended.
-        why? idk!!! it just works.
-
-
-        so, currently, when i send 1,2,3, which is already saved data, it spits err.
-
-        App.jsx:20 
+App.jsx:78 
         
         
-       POST http://localhost:8080/users 400 (Bad Request)
-postID @ App.jsx:20
-handleButtonClick @ App.jsx:69
-callCallback2 @ react-dom_client.js?v=ba23b5ff:3672
-invokeGuardedCallbackDev @ react-dom_client.js?v=ba23b5ff:3697
-invokeGuardedCallback @ react-dom_client.js?v=ba23b5ff:3731
-invokeGuardedCallbackAndCatchFirstError @ react-dom_client.js?v=ba23b5ff:3734
-executeDispatch @ react-dom_client.js?v=ba23b5ff:7014
-processDispatchQueueItemsInOrder @ react-dom_client.js?v=ba23b5ff:7034
-processDispatchQueue @ react-dom_client.js?v=ba23b5ff:7043
-dispatchEventsForPlugins @ react-dom_client.js?v=ba23b5ff:7051
-(anonym) @ react-dom_client.js?v=ba23b5ff:7175
-batchedUpdates$1 @ react-dom_client.js?v=ba23b5ff:18907
-batchedUpdates @ react-dom_client.js?v=ba23b5ff:3577
-dispatchEventForPluginEventSystem @ react-dom_client.js?v=ba23b5ff:7174
-dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ react-dom_client.js?v=ba23b5ff:5476
-dispatchEvent @ react-dom_client.js?v=ba23b5ff:5470
-dispatchDiscreteEvent @ react-dom_client.js?v=ba23b5ff:5447
-Visa 15 ramar till
+       GET http://localhost:8080/user 500 (Internal Server Error)
+fetchUserData @ App.jsx:78
+(anonym) @ App.jsx:16
+commitHookEffectListMount @ react-dom_client.js?v=ba23b5ff:16902
+invokePassiveEffectMountInDEV @ react-dom_client.js?v=ba23b5ff:18318
+invokeEffectsInDev @ react-dom_client.js?v=ba23b5ff:19695
+commitDoubleInvokeEffectsInDEV @ react-dom_client.js?v=ba23b5ff:19680
+flushPassiveEffectsImpl @ react-dom_client.js?v=ba23b5ff:19497
+flushPassiveEffects @ react-dom_client.js?v=ba23b5ff:19441
+(anonym) @ react-dom_client.js?v=ba23b5ff:19322
+workLoop @ react-dom_client.js?v=ba23b5ff:195
+flushWork @ react-dom_client.js?v=ba23b5ff:174
+performWorkUntilDeadline @ react-dom_client.js?v=ba23b5ff:382
+Visa 10 ramar till
 Visa färre
-VM15:1 Error response: {message: 'could not create user', errors: 'E11000 duplicate key error collection: happyThoughts.users index: name_1 dup key: { name: "1" }'}
+
+
+
+which means there is something wrong while getting the date. 
+however, my cloud has it.
+
+
+
+_id
+65883fc61c050e3c87992031
+name
+"11"
+email
+"22"
+password
+"$2a$10$COvZhxw4aD13YZ8vKncUIOPDET6SOZOgGX2/Aout77PCvfvRtS.dq"
+accessToken
+"70eb4df3c8047b32adc33ee71431e41f8ea810eb62e8b0c081f7e5f664ea673c779d27…"
+createdAt
+2023-12-24T14:27:18.155+00:00
+__v
+0
+
+so there should be process gotten been wrong between those fetch.
 
 
 
 
+# logs i got from 1,2,3, and 11,22,33, and invalid date
+this will be gone someday, or will be hard to look back, so better save it here
 
-and when i, lets say, use 11,22,33, it lets me log in, showing this at console.
-
-{id: '65883fc61c050e3c87992031', accessToken: '70eb4df3c8047b32adc33ee71431e41f8ea810eb62e8b0c081…42f2120447e9e471b62e6c927d5fd339dcb695ae71d7164bd'}
-
-
-
-so problem might restarts when i deploy, but whatever, it works in this way so no need to care.
-maybe ill cry tomorrow xD
-
-
-
-
-
-# god, its beautiful. this is what i wanted to see from the terminal
 
 backend git:(master) ✗ npm run dev
 
@@ -200,63 +142,598 @@ User saved successfully {
   createdAt: 2023-12-24T14:27:18.155Z,
   __v: 0
 }
+[nodemon] restarting due to changes...
+[nodemon] starting `babel-node server.js`
+(node:15111) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:15111) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:15111) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+Server running on http://localhost:8080
+Connected to MongoDB
+error fetching user: TypeError: Cannot read properties of null (reading 'createdAt')
+    at call (/Users/catfood/project-auth/project-auth/backend/server.js:98:44)
+    at tryCatch (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at Generator._invoke (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at Generator.next (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at asyncGeneratorStep (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at _next (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+error fetching user: TypeError: Cannot read properties of null (reading 'createdAt')
+    at call (/Users/catfood/project-auth/project-auth/backend/server.js:98:44)
+    at tryCatch (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at Generator._invoke (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at Generator.next (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at asyncGeneratorStep (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at _next (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+error fetching user: TypeError: Cannot read properties of null (reading 'createdAt')
+    at call (/Users/catfood/project-auth/project-auth/backend/server.js:98:44)
+    at tryCatch (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at Generator._invoke (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at Generator.next (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at asyncGeneratorStep (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at _next (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+error fetching user: TypeError: Cannot read properties of null (reading 'createdAt')
+    at call (/Users/catfood/project-auth/project-auth/backend/server.js:98:44)
+    at tryCatch (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at Generator._invoke (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at Generator.next (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at asyncGeneratorStep (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at _next (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+error fetching user: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+    at EventTarget.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/sdam/topology.ts:566:28)
+    at EventTarget.[nodejs.internal.kHybridDispatch] (node:internal/event_target:822:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:757:26)
+    at abortSignal (node:internal/abort_controller:374:10)
+    at TimeoutController.abort (node:internal/abort_controller:396:5)
+    at Timeout.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/utils.ts:1273:61)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7) {
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(3) {
+      'ac-pduuxjk-shard-00-02.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-01.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-00.0olueje.mongodb.net:27017' => [ServerDescription]
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'atlas-hjl0mu-shard-0',
+    maxElectionId: new ObjectId('7fffffff000000000000006a'),
+    maxSetVersion: 3,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  [Symbol(errorLabels)]: Set(0) {},
+  [cause]: MongoNetworkError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+      at connectionFailureError (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:505:14)
+      at TLSSocket.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:388:16)
+      at Object.onceWrapper (node:events:634:26)
+      at TLSSocket.emit (node:events:519:28)
+      at TLSSocket.emit (node:domain:488:12)
+      at emitErrorNT (node:internal/streams/destroy:169:8)
+      at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+      at processTicksAndRejections (node:internal/process/task_queues:82:21) {
+    [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+    [cause]: Error: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+        at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:118:26) {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'ac-pduuxjk-shard-00-02.0olueje.mongodb.net'
+    }
+  }
+}
+error fetching user: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+    at EventTarget.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/sdam/topology.ts:566:28)
+    at EventTarget.[nodejs.internal.kHybridDispatch] (node:internal/event_target:822:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:757:26)
+    at abortSignal (node:internal/abort_controller:374:10)
+    at TimeoutController.abort (node:internal/abort_controller:396:5)
+    at Timeout.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/utils.ts:1273:61)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7) {
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(3) {
+      'ac-pduuxjk-shard-00-02.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-01.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-00.0olueje.mongodb.net:27017' => [ServerDescription]
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'atlas-hjl0mu-shard-0',
+    maxElectionId: new ObjectId('7fffffff000000000000006a'),
+    maxSetVersion: 3,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  [Symbol(errorLabels)]: Set(0) {},
+  [cause]: MongoNetworkError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+      at connectionFailureError (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:505:14)
+      at TLSSocket.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:388:16)
+      at Object.onceWrapper (node:events:634:26)
+      at TLSSocket.emit (node:events:519:28)
+      at TLSSocket.emit (node:domain:488:12)
+      at emitErrorNT (node:internal/streams/destroy:169:8)
+      at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+      at processTicksAndRejections (node:internal/process/task_queues:82:21) {
+    [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+    [cause]: Error: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+        at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:118:26) {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'ac-pduuxjk-shard-00-02.0olueje.mongodb.net'
+    }
+  }
+}
+error fetching user: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+    at EventTarget.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/sdam/topology.ts:566:28)
+    at EventTarget.[nodejs.internal.kHybridDispatch] (node:internal/event_target:822:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:757:26)
+    at abortSignal (node:internal/abort_controller:374:10)
+    at TimeoutController.abort (node:internal/abort_controller:396:5)
+    at Timeout.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/utils.ts:1273:61)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7) {
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(3) {
+      'ac-pduuxjk-shard-00-02.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-01.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-00.0olueje.mongodb.net:27017' => [ServerDescription]
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'atlas-hjl0mu-shard-0',
+    maxElectionId: new ObjectId('7fffffff000000000000006a'),
+    maxSetVersion: 3,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  [Symbol(errorLabels)]: Set(0) {},
+  [cause]: MongoNetworkError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+      at connectionFailureError (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:505:14)
+      at TLSSocket.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:388:16)
+      at Object.onceWrapper (node:events:634:26)
+      at TLSSocket.emit (node:events:519:28)
+      at TLSSocket.emit (node:domain:488:12)
+      at emitErrorNT (node:internal/streams/destroy:169:8)
+      at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+      at processTicksAndRejections (node:internal/process/task_queues:82:21) {
+    [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+    [cause]: Error: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+        at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:118:26) {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'ac-pduuxjk-shard-00-02.0olueje.mongodb.net'
+    }
+  }
+}
+error fetching user: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+    at EventTarget.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/sdam/topology.ts:566:28)
+    at EventTarget.[nodejs.internal.kHybridDispatch] (node:internal/event_target:822:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:757:26)
+    at abortSignal (node:internal/abort_controller:374:10)
+    at TimeoutController.abort (node:internal/abort_controller:396:5)
+    at Timeout.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/utils.ts:1273:61)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7) {
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(3) {
+      'ac-pduuxjk-shard-00-02.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-01.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-00.0olueje.mongodb.net:27017' => [ServerDescription]
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'atlas-hjl0mu-shard-0',
+    maxElectionId: new ObjectId('7fffffff000000000000006a'),
+    maxSetVersion: 3,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  [Symbol(errorLabels)]: Set(0) {},
+  [cause]: MongoNetworkError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+      at connectionFailureError (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:505:14)
+      at TLSSocket.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:388:16)
+      at Object.onceWrapper (node:events:634:26)
+      at TLSSocket.emit (node:events:519:28)
+      at TLSSocket.emit (node:domain:488:12)
+      at emitErrorNT (node:internal/streams/destroy:169:8)
+      at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+      at processTicksAndRejections (node:internal/process/task_queues:82:21) {
+    [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+    [cause]: Error: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+        at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:118:26) {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'ac-pduuxjk-shard-00-02.0olueje.mongodb.net'
+    }
+  }
+}
+error fetching user: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+    at EventTarget.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/sdam/topology.ts:566:28)
+    at EventTarget.[nodejs.internal.kHybridDispatch] (node:internal/event_target:822:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:757:26)
+    at abortSignal (node:internal/abort_controller:374:10)
+    at TimeoutController.abort (node:internal/abort_controller:396:5)
+    at Timeout.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/utils.ts:1273:61)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7) {
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(3) {
+      'ac-pduuxjk-shard-00-02.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-01.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-00.0olueje.mongodb.net:27017' => [ServerDescription]
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'atlas-hjl0mu-shard-0',
+    maxElectionId: new ObjectId('7fffffff000000000000006a'),
+    maxSetVersion: 3,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  [Symbol(errorLabels)]: Set(0) {},
+  [cause]: MongoNetworkError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+      at connectionFailureError (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:505:14)
+      at TLSSocket.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:388:16)
+      at Object.onceWrapper (node:events:634:26)
+      at TLSSocket.emit (node:events:519:28)
+      at TLSSocket.emit (node:domain:488:12)
+      at emitErrorNT (node:internal/streams/destroy:169:8)
+      at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+      at processTicksAndRejections (node:internal/process/task_queues:82:21) {
+    [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+    [cause]: Error: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+        at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:118:26) {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'ac-pduuxjk-shard-00-02.0olueje.mongodb.net'
+    }
+  }
+}
+error fetching user: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+    at EventTarget.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/sdam/topology.ts:566:28)
+    at EventTarget.[nodejs.internal.kHybridDispatch] (node:internal/event_target:822:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:757:26)
+    at abortSignal (node:internal/abort_controller:374:10)
+    at TimeoutController.abort (node:internal/abort_controller:396:5)
+    at Timeout.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/utils.ts:1273:61)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7) {
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(3) {
+      'ac-pduuxjk-shard-00-02.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-01.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-00.0olueje.mongodb.net:27017' => [ServerDescription]
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'atlas-hjl0mu-shard-0',
+    maxElectionId: new ObjectId('7fffffff000000000000006a'),
+    maxSetVersion: 3,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  [Symbol(errorLabels)]: Set(0) {},
+  [cause]: MongoNetworkError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+      at connectionFailureError (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:505:14)
+      at TLSSocket.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:388:16)
+      at Object.onceWrapper (node:events:634:26)
+      at TLSSocket.emit (node:events:519:28)
+      at TLSSocket.emit (node:domain:488:12)
+      at emitErrorNT (node:internal/streams/destroy:169:8)
+      at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+      at processTicksAndRejections (node:internal/process/task_queues:82:21) {
+    [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+    [cause]: Error: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+        at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:118:26) {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'ac-pduuxjk-shard-00-02.0olueje.mongodb.net'
+    }
+  }
+}
+error fetching user: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+    at EventTarget.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/sdam/topology.ts:566:28)
+    at EventTarget.[nodejs.internal.kHybridDispatch] (node:internal/event_target:822:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:757:26)
+    at abortSignal (node:internal/abort_controller:374:10)
+    at TimeoutController.abort (node:internal/abort_controller:396:5)
+    at Timeout.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/utils.ts:1273:61)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7) {
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(3) {
+      'ac-pduuxjk-shard-00-02.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-01.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-00.0olueje.mongodb.net:27017' => [ServerDescription]
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'atlas-hjl0mu-shard-0',
+    maxElectionId: new ObjectId('7fffffff000000000000006a'),
+    maxSetVersion: 3,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  [Symbol(errorLabels)]: Set(0) {},
+  [cause]: MongoNetworkError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+      at connectionFailureError (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:505:14)
+      at TLSSocket.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:388:16)
+      at Object.onceWrapper (node:events:634:26)
+      at TLSSocket.emit (node:events:519:28)
+      at TLSSocket.emit (node:domain:488:12)
+      at emitErrorNT (node:internal/streams/destroy:169:8)
+      at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+      at processTicksAndRejections (node:internal/process/task_queues:82:21) {
+    [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+    [cause]: Error: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+        at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:118:26) {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'ac-pduuxjk-shard-00-02.0olueje.mongodb.net'
+    }
+  }
+}
+error fetching user: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+    at EventTarget.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/sdam/topology.ts:566:28)
+    at EventTarget.[nodejs.internal.kHybridDispatch] (node:internal/event_target:822:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:757:26)
+    at abortSignal (node:internal/abort_controller:374:10)
+    at TimeoutController.abort (node:internal/abort_controller:396:5)
+    at Timeout.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/utils.ts:1273:61)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7) {
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(3) {
+      'ac-pduuxjk-shard-00-02.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-01.0olueje.mongodb.net:27017' => [ServerDescription],
+      'ac-pduuxjk-shard-00-00.0olueje.mongodb.net:27017' => [ServerDescription]
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'atlas-hjl0mu-shard-0',
+    maxElectionId: new ObjectId('7fffffff000000000000006a'),
+    maxSetVersion: 3,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  [Symbol(errorLabels)]: Set(0) {},
+  [cause]: MongoNetworkError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+      at connectionFailureError (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:505:14)
+      at TLSSocket.<anonymous> (/Users/catfood/project-auth/project-auth/backend/node_modules/mongodb/src/cmap/connect.ts:388:16)
+      at Object.onceWrapper (node:events:634:26)
+      at TLSSocket.emit (node:events:519:28)
+      at TLSSocket.emit (node:domain:488:12)
+      at emitErrorNT (node:internal/streams/destroy:169:8)
+      at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+      at processTicksAndRejections (node:internal/process/task_queues:82:21) {
+    [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+    [cause]: Error: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+        at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:118:26) {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'ac-pduuxjk-shard-00-02.0olueje.mongodb.net'
+    }
+  }
+}
+error fetching user: TypeError: Cannot read properties of null (reading 'createdAt')
+    at call (/Users/catfood/project-auth/project-auth/backend/server.js:98:44)
+    at tryCatch (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at Generator._invoke (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at Generator.next (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at asyncGeneratorStep (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at _next (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+error fetching user: TypeError: Cannot read properties of null (reading 'createdAt')
+    at call (/Users/catfood/project-auth/project-auth/backend/server.js:98:44)
+    at tryCatch (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at Generator._invoke (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at Generator.next (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at asyncGeneratorStep (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at _next (/Users/catfood/project-auth/project-auth/backend/server.js:2:1)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
 
 
-# and then... where i was? i cant remember. 
-i can create user, with createdAt.
-i wanted to fetch this and show this to the logged in user.
-so for exact 'and then use that token when making other requests to your API'
-from the instruction
-https://github.com/Technigo/project-auth/blob/master/instructions.md
 
-# welcome, user! you are joined on invalid date 
-failed to fetch 
 
-GET http://localhost:8080/user net::ERR_CONNECTION_REFUSED
-fetchUserData @ App.jsx:78
-(anonym) @ App.jsx:16
-commitHookEffectListMount @ react-dom_client.js?v=ba23b5ff:16902
-invokePassiveEffectMountInDEV @ react-dom_client.js?v=ba23b5ff:18318
-invokeEffectsInDev @ react-dom_client.js?v=ba23b5ff:19695
-commitDoubleInvokeEffectsInDEV @ react-dom_client.js?v=ba23b5ff:19680
-flushPassiveEffectsImpl @ react-dom_client.js?v=ba23b5ff:19497
-flushPassiveEffects @ react-dom_client.js?v=ba23b5ff:19441
-commitRootImpl @ react-dom_client.js?v=ba23b5ff:19410
-commitRoot @ react-dom_client.js?v=ba23b5ff:19271
-performSyncWorkOnRoot @ react-dom_client.js?v=ba23b5ff:18889
-flushSyncCallbacks @ react-dom_client.js?v=ba23b5ff:9133
-flushSync @ react-dom_client.js?v=ba23b5ff:18953
-scheduleRefresh @ react-dom_client.js?v=ba23b5ff:19998
-renderer.scheduleRefresh @ renderer.js:592
-(anonym) @ @react-refresh:267
-performReactRefresh @ @react-refresh:256
-setTimeout (asynkron)
-(anonym) @ @react-refresh:666
-validateRefreshBoundaryAndEnqueueUpdate @ @react-refresh:707
-(anonym) @ App.jsx?t=1703427985026:166
-(anonym) @ client.ts:559
-(anonym) @ client.ts:476
-(anonym) @ client.ts:323
-queueUpdate @ client.ts:323
-await in queueUpdate (asynkron)
-(anonym) @ client.ts:176
-handleMessage @ client.ts:174
-(anonym) @ client.ts:91
-Visa 20 ramar till
-Visa färre
-VM15:1 Error: TypeError: Failed to fetch
-    at fetchUserData (App.jsx:78:30)
-    at App.jsx:16:7
-    at commitHookEffectListMount (react-dom_client.js?v=ba23b5ff:16902:34)
-    at invokePassiveEffectMountInDEV (react-dom_client.js?v=ba23b5ff:18318:19)
-    at invokeEffectsInDev (react-dom_client.js?v=ba23b5ff:19695:19)
-    at commitDoubleInvokeEffectsInDEV (react-dom_client.js?v=ba23b5ff:19680:15)
-    at flushPassiveEffectsImpl (react-dom_client.js?v=ba23b5ff:19497:13)
-    at flushPassiveEffects (react-dom_client.js?v=ba23b5ff:19441:22)
-    at commitRootImpl (react-dom_client.js?v=ba23b5ff:19410:13)
-    at commitRoot (react-dom_client.js?v=ba23b5ff:19271:13)
+so, two types err in summary in backend terminal
+
+
+error fetching user: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net
+
+error fetching user: TypeError: Cannot read properties of null (reading 'createdAt')
 
 
 
+# connection issue 
+
+1. MongoDB Connection Issue
+The error MongoServerSelectionError: getaddrinfo ENOTFOUND ac-pduuxjk-shard-00-02.0olueje.mongodb.net suggests that your application is unable to connect to your MongoDB Atlas cluster. This could be due to a network issue or misconfiguration. Ensure that your MongoDB Atlas connection string is correctly configured in your .env file, and make sure your network allows connections to MongoDB Atlas.
+
+am i rly having the connection issue?
+i dont think so bcs i registered user to the cloud.
+if i have the issue, how would i?
 
 
+# currently this adding does nothing, but meant to play the role to not get invalid data
+
+// format the date appropriately
+    const formattedDate = user.createdAt instanceof Date ? user.createdAt.toISOString() : user.createdAt
+
+    this, from
+
+app.get('/user', async (req, res) => {
+  try {
+    // get access token from request header
+    const accessToken = req.headers.authorization
+    // find user in the database with access token
+    const user = await User.findOne({ accessToken })
+    // format the date appropriately
+    const formattedDate = user.createdAt instanceof Date ? user.createdAt.toISOString() : user.createdAt
+    // return user information
+    res.status(200).json({ createdAt: user.createdAt })
+  } catch (error) {
+    console.error('error fetching user:', error)
+    res.status(500).json({ message: 'Internal Server Error' })
+  }
+})
+
+
+# currently im having this err, but does nothing with displaying the result, no invalid date even i have this
+
+Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+
+# what i did
+is instead of
+<p>You are joined on {new Date(userData?.createdAt).toLocaleString()}</p>
+i removed new there, 
+<p>You are joined on {Date(userData?.createdAt).toLocaleString()}</p>
+from return for my app jsx
+
+return (
+    <div>
+      {isLoggedIn ? (
+        <div>
+          <h1>Welcome, User!</h1>
+          {/* <p>to see userData exists or not, i add : to check</p> */}
+          <p>You are joined on {Date(userData?.createdAt).toLocaleString()}</p>
+          <button onClick={handleLogout}>try again?</button>
+        </div>
+      ) : (
+        <div>
+          <input type="text" placeholder="Name" value={inputName} onChange={handleNameChange} />
+          <input type="text" placeholder="Email" value={inputEmail} onChange={handleEmailChange} />
+          <input type="password" placeholder="Password" value={inputPassword} onChange={handlePasswordChange} />
+          <button onClick={handleButtonClick}>submit</button>
+        </div>
+      )}
+    </div>
+  )
+};
+
+
+dk why i got new there. was from chatgpt. and when i removed new, i got data, no invalid date,
+so i removed this adding, that i did for data handling purpose, as well, bcs it does nothing
+// format the date appropriately
+    const formattedDate = user.createdAt instanceof Date ? user.createdAt.toISOString() : user.createdAt
+
+this, from
+
+app.get('/user', async (req, res) => {
+  try {
+    // get access token from request header
+    const accessToken = req.headers.authorization
+    // find user in the database with access token
+    const user = await User.findOne({ accessToken })
+    // format the date appropriately
+    const formattedDate = user.createdAt instanceof Date ? user.createdAt.toISOString() : user.createdAt
+    // return user information
+    res.status(200).json({ createdAt: user.createdAt })
+  } catch (error) {
+    console.error('error fetching user:', error)
+    res.status(500).json({ message: 'Internal Server Error' })
+  }
+})
+
+# so.. no problem with fetch at least? i mean, i dont care err i have now,
+Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+bcs it does nothing currently
+
+# wait, no, it presents current time, not createdAt
+
+Welcome, User!
+You are joined on Mon Dec 25 2023 14:06:47 GMT+0100 (centraleuropeisk normaltid)
+
+try again?
+
+what is wrong with this?
+
+
+
+# the answer was
+
+Handle Token in Server Code:
+Ensure that you're correctly handling the Authorization header in the server code. You should extract the token from the header.
+javascript
+Copy code
+const accessToken = req.headers.authorization.split(' ')[1];
+Make sure to update this line in your /user route.
+
+
+like, how would i know this?
+i got this from chatgpt in accident
+and angry because if this is this much simple, 
+i needed to get this in seconds, not couple of days
+
+i strongly feel if i learnt things properly,
+i dont even need to deal this with chatgpt
+
+i mean, it is good to solve the problem,
+but this makes my life suffer in hell
+was not happy at all in these days
+and i think i have things to blame
+
+but yea, the one to blame is probably myself
+cause if ive done it earlier like 20 yrs before, im in no need to suffer with this nonsence
+i can blame the school,
+but that will end up with making my life destroyed
+ive already been like that, so, no more
+
+so it is just time... to... celeblate... the ... success...  idk... i dont think so...
+
+# so, the answer was const accessToken = req.headers.authorization.split(' ')[1];
+,
+but want to clarify why i had such this error. why this made the app fetch,
+and why couldnt before?
+
+
+# If you were getting null without split(' ')[1], it indicates that the Authorization header in your HTTP request was not in the expected format.
+
+The Authorization header for a Bearer token typically looks like this:
+
+css
+Copy code
+Authorization: Bearer {token}
+The word "Bearer" is followed by a space and then the actual token. If your header was different, for example, if it didn't include the word "Bearer" or if there was no space after "Bearer", the split operation would not work as expected.
