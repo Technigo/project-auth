@@ -737,3 +737,107 @@ css
 Copy code
 Authorization: Bearer {token}
 The word "Bearer" is followed by a space and then the actual token. If your header was different, for example, if it didn't include the word "Bearer" or if there was no space after "Bearer", the split operation would not work as expected.
+
+
+# i think i didnt even needed to use Bearer.
+but bcs im lazy, ill leave comment from chatgpt here and forget about it.
+when im willing to and happy and have full of energy,
+i might erase bearer... someday 
+
+
+
+
+currently this is using bearer. therefore I needed split.
+make me this to not use bearer, so I don't in need of use split
+
+ChatGPT
+If you want to modify your authentication approach to remove the "Bearer" prefix, you need to adjust both the server and the client accordingly. However, keep in mind that this goes against common standards, and it's generally recommended to use the "Bearer" prefix for security and interoperability reasons.
+
+Here's how you can modify your code:
+
+Server Side:
+In your server code, update the /user route to directly extract the token without the "Bearer" prefix:
+javascript
+Copy code
+app.get('/user', async (req, res) => {
+  try {
+    // get access token from request header without split
+    const accessToken = req.headers.authorization;
+    console.log('Received Access Token:', accessToken);
+
+    // find user in the database with access token
+    const user = await User.findOne({ accessToken });
+
+    console.log('User:', user);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // return user information
+    res.status(200).json({ createdAt: user.createdAt });
+  } catch (error) {
+    console.error('error fetching user:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+Client Side:
+Update the Authorization header in your React component to remove the "Bearer" prefix:
+javascript
+Copy code
+const fetchUserData = async (accessToken) => {
+  try {
+    const response = await fetch('http://localhost:8080/user', {
+      headers: {
+        Authorization: accessToken, // Remove 'Bearer' prefix
+      },
+    });
+
+    const userData = await response.json();
+    setUserData(userData);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+Remember, this modification might cause compatibility issues in the future, and it's essential to thoroughly understand the implications before deviating from common standards. It's generally recommended to follow established best practices unless you have a specific reason not to.
+
+
+
+two simple things to fix,
+ const accessToken = req.headers.authorization;   
+ this one without split
+ and remove bearer when you define token here
+ const fetchUserData = async (accessToken) => {
+  try {
+    const response = await fetch('http://localhost:8080/user', {
+      headers: {
+        Authorization: accessToken, // Remove 'Bearer' prefix
+      },
+    });
+
+
+    just to not put my time in the trashbox,
+    i mean it is clear that i wasted thousands of time,
+    with that bearer in no need actually,
+    i refuse to fix. need to be more happy and productive mood in order to remove unnecessary code that i did in waste of my life XD
+
+
+# what next?
+i didnt deployed this yet.
+i mean, i was, but tired of err so decided to forget it.
+when i deploy, i might in need of set route, like /user, using react-user-dom?
+or not? idk. but looks like that, bcs this seems to be SPA,
+but not in sure what happens after i render these things.
+i remember ive seen many routes, just for example for w15, happy thoughts api uses route
+when i try to fetch from the api
+
+might need navigation or something at client side
+
+probably having cors err again, ahh... dont even want to think about that
+but no. ive not deployed it yet(lets think like that), so.. enjoy!!!
+
+# oh no. i dont have sign-in endpoint, to authenticating a returning user.
+since access token is saved at localstorage, i thought i dont need this. 
+but since sign in doesnt means register, the user might want to sign in, not register,
+and probably dont have token at their local? sounds fun and actually this sounds necessary.
+lets do this tomorrow ❤️
