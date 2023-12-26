@@ -88,7 +88,7 @@ app.post('/users', async (req, res) => {
   }
 })
 
-app.post('login', async (req, res) => {
+app.post('/login', async (req, res) => {
   try {
     const { name, password } = req.body
     const user = await User.findOne({ name })

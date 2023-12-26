@@ -81,7 +81,7 @@ export const App = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: inputName, password: inputPassword}),
+        body: JSON.stringify({ name: inputName, password: inputPassword}),
       })
 
       if (!response.ok) {
