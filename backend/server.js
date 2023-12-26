@@ -82,8 +82,8 @@ app.post('/users', async (req, res) => {
     console.log('User saved successfully', user)
   } catch (error) {
     console.error('Error creating user:', error)
-    setRegistrationError(error.message)
-    res.status(400).json({message: 'could not create user', errors: error.message})
+    // setRegistrationError(error.message)
+    res.status(400).json({message: 'could not create user for some reason', errors: error.message})
     // get err
     // open diegos codealong
   }

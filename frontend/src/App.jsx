@@ -19,7 +19,7 @@ export const App = () => {
     }
   }, [])
 
-  const postID = async () => {
+  const postID = async (setRegistrationError) => {
     try {
       // const response = await fetch('https://one8-y5ov.onrender.com/users', {
       const response = await fetch('http://localhost:8080/users', {
@@ -36,6 +36,8 @@ export const App = () => {
       if (!response.ok) {
         const errorData = await response.json()
         console.error('Error response:', errorData)
+        // update the registration error state
+        setRegistrationError(errorData.message || 'could not create user')
         return
       }
 
@@ -49,6 +51,11 @@ export const App = () => {
       fetchUserData(data.accessToken) // fetch user data after successful login
     } catch (error) {
       console.error('error:', error)
+      setRegistrationError(error.message)
+      // res is not used so no need to use this here
+      // res.status(400).json({ message: 'could not create user', errors: error.message })
+      // update the registration error state
+      setRegistrationError(error.message || 'could not create user')
     }
   }
 
@@ -72,7 +79,7 @@ export const App = () => {
 
   const handleButtonClick = () => {
     // trigger the POST request when the button is clicked
-    postID()
+    postID(setRegistrationError)
   }
 
   const handleLogin = async () => {
