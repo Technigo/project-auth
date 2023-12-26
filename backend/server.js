@@ -88,6 +88,24 @@ app.post('/users', async (req, res) => {
   }
 })
 
+app.post('login', async (req, res) => {
+  try {
+    const { name, password } = req.body
+    const user = await User.findOne({ name })
+    if (!user) {
+      return res.status(401).json({ message: 'invalid name or password' })
+    }
+    const isPasswordValid = bcrypt.compareSync(password, user.password)
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'invalid name or password' })
+    }
+    res.status(200).json({ accessToken: user.accessToken })
+  } catch (error) {
+    console.error('Error during login:', error)
+    res.status(500).json({ message: 'internal server error' })
+  }
+})
+
 app.get('/user', async (req, res) => {
   try {
     // get access token from request header

@@ -6,6 +6,7 @@ export const App = () => {
   const [inputPassword, setInputPassword] = useState('')
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userData, setUserData] = useState(null)
+  const [loginError, setLoginError] = useState(null)
 
   useEffect(() => {
     // check if the user is already logged in by looking for the access token in local storage
@@ -73,6 +74,34 @@ export const App = () => {
     postID()
   }
 
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: inputName, password: inputPassword}),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        console.error('Login failed:', errorData)
+        setLoginError('Invalid email or password. Please try again.')
+        return
+      }
+
+      const data = await response.json()
+
+      // store token in localstorage
+      localStorage.setItem('accessToken', data.accessToken)
+      setIsLoggedIn(true) // update state bcs local has token
+      fetchUserData(data.accessToken) // fetch data after login success
+    } catch (error) {
+      console.error('err during login:', error)
+    }
+  }
+
   const fetchUserData = async (accessToken) => {
     try {
       const response = await fetch('http://localhost:8080/user', {
@@ -102,10 +131,17 @@ export const App = () => {
         </div>
       ) : (
         <div>
+          <h2>Register</h2>
           <input type="text" placeholder="Name" value={inputName} onChange={handleNameChange} />
           <input type="text" placeholder="Email" value={inputEmail} onChange={handleEmailChange} />
           <input type="password" placeholder="Password" value={inputPassword} onChange={handlePasswordChange} />
           <button onClick={handleButtonClick}>submit</button>
+          <p style={{ color: 'red' }}>{loginError}</p>
+          <hr />
+          <h2>Login</h2>
+          <input type="text" placeholder="Name" value={inputName} onChange={handleNameChange} />
+          <input type="password" placeholder="Password" value={inputPassword} onChange={handlePasswordChange}/>
+          <button onClick={handleLogin}>Login</button>
         </div>
       )}
     </div>
