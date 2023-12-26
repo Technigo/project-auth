@@ -642,3 +642,6 @@ its too late but regardless of that, i want to dive into this without hesistatin
 and make myself to go forward, to get further education or job, whatever,
 the thing is i rly dont want to stay here crying and using curse word for those who were unfortunately had been with me. i mean it is their fault, but i dont want to hurt myself anymore. i dont want to get up in anger and slow down that anger when i wrap up the day. my life is wasted and i admit this, i dont validate the education i had just because i dont want to admit the fact. but the thing is what i might need is stop hurting myself like this. i was happy bcs i lived life that i wanted, and now, im giving my best to, continue this, by any way, and i need portfolio for that purpose.
 
+# deploy? no. resubmit? no. there is no need if i feel this is having end.
+when i have some time or energy or will to work or something ill probably come back,
+but goodbye, for now
