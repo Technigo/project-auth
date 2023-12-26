@@ -7,6 +7,7 @@ export const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userData, setUserData] = useState(null)
   const [loginError, setLoginError] = useState(null)
+  const [registrationError, setRegistrationError] = useState(null)
 
   useEffect(() => {
     // check if the user is already logged in by looking for the access token in local storage
@@ -136,7 +137,7 @@ export const App = () => {
           <input type="text" placeholder="Email" value={inputEmail} onChange={handleEmailChange} />
           <input type="password" placeholder="Password" value={inputPassword} onChange={handlePasswordChange} />
           <button onClick={handleButtonClick}>submit</button>
-          <p style={{ color: 'red' }}>{loginError}</p>
+          <p style={{ color: 'red' }}>{loginError}{registrationError}</p>
           <hr />
           <h2>Login</h2>
           <input type="text" placeholder="Name" value={inputName} onChange={handleNameChange} />
