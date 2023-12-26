@@ -53,7 +53,7 @@ export const App = () => {
       console.error('error:', error)
       setRegistrationError(error.message)
       // res is not used so no need to use this here
-      // res.status(400).json({ message: 'could not create user', errors: error.message })
+      // res.status(400).jso n({ message: 'could not create user', errors: error.message })
       // update the registration error state
       setRegistrationError(error.message || 'could not create user')
     }
@@ -95,7 +95,7 @@ export const App = () => {
       if (!response.ok) {
         const errorData = await response.json()
         console.error('Login failed:', errorData)
-        setLoginError('Invalid email or password. Please try again.')
+        setLoginError('Invalid name or password. Please try again.')
         return
       }
 

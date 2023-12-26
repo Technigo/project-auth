@@ -471,3 +471,174 @@ and come back with better mood
 
 and i think this is nothing with setregistrationerror. gpt seemed added things that not needed.
 when i am willing to, i need to remove those
+
+# Make sure to clear or reset the error state appropriately (for example, when the user dismisses the error or successfully registers) to provide a clean experience when interacting with your application.
+
+i probably need to do this, but whatever, im out.
+
+
+# how do I show this json at frontend? 
+} catch (error) {
+  console.error('Error creating user:', error)
+  res.status(400).json({ message: 'could not create user for some reason', errors: error.message })
+}
+
+
+how do I show this json at frontend? 
+
+ChatGPT
+In your React component (App.jsx), you have the following code to display error messages received from the server:
+
+jsx
+Copy code
+<p style={{ color: 'red' }}>{loginError}{registrationError}</p>
+This code assumes that loginError and registrationError are state variables that store the error messages. Based on your code, it seems like you're setting the error messages in the state when handling registration errors. For example:
+
+jsx
+Copy code
+setRegistrationError(error.message || 'could not create user');
+This sets the registration error message in the component's state, and you're using it to display the error message in your JSX.
+
+Here's a breakdown:
+
+When an error occurs during user registration in your API, you catch the error and send a JSON response with the error message:
+javascript
+Copy code
+} catch (error) {
+  console.error('Error creating user:', error);
+  res.status(400).json({ message: 'could not create user for some reason', errors: error.message });
+}
+In your React component, you have state variables to hold the error messages:
+jsx
+Copy code
+const [loginError, setLoginError] = useState(null);
+const [registrationError, setRegistrationError] = useState(null);
+When an error occurs during registration, you set the error message in the state:
+jsx
+Copy code
+setRegistrationError(error.message || 'could not create user');
+Finally, you display the error message in your JSX:
+jsx
+Copy code
+<p style={{ color: 'red' }}>{loginError}{registrationError}</p>
+Make sure to clear or reset the error state appropriately (for example, when the user dismisses the error or successfully registers) to provide a clean experience when interacting with your application.
+
+
+# i have problem with 
+The authenticated endpoint should return a 401 or 403 (see 401 vs. 403 on SO) with an error message if you try to access it without an Authentication access token or with an invalid token.
+because regardless of that i have this at my frontend side,
+i dont have this working at my backend side(at backend terminal)
+and the authenticated endpoint should return ... this one probably means
+endpoint = backend
+so should work for backend.
+i did my best to display err msg at backend side, 
+
+at here,
+
+app.get('/user', async (req, res) => {
+  try {
+    // check if auth header exists
+    if(!req.headers.authorization) {
+      return res.status(401).json({ message: 'Unauthorized: Missing access token'})
+    }
+    // get access token from request header
+    const accessToken = req.headers.authorization.split(' ')[1]
+    console.log('Received Access Token:', accessToken)
+    // find user in the database with access token
+    const user = await User.findOne({ accessToken })
+    console.log('User:', user)
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    // return user information
+    res.status(200).json({ createdAt: user.createdAt })
+  } catch (error) {
+    console.error('error fetching user:', error)
+    // res.status(500).json({ message: 'Internal Server Error' })
+    res.status(401).json({ message: 'Unauthorized: Invalid access token' })
+  }
+})
+
+adding lines like
+ // check if auth header exists
+    if(!req.headers.authorization) {
+      return res.status(401).json({ message: 'Unauthorized: Missing access token'})
+    }
+
+and
+} catch (error) {
+    console.error('error fetching user:', error)
+    // res.status(500).json({ message: 'Internal Server Error' })
+    res.status(401).json({ message: 'Unauthorized: Invalid access token' })
+  }
+})
+
+but none of those working, and couldnt catch the reason, 
+this made me not feeling well.
+
+but seeing this line from gpt made me explode
+
+However, keep in mind that if there is a network error or a CORS issue, the browser may not expose the detailed error information to your frontend due to security policies. In such cases, you might see a generic error message in the frontend console.
+
+
+i dont want to take care of network issue anymore.
+ive had that enough.
+
+
+
+but the fact is gpt is likely to say whatever it programmed to say
+so i got angry by the text, not the fact.
+
+
+i still dont know why my backend is not showing me any err log
+
+
+but what is meaning of this actually?
+
+
+The authenticated endpoint should return a 401 or 403 (see 401 vs. 403 on SO) with an error message if you try to access it without an Authentication access token or with an invalid token.
+
+endpoint = backend
+401 or 403 = should take place at backend console, for example, vscode terminal
+
+
+what i failed: to see err msg at backend terminal
+
+reason : dk why. but im tired and frustrated by this
+
+
+# so?
+ill skip this, and see what happens next
+if this is that much important, 
+i might not go forward.
+when i resubmit this project
+this might not be passed
+if they pass this project
+that means here is no problem
+(or they actually dont care what i actually did, who knows)
+so i stop here by stop generating more unnecessary pain
+
+
+# so.. what left? stretch goals?
+no. ill stop here
+i might be come back
+just like im in need of come back to every weekly project
+bcs ive never thought ive learned things properly
+(there was only one week for the exeption. now i dont even remember when that was)
+
+
+what next is dive me into final project.
+i dont actually care for final project,
+but the thing is this one will work for me for portfolio to apply further education
+and since i have nothing that i can say 
+that made by myself,
+so since i dont feel to put any of the weekly projects ive done to the actual portfolio,
+
+i mean, this might be the first trial to create something that is made by me
+its too late but regardless of that, i want to dive into this without hesistating
+
+and make myself to go forward, to get further education or job, whatever,
+the thing is i rly dont want to stay here crying and using curse word for those who were unfortunately had been with me. i mean it is their fault, but i dont want to hurt myself anymore. i dont want to get up in anger and slow down that anger when i wrap up the day. my life is wasted and i admit this, i dont validate the education i had just because i dont want to admit the fact. but the thing is what i might need is stop hurting myself like this. i was happy bcs i lived life that i wanted, and now, im giving my best to, continue this, by any way, and i need portfolio for that purpose.
+

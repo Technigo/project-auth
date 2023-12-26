@@ -109,6 +109,10 @@ app.post('/login', async (req, res) => {
 
 app.get('/user', async (req, res) => {
   try {
+    // check if auth header exists
+    if(!req.headers.authorization) {
+      return res.status(401).json({ message: 'Unauthorized: Missing access token'})
+    }
     // get access token from request header
     const accessToken = req.headers.authorization.split(' ')[1]
     console.log('Received Access Token:', accessToken)
@@ -124,7 +128,8 @@ app.get('/user', async (req, res) => {
     res.status(200).json({ createdAt: user.createdAt })
   } catch (error) {
     console.error('error fetching user:', error)
-    res.status(500).json({ message: 'Internal Server Error' })
+    // res.status(500).json({ message: 'Internal Server Error' })
+    res.status(401).json({ message: 'Unauthorized: Invalid access token' })
   }
 })
 
