@@ -24,14 +24,18 @@ export const Flowers = () => {
     console.log('Flower state set with', flower);
 }, [type]);
 
-  const handleAddToCart = () => {
-    if (!isLoggedIn) {
-      navigate('/login');
-    } else {
-      addToCart(type, subscriptionOption, quantity, flower.price, isLoggedIn, id);
-      navigate(`/cart/${id}`);
-    }
-  };
+const handleAddToCart = () => {
+  if (!isLoggedIn) {
+    alert('You must be logged in to proceed.');
+    // Save product choices to local storage
+    localStorage.setItem('productChoice', JSON.stringify({ type, subscriptionOption, quantity, price: flower.price }));
+    // Redirect to login with a return path
+    navigate(`/login?redirect=${encodeURIComponent(`/flowers/${type}`)}`);
+  } else {
+    addToCart(type, subscriptionOption, quantity, flower.price, isLoggedIn, id);
+    navigate(`/cart/${id}`);
+  }
+};
 
   const handleOptionChange = (option) => {
     setSubscriptionOption(option);
