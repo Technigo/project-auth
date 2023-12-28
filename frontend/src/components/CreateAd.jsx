@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { adStore } from './path/to/adStore';
+import { adStore } from "../stores/adStore";
 
 export const CreateAd = () => {
     const [brand, setBrand] = useState('');
@@ -37,8 +37,13 @@ export const CreateAd = () => {
             </div>
             <div>
                 <label>Image:</label>
-                <input type="file" onChange={(e) => setImage(e.target.files[0])} />
-            </div>
+                <input
+                    type="file"
+                    onChange={(e) => {
+                        setImage(e.target.files[0]);
+                        console.log(e.target.files[0]); // Log the file object here
+                    }}
+                />            </div>
             <button type="submit">Create Ad</button>
         </form>
     );

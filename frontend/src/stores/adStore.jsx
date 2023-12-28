@@ -87,6 +87,7 @@ export const adStore = create((set) => ({
 
   // New action to add an ad to the server and then to the store
   createAd: async (newAdData, imageFile) => {
+    console.log("imageFile:", imageFile); // Log the imageFile here
     try {
       const formData = new FormData();
       formData.append('brand', newAdData.brand);
@@ -98,7 +99,6 @@ export const adStore = create((set) => ({
         method: "POST",
         headers: {
           Authorization: localStorage.getItem("accessToken"),
-          // "Content-Type" is not needed when using FormData
         },
         body: formData,
       });

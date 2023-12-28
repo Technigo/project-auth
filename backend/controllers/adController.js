@@ -10,6 +10,7 @@ import cloudinary from "../config/cloudinaryConfig";
 // route: /getAllAds
 // access: Private
 export const getAllAdsController = asyncHandler(async (req, res) => {
+  const userStorage = req.user;
   const allAds = await AdModel.find().populate("user", "username");
   res.status(200).json(allAds);
 });

@@ -1,17 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { userStore } from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import { AdsList } from "../components/AdsList";
+import { CreateAd } from "../components/CreateAd";
+import { ErrorMessage } from '../components/ErrorMessage';
+import { SuccessMessage } from '../components/SuccessMessage';
+
+
 
 export const Home = () => {
     // Define text content for the heading and subheading.
     const text = {
-        heading: "Welcome!",
+        heading: "Welcome back!",
         subheading: "Check out the latest sneakers",
     };
 
     // Access the 'handleLogout' function from the 'userStore'.
     const storeHandleLogout = userStore((state) => state.handleLogout);
+
+    // Handle error & success messages
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
 
     // Use the 'useNavigate' hook to programmatically navigate between routes.
     const navigate = useNavigate();
@@ -25,7 +34,7 @@ export const Home = () => {
     useEffect(() => {
         if (!isLoggedIn) {
             // If the user is not logged in, show an alert and navigate to the login route.
-            alert("no permission - here");
+            setError("no permission - here");
             navigate("/"); // You can change this to the login route
         }
     }, [isLoggedIn, navigate]);
@@ -34,7 +43,7 @@ export const Home = () => {
     const onLogoutClick = () => {
         storeHandleLogout(); // Call the 'handleLogout' function from 'userStore'.
         // Additional logic after logout can be added here.
-        alert("Log out successful");
+        setSuccess("Log out successful");
         navigate("/"); // You can change this to the login route
     };
 
@@ -43,6 +52,10 @@ export const Home = () => {
             <button onClick={onLogoutClick}>Sign Out</button>
             <h1>{text.heading}</h1>
             <h2>{text.subheading}</h2>
+            {/* Display error message if there is an error */}
+            {error && <ErrorMessage message={error} />}
+            {success && <SuccessMessage message={success} />}
+            <CreateAd />
             <AdsList />
         </>
     )

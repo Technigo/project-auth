@@ -2,12 +2,16 @@ import { userStore } from "../stores/userStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../components/BackButton"
+import { ErrorMessage } from '../components/ErrorMessage';
+
 
 export const Register = () => {
     // States
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
     // Initialize the navigate function
     const navigate = useNavigate();
 
@@ -17,7 +21,7 @@ export const Register = () => {
     // Combined function for handling the signup click event
     const onSignupClick = async () => {
         if (!username || !password || !email) {
-            alert("Please enter email, username and password");
+            setError("Please enter email, username and password");
             return;
         }
         try {
@@ -28,7 +32,7 @@ export const Register = () => {
         } catch (error) {
             // Handle any errors that occur during signup
             console.error("Signup error:", error);
-            alert("An error occurred during signup");
+            setError("An error occurred during signup");
         }
     };
 
@@ -48,24 +52,35 @@ export const Register = () => {
                 <h2>{text.heading}</h2>
                 <p>{text.intro}</p>
                 <p>{text.loremIpsum}</p>
+                {/* Display error message if there is an error */}
+                {error && <ErrorMessage message={error} />}
                 <div className="user-registration">
                     <input
                         type="text"
                         placeholder="Email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {
+                            setError(""); // Clear error when user starts typing
+                            setEmail(e.target.value);
+                        }}
                     />
                     <input
                         type="text"
                         placeholder="Username"
                         value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        onChange={(e) => {
+                            setError(""); // Clear error when user starts typing
+                            setUsername(e.target.value);
+                        }}
                     />
                     <input
                         type="password"
                         placeholder="Password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => {
+                            setError(""); // Clear error when user starts typing
+                            setPassword(e.target.value);
+                        }}
                     />
                     <button onClick={onSignupClick}>Sign Up</button>
                 </div>
