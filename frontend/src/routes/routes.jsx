@@ -15,7 +15,7 @@ export const routes = (
     <Route path="/" element={<Home />} />
     <Route path="/profile/:id" element={<Profile />} />
     <Route path="/profile/:id/edit" element={<ProfileForm />} />
-    <Route path="/flowers" element={<Flowers />} />
+    <Route path="/flowers/:type" element={<Flowers />} />
     <Route path="/cart/:id" element={<Cart />} />
     <Route path="*" element={<NotFound />} />
   </>
