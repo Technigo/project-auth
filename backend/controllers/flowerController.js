@@ -30,4 +30,3 @@ export const getFlowerByType = asyncHandler(async (type, req, res) => {
     }
 });
 
-

@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { cartStore } from '../../stores/cartStore';
 import { userStore } from '../../stores/userStore';
 
+const allFlowerTypes = ['basic', 'standard', 'large'];
+
 export const Flowers = () => {
   const { type } = useParams();
   const navigate = useNavigate();
@@ -13,29 +15,39 @@ export const Flowers = () => {
   const [subscriptionOption, setSubscriptionOption] = useState('weekly');
   const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    const fetchSpecificFlower = async () => {
-        const flowers = await cartStore.getState().fetchFlowers(type);
-        if (flowers) {
-            setFlower(flowers); 
-        }
-    };
-    fetchSpecificFlower();
-    console.log('Flower state set with', flower);
-}, [type]);
+  // Filter out the current flower type to get the other types
+  const otherFlowerTypes = allFlowerTypes.filter(t => t !== type);
 
-const handleAddToCart = () => {
-  if (!isLoggedIn) {
-    alert('You must be logged in to proceed.');
-    // Save product choices to local storage
-    localStorage.setItem('productChoice', JSON.stringify({ type, subscriptionOption, quantity, price: flower.price }));
-    // Redirect to login with a return path
-    navigate(`/login?redirect=${encodeURIComponent(`/flowers/${type}`)}`);
-  } else {
-    addToCart(type, subscriptionOption, quantity, flower.price, isLoggedIn, id);
-    navigate(`/cart/${id}`);
-  }
-};
+  useEffect(() => {
+
+    const fetchSpecificFlower = async () => {
+      const flowers = await cartStore.getState().fetchFlowers(type);
+      if (flowers) {
+        setFlower(flowers);
+      }
+    };
+
+    fetchSpecificFlower();
+  }, [type]);
+
+
+  const handleAddToCart = () => {
+    if (!isLoggedIn) {
+      alert('You must be logged in to proceed.');
+      const productDetails = { type, subscriptionOption, quantity, price: flower.price };
+      console.log('Saving product to local storage:', productDetails);
+
+      // Make sure to use the same local storage key as in your Login component
+      localStorage.setItem('tempCart', JSON.stringify(productDetails));
+
+      // Redirect to login with a return path that includes the product type
+      navigate(`/login?redirect=${encodeURIComponent(`/flowers/${type}`)}`);
+    } else {
+      addToCart(type, subscriptionOption, quantity, flower.price, isLoggedIn, id);
+      navigate(`/cart/${id}`);
+    }
+  };
+
 
   const handleOptionChange = (option) => {
     setSubscriptionOption(option);
@@ -85,7 +97,11 @@ const handleAddToCart = () => {
       </section>
       <section>
         <h2>Other items</h2>
-        {/* Links to other product pages */}
+        {otherFlowerTypes.map((otherType) => (
+          <p key={otherType}>
+            <a href={`/flowers/${otherType}`}>{otherType}</a>
+          </p>
+        ))}
       </section>
     </>
   );
