@@ -20,17 +20,14 @@ export const Flowers = () => {
   const otherFlowerTypes = allFlowerTypes.filter(t => t !== type);
 
   useEffect(() => {
-
     const fetchSpecificFlower = async () => {
-      const flowers = await cartStore.getState().fetchFlowers(type);
+      const flowers = await fetchFlowers(type);
       if (flowers) {
         setFlower(flowers);
       }
     };
-
     fetchSpecificFlower();
-  }, [type]);
-
+  }, [type, fetchFlowers]);
 
   const handleAddToCart = () => {
     if (!isLoggedIn) {
