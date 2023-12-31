@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { cartStore } from '../../stores/cartStore';
 import { userStore } from '../../stores/userStore';
@@ -99,7 +100,7 @@ export const Flowers = () => {
         <h2>Other items</h2>
         {otherFlowerTypes.map((otherType) => (
           <p key={otherType}>
-            <a href={`/flowers/${otherType}`}>{otherType}</a>
+            <Link to={`/flowers/${otherType}`}>{otherType}</Link>
           </p>
         ))}
       </section>
