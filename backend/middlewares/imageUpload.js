@@ -5,10 +5,11 @@ import cloudinary from "../config/cloudinaryConfig.js";
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: 'your_folder',
+    folder: 'sneakers',
     allowedFormats: ['jpg', 'png'],
+    transformation: [{ width: 500, height: 500, crop: 'limit' }],
   },
-});
+})
 
 const parser = multer({ storage });
 

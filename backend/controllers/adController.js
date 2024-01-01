@@ -34,6 +34,7 @@ export const getAdsController = asyncHandler(async (req, res) => {
 export const createAdController = asyncHandler(async (req, res) => {
   try {
     console.log("Request body:", req.body); // Log the entire request body
+    console.log("req.file", req.file);
     const { brand, model } = req.body;
     const accessToken = req.header("Authorization");
     const userFromStorage = await UserModel.findOne({ accessToken });
