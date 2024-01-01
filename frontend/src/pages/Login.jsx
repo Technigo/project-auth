@@ -1,44 +1,37 @@
-import { BackButton } from "../components/BackButton"
-import { userStore } from "../stores/userStore"; // Make sure this is correctly imported
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import { ErrorMessage } from '../components/ErrorMessage';
-
+import { userStore } from "../stores/userStore";
+import { BackButton } from "../components/BackButton";
 
 export const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    // Function to handle the click event of the login button
     const storeHandleLogin = userStore((state) => state.handleLogin);
 
-    // Combined function for handling the login click event
     const onLoginClick = async () => {
         if (!username || !password) {
             setError("Please enter both username and password");
             return;
         }
+        setIsLoading(true);
         try {
             await storeHandleLogin(username, password);
-            const isLoggedIn = userStore.getState().isLoggedIn;
-            console.log(isLoggedIn);
-            if (isLoggedIn) {
+            if (userStore.getState().isLoggedIn) {
                 navigate("/home");
             }
-            // Additional logic after successful login can be added here
         } catch (error) {
-            // Handle any errors that occur during login
             console.error("Login error:", error);
             setError("An error occurred during login");
+        } finally {
+            setIsLoading(false);
         }
     };
-    
 
-
-
-    // Text
     const text = {
         heading: "Login",
         loremIpsum: "Please enter username and password"
@@ -50,31 +43,33 @@ export const Login = () => {
                 <BackButton />
                 <h2>{text.heading}</h2>
                 <p>{text.loremIpsum}</p>
-                {/* Display error message if there is an error */}
                 {error && <ErrorMessage message={error} />}
-                <div className="user-login">
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => {
-                            setError(""); // Clear error when user starts typing
-                            setUsername(e.target.value);
-                        }}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => {
-                            setError(""); // Clear error when user starts typing
-                            setPassword(e.target.value);
-                        }}
-                    />
-                    <button onClick={onLoginClick}>Login</button>
-                </div>
+                {isLoading ? (
+                    <div>Loading...</div>  // Here you can place a spinner or loading animation
+                ) : (
+                    <div className="user-login">
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => {
+                                setError("");
+                                setUsername(e.target.value);
+                            }}
+                        />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => {
+                                setError("");
+                                setPassword(e.target.value);
+                            }}
+                        />
+                        <button onClick={onLoginClick}>Login</button>
+                    </div>
+                )}
             </div>
         </>
-    )
-
-}
+    );
+};

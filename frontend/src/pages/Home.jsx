@@ -9,6 +9,11 @@ import { SuccessMessage } from '../components/SuccessMessage';
 
 
 export const Home = () => {
+    // Function to toggle dark mode
+    const toggleDarkMode = () => {
+        document.body.classList.toggle('dark-mode');
+    };
+
     // Define text content for the heading and subheading.
     const text = {
         heading: "Welcome back!",
@@ -50,6 +55,9 @@ export const Home = () => {
     return (
         <>
             <button onClick={onLogoutClick}>Sign Out</button>
+            <button className="toggle-dark-mode" onClick={toggleDarkMode}>
+                Dark Mode
+            </button>
             <h1>{text.heading}</h1>
             <h2>{text.subheading}</h2>
             {/* Display error message if there is an error */}
