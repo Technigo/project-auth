@@ -20,14 +20,32 @@ export const Flowers = () => {
   const otherFlowerTypes = allFlowerTypes.filter(t => t !== type);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchSpecificFlower = async () => {
-      const flowers = await fetchFlowers(type);
-      if (flowers) {
-        setFlower(flowers);
+      // Check if the flowers data for the current type is already fetched
+      const flowerData = cartStore.getState().flowers[type];
+      if (!flowerData) {
+        // If not fetched, then call the fetchFlowers function
+        const newFlowerData = await fetchFlowers(type);
+        if (isMounted && newFlowerData) {
+          console.log('Fetched flower data:', newFlowerData);
+          setFlower(newFlowerData);
+        }
+      } else {
+        // If already fetched, use the existing data
+        if (isMounted) {
+          console.log('Using cached flower data:', flowerData);
+          setFlower(flowerData);
+        }
       }
     };
     fetchSpecificFlower();
-  }, [type, fetchFlowers]);
+    return () => {
+      isMounted = false;
+    };
+  }, [type]); 
+  
+  
 
   useEffect(() => {
     console.log("Checking for tempCart in localStorage");

@@ -3,7 +3,8 @@ import { create } from "zustand";
 const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 export const cartStore = create(((set, get) => ({
-    flowers: [],
+    flowers: {},
+  fetchedTypes: new Set(),
     cart: {
         type: null,
         subscriptionOption: null,
@@ -31,31 +32,43 @@ export const cartStore = create(((set, get) => ({
         }
     },
     fetchFlowers: async (type) => {
-        try {
-            const response = await fetch(`${apiEnv}/flowers/${type}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const flowerData = await response.json();
-            if (flowerData.success) {
-                set({ flowers: flowerData.response });
-                console.log('Flower data fetched', flowerData);
-                return flowerData.response;
-
-            } else {
-                console.error('Fetching flowers was not successful', flowerData);
-            }
-        } catch (error) {
-            console.error('Error fetching flowers:', error);
+        // Check if the data is already fetched
+        const alreadyFetched = get().fetchedTypes.has(type);
+        
+        if (alreadyFetched) {
+          // Data is cached, log a message and return the cached data
+          console.log(`Using cached flowers for type: ${type}`);
+          return get().flowers[type];
         }
-    },
+        
+        try {
+          // Data is not cached, log a message and fetch the data
+          console.log(`Fetching flowers for type: ${type}`);
+          const response = await fetch(`${apiEnv}/flowers/${type}`);
+          
+          if (!response.ok) {
+            console.error(`Error fetching flowers: ${response.status}`);
+            return;
+          }
+          
+          const flowerData = await response.json();
+          
+          if (flowerData.success) {
+            // Update the state with the fetched data and mark it as fetched
+            set((state) => ({
+              flowers: { ...state.flowers, [type]: flowerData.response },
+              fetchedTypes: new Set(state.fetchedTypes).add(type),
+            }));
+            
+            return flowerData.response;
+          } else {
+            console.error('Fetching flowers was not successful', flowerData);
+          }
+        } catch (error) {
+          console.error('Error fetching flowers:', error);
+        }
+      }
+      
 })
 ));
 
