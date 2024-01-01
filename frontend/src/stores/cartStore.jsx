@@ -2,31 +2,31 @@ import { create } from "zustand";
 
 const apiEnv = import.meta.env.VITE_BACKEND_API;
 
-export const cartStore = create(((set) => ({
+export const cartStore = create(((set, get) => ({
     flowers: [],
     cart: {
-        flowerType: null,
+        type: null,
         subscriptionOption: null,
         quantity: null,
         price: null,
-        isTemporary: false,
     },
-    addToCart: (flowerType, subscriptionOption, quantity, price, isLoggedIn, userId) => {
+    addToCart: (type, subscriptionOption, quantity, price, isLoggedIn, userId) => {
+        console.log('Current cart state before update:', get().cart);
         if (isLoggedIn) {
             // If the user is logged in, update the cart state.
             set({
                 cart: {
-                    flowerType,
+                    type,
                     subscriptionOption,
                     quantity,
                     price,
-                    isTemporary: false,
                     userId,
                 },
             });
+            console.log('New cart state after update:', get().cart);
         } else {
             // If the user is not logged in, save to localStorage instead.
-            const cartData = { flowerType, subscriptionOption, quantity, price };
+            const cartData = { type, subscriptionOption, quantity, price };
             localStorage.setItem('tempCart', JSON.stringify(cartData));
         }
     },
@@ -60,9 +60,13 @@ export const cartStore = create(((set) => ({
 ));
 
 export const retrieveCartFromStorage = (userId) => {
+    console.log('Retrieving cart from local storage');
     const cartData = JSON.parse(localStorage.getItem('tempCart'));
+    console.log('Cart data retrieved:', cartData);
     if (cartData) {
-        cartStore.getState().addToCart(cartData.flowerType, cartData.subscriptionOption, cartData.quantity, cartData.price, true, userId);
-        localStorage.removeItem('tempCart'); // Clear the temporary cart data
+        console.log('User logged in, updating cart with stored data');
+        cartStore.getState().addToCart(cartData.type, cartData.subscriptionOption, cartData.quantity, cartData.price, true, userId);
+        localStorage.removeItem('tempCart'); // Clear the temporary cart data after moving it to state
+        console.log('Local storage after clearing:', localStorage.getItem('tempCart')); // Confirming the local storage is cleared
     }
 };

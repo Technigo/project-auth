@@ -47,13 +47,15 @@ export const userStore = create((set, get) => ({
   },
 
   // LOGIN
-  handleLogin: async (username, password) => {
+  handleLogin: async (username, password, redirectPath) => {
+    console.log("handleLogin invoked with:", { username, password, redirectPath });
     if (!username || !password) {
       alert("Please enter both username and password");
       return;
     }
 
     try {
+      console.log("Sending login request to server");
       const response = await fetch(`${apiEnv}/login`, {
         method: "POST",
         headers: {
@@ -63,7 +65,8 @@ export const userStore = create((set, get) => ({
       });
 
       const data = await response.json();
-      if (response.ok) {
+      console.log("Login response:", data);
+      if (response.ok && data.success) {
         set({
           username: username,
           accessToken: data.response.accessToken,
@@ -73,14 +76,17 @@ export const userStore = create((set, get) => ({
         // Redirect or update UI
         localStorage.setItem("accessToken", data.response.accessToken);
 
-        alert("Login successful!");
+        console.log("Login successful!");
+        return true; 
       } else {
         // Display error message from server
         alert(data.message || "Login failed");
+        return false;
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("An error occurred during login");
+      alert("An error occurred during login: " + (error.message || JSON.stringify(error)));
+      return false;
     }
   },
 

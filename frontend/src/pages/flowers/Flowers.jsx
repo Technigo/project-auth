@@ -29,18 +29,43 @@ export const Flowers = () => {
     fetchSpecificFlower();
   }, [type, fetchFlowers]);
 
+  useEffect(() => {
+    console.log("Checking for tempCart in localStorage");
+    const storedCartData = localStorage.getItem('tempCart');
+    if (storedCartData) {
+      const cartData = JSON.parse(storedCartData);
+      setSubscriptionOption(cartData.subscriptionOption);
+      setQuantity(cartData.quantity);
+
+      console.log('Updated state for subscriptionOption:', cartData.subscriptionOption);
+      console.log('Updated state for quantity:', cartData.quantity);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const cart = cartStore.getState().cart;
+      if (cart) {
+        setSubscriptionOption(cart.subscriptionOption);
+        setQuantity(cart.quantity);
+      }
+    }
+  }, [isLoggedIn]);
+
   const handleAddToCart = () => {
+    console.log('Add to Cart Clicked');
     if (!isLoggedIn) {
+      console.log('User not logged in, redirecting to login page');
       alert('You must be logged in to proceed.');
       const productDetails = { type, subscriptionOption, quantity, price: flower.price };
       console.log('Saving product to local storage:', productDetails);
 
-      // Make sure to use the same local storage key as in your Login component
       localStorage.setItem('tempCart', JSON.stringify(productDetails));
+      console.log('Local storage after saving:', localStorage.getItem('tempCart'));
 
-      // Redirect to login with a return path that includes the product type
       navigate(`/login?redirect=${encodeURIComponent(`/flowers/${type}`)}`);
     } else {
+      console.log('User is logged in, adding to cart');
       addToCart(type, subscriptionOption, quantity, flower.price, isLoggedIn, id);
       navigate(`/cart/${id}`);
     }
