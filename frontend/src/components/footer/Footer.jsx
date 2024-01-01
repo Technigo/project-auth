@@ -1,15 +1,16 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Translate } from "../../pages/Translate";
+import { useTranslation } from "react-i18next";
 // import styles from "../footer/footer.module.css"
 
 export const Footer = () => {
+  const { t } = useTranslation(); // Add useTranslation() function to access 't' function
   const [bouquetMenuOpen, setbouquetMenuOpen] = useState(false);
-  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const toggleBouquetMenu = () => {
     setbouquetMenuOpen(!bouquetMenuOpen);
   };
-  const toggleLanguageMenu = () => {
-    setLanguageMenuOpen(!languageMenuOpen);
-  };
+
   return (
     <footer>
       <div>
@@ -25,9 +26,15 @@ export const Footer = () => {
             <div>
               {bouquetMenuOpen && (
                 <ul>
-                  <li>Basic bouquet</li>
-                  <li>Standard bouquet</li>
-                  <li>Large bouquet</li>
+                  <li>
+                    <Link to="/flowers/basic">Basic bouquet</Link>
+                  </li>
+                  <li>
+                    <Link to="/flowers/standard">Standard bouquet</Link>
+                  </li>
+                  <li>
+                    <Link to="/flowers/large">Large bouquet</Link>
+                  </li>
                 </ul>
               )}
             </div>
@@ -35,21 +42,7 @@ export const Footer = () => {
           <li>Service</li>
           <li>Contact Us</li>
           <li>
-            Language
-            <button onClick={toggleLanguageMenu}>
-              <img
-                src="../../../src/assets/icons/icons8-down-48.png"
-                alt="scrolldown menu"
-              />
-            </button>
-            <div>
-              {languageMenuOpen && (
-                <ul>
-                  <li>English</li>
-                  <li>Swedish</li>
-                </ul>
-              )}
-            </div>
+            <Translate />
           </li>
         </ul>
         <ul>
