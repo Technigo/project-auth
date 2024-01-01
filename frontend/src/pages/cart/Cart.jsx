@@ -1,23 +1,41 @@
 import { Footer } from "../../components/footer/Footer";
 import { Logo } from "../../components/logo/Logo";
-import { Link, useParams } from "react-router-dom";
-// import { userStore } from "../../stores/userStore";
-
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { userStore } from "../../stores/userStore";
+//import { cartStore } from "../../stores/cartStore";
 export const Cart = () => {
-  // const id = userStore.getState().id;
+  const { id } = useParams();
+  console.log(id);
+
+  const navigate = useNavigate();
+
+  const { isLoggedIn, accessToken } = userStore();
+
+  const storeHandleLogout = userStore((state) => state.handleLogout);
+  const onLogoutClick = async () => {
+    storeHandleLogout();
+    navigate("/login");
+  };
+
+  //const dataToShow = cartStore((state) => state.cart);
+  // dataToShow.type
+  // dataToShow.subscriptionOption
+  // const flowerToShow = cartStore((state) => state.flower); ????
+
+  // const sendForm = () => {
+  //   // post backend
+  // };
 
   return (
     <div>
       {/* component nav? */}
       <nav>
         <ul>
-          {/* <Link to={`/profile/${id}`} onClick={} >
-          back
-        </Link> */}
+          <Link to={`/profile/${id}`}>back</Link>
           <Logo />
-          {/* <li type="button" onClick={onLogoutClick}>
-          log out
-        </li> */}
+          <li type="button" onClick={onLogoutClick}>
+            log out
+          </li>
         </ul>
       </nav>
       <div>
