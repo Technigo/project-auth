@@ -7,10 +7,8 @@ footer {
     font-size: 25px;
     font-style: normal;
     font-weight: 700;
-    line-height: normal;
-    
-    
-}
+    line-height: normal;  
+    }
 
 .footerFlex {
     display:flex;
