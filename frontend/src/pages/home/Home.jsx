@@ -33,7 +33,9 @@ export const Home = () => {
             </button>
           </div>
         </div>
-        <img src={half} alt="half circle image" className={styles.half} />
+        <div className={styles.half_container}>
+          <img src={half} alt="half circle image" className={styles.half} />
+        </div>
         <div className={styles.hero_img}>
           <img src={hero} alt="hero image" />
         </div>
