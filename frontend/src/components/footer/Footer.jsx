@@ -16,7 +16,7 @@ export const Footer = () => {
       <div className={styles.footerFlex}>
         <ul>
           <li>
-            Weekly bouquet
+            {t("footer.weeklyBouquet")}
             <button onClick={toggleBouquetMenu}>
               <img
                 src="../../../src/assets/icons/icons8-down-48.png"
@@ -28,36 +28,36 @@ export const Footer = () => {
                 <ul>
                   <li>
                     <Link to="/flowers/basic" className={styles.bouquetLink}>
-                      Basic bouquet
+                      {t("footer.basic")}
                     </Link>
                   </li>
                   <li>
                     <Link to="/flowers/standard" className={styles.bouquetLink}>
-                      Standard bouquet
+                      {t("footer.standard")}
                     </Link>
                   </li>
                   <li>
                     <Link to="/flowers/large" className={styles.bouquetLink}>
-                      Large bouquet
+                      {t("footer.large")}
                     </Link>
                   </li>
                 </ul>
               )}
             </div>
           </li>
-          <li>Service</li>
+          <li>{t("footer.service")}</li>
           <li>
             <Translate />
           </li>
         </ul>
         <ul>
-          <li>Opening hours:</li>
-          <li>Monday-Friday: 9am- 5pm</li>
-          <li>Saturday: 10am- 5pm</li>
-          <li>Sunday: 11am- 5pm</li>
+          <li>{t("footer.openingHours")}</li>
+          <li>{t("footer.mondayFriday")}</li>
+          <li>{t("footer.saturday")}</li>
+          <li>{t("footer.sunday")}</li>
         </ul>
         <ul>
-          <li>Contact Us</li>
+          <li>{t("footer.contactUs")}</li>
           <div className={styles.footerIcons}>
             <a href="#" target="_blank" rel="noopener noreferrer">
               <img

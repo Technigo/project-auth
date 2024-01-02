@@ -21,7 +21,7 @@ export const Translate = () => {
 
   return (
     <>
-      Language
+      {t("footer.language")}
       <button onClick={toggleLanguageMenu}>
         <img
           src="../../../src/assets/icons/icons8-down-48.png"
@@ -32,10 +32,10 @@ export const Translate = () => {
         {languageMenuOpen && (
           <ul>
             <li type="button" onClick={englishFunc}>
-              English
+              {t("footer.english")}
             </li>
             <li type="button" onClick={swedishFunc}>
-              Swedish
+              {t("footer.swedish")}
             </li>
           </ul>
         )}
