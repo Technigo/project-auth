@@ -2,6 +2,7 @@ import { Footer } from "../../components/footer/Footer";
 import { Logo } from "../../components/logo/Logo";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { userStore } from "../../stores/userStore";
+// import { GreetingMessage } from "./GreetingMessage";
 //import { cartStore } from "../../stores/cartStore";
 export const Cart = () => {
   const { id } = useParams();
@@ -9,7 +10,7 @@ export const Cart = () => {
 
   const navigate = useNavigate();
 
-  const { isLoggedIn, accessToken } = userStore();
+  // const { isLoggedIn, accessToken } = userStore();
 
   const storeHandleLogout = userStore((state) => state.handleLogout);
   const onLogoutClick = async () => {
@@ -62,8 +63,8 @@ export const Cart = () => {
       <p>
         sum:<span></span>kr
       </p>
-
-      <div>
+      {/*<GreetingMessage dataToshow/>*/}
+      <form>
         {/* component typography? */}
         <p>
           If you want to send flowers to someone or convey your feelings for the
@@ -72,9 +73,14 @@ export const Cart = () => {
           different surprises every week!
         </p>
         <label>
-          <input type="textarea" className="" />
+          <textarea
+            rows="5"
+            cols="50"
+            placeholder="Type your text here"
+            className=""
+          />
         </label>
-      </div>
+      </form>
       <Footer />
     </div>
   );
