@@ -1,32 +1,48 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ErrorMessage } from '../components/ErrorMessage';
+import { ErrorMessage } from '../components/reusableComponents/ErrorMessage';
 import { userStore } from "../stores/userStore";
-import { BackButton } from "../components/BackButton";
+import { BackButton } from "../components/reusableComponents/BackButton";
+import { Button } from "../components/reusableComponents/Button";
 
 export const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    const storeHandleLogin = userStore((state) => state.handleLogin);
+    const { errorMessage, setErrorMessage, handleLogin, isLoggedIn } = userStore((state) => ({
+        errorMessage: state.errorMessage,
+        setErrorMessage: state.setErrorMessage,
+        handleLogin: state.handleLogin,
+        isLoggedIn: state.isLoggedIn
+    }));
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate("/home");
+        }
+    }, [isLoggedIn, navigate]);
+
+    useEffect(() => {
+        return () => {
+            setErrorMessage('');
+        };
+    }, [setErrorMessage]);
 
     const onLoginClick = async () => {
+        setErrorMessage("");
         if (!username || !password) {
-            setError("Please enter both username and password");
+            setErrorMessage("Please enter both username and password");
             return;
         }
+
         setIsLoading(true);
         try {
-            await storeHandleLogin(username, password);
-            if (userStore.getState().isLoggedIn) {
-                navigate("/home");
-            }
+            await handleLogin(username, password);
         } catch (error) {
             console.error("Login error:", error);
-            setError("An error occurred during login");
+            setErrorMessage("An error occurred during login");
         } finally {
             setIsLoading(false);
         }
@@ -39,34 +55,36 @@ export const Login = () => {
 
     return (
         <>
-            <div>
-                <BackButton />
+            <div className="login">
+                <BackButton redirectTo="/" />
                 <h2>{text.heading}</h2>
                 <p>{text.loremIpsum}</p>
-                {error && <ErrorMessage message={error} />}
+                {errorMessage && <ErrorMessage message={errorMessage} />}
                 {isLoading ? (
-                    <div>Loading...</div>  // Here you can place a spinner or loading animation
+                    <div>Loading...</div>  // Replace with a spinner or animation
                 ) : (
                     <div className="user-login">
                         <input
                             type="text"
+                            aria-label="Username"
                             placeholder="Username"
                             value={username}
-                            onChange={(e) => {
-                                setError("");
-                                setUsername(e.target.value);
-                            }}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <input
                             type="password"
+                            aria-label="Password"
                             placeholder="Password"
                             value={password}
-                            onChange={(e) => {
-                                setError("");
-                                setPassword(e.target.value);
-                            }}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
-                        <button onClick={onLoginClick}>Login</button>
+                        <Button
+                            label="Login"
+                            onClick={onLoginClick}
+                            className="button"
+                            ariaLabel="Login"
+                            disabled={isLoading}
+                        />
                     </div>
                 )}
             </div>

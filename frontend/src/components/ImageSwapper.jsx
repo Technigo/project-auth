@@ -9,6 +9,10 @@ const ImageWrapper = styled.div`
     text-align: center; // Center the text elements, like h1
     width: 100%; // Take full width of the container
 
+    h1 {
+        margin-top: 30px;
+    }
+
     .image-wrapper {
         width: 100%; // Take full width for the image container
         display: flex;
@@ -16,12 +20,17 @@ const ImageWrapper = styled.div`
     }
 
     img {
-        max-width: 100%;
+        max-width: 90%;
         height: auto;
         margin: auto; // Center the image within the .image-wrapper
     }
 
     @media (min-width: 768px) {
+        h1 {
+            margin-top: 80px;
+            margin-bottom: 40px;
+        }
+
         img {
             max-width: 80%; // Limit the size on larger screens
         }

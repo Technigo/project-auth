@@ -1,24 +1,15 @@
 import { useEffect, useState } from "react";
 import { userStore } from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
-import { AdsList } from "../components/AdsList";
 import { CreateAd } from "../components/CreateAd";
-import { ErrorMessage } from '../components/ErrorMessage';
-import { SuccessMessage } from '../components/SuccessMessage';
-
-
+import { ErrorMessage } from '../components/reusableComponents/ErrorMessage';
+import { SuccessMessage } from '../components/reusableComponents/SuccessMessage';
+import { AdsList } from "../components/AdsList";
+import { Navbar } from "../components/reusableComponents/Navigation/NavBar";
+import { Heading } from "../components/reusableComponents/Heading";
 
 export const Home = () => {
-    // Function to toggle dark mode
-    const toggleDarkMode = () => {
-        document.body.classList.toggle('dark-mode');
-    };
-
-    // Define text content for the heading and subheading.
-    const text = {
-        heading: "Welcome back!",
-        subheading: "Check out the latest sneakers",
-    };
+    const [showCreateAd, setShowCreateAd] = useState(false);
 
     // Access the 'handleLogout' function from the 'userStore'.
     const storeHandleLogout = userStore((state) => state.handleLogout);
@@ -52,19 +43,27 @@ export const Home = () => {
         navigate("/"); // You can change this to the login route
     };
 
+    // Function to toggle the CreateAd component
+    const toggleCreateAd = () => {
+        console.log("Heading clicked"); // Debugging log
+        setShowCreateAd(!showCreateAd);
+    };
+
     return (
         <>
-            <button onClick={onLogoutClick}>Sign Out</button>
-            <button className="toggle-dark-mode" onClick={toggleDarkMode}>
-                Dark Mode
-            </button>
-            <h1>{text.heading}</h1>
-            <h2>{text.subheading}</h2>
-            {/* Display error message if there is an error */}
+            <Navbar isLoggedIn={isLoggedIn} handleLogout={onLogoutClick} />
+            <Heading level={2} text="Welcome back!" />
+            <Heading level={3} text="Check out the latest sneakers" />
+            <AdsList />
             {error && <ErrorMessage message={error} />}
             {success && <SuccessMessage message={success} />}
-            <CreateAd />
-            <AdsList />
+            <Heading
+                level={3}
+                text="Share your sneakers with others"
+                onClick={toggleCreateAd}
+                style={{ cursor: 'pointer' }} // Optional: change cursor to indicate clickable
+            />
+            {showCreateAd && <CreateAd />}
         </>
-    )
+    );
 };

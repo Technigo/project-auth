@@ -1,9 +1,9 @@
 import { userStore } from "../stores/userStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BackButton } from "../components/BackButton"
-import { ErrorMessage } from '../components/ErrorMessage';
-
+import { BackButton } from "../components/reusableComponents/BackButton";
+import { ErrorMessage } from '../components/reusableComponents/ErrorMessage';
+import { Button } from "../components/reusableComponents/Button";
 
 export const Register = () => {
     // States
@@ -18,19 +18,41 @@ export const Register = () => {
     // Function to handle the click event of the signup button
     const storeHandleSignup = userStore((state) => state.handleSignup);
 
+    // Function for basic email validation
+    const isValidEmail = (email) => {
+        return /\S+@\S+\.\S+/.test(email);
+    };
+
     // Combined function for handling the signup click event
     const onSignupClick = async () => {
-        if (!username || !password || !email) {
-            setError("Please enter email, username and password");
+        setError(""); // Clear previous error
+
+        // Validate email
+        if (!isValidEmail(email)) {
+            setError("Please enter a valid email address");
             return;
         }
+
+        // Validate username length
+        if (username.length < 5) {
+            setError("Username must be at least 5 characters long");
+            return;
+        }
+
+        // Validate password length
+        if (password.length < 8) {
+            setError("Password must be at least 8 characters long");
+            return;
+        }
+
         try {
-            await storeHandleSignup(username, password, email);
-            if (username && password) {
-                navigate("/login"); // Replace with your desired path
+            const signupResponse = await storeHandleSignup(username, password, email);
+            if (signupResponse && signupResponse.success) {
+                navigate("/home"); // Navigate to home after successful signup
+            } else {
+                setError("Signup failed. Please try again.");
             }
         } catch (error) {
-            // Handle any errors that occur during signup
             console.error("Signup error:", error);
             setError("An error occurred during signup");
         }
@@ -38,21 +60,16 @@ export const Register = () => {
 
     // Text
     const text = {
-        heading: "SignUp Page",
-        intro: "signup here...",
-        loremIpsum:
-            "Please fill in all the required fields",
+        heading: "Sign Up",
+        intro: "Get ready to share your sneakers with the world",
     };
-
 
     return (
         <>
-            <div>
-                <BackButton />
+            <div className="register">
+                <BackButton redirectTo="/" />
                 <h2>{text.heading}</h2>
                 <p>{text.intro}</p>
-                <p>{text.loremIpsum}</p>
-                {/* Display error message if there is an error */}
                 {error && <ErrorMessage message={error} />}
                 <div className="user-registration">
                     <input
@@ -82,9 +99,14 @@ export const Register = () => {
                             setPassword(e.target.value);
                         }}
                     />
-                    <button onClick={onSignupClick}>Sign Up</button>
+                    <Button
+                        label="Sign Up"
+                        onClick={onSignupClick}
+                        className="signup-button"
+                        ariaLabel="Sign Up"
+                    />
                 </div>
             </div>
         </>
-    )
-}
+    );
+};

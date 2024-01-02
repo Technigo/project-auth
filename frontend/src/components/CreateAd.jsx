@@ -44,7 +44,7 @@ export const CreateAd = () => {
                         console.log(e.target.files[0]); // Log the file object here
                     }}
                 />            </div>
-            <button type="submit">Create Ad</button>
+            <button type="submit">Post</button>
         </form>
     );
 };

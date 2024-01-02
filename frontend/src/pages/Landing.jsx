@@ -1,4 +1,4 @@
-import { Header } from "../components/Header"
+import { Navbar } from "../components/reusableComponents/Navigation/NavBar"
 import { ImageSwapper } from "../components/ImageSwapper"
 import styled from "styled-components";
 
@@ -14,7 +14,7 @@ const LandingPage = styled.section`
 export const Landing = () => {
   return (
     <>
-      <Header />
+      <Navbar />
       <LandingPage>
         <ImageSwapper />
       </LandingPage>
