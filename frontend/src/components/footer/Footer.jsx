@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Translate } from "../../pages/Translate";
 import { useTranslation } from "react-i18next";
-// import styles from "../footer/footer.module.css"
+import styles from "../footer/footer.module.css";
 
 export const Footer = () => {
   const { t } = useTranslation(); // Add useTranslation() function to access 't' function
@@ -12,8 +12,8 @@ export const Footer = () => {
   };
 
   return (
-    <footer>
-      <div>
+    <footer className={styles.footer}>
+      <div className={styles.footerFlex}>
         <ul>
           <li>
             Weekly bouquet
@@ -27,20 +27,25 @@ export const Footer = () => {
               {bouquetMenuOpen && (
                 <ul>
                   <li>
-                    <Link to="/flowers/basic">Basic bouquet</Link>
+                    <Link to="/flowers/basic" className={styles.bouquetLink}>
+                      Basic bouquet
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/flowers/standard">Standard bouquet</Link>
+                    <Link to="/flowers/standard" className={styles.bouquetLink}>
+                      Standard bouquet
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/flowers/large">Large bouquet</Link>
+                    <Link to="/flowers/large" className={styles.bouquetLink}>
+                      Large bouquet
+                    </Link>
                   </li>
                 </ul>
               )}
             </div>
           </li>
           <li>Service</li>
-          <li>Contact Us</li>
           <li>
             <Translate />
           </li>
@@ -53,7 +58,7 @@ export const Footer = () => {
         </ul>
         <ul>
           <li>Contact Us</li>
-          <div>
+          <div className={styles.footerIcons}>
             <a href="#" target="_blank" rel="noopener noreferrer">
               <img
                 src="../../../src/assets/icons/icons8-github-60.png"
@@ -75,10 +80,12 @@ export const Footer = () => {
           </div>
         </ul>
       </div>
-      <img
-        src="../../../src/assets/icons/icons8-flower-64.png"
-        alt="single tilted flower image"
-      />
+      <div className={styles.footerFlower}>
+        <img
+          src="../../../src/assets/icons/icons8-flower-64.png"
+          alt="single tilted flower image"
+        />
+      </div>
     </footer>
   );
 };
