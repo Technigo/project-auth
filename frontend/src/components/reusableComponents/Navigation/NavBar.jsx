@@ -4,7 +4,7 @@ import { Burger } from "./Burger";
 const Nav = styled.nav`
   width: 90%;
   height: 55px;
-  padding: 0 20px;
+  padding: 20px 20px;
   display: flex;
   justify-content: space-between;
 

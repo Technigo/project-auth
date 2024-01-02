@@ -18,11 +18,11 @@ export const YourAds = () => {
             <BackButton redirectTo="/home" />
             {hasAds && (
                 <>
-                    <Heading level={2} text="Here are your active posts" aria-label="Active posts" />
+                    <Heading className="share-sneakers" level={2} text="Here are your active posts" aria-label="Active posts" />
                     <AdsList showUserAdsOnly={true} />
                 </>
             )}
-            <Heading level={2} text="Create a post" aria-label="Create posts" />
+            <Heading className="share-sneakers" level={2} text="Create a post" aria-label="Create posts" />
             <CreateAd />
         </>
     );

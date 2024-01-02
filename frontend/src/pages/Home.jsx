@@ -49,19 +49,23 @@ export const Home = () => {
         setShowCreateAd(!showCreateAd);
     };
 
+
     return (
         <>
             <Navbar isLoggedIn={isLoggedIn} handleLogout={onLogoutClick} />
-            <Heading level={2} text="Welcome back!" />
-            <Heading level={3} text="Check out the latest sneakers" />
+            <Heading
+                className="share-sneakers"
+                level={3}
+                text="Check out the latest sneakers"
+            />
             <AdsList />
             {error && <ErrorMessage message={error} />}
             {success && <SuccessMessage message={success} />}
             <Heading
+                className="share-sneakers"
                 level={3}
                 text="Share your sneakers with others"
                 onClick={toggleCreateAd}
-                style={{ cursor: 'pointer' }} // Optional: change cursor to indicate clickable
             />
             {showCreateAd && <CreateAd />}
         </>
