@@ -1,3 +1,17 @@
 {
-    
+    "footer":{
+        "weeklyBouquet": "Weekly bouquet",
+        "basic": "Basic Bouquet",
+        "standard":"Standard Bouquet",
+        "large":"Large Bouquet",
+        "service":"Service",
+        "language":"Language",
+        "english":"English",
+        "swedish":"Swedish",
+        "openingHours":"Opening Hours:",
+        "mondayFriday":"Monday-Friday: 9am - 5pm",
+        "saturday":"Saturday: 10am - 5pm",
+        "sunday":"Sunday: 11am - 5pm",
+        "contactUs":"Contact Us"        
+    }       
 }

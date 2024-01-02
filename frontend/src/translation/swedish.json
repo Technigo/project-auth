@@ -1,3 +1,17 @@
 {
-    
+    "footer":{
+        "weeklyBouquet": "Veckobukett",
+        "basic": "Basic bukett",
+        "standard":"Standard bukett",
+        "large":"Stor bukett",
+        "service":"Blomsterbudstjänst",
+        "language":"Språk",
+        "english":"Engelska",
+        "swedish":"Svenska",
+        "openingHours":"Öppet:",
+        "mondayFriday":"Måndag-Fredag: 9am - 5pm",
+        "saturday":"Lördag: 10am - 5pm",
+        "sunday":"Söndag: 11am - 5pm",
+        "contactUs":"Ta Kontakt"        
+    }
 }
