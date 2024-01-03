@@ -3,15 +3,17 @@ import { Logo } from "../../components/logo/Logo";
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { userStore } from "../../stores/userStore";
+import basicImage from "../../assets/images/basic.png";
+import standardImage from "../../assets/images/standard.png";
+import largeImage from "../../assets/images/large.png";
 import styles from "./cart.module.css";
 //import { cartStore } from "../../stores/cartStore";
+
 export const Cart = () => {
   const { id } = useParams();
   //console.log(id);
 
   const navigate = useNavigate();
-
-  // const { isLoggedIn, accessToken } = userStore();
 
   const storeHandleLogout = userStore((state) => state.handleLogout);
   const onLogoutClick = async () => {
@@ -19,17 +21,38 @@ export const Cart = () => {
     navigate("/login");
   };
 
-  //const dataToShow = cartStore((state) => state.cart);
+  //---- Dummy values from cartStore (to be changed after merge)----
   let dataToShow = {
-    type: "basic",
-    subscriptionOption: "monthly",
+    type: "large",
+    subscriptionOption: "yearly",
+    quantity: 52,
+    price: 18200,
+    sum: 18200,
   };
-  // dataToShow.subscriptionOption
-  // const flowerToShow = cartStore((state) => state.flower); ????
+  // const dataToShow = cartStore((state) => state.cart);
+  // {dataToShow.type || 'No type selected'}
+  // {dataToShow.subscriptionOption || 'No subscription selected'}
+  // {dataToShow.quantity || 0}
+  // {dataToShow.price || 'NA'}
 
-  // const sendForm = () => {
-  //   // post backend
-  // };
+  // Small function to calculate the purchase sum
+  const sumFunction = (price, deliveryCost) => {
+    return price + deliveryCost;
+  };
+
+  // Function to display corresponding bouquet image
+  const bouquetImage = (bouquetType) => {
+    switch (bouquetType) {
+      case "basic":
+        return basicImage;
+      case "standard":
+        return standardImage;
+      case "large":
+        return largeImage;
+      default:
+        return "";
+    }
+  };
 
   //-------- Logic regarding greeting message in form  -------
 
@@ -55,7 +78,7 @@ export const Cart = () => {
       setErrorMessage("Your message is too short.");
     } else {
       //Configuring the fetch request -POST method
-      const greeting = {
+      const purchaseOrder = {
         method: "POST",
         //Stringifying "newGreeting" and setting it to request body
         body: JSON.stringify({
@@ -63,21 +86,17 @@ export const Cart = () => {
           user_id: `${id}`,
           flower: `${dataToShow.type}`,
           options: `${dataToShow.subscriptionOption}`,
-          //price: 156, // optional
-          //deliveryCost: 0,
-          //sum: 156,
         }),
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       };
-      console.log(greeting);
-      //Making a POST request to API endpoint with configured greeting
-      await fetch(`${backendApi}/cart/${id}`, greeting)
+      console.log(purchaseOrder);
+      //Making a POST request to API endpoint with configured purchaseOrder
+      await fetch(`${backendApi}/cart/${id}`, purchaseOrder)
         .then((res) => res.json()) //parsing response as json
         .then((data) => {
-          //setNewGreeting(data); //calling "newGreeting" function (passed prop) with the parsed data
           if (data.success) {
             console.log("data submitted successfully");
             setNewGreeting(""); //clearing textarea
@@ -92,7 +111,6 @@ export const Cart = () => {
         });
     }
   };
-
   return (
     <div>
       {/* component nav? */}
@@ -107,27 +125,30 @@ export const Cart = () => {
       </nav>
       <div>
         <div>
-          <img src="" alt="" />
-          <p></p>
+          <img
+            src={bouquetImage(dataToShow.type)}
+            alt={`${dataToShow.type} flower bouquet`}
+          />
+          <p>{dataToShow.type}</p>
         </div>
         <div>
           <p>
-            options:<span></span>
+            options:<span>{dataToShow.subscriptionOption}</span>
           </p>
           <p>
-            quantity:<span></span>bouquet(s)
+            quantity:<span>{dataToShow.quantity}</span>bouquet(s)
           </p>
           <p>
-            price:<span></span>kr
+            price:<span>{dataToShow.price}</span>kr
           </p>
           <p>
-            delivery:<span></span>kr
+            delivery:<span>0</span>kr
           </p>
         </div>
       </div>
       <hr />
       <p>
-        sum:<span></span>kr
+        sum:<span>{sumFunction(dataToShow.price, 0)}</span>kr
       </p>
       {/*<GreetingMessage dataToshow/>*/}
       <p>
