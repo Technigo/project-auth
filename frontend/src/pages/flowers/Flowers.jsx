@@ -46,19 +46,22 @@ export const Flowers = () => {
   }, [type]); 
   
   
-
   useEffect(() => {
-    console.log("Checking for tempCart in localStorage");
+    console.log("Running useEffect for localStorage check");
+  
     const storedCartData = localStorage.getItem('tempCart');
     if (storedCartData) {
       const cartData = JSON.parse(storedCartData);
+      console.log('Restored cart data from localStorage:', cartData);
+  
       setSubscriptionOption(cartData.subscriptionOption);
       setQuantity(cartData.quantity);
-
-      console.log('Updated state for subscriptionOption:', cartData.subscriptionOption);
-      console.log('Updated state for quantity:', cartData.quantity);
+    } else {
+      console.log('No tempCart data found in localStorage');
     }
-  }, []);
+  }, []); 
+  
+  
 
   useEffect(() => {
     if (isLoggedIn) {

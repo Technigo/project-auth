@@ -60,8 +60,23 @@ export const Login = () => {
   };
 
   const signUpClick = async () => {
-    navigate("/register");
+    // Preserve any query parameters that were passed to the login page
+    const searchParams = new URLSearchParams(window.location.search);
+    const redirectParam = searchParams.get('redirect');
+  
+    console.log('Redirect parameter:', redirectParam);
+  
+    // If there is a redirect parameter, pass it to the register page
+    if (redirectParam) {
+      console.log('Redirecting to register page with redirect parameter:', redirectParam);
+      navigate(`/register?redirect=${redirectParam}`);
+    } else {
+      console.log('Redirecting to register page without redirect parameter');
+      navigate("/register");
+    }
   };
+  
+  
   return (
     <section className={styles.section}>
       <nav className={styles.login}>

@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { retrieveCartFromStorage } from '../stores/cartStore';
 const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 export const userStore = create((set, get) => ({
@@ -19,7 +20,7 @@ export const userStore = create((set, get) => ({
   handleSignup: async (username, password, email) => {
     if (!username || !password || !email) {
       alert("Please enter username, email and password");
-      return;
+      return false;
     }
 
     try {
@@ -33,16 +34,20 @@ export const userStore = create((set, get) => ({
 
       const data = await response.json();
       if (data.success) {
-        set({ username, email, password });
-        // Redirect or update UI
-        alert("Signup successful!");
+        // Call handleLogin and wait for it to complete
+        const loginSuccess = await get().handleLogin(username, password);
+        if (loginSuccess) {
+          retrieveCartFromStorage(get().id);
+        }
+        return loginSuccess;
       } else {
-        // Display error message from server
         alert(data.response || "Signup not successful!");
+        return false;
       }
     } catch (error) {
       console.error("Signup error:", error);
       alert("An error occurred during signup");
+      return false;
     }
   },
 
@@ -75,7 +80,7 @@ export const userStore = create((set, get) => ({
         }); // Update the state with username and accessToken
         // Redirect or update UI
         localStorage.setItem("accessToken", data.response.accessToken);
-
+        retrieveCartFromStorage(data.response.id);
         console.log("Login successful!");
         return true;
       } else {

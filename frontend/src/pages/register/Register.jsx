@@ -31,9 +31,23 @@ export const Register = () => {
     }
 
     try {
-      await storeHandleSignup(username, password, email);
-
-      navigate("/login");
+      console.log("Attempting signup with:", { username, email });
+  
+      const signupResult = await storeHandleSignup(username, password, email);
+  
+      if (signupResult) {
+        console.log("Signup successful!");
+        
+        // Check if we have a redirect URL, and navigate there after successful signup
+        const searchParams = new URLSearchParams(window.location.search);
+        const redirectUrl = searchParams.get('redirect') || '/login'; 
+        console.log("Redirecting to:", decodeURIComponent(redirectUrl));
+        navigate(decodeURIComponent(redirectUrl));
+      } else {
+        // Handle case where signup was not successful
+        console.log("Signup was not successful.");
+        alert("Signup was not successful. Please try again.");
+      }
     } catch (error) {
       // Handle any errors that occur during signup
       console.error("Signup error:", error);
