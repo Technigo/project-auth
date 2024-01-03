@@ -77,7 +77,7 @@ export const userStore = create((set, get) => ({
         localStorage.setItem("accessToken", data.response.accessToken);
 
         console.log("Login successful!");
-        return true; 
+        return true;
       } else {
         // Display error message from server
         alert(data.message || "Login failed");
@@ -94,6 +94,9 @@ export const userStore = create((set, get) => ({
     // Clear user information and set isLoggedIn to false
     set({ username: "", accessToken: null, isLoggedIn: false });
     localStorage.removeItem("accessToken");
-    // Additional logout logic if needed
+ 
+    // Clear the temporary cart data from local storage
+    localStorage.removeItem("tempCart");
+    console.log("Cleared tempCart from local storage");
   },
 }));
