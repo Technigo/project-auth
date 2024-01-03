@@ -52,6 +52,12 @@ const cartSchema = mongoose.Schema (
         sum:{
           type: Number,
           required: false
+        },
+        greeting:{
+          type: String,
+          required: false,
+          minLength: [5, "A minimum of 5 characters is required"],
+          maxLength: [100, "The message can contain a maximum of 100 characters"]
         }
 },
 {

@@ -7,7 +7,7 @@ import styles from "./cart.module.css";
 //import { cartStore } from "../../stores/cartStore";
 export const Cart = () => {
   const { id } = useParams();
-  console.log(id);
+  //console.log(id);
 
   const navigate = useNavigate();
 
@@ -20,7 +20,10 @@ export const Cart = () => {
   };
 
   //const dataToShow = cartStore((state) => state.cart);
-  // dataToShow.type
+  let dataToShow = {
+    type: "basic",
+    subscriptionOption: "monthly",
+  };
   // dataToShow.subscriptionOption
   // const flowerToShow = cartStore((state) => state.flower); ????
 
@@ -42,6 +45,7 @@ export const Cart = () => {
     }
   }, [newGreeting]); //dependency array with effect only running when "newGreeting" changes
 
+  //----------- Sending confirmed flower subscription order through POST request to API ---------
   const handleSubmit = async (event) => {
     event.preventDefault(); //preventing form's default submit behaviour
     const backendApi = import.meta.env.VITE_BACKEND_API;
@@ -55,17 +59,32 @@ export const Cart = () => {
         method: "POST",
         //Stringifying "newGreeting" and setting it to request body
         body: JSON.stringify({
-          message: `${newGreeting}`,
+          greeting: `${newGreeting}`,
+          user_id: `${id}`,
+          flower: `${dataToShow.type}`,
+          options: `${dataToShow.subscriptionOption}`,
+          //price: 156, // optional
+          //deliveryCost: 0,
+          //sum: 156,
         }),
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
       };
-
+      console.log(greeting);
       //Making a POST request to API endpoint with configured greeting
       await fetch(`${backendApi}/cart/${id}`, greeting)
         .then((res) => res.json()) //parsing response as json
         .then((data) => {
-          newGreeting(data); //calling "newGreeting" function (passed prop) with the parsed data
-          setNewGreeting(""); //clearing textarea
+          //setNewGreeting(data); //calling "newGreeting" function (passed prop) with the parsed data
+          if (data.success) {
+            console.log("data submitted successfully");
+            setNewGreeting(""); //clearing textarea
+          } else {
+            console.log("Something went wrong");
+            console.log(data.error);
+          }
         })
         .catch((error) => {
           console.error("Error occured in creating greeting:", error);

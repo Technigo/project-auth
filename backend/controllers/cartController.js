@@ -10,7 +10,6 @@ export const addUserCartController = asyncHandler(async (req, res) => {
        
     //find the correct user and the user get the authorization
     const user = await UserModel.findById(req.params.user_id);
-    console.log(user);
     if (!user) {
       res.status(400).json({
         success: false,
@@ -22,11 +21,11 @@ export const addUserCartController = asyncHandler(async (req, res) => {
         // Filling in cart fields
         flower: req.body.flower,        
         options: req.body.options,
-        price: req.body.price,
-        deliveryCost: req.body.deliveryCost,
-        sum: req.body.sum,
+        //price: req.body.price,
+        //deliveryCost: req.body.deliveryCost,
+        //sum: req.body.sum,
+        greeting: req.body.greeting
       });
-
       // Save the new cart to the database
       await newShoppingCart.save();
 
