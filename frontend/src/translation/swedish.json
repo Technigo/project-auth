@@ -1,17 +1,45 @@
 {
+    "stories": [
+      {
+        "id": 1,
+        "image": "src/assets/images/wither.png",
+        "title": "Vissna",
+        "content": "När vi kan förstå att perfektion inte är naturlig och bli medvetna om att livet verkligen blomstrar på grund av dess ständiga vissnande, kan vi förstå att all skönhet är gömd i flyktiga detaljer. Precis som växter vissnar kommer också människor att åldras, och i deras försvinnande blir varje ögonblick mer värdefullt, autentiskt och vackert."
+      },
+      {
+        "id": 2,
+        "image": "src/assets/images/gentle.png",
+        "title": "Försiktigt",
+        "content": "Att leva med växter kan vi konkret uppleva försiktighet, fri från stålets skärpa, bara mjukheten som växer mot solen. Genom att samexistera med växter lär vi oss att möta livet med ömhet.\n\nVi tror att sann försiktighet inte är ett tecken på svaghet; den innefattar förståelse och styrka. Att möta den enorma världens vördnad och livets självsäkra motstånd, förstå de oundvikliga svårigheterna, vara villiga att tro på otänkbara djup och absorbera ondska med våra kroppar och känslor, att kunna bli skadad och återhämta sig, är en uppvisning av verklig styrka.\n\nDärför är försiktighet dyrbar; den kan bli slutpunkten för ondska."
+      },
+      {
+        "id": 3,
+        "image": "src/assets/images/toward.png",
+        "title": "Varande-mot-döden",
+        "content": "Det filosofiska konceptet formulerat av den tyske filosofen Martin Heidegger är att människor är \"Varande-mot-döden.\"\n\nFrån ögonblicket av födelse är vi orienterade mot döden, och medvetenheten om att leva varje dag är ett \"varande-närvarande\" i denna process, beläget inom en sådan omfattande helhet. Det är en djupgående och betydelsefull självmedvetenhet i livet. När människor undviker att tänka på döden undviker de, till viss del, att reflektera över livets väsen. Tvärtom, endast när vi djupt förstår närheten till döden kan vi ha den mest övertygande motivationen att söka och känna meningen inneboende i livet.\n\nMå vi bli påminda varje dag i sällskap med växter att inte undvika oundvikligheten av förfall, att lära sig vara öm mot livet och att leva ärligt."
+      }
+    ],
+    "meet": {
+      "image": "src/assets/images/people_flower.png",
+      "title": "Trevligt att träffas!",
+      "name": "Vi är Flora Echo",
+      "content1": "Så glad att du är här! \"Floral Echo\" förmedlar tanken på en reflektion av skönheten, essensen eller egenskaperna hos blommor.",
+      "content2": "Jag önskar att bära denna förväntan, med veckovisa blommor som bärare. Genom att föra in blommor i varje individ och familjs liv signalerar det inte bara skönhet utan erbjuder också en mjuk upplevelse av vissning, konfronterar en långsam och tyst förfall.",
+      "content3": "Varje mottagare av blommorna förstår dess oundvikliga resa mot vissning. Genom sällskapet med färska blommor upplever de livets och dödens cykel, praktiserar konsten att säga adjö, leva fritt och ömt. Jag hoppas att varje sändare av blommor kan fyllas med förväntningar, låta kortet förmedla känslor."
+    },
     "footer":{
-        "weeklyBouquet": "Veckobukett",
-        "basic": "Basic bukett",
-        "standard":"Standard bukett",
-        "large":"Stor bukett",
-        "service":"Blomsterbudstjänst",
-        "language":"Språk",
-        "english":"Engelska",
-        "swedish":"Svenska",
-        "openingHours":"Öppet:",
-        "mondayFriday":"Måndag-Fredag: 9am - 5pm",
-        "saturday":"Lördag: 10am - 5pm",
-        "sunday":"Söndag: 11am - 5pm",
-        "contactUs":"Ta Kontakt"        
-    }
-}
+      "weeklyBouquet": "Veckobukett",
+      "basic": "Basic bukett",
+      "standard":"Standard bukett",
+      "large":"Stor bukett",
+      "service":"Blomsterbudstjänst",
+      "language":"Språk",
+      "english":"Engelska",
+      "swedish":"Svenska",
+      "openingHours":"Öppet:",
+      "mondayFriday":"Måndag-Fredag: 9am - 5pm",
+      "saturday":"Lördag: 10am - 5pm",
+      "sunday":"Söndag: 11am - 5pm",
+      "contactUs":"Ta Kontakt"        
+  }
+  }
