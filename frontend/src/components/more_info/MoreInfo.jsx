@@ -44,6 +44,7 @@ export const MoreInfo = () => {
             type="button"
             onClick={() => handleToggle("about")}
             src={arrowDown}
+            className={styles.arrow_down}
           ></img>
         </div>
         {aboutActive && (
@@ -61,6 +62,7 @@ export const MoreInfo = () => {
             type="button"
             onClick={() => handleToggle("delivery")}
             src={arrowDown}
+            className={styles.arrow_down}
           ></img>
         </div>
         {deliveryActive && (
@@ -87,6 +89,7 @@ export const MoreInfo = () => {
             type="button"
             onClick={() => handleToggle("faq")}
             src={arrowDown}
+            className={styles.arrow_down}
           ></img>
         </div>
         {faqActive && (
