@@ -23,11 +23,10 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
     const user = await UserModel.findById(req.user.id);
     console.log(user);
     if (!user) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         error: "User not found",
       });
-      return;
     } else {
       const newProfile = new ProfileModel({
         user_id: req.user.id,
@@ -106,7 +105,9 @@ export const getUserProfileController = asyncHandler(async (req, res) => {
     const userProfiles = await ProfileModel.findOne({ user_id: req.user.id });
     console.log(userProfiles);
     if (!userProfiles) {
-      return res.status(404).json({ success: false, response: "Profile not found" });
+      return res
+        .status(404)
+        .json({ success: false, response: "Profile not found" });
     }
 
     return res.status(200).json({ success: true, response: userProfiles });
