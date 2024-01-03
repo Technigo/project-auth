@@ -35,38 +35,41 @@ export const MoreInfo = () => {
     ));
   };
   return (
-    <div>
-      <h1>{info.title}</h1>
-      <div className={styles.question_about}>
-        <h3>{info.questions[0]}</h3>
-        <img
-          type="button"
-          onClick={() => handleToggle("about")}
-          src={arrowDown}
-        ></img>
+    <section className={styles.more_info}>
+      <h1 className={styles.title}>{info.title}</h1>
+      <div className={styles.question_container}>
+        <div className={styles.question}>
+          <h3 className={styles.q_title}>{info.questions[0]}</h3>
+          <img
+            type="button"
+            onClick={() => handleToggle("about")}
+            src={arrowDown}
+          ></img>
+        </div>
         {aboutActive && (
           <>
             <p>{renderMultilineText(info.answers[0].about)}</p>
-            <img src={flower} alt="flowers" />
+            <img src={flower} alt="flowers" className={styles.flower} />
           </>
         )}
       </div>
 
-      <div className={styles.question_delivery}>
-        <h3>{info.questions[1]}</h3>
-        <img
-          type="button"
-          onClick={() => handleToggle("delivery")}
-          src={arrowDown}
-        ></img>
+      <div className={styles.question_container}>
+        <div className={styles.question}>
+          <h3 className={styles.q_title}>{info.questions[1]}</h3>
+          <img
+            type="button"
+            onClick={() => handleToggle("delivery")}
+            src={arrowDown}
+          ></img>
+        </div>
         {deliveryActive && (
           <>
             <p>{renderMultilineText(info.answers[0].delivery)}</p>
             <iframe
               width="100%"
-              height="500"
+              height="300"
               frameborder="0"
-              scrolling="no"
               marginheight="0"
               marginwidth="0"
               src="https://maps.google.com/maps?width=100%25&amp;height=500&amp;hl=en&amp;q=%20Sveav%C3%A4gen%20100,%20113%2050%20Stockholm+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
@@ -77,27 +80,39 @@ export const MoreInfo = () => {
         )}
       </div>
 
-      <div className={styles.question_faq}>
-        <h3>{info.questions[2]}</h3>
-        <img
-          type="button"
-          onClick={() => handleToggle("faq")}
-          src={arrowDown}
-        ></img>
+      <div className={styles.question_container}>
+        <div className={styles.question}>
+          <h3 className={styles.q_title}>{info.questions[2]}</h3>
+          <img
+            type="button"
+            onClick={() => handleToggle("faq")}
+            src={arrowDown}
+          ></img>
+        </div>
         {faqActive && (
           <>
-            <strong>{info.answers[0].FAQ[0]}</strong>
-            <p>{info.answers[0].FAQ_answer[0].cancellation}</p>
-
-            <strong>{info.answers[0].FAQ[1]}</strong>
-            <p>{info.answers[0].FAQ_answer[0].condition}</p>
-
-            <strong>{info.answers[0].FAQ[2]}</strong>
-            <p>{info.answers[0].FAQ_answer[0].holidays}</p>
-            <img src={flower} alt="flower image" />
+            <div className={styles.wrapper}>
+              <h3 className={styles.faq}>{info.answers[0].FAQ[0]}</h3>
+              <p className={styles.answer}>
+                {info.answers[0].FAQ_answer[0].cancellation}
+              </p>
+            </div>
+            <div className={styles.wrapper}>
+              <h3 className={styles.faq}>{info.answers[0].FAQ[1]}</h3>
+              <p className={styles.answer}>
+                {info.answers[0].FAQ_answer[0].condition}
+              </p>
+            </div>
+            <div className={styles.wrapper}>
+              <h3 className={styles.faq}>{info.answers[0].FAQ[2]}</h3>
+              <p className={styles.answer}>
+                {info.answers[0].FAQ_answer[0].holidays}
+              </p>
+              <img src={flower} alt="flower image" className={styles.flower} />
+            </div>
           </>
         )}
       </div>
-    </div>
+    </section>
   );
 };
