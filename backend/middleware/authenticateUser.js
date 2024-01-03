@@ -15,12 +15,15 @@ export const authenticateUser = async (req, res, next) => {
       const user = await UserModel.findById(decoded.id).select("-password");
       if (user) {
         req.user = user;
-
+        
         next();
       } else {
-        res.status(400).json({ sucess: false, response: "Please log in" });
+        res.status(400).json({ success: false, response: "Please log in" });
       }
     } catch (e) {
-      res.status(500).json({ sucess: false, response: e.message });
+      res.status(500).json({ success: false, response: e.message });
+    }
+    else{
+      res.status(401).json({ success: false, response: "Authorization token missing" });
     }
 };
