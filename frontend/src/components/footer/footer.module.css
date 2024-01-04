@@ -1,11 +1,10 @@
 footer {
-    border:yellow solid 2px;
     margin-top: 40px;
     padding:40px;
     background-color: #112E2D;
-    color:#E1D3CF;
+    color:#F9EFE3;
     font-family: Source Sans Pro, sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;  
@@ -19,10 +18,10 @@ footer {
     gap:50px;
 }
 
-li {
+.footerFlex li {
     list-style: none;
-    padding: 20px;
-    margin-left: 25px;    
+    padding: 15px;
+    margin-left: 25px;  
 }
 
 .footerButton {
@@ -43,8 +42,7 @@ button img{
 
 .bouquetLink {
     text-decoration: none;
-    color:#E1D3CF; 
-    padding:5px; 
+    color:#F9EFE3; 
 }
 
 .footerIcons {
