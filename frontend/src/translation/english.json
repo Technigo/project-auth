@@ -27,6 +27,22 @@
       "content2":"I wish to carry this expectation, using weekly flowers as a carrier. Bringing flowers into the lives of every individual and family, it not only signifies beauty but also offers a gentle experience of wilting, confronting a slow and quiet demise.",
       "content3":"Every recipient of the flowers understands its inevitable journey towards withering. Through the companionship of fresh flowers, they experience the cycle of life and death, practicing the art of saying goodbye, living freely and gently. I hope that every sender of flowers can be filled with expectations, letting the card convey emotions."
     },
+    "moreInfo":{
+      "title":"More Infomation",
+      "questions":["About weekly bouquet","Delivery",
+        "FAQ"
+    ],
+      "answers":[{
+        "about": "Weekly flowers are selected and arranged by a floral artist each Monday, and we regret to inform you that we do not provide any specific preferences or restrictions on flower materials.\nPlease be aware that most flowers are toxic to pets, and precautions should be taken to prevent pets from ingesting them.\n\nThe blooming period for plants is generally 3-5 days in the summer, and it may be longer in winter. The actual duration may vary based on the type of flowers, weather conditions, and care practices.\n\nFresh flowers may have imperfections, missing petals, or transportation marks. Please consider this before making a purchase if these factors are of concern to you.\n\nWith each bouquet, there is a small card featuring a weekly selected phrase. If you wish to have a personalized message, you may additionally add messages in the shopping cart page.\n\nThe height of bouquets in the Basic and Standard series is approximately 40±3cm, and recommended vase dimensions are Ø36cm, H1218cm. The Large series bouquets have varying heights from 50-60cm, and recommended vase dimensions are Ø612cm, H1620cm.",
+        "delivery":"The delivery options for the Basic, Standard, and Large series weekly flowers include \"Studio Pickup\" and \"Self-Arranged Delivery.\"\n\nFor Studio Pickup/Self-Arranged Delivery:\nYou may schedule to pick up the flowers at the studio on Wednesdays and Thursdays between 12:00 and 18:00 during the delivery week.\n\nStudio Address:\nIf you prefer delivery at a specific time or find it inconvenient to pick up in person, you can arrange for a courier service on your own.",
+        "FAQ":["Cancellation of Weekly Flower Service","Flower Condition","Public Holidays"],
+        "FAQ_answer":[{
+          "cancellation":"Please send us message or email us your order number before 22:00 on Tuesday, and we will assist you with any subsequent matters. For regular weekly flower orders, a refund will be processed proportionally after deducting handling fees. For long-term subscriptions exceeding 4 weeks, if the order is not fulfilled for a total of 5 weeks, you will need to settle the outstanding balance before terminating the automatic deductions.",
+          "condition":"Please take a photo and message us on the day of receiving the flowers. We will assist in assessing the flower condition, and if it is confirmed to be unsatisfactory, we will provide you with an appropriate compensation solution. However, if the assessment reveals natural conditions or acceptable imperfections, no additional flowers will be provided.",
+          "holidays":"Annual public holidays can be found in the Public Holiday section. In the event of statutory holidays, flexible days off, or closure of the flower market, deliveries for that week will be postponed to the following week. In response to unforeseen circumstances, we reserve the right to announce temporary holiday closures with prior notice."
+        }]
+      }]
+    },
     "footer":{
       "weeklyBouquet": "Weekly Bouquet",
       "basic": "Basic",

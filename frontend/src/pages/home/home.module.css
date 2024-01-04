@@ -11,7 +11,6 @@
     flex-direction: column;
     justify-content: center;
     line-height: 3rem;
-   
 }
 .text{
     text-align:center;
@@ -90,7 +89,6 @@
         text-align: start;
     }
     .hero_text p{
-
         font-size: 20px;
     }
     
