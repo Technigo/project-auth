@@ -1,5 +1,5 @@
 // Importing necessary dependencies from React and the application
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { cartStore } from '../../stores/cartStore';
@@ -13,6 +13,7 @@ export const Flowers = () => {
   // Extract parameters and functions from React Router and stores
   const { type } = useParams();
   const navigate = useNavigate();
+  const prevTypeRef = useRef();
   const { addToCart, fetchFlowers } = cartStore();
   const { isLoggedIn, id } = userStore(state => ({ isLoggedIn: state.isLoggedIn, id: state.id }));
   // State to manage flower details, subscription options, and quantity
@@ -20,8 +21,16 @@ export const Flowers = () => {
   const [subscriptionOption, setSubscriptionOption] = useState('weekly');
   const [quantity, setQuantity] = useState(1);
 
+  // State to manage subscription options and quantities for each flower type
+  const [flowerOptions, setFlowerOptions] = useState(() => {
+    const storedData = JSON.parse(localStorage.getItem('flowerSubscriptionOptions')) || {};
+    return storedData;
+  });
+
   // Filter out the current flower type to get the other types
   const otherFlowerTypes = allFlowerTypes.filter(t => t !== type);
+
+
 
   // UseEffect to fetch specific flower data based on the flower type
   useEffect(() => {
@@ -71,51 +80,61 @@ export const Flowers = () => {
   useEffect(() => {
     if (isLoggedIn) {
       const cart = cartStore.getState().cart;
-      if (cart) {
-        setSubscriptionOption(cart.subscriptionOption);
-        setQuantity(cart.quantity);
+      if (cart && cart.type === type) {
+        setSubscriptionOption(cart.subscriptionOption || 'weekly');
+        setQuantity(cart.quantity || 1);
       }
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, type]);
+
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem('flowerSubscriptionOptions')) || {};
+    const flowerData = storedData[type];
+  
+    // Update the subscription option and quantity from local storage or reset to default
+    setSubscriptionOption(flowerData?.subscriptionOption || 'weekly');
+    setQuantity(flowerData?.quantity || 1);
+  
+    console.log('[useEffect][type change] Setting option and quantity for type:', type);
+  }, [type]);
+  
+
+
+  const handleOptionChange = (option) => {
+    const newQuantity = option === 'weekly' ? 1 : option === 'monthly' ? 4 : 52;
+    setSubscriptionOption(option);
+    setQuantity(newQuantity);
+
+    const newFlowerOptions = { ...flowerOptions, [type]: { subscriptionOption: option, quantity: newQuantity } };
+    setFlowerOptions(newFlowerOptions);
+    localStorage.setItem('flowerSubscriptionOptions', JSON.stringify(newFlowerOptions));
+
+    console.log('[handleOptionChange] Option changed:', option, 'Quantity:', newQuantity);
+  };
 
   // Function to handle adding the current flower to the cart
   const handleAddToCart = () => {
     console.log('Add to Cart Clicked');
+
     if (!isLoggedIn) {
       console.log('User not logged in, redirecting to login page');
       alert('You must be logged in to proceed.');
       // Save product details to local storage for later retrieval
       const productDetails = { type, subscriptionOption, quantity, price: flower.price };
-      console.log('Saving product to local storage:', productDetails);
       localStorage.setItem('tempCart', JSON.stringify(productDetails));
-      console.log('Local storage after saving:', localStorage.getItem('tempCart'));
       // Redirect to the login page with the current flower type as a redirect parameter
       navigate(`/login?redirect=${encodeURIComponent(`/flowers/${type}`)}`);
     } else {
       console.log('User is logged in, adding to cart');
-      addToCart(type, subscriptionOption, quantity, flower.price, isLoggedIn, id);
-      navigate(`/cart/${id}`);
+      if (subscriptionOption && quantity) {
+        addToCart(type, subscriptionOption, quantity, flower.price, isLoggedIn, id);
+        navigate(`/cart/${id}`);
+      } else {
+        console.error('Cannot add to cart: Missing subscriptionOption or quantity');
+      }
     }
   };
 
-  // Function to handle subscription option changes
-  const handleOptionChange = (option) => {
-    setSubscriptionOption(option);
-    // Set quantity based on the selected subscription option
-    switch (option) {
-      case 'weekly':
-        setQuantity(1);
-        break;
-      case 'monthly':
-        setQuantity(4);
-        break;
-      case 'yearly':
-        setQuantity(52);
-        break;
-      default:
-        setQuantity(1);
-    }
-  };
 
   return (
     <>
