@@ -29,9 +29,9 @@
     },
     "footer":{
       "weeklyBouquet": "Veckobukett",
-      "basic": "Basic bukett",
-      "standard":"Standard bukett",
-      "large":"Stor bukett",
+      "basic": "Basic",
+      "standard":"Standard",
+      "large":"Stor",
       "service":"Blomsterbudstjänst",
       "language":"Språk",
       "english":"Engelska",
