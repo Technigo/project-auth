@@ -91,7 +91,6 @@ export const ProfileForm = () => {
       }
 
       const data = await response.json();
-      console.log(data);
       if (data.success) {
         setProfileState((prevState) => ({
           ...prevState,

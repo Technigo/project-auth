@@ -6,6 +6,7 @@ import { MiddleSection } from "./MiddleSection";
 import { Stories } from "./Stories";
 import { NiceToMeet } from "./NiceToMeet";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "../../components/footer/Footer";
 export const Home = () => {
   const navigate = useNavigate();
   const linkToFlower = () => {
@@ -43,6 +44,7 @@ export const Home = () => {
       <MiddleSection />
       <Stories />
       <NiceToMeet />
+      <Footer />
     </>
   );
 };
