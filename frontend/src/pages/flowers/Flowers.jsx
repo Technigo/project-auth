@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { cartStore } from '../../stores/cartStore';
 import { userStore } from '../../stores/userStore';
+import { Navbar } from '../../components/navbar/Navbar';
+import { Footer } from '../../components/footer/Footer';
+import { MoreInfo } from '../../components/more_info/MoreInfo';
 
 // Define the available flower types
 const allFlowerTypes = ['basic', 'standard', 'large'];
@@ -119,6 +122,7 @@ export const Flowers = () => {
 
   return (
     <>
+      <Navbar />
       <section>
         <h1>Product: {flower.type}</h1>
         <p>Price: {flower.price} kr/week</p>
@@ -144,7 +148,7 @@ export const Flowers = () => {
       </section>
       <section>
         <h2>More information</h2>
-        {/* More information content */}
+        <MoreInfo />
       </section>
       <section>
         <h2>Other items</h2>
@@ -154,6 +158,7 @@ export const Flowers = () => {
           </p>
         ))}
       </section>
+      <Footer />
     </>
   );
 };
