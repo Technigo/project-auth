@@ -60,7 +60,6 @@ export const profileStore = create((set) => ({
         important: profileData.important,
         image: profileData.image,
       });
-      console.log("Fetch profile successful!");
     } catch (error) {
       console.error("Fetch profile error", error);
     }
