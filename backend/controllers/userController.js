@@ -90,7 +90,7 @@ export const loginUserController = asyncHandler(async (req, res) => {
         .json({ success: false, response: "Incorrect password" });
     }
     res.status(200).json({
-      sucess: true,
+      success: true,
       response: {
         username: user.username,
         id: user._id,
@@ -98,7 +98,7 @@ export const loginUserController = asyncHandler(async (req, res) => {
       },
     });
   } catch (e) {
-    res.status(500).json({ sucess: false, response: e.message });
+    res.status(500).json({ success: false, response: e.message });
   }
 });
 

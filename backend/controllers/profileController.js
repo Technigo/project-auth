@@ -23,7 +23,7 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
     const user = await UserModel.findById(req.user.id);
     console.log(user);
     if (!user) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         error: "User not found",
       });

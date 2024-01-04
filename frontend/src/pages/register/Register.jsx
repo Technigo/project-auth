@@ -1,3 +1,4 @@
+// Importing necessary dependencies and components from React, React Router, and the application
 import { userStore } from "../../stores/userStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -5,16 +6,18 @@ import { Link } from "react-router-dom";
 import styles from "../register/register.module.css";
 import { Logo } from "../../components/logo/Logo";
 
+// Define the Register component
 export const Register = () => {
-  // can use get method from the userStore
+  // State variables for managing username, email, and password input
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //   initialize the navigate function
+  // Access the navigate function from React Router
   const navigate = useNavigate();
-  // function to handle the click event of the signup button
+  // Accessing the handleSignup function from the userStore
   const storeHandleSignup = userStore((state) => state.handleSignup);
 
+  // Function to handle the click event of the signup button
   const onSignupClick = async () => {
     if (!username || !password || !email) {
       alert("Please enter email, username, and password");
@@ -31,9 +34,23 @@ export const Register = () => {
     }
 
     try {
-      await storeHandleSignup(username, password, email);
+      console.log("Attempting signup with:", { username, email });
+      // Call the handleSignup function from the store
+      const signupResult = await storeHandleSignup(username, password, email);
 
-      navigate("/login");
+      if (signupResult) {
+        console.log("Signup successful!");
+
+        // Check if we have a redirect URL, and navigate there after successful signup
+        const searchParams = new URLSearchParams(window.location.search);
+        const redirectUrl = searchParams.get('redirect') || '/login';
+        console.log("Redirecting to:", decodeURIComponent(redirectUrl));
+        navigate(decodeURIComponent(redirectUrl));
+      } else {
+        // Handle case where signup was not successful
+        console.log("Signup was not successful.");
+        alert("Signup was not successful. Please try again.");
+      }
     } catch (error) {
       // Handle any errors that occur during signup
       console.error("Signup error:", error);
