@@ -17,7 +17,7 @@ export const Footer = () => {
         <ul>
           <li>
             {t("footer.weeklyBouquet")}
-            <button onClick={toggleBouquetMenu}>
+            <button onClick={toggleBouquetMenu} className={styles.footerButton}>
               <img
                 src="../../../src/assets/icons/icons8-down-48.png"
                 alt="scrolldown menu"

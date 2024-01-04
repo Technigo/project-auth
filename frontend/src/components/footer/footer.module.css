@@ -1,10 +1,11 @@
 footer {
     border:yellow solid 2px;
+    margin-top: 40px;
     padding:40px;
     background-color: #112E2D;
     color:#E1D3CF;
     font-family: Source Sans Pro, sans-serif;
-    font-size: 25px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;  
@@ -24,23 +25,26 @@ li {
     margin-left: 25px;    
 }
 
-button {
+.footerButton {
     background-color: #112E2D;
-    vertical-align: bottom;
+    vertical-align:bottom;
     width:auto;
+    height:2rem;
     margin:0;
     padding:0;    
 }
 
 button img{
-    vertical-align: middle;
+    vertical-align:bottom;
+    width:80%;
     margin:0;
     padding:0;
 }
 
 .bouquetLink {
     text-decoration: none;
-    color:#E1D3CF;    
+    color:#E1D3CF; 
+    padding:5px; 
 }
 
 .footerIcons {
