@@ -69,7 +69,7 @@ export const Navbar = () => {
           {/* {!showMobileMenu && ( */}
           <ul className={styles.ul}>
             <li className={styles.flower}>
-              <span onClick={toggleOptions}>weekly bouquets</span>
+              <span onClick={toggleOptions}>weekly bouquet</span>
               <img
                 src={down}
                 alt="down arrow"
