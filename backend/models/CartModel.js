@@ -13,12 +13,7 @@ const cartSchema = mongoose.Schema (
             true,
             "Please provide a valid flower type (basic, standard, large)"
           ],
-        },
-        // flower:{
-        //   type: mongoose.Schema.Types.ObjectId,
-        //   required: true,
-        //   ref: "Subscription"
-        // },
+        },        
         options:{
           type: String,
           enum: [
@@ -27,15 +22,11 @@ const cartSchema = mongoose.Schema (
           required: [
             true,
             "Please specify a valid option, i.e. weekly, monthly or yearly"
-          ],   
-        // options:{
-        //   type:mongoose.Schema.Types.ObjectId,
-        //   required:[
-        //     true,
-        //     "Please specify the subscription type: weekly, monthly, yearly"
-        //   ],
-        //   ref: "Subscription"
-        // },     
+          ], 
+        },
+        quantity:{
+          type: Number,
+          required: false
         },
         price:{
           type: Number,
@@ -48,13 +39,21 @@ const cartSchema = mongoose.Schema (
         sum:{
           type: Number,
           required: false
+        },
+        greeting:{
+          type: String,
+          required: false,
+          minLength: [5, "A minimum of 5 characters is required"],
+          maxLength: [100, "The message can contain a maximum of 100 characters"]
         }
 },
 {
     timestamps: true,
   }
   )
-
+  
+  //------Mongoose model middleware with pre-save hook ------
+    //Base price for the different flower options
   cartSchema.pre("save", function (next) {
     let basePrice ;
     if (this.flower === "basic") {
@@ -65,23 +64,33 @@ const cartSchema = mongoose.Schema (
       basePrice = 350;
     } else {
       // Handle any other cases or throw an error if needed
-      return next(new Error("Invalid flower option"));
+      return next(new Error("Invalid flower option."));
     }
-     // base price for all flower services
-
+    //Quantity of bouquets purchased according to the subscription option
     if (this.options === "weekly") {
-      this.price = basePrice;
+      this.quantity = 1;
     } else if (this.options === "monthly") {
-      this.price = basePrice * 4;
+      this.quantity = 4;
     } else if (this.options === "yearly") {
-      this.price = basePrice * 52;
+      this.quantity = 52;
     } else {
       // Handle any other cases or throw an error if needed
-      return next(new Error("Invalid flower option"));
+      return next(new Error("Invalid subscription plan."));
+    }
+     // Total price for all flower services
+    if (this.options === "weekly") {
+      this.price = basePrice * this.quantity;
+    } else if (this.options === "monthly") {
+      this.price = basePrice * this.quantity;
+    } else if (this.options === "yearly") {
+      this.price = basePrice * this.quantity;
+    } else {
+      // Handle any other cases or throw an error if needed
+      return next(new Error("Error occured while ordering."));
     }
     this.sum = this.price + this.deliveryCost
     next();
   });
-
+ // This middleware ensures that the necessary calculations and validations are performed before saving a cart document, encapsulating logic related to the document before it gets saved to the database.
 export const CartModel = mongoose.model("Cart", cartSchema);
 

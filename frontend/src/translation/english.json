@@ -42,7 +42,20 @@
           "holidays":"Annual public holidays can be found in the Public Holiday section. In the event of statutory holidays, flexible days off, or closure of the flower market, deliveries for that week will be postponed to the following week. In response to unforeseen circumstances, we reserve the right to announce temporary holiday closures with prior notice."
         }]
       }]
-    }
+    },
+    "footer":{
+      "weeklyBouquet": "Weekly Bouquet",
+      "basic": "Basic",
+      "standard":"Standard",
+      "large":"Large",
+      "service":"Service",
+      "language":"Language",
+      "english":"English",
+      "swedish":"Swedish",
+      "openingHours":"Opening Hours:",
+      "mondayFriday":"Monday-Friday: 9am - 5pm",
+      "saturday":"Saturday: 10am - 5pm",
+      "sunday":"Sunday: 11am - 5pm",
+      "contactUs":"Contact Us"        
+  }       
   }
-
-  
