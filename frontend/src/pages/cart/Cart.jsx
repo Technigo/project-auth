@@ -13,6 +13,7 @@ export const Cart = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dataToShow = cartStore((state) => state.cart);
+  const emptyCart = cartStore((state) => state.addToCart);
 
   //Handling logout from userStore
   const storeHandleLogout = userStore((state) => state.handleLogout);
@@ -36,7 +37,7 @@ export const Cart = () => {
         basePrice = 350;
         break;
       default:
-        throw new Error("Invalid flower type");
+        return 0;
     }
 
     //Setting quantity based on subscription option
@@ -52,7 +53,7 @@ export const Cart = () => {
         quantity = 52;
         break;
       default:
-        throw new Error("Invalid subscription option.");
+        return 0;
     }
 
     // Calculate total price
@@ -128,7 +129,8 @@ export const Cart = () => {
               ` Your ${dataToShow.subscriptionOption} subscription of ${dataToShow.type} bouquet order is now being processed.`
             );
             setNewGreeting(""); //clearing textarea
-            navigate("/");
+            emptyCart("default", null, 0, 0, 0); //emptying cart- logic to be included in cartStore
+            navigate("/"); //redirecting user to landing page
           } else {
             console.log("Something went wrong");
             console.log(data.error);
@@ -160,6 +162,7 @@ export const Cart = () => {
           />
           <p>{dataToShow.type}</p>
         </div>
+
         <div>
           <p>
             options:
@@ -228,7 +231,11 @@ export const Cart = () => {
           type="submit"
           id="submitPostButton"
           aria-label="click to submit your subscription order"
-          disabled={newGreeting.length < 4 || newGreeting.length > 100}
+          disabled={
+            newGreeting.length < 4 ||
+            newGreeting.length > 100 ||
+            subscriptionCost == 0
+          }
         >
           Confirm order
         </button>
