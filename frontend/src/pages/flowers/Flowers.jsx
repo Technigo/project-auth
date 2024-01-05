@@ -66,21 +66,26 @@ export const Flowers = () => {
     };
   }, [type]);
 
-  // UseEffect to check and restore temporary cart data from localStorage
   useEffect(() => {
     console.log("Running useEffect for localStorage check");
 
-    const storedCartData = localStorage.getItem('tempCart');
-    if (storedCartData) {
-      const cartData = JSON.parse(storedCartData);
-      console.log('Restored cart data from localStorage:', cartData);
+    const storedFlowerOptions = JSON.parse(localStorage.getItem('flowerSubscriptionOptions')) || {};
+    const storedCartData = JSON.parse(localStorage.getItem('tempCart'));
 
-      setSubscriptionOption(cartData.subscriptionOption);
-      setQuantity(cartData.quantity);
+    const flowerData = storedFlowerOptions[type];
+    if (flowerData) {
+      // Update the subscription option and quantity from local storage
+      setSubscriptionOption(flowerData.subscriptionOption || 'weekly');
+      setQuantity(flowerData.quantity || 1);
+      setIsAddToCartEnabled(true); // Enable Add to Cart if options are available
+    } else if (storedCartData && storedCartData.type === type) {
+      setSubscriptionOption(storedCartData.subscriptionOption);
+      setQuantity(storedCartData.quantity);
+      setIsAddToCartEnabled(true); // Enable Add to Cart if tempCart data is relevant
     } else {
-      console.log('No tempCart data found in localStorage');
+      console.log('No relevant data found in localStorage');
     }
-  }, []);
+  }, [type]);
 
   // UseEffect to update subscription and quantity when the user logs in
   useEffect(() => {
@@ -89,6 +94,8 @@ export const Flowers = () => {
       if (cart && cart.type === type) {
         setSubscriptionOption(cart.subscriptionOption || 'weekly');
         setQuantity(cart.quantity || 1);
+        // Enable the Add to Cart button
+        setIsAddToCartEnabled(true);
       }
     }
   }, [isLoggedIn, type]);
