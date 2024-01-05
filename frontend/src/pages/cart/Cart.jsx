@@ -7,6 +7,7 @@ import { cartStore } from "../../stores/cartStore";
 import basicImage from "../../assets/images/basic.png";
 import standardImage from "../../assets/images/standard.png";
 import largeImage from "../../assets/images/large.png";
+import defaultImage from "../../assets/images/image12.png";
 import styles from "./cart.module.css";
 
 export const Cart = () => {
@@ -76,7 +77,7 @@ export const Cart = () => {
       case "large":
         return largeImage;
       default:
-        return "";
+        return defaultImage;
     }
   };
 
