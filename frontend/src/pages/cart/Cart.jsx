@@ -3,37 +3,62 @@ import { Logo } from "../../components/logo/Logo";
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { userStore } from "../../stores/userStore";
+import { cartStore } from "../../stores/cartStore";
 import basicImage from "../../assets/images/basic.png";
 import standardImage from "../../assets/images/standard.png";
 import largeImage from "../../assets/images/large.png";
 import styles from "./cart.module.css";
-//import { cartStore } from "../../stores/cartStore";
 
 export const Cart = () => {
   const { id } = useParams();
-  //console.log(id);
-
   const navigate = useNavigate();
+  const dataToShow = cartStore((state) => state.cart);
 
+  //Handling logout from userStore
   const storeHandleLogout = userStore((state) => state.handleLogout);
   const onLogoutClick = async () => {
     storeHandleLogout();
     navigate("/login");
   };
 
-  //---- Dummy values from cartStore (to be changed after merge)----
-  let dataToShow = {
-    type: "large",
-    subscriptionOption: "yearly",
-    quantity: 52,
-    price: 18200,
-    sum: 18200,
+  // Function to calculate subscription cost before delivery
+  const subscriptionCost = (flowerType, subscriptionOption) => {
+    let basePrice;
+    //Setting basePrice based on flower type
+    switch (flowerType) {
+      case "basic":
+        basePrice = 150;
+        break;
+      case "standard":
+        basePrice = 250;
+        break;
+      case "large":
+        basePrice = 350;
+        break;
+      default:
+        throw new Error("Invalid flower type");
+    }
+
+    //Setting quantity based on subscription option
+    let quantity;
+    switch (subscriptionOption) {
+      case "weekly":
+        quantity = 1;
+        break;
+      case "monthly":
+        quantity = 4;
+        break;
+      case "yearly":
+        quantity = 52;
+        break;
+      default:
+        throw new Error("Invalid subscription option.");
+    }
+
+    // Calculate total price
+    const totalPrice = basePrice * quantity;
+    return totalPrice;
   };
-  // const dataToShow = cartStore((state) => state.cart);
-  // {dataToShow.type || 'No type selected'}
-  // {dataToShow.subscriptionOption || 'No subscription selected'}
-  // {dataToShow.quantity || 0}
-  // {dataToShow.price || 'NA'}
 
   // Small function to calculate the purchase sum
   const sumFunction = (price, deliveryCost) => {
@@ -99,15 +124,19 @@ export const Cart = () => {
         .then((data) => {
           if (data.success) {
             console.log("data submitted successfully");
+            alert(
+              ` Your ${dataToShow.subscriptionOption} subscription of ${dataToShow.type} bouquet order is now being processed.`
+            );
             setNewGreeting(""); //clearing textarea
+            navigate("/");
           } else {
             console.log("Something went wrong");
             console.log(data.error);
           }
         })
         .catch((error) => {
-          console.error("Error occured in creating greeting:", error);
-          alert("An error occurred while creating your greeting message.");
+          console.error("Error occured during ordering process:", error);
+          alert("An error occurred while creating your purchase order.");
         });
     }
   };
@@ -133,22 +162,38 @@ export const Cart = () => {
         </div>
         <div>
           <p>
-            options:<span>{dataToShow.subscriptionOption}</span>
+            options:
+            <span className={styles.greenbox}>
+              {dataToShow.subscriptionOption}
+            </span>
           </p>
           <p>
-            quantity:<span>{dataToShow.quantity}</span>bouquet(s)
+            quantity:
+            <span className={styles.greenbox}>{dataToShow.quantity}</span>
+            bouquet(s)
           </p>
           <p>
-            price:<span>{dataToShow.price}</span>kr
+            price:
+            <span className={styles.greenbox}>
+              {subscriptionCost(dataToShow.type, dataToShow.subscriptionOption)}
+            </span>
+            kr
           </p>
           <p>
-            delivery:<span>0</span>kr
+            delivery:<span className={styles.greenbox}>0</span>kr
           </p>
         </div>
       </div>
       <hr />
       <p>
-        sum:<span>{sumFunction(dataToShow.price, 0)}</span>kr
+        sum:
+        <span className={styles.greenbox}>
+          {sumFunction(
+            subscriptionCost(dataToShow.type, dataToShow.subscriptionOption),
+            0
+          )}
+        </span>
+        kr
       </p>
       {/*<GreetingMessage dataToshow/>*/}
       <p>
