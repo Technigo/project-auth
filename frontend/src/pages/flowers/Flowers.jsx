@@ -67,25 +67,25 @@ export const Flowers = () => {
   }, [type]);
 
   useEffect(() => {
-    console.log("Running useEffect for localStorage check");
+    console.log("Running useEffect for flowerSubscriptionOptions check");
 
     const storedFlowerOptions = JSON.parse(localStorage.getItem('flowerSubscriptionOptions')) || {};
-    const storedCartData = JSON.parse(localStorage.getItem('tempCart'));
-
     const flowerData = storedFlowerOptions[type];
+
     if (flowerData) {
       // Update the subscription option and quantity from local storage
       setSubscriptionOption(flowerData.subscriptionOption || 'weekly');
       setQuantity(flowerData.quantity || 1);
       setIsAddToCartEnabled(true); // Enable Add to Cart if options are available
-    } else if (storedCartData && storedCartData.type === type) {
-      setSubscriptionOption(storedCartData.subscriptionOption);
-      setQuantity(storedCartData.quantity);
-      setIsAddToCartEnabled(true); // Enable Add to Cart if tempCart data is relevant
     } else {
-      console.log('No relevant data found in localStorage');
+      console.log('No relevant flower data found in localStorage for type:', type);
+      // Optionally, reset to default values
+      setSubscriptionOption('weekly');
+      setQuantity(1);
+      setIsAddToCartEnabled(false);
     }
-  }, [type]);
+}, [type]);
+
 
   // UseEffect to update subscription and quantity when the user logs in
   useEffect(() => {
