@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Header, Input, Form, StyledButton, Paragraph, Success, Error } from './StyledComponents';
 
-const API_REGISTER_URL = 'http://localhost:8080/api/users/register';//check endpoint!!!
+const API_REGISTER_URL = 'https://auth-dafn.onrender.com/api/users/register';//check endpoint!!!
 
 const RegisterForm = () => {
     const [username, setUsername] = useState('');

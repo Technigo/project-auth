@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Header, StyledButton, Paragraph } from './StyledComponents';
 import { useNavigate } from 'react-router-dom';
 
-const API_CONTENT_URL = 'http://localhost:8080/api/users/content'; // Adjust the endpoint if necessary!!!
+const API_CONTENT_URL = 'https://auth-dafn.onrender.com/api/users/content'; // Adjust the endpoint if necessary!!!
 
 const Dashboard = ({ user, setToken }) => {
   const [profile, setProfile] = useState(null);
