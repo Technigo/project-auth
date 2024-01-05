@@ -14,13 +14,15 @@ export const cartStore = create(((set, get) => ({
     quantity: null,
     price: null,
   },
+  setCart: (cartData) => {
+    set({ cart: cartData });
+  },
     // Function to add items to the cart
     addToCart: (type, subscriptionOption, quantity, price, isLoggedIn, userId) => {
       if (subscriptionOption == null || quantity == null) {
         console.error('Cannot add to cart: subscriptionOption or quantity is null');
         return;
       }
-      // Always update the cart state
       set({
         cart: {
           type,
@@ -77,7 +79,6 @@ export const cartStore = create(((set, get) => ({
       console.error('Error fetching flowers:', error);
     }
   }
-
 })
 ));
 
