@@ -1,9 +1,12 @@
 // Importing necessary dependencies from React and the application
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { cartStore } from '../../stores/cartStore';
 import { userStore } from '../../stores/userStore';
+import { Navbar } from '../../components/navbar/Navbar';
+import { Footer } from '../../components/footer/Footer';
+import { MoreInfo } from '../../components/more_info/MoreInfo';
 
 // Define the available flower types
 const allFlowerTypes = ['basic', 'standard', 'large'];
@@ -13,13 +16,14 @@ export const Flowers = () => {
   // Extract parameters and functions from React Router and stores
   const { type } = useParams();
   const navigate = useNavigate();
-  const prevTypeRef = useRef();
   const { addToCart, fetchFlowers } = cartStore();
   const { isLoggedIn, id } = userStore(state => ({ isLoggedIn: state.isLoggedIn, id: state.id }));
   // State to manage flower details, subscription options, and quantity
   const [flower, setFlower] = useState({});
   const [subscriptionOption, setSubscriptionOption] = useState('weekly');
   const [quantity, setQuantity] = useState(1);
+  // State to manage if Add to Cart button is enabled
+  const [isAddToCartEnabled, setIsAddToCartEnabled] = useState(false);
 
   // State to manage subscription options and quantities for each flower type
   const [flowerOptions, setFlowerOptions] = useState(() => {
@@ -34,6 +38,8 @@ export const Flowers = () => {
 
   // UseEffect to fetch specific flower data based on the flower type
   useEffect(() => {
+      // Reset the Add to Cart button to be disabled by default
+      setIsAddToCartEnabled(false);
     let isMounted = true;
     const fetchSpecificFlower = async () => {
       // Check if the flowers data for the current type is already fetched
@@ -90,14 +96,14 @@ export const Flowers = () => {
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('flowerSubscriptionOptions')) || {};
     const flowerData = storedData[type];
-  
+
     // Update the subscription option and quantity from local storage or reset to default
     setSubscriptionOption(flowerData?.subscriptionOption || 'weekly');
     setQuantity(flowerData?.quantity || 1);
-  
+
     console.log('[useEffect][type change] Setting option and quantity for type:', type);
   }, [type]);
-  
+
 
 
   const handleOptionChange = (option) => {
@@ -108,7 +114,8 @@ export const Flowers = () => {
     const newFlowerOptions = { ...flowerOptions, [type]: { subscriptionOption: option, quantity: newQuantity } };
     setFlowerOptions(newFlowerOptions);
     localStorage.setItem('flowerSubscriptionOptions', JSON.stringify(newFlowerOptions));
-
+    // Enable the Add to Cart button when a valid option is selected
+    setIsAddToCartEnabled(true);
     console.log('[handleOptionChange] Option changed:', option, 'Quantity:', newQuantity);
   };
 
@@ -138,6 +145,7 @@ export const Flowers = () => {
 
   return (
     <>
+      <Navbar />
       <section>
         <h1>Product: {flower.type}</h1>
         <p>Price: {flower.price} kr/week</p>
@@ -159,11 +167,11 @@ export const Flowers = () => {
           <p>delivery</p>
           <span>self-pick up</span> (Coming soon: Delivery)
         </div>
-        <button onClick={handleAddToCart}>ADD TO CART</button>
+        <button onClick={handleAddToCart} disabled={!isAddToCartEnabled}>ADD TO CART</button>
       </section>
       <section>
         <h2>More information</h2>
-        {/* More information content */}
+        <MoreInfo />
       </section>
       <section>
         <h2>Other items</h2>
@@ -173,6 +181,7 @@ export const Flowers = () => {
           </p>
         ))}
       </section>
+      <Footer />
     </>
   );
 };
