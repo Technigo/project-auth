@@ -17,11 +17,6 @@ export const Cart = () => {
   // const emptyCart = cartStore((state) => state.addToCart);
   const emptyCart = cartStore((state) => state.emptyCart);
 
-  // //Handling update cart
-  // const onUpdateClick = async () => {
-  //   navigate("/flower/:???");
-  // };
-
   //Handling logout from userStore
   const storeHandleLogout = userStore((state) => state.handleLogout);
   const onLogoutClick = async () => {
@@ -213,10 +208,6 @@ export const Cart = () => {
           <p>
             delivery:<span className={styles.greenbox}>0</span>kr
           </p>
-        </div>
-        <div>
-          <button>Update Cart</button>
-          <button>Delete Cart</button>
         </div>
       </section>
       <hr />
