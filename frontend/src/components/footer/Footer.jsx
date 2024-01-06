@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Translate } from "../../pages/Translate";
 import { useTranslation } from "react-i18next";
+import footerFlowerIcon from "../../assets/icons/icons8-flower-64.svg";
 import styles from "../footer/footer.module.css";
 
 export const Footer = () => {
@@ -81,10 +82,7 @@ export const Footer = () => {
         </ul>
       </div>
       <div className={styles.footerFlower}>
-        <img
-          src="../../../src/assets/icons/icons8-flower-64.png"
-          alt="single tilted flower image"
-        />
+        <img src={footerFlowerIcon} alt="single tilted flower image" />
       </div>
     </footer>
   );
