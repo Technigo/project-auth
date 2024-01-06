@@ -17,6 +17,11 @@ export const Cart = () => {
   // const emptyCart = cartStore((state) => state.addToCart);
   const emptyCart = cartStore((state) => state.emptyCart);
 
+  // //Handling update cart
+  // const onUpdateClick = async () => {
+  //   navigate("/flower/:???");
+  // };
+
   //Handling logout from userStore
   const storeHandleLogout = userStore((state) => state.handleLogout);
   const onLogoutClick = async () => {
@@ -96,6 +101,11 @@ export const Cart = () => {
     }
   }, [newGreeting]); //dependency array with effect only running when "newGreeting" changes
 
+  const invalidPurchaseOrder =
+    newGreeting.length < 4 ||
+    newGreeting.length > 100 ||
+    subscriptionCost(dataToShow.type, dataToShow.subscriptionOption) === 0;
+
   //----------- Sending confirmed flower subscription order through POST request to API ---------
   const handleSubmit = async (event) => {
     event.preventDefault(); //preventing form's default submit behaviour
@@ -164,20 +174,28 @@ export const Cart = () => {
           </li>
         </ul>
       </nav>
-      <div>
+      <section>
         <div>
           <img
             src={bouquetImage(dataToShow.type)}
-            alt={`${dataToShow.type} flower bouquet`}
+            alt={`${
+              dataToShow.type == null ? "No" : dataToShow.type
+            } flower bouquet`}
           />
-          <p>{dataToShow.type}</p>
+          <p>
+            {dataToShow.type == null
+              ? "No weekly bouquet chosen"
+              : dataToShow.type}
+          </p>
         </div>
 
         <div>
           <p>
             options:
             <span className={styles.greenbox}>
-              {dataToShow.subscriptionOption}
+              {dataToShow.subscriptionOption == null
+                ? "No subscription chosen"
+                : dataToShow.subscriptionOption}
             </span>
           </p>
           <p>
@@ -196,61 +214,66 @@ export const Cart = () => {
             delivery:<span className={styles.greenbox}>0</span>kr
           </p>
         </div>
-      </div>
-      <hr />
-      <p>
-        sum:
-        <span className={styles.greenbox}>
-          {sumFunction(
-            subscriptionCost(dataToShow.type, dataToShow.subscriptionOption),
-            0
-          )}
-        </span>
-        kr
-      </p>
-      {/*<GreetingMessage dataToshow/>*/}
-      <p>
-        If you want to send flowers to someone or convey your feelings for the
-        week through FloraEcho, please leave a message below. We will customize
-        a secret floral based on your message. There will be different surprises
-        every week!
-      </p>
-
-      {/* Form element with onSubmit event handler set to "handleSubmit" */}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="greeting">
-          <textarea
-            id="greeting"
-            rows="5"
-            cols="50"
-            placeholder="Type your text here"
-            value={newGreeting}
-            onChange={(event) => setNewGreeting(event.target.value)}
-            className=""
-          />
-        </label>
         <div>
-          <p>{errorMessage}</p>
-          <p
-            className={`length ${newGreeting.length >= 100 ? styles.red : ""}`}
-          >
-            {newGreeting.length}/100
-          </p>
+          <button>Update Cart</button>
+          <button>Delete Cart</button>
         </div>
-        <button
-          type="submit"
-          id="submitPostButton"
-          aria-label="click to submit your subscription order"
-          disabled={
-            newGreeting.length < 4 ||
-            newGreeting.length > 100 ||
-            subscriptionCost(dataToShow.type, dataToShow.subscriptionOption) ===
+      </section>
+      <hr />
+      <section>
+        <p>
+          sum:
+          <span className={styles.greenbox}>
+            {sumFunction(
+              subscriptionCost(dataToShow.type, dataToShow.subscriptionOption),
               0
-          }
-        >
-          Confirm order
-        </button>
-      </form>
+            )}
+          </span>
+          kr
+        </p>
+      </section>
+      <section>
+        {/*<GreetingMessage dataToshow/>*/}
+        <p>
+          If you want to send flowers to someone or convey your feelings for the
+          week through FloraEcho, please leave a message below. We will
+          customize a secret floral based on your message. There will be
+          different surprises every week!
+        </p>
+
+        {/* Form element with onSubmit event handler set to "handleSubmit" */}
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="greeting">
+            <textarea
+              id="greeting"
+              rows="5"
+              cols="50"
+              placeholder="Type your text here"
+              value={newGreeting}
+              onChange={(event) => setNewGreeting(event.target.value)}
+              className=""
+            />
+          </label>
+          <div>
+            <p>{errorMessage}</p>
+            <p
+              className={`length ${
+                newGreeting.length >= 100 ? styles.red : ""
+              }`}
+            >
+              {newGreeting.length}/100
+            </p>
+          </div>
+          <button
+            type="submit"
+            id="submitPostButton"
+            aria-label="click to submit your subscription order"
+            disabled={invalidPurchaseOrder}
+          >
+            Confirm order
+          </button>
+        </form>
+      </section>
       <Footer />
     </div>
   );
