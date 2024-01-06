@@ -7,14 +7,15 @@ import { cartStore } from "../../stores/cartStore";
 import basicImage from "../../assets/images/basic.png";
 import standardImage from "../../assets/images/standard.png";
 import largeImage from "../../assets/images/large.png";
-import defaultImage from "../../assets/images/image12.png";
+import defaultImage from "../../assets/images/answer1.png";
 import styles from "./cart.module.css";
 
 export const Cart = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dataToShow = cartStore((state) => state.cart);
-  const emptyCart = cartStore((state) => state.addToCart);
+  // const emptyCart = cartStore((state) => state.addToCart);
+  const emptyCart = cartStore((state) => state.emptyCart);
 
   //Handling logout from userStore
   const storeHandleLogout = userStore((state) => state.handleLogout);
@@ -130,7 +131,15 @@ export const Cart = () => {
               ` Your ${dataToShow.subscriptionOption} subscription of ${dataToShow.type} bouquet order is now being processed.`
             );
             setNewGreeting(""); //clearing textarea
-            emptyCart("default", null, 0, 0, 0); //emptying cart- logic to be included in cartStore
+            // emptyCart(
+            //   "No weekly bouquet chosen",
+            //   "No subscription chosen",
+            //   0,
+            //   0,
+            //   true,
+            //   0
+            // ); //emptying cart- logic to be included in cartStore
+            emptyCart();
             navigate("/"); //redirecting user to landing page
           } else {
             console.log("Something went wrong");
@@ -144,7 +153,7 @@ export const Cart = () => {
     }
   };
   return (
-    <div>
+    <div className={styles.cart}>
       {/* component nav? */}
       <nav>
         <ul>
@@ -235,7 +244,8 @@ export const Cart = () => {
           disabled={
             newGreeting.length < 4 ||
             newGreeting.length > 100 ||
-            subscriptionCost == 0
+            subscriptionCost(dataToShow.type, dataToShow.subscriptionOption) ===
+              0
           }
         >
           Confirm order

@@ -4,19 +4,26 @@ import { create } from "zustand";
 const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 // Create a Zustand store for managing cart-related state and actions
-export const cartStore = create(((set, get) => ({
-   // Initial state for flowers, fetched types, and the cart
+export const cartStore = create((set, get) => ({
+  // Initial state for flowers, fetched types, and the cart
   flowers: {},
   fetchedTypes: new Set(),
   cart: {
-    type: null,
-    subscriptionOption: null,
-    quantity: null,
+    type: "No weekly bouquet chosen",
+    subscriptionOption: "No subscription chosen",
+    quantity: 0,
     price: null,
   },
-    // Function to add items to the cart
-  addToCart: (type, subscriptionOption, quantity, price, isLoggedIn, userId) => {
-    console.log('Current cart state before update:', get().cart);
+  // Function to add items to the cart
+  addToCart: (
+    type,
+    subscriptionOption,
+    quantity,
+    price,
+    isLoggedIn,
+    userId
+  ) => {
+    console.log("Current cart state before update:", get().cart);
     if (isLoggedIn) {
       // If the user is logged in, update the cart state.
       set({
@@ -28,14 +35,14 @@ export const cartStore = create(((set, get) => ({
           userId,
         },
       });
-      console.log('New cart state after update:', get().cart);
+      console.log("New cart state after update:", get().cart);
     } else {
       // If the user is not logged in, save to localStorage instead.
       const cartData = { type, subscriptionOption, quantity, price };
-      localStorage.setItem('tempCart', JSON.stringify(cartData));
+      localStorage.setItem("tempCart", JSON.stringify(cartData));
     }
   },
-    // Async function to fetch flower data based on the flower type
+  // Async function to fetch flower data based on the flower type
   fetchFlowers: async (type) => {
     // Check if the data is already fetched
     const alreadyFetched = get().fetchedTypes.has(type);
@@ -67,25 +74,49 @@ export const cartStore = create(((set, get) => ({
 
         return flowerData.response;
       } else {
-        console.error('Fetching flowers was not successful', flowerData);
+        console.error("Fetching flowers was not successful", flowerData);
       }
     } catch (error) {
-      console.error('Error fetching flowers:', error);
+      console.error("Error fetching flowers:", error);
     }
-  }
+  },
 
-})
-));
+  // Function to clear the cart
+  emptyCart: () => {
+    set((state) => ({
+      cart: {
+        type: "No weekly bouquet chosen",
+        subscriptionOption: "No subscription chosen",
+        quantity: 0,
+        price: null,
+        isLoggedIn: true,
+        userId: state.cart.userId, // Keep the userId unchanged
+      },
+    }));
+  },
+}));
 
 // Function to retrieve and update the cart from local storage when the user is logged in
 export const retrieveCartFromStorage = (userId) => {
-  console.log('Retrieving cart from local storage');
-  const cartData = JSON.parse(localStorage.getItem('tempCart'));
-  console.log('Cart data retrieved:', cartData);
+  console.log("Retrieving cart from local storage");
+  const cartData = JSON.parse(localStorage.getItem("tempCart"));
+  console.log("Cart data retrieved:", cartData);
   if (cartData) {
-    console.log('User logged in, updating cart with stored data');
-    cartStore.getState().addToCart(cartData.type, cartData.subscriptionOption, cartData.quantity, cartData.price, true, userId);
-    localStorage.removeItem('tempCart'); // Clear the temporary cart data after moving it to state
-    console.log('Local storage after clearing:', localStorage.getItem('tempCart'));
+    console.log("User logged in, updating cart with stored data");
+    cartStore
+      .getState()
+      .addToCart(
+        cartData.type,
+        cartData.subscriptionOption,
+        cartData.quantity,
+        cartData.price,
+        true,
+        userId
+      );
+    localStorage.removeItem("tempCart"); // Clear the temporary cart data after moving it to state
+    console.log(
+      "Local storage after clearing:",
+      localStorage.getItem("tempCart")
+    );
   }
 };
