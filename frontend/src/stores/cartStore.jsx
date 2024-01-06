@@ -9,8 +9,8 @@ export const cartStore = create((set, get) => ({
   flowers: {},
   fetchedTypes: new Set(),
   cart: {
-    type: "No weekly bouquet chosen",
-    subscriptionOption: "No subscription chosen",
+    type: null,
+    subscriptionOption: null,
     quantity: 0,
     price: null,
   },
@@ -85,8 +85,8 @@ export const cartStore = create((set, get) => ({
   emptyCart: () => {
     set((state) => ({
       cart: {
-        type: "No weekly bouquet chosen",
-        subscriptionOption: "No subscription chosen",
+        type: null,
+        subscriptionOption: null,
         quantity: 0,
         price: null,
         isLoggedIn: true,
