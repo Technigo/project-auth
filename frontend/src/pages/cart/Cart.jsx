@@ -203,7 +203,9 @@ export const Cart = () => {
             <p style={{ gridArea: styles.cartCell3 }}>subscription</p>
             <p style={{ gridArea: styles.cartCell4 }}>quantity:</p>
             <p style={{ gridArea: styles.cartCell5 }}>
-              <span className={styles.greenbox}>{dataToShow.quantity}</span>
+              <span className={styles.greenbox}>
+                {dataToShow.quantity == null ? "0" : dataToShow.quantity}
+              </span>
             </p>
             <p style={{ gridArea: styles.cartCell6 }}>bouquet(s)</p>
             <p style={{ gridArea: styles.cartCell7 }}>price:</p>

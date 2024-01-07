@@ -11,7 +11,7 @@ export const cartStore = create((set, get) => ({
   cart: {
     type: null,
     subscriptionOption: null,
-    quantity: 0,
+    quantity: null,
     price: null,
   },
   // Function to add items to the cart
