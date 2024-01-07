@@ -1,17 +1,18 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import dotenv from "dotenv"; // Import dotenv for environment variables
-import userRouter from './routes/UserRoutes.js'; // Import the user routes
+import dotenv from "dotenv";
+import jwt from 'jsonwebtoken'; // Import jsonwebtoken
+import userRouter from './routes/UserRoutes.js';
 import listEndpoints from "express-list-endpoints";
 
-dotenv.config()
+dotenv.config();
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/projectauth";
 
 async function connectToDatabase() {
   try {
-    await mongoose.connect(mongoUrl); // Removed the deprecated options
+    await mongoose.connect(mongoUrl);
     console.log('Connected to MongoDB');
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);
@@ -26,23 +27,39 @@ mongoose.Promise = Promise;
 const port = process.env.PORT || 8080;
 const app = express();
 
-// Add middlewares to enable CORS and JSON body parsing
-// Configure CORS to allow requests from the specified domain
 app.use(cors({
-  origin: 'https://splendorous-elf-6e001c.netlify.app' // Your front-end domain
+  origin: 'https://splendorous-elf-6e001c.netlify.app'
 }));
 app.use(express.json());
 
-//Endpoint to list all available endpoints
 app.get("/", (req, res) => {
   const endpoints = listEndpoints(app);
   res.json(endpoints);
 });
 
+// Hypothetical login route for JWT token creation
+app.post('/api/login', (req, res) => {
+  // This is a simplified example. In a real application, you would need to
+  // verify the user's credentials (e.g., with a database) before issuing a token.
+  const user = {
+    id: 1, 
+    username: 'john_doe', 
+    email: 'john@example.com'
+  };
+
+  // Create a token with the user object and your secret
+  const token = jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+  res.json({
+    success: true,
+    message: 'Authentication successful!',
+    token: token
+  });
+});
+
 // User related routes
 app.use('/api/users', userRouter);
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
