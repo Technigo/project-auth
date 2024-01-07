@@ -161,7 +161,6 @@ export const Cart = () => {
   };
   return (
     <div className={styles.cart}>
-      {/* component nav? */}
       <nav>
         <ul className={styles.cartUl}>
           <Link to={`/profile/${id}`} className={styles.cartBack}>
@@ -193,32 +192,35 @@ export const Cart = () => {
           </div>
 
           <div className={styles.cartProductInfo}>
-            <p>
-              options:
+            <p style={{ gridArea: styles.cartCell1 }}>options:</p>
+            <p style={{ gridArea: styles.cartCell2 }}>
               <span className={styles.greenbox}>
                 {dataToShow.subscriptionOption == null
                   ? "none"
                   : dataToShow.subscriptionOption}
               </span>
             </p>
-            <p>
-              quantity:
+            <p style={{ gridArea: styles.cartCell3 }}>subscription</p>
+            <p style={{ gridArea: styles.cartCell4 }}>quantity:</p>
+            <p style={{ gridArea: styles.cartCell5 }}>
               <span className={styles.greenbox}>{dataToShow.quantity}</span>
-              bouquet(s)
             </p>
-            <p>
-              price:
+            <p style={{ gridArea: styles.cartCell6 }}>bouquet(s)</p>
+            <p style={{ gridArea: styles.cartCell7 }}>price:</p>
+            <p style={{ gridArea: styles.cartCell8 }}>
               <span className={styles.greenbox}>
                 {subscriptionCost(
                   dataToShow.type,
                   dataToShow.subscriptionOption
                 )}
               </span>
-              kr
             </p>
-            <p>
-              delivery:<span className={styles.greenbox}>0</span>kr
+            <p style={{ gridArea: styles.cartCell9 }}>kr</p>
+            <p style={{ gridArea: styles.cartCell10 }}>delivery:</p>
+            <p style={{ gridArea: styles.cartCell11 }}>
+              <span className={styles.greenbox}>0</span>
             </p>
+            <p style={{ gridArea: styles.cartCell12 }}>kr</p>
           </div>
         </section>
         <img
@@ -242,7 +244,6 @@ export const Cart = () => {
           </p>
         </section>
         <section className={styles.cartGreetingSection}>
-          {/*<GreetingMessage dataToshow/>*/}
           <p>
             If you want to send flowers to someone or convey your feelings for
             the week through FloraEcho, please leave a message below. We will
