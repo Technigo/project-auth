@@ -11,8 +11,8 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/projectauth";
 
 async function connectToDatabase() {
   try {
-    await mongoose.connect(mongoUrl, { 
-      useNewUrlParser: true, 
+    await mongoose.connect(mongoUrl, {
+      useNewUrlParser: true,
       useUnifiedTopology: true,
     });
     console.log('Connected to MongoDB');
@@ -21,6 +21,7 @@ async function connectToDatabase() {
     process.exit(1);
   }
 }
+
 connectToDatabase();
 
 mongoose.Promise = Promise;
@@ -28,9 +29,11 @@ mongoose.Promise = Promise;
 const port = process.env.PORT || 8080;
 const app = express();
 
-
 // Add middlewares to enable CORS and JSON body parsing
-app.use(cors());
+// Configure CORS to allow requests from the specified domain
+app.use(cors({
+  origin: 'https://splendorous-elf-6e001c.netlify.app' // Your front-end domain
+}));
 app.use(express.json());
 
 //Endpoint to list all available endpoints
