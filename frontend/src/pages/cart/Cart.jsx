@@ -8,13 +8,14 @@ import basicImage from "../../assets/images/basic.png";
 import standardImage from "../../assets/images/standard.png";
 import largeImage from "../../assets/images/large.png";
 import defaultImage from "../../assets/images/answer1.png";
+import horizontalRule from "../../assets/icons/line13.svg";
+import leftArrow from "../../assets/icons/icons8-left-arrow-50.png";
 import styles from "./cart.module.css";
 
 export const Cart = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dataToShow = cartStore((state) => state.cart);
-  // const emptyCart = cartStore((state) => state.addToCart);
   const emptyCart = cartStore((state) => state.emptyCart);
 
   //Handling logout from userStore
@@ -96,6 +97,7 @@ export const Cart = () => {
     }
   }, [newGreeting]); //dependency array with effect only running when "newGreeting" changes
 
+  //Disabling submit form under those circumstances
   const invalidPurchaseOrder =
     newGreeting.length < 4 ||
     newGreeting.length > 100 ||
@@ -113,7 +115,7 @@ export const Cart = () => {
       //Configuring the fetch request -POST method
       const purchaseOrder = {
         method: "POST",
-        //Stringifying "newGreeting" and setting it to request body
+        //Stringifying required values and setting them to request body
         body: JSON.stringify({
           greeting: `${newGreeting}`,
           user_id: `${id}`,
@@ -133,18 +135,18 @@ export const Cart = () => {
           if (data.success) {
             console.log("data submitted successfully");
             alert(
-              ` Your ${dataToShow.subscriptionOption} subscription of ${dataToShow.type} bouquet order is now being processed.`
+              ` Your ${dataToShow.subscriptionOption} subscription of ${
+                dataToShow.type
+              } bouquet order is now being processed.  Amount due: ${sumFunction(
+                subscriptionCost(
+                  dataToShow.type,
+                  dataToShow.subscriptionOption
+                ),
+                0
+              )} kr.`
             );
             setNewGreeting(""); //clearing textarea
-            // emptyCart(
-            //   "No weekly bouquet chosen",
-            //   "No subscription chosen",
-            //   0,
-            //   0,
-            //   true,
-            //   0
-            // ); //emptying cart- logic to be included in cartStore
-            emptyCart();
+            emptyCart(); //clearing cart
             navigate("/"); //redirecting user to landing page
           } else {
             console.log("Something went wrong");
@@ -161,110 +163,126 @@ export const Cart = () => {
     <div className={styles.cart}>
       {/* component nav? */}
       <nav>
-        <ul>
-          <Link to={`/profile/${id}`}>back</Link>
+        <ul className={styles.cartUl}>
+          <Link to={`/profile/${id}`} className={styles.cartBack}>
+            <img src={leftArrow} alt="left arrow" />
+            back
+          </Link>
           <Logo />
-          <li type="button" onClick={onLogoutClick}>
+          <li type="button" onClick={onLogoutClick} className={styles.cartLi}>
             log out
           </li>
         </ul>
       </nav>
-      <section>
-        <div>
-          <img
-            src={bouquetImage(dataToShow.type)}
-            alt={`${
-              dataToShow.type == null ? "No" : dataToShow.type
-            } flower bouquet`}
-          />
-          <p>
-            {dataToShow.type == null
-              ? "No weekly bouquet chosen"
-              : dataToShow.type}
-          </p>
-        </div>
+      <article className={styles.cartArticle}>
+        <section className={styles.cartProductSection}>
+          <div className={styles.cartProductImage}>
+            <img
+              src={bouquetImage(dataToShow.type)}
+              alt={`${
+                dataToShow.type == null
+                  ? "Weekly bouquet: none chosen"
+                  : dataToShow.type
+              }`}
+            />
+            <p>
+              {dataToShow.type == null
+                ? "Weekly bouquet: none chosen"
+                : dataToShow.type}
+            </p>
+          </div>
 
-        <div>
+          <div className={styles.cartProductInfo}>
+            <p>
+              options:
+              <span className={styles.greenbox}>
+                {dataToShow.subscriptionOption == null
+                  ? "none"
+                  : dataToShow.subscriptionOption}
+              </span>
+            </p>
+            <p>
+              quantity:
+              <span className={styles.greenbox}>{dataToShow.quantity}</span>
+              bouquet(s)
+            </p>
+            <p>
+              price:
+              <span className={styles.greenbox}>
+                {subscriptionCost(
+                  dataToShow.type,
+                  dataToShow.subscriptionOption
+                )}
+              </span>
+              kr
+            </p>
+            <p>
+              delivery:<span className={styles.greenbox}>0</span>kr
+            </p>
+          </div>
+        </section>
+        <img
+          src={horizontalRule}
+          alt="horizontal rule"
+          className={styles.cartProductHr}
+        />
+        <section className={styles.cartSumSection}>
           <p>
-            options:
+            sum:
             <span className={styles.greenbox}>
-              {dataToShow.subscriptionOption == null
-                ? "No subscription chosen"
-                : dataToShow.subscriptionOption}
-            </span>
-          </p>
-          <p>
-            quantity:
-            <span className={styles.greenbox}>{dataToShow.quantity}</span>
-            bouquet(s)
-          </p>
-          <p>
-            price:
-            <span className={styles.greenbox}>
-              {subscriptionCost(dataToShow.type, dataToShow.subscriptionOption)}
+              {sumFunction(
+                subscriptionCost(
+                  dataToShow.type,
+                  dataToShow.subscriptionOption
+                ),
+                0
+              )}
             </span>
             kr
           </p>
+        </section>
+        <section className={styles.cartGreetingSection}>
+          {/*<GreetingMessage dataToshow/>*/}
           <p>
-            delivery:<span className={styles.greenbox}>0</span>kr
+            If you want to send flowers to someone or convey your feelings for
+            the week through FloraEcho, please leave a message below. We will
+            customize a secret floral based on your message. There will be
+            different surprises every week!
           </p>
-        </div>
-      </section>
-      <hr />
-      <section>
-        <p>
-          sum:
-          <span className={styles.greenbox}>
-            {sumFunction(
-              subscriptionCost(dataToShow.type, dataToShow.subscriptionOption),
-              0
-            )}
-          </span>
-          kr
-        </p>
-      </section>
-      <section>
-        {/*<GreetingMessage dataToshow/>*/}
-        <p>
-          If you want to send flowers to someone or convey your feelings for the
-          week through FloraEcho, please leave a message below. We will
-          customize a secret floral based on your message. There will be
-          different surprises every week!
-        </p>
 
-        {/* Form element with onSubmit event handler set to "handleSubmit" */}
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="greeting">
-            <textarea
-              id="greeting"
-              rows="5"
-              cols="50"
-              placeholder="Type your text here"
-              value={newGreeting}
-              onChange={(event) => setNewGreeting(event.target.value)}
-              className=""
-            />
-          </label>
-          <div>
-            <p>{errorMessage}</p>
-            <p
-              className={`length ${
-                newGreeting.length >= 100 ? styles.red : ""
-              }`}
+          {/* Form element with onSubmit event handler set to "handleSubmit" */}
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="greeting">
+              <textarea
+                id="greeting"
+                rows="5"
+                cols="80"
+                placeholder="Type your text here (5-100 characters)..."
+                value={newGreeting}
+                onChange={(event) => setNewGreeting(event.target.value)}
+              />
+              <div className={styles.cartGreetingCaption}>
+                <p>{errorMessage}</p>
+                <p
+                  className={`length ${
+                    newGreeting.length >= 100 ? styles.red : ""
+                  }`}
+                >
+                  {newGreeting.length}/100
+                </p>
+              </div>
+            </label>
+            <button
+              type="submit"
+              id="submitPostButton"
+              aria-label="click to submit your subscription order"
+              disabled={invalidPurchaseOrder}
             >
-              {newGreeting.length}/100
-            </p>
-          </div>
-          <button
-            type="submit"
-            id="submitPostButton"
-            aria-label="click to submit your subscription order"
-            disabled={invalidPurchaseOrder}
-          >
-            Confirm order
-          </button>
-        </form>
-      </section>
+              CONFIRM
+            </button>
+          </form>
+        </section>
+      </article>
       <Footer />
     </div>
   );
