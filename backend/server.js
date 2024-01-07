@@ -11,10 +11,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/projectauth";
 
 async function connectToDatabase() {
   try {
-    await mongoose.connect(mongoUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(mongoUrl); // Removed the deprecated options
     console.log('Connected to MongoDB');
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);
