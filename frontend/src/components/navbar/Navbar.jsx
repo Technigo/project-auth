@@ -1,17 +1,17 @@
 import styles from "../navbar/navbar.module.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { userStore } from "../../stores/userStore";
 import { Logo } from "../../components/logo/Logo";
 import down from "../../assets/icons/icons8-down-64.png";
 import hamburgerIcon from "../../assets/icons/hamburger.png";
 
-import { useParams } from "react-router-dom";
-
-
 export const Navbar = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const { id } = useParams();
+  const { id } = userStore((state) => ({
+    id: state.id,
+  }));
 
   const toggleOptions = () => {
     setShowOptions(!showOptions);
