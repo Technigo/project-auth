@@ -18,11 +18,11 @@ export const Profile = () => {
     if (!isLoggedIn || !accessToken) {
       alert("You don't have permission, please log in first!");
       navigate("/login");
+      fetchData();
     }
-  }, [isLoggedIn, accessToken, navigate]);
+  }, [isLoggedIn, accessToken, fetchData, navigate]);
 
   const onLogoutClick = async () => {
-    storeHandleLogout();
     alert("Log out successfull");
     navigate("/login");
   };
@@ -33,10 +33,6 @@ export const Profile = () => {
   if (!isLoggedIn) {
     return null;
   }
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
     <div className={styles.profile}>
       <nav>
