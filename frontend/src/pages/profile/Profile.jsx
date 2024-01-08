@@ -18,18 +18,20 @@ export const Profile = () => {
     if (!isLoggedIn || !accessToken) {
       alert("You don't have permission, please log in first!");
       navigate("/login");
-      fetchData();
     }
-  }, [isLoggedIn, accessToken, fetchData, navigate]);
-
+  }, [isLoggedIn, accessToken, navigate]);
+  useEffect(() => {
+    fetchData();
+  }, []);
   const onLogoutClick = async () => {
     alert("Log out successfull");
+    storeHandleLogout();
     navigate("/login");
   };
   const backClick = async () => {
-    storeHandleLogout();
     navigate("/");
   };
+
   if (!isLoggedIn) {
     return null;
   }
