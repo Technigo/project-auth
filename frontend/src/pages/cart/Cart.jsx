@@ -104,6 +104,17 @@ export const Cart = () => {
     subscriptionCost(dataToShow.type, dataToShow.subscriptionOption) === 0;
 
   //----------- Sending confirmed flower subscription order through POST request to API ---------
+  useEffect(() => {
+    if (!id) {
+      // If 'id' is not set, retrieve the user ID from local storage
+      const storedUserId = localStorage.getItem('userID');
+      if (storedUserId) {
+        navigate(`/cart/${storedUserId}`);
+      } else {
+        // Handle case where there is no user ID (e.g., prompt login or show error)
+      }
+    }
+  }, [id, navigate]);
   const handleSubmit = async (event) => {
     event.preventDefault(); //preventing form's default submit behaviour
     const backendApi = import.meta.env.VITE_BACKEND_API;
@@ -146,6 +157,7 @@ export const Cart = () => {
               )} kr.`
             );
             setNewGreeting(""); //clearing textarea
+            const userId = localStorage.getItem('userID');
             emptyCart(); //clearing cart
             navigate("/"); //redirecting user to landing page
           } else {
