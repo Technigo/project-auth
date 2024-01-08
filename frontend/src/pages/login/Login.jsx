@@ -16,7 +16,7 @@ export const Login = () => {
   // Accessing and updating isLoggedIn state from the userStore
   const isLoggedIn = userStore(state => state.isLoggedIn);
   const storeHandleLogin = userStore((state) => state.handleLogin);
-  const storeHandleLogout = userStore((state) => state.handleLogout);
+  //const storeHandleLogout = userStore((state) => state.handleLogout);
   const cartRetrieved = useRef(false);
 
   // Redirect logic after login and handling of tempCart
@@ -53,12 +53,12 @@ export const Login = () => {
     }
   };
 
-  // Handle the logout click event
-  const onLogoutClick = async () => {
-    storeHandleLogout();
-    alert("Log out successfull");
-    navigate("/");
-  };
+  // // Handle the logout click event
+  // const onLogoutClick = async () => {
+  //   storeHandleLogout();
+  //   alert("Log out successfull");
+  //   navigate("/");
+  // };
 
   // Handle the sign-up click event
   const signUpClick = async () => {
@@ -79,10 +79,10 @@ export const Login = () => {
     <section className={styles.section}>
       <nav className={styles.login}>
         <ul>
-          <Link to="/">Back</Link>
-          <li type="button" onClick={onLogoutClick}>
+          {/* <Link to="/">Back</Link> */}
+          {/* <li type="button" onClick={onLogoutClick}>
             Sign Out
-          </li>
+          </li> */}
         </ul>
       </nav>
       <div className={styles.logo}>

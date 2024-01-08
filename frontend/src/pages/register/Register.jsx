@@ -62,7 +62,7 @@ export const Register = () => {
     <section className={styles.section}>
       <nav className={styles.register}>
         <ul>
-          <Link to="/">Back</Link>
+          {/* <Link to="/">Back</Link> */}
           <Link to="/login">Login</Link>
         </ul>
       </nav>

@@ -14,11 +14,15 @@ export const cartStore = create(((set, get) => ({
     quantity: null,
     price: null,
   },
+  setCart: (cartData) => {
+    set({ cart: cartData });
+  },
     // Function to add items to the cart
-  addToCart: (type, subscriptionOption, quantity, price, isLoggedIn, userId) => {
-    console.log('Current cart state before update:', get().cart);
-    if (isLoggedIn) {
-      // If the user is logged in, update the cart state.
+    addToCart: (type, subscriptionOption, quantity, price, isLoggedIn, userId) => {
+      if (subscriptionOption == null || quantity == null) {
+        console.error('Cannot add to cart: subscriptionOption or quantity is null');
+        return;
+      }
       set({
         cart: {
           type,
@@ -29,12 +33,14 @@ export const cartStore = create(((set, get) => ({
         },
       });
       console.log('New cart state after update:', get().cart);
-    } else {
-      // If the user is not logged in, save to localStorage instead.
-      const cartData = { type, subscriptionOption, quantity, price };
-      localStorage.setItem('tempCart', JSON.stringify(cartData));
-    }
-  },
+    
+      // If the user is not logged in, save to localStorage as well
+      if (!isLoggedIn) {
+        const cartData = { type, subscriptionOption, quantity, price };
+        localStorage.setItem('tempCart', JSON.stringify(cartData));
+        console.log('Temporary cart data saved to localStorage:', cartData);
+      }
+    },
     // Async function to fetch flower data based on the flower type
   fetchFlowers: async (type) => {
     // Check if the data is already fetched
@@ -73,19 +79,13 @@ export const cartStore = create(((set, get) => ({
       console.error('Error fetching flowers:', error);
     }
   }
-
 })
 ));
 
 // Function to retrieve and update the cart from local storage when the user is logged in
-export const retrieveCartFromStorage = (userId) => {
+export const retrieveCartFromStorage = () => {
   console.log('Retrieving cart from local storage');
   const cartData = JSON.parse(localStorage.getItem('tempCart'));
   console.log('Cart data retrieved:', cartData);
-  if (cartData) {
-    console.log('User logged in, updating cart with stored data');
-    cartStore.getState().addToCart(cartData.type, cartData.subscriptionOption, cartData.quantity, cartData.price, true, userId);
-    localStorage.removeItem('tempCart'); // Clear the temporary cart data after moving it to state
-    console.log('Local storage after clearing:', localStorage.getItem('tempCart'));
-  }
+  return cartData;
 };
