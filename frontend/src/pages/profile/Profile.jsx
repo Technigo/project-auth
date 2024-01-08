@@ -20,23 +20,21 @@ export const Profile = () => {
       navigate("/login");
     }
   }, [isLoggedIn, accessToken, navigate]);
-
-  const onLogoutClick = async () => {
-    storeHandleLogout();
-    alert("Log out successfull");
-    navigate("/login");
-  };
-  const backClick = async () => {
-    storeHandleLogout();
-    navigate("/");
-  };
-  if (!isLoggedIn) {
-    return null;
-  }
   useEffect(() => {
     fetchData();
   }, []);
+  const onLogoutClick = async () => {
+    alert("Log out successfull");
+    storeHandleLogout();
+    navigate("/login");
+  };
+  const backClick = async () => {
+    navigate("/");
+  };
 
+  if (!isLoggedIn) {
+    return null;
+  }
   return (
     <div className={styles.profile}>
       <nav>

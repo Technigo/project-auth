@@ -1,11 +1,13 @@
 // Import the create function from Zustand for state management
 import { create } from "zustand";
+// import { userStore } from "./userStore";
 // Access the environment variable for the backend API URL
 const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 // Create a Zustand store for managing cart-related state and actions
-export const cartStore = create(((set, get) => ({
-   // Initial state for flowers, fetched types, and the cart
+export const cartStore = create((set, get) => ({
+  // const id = userStore.getState().id,// get id from userStore
+  // Initial state for flowers, fetched types, and the cart
   flowers: {},
   fetchedTypes: new Set(),
   cart: {
@@ -17,31 +19,39 @@ export const cartStore = create(((set, get) => ({
   setCart: (cartData) => {
     set({ cart: cartData });
   },
-    // Function to add items to the cart
-    addToCart: (type, subscriptionOption, quantity, price, isLoggedIn, userId) => {
-      if (subscriptionOption == null || quantity == null) {
-        console.error('Cannot add to cart: subscriptionOption or quantity is null');
-        return;
-      }
-      set({
-        cart: {
-          type,
-          subscriptionOption,
-          quantity,
-          price,
-          userId,
-        },
-      });
-      console.log('New cart state after update:', get().cart);
-    
-      // If the user is not logged in, save to localStorage as well
-      if (!isLoggedIn) {
-        const cartData = { type, subscriptionOption, quantity, price };
-        localStorage.setItem('tempCart', JSON.stringify(cartData));
-        console.log('Temporary cart data saved to localStorage:', cartData);
-      }
-    },
-    // Async function to fetch flower data based on the flower type
+  // Function to add items to the cart
+  addToCart: (
+    type,
+    subscriptionOption,
+    quantity,
+    price,
+    isLoggedIn,
+    userId
+  ) => {
+    if (subscriptionOption == null || quantity == null) {
+      console.error(
+        "Cannot add to cart: subscriptionOption or quantity is null"
+      );
+      return;
+    }
+    set({
+      cart: {
+        type,
+        subscriptionOption,
+        quantity,
+        price,
+        userId,
+      },
+    });
+    console.log("New cart state after update:", get().cart);
+    // If the user is not logged in, save to localStorage as well
+    if (!isLoggedIn) {
+      const cartData = { type, subscriptionOption, quantity, price };
+      localStorage.setItem("tempCart", JSON.stringify(cartData));
+      console.log("Temporary cart data saved to localStorage:", cartData);
+    }
+  },
+  // Async function to fetch flower data based on the flower type
   fetchFlowers: async (type) => {
     // Check if the data is already fetched
     const alreadyFetched = get().fetchedTypes.has(type);
@@ -73,19 +83,31 @@ export const cartStore = create(((set, get) => ({
 
         return flowerData.response;
       } else {
-        console.error('Fetching flowers was not successful', flowerData);
+        console.error("Fetching flowers was not successful", flowerData);
       }
     } catch (error) {
-      console.error('Error fetching flowers:', error);
+      console.error("Error fetching flowers:", error);
     }
-  }
-})
-));
+  },
+  // Function to clear the cart
+  emptyCart: () => {
+    set((state) => ({
+      cart: {
+        type: "No weekly bouquet chosen",
+        subscriptionOption: "none",
+        quantity: null,
+        price: null,
+        isLoggedIn: true,
+        userId: state.cart.userId, // Keep the userId unchanged
+      },
+    }));
+  },
+}));
 
 // Function to retrieve and update the cart from local storage when the user is logged in
 export const retrieveCartFromStorage = () => {
-  console.log('Retrieving cart from local storage');
-  const cartData = JSON.parse(localStorage.getItem('tempCart'));
-  console.log('Cart data retrieved:', cartData);
+  console.log("Retrieving cart from local storage");
+  const cartData = JSON.parse(localStorage.getItem("tempCart"));
+  console.log("Cart data retrieved:", cartData);
   return cartData;
 };

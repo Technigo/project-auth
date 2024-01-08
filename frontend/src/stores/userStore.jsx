@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { cartStore, retrieveCartFromStorage } from '../stores/cartStore';
+import { cartStore, retrieveCartFromStorage } from "../stores/cartStore";
 const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 export const userStore = create((set, get) => ({
@@ -9,15 +9,15 @@ export const userStore = create((set, get) => ({
   setEmail: (email) => set({ email }),
   password: "",
   setPassword: (password) => set({ password }),
-  accessToken: localStorage.getItem('accessToken') || null,
+  accessToken: localStorage.getItem("accessToken") || null,
   setAccessToken: (token) => set({ accessToken: token }),
-  id: localStorage.getItem('userID') || null,
+  id: localStorage.getItem("userID") || null,
   setId: (id) => set({ id: id }),
-  isLoggedIn: Boolean(localStorage.getItem('accessToken')),
+  isLoggedIn: Boolean(localStorage.getItem("accessToken")),
   setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
 
   handleSignup: async (username, password, email) => {
-    console.log('handleSignup invoked with:', { username, password, email });
+    console.log("handleSignup invoked with:", { username, password, email });
     if (!username || !password || !email) {
       alert("Please enter username, email and password");
       return false;
@@ -33,22 +33,24 @@ export const userStore = create((set, get) => ({
       });
 
       const data = await response.json();
-      console.log('Signup response:', data);
+      console.log("Signup response:", data);
       if (data.success) {
-        console.log('Signup successful!');
+        console.log("Signup successful!");
         const loginSuccess = await get().handleLogin(username, password);
         if (loginSuccess) {
           const cartData = retrieveCartFromStorage();
           if (cartData) {
-            cartStore.getState().addToCart(
-              cartData.type,
-              cartData.subscriptionOption,
-              cartData.quantity,
-              cartData.price,
-              true,
-              get().id
-            );
-            localStorage.removeItem('tempCart'); // Clear the temporary cart data
+            cartStore
+              .getState()
+              .addToCart(
+                cartData.type,
+                cartData.subscriptionOption,
+                cartData.quantity,
+                cartData.price,
+                true,
+                get().id
+              );
+            localStorage.removeItem("tempCart"); // Clear the temporary cart data
           }
         }
         return loginSuccess;
@@ -64,7 +66,11 @@ export const userStore = create((set, get) => ({
   },
 
   handleLogin: async (username, password, redirectPath) => {
-    console.log("handleLogin invoked with:", { username, password, redirectPath });
+    console.log("handleLogin invoked with:", {
+      username,
+      password,
+      redirectPath,
+    });
 
     if (!username || !password) {
       alert("Please enter both username and password");
@@ -93,21 +99,23 @@ export const userStore = create((set, get) => ({
         });
         localStorage.setItem("accessToken", data.response.accessToken);
         localStorage.setItem("userID", data.response.id);
-        
+
         // New logic to update the cart store with data from local storage
         const cartData = retrieveCartFromStorage();
         if (cartData) {
-          cartStore.getState().addToCart(
-            cartData.type,
-            cartData.subscriptionOption,
-            cartData.quantity,
-            cartData.price,
-            true,
-            data.response.id
-          );
-          localStorage.removeItem('tempCart'); // Clear the temporary cart data
+          cartStore
+            .getState()
+            .addToCart(
+              cartData.type,
+              cartData.subscriptionOption,
+              cartData.quantity,
+              cartData.price,
+              true,
+              data.response.id
+            );
+          localStorage.removeItem("tempCart"); // Clear the temporary cart data
         }
-    
+
         console.log("Login successful!");
         return true;
       } else {
@@ -116,7 +124,10 @@ export const userStore = create((set, get) => ({
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("An error occurred during login: " + (error.message || JSON.stringify(error)));
+      alert(
+        "An error occurred during login: " +
+          (error.message || JSON.stringify(error))
+      );
       return false;
     }
   },
