@@ -13,7 +13,10 @@ import leftArrow from "../../assets/icons/icons8-left-arrow-50.png";
 import styles from "./cart.module.css";
 
 export const Cart = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
+  // console.log(id);
+  const userId = useParams().id;
+  console.log(userId);
   const navigate = useNavigate();
   const dataToShow = cartStore((state) => state.cart);
   const emptyCart = cartStore((state) => state.emptyCart);
@@ -106,6 +109,10 @@ export const Cart = () => {
   //----------- Sending confirmed flower subscription order through POST request to API ---------
   const handleSubmit = async (event) => {
     event.preventDefault(); //preventing form's default submit behaviour
+    if (!userId) {
+      console.error("User ID is undefined");
+      return;
+    }
     const backendApi = import.meta.env.VITE_BACKEND_API;
 
     //Checking minimum length criteria for greeting message
@@ -118,7 +125,7 @@ export const Cart = () => {
         //Stringifying required values and setting them to request body
         body: JSON.stringify({
           greeting: `${newGreeting}`,
-          user_id: `${id}`,
+          user_id: `${userId}`,
           flower: `${dataToShow.type}`,
           options: `${dataToShow.subscriptionOption}`,
         }),
@@ -129,7 +136,7 @@ export const Cart = () => {
       };
       console.log(purchaseOrder);
       //Making a POST request to API endpoint with configured purchaseOrder
-      await fetch(`${backendApi}/cart/${id}`, purchaseOrder)
+      await fetch(`${backendApi}/cart/${userId}`, purchaseOrder)
         .then((res) => res.json()) //parsing response as json
         .then((data) => {
           if (data.success) {
@@ -146,8 +153,9 @@ export const Cart = () => {
               )} kr.`
             );
             setNewGreeting(""); //clearing textarea
-            emptyCart(); //clearing cart
-            navigate("/"); //redirecting user to landing page
+            emptyCart(true); //clearing cart
+            // navigate(`/profile/${userId}`); //redirecting user to landing page
+            navigate("/");
           } else {
             console.log("Something went wrong");
             console.log(data.error);
@@ -163,7 +171,7 @@ export const Cart = () => {
     <div className={styles.cart}>
       <nav>
         <ul className={styles.cartUl}>
-          <Link to={`/profile/${id}`} className={styles.cartBack}>
+          <Link to={`/profile/${userId}`} className={styles.cartBack}>
             <img src={leftArrow} alt="left arrow" />
             back
           </Link>
