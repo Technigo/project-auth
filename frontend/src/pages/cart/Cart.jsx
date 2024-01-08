@@ -13,8 +13,6 @@ import leftArrow from "../../assets/icons/icons8-left-arrow-50.png";
 import styles from "./cart.module.css";
 
 export const Cart = () => {
-  // const { id } = useParams();
-  // console.log(id);
   const userId = useParams().id;
   console.log(userId);
   const navigate = useNavigate();
@@ -110,7 +108,7 @@ export const Cart = () => {
   useEffect(() => {
     if (!userId) {
       // If 'id' is not set, retrieve the user ID from local storage
-      const storedUserId = localStorage.getItem('userID');
+      const storedUserId = localStorage.getItem("userID");
       if (storedUserId) {
         navigate(`/cart/${storedUserId}`);
       } else {
@@ -118,15 +116,15 @@ export const Cart = () => {
       }
     }
   }, [userId, navigate]);
-  
+
   useEffect(() => {
-    const storedCartData = localStorage.getItem('cartData');
+    const storedCartData = localStorage.getItem("cartData");
     if (storedCartData) {
       const cartData = JSON.parse(storedCartData);
       cartStore.getState().setCart(cartData);
     }
   }, []);
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault(); //preventing form's default submit behaviour
     if (!userId) {
@@ -148,6 +146,15 @@ export const Cart = () => {
           user_id: `${userId}`,
           flower: `${dataToShow.type}`,
           options: `${dataToShow.subscriptionOption}`,
+          quantity: `${dataToShow.quantity}`,
+          price: `${subscriptionCost(
+            dataToShow.type,
+            dataToShow.subscriptionOption
+          )}`,
+          sum: `${sumFunction(
+            subscriptionCost(dataToShow.type, dataToShow.subscriptionOption),
+            0
+          )}`,
         }),
         headers: {
           "Content-Type": "application/json",

@@ -17,13 +17,12 @@ export const addUserCartController = asyncHandler(async (req, res) => {
       });
     } else {
       const newShoppingCart = new CartModel({
-        user_id: req.user.id,
-        // Filling in cart fields
+        user_id: req.user.id,        
         flower: req.body.flower,        
         options: req.body.options,
-        //price: req.body.price,
-        //deliveryCost: req.body.deliveryCost,
-        //sum: req.body.sum,
+        quantity: req.body.quantity,
+        price: req.body.price,        
+        sum: req.body.sum,
         greeting: req.body.greeting
       });
       // Save the new cart to the database
