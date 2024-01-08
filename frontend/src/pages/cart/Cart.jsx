@@ -118,6 +118,15 @@ export const Cart = () => {
       }
     }
   }, [userId, navigate]);
+  
+  useEffect(() => {
+    const storedCartData = localStorage.getItem('cartData');
+    if (storedCartData) {
+      const cartData = JSON.parse(storedCartData);
+      cartStore.getState().setCart(cartData);
+    }
+  }, []);
+  
   const handleSubmit = async (event) => {
     event.preventDefault(); //preventing form's default submit behaviour
     if (!userId) {
