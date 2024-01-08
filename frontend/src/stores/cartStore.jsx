@@ -14,18 +14,15 @@ export const cartStore = create((set, get) => ({
     quantity: null,
     price: null,
   },
-  // Function to add items to the cart
-  addToCart: (
-    type,
-    subscriptionOption,
-    quantity,
-    price,
-    isLoggedIn,
-    userId
-  ) => {
-    console.log("Current cart state before update:", get().cart);
-    if (isLoggedIn) {
-      // If the user is logged in, update the cart state.
+  setCart: (cartData) => {
+    set({ cart: cartData });
+  },
+    // Function to add items to the cart
+    addToCart: (type, subscriptionOption, quantity, price, isLoggedIn, userId) => {
+      if (subscriptionOption == null || quantity == null) {
+        console.error('Cannot add to cart: subscriptionOption or quantity is null');
+        return;
+      }
       set({
         cart: {
           type,
@@ -35,14 +32,14 @@ export const cartStore = create((set, get) => ({
           userId,
         },
       });
-      console.log("New cart state after update:", get().cart);
+      console.log('New cart state after update:', get().cart);
     } else {
       // If the user is not logged in, save to localStorage instead.
       const cartData = { type, subscriptionOption, quantity, price };
-      localStorage.setItem("tempCart", JSON.stringify(cartData));
+      localStorage.setItem('tempCart', JSON.stringify(cartData));
     }
   },
-  // Async function to fetch flower data based on the flower type
+    // Async function to fetch flower data based on the flower type
   fetchFlowers: async (type) => {
     // Check if the data is already fetched
     const alreadyFetched = get().fetchedTypes.has(type);
@@ -79,44 +76,20 @@ export const cartStore = create((set, get) => ({
     } catch (error) {
       console.error("Error fetching flowers:", error);
     }
-  },
+  }
 
-  // Function to clear the cart
-  emptyCart: () => {
-    set((state) => ({
-      cart: {
-        type: null,
-        subscriptionOption: null,
-        quantity: 0,
-        price: null,
-        isLoggedIn: true,
-        userId: state.cart.userId, // Keep the userId unchanged
-      },
-    }));
-  },
-}));
+})
+));
 
 // Function to retrieve and update the cart from local storage when the user is logged in
 export const retrieveCartFromStorage = (userId) => {
-  console.log("Retrieving cart from local storage");
-  const cartData = JSON.parse(localStorage.getItem("tempCart"));
-  console.log("Cart data retrieved:", cartData);
+  console.log('Retrieving cart from local storage');
+  const cartData = JSON.parse(localStorage.getItem('tempCart'));
+  console.log('Cart data retrieved:', cartData);
   if (cartData) {
-    console.log("User logged in, updating cart with stored data");
-    cartStore
-      .getState()
-      .addToCart(
-        cartData.type,
-        cartData.subscriptionOption,
-        cartData.quantity,
-        cartData.price,
-        true,
-        userId
-      );
-    localStorage.removeItem("tempCart"); // Clear the temporary cart data after moving it to state
-    console.log(
-      "Local storage after clearing:",
-      localStorage.getItem("tempCart")
-    );
+    console.log('User logged in, updating cart with stored data');
+    cartStore.getState().addToCart(cartData.type, cartData.subscriptionOption, cartData.quantity, cartData.price, true, userId);
+    localStorage.removeItem('tempCart'); // Clear the temporary cart data after moving it to state
+    console.log('Local storage after clearing:', localStorage.getItem('tempCart'));
   }
 };
