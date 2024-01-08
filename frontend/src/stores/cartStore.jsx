@@ -1,10 +1,12 @@
 // Import the create function from Zustand for state management
 import { create } from "zustand";
+// import { userStore } from "./userStore";
 // Access the environment variable for the backend API URL
 const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 // Create a Zustand store for managing cart-related state and actions
 export const cartStore = create((set, get) => ({
+  // const id = userStore.getState().id,// get id from userStore
   // Initial state for flowers, fetched types, and the cart
   flowers: {},
   fetchedTypes: new Set(),
@@ -92,7 +94,7 @@ export const cartStore = create((set, get) => ({
     set((state) => ({
       cart: {
         type: "No weekly bouquet chosen",
-        subscriptionOption: "No subscription chosen",
+        subscriptionOption: "none",
         quantity: null,
         price: null,
         isLoggedIn: true,
