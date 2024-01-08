@@ -93,12 +93,12 @@ export const cartStore = create((set, get) => ({
   emptyCart: () => {
     set((state) => ({
       cart: {
-        type: "No weekly bouquet chosen",
-        subscriptionOption: "none",
+        type: null,
+        subscriptionOption: null,
         quantity: null,
         price: null,
-        isLoggedIn: true,
-        userId: state.cart.userId, // Keep the userId unchanged
+        isLoggedIn: state.isLoggedIn, //Keep the isLoggedIn
+        userId: state.id, // Keep the userId unchanged
       },
     }));
   },
