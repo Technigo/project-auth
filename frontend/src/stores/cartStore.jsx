@@ -20,36 +20,19 @@ export const cartStore = create((set, get) => ({
     set({ cart: cartData });
   },
   // Function to add items to the cart
-  addToCart: (
-    type,
-    subscriptionOption,
-    quantity,
-    price,
-    isLoggedIn,
-    userId
-  ) => {
+  addToCart: (type, subscriptionOption, quantity, price, isLoggedIn, userId) => {
     if (subscriptionOption == null || quantity == null) {
-      console.error(
-        "Cannot add to cart: subscriptionOption or quantity is null"
-      );
+      console.error("Cannot add to cart: subscriptionOption or quantity is null");
       return;
     }
-    set({
-      cart: {
-        type,
-        subscriptionOption,
-        quantity,
-        price,
-        userId,
-      },
-    });
-    console.log("New cart state after update:", get().cart);
-    // If the user is not logged in, save to localStorage as well
-    if (!isLoggedIn) {
-      const cartData = { type, subscriptionOption, quantity, price };
-      localStorage.setItem("tempCart", JSON.stringify(cartData));
-      console.log("Temporary cart data saved to localStorage:", cartData);
-    }
+    const cartData = isLoggedIn
+      ? { type, subscriptionOption, quantity, price, userId }
+      : { type, subscriptionOption, quantity, price };
+
+    set({ cart: cartData });
+
+    const storageKey = isLoggedIn ? "cartData" : "tempCart";
+    localStorage.setItem(storageKey, JSON.stringify(cartData));
   },
   // Async function to fetch flower data based on the flower type
   fetchFlowers: async (type) => {
@@ -101,6 +84,8 @@ export const cartStore = create((set, get) => ({
         userId: state.id, // Keep the userId unchanged
       },
     }));
+    localStorage.removeItem('cartData');
+    localStorage.removeItem('flowerSubscriptionOptions');
   },
 }));
 

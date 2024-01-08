@@ -1,5 +1,5 @@
 import styles from "../navbar/navbar.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { userStore } from "../../stores/userStore";
 import { Logo } from "../../components/logo/Logo";
@@ -12,6 +12,20 @@ export const Navbar = () => {
   const { id } = userStore((state) => ({
     id: state.id,
   }));
+  const navigate = useNavigate();
+
+    // Retrieve user ID from local storage
+    const userId = localStorage.getItem('userID');
+
+    const handleCartClick = (event) => {
+      // Prevent default Link behavior
+      event.preventDefault();
+      if (userId) {
+        navigate(`/cart/${userId}`);
+      } else {
+        navigate('/login');
+      }
+    };
 
   const toggleOptions = () => {
     setShowOptions(!showOptions);
@@ -63,7 +77,7 @@ export const Navbar = () => {
                 <Link to="/login" className={styles.linkContainer}>
                   my account
                 </Link>
-                <Link to={`/cart/${id}`} className={styles.linkContainer}>
+                <Link to={`/cart/${userId}`} onClick={handleCartClick} className={styles.linkContainer}>
                   cart
                 </Link>
               </div>
@@ -99,7 +113,7 @@ export const Navbar = () => {
             <Link to="/login" className={styles.linkContainer}>
               my account
             </Link>
-            <Link to={`/cart/${id}`} className={styles.linkContainer}>
+            <Link to={`/cart/${userId}`} onClick={handleCartClick} className={styles.linkContainer}>
               cart
             </Link>
           </ul>

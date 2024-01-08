@@ -107,6 +107,26 @@ export const Cart = () => {
     subscriptionCost(dataToShow.type, dataToShow.subscriptionOption) === 0;
 
   //----------- Sending confirmed flower subscription order through POST request to API ---------
+  useEffect(() => {
+    if (!userId) {
+      // If 'id' is not set, retrieve the user ID from local storage
+      const storedUserId = localStorage.getItem('userID');
+      if (storedUserId) {
+        navigate(`/cart/${storedUserId}`);
+      } else {
+        // Handle case where there is no user ID (e.g., prompt login or show error)
+      }
+    }
+  }, [userId, navigate]);
+  
+  useEffect(() => {
+    const storedCartData = localStorage.getItem('cartData');
+    if (storedCartData) {
+      const cartData = JSON.parse(storedCartData);
+      cartStore.getState().setCart(cartData);
+    }
+  }, []);
+  
   const handleSubmit = async (event) => {
     event.preventDefault(); //preventing form's default submit behaviour
     if (!userId) {

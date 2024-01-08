@@ -132,7 +132,6 @@ export const Flowers = () => {
 
     if (!isLoggedIn) {
       console.log('User not logged in, redirecting to login page');
-      alert('You must be logged in to proceed.');
       // Save product details to local storage for later retrieval
       const productDetails = { type, subscriptionOption, quantity, price: flower.price };
       localStorage.setItem('tempCart', JSON.stringify(productDetails));
