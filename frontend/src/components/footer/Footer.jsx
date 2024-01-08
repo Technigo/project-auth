@@ -27,17 +27,17 @@ export const Footer = () => {
             <div>
               {bouquetMenuOpen && (
                 <ul>
-                  <li>
+                  <li className={styles.footerScroll}>
                     <Link to="/flowers/basic" className={styles.bouquetLink}>
                       {t("footer.basic")}
                     </Link>
                   </li>
-                  <li>
+                  <li className={styles.footerScroll}>
                     <Link to="/flowers/standard" className={styles.bouquetLink}>
                       {t("footer.standard")}
                     </Link>
                   </li>
-                  <li>
+                  <li className={styles.footerScroll}>
                     <Link to="/flowers/large" className={styles.bouquetLink}>
                       {t("footer.large")}
                     </Link>
@@ -57,7 +57,7 @@ export const Footer = () => {
           <li>{t("footer.saturday")}</li>
           <li>{t("footer.sunday")}</li>
         </ul>
-        <ul>
+        <ul className={styles.footerContact}>
           <li>{t("footer.contactUs")}</li>
           <div className={styles.footerIcons}>
             <a href="#" target="_blank" rel="noopener noreferrer">

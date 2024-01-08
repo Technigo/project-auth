@@ -32,10 +32,18 @@ export const Translate = () => {
       <div>
         {languageMenuOpen && (
           <ul>
-            <li type="button" onClick={englishFunc}>
+            <li
+              type="button"
+              onClick={englishFunc}
+              className={styles.footerScroll}
+            >
               {t("footer.english")}
             </li>
-            <li type="button" onClick={swedishFunc}>
+            <li
+              type="button"
+              onClick={swedishFunc}
+              className={styles.footerScroll}
+            >
               {t("footer.swedish")}
             </li>
           </ul>
