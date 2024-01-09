@@ -113,9 +113,7 @@ export const Cart = () => {
       const storedUserId = localStorage.getItem('userID');
       if (storedUserId) {
         navigate(`/cart/${storedUserId}`);
-      } else {
-        // Handle case where there is no user ID (e.g., prompt login or show error)
-      }
+      } 
     }
   }, [userId, navigate]);
   
