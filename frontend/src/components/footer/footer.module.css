@@ -12,19 +12,20 @@ footer {
 
 .footerFlex {    
     display:flex;
-    align-items:flex-start;
+    align-items:center;
     justify-content:center;
     flex-flow:column wrap;
-    gap:50px;
+    text-align:center;
+    gap:30px;
 }
 
 .footerFlex li {    
     list-style: none;
     padding: 15px;
-    margin-left: 25px;  
+    /* margin-left: 25px;   */
 }
-
-.footerButton {    
+/* --- scrolldown button --- */
+.footerButton {       
     background-color: #112E2D;
     vertical-align:bottom;
     width:auto;
@@ -39,16 +40,17 @@ footer {
     margin:0;
     padding:0;
 }
-
+ /* --- scrolldown options --- */
 .footerScroll{
     font-size: 16px;
-    text-align: left;
+    text-align: center;
     padding:0;
 }
 .bouquetLink {
-    text-decoration: none;    
+    text-decoration: none;     
     color:#F9EFE3; 
 }
+ /* --- contact us section --- */
 .footerContact {
     display:flex;
     flex-direction: column;
@@ -62,6 +64,7 @@ footer {
     margin-left:2rem;
     gap: 2rem;
 }
+/* --- tilted flower icon --- */
 .footerFlower{
     display: flex;
     justify-content: center;
@@ -82,8 +85,12 @@ footer {
     align-items:flex-start;
     justify-content:space-around;
     flex-flow:row wrap;
+    text-align: left;
     gap:50px;
 }
+.footerScroll{    
+    text-align: right;
+    }
 .footerFlower{
     display: block;    
 }
@@ -93,9 +100,13 @@ footer {
     .footerFlex {        
         display:flex;
         align-items:flex-start;
-        justify-content:space-around;
+        justify-content:space-evenly;
         flex-flow:row wrap;
+        text-align: left;
         gap:50px;
+    }
+    .footerScroll{        
+        text-align: right;        
     }
     .footerFlower{
         display: block;    
