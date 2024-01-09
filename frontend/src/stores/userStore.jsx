@@ -126,7 +126,7 @@ export const userStore = create((set, get) => ({
       console.error("Login error:", error);
       alert(
         "An error occurred during login: " +
-          (error.message || JSON.stringify(error))
+        (error.message || JSON.stringify(error))
       );
       return false;
     }
@@ -138,6 +138,7 @@ export const userStore = create((set, get) => ({
     localStorage.removeItem("tempCart");
     localStorage.removeItem("flowerSubscriptionOptions");
     localStorage.removeItem("userID");
+    localStorage.removeItem('cartData');
     console.log("Cleared tempCart from local storage");
   },
 }));
