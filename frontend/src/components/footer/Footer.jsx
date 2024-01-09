@@ -29,17 +29,17 @@ export const Footer = () => {
                 <ul>
                   <li className={styles.footerScroll}>
                     <Link to="/flowers/basic" className={styles.bouquetLink}>
-                      {t("footer.basic")}
+                      {t("bouquetType.basic")}
                     </Link>
                   </li>
                   <li className={styles.footerScroll}>
                     <Link to="/flowers/standard" className={styles.bouquetLink}>
-                      {t("footer.standard")}
+                      {t("bouquetType.standard")}
                     </Link>
                   </li>
                   <li className={styles.footerScroll}>
                     <Link to="/flowers/large" className={styles.bouquetLink}>
-                      {t("footer.large")}
+                      {t("bouquetType.large")}
                     </Link>
                   </li>
                 </ul>

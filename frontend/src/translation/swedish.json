@@ -27,11 +27,40 @@
       "content2": "Jag önskar att bära denna förväntan, med veckovisa blommor som bärare. Genom att föra in blommor i varje individ och familjs liv signalerar det inte bara skönhet utan erbjuder också en mjuk upplevelse av vissning, konfronterar en långsam och tyst förfall.",
       "content3": "Varje mottagare av blommorna förstår dess oundvikliga resa mot vissning. Genom sällskapet med färska blommor upplever de livets och dödens cykel, praktiserar konsten att säga adjö, leva fritt och ömt. Jag hoppas att varje sändare av blommor kan fyllas med förväntningar, låta kortet förmedla känslor."
     },
-    "footer":{
-      "weeklyBouquet": "Veckobukett",
+    "cart":{
+      "backButton":"tillbaka",
+      "logOutButton":"logga ut",      
+      "options": "alternativ:",
+      "quantity": "antal:",
+      "price": "pris:",
+      "delivery": "leverans:",
+      "subscription": "prenumeration",
+      "bouquets": "bukett(er)",
+      "hr":"horisontellt streck",
+      "sum": "summan:",
+      "greetingInfo": "Önskar du skicka blommor till någon eller förmedla dina känslor för veckan genom FloraEcho, vänligen lämna ett meddelande nedanför. Baserat på ditt meddelande kommer en hemlig bukett att skräddasys. Det kommer att finnas olika överraskningar varje vecka!",      
+      "submitPlaceholder":"Skriv din text här (5-100 tecken)...",
+      "errorMessage":{
+        "short":"För kort text.",
+        "long":"För lång text.",
+        "ok": ""
+      },
+      "confirm": "BEKRÄFTA"
+    },
+    "bouquetType":{
       "basic": "Basic",
-      "standard":"Standard",
-      "large":"Stor",
+      "standard": "Standard",
+      "large": "Stor"
+    },
+    "subscription":{
+      "weekly":"veckovis",
+      "monthly": "månatlig",
+      "yearly": "årlig"
+    },
+    "none":"ingen",
+    "defaultBouquet":"Veckobukett: ej vald",
+    "footer":{
+      "weeklyBouquet": "Veckobukett",      
       "service":"Blomsterbudstjänst",
       "language":"Språk",
       "english":"Engelska",

@@ -43,11 +43,40 @@
         }]
       }]
     },
-    "footer":{
-      "weeklyBouquet": "Weekly Bouquet",
+    "cart":{
+      "backButton":"back",
+      "logOutButton":"log out",      
+      "options": "options:",
+      "quantity": "quantity:",
+      "price": "price:",
+      "delivery": "delivery:",
+      "subscription": "subscription",
+      "bouquets": "bouquet(s)",
+      "hr":"horizontal rule",
+      "sum": "sum:",
+      "greetingInfo": "If you want to send flowers to someone or convey your feelings for the week through FloraEcho, please leave a message below. We will customize a secret floral based on your message. There will be different surprises every week!",
+      "submitPlaceholder":"Type your text here (5-100 characters)...",
+      "errorMessage":{
+        "short":"Your message is too short.",
+        "long":"Your message is too long.",
+        "ok":""
+      },
+      "confirm": "CONFIRM"
+    },
+    "bouquetType":{
       "basic": "Basic",
-      "standard":"Standard",
-      "large":"Large",
+      "standard": "Standard",
+      "large": "Large"
+    },
+    "subscription":{
+      "weekly":"weekly",
+      "monthly": "monthly",
+      "yearly": "yearly"
+    },
+    "none":"none",
+    "defaultBouquet":"Weekly bouquet: none chosen",
+    "footer":{
+      "weeklyBouquet": "Weekly Bouquet",      
       "service":"Service",
       "language":"Language",
       "english":"English",

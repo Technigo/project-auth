@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { userStore } from "../../stores/userStore";
 import { cartStore } from "../../stores/cartStore";
+import { useTranslation } from "react-i18next";
 import basicImage from "../../assets/images/basic.png";
 import standardImage from "../../assets/images/standard.png";
 import largeImage from "../../assets/images/large.png";
@@ -15,6 +16,7 @@ import styles from "./cart.module.css";
 export const Cart = () => {
   const userId = useParams().id;
   console.log(userId);
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dataToShow = cartStore((state) => state.cart);
   const emptyCart = cartStore((state) => state.emptyCart);
@@ -113,9 +115,9 @@ export const Cart = () => {
   //useEffect hook to check max length criteria for greeting message
   useEffect(() => {
     if (newGreeting.length >= 101) {
-      setErrorMessage("Your message is too long.");
+      setErrorMessage("long");
     } else {
-      setErrorMessage("");
+      setErrorMessage("ok");
     }
   }, [newGreeting]); //dependency array with effect only running when "newGreeting" changes
 
@@ -136,7 +138,7 @@ export const Cart = () => {
 
     //Checking minimum length criteria for greeting message
     if (newGreeting.length <= 4) {
-      setErrorMessage("Your message is too short.");
+      setErrorMessage("short");
     } else {
       //Configuring the fetch request -POST method
       const purchaseOrder = {
@@ -200,11 +202,11 @@ export const Cart = () => {
         <ul className={styles.cartUl}>
           <Link to={`/profile/${userId}`} className={styles.cartBack}>
             <img src={leftArrow} alt="left arrow" />
-            back
+            {t("cart.backButton")}
           </Link>
           <Logo />
           <li type="button" onClick={onLogoutClick} className={styles.cartLi}>
-            log out
+            {t("cart.logOutButton")}
           </li>
         </ul>
       </nav>
@@ -213,37 +215,41 @@ export const Cart = () => {
           <div className={styles.cartProductImage}>
             <img
               src={bouquetImage(dataToShow.type)}
-              alt={`${
+              alt={t(
                 dataToShow.type == null
-                  ? "Weekly bouquet: none chosen"
-                  : dataToShow.type
-              }`}
+                  ? "defaultBouquet"
+                  : `bouquetType.${dataToShow.type}`
+              )}
             />
             <p>
-              {dataToShow.type == null
-                ? "Weekly bouquet: none chosen"
-                : dataToShow.type}
+              {t(
+                dataToShow.type == null
+                  ? "defaultBouquet"
+                  : `bouquetType.${dataToShow.type}`
+              )}
             </p>
           </div>
 
           <div className={styles.cartProductInfo}>
-            <p>options:</p>
+            <p>{t("cart.options")}</p>
             <p>
               <span className={styles.greenbox}>
-                {dataToShow.subscriptionOption == null
-                  ? "none"
-                  : dataToShow.subscriptionOption}
+                {t(
+                  dataToShow.subscriptionOption == null
+                    ? "none"
+                    : `subscription.${dataToShow.subscriptionOption}`
+                )}
               </span>
             </p>
-            <p>subscription</p>
-            <p>quantity:</p>
+            <p>{t("cart.subscription")}</p>
+            <p>{t("cart.quantity")}</p>
             <p>
               <span className={styles.greenbox}>
                 {dataToShow.quantity == null ? "0" : dataToShow.quantity}
               </span>
             </p>
-            <p>bouquet(s)</p>
-            <p>price:</p>
+            <p>{t("cart.bouquets")}</p>
+            <p>{t("cart.price")}</p>
             <p>
               <span className={styles.greenbox}>
                 {subscriptionCost(
@@ -253,7 +259,7 @@ export const Cart = () => {
               </span>
             </p>
             <p>kr</p>
-            <p>delivery:</p>
+            <p>{t("cart.delivery")}</p>
             <p>
               <span className={styles.greenbox}>0</span>
             </p>
@@ -262,12 +268,12 @@ export const Cart = () => {
         </section>
         <img
           src={horizontalRule}
-          alt="horizontal rule"
+          alt={t("cart.hr")}
           className={styles.cartProductHr}
         />
         <section className={styles.cartSumSection}>
           <p>
-            sum:
+            {t("cart.sum")}
             <span className={styles.greenbox}>
               {sumFunction(
                 subscriptionCost(
@@ -281,12 +287,7 @@ export const Cart = () => {
           </p>
         </section>
         <section className={styles.cartGreetingSection}>
-          <p>
-            If you want to send flowers to someone or convey your feelings for
-            the week through FloraEcho, please leave a message below. We will
-            customize a secret floral based on your message. There will be
-            different surprises every week!
-          </p>
+          <p>{t("cart.greetingInfo")}</p>
 
           {/* Form element with onSubmit event handler set to "handleSubmit" */}
           <form onSubmit={handleSubmit}>
@@ -295,12 +296,12 @@ export const Cart = () => {
                 id="greeting"
                 rows="5"
                 cols="80"
-                placeholder="Type your text here (5-100 characters)..."
+                placeholder={t("cart.submitPlaceholder")}
                 value={newGreeting}
                 onChange={(event) => setNewGreeting(event.target.value)}
               />
               <div className={styles.cartGreetingCaption}>
-                <p>{errorMessage}</p>
+                <p>{t(`cart.errorMessage.${errorMessage}`)}</p>
                 <p
                   className={`length ${
                     newGreeting.length >= 100 ? styles.red : ""
@@ -316,7 +317,7 @@ export const Cart = () => {
               aria-label="click to submit your subscription order"
               disabled={invalidPurchaseOrder}
             >
-              CONFIRM
+              {t("cart.confirm")}
             </button>
           </form>
         </section>
