@@ -1,96 +1,126 @@
 {
-    "stories": [
-      {
-        "id": 1,
-        "image": "src/assets/images/wither.png",
-        "title": "Wither",
-        "content": "When we can understand that perfection is not natural and become aware that life truly blossoms because of its continuous wilting, we can comprehend that all beauty is hidden in the fleeting details. Just like the withering of plants, people too will age, and in their disappearance, every moment becomes more precious, authentic, and beautiful."
-      },
-      {
-        "id": 2,
-        "image": "src/assets/images/gentle.png",
-        "title": "Gently",
-        "content":"Living with plants, we can tangibly experience gentleness, devoid of the sharpness of steel, only the softness that grows toward the sun. Through coexisting with plants, we learn to face life with tenderness.\n\nWe believe that true gentleness is not a sign of weakness; it encompasses understanding and strength. Confronting the awe of the vast world and the self-assured resilience of life, understanding the inevitable hardships, being willing to believe in unimaginable depths, and absorbing malice with our bodies and emotions, being able to get hurt and recover, is a display of true strength.\n\nTherefore, gentleness is precious; it can become the endpoint of malice."
-      },
-      {
-        "id": 3,
-        "image": "src/assets/images/toward.png",
-        "title": "Being-toward-death",
-        "content": "The philosophical concept articulated by German philosopher Martin Heidegger is that humans are \"Being-towards-death.\"\n\nFrom the moment of birth, we are oriented towards death, and the awareness of living each day is a \"being-present\" in this process, situated within such a vast entirety. It is a profound and significant self-awareness in life. When people avoid contemplating death, they are, to some extent, avoiding reflecting on the essence of life. Conversely, only when we deeply understand the proximity of death can we have the most compelling motivation to seek and sense the meaning inherent in life.\n\nMay we be reminded every day in the company of plants not to evade the inevitability of demise, to learn to be gentle with life, and to live honestly."
-      }
+  "stories": [
+    {
+      "id": 1,
+      "image": "src/assets/images/wither.png",
+      "title": "Wither",
+      "content": "When we can understand that perfection is not natural and become aware that life truly blossoms because of its continuous wilting, we can comprehend that all beauty is hidden in the fleeting details. Just like the withering of plants, people too will age, and in their disappearance, every moment becomes more precious, authentic, and beautiful."
+    },
+    {
+      "id": 2,
+      "image": "src/assets/images/gentle.png",
+      "title": "Gently",
+      "content": "Living with plants, we can tangibly experience gentleness, devoid of the sharpness of steel, only the softness that grows toward the sun. Through coexisting with plants, we learn to face life with tenderness.\n\nWe believe that true gentleness is not a sign of weakness; it encompasses understanding and strength. Confronting the awe of the vast world and the self-assured resilience of life, understanding the inevitable hardships, being willing to believe in unimaginable depths, and absorbing malice with our bodies and emotions, being able to get hurt and recover, is a display of true strength.\n\nTherefore, gentleness is precious; it can become the endpoint of malice."
+    },
+    {
+      "id": 3,
+      "image": "src/assets/images/toward.png",
+      "title": "Being-toward-death",
+      "content": "The philosophical concept articulated by German philosopher Martin Heidegger is that humans are \"Being-towards-death.\"\n\nFrom the moment of birth, we are oriented towards death, and the awareness of living each day is a \"being-present\" in this process, situated within such a vast entirety. It is a profound and significant self-awareness in life. When people avoid contemplating death, they are, to some extent, avoiding reflecting on the essence of life. Conversely, only when we deeply understand the proximity of death can we have the most compelling motivation to seek and sense the meaning inherent in life.\n\nMay we be reminded every day in the company of plants not to evade the inevitability of demise, to learn to be gentle with life, and to live honestly."
+    }
+  ],
+  "meet": {
+    "image": "src/assets/images/people_flower.png",
+    "title": "Nice to meet you!",
+    "name": "We are Flora Echo",
+    "content1": "So glad you are here! \"Flora Echo\" conveys the idea of a reflection of the beauty, essence, or characteristics of flowers. ",
+    "content2": "I wish to carry this expectation, using weekly flowers as a carrier. Bringing flowers into the lives of every individual and family, it not only signifies beauty but also offers a gentle experience of wilting, confronting a slow and quiet demise.",
+    "content3": "Every recipient of the flowers understands its inevitable journey towards withering. Through the companionship of fresh flowers, they experience the cycle of life and death, practicing the art of saying goodbye, living freely and gently. I hope that every sender of flowers can be filled with expectations, letting the card convey emotions."
+  },
+  "moreInfo": {
+    "title": "More Infomation",
+    "questions": [
+      "About weekly bouquet",
+      "Delivery",
+      "FAQ"
     ],
-    "meet":{
-      "image":"src/assets/images/people_flower.png",
-      "title":"Nice to meet you!",
-      "name":"We are Flora Echo",
-      "content1":"So glad you are here! \"Floral Echo\" conveys the idea of a reflection of the beauty, essence, or characteristics of flowers. ",
-      "content2":"I wish to carry this expectation, using weekly flowers as a carrier. Bringing flowers into the lives of every individual and family, it not only signifies beauty but also offers a gentle experience of wilting, confronting a slow and quiet demise.",
-      "content3":"Every recipient of the flowers understands its inevitable journey towards withering. Through the companionship of fresh flowers, they experience the cycle of life and death, practicing the art of saying goodbye, living freely and gently. I hope that every sender of flowers can be filled with expectations, letting the card convey emotions."
-    },
-    "moreInfo":{
-      "title":"More Infomation",
-      "questions":["About weekly bouquet","Delivery",
-        "FAQ"
-    ],
-      "answers":[{
-        "about": "Weekly flowers are selected and arranged by a floral artist each Monday, and we regret to inform you that we do not provide any specific preferences or restrictions on flower materials.\nPlease be aware that most flowers are toxic to pets, and precautions should be taken to prevent pets from ingesting them.\n\nThe blooming period for plants is generally 3-5 days in the summer, and it may be longer in winter. The actual duration may vary based on the type of flowers, weather conditions, and care practices.\n\nFresh flowers may have imperfections, missing petals, or transportation marks. Please consider this before making a purchase if these factors are of concern to you.\n\nWith each bouquet, there is a small card featuring a weekly selected phrase. If you wish to have a personalized message, you may additionally add messages in the shopping cart page.\n\nThe height of bouquets in the Basic and Standard series is approximately 40±3cm, and recommended vase dimensions are Ø36cm, H1218cm. The Large series bouquets have varying heights from 50-60cm, and recommended vase dimensions are Ø612cm, H1620cm.",
-        "delivery":"The delivery options for the Basic, Standard, and Large series weekly flowers include \"Studio Pickup\" and \"Self-Arranged Delivery.\"\n\nFor Studio Pickup/Self-Arranged Delivery:\nYou may schedule to pick up the flowers at the studio on Wednesdays and Thursdays between 12:00 and 18:00 during the delivery week.\n\nStudio Address:\nIf you prefer delivery at a specific time or find it inconvenient to pick up in person, you can arrange for a courier service on your own.",
-        "FAQ":["Cancellation of Weekly Flower Service","Flower Condition","Public Holidays"],
-        "FAQ_answer":[{
-          "cancellation":"Please send us message or email us your order number before 22:00 on Tuesday, and we will assist you with any subsequent matters. For regular weekly flower orders, a refund will be processed proportionally after deducting handling fees. For long-term subscriptions exceeding 4 weeks, if the order is not fulfilled for a total of 5 weeks, you will need to settle the outstanding balance before terminating the automatic deductions.",
-          "condition":"Please take a photo and message us on the day of receiving the flowers. We will assist in assessing the flower condition, and if it is confirmed to be unsatisfactory, we will provide you with an appropriate compensation solution. However, if the assessment reveals natural conditions or acceptable imperfections, no additional flowers will be provided.",
-          "holidays":"Annual public holidays can be found in the Public Holiday section. In the event of statutory holidays, flexible days off, or closure of the flower market, deliveries for that week will be postponed to the following week. In response to unforeseen circumstances, we reserve the right to announce temporary holiday closures with prior notice."
-        }]
-      }]
-    },
-    "cart":{
-      "backButton":"back",
-      "logOutButton":"log out",      
-      "options": "options:",
-      "quantity": "quantity:",
-      "price": "price:",
-      "currency":"kr",
-      "delivery": "delivery:",
-      "subscription": "subscription",
-      "bouquets": "bouquet(s)",
-      "hr":"horizontal rule",
-      "sum": "sum:",
-      "greetingInfo": "If you want to send flowers to someone or convey your feelings for the week through FloraEcho, please leave a message below. We will customize a secret floral based on your message. There will be different surprises every week!",
-      "submitPlaceholder":"Type your text here (5-100 characters)...",
-      "errorMessage":{
-        "short":"Your message is too short.",
-        "long":"Your message is too long.",
-        "ok":""
-      },
-      "confirm": "CONFIRM",
-      "alert":{
-        "firstPart":"Your",
-        "secondPart":"subscription of",
-        "thirdPart":"bouquet order is now being processed.  Amount due:"
+    "answers": [
+      {
+        "about": "Weekly flowers are selected and arranged by a floral artist each Monday, and we regret to inform you that we do not provide any specific preferences or restrictions on flower materials.\nPlease be aware that most flowers are toxic to pets, and precautions should be taken to prevent pets from ingesting them.\n\nThe blooming period for plants is generally 3-5 days in the summer, and it may be longer in winter. The actual duration may vary based on the type of flowers, weather conditions, and care practices.\n\nFresh flowers may have imperfections, missing petals, or transportation marks. Please consider this before making a purchase if these factors are of concern to you.\n\nWith each bouquet, there is a small card featuring a weekly selected phrase. If you wish to have a personalized message, you may additionally add messages in the shopping cart page.\n\nThe height of bouquets in the Basic and Standard series is approximately 40±3cm, and recommended vase dimensions are Ø3-6cm, H12-18cm. The Large series bouquets have varying heights from 50-60cm, and recommended vase dimensions are Ø6-12cm, H1620cm.",
+        "delivery": "The delivery options for the Basic, Standard, and Large series weekly flowers include \"Studio Pickup\" and \"Self-Arranged Delivery.\"\n\nFor Studio Pickup/Self-Arranged Delivery:\nYou may schedule to pick up the flowers at the studio on Wednesdays and Thursdays between 12:00 and 18:00 during the delivery week.\n\nStudio Address:\nIf you prefer delivery at a specific time or find it inconvenient to pick up in person, you can arrange for a courier service on your own.",
+        "FAQ": [
+          "Cancellation of Weekly Flower Service",
+          "Flower Condition",
+          "Public Holidays"
+        ],
+        "FAQ_answer": [
+          {
+            "cancellation": "Please send us a message or email us your order number before 22:00 on Tuesday, and we will assist you with any subsequent matters. For regular weekly flower orders, a refund will be processed proportionally after deducting handling fees. For long-term subscriptions exceeding 4 weeks, if the order is not fulfilled for a total of 5 weeks, you will need to settle the outstanding balance before terminating the automatic deductions.",
+            "condition": "Please take a photo and message us on the day of receiving the flowers. We will assist in assessing the flower condition, and if it is confirmed to be unsatisfactory, we will provide you with an appropriate compensation solution. However, if the assessment reveals natural conditions or acceptable imperfections, no additional flowers will be provided.",
+            "holidays": "Annual public holidays can be found in the Public Holiday section. In the event of statutory holidays, flexible days off, or closure of the flower market, deliveries for that week will be postponed to the following week. In response to unforeseen circumstances, we reserve the right to announce temporary holiday closures with prior notice."
+          }
+        ]
       }
+    ]
+  },
+  "flowers": {
+    "product": "Product",
+    "basic": "Basic",
+    "standard": "Standard",
+    "large": "Large",
+    "currency": "SEK",
+    "week": "week",
+    "options": "options",
+    "yearly": "yearly",
+    "monthly": "monthly",
+    "weekly": "weekly",
+    "quantity": "quantity",
+    "bouquets": "bouquet(s)",
+    "delivery": "delivery",
+    "selfPickup": "self-pickup",
+    "comingSoon": "Coming soon",
+    "addCart": "ADD TO CART",
+    "otherItems": "Other items",
+    "error": "Image not available for the selected flower type."
+  },
+  "cart":{
+    "backButton":"back",
+    "logOutButton":"log out",      
+    "options": "options:",
+    "quantity": "quantity:",
+    "price": "price:",
+    "currency":"kr",
+    "delivery": "delivery:",
+    "subscription": "subscription",
+    "bouquets": "bouquet(s)",
+    "hr":"horizontal rule",
+    "sum": "sum:",
+    "greetingInfo": "If you want to send flowers to someone or convey your feelings for the week through FloraEcho, please leave a message below. We will customize a secret floral based on your message. There will be different surprises every week!",
+    "submitPlaceholder":"Type your text here (5-100 characters)...",
+    "errorMessage":{
+      "short":"Your message is too short.",
+      "long":"Your message is too long.",
+      "ok":""
     },
-    "bouquetType":{
-      "basic": "Basic",
-      "standard": "Standard",
-      "large": "Large"
-    },
-    "subscription":{
-      "weekly":"weekly",
-      "monthly": "monthly",
-      "yearly": "yearly"
-    },
-    "none":"none",
-    "defaultBouquet":"Weekly bouquet: none chosen",
-    "footer":{
-      "weeklyBouquet": "Weekly Bouquet",      
-      "service":"Service",
-      "language":"Language",
-      "english":"English",
-      "swedish":"Swedish",
-      "openingHours":"Opening Hours:",
-      "mondayFriday":"Monday-Friday: 9am - 5pm",
-      "saturday":"Saturday: 10am - 5pm",
-      "sunday":"Sunday: 11am - 5pm",
-      "contactUs":"Contact Us"        
-  }       
-  }
+    "confirm": "CONFIRM",
+    "alert":{
+      "firstPart":"Your",
+      "secondPart":"subscription of",
+      "thirdPart":"bouquet order is now being processed.  Amount due:"
+    }
+  },
+  "bouquetType":{
+    "basic": "Basic",
+    "standard": "Standard",
+    "large": "Large"
+  },
+  "subscription":{
+    "weekly":"weekly",
+    "monthly": "monthly",
+    "yearly": "yearly"
+  },
+  "none":"none",
+  "defaultBouquet":"Weekly bouquet: none chosen",
+  "footer":{
+    "weeklyBouquet": "Weekly Bouquet",      
+    "service":"Service",
+    "language":"Language",
+    "english":"English",
+    "swedish":"Swedish",
+    "openingHours":"Opening Hours:",
+    "mondayFriday":"Monday-Friday: 9am - 5pm",
+    "saturday":"Saturday: 10am - 5pm",
+    "sunday":"Sunday: 11am - 5pm",
+    "contactUs":"Contact Us"        
+}       
+}

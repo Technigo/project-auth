@@ -1,5 +1,6 @@
 // Importing necessary dependencies from React and the application
 import { useEffect, useState } from 'react';
+import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { cartStore } from '../../stores/cartStore';
@@ -7,12 +8,21 @@ import { userStore } from '../../stores/userStore';
 import { Navbar } from '../../components/navbar/Navbar';
 import { Footer } from '../../components/footer/Footer';
 import { MoreInfo } from '../../components/more_info/MoreInfo';
+import basicImage from "../../assets/images/basic.png";
+import standardImage from "../../assets/images/standard.png";
+import largeImage from "../../assets/images/large.png";
 
 // Define the available flower types
 const allFlowerTypes = ['basic', 'standard', 'large'];
+const flowerImages = {
+  'basic': basicImage,
+  'standard': standardImage,
+  'large': largeImage
+};
 
 // Define the Flowers component
 export const Flowers = () => {
+  const { t } = useTranslation();
   // Extract parameters and functions from React Router and stores
   const { type } = useParams();
   const navigate = useNavigate();
@@ -34,12 +44,18 @@ export const Flowers = () => {
   // Filter out the current flower type to get the other types
   const otherFlowerTypes = allFlowerTypes.filter(t => t !== type);
 
-
+  // Function to select images to display
+  const image_selector = (type) => {
+    const selectedImage = flowerImages[type];
+    return selectedImage 
+      ? <img src={selectedImage} alt={`Flower bouquet of size ${type}`} />
+      : <p>{t("flowers.error")}</p>;
+  };
 
   // UseEffect to fetch specific flower data based on the flower type
   useEffect(() => {
-      // Reset the Add to Cart button to be disabled by default
-      setIsAddToCartEnabled(false);
+    // Reset the Add to Cart button to be disabled by default
+    setIsAddToCartEnabled(false);
     let isMounted = true;
     const fetchSpecificFlower = async () => {
       // Check if the flowers data for the current type is already fetched
@@ -84,7 +100,7 @@ export const Flowers = () => {
       setQuantity(1);
       setIsAddToCartEnabled(false);
     }
-}, [type]);
+  }, [type]);
 
 
   // UseEffect to update subscription and quantity when the user logs in
@@ -153,38 +169,41 @@ export const Flowers = () => {
     <>
       <Navbar />
       <section>
-        <h1>Product: {flower.type}</h1>
-        <p>Price: {flower.price} kr/week</p>
+        {image_selector(type)}
         <div>
-          <p>Options</p>
+        <h1>{t("flowers.product")} {t(`flowers.${flower.type}`)}</h1>
+          <p>{flower.price} {t("flowers.currency")}/{t("flowers.week")}</p>
           <div>
-            <button onClick={() => handleOptionChange('yearly')}>Yearly</button>
-            <button onClick={() => handleOptionChange('monthly')}>Monthly</button>
-            <button onClick={() => handleOptionChange('weekly')}>Weekly</button>
+            <p>{t("flowers.options")}</p>
+            <div>
+              <button onClick={() => handleOptionChange('yearly')}>{t("flowers.yearly")}</button>
+              <button onClick={() => handleOptionChange('monthly')}>{t("flowers.monthly")}</button>
+              <button onClick={() => handleOptionChange('weekly')}>{t("flowers.weekly")}</button>
+            </div>
           </div>
+          <div>
+            <p>{t("flowers.options")}
+              <span>{quantity}</span>
+              {t("flowers.bouquets")}
+            </p>
+          </div>
+          <div>
+            <p>{t("flowers.delivery")}</p>
+            <span>{t("flowers.selfPickup")}</span> ({t("flowers.comingSoon")}: {t("flowers.delivery")})
+          </div>
+          <button onClick={handleAddToCart} disabled={!isAddToCartEnabled}>{t("flowers.addCart")}</button>
         </div>
-        <div>
-          <p>Quantity
-            <span>{quantity}</span>
-            bouquet(s)
-          </p>
-        </div>
-        <div>
-          <p>delivery</p>
-          <span>self-pick up</span> (Coming soon: Delivery)
-        </div>
-        <button onClick={handleAddToCart} disabled={!isAddToCartEnabled}>ADD TO CART</button>
       </section>
       <section>
-        <h2>More information</h2>
         <MoreInfo />
       </section>
       <section>
-        <h2>Other items</h2>
+        <h2>{t("flowers.otherItems")}</h2>
         {otherFlowerTypes.map((otherType) => (
-          <p key={otherType}>
+          <div key={otherType}>
+            {image_selector(otherType)}
             <Link to={`/flowers/${otherType}`}>{otherType}</Link>
-          </p>
+          </div>
         ))}
       </section>
       <Footer />
