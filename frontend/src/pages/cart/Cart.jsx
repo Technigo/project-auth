@@ -28,18 +28,6 @@ export const Cart = () => {
     navigate("/login");
   };
 
-  useEffect(() => {
-    if (!userId) {
-      // If 'id' is not set, retrieve the user ID from local storage
-      const storedUserId = localStorage.getItem("userID");
-      if (storedUserId) {
-        navigate(`/cart/${storedUserId}`);
-      } else {
-        // Handle case where there is no user ID (e.g., prompt login or show error)
-      }
-    }
-  }, [userId, navigate]);
-
   // Function to fetch any persisted cartData in localStorage
   useEffect(() => {
     const storedCartData = localStorage.getItem("cartData");
@@ -172,15 +160,17 @@ export const Cart = () => {
           if (data.success) {
             console.log("data submitted successfully");
             alert(
-              ` Your ${dataToShow.subscriptionOption} subscription of ${
-                dataToShow.type
-              } bouquet order is now being processed.  Amount due: ${sumFunction(
+              ` ${t("cart.alert.firstPart")} ${t(
+                `subscription.${dataToShow.subscriptionOption}`
+              )} ${t("cart.alert.secondPart")} ${t(
+                `bouquetType.${dataToShow.type}`
+              )} ${t("cart.alert.thirdPart")} ${sumFunction(
                 subscriptionCost(
                   dataToShow.type,
                   dataToShow.subscriptionOption
                 ),
                 0
-              )} kr.`
+              )} ${t("cart.currency")}.`
             );
             setNewGreeting(""); //clearing textarea
             emptyCart(true); //clearing cart
@@ -258,12 +248,12 @@ export const Cart = () => {
                 )}
               </span>
             </p>
-            <p>kr</p>
+            <p>{t("cart.currency")}</p>
             <p>{t("cart.delivery")}</p>
             <p>
               <span className={styles.greenbox}>0</span>
             </p>
-            <p>kr</p>
+            <p>{t("cart.currency")}</p>
           </div>
         </section>
         <img
@@ -283,7 +273,7 @@ export const Cart = () => {
                 0
               )}
             </span>
-            kr
+            {t("cart.currency")}
           </p>
         </section>
         <section className={styles.cartGreetingSection}>

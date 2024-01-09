@@ -49,6 +49,7 @@
       "options": "options:",
       "quantity": "quantity:",
       "price": "price:",
+      "currency":"kr",
       "delivery": "delivery:",
       "subscription": "subscription",
       "bouquets": "bouquet(s)",
@@ -61,7 +62,12 @@
         "long":"Your message is too long.",
         "ok":""
       },
-      "confirm": "CONFIRM"
+      "confirm": "CONFIRM",
+      "alert":{
+        "firstPart":"Your",
+        "secondPart":"subscription of",
+        "thirdPart":"bouquet order is now being processed.  Amount due:"
+      }
     },
     "bouquetType":{
       "basic": "Basic",

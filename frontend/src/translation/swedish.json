@@ -33,6 +33,7 @@
       "options": "alternativ:",
       "quantity": "antal:",
       "price": "pris:",
+      "currency":"sek",
       "delivery": "leverans:",
       "subscription": "prenumeration",
       "bouquets": "bukett(er)",
@@ -45,8 +46,13 @@
         "long":"För lång text.",
         "ok": ""
       },
-      "confirm": "BEKRÄFTA"
-    },
+      "confirm": "BEKRÄFTA",
+      "alert":{
+        "firstPart":"Din",
+        "secondPart":"prenumeration på",
+        "thirdPart":"bukett skall snart bearbetas. Att betala:"
+      }
+    },    
     "bouquetType":{
       "basic": "Basic",
       "standard": "Standard",
