@@ -7,9 +7,13 @@ import { userStore } from '../../stores/userStore';
 import { Navbar } from '../../components/navbar/Navbar';
 import { Footer } from '../../components/footer/Footer';
 import { MoreInfo } from '../../components/more_info/MoreInfo';
+import basicImage from "../../assets/images/basic.png";
+import standardImage from "../../assets/images/standard.png";
+import largeImage from "../../assets/images/large.png";
 
 // Define the available flower types
 const allFlowerTypes = ['basic', 'standard', 'large'];
+
 
 // Define the Flowers component
 export const Flowers = () => {
@@ -34,12 +38,24 @@ export const Flowers = () => {
   // Filter out the current flower type to get the other types
   const otherFlowerTypes = allFlowerTypes.filter(t => t !== type);
 
-
+  // Function to select images to display
+  const image_selector = (type) => {
+    switch (type) {
+      case 'basic':
+        return <img src={basicImage} alt={`Flower bouquet of size ${type}`} />;
+      case 'standard':
+        return <img src={standardImage} alt={`Flower bouquet of size ${type}`} />;
+      case 'large':
+        return <img src={largeImage} alt={`Flower bouquet of size ${type}`} />;
+      default:
+        return <p>Image not available for the selected flower type.</p>;
+    }
+  }
 
   // UseEffect to fetch specific flower data based on the flower type
   useEffect(() => {
-      // Reset the Add to Cart button to be disabled by default
-      setIsAddToCartEnabled(false);
+    // Reset the Add to Cart button to be disabled by default
+    setIsAddToCartEnabled(false);
     let isMounted = true;
     const fetchSpecificFlower = async () => {
       // Check if the flowers data for the current type is already fetched
@@ -84,7 +100,7 @@ export const Flowers = () => {
       setQuantity(1);
       setIsAddToCartEnabled(false);
     }
-}, [type]);
+  }, [type]);
 
 
   // UseEffect to update subscription and quantity when the user logs in
@@ -153,27 +169,30 @@ export const Flowers = () => {
     <>
       <Navbar />
       <section>
-        <h1>Product: {flower.type}</h1>
-        <p>Price: {flower.price} kr/week</p>
+        {image_selector(type)}
         <div>
-          <p>Options</p>
+          <h1>Product: {flower.type}</h1>
+          <p>Price: {flower.price} kr/week</p>
           <div>
-            <button onClick={() => handleOptionChange('yearly')}>Yearly</button>
-            <button onClick={() => handleOptionChange('monthly')}>Monthly</button>
-            <button onClick={() => handleOptionChange('weekly')}>Weekly</button>
+            <p>Options</p>
+            <div>
+              <button onClick={() => handleOptionChange('yearly')}>Yearly</button>
+              <button onClick={() => handleOptionChange('monthly')}>Monthly</button>
+              <button onClick={() => handleOptionChange('weekly')}>Weekly</button>
+            </div>
           </div>
+          <div>
+            <p>Quantity
+              <span>{quantity}</span>
+              bouquet(s)
+            </p>
+          </div>
+          <div>
+            <p>delivery</p>
+            <span>self-pick up</span> (Coming soon: Delivery)
+          </div>
+          <button onClick={handleAddToCart} disabled={!isAddToCartEnabled}>ADD TO CART</button>
         </div>
-        <div>
-          <p>Quantity
-            <span>{quantity}</span>
-            bouquet(s)
-          </p>
-        </div>
-        <div>
-          <p>delivery</p>
-          <span>self-pick up</span> (Coming soon: Delivery)
-        </div>
-        <button onClick={handleAddToCart} disabled={!isAddToCartEnabled}>ADD TO CART</button>
       </section>
       <section>
         <h2>More information</h2>
@@ -182,9 +201,10 @@ export const Flowers = () => {
       <section>
         <h2>Other items</h2>
         {otherFlowerTypes.map((otherType) => (
-          <p key={otherType}>
+          <div key={otherType}>
+            {image_selector(otherType)}
             <Link to={`/flowers/${otherType}`}>{otherType}</Link>
-          </p>
+          </div>
         ))}
       </section>
       <Footer />
