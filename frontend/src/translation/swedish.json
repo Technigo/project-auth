@@ -70,7 +70,8 @@
     "selfPickup": "självhämtning",
     "comingSoon": "Kommer snart",
     "addCart": "LÄGG I KUNDVAGN",
-    "otherItems": "Andra artiklar"
+    "otherItems": "Andra artiklar",
+    "error": "Bilden är inte tillgänglig för den valda blomstertypen."
   },
   "footer": {
     "weeklyBouquet": "Veckobukett",

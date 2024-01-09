@@ -1,15 +1,14 @@
 import styles from "./moreInfo.module.css";
-import data from "../../translation/english.json";
+import { useTranslation } from "react-i18next";
 import React, { useState } from "react";
 import arrowDown from "../../assets/icons/icons8-down-64.png";
 import flower from "../../assets/images/answer1.png";
 
-const info = data.moreInfo;
-console.log(info.answers[0].image);
 export const MoreInfo = () => {
   const [aboutActive, setAboutActive] = useState(false);
   const [deliveryActive, setDeliveryActive] = useState(false);
   const [faqActive, setFaqActive] = useState(false);
+  const { t } = useTranslation();
 
   const handleToggle = (section) => {
     switch (section) {
@@ -36,10 +35,10 @@ export const MoreInfo = () => {
   };
   return (
     <section className={styles.more_info}>
-      <h1 className={styles.title}>{info.title}</h1>
+      <h1 className={styles.title}>{t("moreInfo.title")}</h1>
       <div className={styles.question_container}>
         <div className={styles.question}>
-          <h3 className={styles.q_title}>{info.questions[0]}</h3>
+          <h3 className={styles.q_title}>{t(`moreInfo.questions.0`)}</h3>
           <img
             type="button"
             onClick={() => handleToggle("about")}
@@ -49,7 +48,7 @@ export const MoreInfo = () => {
         </div>
         {aboutActive && (
           <>
-            <p>{renderMultilineText(info.answers[0].about)}</p>
+            <p>{renderMultilineText(t("moreInfo.answers.0.about"))}</p>
             <img src={flower} alt="flowers" className={styles.flower} />
           </>
         )}
@@ -57,7 +56,7 @@ export const MoreInfo = () => {
 
       <div className={styles.question_container}>
         <div className={styles.question}>
-          <h3 className={styles.q_title}>{info.questions[1]}</h3>
+          <h3 className={styles.q_title}>{t(`moreInfo.questions.1`)}</h3>
           <img
             type="button"
             onClick={() => handleToggle("delivery")}
@@ -67,7 +66,7 @@ export const MoreInfo = () => {
         </div>
         {deliveryActive && (
           <>
-            <p>{renderMultilineText(info.answers[0].delivery)}</p>
+            <p>{renderMultilineText(t("moreInfo.answers.0.delivery"))}</p>
             <iframe
               width="100%"
               height="300"
@@ -84,7 +83,7 @@ export const MoreInfo = () => {
 
       <div className={styles.question_container}>
         <div className={styles.question}>
-          <h3 className={styles.q_title}>{info.questions[2]}</h3>
+          <h3 className={styles.q_title}>{t("moreInfo.questions.2")}</h3>
           <img
             type="button"
             onClick={() => handleToggle("faq")}
@@ -95,21 +94,21 @@ export const MoreInfo = () => {
         {faqActive && (
           <>
             <div className={styles.wrapper}>
-              <h3 className={styles.faq}>{info.answers[0].FAQ[0]}</h3>
+              <h3 className={styles.faq}>{t("moreInfo.answers.0.FAQ.0")}</h3>
               <p className={styles.answer}>
-                {info.answers[0].FAQ_answer[0].cancellation}
+              {t("moreInfo.answers.0.FAQ_answer.0.cancellation")}
               </p>
             </div>
             <div className={styles.wrapper}>
-              <h3 className={styles.faq}>{info.answers[0].FAQ[1]}</h3>
+              <h3 className={styles.faq}>{t("moreInfo.answers.0.FAQ.1")}</h3>
               <p className={styles.answer}>
-                {info.answers[0].FAQ_answer[0].condition}
+              {t("moreInfo.answers.0.FAQ_answer.0.condition")}
               </p>
             </div>
             <div className={styles.wrapper}>
-              <h3 className={styles.faq}>{info.answers[0].FAQ[2]}</h3>
+              <h3 className={styles.faq}>{t("moreInfo.answers.0.FAQ.2")}</h3>
               <p className={styles.answer}>
-                {info.answers[0].FAQ_answer[0].holidays}
+              {t("moreInfo.answers.0.FAQ_answer.0.holidays")}
               </p>
               <img src={flower} alt="flower image" className={styles.flower} />
             </div>

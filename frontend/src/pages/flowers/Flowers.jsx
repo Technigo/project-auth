@@ -1,5 +1,6 @@
 // Importing necessary dependencies from React and the application
 import { useEffect, useState } from 'react';
+import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { cartStore } from '../../stores/cartStore';
@@ -13,10 +14,15 @@ import largeImage from "../../assets/images/large.png";
 
 // Define the available flower types
 const allFlowerTypes = ['basic', 'standard', 'large'];
-
+const flowerImages = {
+  'basic': basicImage,
+  'standard': standardImage,
+  'large': largeImage
+};
 
 // Define the Flowers component
 export const Flowers = () => {
+  const { t } = useTranslation();
   // Extract parameters and functions from React Router and stores
   const { type } = useParams();
   const navigate = useNavigate();
@@ -40,17 +46,11 @@ export const Flowers = () => {
 
   // Function to select images to display
   const image_selector = (type) => {
-    switch (type) {
-      case 'basic':
-        return <img src={basicImage} alt={`Flower bouquet of size ${type}`} />;
-      case 'standard':
-        return <img src={standardImage} alt={`Flower bouquet of size ${type}`} />;
-      case 'large':
-        return <img src={largeImage} alt={`Flower bouquet of size ${type}`} />;
-      default:
-        return <p>Image not available for the selected flower type.</p>;
-    }
-  }
+    const selectedImage = flowerImages[type];
+    return selectedImage 
+      ? <img src={selectedImage} alt={`Flower bouquet of size ${type}`} />
+      : <p>{t("flowers.error")}</p>;
+  };
 
   // UseEffect to fetch specific flower data based on the flower type
   useEffect(() => {
@@ -171,34 +171,34 @@ export const Flowers = () => {
       <section>
         {image_selector(type)}
         <div>
-          <h1>Product: {flower.type}</h1>
-          <p>{flower.price} kr/week</p>
+        <h1>{t("flowers.product")} {t(`flowers.${flower.type}`)}</h1>
+          <p>{flower.price} {t("flowers.currency")}/{t("flowers.week")}</p>
           <div>
-            <p>Options</p>
+            <p>{t("flowers.options")}</p>
             <div>
-              <button onClick={() => handleOptionChange('yearly')}>Yearly</button>
-              <button onClick={() => handleOptionChange('monthly')}>Monthly</button>
-              <button onClick={() => handleOptionChange('weekly')}>Weekly</button>
+              <button onClick={() => handleOptionChange('yearly')}>{t("flowers.yearly")}</button>
+              <button onClick={() => handleOptionChange('monthly')}>{t("flowers.monthly")}</button>
+              <button onClick={() => handleOptionChange('weekly')}>{t("flowers.weekly")}</button>
             </div>
           </div>
           <div>
-            <p>Quantity
+            <p>{t("flowers.options")}
               <span>{quantity}</span>
-              bouquet(s)
+              {t("flowers.bouquets")}
             </p>
           </div>
           <div>
-            <p>delivery</p>
-            <span>self-pick up</span> (Coming soon: Delivery)
+            <p>{t("flowers.delivery")}</p>
+            <span>{t("flowers.selfPickup")}</span> ({t("flowers.comingSoon")}: {t("flowers.delivery")})
           </div>
-          <button onClick={handleAddToCart} disabled={!isAddToCartEnabled}>ADD TO CART</button>
+          <button onClick={handleAddToCart} disabled={!isAddToCartEnabled}>{t("flowers.addCart")}</button>
         </div>
       </section>
       <section>
         <MoreInfo />
       </section>
       <section>
-        <h2>Other items</h2>
+        <h2>{t("flowers.otherItems")}</h2>
         {otherFlowerTypes.map((otherType) => (
           <div key={otherType}>
             {image_selector(otherType)}
