@@ -172,7 +172,7 @@ export const Flowers = () => {
         {image_selector(type)}
         <div>
           <h1>Product: {flower.type}</h1>
-          <p>Price: {flower.price} kr/week</p>
+          <p>{flower.price} kr/week</p>
           <div>
             <p>Options</p>
             <div>
@@ -195,7 +195,6 @@ export const Flowers = () => {
         </div>
       </section>
       <section>
-        <h2>More information</h2>
         <MoreInfo />
       </section>
       <section>

@@ -1,45 +1,90 @@
 {
-    "stories": [
-      {
-        "id": 1,
-        "image": "src/assets/images/wither.png",
-        "title": "Vissna",
-        "content": "När vi kan förstå att perfektion inte är naturlig och bli medvetna om att livet verkligen blomstrar på grund av dess ständiga vissnande, kan vi förstå att all skönhet är gömd i flyktiga detaljer. Precis som växter vissnar kommer också människor att åldras, och i deras försvinnande blir varje ögonblick mer värdefullt, autentiskt och vackert."
-      },
-      {
-        "id": 2,
-        "image": "src/assets/images/gentle.png",
-        "title": "Försiktigt",
-        "content": "Att leva med växter kan vi konkret uppleva försiktighet, fri från stålets skärpa, bara mjukheten som växer mot solen. Genom att samexistera med växter lär vi oss att möta livet med ömhet.\n\nVi tror att sann försiktighet inte är ett tecken på svaghet; den innefattar förståelse och styrka. Att möta den enorma världens vördnad och livets självsäkra motstånd, förstå de oundvikliga svårigheterna, vara villiga att tro på otänkbara djup och absorbera ondska med våra kroppar och känslor, att kunna bli skadad och återhämta sig, är en uppvisning av verklig styrka.\n\nDärför är försiktighet dyrbar; den kan bli slutpunkten för ondska."
-      },
-      {
-        "id": 3,
-        "image": "src/assets/images/toward.png",
-        "title": "Varande-mot-döden",
-        "content": "Det filosofiska konceptet formulerat av den tyske filosofen Martin Heidegger är att människor är \"Varande-mot-döden.\"\n\nFrån ögonblicket av födelse är vi orienterade mot döden, och medvetenheten om att leva varje dag är ett \"varande-närvarande\" i denna process, beläget inom en sådan omfattande helhet. Det är en djupgående och betydelsefull självmedvetenhet i livet. När människor undviker att tänka på döden undviker de, till viss del, att reflektera över livets väsen. Tvärtom, endast när vi djupt förstår närheten till döden kan vi ha den mest övertygande motivationen att söka och känna meningen inneboende i livet.\n\nMå vi bli påminda varje dag i sällskap med växter att inte undvika oundvikligheten av förfall, att lära sig vara öm mot livet och att leva ärligt."
-      }
-    ],
-    "meet": {
-      "image": "src/assets/images/people_flower.png",
-      "title": "Trevligt att träffas!",
-      "name": "Vi är Flora Echo",
-      "content1": "Så glad att du är här! \"Floral Echo\" förmedlar tanken på en reflektion av skönheten, essensen eller egenskaperna hos blommor.",
-      "content2": "Jag önskar att bära denna förväntan, med veckovisa blommor som bärare. Genom att föra in blommor i varje individ och familjs liv signalerar det inte bara skönhet utan erbjuder också en mjuk upplevelse av vissning, konfronterar en långsam och tyst förfall.",
-      "content3": "Varje mottagare av blommorna förstår dess oundvikliga resa mot vissning. Genom sällskapet med färska blommor upplever de livets och dödens cykel, praktiserar konsten att säga adjö, leva fritt och ömt. Jag hoppas att varje sändare av blommor kan fyllas med förväntningar, låta kortet förmedla känslor."
+  "stories": [
+    {
+      "id": 1,
+      "image": "src/assets/images/wither.png",
+      "title": "Vissna",
+      "content": "När vi kan förstå att perfektion inte är naturlig och bli medvetna om att livet verkligen blomstrar på grund av dess ständiga vissnande, kan vi förstå att all skönhet är gömd i flyktiga detaljer. Precis som växter vissnar kommer också människor att åldras, och i deras försvinnande blir varje ögonblick mer värdefullt, autentiskt och vackert."
     },
-    "footer":{
-      "weeklyBouquet": "Veckobukett",
-      "basic": "Basic",
-      "standard":"Standard",
-      "large":"Stor",
-      "service":"Blomsterbudstjänst",
-      "language":"Språk",
-      "english":"Engelska",
-      "swedish":"Svenska",
-      "openingHours":"Öppet:",
-      "mondayFriday":"Måndag-Fredag: 9am - 5pm",
-      "saturday":"Lördag: 10am - 5pm",
-      "sunday":"Söndag: 11am - 5pm",
-      "contactUs":"Ta Kontakt"        
+    {
+      "id": 2,
+      "image": "src/assets/images/gentle.png",
+      "title": "Försiktigt",
+      "content": "Att leva med växter kan vi konkret uppleva försiktighet, fri från stålets skärpa, bara mjukheten som växer mot solen. Genom att samexistera med växter lär vi oss att möta livet med ömhet.\n\nVi tror att sann försiktighet inte är ett tecken på svaghet; den innefattar förståelse och styrka. Att möta den enorma världens vördnad och livets självsäkra motstånd, förstå de oundvikliga svårigheterna, vara villiga att tro på otänkbara djup och absorbera ondska med våra kroppar och känslor, att kunna bli skadad och återhämta sig, är en uppvisning av verklig styrka.\n\nDärför är försiktighet dyrbar; den kan bli slutpunkten för ondska."
+    },
+    {
+      "id": 3,
+      "image": "src/assets/images/toward.png",
+      "title": "Varande-mot-döden",
+      "content": "Det filosofiska konceptet formulerat av den tyske filosofen Martin Heidegger är att människor är \"Varande-mot-döden.\"\n\nFrån ögonblicket av födelse är vi orienterade mot döden, och medvetenheten om att leva varje dag är ett \"varande-närvarande\" i denna process, beläget inom en sådan omfattande helhet. Det är en djupgående och betydelsefull självmedvetenhet i livet. När människor undviker att tänka på döden undviker de, till viss del, att reflektera över livets väsen. Tvärtom, endast när vi djupt förstår närheten till döden kan vi ha den mest övertygande motivationen att söka och känna meningen inneboende i livet.\n\nMå vi bli påminda varje dag i sällskap med växter att inte undvika oundvikligheten av förfall, att lära sig vara öm mot livet och att leva ärligt."
+    }
+  ],
+  "meet": {
+    "image": "src/assets/images/people_flower.png",
+    "title": "Trevligt att träffas!",
+    "name": "Vi är Flora Echo",
+    "content1": "Så glad att du är här! \"Flora Echo\" förmedlar tanken på en reflektion av skönheten, essensen eller egenskaperna hos blommor.",
+    "content2": "Jag önskar att bära denna förväntan, med veckovisa blommor som bärare. Genom att föra in blommor i varje individ och familjs liv signalerar det inte bara skönhet utan erbjuder också en mjuk upplevelse av vissning, konfronterar en långsam och tyst förfall.",
+    "content3": "Varje mottagare av blommorna förstår dess oundvikliga resa mot vissning. Genom sällskapet med färska blommor upplever de livets och dödens cykel, praktiserar konsten att säga adjö, leva fritt och ömt. Jag hoppas att varje sändare av blommor kan fyllas med förväntningar, låta kortet förmedla känslor."
+  },
+  "moreInfo": {
+    "title": "Mer Information",
+    "questions": [
+      "Om veckans bukett",
+      "Leverans",
+      "FAQ"
+    ],
+    "answers": [
+      {
+        "about": "Veckans blommor väljs ut och arrangeras av en florist varje måndag, och vi beklagar att behöva informera dig om att vi inte har några specifika önskemål eller restriktioner för blommaterial.\nVar vänlig observera att de flesta blommor är giftiga för husdjur, och försiktighetsåtgärder bör vidtas för att förhindra att husdjur får i sig dem.\nBlomningsperioden för växter är vanligtvis 3-5 dagar på sommaren, och den kan vara längre på vintern. Den faktiska längden kan variera beroende på typ av blomma, väderförhållanden och skötselrutiner.\n\nFräscha blommor kan ha brister, saknade kronblad eller transportmärken. Tänk på detta innan du gör ett köp om dessa faktorer är viktiga för dig.\n\nMed varje bukett finns ett litet kort med en fras som väljs ut varje vecka. Om du vill ha ett personligt meddelande kan du lägga till meddelanden i varukorgen.\n\nHöjden på buketterna i Basic- och Standard-serien är ca 40±3 cm, och rekommenderade vasmått är Ø3-6 cm, H12-18 cm. Buketterna i Large-serien har en varierande höjd på 50-60 cm och de rekommenderade vasmåtten är Ø6-12 cm, H16-20 cm.",
+        "delivery": "Leveransalternativen för veckovisa blommor i serierna Basic, Standard och Large inkluderar \"självupphämtning\" och \"blomsterbud.\"\n\nFör självupphämtning/blomsterbud:\nDu kan planera att hämta blommorna i butiken på onsdagar och torsdagar mellan 12:00 och 18:00 under leveransveckan. \n\nButiksadress:\nOm du föredrar leverans vid en specifik tidpunkt eller tycker att det är obekvämt att hämta personligen kan du ordna en budtjänst på egen hand.",
+        "FAQ": [
+          "Avbeställning av veckovis blomsterservice",
+          "Blomtillstånd",
+          "Allmänna helgdagar"
+        ],
+        "FAQ_answer": [
+          {
+            "cancellation": "Vänligen skicka oss ett meddelande eller mejla oss ditt ordernummer före kl. 22:00 på tisdagen, och vi kommer att hjälpa dig med efterföljande ärenden. För regelbundna blomsterbeställningar varje vecka kommer återbetalningen att ske proportionellt efter avdrag för hanteringsavgifter. För långtidsabonnemang som överstiger 4 veckor, om ordern inte uppfylls under totalt 5 veckor, måste du betala det utestående beloppet innan du avslutar de automatiska avdragen.",
+            "condition": "Vänligen ta ett foto och skicka ett meddelande till oss samma dag som du tar emot blommorna. Vi hjälper dig att bedöma blommornas skick, och om det visar sig vara otillfredsställande kommer vi att erbjuda dig en lämplig kompensationslösning. Om bedömningen visar på naturliga förhållanden eller acceptabla brister kommer dock inga ytterligare blommor att levereras.",
+            "holidays": "Årliga allmänna helgdagar finns i avsnittet Allmänna helgdagar. I händelse av lagstadgade helgdagar, flexibel ledighet eller stängning av blomstermarknaden, kommer leveranserna för den veckan att skjutas upp till nästa vecka. Vid oförutsedda omständigheter förbehåller vi oss rätten att meddela tillfälliga helgstängningar med föregående meddelande."
+          }
+        ]
+      }
+    ]
+  },
+  "flowers": {
+    "product": "Produkt",
+    "basic": "Basic",
+    "standard": "Standard",
+    "large": "Stor",
+    "currency": "kr",
+    "week": "vecka",
+    "options": "alternativ",
+    "yearly": "årligen",
+    "monthly": "månadsvis",
+    "weekly": "veckovis",
+    "quantity": "antal",
+    "bouquets": "bukett(er)",
+    "delivery": "leverans",
+    "selfPickup": "självhämtning",
+    "comingSoon": "Kommer snart",
+    "addCart": "LÄGG I KUNDVAGN",
+    "otherItems": "Andra artiklar"
+  },
+  "footer": {
+    "weeklyBouquet": "Veckobukett",
+    "basic": "Basic",
+    "standard": "Standard",
+    "large": "Stor",
+    "service": "Blomsterbudstjänst",
+    "language": "Språk",
+    "english": "Engelska",
+    "swedish": "Svenska",
+    "openingHours": "Öppet:",
+    "mondayFriday": "Måndag-Fredag: 9am - 5pm",
+    "saturday": "Lördag: 10am - 5pm",
+    "sunday": "Söndag: 11am - 5pm",
+    "contactUs": "Ta Kontakt"
   }
-  }
+}
