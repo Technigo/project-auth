@@ -26,6 +26,27 @@ export const Cart = () => {
     navigate("/login");
   };
 
+  useEffect(() => {
+    if (!userId) {
+      // If 'id' is not set, retrieve the user ID from local storage
+      const storedUserId = localStorage.getItem("userID");
+      if (storedUserId) {
+        navigate(`/cart/${storedUserId}`);
+      } else {
+        // Handle case where there is no user ID (e.g., prompt login or show error)
+      }
+    }
+  }, [userId, navigate]);
+
+  // Function to fetch any persisted cartData in localStorage
+  useEffect(() => {
+    const storedCartData = localStorage.getItem("cartData");
+    if (storedCartData) {
+      const cartData = JSON.parse(storedCartData); //parse JSON string into object
+      cartStore.getState().setCart(cartData); //updating state with parsed cartData with Zustand
+    }
+  }, []); // effect running only when cart component mounts
+
   // Function to calculate subscription cost before delivery
   const subscriptionCost = (flowerType, subscriptionOption) => {
     let basePrice;
@@ -65,7 +86,7 @@ export const Cart = () => {
     return totalPrice;
   };
 
-  // Small function to calculate the purchase sum
+  // Calculate the purchase order sum
   const sumFunction = (price, deliveryCost) => {
     return price + deliveryCost;
   };
@@ -105,26 +126,6 @@ export const Cart = () => {
     subscriptionCost(dataToShow.type, dataToShow.subscriptionOption) === 0;
 
   //----------- Sending confirmed flower subscription order through POST request to API ---------
-  useEffect(() => {
-    if (!userId) {
-      // If 'id' is not set, retrieve the user ID from local storage
-      const storedUserId = localStorage.getItem("userID");
-      if (storedUserId) {
-        navigate(`/cart/${storedUserId}`);
-      } else {
-        // Handle case where there is no user ID (e.g., prompt login or show error)
-      }
-    }
-  }, [userId, navigate]);
-
-  useEffect(() => {
-    const storedCartData = localStorage.getItem("cartData");
-    if (storedCartData) {
-      const cartData = JSON.parse(storedCartData);
-      cartStore.getState().setCart(cartData);
-    }
-  }, []);
-
   const handleSubmit = async (event) => {
     event.preventDefault(); //preventing form's default submit behaviour
     if (!userId) {
@@ -142,19 +143,19 @@ export const Cart = () => {
         method: "POST",
         //Stringifying required values and setting them to request body
         body: JSON.stringify({
-          greeting: `${newGreeting}`,
-          user_id: `${userId}`,
-          flower: `${dataToShow.type}`,
-          options: `${dataToShow.subscriptionOption}`,
-          quantity: `${dataToShow.quantity}`,
-          price: `${subscriptionCost(
+          greeting: newGreeting,
+          user_id: userId,
+          flower: dataToShow.type,
+          options: dataToShow.subscriptionOption,
+          quantity: dataToShow.quantity,
+          price: subscriptionCost(
             dataToShow.type,
             dataToShow.subscriptionOption
-          )}`,
-          sum: `${sumFunction(
+          ),
+          sum: sumFunction(
             subscriptionCost(dataToShow.type, dataToShow.subscriptionOption),
             0
-          )}`,
+          ),
         }),
         headers: {
           "Content-Type": "application/json",
@@ -181,7 +182,6 @@ export const Cart = () => {
             );
             setNewGreeting(""); //clearing textarea
             emptyCart(true); //clearing cart
-            // navigate(`/profile/${userId}`); //redirecting user to landing page
             navigate("/");
           } else {
             console.log("Something went wrong");
@@ -227,24 +227,24 @@ export const Cart = () => {
           </div>
 
           <div className={styles.cartProductInfo}>
-            <p style={{ gridArea: styles.cartCell1 }}>options:</p>
-            <p style={{ gridArea: styles.cartCell2 }}>
+            <p>options:</p>
+            <p>
               <span className={styles.greenbox}>
                 {dataToShow.subscriptionOption == null
                   ? "none"
                   : dataToShow.subscriptionOption}
               </span>
             </p>
-            <p style={{ gridArea: styles.cartCell3 }}>subscription</p>
-            <p style={{ gridArea: styles.cartCell4 }}>quantity:</p>
-            <p style={{ gridArea: styles.cartCell5 }}>
+            <p>subscription</p>
+            <p>quantity:</p>
+            <p>
               <span className={styles.greenbox}>
                 {dataToShow.quantity == null ? "0" : dataToShow.quantity}
               </span>
             </p>
-            <p style={{ gridArea: styles.cartCell6 }}>bouquet(s)</p>
-            <p style={{ gridArea: styles.cartCell7 }}>price:</p>
-            <p style={{ gridArea: styles.cartCell8 }}>
+            <p>bouquet(s)</p>
+            <p>price:</p>
+            <p>
               <span className={styles.greenbox}>
                 {subscriptionCost(
                   dataToShow.type,
@@ -252,12 +252,12 @@ export const Cart = () => {
                 )}
               </span>
             </p>
-            <p style={{ gridArea: styles.cartCell9 }}>kr</p>
-            <p style={{ gridArea: styles.cartCell10 }}>delivery:</p>
-            <p style={{ gridArea: styles.cartCell11 }}>
+            <p>kr</p>
+            <p>delivery:</p>
+            <p>
               <span className={styles.greenbox}>0</span>
             </p>
-            <p style={{ gridArea: styles.cartCell12 }}>kr</p>
+            <p>kr</p>
           </div>
         </section>
         <img
