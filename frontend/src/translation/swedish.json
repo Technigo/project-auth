@@ -72,20 +72,55 @@
     "addCart": "LÄGG I KUNDVAGN",
     "otherItems": "Andra artiklar",
     "error": "Bilden är inte tillgänglig för den valda blomstertypen."
-  },
-  "footer": {
-    "weeklyBouquet": "Veckobukett",
-    "basic": "Basic",
-    "standard": "Standard",
-    "large": "Stor",
-    "service": "Blomsterbudstjänst",
-    "language": "Språk",
-    "english": "Engelska",
-    "swedish": "Svenska",
-    "openingHours": "Öppet:",
-    "mondayFriday": "Måndag-Fredag: 9am - 5pm",
-    "saturday": "Lördag: 10am - 5pm",
-    "sunday": "Söndag: 11am - 5pm",
-    "contactUs": "Ta Kontakt"
+  },  
+    "cart":{
+      "backButton":"tillbaka",
+      "logOutButton":"logga ut",      
+      "options": "alternativ:",
+      "quantity": "antal:",
+      "price": "pris:",
+      "currency":"sek",
+      "delivery": "leverans:",
+      "subscription": "prenumeration",
+      "bouquets": "bukett(er)",
+      "hr":"horisontellt streck",
+      "sum": "summan:",
+      "greetingInfo": "Önskar du skicka blommor till någon eller förmedla dina känslor för veckan genom FloraEcho, vänligen lämna ett meddelande nedanför. Baserat på ditt meddelande kommer en hemlig bukett att skräddasys. Det kommer att finnas olika överraskningar varje vecka!",      
+      "submitPlaceholder":"Skriv din text här (5-100 tecken)...",
+      "errorMessage":{
+        "short":"För kort text.",
+        "long":"För lång text.",
+        "ok": ""
+      },
+      "confirm": "BEKRÄFTA",
+      "alert":{
+        "firstPart":"Din",
+        "secondPart":"prenumeration på",
+        "thirdPart":"bukett skall snart bearbetas. Att betala:"
+      }
+    },    
+    "bouquetType":{
+      "basic": "Basic",
+      "standard": "Standard",
+      "large": "Stor"
+    },
+    "subscription":{
+      "weekly":"veckovis",
+      "monthly": "månatlig",
+      "yearly": "årlig"
+    },
+    "none":"ingen",
+    "defaultBouquet":"Veckobukett: ej vald",
+    "footer":{
+      "weeklyBouquet": "Veckobukett",      
+      "service":"Blomsterbudstjänst",
+      "language":"Språk",
+      "english":"Engelska",
+      "swedish":"Svenska",
+      "openingHours":"Öppet:",
+      "mondayFriday":"Måndag-Fredag: 9am - 5pm",
+      "saturday":"Lördag: 10am - 5pm",
+      "sunday":"Söndag: 11am - 5pm",
+      "contactUs":"Ta Kontakt"        
   }
 }

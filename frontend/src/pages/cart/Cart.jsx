@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { userStore } from "../../stores/userStore";
 import { cartStore } from "../../stores/cartStore";
+import { useTranslation } from "react-i18next";
 import basicImage from "../../assets/images/basic.png";
 import standardImage from "../../assets/images/standard.png";
 import largeImage from "../../assets/images/large.png";
@@ -13,10 +14,9 @@ import leftArrow from "../../assets/icons/icons8-left-arrow-50.png";
 import styles from "./cart.module.css";
 
 export const Cart = () => {
-  // const { id } = useParams();
-  // console.log(id);
   const userId = useParams().id;
   console.log(userId);
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dataToShow = cartStore((state) => state.cart);
   const emptyCart = cartStore((state) => state.emptyCart);
@@ -27,6 +27,15 @@ export const Cart = () => {
     storeHandleLogout();
     navigate("/login");
   };
+
+  // Function to fetch any persisted cartData in localStorage
+  useEffect(() => {
+    const storedCartData = localStorage.getItem("cartData");
+    if (storedCartData) {
+      const cartData = JSON.parse(storedCartData); //parse JSON string into object
+      cartStore.getState().setCart(cartData); //updating state with parsed cartData with Zustand
+    }
+  }, []); // effect running only when cart component mounts
 
   // Function to calculate subscription cost before delivery
   const subscriptionCost = (flowerType, subscriptionOption) => {
@@ -67,7 +76,7 @@ export const Cart = () => {
     return totalPrice;
   };
 
-  // Small function to calculate the purchase sum
+  // Calculate the purchase order sum
   const sumFunction = (price, deliveryCost) => {
     return price + deliveryCost;
   };
@@ -94,9 +103,9 @@ export const Cart = () => {
   //useEffect hook to check max length criteria for greeting message
   useEffect(() => {
     if (newGreeting.length >= 101) {
-      setErrorMessage("Your message is too long.");
+      setErrorMessage("long");
     } else {
-      setErrorMessage("");
+      setErrorMessage("ok");
     }
   }, [newGreeting]); //dependency array with effect only running when "newGreeting" changes
 
@@ -107,24 +116,6 @@ export const Cart = () => {
     subscriptionCost(dataToShow.type, dataToShow.subscriptionOption) === 0;
 
   //----------- Sending confirmed flower subscription order through POST request to API ---------
-  useEffect(() => {
-    if (!userId) {
-      // If 'id' is not set, retrieve the user ID from local storage
-      const storedUserId = localStorage.getItem('userID');
-      if (storedUserId) {
-        navigate(`/cart/${storedUserId}`);
-      } 
-    }
-  }, [userId, navigate]);
-  
-  useEffect(() => {
-    const storedCartData = localStorage.getItem('cartData');
-    if (storedCartData) {
-      const cartData = JSON.parse(storedCartData);
-      cartStore.getState().setCart(cartData);
-    }
-  }, []);
-  
   const handleSubmit = async (event) => {
     event.preventDefault(); //preventing form's default submit behaviour
     if (!userId) {
@@ -135,17 +126,26 @@ export const Cart = () => {
 
     //Checking minimum length criteria for greeting message
     if (newGreeting.length <= 4) {
-      setErrorMessage("Your message is too short.");
+      setErrorMessage("short");
     } else {
       //Configuring the fetch request -POST method
       const purchaseOrder = {
         method: "POST",
         //Stringifying required values and setting them to request body
         body: JSON.stringify({
-          greeting: `${newGreeting}`,
-          user_id: `${userId}`,
-          flower: `${dataToShow.type}`,
-          options: `${dataToShow.subscriptionOption}`,
+          greeting: newGreeting,
+          user_id: userId,
+          flower: dataToShow.type,
+          options: dataToShow.subscriptionOption,
+          quantity: dataToShow.quantity,
+          price: subscriptionCost(
+            dataToShow.type,
+            dataToShow.subscriptionOption
+          ),
+          sum: sumFunction(
+            subscriptionCost(dataToShow.type, dataToShow.subscriptionOption),
+            0
+          ),
         }),
         headers: {
           "Content-Type": "application/json",
@@ -160,19 +160,20 @@ export const Cart = () => {
           if (data.success) {
             console.log("data submitted successfully");
             alert(
-              ` Your ${dataToShow.subscriptionOption} subscription of ${
-                dataToShow.type
-              } bouquet order is now being processed.  Amount due: ${sumFunction(
+              ` ${t("cart.alert.firstPart")} ${t(
+                `subscription.${dataToShow.subscriptionOption}`
+              )} ${t("cart.alert.secondPart")} ${t(
+                `bouquetType.${dataToShow.type}`
+              )} ${t("cart.alert.thirdPart")} ${sumFunction(
                 subscriptionCost(
                   dataToShow.type,
                   dataToShow.subscriptionOption
                 ),
                 0
-              )} kr.`
+              )} ${t("cart.currency")}.`
             );
             setNewGreeting(""); //clearing textarea
             emptyCart(true); //clearing cart
-            // navigate(`/profile/${userId}`); //redirecting user to landing page
             navigate("/");
           } else {
             console.log("Something went wrong");
@@ -191,11 +192,11 @@ export const Cart = () => {
         <ul className={styles.cartUl}>
           <Link to={`/profile/${userId}`} className={styles.cartBack}>
             <img src={leftArrow} alt="left arrow" />
-            back
+            {t("cart.backButton")}
           </Link>
           <Logo />
           <li type="button" onClick={onLogoutClick} className={styles.cartLi}>
-            log out
+            {t("cart.logOutButton")}
           </li>
         </ul>
       </nav>
@@ -204,38 +205,42 @@ export const Cart = () => {
           <div className={styles.cartProductImage}>
             <img
               src={bouquetImage(dataToShow.type)}
-              alt={`${
+              alt={t(
                 dataToShow.type == null
-                  ? "Weekly bouquet: none chosen"
-                  : dataToShow.type
-              }`}
+                  ? "defaultBouquet"
+                  : `bouquetType.${dataToShow.type}`
+              )}
             />
             <p>
-              {dataToShow.type == null
-                ? "Weekly bouquet: none chosen"
-                : dataToShow.type}
+              {t(
+                dataToShow.type == null
+                  ? "defaultBouquet"
+                  : `bouquetType.${dataToShow.type}`
+              )}
             </p>
           </div>
 
           <div className={styles.cartProductInfo}>
-            <p style={{ gridArea: styles.cartCell1 }}>options:</p>
-            <p style={{ gridArea: styles.cartCell2 }}>
+            <p>{t("cart.options")}</p>
+            <p>
               <span className={styles.greenbox}>
-                {dataToShow.subscriptionOption == null
-                  ? "none"
-                  : dataToShow.subscriptionOption}
+                {t(
+                  dataToShow.subscriptionOption == null
+                    ? "none"
+                    : `subscription.${dataToShow.subscriptionOption}`
+                )}
               </span>
             </p>
-            <p style={{ gridArea: styles.cartCell3 }}>subscription</p>
-            <p style={{ gridArea: styles.cartCell4 }}>quantity:</p>
-            <p style={{ gridArea: styles.cartCell5 }}>
+            <p>{t("cart.subscription")}</p>
+            <p>{t("cart.quantity")}</p>
+            <p>
               <span className={styles.greenbox}>
                 {dataToShow.quantity == null ? "0" : dataToShow.quantity}
               </span>
             </p>
-            <p style={{ gridArea: styles.cartCell6 }}>bouquet(s)</p>
-            <p style={{ gridArea: styles.cartCell7 }}>price:</p>
-            <p style={{ gridArea: styles.cartCell8 }}>
+            <p>{t("cart.bouquets")}</p>
+            <p>{t("cart.price")}</p>
+            <p>
               <span className={styles.greenbox}>
                 {subscriptionCost(
                   dataToShow.type,
@@ -243,22 +248,22 @@ export const Cart = () => {
                 )}
               </span>
             </p>
-            <p style={{ gridArea: styles.cartCell9 }}>kr</p>
-            <p style={{ gridArea: styles.cartCell10 }}>delivery:</p>
-            <p style={{ gridArea: styles.cartCell11 }}>
+            <p>{t("cart.currency")}</p>
+            <p>{t("cart.delivery")}</p>
+            <p>
               <span className={styles.greenbox}>0</span>
             </p>
-            <p style={{ gridArea: styles.cartCell12 }}>kr</p>
+            <p>{t("cart.currency")}</p>
           </div>
         </section>
         <img
           src={horizontalRule}
-          alt="horizontal rule"
+          alt={t("cart.hr")}
           className={styles.cartProductHr}
         />
         <section className={styles.cartSumSection}>
           <p>
-            sum:
+            {t("cart.sum")}
             <span className={styles.greenbox}>
               {sumFunction(
                 subscriptionCost(
@@ -268,16 +273,11 @@ export const Cart = () => {
                 0
               )}
             </span>
-            kr
+            {t("cart.currency")}
           </p>
         </section>
         <section className={styles.cartGreetingSection}>
-          <p>
-            If you want to send flowers to someone or convey your feelings for
-            the week through FloraEcho, please leave a message below. We will
-            customize a secret floral based on your message. There will be
-            different surprises every week!
-          </p>
+          <p>{t("cart.greetingInfo")}</p>
 
           {/* Form element with onSubmit event handler set to "handleSubmit" */}
           <form onSubmit={handleSubmit}>
@@ -286,12 +286,12 @@ export const Cart = () => {
                 id="greeting"
                 rows="5"
                 cols="80"
-                placeholder="Type your text here (5-100 characters)..."
+                placeholder={t("cart.submitPlaceholder")}
                 value={newGreeting}
                 onChange={(event) => setNewGreeting(event.target.value)}
               />
               <div className={styles.cartGreetingCaption}>
-                <p>{errorMessage}</p>
+                <p>{t(`cart.errorMessage.${errorMessage}`)}</p>
                 <p
                   className={`length ${
                     newGreeting.length >= 100 ? styles.red : ""
@@ -307,7 +307,7 @@ export const Cart = () => {
               aria-label="click to submit your subscription order"
               disabled={invalidPurchaseOrder}
             >
-              CONFIRM
+              {t("cart.confirm")}
             </button>
           </form>
         </section>

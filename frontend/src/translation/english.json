@@ -73,19 +73,54 @@
     "otherItems": "Other items",
     "error": "Image not available for the selected flower type."
   },
-  "footer": {
-    "weeklyBouquet": "Weekly Bouquet",
+  "cart":{
+    "backButton":"back",
+    "logOutButton":"log out",      
+    "options": "options:",
+    "quantity": "quantity:",
+    "price": "price:",
+    "currency":"kr",
+    "delivery": "delivery:",
+    "subscription": "subscription",
+    "bouquets": "bouquet(s)",
+    "hr":"horizontal rule",
+    "sum": "sum:",
+    "greetingInfo": "If you want to send flowers to someone or convey your feelings for the week through FloraEcho, please leave a message below. We will customize a secret floral based on your message. There will be different surprises every week!",
+    "submitPlaceholder":"Type your text here (5-100 characters)...",
+    "errorMessage":{
+      "short":"Your message is too short.",
+      "long":"Your message is too long.",
+      "ok":""
+    },
+    "confirm": "CONFIRM",
+    "alert":{
+      "firstPart":"Your",
+      "secondPart":"subscription of",
+      "thirdPart":"bouquet order is now being processed.  Amount due:"
+    }
+  },
+  "bouquetType":{
     "basic": "Basic",
     "standard": "Standard",
-    "large": "Large",
-    "service": "Service",
-    "language": "Language",
-    "english": "English",
-    "swedish": "Swedish",
-    "openingHours": "Opening Hours:",
-    "mondayFriday": "Monday-Friday: 9am - 5pm",
-    "saturday": "Saturday: 10am - 5pm",
-    "sunday": "Sunday: 11am - 5pm",
-    "contactUs": "Contact Us"
-  }
+    "large": "Large"
+  },
+  "subscription":{
+    "weekly":"weekly",
+    "monthly": "monthly",
+    "yearly": "yearly"
+  },
+  "none":"none",
+  "defaultBouquet":"Weekly bouquet: none chosen",
+  "footer":{
+    "weeklyBouquet": "Weekly Bouquet",      
+    "service":"Service",
+    "language":"Language",
+    "english":"English",
+    "swedish":"Swedish",
+    "openingHours":"Opening Hours:",
+    "mondayFriday":"Monday-Friday: 9am - 5pm",
+    "saturday":"Saturday: 10am - 5pm",
+    "sunday":"Sunday: 11am - 5pm",
+    "contactUs":"Contact Us"        
+}       
 }

@@ -17,6 +17,7 @@
 }
 .cartBack {
     text-decoration: none;
+    color:#424D2D;
 }
 .cartBack img{    
     height:13px;
@@ -58,21 +59,10 @@
     max-width:100%;
     object-fit: cover;
 }
-/* .cartProductInfo{    
-    display: flex;
-    flex-direction: column;
-    height:100%;
-    gap:2rem;
-} */
 .cartProductInfo{
     display:grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    /* grid-template-areas: 
-    "cartCell1 cartCell2 ."    
-    "cartCell4 cartCell5 cartCell6"    
-    "cartCell7 cartCell8 cartCell9"    
-    "cartCell10 cartCell11 cartCell12";     */
+    grid-template-rows: repeat(4, 1fr);    
     gap:1rem 0.75rem;
 }
 
