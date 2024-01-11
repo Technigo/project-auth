@@ -1,6 +1,7 @@
 import styles from "./niceTomeet.module.css";
 import data from "../../translation/english.json";
 import { useTranslation } from "react-i18next";
+import meet from "../../assets/images/people_flower.png";
 export const NiceToMeet = () => {
   const { t } = useTranslation();
   return (
@@ -8,7 +9,7 @@ export const NiceToMeet = () => {
       {data.meet && (
         <div key={data.meet.title} className={styles.wrapper}>
           <div className={styles.img_wrapper}>
-            <img src={data.meet.image} alt={data.meet.title} />
+            <img src={meet} alt={data.meet.title} />
           </div>
           <div className={styles.content}>
             <h1>{t("meet.title")}</h1>
