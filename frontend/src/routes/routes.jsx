@@ -5,7 +5,7 @@ import { Home } from "../pages//home/Home";
 import { Flowers } from "../pages/flowers/Flowers";
 import { Profile } from "../pages/profile/Profile";
 import { Cart } from "../pages/cart/Cart";
-import { NotFound } from "../pages/NotFound";
+import { NotFound } from "../pages/notfound/NotFound";
 import { ProfileForm } from "../pages/profile/ProfileForm";
 
 export const routes = (

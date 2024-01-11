@@ -136,7 +136,6 @@ export const ProfileForm = () => {
       });
 
       const data = await response.json();
-      console.log(data);
       if (data.success) {
         // Handle the successful update in your component state
         setProfileState((prevState) => ({
@@ -149,11 +148,8 @@ export const ProfileForm = () => {
           important,
           image: image,
         }));
-        console.log("Update profile successful!");
 
         navigate(`/profile/${id}`);
-      } else {
-        console.log(data.response);
       }
     } catch (error) {
       console.error("Update profile error:", error);

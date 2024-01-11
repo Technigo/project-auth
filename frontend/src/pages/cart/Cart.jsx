@@ -15,7 +15,6 @@ import styles from "./cart.module.css";
 
 export const Cart = () => {
   const userId = useParams().id;
-  console.log(userId);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dataToShow = cartStore((state) => state.cart);
@@ -152,13 +151,11 @@ export const Cart = () => {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       };
-      console.log(purchaseOrder);
       //Making a POST request to API endpoint with configured purchaseOrder
       await fetch(`${backendApi}/cart/${userId}`, purchaseOrder)
         .then((res) => res.json()) //parsing response as json
         .then((data) => {
           if (data.success) {
-            console.log("data submitted successfully");
             alert(
               ` ${t("cart.alert.firstPart")} ${t(
                 `subscription.${dataToShow.subscriptionOption}`
@@ -176,7 +173,6 @@ export const Cart = () => {
             emptyCart(true); //clearing cart
             navigate("/");
           } else {
-            console.log("Something went wrong");
             console.log(data.error);
           }
         })
