@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "../components/footer/footer.module.css";
-
+import down from "../assets/icons/icons8-down-48.png";
 export const Translate = () => {
   //Defining via destructured variable, 2 methods from useTranslation
   const { t, i18n } = useTranslation();
@@ -24,10 +24,7 @@ export const Translate = () => {
     <>
       {t("footer.language")}
       <button onClick={toggleLanguageMenu} className={styles.footerButton}>
-        <img
-          src="../../../src/assets/icons/icons8-down-48.png"
-          alt="scrolldown menu"
-        />
+        <img src={down} alt="scrolldown menu" />
       </button>
       <div>
         {languageMenuOpen && (

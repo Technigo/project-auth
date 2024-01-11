@@ -4,6 +4,10 @@ import { Translate } from "../../pages/Translate";
 import { useTranslation } from "react-i18next";
 import footerFlowerIcon from "../../assets/icons/icons8-flower-64.svg";
 import styles from "../footer/footer.module.css";
+import down from "../../assets/icons/icons8-down-48.png";
+import github from "../../assets/icons/icons8-github-60.png";
+import facebook from "../../assets/icons/icons8-facebook-50.png";
+import linkedin from "../../assets/icons/icons8-linkedin-50(1).png";
 
 export const Footer = () => {
   const { t } = useTranslation(); // Add useTranslation() function to access 't' function
@@ -19,10 +23,7 @@ export const Footer = () => {
           <li>
             {t("footer.weeklyBouquet")}
             <button onClick={toggleBouquetMenu} className={styles.footerButton}>
-              <img
-                src="../../../src/assets/icons/icons8-down-48.png"
-                alt="scrolldown menu"
-              />
+              <img src={down} alt="scrolldown menu" />
             </button>
             <div>
               {bouquetMenuOpen && (
@@ -61,22 +62,13 @@ export const Footer = () => {
           <li>{t("footer.contactUs")}</li>
           <div className={styles.footerIcons}>
             <a href="#" target="_blank" rel="noopener noreferrer">
-              <img
-                src="../../../src/assets/icons/icons8-github-60.png"
-                alt="github icon"
-              />
+              <img src={github} alt="github icon" />
             </a>
             <a href="#" target="_blank" rel="noopener noreferrer">
-              <img
-                src="../../../src/assets/icons/icons8-linkedin-50(1).png"
-                alt="linkedin icon"
-              />
+              <img src={linkedin} alt="linkedin icon" />
             </a>
             <a href="#" target="_blank" rel="noopener noreferrer">
-              <img
-                src="../../../src/assets/icons/icons8-facebook-50.png"
-                alt="facebook icon"
-              />
+              <img src={facebook} alt="facebook icon" />
             </a>
           </div>
         </ul>
