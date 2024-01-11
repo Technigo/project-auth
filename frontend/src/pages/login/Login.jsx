@@ -14,7 +14,7 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   // Accessing and updating isLoggedIn state from the userStore
-  const isLoggedIn = userStore(state => state.isLoggedIn);
+  const isLoggedIn = userStore((state) => state.isLoggedIn);
   const storeHandleLogin = userStore((state) => state.handleLogin);
   //const storeHandleLogout = userStore((state) => state.handleLogout);
   const cartRetrieved = useRef(false);
@@ -26,7 +26,7 @@ export const Login = () => {
       retrieveCartFromStorage(userId);
       cartRetrieved.current = true;
       const params = new URLSearchParams(window.location.search);
-      const redirectPath = params.get('redirect');
+      const redirectPath = params.get("redirect");
       if (redirectPath) {
         navigate(decodeURIComponent(redirectPath));
       } else {
@@ -43,48 +43,37 @@ export const Login = () => {
     }
     try {
       const params = new URLSearchParams(window.location.search);
-      const redirectPath = params.get('redirect');
-      const loginSuccess = await storeHandleLogin(username, password, redirectPath);
+      const redirectPath = params.get("redirect");
+      const loginSuccess = await storeHandleLogin(
+        username,
+        password,
+        redirectPath
+      );
       if (loginSuccess) {
         cartRetrieved.current = false; // Reset this flag to ensure cart retrieval happens after login
       }
     } catch (error) {
-      alert("An error occurred during login: " + (error.message || JSON.stringify(error)));
+      alert(
+        "An error occurred during login: " +
+          (error.message || JSON.stringify(error))
+      );
     }
   };
-
-  // // Handle the logout click event
-  // const onLogoutClick = async () => {
-  //   storeHandleLogout();
-  //   alert("Log out successfull");
-  //   navigate("/");
-  // };
 
   // Handle the sign-up click event
   const signUpClick = async () => {
     // Preserve any query parameters that were passed to the login page
     const searchParams = new URLSearchParams(window.location.search);
-    const redirectParam = searchParams.get('redirect');
-    console.log('Redirect parameter:', redirectParam);
+    const redirectParam = searchParams.get("redirect");
     if (redirectParam) {
-      console.log('Redirecting to register page with redirect parameter:', redirectParam);
       navigate(`/register?redirect=${redirectParam}`);
     } else {
-      console.log('Redirecting to register page without redirect parameter');
       navigate("/register");
     }
   };
 
   return (
     <section className={styles.section}>
-      <nav className={styles.login}>
-        <ul>
-          {/* <Link to="/">Back</Link> */}
-          {/* <li type="button" onClick={onLogoutClick}>
-            Sign Out
-          </li> */}
-        </ul>
-      </nav>
       <div className={styles.logo}>
         <Logo />
       </div>

@@ -17,7 +17,6 @@ export const userStore = create((set, get) => ({
   setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
 
   handleSignup: async (username, password, email) => {
-    console.log("handleSignup invoked with:", { username, password, email });
     if (!username || !password || !email) {
       alert("Please enter username, email and password");
       return false;
@@ -33,9 +32,8 @@ export const userStore = create((set, get) => ({
       });
 
       const data = await response.json();
-      console.log("Signup response:", data);
+
       if (data.success) {
-        console.log("Signup successful!");
         const loginSuccess = await get().handleLogin(username, password);
         if (loginSuccess) {
           const cartData = retrieveCartFromStorage();
@@ -66,19 +64,12 @@ export const userStore = create((set, get) => ({
   },
 
   handleLogin: async (username, password, redirectPath) => {
-    console.log("handleLogin invoked with:", {
-      username,
-      password,
-      redirectPath,
-    });
-
     if (!username || !password) {
       alert("Please enter both username and password");
       return;
     }
 
     try {
-      console.log("Sending login request to server");
       const response = await fetch(`${apiEnv}/login`, {
         method: "POST",
         headers: {
@@ -88,7 +79,6 @@ export const userStore = create((set, get) => ({
       });
 
       const data = await response.json();
-      console.log("Login response:", data);
 
       if (response.ok && data.success) {
         set({
@@ -115,8 +105,6 @@ export const userStore = create((set, get) => ({
             );
           localStorage.removeItem("tempCart"); // Clear the temporary cart data
         }
-
-        console.log("Login successful!");
         return true;
       } else {
         alert(data.message || "Login failed");
@@ -139,6 +127,6 @@ export const userStore = create((set, get) => ({
     localStorage.removeItem("flowerSubscriptionOptions");
     localStorage.removeItem("userID");
     localStorage.removeItem("cartData");
-    console.log("Cleared tempCart from local storage");
+    cartStore.getState().emptyCart();
   },
 }));

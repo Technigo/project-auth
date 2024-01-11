@@ -21,7 +21,6 @@ export const addUserProfileController = asyncHandler(async (req, res) => {
 
     //find the correct user and the user get the authorization
     const user = await UserModel.findById(req.user.id);
-    console.log(user);
     if (!user) {
       return res.status(400).json({
         success: false,

@@ -3,7 +3,8 @@
 }
 .greenbox{
     color:#fff;
-    background-color: #8BAB94;    
+    background-color: #627A6C;  
+    border:1px solid var(--main-color);  
     margin:2px 20px;
     padding:2px 20px;
 }

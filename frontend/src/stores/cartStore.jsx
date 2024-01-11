@@ -20,9 +20,18 @@ export const cartStore = create((set, get) => ({
     set({ cart: cartData });
   },
   // Function to add items to the cart
-  addToCart: (type, subscriptionOption, quantity, price, isLoggedIn, userId) => {
+  addToCart: (
+    type,
+    subscriptionOption,
+    quantity,
+    price,
+    isLoggedIn,
+    userId
+  ) => {
     if (subscriptionOption == null || quantity == null) {
-      console.error("Cannot add to cart: subscriptionOption or quantity is null");
+      console.error(
+        "Cannot add to cart: subscriptionOption or quantity is null"
+      );
       return;
     }
     const cartData = isLoggedIn
@@ -41,13 +50,11 @@ export const cartStore = create((set, get) => ({
 
     if (alreadyFetched) {
       // Data is cached, log a message and return the cached data
-      console.log(`Using cached flowers for type: ${type}`);
       return get().flowers[type];
     }
 
     try {
       // Data is not cached, log a message and fetch the data
-      console.log(`Fetching flowers for type: ${type}`);
       const response = await fetch(`${apiEnv}/flowers/${type}`);
 
       if (!response.ok) {
@@ -84,15 +91,13 @@ export const cartStore = create((set, get) => ({
         userId: state.id, // Keep the userId unchanged
       },
     }));
-    localStorage.removeItem('cartData');
-    localStorage.removeItem('flowerSubscriptionOptions');
+    localStorage.removeItem("cartData");
+    localStorage.removeItem("flowerSubscriptionOptions");
   },
 }));
 
 // Function to retrieve and update the cart from local storage when the user is logged in
 export const retrieveCartFromStorage = () => {
-  console.log("Retrieving cart from local storage");
   const cartData = JSON.parse(localStorage.getItem("tempCart"));
-  console.log("Cart data retrieved:", cartData);
   return cartData;
 };
