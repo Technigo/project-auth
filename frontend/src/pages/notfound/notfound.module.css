@@ -1,0 +1,45 @@
+.notFound{
+    border:1px solid black;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    column-gap: 2rem;
+}
+.textLogo{
+    /* border:1px solid blue; */
+    position: relative;
+}
+.notFoundLogo{
+    /* border:1px solid black; */
+    position: absolute;
+    top:10%;
+    left:-10px;
+       
+}
+.notFound h1{
+    font-size: 180px;
+    /* border:1px solid red; */
+}
+
+.error{
+    font-size: 20px;
+    /* border:1px solid black; */
+    text-align: center;
+    margin-top: -3rem;
+}
+
+@media (min-width:1024px){
+    .notFound h1{
+        font-size:340px;
+    }
+    .error{
+        font-size:60px;
+    }
+    .notFoundLogo{
+        top:0%;
+        left:0%;
+    }
+   
+}

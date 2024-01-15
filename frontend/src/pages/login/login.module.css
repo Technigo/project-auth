@@ -1,0 +1,66 @@
+.section{
+    margin:1.5rem;
+    height:100vh;
+}
+/* nav */
+.login ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 18px;
+}
+
+.login ul a{
+    text-decoration: none;
+    color:var(--main-color)
+}
+
+.login ul a:hover{
+    text-decoration: underline;
+    color:var(--home-button-color)
+}
+.login ul li{
+    list-style: none;
+}
+
+.login ul li:hover{
+    text-decoration: underline;
+    color:var(--home-button-color)
+}
+
+
+/* logo */
+.logo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 5rem;
+}
+
+
+/* login section  */
+.loginSection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height:70vh;
+    margin-top: 5rem;
+}
+
+button{
+    cursor: pointer;
+    margin-right: 2rem;
+}
+
+/* desktop */
+@media (min-width:1024px) {
+  .loginSection{
+    width: 70%;
+    margin-left: 15%;
+  }
+  .section{
+    width:96%;
+  }
+}
+ 
+

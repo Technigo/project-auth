@@ -1,0 +1,180 @@
+.cart{
+    margin-top:4rem;
+}
+.greenbox{
+    color:#fff;
+    background-color: #627A6C;  
+    border:1px solid var(--main-color);  
+    margin:2px 20px;
+    padding:2px 20px;
+}
+
+/* ----- navbar ----- */
+.cartUl{
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    margin:2rem;
+}
+.cartBack {
+    text-decoration: none;
+    color:#424D2D;
+}
+.cartBack img{    
+    height:13px;
+    margin-right:10px;
+}
+.cartLi{
+    list-style: none;
+}
+.cartBack:hover,
+.cartLi:hover{
+    text-decoration: underline;
+}
+
+/* ----- article ----- */
+.cartArticle{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*-- product section -- */
+.cartProductSection{       
+    display: flex; 
+    flex-direction: column;   
+    align-items: center;
+    justify-content: center;
+    width:70%;
+    margin:6rem 2rem 4rem 2rem;
+    gap:2rem;
+}
+.cartProductImage{   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cartProductImage img{    
+    max-height: 400px;
+    max-width:100%;
+    object-fit: cover;
+}
+.cartProductInfo{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);    
+    gap:1rem 0.75rem;
+}
+
+/* -- horizontal rule -- */
+.cartProductHr{
+    width:80%;
+    margin-bottom:2rem;
+}
+
+ /* -- sum section -- */
+.cartSumSection{
+ margin-bottom:2rem;
+}
+.cartSumSection .greenbox{
+    margin:0 4rem;
+}
+
+/* -- greeting section -- */
+.cartGreetingSection{    
+    display: flex;    
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:2rem 2rem 4rem 2rem;
+    gap:2rem;    
+}
+.cartGreetingSection p{
+    text-align: justify;
+    /* font-weight: bolder;     */
+}
+.cartGreetingSection form{    
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+.cartGreetingSection textarea{
+    width:100%;
+    padding:0.75rem;
+    border:#424D2D solid 1px;
+    background-color: #F9EFE3;
+    font-size: 14px;
+    color: var(--main-color);
+    resize: none;
+}
+.cartGreetingCaption {    
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+    display: flex;
+    justify-content: space-between;
+}
+.cartGreetingCaption p{
+    font-size: 14px;
+}
+.red {
+    color:red;
+}
+
+/* ----- Responsiveness ----- */
+/* -- tablet -- */
+@media (min-width:668px) and (max-width:1023px) {
+    .cartUl{
+        margin:4rem;
+    }
+    .cartProductSection{        
+        display: flex;   
+        flex-direction: row; 
+        align-items: center;
+        justify-content: center;
+        width:70%;
+        margin:6rem 4rem 4rem 4rem;
+        gap:4rem;
+    }
+    .cartProductImage img{    
+        max-height: 400px;        
+        object-fit: cover;
+    }
+    .cartProductInfo{           
+        gap:2rem;
+    }
+    .cartGreetingSection{
+        display: flex;    
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin:2rem 6rem 4rem 6rem;
+        gap:2rem;
+    }
+}
+/* -- desktop -- */
+@media (min-width:1024px) {  
+    .cartUl{
+        margin:4rem;
+    }
+    .cartProductSection{        
+        display: flex;   
+        flex-direction: row; 
+        align-items: center;
+        justify-content: center;
+        width:70%;
+        margin:6rem 6rem 4rem 6rem;
+        gap:4rem;
+    }     
+    .cartProductInfo{           
+        gap:2.5rem;
+    }
+    .cartGreetingSection{
+        display: flex;    
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;       
+        gap:2rem;
+        max-width:60%;
+    }    
+}

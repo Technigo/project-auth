@@ -1,0 +1,38 @@
+.stories{
+    border-top: 1px solid var(--main-color);
+    margin:0 1rem;
+   
+}
+
+.stories h1{
+    font-family: var(--logo-font-famliy);
+    margin:2rem 0;
+    text-align: center;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 2rem;
+}
+
+.wrapper p{
+    width: 80%;
+}
+
+.image{
+    width:200px;
+    height:200px;
+    border-radius: 50%;
+    border:1px solid black;
+}
+
+@media (min-width:1024px) {
+   .wrapper p{
+    width:70%;
+   }
+  
+    
+}

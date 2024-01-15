@@ -1,0 +1,114 @@
+footer {
+    margin-top: 40px;
+    padding:40px;
+    background-color: #112E2D;
+    color:#F9EFE3;
+    font-family: Source Sans Pro, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;  
+    }
+
+.footerFlex {    
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-flow:column wrap;
+    text-align:center;
+    gap:30px;
+}
+
+.footerFlex li {    
+    list-style: none;
+    padding: 15px;    
+}
+/* --- scrolldown button --- */
+.footerButton {       
+    background-color: #112E2D;
+    vertical-align:bottom;
+    width:auto;
+    height:1.75rem;
+    margin:0;
+    padding:0;    
+}
+
+.footerButton img{
+    vertical-align:bottom;
+    width:70%;
+    margin:0;
+    padding:0;
+}
+ /* --- scrolldown options --- */
+.footerScroll{
+    font-size: 16px;
+    text-align: center;
+    padding:0;
+    cursor: pointer;
+}
+.bouquetLink {
+    text-decoration: none;     
+    color:#F9EFE3; 
+}
+ /* --- contact us section --- */
+.footerContact {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.footerIcons {    
+    display: flex;
+    align-items:center;
+    justify-content: space-around;
+    margin-left:2rem;
+    gap: 2rem;
+}
+/* --- tilted flower icon --- */
+.footerFlower{
+    display: flex;
+    justify-content: center;
+}
+.footerFlower img {    
+    width:94px;
+    height:94px;
+    transform:rotate(20.796deg);
+    flex-shrink: 0;
+    
+}
+
+/* ----- responsiveness ----- */
+/* -- tablet -- */
+@media (min-width:668px) and (max-width:1023px) {
+.footerFlex {    
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-around;
+    flex-flow:row wrap;
+    text-align: left;
+    gap:50px;
+}
+.footerScroll{    
+    text-align: right;
+    }
+.footerFlower{
+    display: block;    
+}
+}
+/* -- desktop -- */
+@media (min-width:1024px) { 
+    .footerFlex {        
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-evenly;
+        flex-flow:row wrap;
+        text-align: left;
+        gap:50px;
+    }
+    .footerScroll{        
+        text-align: right;        
+    }
+    .footerFlower{
+        display: block;    
+    }
+}

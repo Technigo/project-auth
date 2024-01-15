@@ -1,0 +1,208 @@
+.flowerSection {
+    width:100%;
+    border-top: 1px solid var(--main-color);
+    border-bottom:1px solid var(--main-color); 
+    padding:5rem 1rem;
+    margin-bottom:2rem;
+   ;
+}
+
+/* -- flower card -- */
+.flowerCard {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.flower_image{
+    width:350px;
+    height:400px;
+}
+.cardWrapper {
+    display: flex;
+    width:100%;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.cardInfo {
+    margin:0 1rem;
+    display: flex;
+    flex-direction: column; 
+}
+
+.cardInfo h1{
+    text-align: center;
+}
+
+.price{
+    text-align: center;
+}
+.options{
+    margin-bottom: -1rem;
+}
+.optionSelection {
+    display: flex;
+}
+.optionButton{
+    background-color: #627A6C;
+    color: #fff;
+    border:1px solid var(--main-color)
+}
+
+
+.addButton{
+    width: auto;
+    color:#fff;
+    max-width: 100%;
+    margin-left: 18px;
+    background-color: #627A6C
+}
+.addButton:disabled{
+    width: auto;
+    color:#fff;
+    max-width: 50%;
+    margin-left: 18px;
+    background-color: var(--main-color)
+}
+
+.flexInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 1rem;
+}
+
+.greenBox {
+    color: #fff;
+    background-color: #627A6C;
+    padding: 2px 20px;
+    margin-right: 5px;
+    border: 1px solid var(--main-color);
+}
+
+.quantity {
+    display: inline-block;
+    width: 57px;
+}
+
+.flowerImages {
+    width: 100%;
+    height: auto;
+}
+
+/* -- Other Items -- */
+.otherItems {
+    display: flex;
+    flex-direction: column;
+    padding:1rem;
+    gap: 2rem;
+    width:100%;
+}
+
+.otherItemsCardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width:100%;
+}
+
+.otherItemsCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+}
+
+.otherItemsH3:hover {
+    text-decoration: underline;
+}
+
+.otherFlowerImage {
+    width: 100%;
+    height: 178px;
+    object-fit: cover;
+}
+
+
+/* ----- Responsiveness ----- */
+/* -- tablet -- */
+@media (min-width:668px) and (max-width:1023px) {
+    .flowerCard {
+        display: flex;
+        flex-direction: row;
+        gap:0;
+    }
+    .flowerSection{
+        border-bottom: none;
+    }
+    .cardWrapper {
+        width:60%;
+    }
+    .cardInfo h1{
+        text-align: start;
+    }
+    .price{
+        text-align: start;
+    }
+    /* -- flower images -- */
+    .flower_image{
+        width:350px;
+        height:420px;
+    }
+    .otherItemsCardContainer {
+        flex-direction: row;
+    }
+    .addButton{
+        max-width: 50%;
+    }
+
+}
+
+/* -- desktop -- */
+@media (min-width:1024px) {
+    .flowerSection {
+        padding:0 5rem;
+        border-bottom: none;
+        width:97%;
+        margin:2rem 1rem;
+    }
+    .flowerCard {
+        display: flex;
+        flex-direction: row;
+        gap: 8rem;
+    }
+
+    .cardInfo {
+        gap: 2rem;
+    }
+    .cardInfo h1{
+        text-align: start;
+    }
+    .price{
+        text-align: start;
+    }
+
+    .addButton {
+        width: auto;
+        max-width: 60%;
+    }
+   
+    .otherItems {
+        padding:0 5rem;
+    }
+    .otherItemsCardContainer {
+        flex-direction: row;
+        gap:4rem;
+    }
+
+    /* -- flower images -- */
+    .flower_image{
+        width:400px;
+        height:520px;
+    }
+
+}
