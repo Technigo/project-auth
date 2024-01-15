@@ -1,13 +1,23 @@
-# Project Auth API
-This week's project is related to our final project. It comprises two integral parts: the backend API and the React frontend. The backend, powered by Node.js and Express.js, incorporates industry best practices for secure user authentication. MongoDB (or any preferred database) is utilized for persistent data storage. On the frontend, React, coupled with Zustand, orchestrates an intuitive user interface. 
+# FloraEcho Flower Online Shop
+This project is an online store that sells fresh flowers every week. It comprises two integral parts: the backend API and the React frontend. The backend, powered by Node.js and Express.js, incorporates industry best practices for secure user authentication. MongoDB (or any preferred database) is utilized for persistent data storage. On the frontend, React, coupled with Zustand, orchestrates an intuitive user interface. 
 
 
-## Key Challenges and Objectives
-The key challenges of this week's project is to understadn all new concepts. 
-1. Hashing and Salting:The project addresses the critical challenge of ensuring the confidentiality of user passwords through advanced techniques such as hashing and salting, fortifying the security of stored credentials.
-2. JSON Web Token (JWT): Efficient and secure communication between the frontend and backend is achieved through the implementation of JWTs. These tokens facilitate user session management, enhancing the overall user experience. 
-3. Middleware for User Authentication: Middleware functions are implemented to authenticate users, safeguarding API endpoints. This ensures that only authorized users gain access to protected routes, contributing to a secure and controlled environment.
-4. 
+## Tech Skills:
+- React/React State Management(Zustand)
+- CSS
+- Node.js
+- Express.js
+- Multer
+- Cloudinary
+- React Slider(third party library)
+- Authentication
+- React Route
+- Figma(userflow and design)
+
+## How we work together:
+This was a team project. It was a real-world client case. Miko did the basic design. We used Trello to plan how to implement the project. We started by dividing the project into smaller chunks and setting deadlines. We faced many challenges during the implementation of the project. For example, we couldn't sync our coding, and we came from different countries with different cultural backgrounds. However, we overcame the challenges. I kept to our plan, and we had stand-up meetings every day. We tried to understand each other and keep communication open. We helped each other when we had problems. I think this is where we learned the most from this project.
+
+
 ## View it live
-[front-end](https://flora-echo.netlify.app/register)
+[front-end](https://flora-echo.netlify.app)
 [back-end](https://flora-echo-api.onrender.com)
