@@ -3,5 +3,13 @@
   "version": "1.0.0",
   "scripts": {
     "postinstall": "npm install --prefix backend"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express-list-endpoints": "^6.0.0",
+    "mongo": "^0.1.0",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.1.0",
+    "zustand": "^4.4.7"
   }
 }

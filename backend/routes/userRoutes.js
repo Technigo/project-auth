@@ -1,0 +1,97 @@
+import express from "express";
+import { UserModel } from "../models/userModel.js"
+import bcrypt, { genSaltSync } from "bcrypt";
+import jwt from "jsonwebtoken";
+import asyncHandler from "express-async-handler";
+import dotenv from "dotenv"
+dotenv.config()
+
+const router = express.Router()
+
+const generateToken = (user) => {
+    return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "24h"
+    })
+}
+
+router.post("/register",
+    asyncHandler(async (req, res) => {
+        const { username, password, email } = req.body;
+
+        try {
+            if (!username || !password || !email) {
+                res.status(400)
+                throw new Error("Please add all fields")
+            }
+
+            const existingUser = await UserModel.findOne({
+                $or: [{ username }, { email }]
+            })
+            if (existingUser) {
+                res.status(400)
+                throw new Error(
+                    `User with ${existingUser.username === username ? "username" : "email"}
+            already exists.`
+                )
+            }
+
+            const salt = genSaltSync(10);
+            const hashedPassword = bcrypt.hashSync(password, salt)
+
+            const newUser = new UserModel({
+                username,
+                email,
+                password: hashedPassword
+            })
+
+            await newUser.save();
+
+            res.status(201).json({
+                success: true,
+                response: {
+                    username: newUser.username,
+                    email: newUser.email,
+                    id: newUser._id,
+                    accessToken: generateToken(newUser._id)
+                }
+            })
+        } catch (e) {
+            res.status(500).json({ success: false }, { response: e.message })
+        }
+    })
+)
+
+router.post("/login",
+    asyncHandler(async (req, res) => {
+        const { username, password } = req.body;
+
+        try {
+            const user = await UserModel.findOne({ username })
+            if (!user) {
+                return res
+                    .status(401)
+                    .json({ success: false, response: "User not found" })
+            }
+
+            const isMatch = bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return res
+                    .status(401)
+                    .json({ success: false, response: "Incorrect password" })
+            }
+
+            res.status(200).json({
+                success: true,
+                response: {
+                    user: user.username,
+                    id: user._id,
+                    accessToken: generateToken(user._id)
+                }
+            })
+        } catch (e) {
+            res.status(500).json({ success: false, response: e.message })
+        }
+    })
+)
+
+export default router
