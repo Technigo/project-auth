@@ -5,7 +5,7 @@
     "postinstall": "npm install --prefix backend"
   },
   "dependencies": {
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.3.2",
     "express-list-endpoints": "^6.0.0",
     "mongo": "^0.1.0",
     "mongodb": "^6.3.0",
