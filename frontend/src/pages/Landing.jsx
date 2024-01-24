@@ -14,8 +14,8 @@ const LandingPage = styled.section`
 export const Landing = () => {
   return (
     <>
-      <Navbar />
       <LandingPage>
+        <Navbar />
         <ImageSwapper />
       </LandingPage>
     </>

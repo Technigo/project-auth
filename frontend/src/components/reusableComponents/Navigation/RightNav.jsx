@@ -18,6 +18,7 @@ const Ul = styled.ul`
   }
 
   li a {
+    font-size: 20px;
     text-decoration: none;
     font-weight: 600;
     color: inherit; // Inherit color from parent
@@ -38,31 +39,35 @@ const Ul = styled.ul`
     li {
       color: #333; // Text Color
     }
+
+    li a {
+      font-size: 20px;
+  }
   }
 `;
 
 export const RightNav = ({ open, isLoggedIn, handleLogout }) => {
-    return (
-        <Ul open={open}>
-            {!isLoggedIn ? (
-                <>
-                    <li>
-                        <StyledRouterLink to="/login">Login</StyledRouterLink>
-                    </li>
-                    <li>
-                        <StyledRouterLink to="/register">Signup</StyledRouterLink>
-                    </li>
-                </>
-            ) : (
-                <>
-                    <li>
-                        <StyledRouterLink to="/YourAds">Your Ads</StyledRouterLink>
-                    </li>
-                    <li>
-                        <a onClick={handleLogout}>Sign Out</a>
-                    </li>
-                </>
-            )}
-        </Ul>
-    );
+  return (
+    <Ul open={open}>
+      {!isLoggedIn ? (
+        <>
+          <li>
+            <StyledRouterLink to="/login">Login</StyledRouterLink>
+          </li>
+          <li>
+            <StyledRouterLink to="/register">Signup</StyledRouterLink>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <StyledRouterLink to="/YourAds">Your Ads</StyledRouterLink>
+          </li>
+          <li>
+            <a onClick={handleLogout}>Sign Out</a>
+          </li>
+        </>
+      )}
+    </Ul>
+  );
 };

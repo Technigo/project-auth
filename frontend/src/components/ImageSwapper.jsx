@@ -8,6 +8,7 @@ const ImageWrapper = styled.div`
     justify-content: center; // Center vertically
     text-align: center; // Center the text elements, like h1
     width: 100%; // Take full width of the container
+    margin-bottom: 50px;
 
     h1 {
         margin-top: 30px;
@@ -23,6 +24,7 @@ const ImageWrapper = styled.div`
         max-width: 90%;
         height: auto;
         margin: auto; // Center the image within the .image-wrapper
+        border-radius: 10px;
     }
 
     @media (min-width: 768px) {
