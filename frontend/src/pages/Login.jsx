@@ -58,34 +58,36 @@ export const Login = () => {
             <div className="login">
                 <BackButton redirectTo="/" />
                 <h2>{text.heading}</h2>
-                <p>{text.loremIpsum}</p>
                 {errorMessage && <ErrorMessage message={errorMessage} />}
                 {isLoading ? (
-                    <div>Loading...</div>  // Replace with a spinner or animation
+                    <div>Loading...</div>
                 ) : (
-                    <div className="user-login">
-                        <input
-                            type="text"
-                            aria-label="Username"
-                            placeholder="Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <input
-                            type="password"
-                            aria-label="Password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <Button
-                            label="Login"
-                            onClick={onLoginClick}
-                            className="button"
-                            ariaLabel="Login"
-                            disabled={isLoading}
-                        />
-                    </div>
+                    <>
+                        <p>{text.loremIpsum}</p>
+                        <div className="user-login">
+                            <input
+                                type="text"
+                                aria-label="Username"
+                                placeholder="Username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <input
+                                type="password"
+                                aria-label="Password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <Button
+                                label="Login"
+                                onClick={onLoginClick}
+                                className="button"
+                                ariaLabel="Login"
+                                disabled={isLoading}
+                            />
+                        </div>
+                    </>
                 )}
             </div>
         </>
