@@ -1,4 +1,4 @@
-/* import "../index.css"
+import "../index.css"
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 
@@ -70,4 +70,4 @@ export const SignUp = () => {
             )
         }
 
-export default SignUp */
+export default SignUp 

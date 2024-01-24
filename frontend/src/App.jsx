@@ -1,4 +1,4 @@
-/* import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import { Home } from "./pages/Home.jsx"
 import { SignUp } from "./pages/SignUp.jsx"
@@ -20,4 +20,4 @@ export const App = () => {
   );
 };
 
-export default App */
+export default App 
