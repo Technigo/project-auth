@@ -1,13 +1,17 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+Our project was to create a sign in function for the user and also a what if the user forgets the password, how can they get a new one.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+Since this was a pairprogramming with Malin Lunde and Ulrika Gålnander we started up with dividing the different areas. We had some issue with the fetching, which was solved by Malins incredible knowledge in console logging. Fot this one we used bcrypt, react router and node.js.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+https://splendorous-elf-6e001c.netlify.app/
+https://auth-dafn.onrender.com
+
+## Links
+Malin Lunde portfolio https://malin-lunde-portfolio.netlify.app/
+Ulrika Gålnander portfolio
+Alexandra Meija portfolio https://alexandrameijaportfolio.netlify.app/
