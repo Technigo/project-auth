@@ -7,6 +7,16 @@ import { SuccessMessage } from '../components/reusableComponents/SuccessMessage'
 import { AdsList } from "../components/AdsList";
 import { Navbar } from "../components/reusableComponents/Navigation/NavBar";
 import { Heading } from "../components/reusableComponents/Heading";
+import styled from "styled-components";
+
+const HomePage = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+  align-items: center; 
+`;
+
 
 export const Home = () => {
     const [showCreateAd, setShowCreateAd] = useState(false);
@@ -22,9 +32,7 @@ export const Home = () => {
     const navigate = useNavigate();
 
     // Get 'isLoggedIn' and 'accessToken' from the 'userStore'.
-    const { isLoggedIn, accessToken } = userStore();
-    console.log(isLoggedIn);
-    console.log(accessToken);
+    const { isLoggedIn } = userStore();
 
     // useEffect hook to check user authentication status.
     useEffect(() => {
@@ -45,13 +53,12 @@ export const Home = () => {
 
     // Function to toggle the CreateAd component
     const toggleCreateAd = () => {
-        console.log("Heading clicked"); // Debugging log
         setShowCreateAd(!showCreateAd);
     };
 
-
+    
     return (
-        <>
+        <HomePage>
             <Navbar isLoggedIn={isLoggedIn} handleLogout={onLogoutClick} />
             <Heading
                 className="share-sneakers"
@@ -68,6 +75,6 @@ export const Home = () => {
                 onClick={toggleCreateAd}
             />
             {showCreateAd && <CreateAd />}
-        </>
+        </HomePage>
     );
 };

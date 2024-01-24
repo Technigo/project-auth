@@ -1,5 +1,4 @@
 export const AdCard = ({ ad }) => {
-    console.log(ad); // Debug: Log the ad object
 
     return (
         <div className="ad-card" style={{ border: '1px solid #ddd', padding: '10px', margin: '10px' }}>

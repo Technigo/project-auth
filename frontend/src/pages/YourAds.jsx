@@ -15,15 +15,17 @@ export const YourAds = () => {
 
     return (
         <>
-            <BackButton redirectTo="/home" />
-            {hasAds && (
-                <>
-                    <Heading className="share-sneakers" level={2} text="Here are your active posts" aria-label="Active posts" />
-                    <AdsList showUserAdsOnly={true} />
-                </>
-            )}
-            <Heading className="share-sneakers" level={2} text="Create a post" aria-label="Create posts" />
-            <CreateAd />
+            <div className="your-ads">
+                <BackButton redirectTo="/home" />
+                {hasAds && (
+                    <>
+                        <Heading className="share-sneakers" level={2} text="Here are your active posts" aria-label="Active posts" />
+                        <AdsList showUserAdsOnly={true} />
+                    </>
+                )}
+                <Heading className="share-sneakers" level={2} text="Create a post" aria-label="Create posts" />
+                <CreateAd />
+            </div>
         </>
     );
 };

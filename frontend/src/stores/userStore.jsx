@@ -77,7 +77,6 @@ export const userStore = create((set) => ({
                 // Redirect or update UI
                 localStorage.setItem("accessToken", data.response.accessToken);
                 set({ successMessage: "Login successful!" });
-                console.log("Loging up with:", username, password);
             } else {
                 // Display error message from server
                 set({ errorMessage: data.response || "Login failed" });
