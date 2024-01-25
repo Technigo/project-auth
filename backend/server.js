@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import listEndpoints from "express-list-endpoints";
 import userRoutes from "./routes/userRoutes.js"
-import quoteRoutes from "./routes/quoteroutes.js"
+import quoteRoutes from "./routes/quoteRoutes.js"
 import { connectDB } from "./config/db.js"
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
