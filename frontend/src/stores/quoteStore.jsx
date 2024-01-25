@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { userStore } from "./userStore";
 
 /* const apiEnv = import.meta.env.VITE_BACKEND_API;
 console.log(apiEnv); */
@@ -7,12 +6,12 @@ console.log(apiEnv); */
 export const quoteStore = create((set) => ({
     quotes: [],
     addQuote: (newQuote) => set((state) => ({ quotes: [...state.quotes, newQuote] })),
-    setQuotes: (qus) => set({ dogs }),
+    setQuotes: (quotes) => set({ quotes }),
 
-    // Fetch the dogs a specific user has added in their profile
-    fetchDogs: async () => {
+    // Fetch a quote for the user to see
+    fetchQuotes: async () => {
         try {
-            const response = await fetch('https://rescue-helper.onrender.com/yourDogs', {
+            const response = await fetch('http://localhost:3000/getQuote', {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("accessToken"),
@@ -20,9 +19,10 @@ export const quoteStore = create((set) => ({
             });
             if (response.ok) {
                 const data = await response.json();
-                set({ dogs: data });
+                set({ quotes: [data] });
+                return data;
             } else {
-                console.error("Failed to fetch your dogs");
+                console.error("Failed to find a quote");
             }
         } catch (error) {
             console.error(error);

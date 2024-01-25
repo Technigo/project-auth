@@ -23,16 +23,18 @@ export const LogIn = () => {
 
     return (
         <>
-            <div className="logIn">
-                <h3>Log In</h3>
-                <form onSubmit={handleLoginFormSubmit}>
-                    <label for="email">E-mail</label>
-                    <input type="text" name="email" id="email" />
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" />
-                    <button type="submit">Log in</button>
-                </form>
-                <Link to="/"><button>Go back</button></Link>
+            <div className="mainContainer">
+                <div className="logIn">
+                    <h3>Log In</h3>
+                    <form onSubmit={handleLoginFormSubmit}>
+                        <label htmlFor="username">Username</label>
+                        <input type="text" name="username" id="username" />
+                        <label htmlFor="password">Password</label>
+                        <input type="password" name="password" id="password" />
+                        <button type="submit">Log in</button>
+                    </form>
+                    <Link to="/"><button>Go back</button></Link>
+                </div>
             </div>
         </>
     )

@@ -2,8 +2,9 @@ import { Route } from "react-router-dom"
 import { Home } from "../pages/Home.jsx"
 import { SignUp } from "../pages/SignUp.jsx"
 import { LogIn } from "../pages/LogIn.jsx"
+import { LoggedIn } from "../pages/LoggedIn.jsx"
 
-const routes = (
+export const routes = (
     <>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />

@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
-const apiEnv = import.meta.env.VITE_BACKEND_API;
+//const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 export const userStore = create((set, get) => ({
-  username: "",
-  setUsername: (username) => set({ username }),
   email: "",
   setEmail: (email) => set({ email }),
+  username: "",
+  setUsername: (username) => set({ username }),
   password: "",
   setPassword: (password) => set({ password }),
   accessToken: null, // Add this if you plan to store the access token
@@ -15,14 +15,14 @@ export const userStore = create((set, get) => ({
   setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
 
   // FUNCTION TO REGISTER USERS
-  handleSignup: async (username, password, email) => {
-    if (!username || !password || !email) {
+  handleSignup: async (email, username, password) => {
+    if (!email || !username || !password) {
       alert("Please enter username, email and password");
       return;
     }
 
     try {
-      const response = await fetch(`${apiEnv}/register`, {
+      const response = await fetch('http://localhost:3000/register', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,13 +48,15 @@ export const userStore = create((set, get) => ({
 
   // LOGIN
   handleLogin: async (username, password) => {
+    // Check if both username and password are provided and display an alert if not.
     if (!username || !password) {
       alert("Please enter both username and password");
       return;
     }
 
     try {
-      const response = await fetch(`${apiEnv}/login`, {
+      // Send a POST request to the login endpoint with user data.
+      const response = await fetch('http://localhost:3000/login', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,26 +64,33 @@ export const userStore = create((set, get) => ({
         body: JSON.stringify({ username, password }),
       });
 
+      // Parse the response data as JSON.
       const data = await response.json();
       if (data.success) {
+        // Update the state with username, accessToken, and set isLoggedIn to true.
         set({
           username,
           accessToken: data.response.accessToken,
           isLoggedIn: true,
-        }); // Update the state with username and accessToken
-        // Redirect or update UI
+        });
+        // Store the accessToken in the browser's localStorage.
         localStorage.setItem("accessToken", data.response.accessToken);
+        // Display a success alert.
         alert("Login successful!");
-        console.log("Loging up with:", username, password);
+        console.log("Logging in with:", username, password);
       } else {
-        // Display error message from server
-        alert(data.response || "Login failed");
+        // Display an error message from the server or a generic message.
+        alert("Incorrect username or password")
+        throw new Error(data.response || "Login failed");
       }
     } catch (error) {
-      console.error("Login error:", error);
-      alert("An error occurred during login");
+      // Handle and log any login errors.
+      throw error;
+      /* console.error("Login error:", error);
+      alert("An error occurred during login"); */
     }
   },
+
   handleLogout: () => {
     // Clear user information and set isLoggedIn to false
     set({ username: "", accessToken: null, isLoggedIn: false });

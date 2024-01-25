@@ -29,7 +29,7 @@ router.get(
 router.get(
     "/allQuotes", async (req, res) => {
         try {
-            const quotes = await QuoteModel.find();
+            const quotes = await QuoteModel.find().select('quote');
             res.json(quotes);
         } catch (err) {
             res.status(400).json({ error: err.message });
@@ -40,7 +40,7 @@ router.get(
 router.post(
     "/addQuote", async (req, res) => {
         try {
-            const { quote } = req.body.quote;
+            const { quote } = req.body;
             const newQuote = new QuoteModel({ quote })
 
             await newQuote.save()

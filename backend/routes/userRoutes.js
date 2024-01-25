@@ -9,21 +9,21 @@ const router = express.Router()
 
 router.post("/register",
     asyncHandler(async (req, res) => {
-        const { username, password, email } = req.body;
+        const { email, username, password } = req.body;
 
         try {
-            if (!username || !password || !email) {
+            if (!email || !username || !password) {
                 res.status(400)
                 throw new Error("Please add all fields")
             }
 
             const existingUser = await UserModel.findOne({
-                $or: [{ username }, { email }]
+                $or: [{ email }, { username }]
             })
             if (existingUser) {
                 res.status(400)
                 throw new Error(
-                    `User with ${existingUser.username === username ? "username" : "email"}
+                    `User with ${existingUser.username === username ? "email" : "username"}
             already exists.`
                 )
             }
@@ -32,8 +32,8 @@ router.post("/register",
             const hashedPassword = bcrypt.hashSync(password, salt)
 
             const newUser = new UserModel({
-                username,
                 email,
+                username,
                 password: hashedPassword
             })
 
@@ -42,8 +42,8 @@ router.post("/register",
             res.status(201).json({
                 success: true,
                 response: {
-                    username: newUser.username,
                     email: newUser.email,
+                    username: newUser.username,
                     id: newUser._id,
                     accessToken: newUser.accessToken
                 }
@@ -66,7 +66,7 @@ router.post("/login",
                     .json({ success: false, response: "User not found" })
             }
 
-            const isMatch = bcrypt.compare(password, user.password);
+            const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
                 return res
                     .status(401)
