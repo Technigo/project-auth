@@ -1,18 +1,11 @@
 import express from "express";
 import { UserModel } from "../models/userModel.js"
 import bcrypt, { genSaltSync } from "bcrypt";
-import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
 import dotenv from "dotenv"
 dotenv.config()
 
 const router = express.Router()
-
-const generateToken = (user) => {
-    return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "24h"
-    })
-}
 
 router.post("/register",
     asyncHandler(async (req, res) => {
@@ -52,11 +45,11 @@ router.post("/register",
                     username: newUser.username,
                     email: newUser.email,
                     id: newUser._id,
-                    accessToken: generateToken(newUser._id)
+                    accessToken: newUser.accessToken
                 }
             })
         } catch (e) {
-            res.status(500).json({ success: false }, { response: e.message })
+            res.status(500).json({ success: false, response: e.message })
         }
     })
 )
@@ -85,7 +78,7 @@ router.post("/login",
                 response: {
                     user: user.username,
                     id: user._id,
-                    accessToken: generateToken(user._id)
+                    accessToken: user.accessToken
                 }
             })
         } catch (e) {

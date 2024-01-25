@@ -12,5 +12,5 @@ export const connectDB = asyncHandler(async () => {
     } catch (error) {
         console.log(error);
         process.exit(1);
-    } 
+    }
 })

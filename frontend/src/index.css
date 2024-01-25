@@ -16,7 +16,7 @@ html {
   background-color:rgb(178, 192, 183);
 }
 
-.homePage {
+.homePage, .logIn, .signUp {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +44,17 @@ button {
   padding: 10px;
   font-size: 15px;
   width: 140px;
-  
+}
+
+button:hover {
+  color: cadetblue;
+  background-color: azure;
+  cursor: pointer;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
 }
 
 .logIn {
@@ -68,6 +78,8 @@ label {
 
 input {
   padding: 2px;
+  height: 2em;
+  border-radius: 10px;
   
 }
 
