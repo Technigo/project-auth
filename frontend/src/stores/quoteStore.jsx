@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
-/* const apiEnv = import.meta.env.VITE_BACKEND_API;
-console.log(apiEnv); */
+const apiEnv = import.meta.env.VITE_BACKEND_API;
+console.log(apiEnv);
 
 export const quoteStore = create((set) => ({
     quotes: [],
@@ -11,7 +11,7 @@ export const quoteStore = create((set) => ({
     // Fetch a quote for the user to see
     fetchQuotes: async () => {
         try {
-            const response = await fetch('http://localhost:3000/getQuote', {
+            const response = await fetch(`${apiEnv}/getQuote`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("accessToken"),

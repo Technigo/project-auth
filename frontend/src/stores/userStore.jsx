@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-//const apiEnv = import.meta.env.VITE_BACKEND_API;
+const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 export const userStore = create((set, get) => ({
   email: "",
@@ -22,7 +22,7 @@ export const userStore = create((set, get) => ({
     }
 
     try {
-      const response = await fetch('http://localhost:3000/register', {
+      const response = await fetch(`${apiEnv}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +56,7 @@ export const userStore = create((set, get) => ({
 
     try {
       // Send a POST request to the login endpoint with user data.
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch(`${apiEnv}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,8 +86,6 @@ export const userStore = create((set, get) => ({
     } catch (error) {
       // Handle and log any login errors.
       throw error;
-      /* console.error("Login error:", error);
-      alert("An error occurred during login"); */
     }
   },
 
