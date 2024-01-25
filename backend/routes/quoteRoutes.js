@@ -29,7 +29,7 @@ router.get(
 router.get(
     "/allQuotes", async (req, res) => {
         try {
-            const quotes = await QuoteModel.find().select('quote');
+            const quotes = await QuoteModel.find();
             res.json(quotes);
         } catch (err) {
             res.status(400).json({ error: err.message });

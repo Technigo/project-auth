@@ -13,7 +13,7 @@ export const LoggedIn = () => {
 
     useEffect(() => {
         console.log("Quotes array:", quotes);
-        // Fetch dogs when the component mounts
+        // Fetch a quote when the component mounts
         fetchQuotes();
     }, []);
 
