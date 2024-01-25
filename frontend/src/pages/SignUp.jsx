@@ -21,40 +21,6 @@ export const SignUp = () => {
         }
     }
 
-
-/*     const [newUser, setNewUser] = useState('')
-    const [email, setEmail] = useState('')
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-
-    useEffect(() => {
-        const signUpData = {
-            email: email,
-            username: username,
-            password: password
-        };
-
-        if (email && username && password) {
-            fetch('http://localhost:3000/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(signUpData)
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('Registration failed');
-                    }
-                    return response.json();
-                })
-                .then((data) => setNewUser(data.id))
-                .catch((error) => console.error('Registration failed', error));
-        }
-    }, [email, username, password]);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-    } */
-
     return (
         <>
             <div className="mainContainer">
@@ -65,23 +31,17 @@ export const SignUp = () => {
                         <input
                             type="text"
                             name="email"
-                            id="email"
-                            /* value={email}
-                            onChange={(e) => setEmail(e.target.value)} */ />
+                            id="email" />
                         <label htmlFor="username">Choose a username</label>
                         <input
                             type="text"
                             name="username"
-                            id="username"
-                           /*  value={username}
-                            onChange={(e) => setUsername(e.target.value)} */ />
+                            id="username" />
                         <label htmlFor="password">Choose a password</label>
                         <input
-                            type="text"
+                            type="password"
                             name="password"
-                            id="password"
-                            /* value={password}
-                            onChange={(e) => setPassword(e.target.value)} */ />
+                            id="password" />
                         <button type="submit">Sign up</button>
                     </form>
                     <div className="buttonContainer">
