@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-const apiEnv = import.meta.env.VITE_BACKEND_API;
+const apiEnv = import.meta.env.VITE_BACKEND_API.replace(/\/$/, '');;
 
 export const userStore = create((set, get) => ({
   email: "",
