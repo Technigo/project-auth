@@ -10,7 +10,7 @@ import listEndpoints from 'express-list-endpoints';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const mongoUrl = process.env.MONGO_URI || "mongodb://localhost:27017/project-mongo";
+const mongoUrl = process.env.MONGO_URI || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
