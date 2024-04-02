@@ -7,7 +7,7 @@ import crypto from 'crypto';
 
 const router = express.Router();
 
-router.post('/user/register', async (req, res) => {
+router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
 
     try {
