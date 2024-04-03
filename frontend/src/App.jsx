@@ -1,24 +1,18 @@
-// App.jsx
-import "react";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Register from './components/Register';
-import LogIn from './components/LogIn';
-import Dashboard from './components/Dashboard';
+import { BrowserRouter, Routes } from "react-router-dom";
+import routes from "./routes/routes";
+import "./index.css";
 
-
-const App = () => {
+export const App = () => {
   return (
-    <div className="container mx-auto">
+    <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
+        <main>
+          {/* <Routes>{routes}</Routes> */}
+          <Routes>{routes}</Routes>
+        </main>
       </BrowserRouter>
-    </div>
+    </>
   );
 };
 
-export default App;
 
