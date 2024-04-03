@@ -1,7 +1,7 @@
 // Import the 'mongoose' library to work with MongoDB
 import mongoose from "mongoose";
 
-//det här ska inte vara här
+//testar
 
 // Import the 'dotenv' library to load environment variables from a .env file
 import dotenv from "dotenv";
