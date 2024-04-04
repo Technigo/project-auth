@@ -1,6 +1,6 @@
 # Project Auth API
 
-A simple authentication API built with Node.js and Express. It allows users to sign up, log in, and access protected routes with a valid token.
+A simple authentication API built with Node.js and Express. It allows users to sign up, log in, and access protected routes with a valid token. The frontend is made with Tailwind CSS.
 
 
 ## The problem
