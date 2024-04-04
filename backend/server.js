@@ -39,8 +39,16 @@ app.get("/", (req, res) => {
   console.log(endpoints);
 });
 
+// app.use((err, req, res, next) => {
+//   res.status(500).send(err);
+// });
+
 app.use((err, req, res, next) => {
-  res.status(500).send(err);
+  const statusCode = err.statusCode || 500;
+  res.status(statusCode).json({
+    message: err.message,
+    stack: process.env.NODE_ENV === 'production' ? '🥞' : err.stack,
+  });
 });
 
 // Start the server and listen for incoming requests on the specified port

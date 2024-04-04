@@ -58,6 +58,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
         // Description: Save the new user instance to the database
         await newUser.save();
 
+
         // Respond with a success message, user details, and the JWT token
         res.status(201).json({
             success: true,
