@@ -11,4 +11,5 @@ I didnt understand the first codes that we were provided, I did everything a sec
 ## View it live
 
 Frontend: https://auth-project-fullstack.netlify.app/
+
 Backend: https://project-auth-api-mnx9.onrender.com/
