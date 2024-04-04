@@ -100,14 +100,17 @@ export const userStore = create((set, get) => ({
                 // Display a success alert.
                 alert("Login successful!");
                 console.log("Logging in with:", username, password);
+                return true; // Indicate success
             } else {
                 // Display an error message from the server or a generic message.
                 alert(data.response || "Login failed");
+                return false; // Indicate failure
             }
         } catch (error) {
             // Handle and log any login errors.
             console.error("Login error:", error);
             alert("An error occurred during login");
+            return false; // Indicate failure
         }
     },
 

@@ -1,18 +1,20 @@
-import { BrowserRouter, Routes } from "react-router-dom";
-import routes from "./routes/routes";
-import "./index.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Login } from "./pages/Login"; // Adjust the import path as needed
+import { NotFound } from "./pages/NotFound"; // Adjust the import path as needed
+import { Home } from "./pages/Home";
+// Import other components as needed
 
 export const App = () => {
   return (
-    <>
-      <BrowserRouter>
-        <main>
-          {/* <Routes>{routes}</Routes> */}
-          <Routes>{routes}</Routes>
-        </main>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
+
 
 
