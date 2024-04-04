@@ -1,5 +1,5 @@
 // Import the UserModel from the User model file
-import { UserModel } from "../models/UserModel";
+import { UserModel } from "../models/userModel";
 // Define a function called authenticateUser that takes a request (req), response (res), and a next function as parameters
 export const authenticateUser = async (req, res, next) => {
   // Retrieve the access token from the request header
