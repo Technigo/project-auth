@@ -1,14 +1,8 @@
 import { UserModel } from "../models/userModel";
-
 import asyncHandler from "express-async-handler";
-
 import bcrypt from "bcrypt";
-
-import jwt from "jsonwebtoken";
-
-// @desc    Register new user
-// @route   POST api/register
-// @access  Public
+const jwt = require("jsonwebtoken");
+//import jwt from "jsonwebtoken";
 
 export const registerUserController = asyncHandler(async (req, res) => {
   const { username, password, email } = req.body;
@@ -57,10 +51,6 @@ export const registerUserController = asyncHandler(async (req, res) => {
     res.status(500).json({ success: false, response: e.message });
   }
 });
-
-// @desc    Login Existing User
-// @route   POST api/login
-// @access  Public
 
 export const loginUserController = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
