@@ -1,3 +1,14 @@
+import { BrowserRouter, Routes } from "react-router-dom";
+import { routes } from "./routes/RoutesComp";
+
 export const App = () => {
-  return <div>Find me in src/app.jsx!</div>;
+  return (
+    <div>
+      <BrowserRouter>
+        <div className="wrapper">
+          <Routes>{routes}</Routes>
+        </div>
+      </BrowserRouter>
+    </div>
+  );
 };
