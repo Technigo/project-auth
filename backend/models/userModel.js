@@ -9,23 +9,22 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      minlength: 2,
+      minlenght: 2,
     },
-
     password: {
       type: String,
       required: true,
-      minlength: 6,
+      minlenght: 6,
     },
     email: {
       type: String,
       required: true,
       unique: true,
     },
-
     accessToken: {
       type: String,
       default: () => crypto.randomBytes(128).toString("hex"),
+      required: false,
     },
   },
   {
