@@ -2,11 +2,12 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { UserModel } from "../../models/UserModel.js";
+import UserModel from "../models/userModel.js";
 
 import asyncHandler from "express-async-handler";
 import dotenv from "dotenv";
-import { authenticateUser } from "../authenticateUser";
+import { authenticateUser } from "../authenticateUser.js";
+
 dotenv.config();
 
 const router = express.Router();

@@ -1,4 +1,4 @@
-import { UserModel } from "../models/UserModel";
+import UserModel from "./models/userModel.js";
 
 export const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");

@@ -9,12 +9,12 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      minlenght: 2,
+      minlength: 2, // corrected typo: minlenght -> minlength
     },
     password: {
       type: String,
       required: true,
-      minlenght: 6,
+      minlength: 6,
     },
     email: {
       type: String,
@@ -32,4 +32,6 @@ const userSchema = new Schema(
   }
 );
 
-export const UserModel = mongoose.model("User", userSchema);
+const UserModel = mongoose.model("User", userSchema);
+
+export default UserModel;
