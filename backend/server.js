@@ -3,11 +3,13 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-import userRoutes from "./routes/userRoutes";
+import userRoutes from "./routes/userRoutes.js";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+
 const app = express();
+const port = process.env.PORT || 9090; // Define the port
 
 app.use(cors());
 app.use(express.json());
