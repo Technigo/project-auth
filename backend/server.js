@@ -6,7 +6,9 @@ dotenv.config();
 import userRoutes from "./routes/userRoutes.js";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connect(mongoUrl);
 
 const app = express();
 const port = process.env.PORT || 9090; // Define the port
