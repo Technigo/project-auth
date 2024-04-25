@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/*
 import React from "react";
 import axios from "axios"; // Import Axios library
 import { useNavigate } from "react-router-dom";
@@ -53,8 +53,9 @@ export const LogedInComp = () => {
     )
   );
 };
+*/
 
-/*import axios from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { userStore } from "./UserStore";
@@ -100,12 +101,13 @@ export const LogedInComp = () => {
           alt="AI Generated Image"
           style={{ width: "50vh", height: "auto" }}
         />
-        <p>Congratulations! You are logged in. Here is a cute puppy for you!</p>
+        <p>Congratulations! You are logged in!</p>
       </div>
     )
   );
 };
 
+/*
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { userStore } from "./UserStore";
