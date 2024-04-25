@@ -16,9 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(userRoutes);
 
 // Routes
-app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
-});
+app.get("/", (req, res) => {});
 
 // Database connection
 mongoose
