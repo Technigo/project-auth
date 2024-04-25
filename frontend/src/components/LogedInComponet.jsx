@@ -48,7 +48,7 @@ export const LogedInComp = () => {
           alt="AI Generated Image"
           style={{ width: "50vh", height: "auto" }}
         />
-        <p>Congratulations! You are logged in. Here is a cute puppy for you!</p>
+        <p>Congratulations! You are logged in!</p>
       </div>
     )
   );
