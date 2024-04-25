@@ -1,15 +1,10 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose"; // Add this line
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
-import path from "path";
-import { fileURLToPath } from "url";
-//dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-dotenv.config({ path: path.join(__dirname, ".env") });
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 9090;
@@ -26,8 +21,53 @@ app.get("/", (req, res) => {
 });
 
 // Database connection
+const uri = process.env.MONGODB_URI;
+if (!uri) {
+  console.error("MONGODB_URI is not defined in the environment variables.");
+  process.exit(1);
+}
 
-console.log("MONGODB_URI:", process.env.MONGODB_URI);
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to MongoDB Atlas");
+    // Start the server after successfully connecting to the database
+    app.listen(port, () => {
+      console.log(`Server running on http://localhost:${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Error connecting to MongoDB Atlas:", error);
+    process.exit(1);
+  });
+
+/*import express from "express";
+import cors from "cors";
+import mongoose from "mongoose"; // Add this line
+import dotenv from "dotenv";
+import userRoutes from "./routes/userRoutes.js";
+
+dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 9090;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(userRoutes);
+
+// Routes
+app.get("/", (req, res) => {
+  res.send("Hello Technigo!");
+});
+
+// Database connection
+//console.log('MONGODB_URI:', process.env.MONGODB_URI);
 
 mongoose
   .connect(process.env.MONGODB_URI, {
