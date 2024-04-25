@@ -21,11 +21,6 @@ app.get("/", (req, res) => {
 });
 
 // Database connection
-const uri = process.env.MONGODB_URI;
-if (!uri) {
-  console.error("MONGODB_URI is not defined in the environment variables.");
-  process.exit(1);
-}
 
 mongoose
   .connect(process.env.MONGODB_URI, {
