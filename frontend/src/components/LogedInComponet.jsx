@@ -1,11 +1,7 @@
-/*
-import React from "react";
-import axios from "axios"; // Import Axios library
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { userStore } from "./UserStore";
-
-const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 export const LogedInComp = () => {
   const { accessToken, isLoggedIn, setIsLoggedIn } = userStore();
@@ -14,6 +10,12 @@ export const LogedInComp = () => {
   useEffect(() => {
     const fetchLoggedInData = async () => {
       try {
+        // Access the VITE_BACKEND_API environment variable using import.meta.env
+        const apiEnv = import.meta.env.VITE_BACKEND_API;
+        // Ensure the API URL is defined
+        if (!apiEnv) {
+          throw new Error("Backend API URL is not defined.");
+        }
         // Make a GET request using Axios with the access token in the headers
         const response = await axios.get(`${apiEnv}/logged-in`, {
           headers: {
@@ -53,8 +55,8 @@ export const LogedInComp = () => {
     )
   );
 };
-*/
 
+/*
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
