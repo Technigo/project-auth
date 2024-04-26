@@ -4,7 +4,28 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
 
-dotenv.config({ path: "./backed/.env" });
+import { fileURLToPath } from "url";
+import path from "path";
+
+// Get the directory path of the current module
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Load environment variables from the .env file
+dotenv.config({ path: path.join(__dirname, ".env") });
+
+// Access environment variables
+const mongodbUri = process.env.MONGODB_URI;
+const jwtSecret = process.env.JWT_SECRET;
+
+// Use the variables in your application
+//console.log(`MongoDB URI: ${mongodbUri}`);
+//console.log(`Server Port: ${port}`);
+//console.log(`JWT Secret: ${jwtSecret}`);
+
+//const dotenv = require("dotenv");
+//const path = require("path");
+//dotenv.config({ path: __dirname + "/.env" });
+//console.log(fullPath);
 
 const app = express();
 const port = process.env.PORT || 9090;
