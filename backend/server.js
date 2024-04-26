@@ -4,9 +4,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
 
-dotenv.config();
-
 const app = express();
+dotenv.config().parsed;
 const port = process.env.PORT || 9090;
 
 // Middleware
