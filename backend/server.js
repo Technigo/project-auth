@@ -4,14 +4,15 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
 
-import { fileURLToPath } from "url";
-import path from "path";
+//import { fileURLToPath } from "url";
+//import path from "path";
 
 // Get the directory path of the current module
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+//const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Load environment variables from the .env file
-dotenv.config({ path: path.join(__dirname, ".env") });
+dotenv.config();
+//({ path: path.join(__dirname, ".env") });
 
 // Access environment variables
 //const mongodbUri = process.env.MONGODB_URI;
