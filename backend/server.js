@@ -1,4 +1,5 @@
 import express from "express";
+import expressListEndpoints from "express-list-endpoints";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -39,7 +40,10 @@ app.use(userRoutes);
 
 // Routes
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  const endpoints = expressListEndpoints(app);
+  res.json(endpoints);
+  console.log("List of Endpoints:");
+  console.log(endpoints);
 });
 
 // Database connection
