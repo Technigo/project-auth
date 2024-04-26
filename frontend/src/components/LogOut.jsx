@@ -5,24 +5,25 @@ import { userStore } from "./UserStore";
 
 export const Logout = () => {
   const navigate = useNavigate();
-  const logout = userStore((state) => state.handleLogout);
-  //const { setAccessToken, setIsLoggedIn, setUser } = userStore();
+  const { logout, setAccessToken, setIsLoggedIn, setUser } = userStore();
 
-  const handleLogOut = () => {
-    //setUser(null);
-    //setAccessToken(null);
-    //setIsLoggedIn(false);
-    //localStorage.removeItem("accessToken");
-    logout(); // This should clear the token and update the isLoggedIn state.
-    navigate("/"); // Redirect the user to the login page.
-    alert("Log out successful!");
-    //navigate("/logged-in");
-    //navigate("/");
+  const handleLogOut = async () => {
+    try {
+      // Call logout function to clear authentication state
+      await logout();
+
+      // Clear local user data (if needed)
+      setUser(null);
+      setAccessToken(null);
+      setIsLoggedIn(false);
+
+      // Redirect to the login page
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      // Handle any errors that occur during logout
+    }
   };
 
-  return (
-    <>
-      <button onClick={handleLogOut}>Log out!</button>
-    </>
-  );
+  return <button onClick={handleLogOut}>Log out!</button>;
 };
