@@ -11,7 +11,8 @@ export const SignUp = () => {
 
   const handleSignup = async () => {
     try {
-      const apiEnv = import.meta.env.VITE_BACKEND_API;
+      //const apiEnv = import.meta.env.VITE_BACKEND_API;
+      const apiEnv = "https://project-auth-3.onrender.com";
 
       console.log("URL:", `${apiEnv}/register`);
       console.log("Request Body:", { email, username, password });
