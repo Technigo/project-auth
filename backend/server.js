@@ -14,8 +14,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, ".env") });
 
 // Access environment variables
-const mongodbUri = process.env.MONGODB_URI;
-const jwtSecret = process.env.JWT_SECRET;
+//const mongodbUri = process.env.MONGODB_URI;
+//const jwtSecret = process.env.JWT_SECRET;
 
 // Use the variables in your application
 //console.log(`MongoDB URI: ${mongodbUri}`);
@@ -45,8 +45,8 @@ app.get("/", (req, res) => {
 
 mongoose
   .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    //useNewUrlParser: true,
+    //useUnifiedTopology: true,
   })
   .then(() => {
     console.log("Connected to MongoDB Atlas");
