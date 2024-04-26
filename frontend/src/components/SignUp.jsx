@@ -2,7 +2,7 @@
 import React from "react";
 import { useState } from "react";
 
-const apiEnv = import.meta.env.VITE_BACKEND_API;
+//const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 export const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +11,8 @@ export const SignUp = () => {
 
   const handleSignup = async () => {
     try {
+      const apiEnv = import.meta.env.VITE_BACKEND_API;
+
       console.log("URL:", `${apiEnv}/register`);
       console.log("Request Body:", { email, username, password });
 
