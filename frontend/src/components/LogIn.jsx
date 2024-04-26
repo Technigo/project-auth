@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { userStore } from "./UserStore";
 
-const apiEnv = import.meta.env.VITE_BACKEND_API;
+//const apiEnv = import.meta.env.VITE_BACKEND_API;
 
 export const Login = () => {
   const {
@@ -25,6 +25,10 @@ export const Login = () => {
     }
 
     try {
+      const apiEnv = "https://project-auth-3.onrender.com"; // Backend API URL
+      //const url = `${apiEnv}/login`; // Construct the complete URL
+      //console.log("URL:", url); // Log the constructed URL
+
       const response = await fetch(`${apiEnv}/login`, {
         method: "POST",
         headers: {
