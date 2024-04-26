@@ -5,23 +5,17 @@ import { userStore } from "./UserStore";
 
 export const Logout = () => {
   const navigate = useNavigate();
-  const { logout, setAccessToken, setIsLoggedIn, setUser } = userStore();
+  const { setAccessToken, setIsLoggedIn, setUser } = userStore();
 
-  const handleLogOut = async () => {
-    try {
-      // Call logout function to clear authentication state
-      await logout();
-
+  const handleLogOut = () => {
+    {
       // Clear local user data (if needed)
       setUser(null);
       setAccessToken(null);
-      setIsLoggedIn(false);
+      setIsLoggedIn(true);
 
       // Redirect to the login page
       navigate("/");
-    } catch (error) {
-      console.error("Logout error:", error);
-      // Handle any errors that occur during logout
     }
   };
 
