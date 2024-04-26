@@ -40,13 +40,8 @@ export const LogedInComp = () => {
 
   return (
     isLoggedIn && (
-      <div className="logged-in-content">
-        <img
-          src="https://cdn.pixabay.com/photo/2023/11/24/17/13/ai-generated-8410330_1280.png"
-          alt="AI Generated Image"
-          style={{ width: "50vh", height: "auto" }}
-        />
-        <p>Congratulations! You are logged in!</p>
+      <div>
+        <p>YAY! You are logged in!</p>
       </div>
     )
   );
