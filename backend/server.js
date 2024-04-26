@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
 
-dotenv.config().parsed;
+dotenv.config({ path: "./backed/.env" });
 
 const app = express();
 const port = process.env.PORT || 9090;
