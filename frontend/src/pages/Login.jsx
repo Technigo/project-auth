@@ -1,12 +1,55 @@
 
 import { Link } from "react-router-dom";
-import { userStore } from "../store/userStore"; // Adjust the import path as needed
+import { userStore } from "../store/userStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import Logos from "../components/Logos"; // Ensure this is correctly imported
+import { useEffect } from "react";
+
 
 export const Login = () => {
     // State for login
+    // const [loginUsername, setLoginUsername] = useState("");
+    // const [loginPassword, setLoginPassword] = useState("");
+    // // State for signup
+    // const [signupUsername, setSignupUsername] = useState("");
+    // const [signupPassword, setSignupPassword] = useState("");
+    // const [signupEmail, setSignupEmail] = useState("");
+
+    // const navigate = useNavigate();
+    // const [message, setMessage] = useState("");
+
+
+    // const { handleLogin, handleSignup } = userStore((state) => ({
+    //     handleLogin: state.handleLogin,
+    //     handleSignup: state.handleSignup,
+    // }));
+
+    // // Login submission
+    // const onLoginSubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const success = await handleLogin(loginUsername, loginPassword);
+    //         if (success) navigate("/home");
+    //         else alert("Login failed.");
+    //     } catch (error) {
+    //         console.error("Login error:", error);
+    //         alert("An error occurred during login.");
+    //     }
+    // };
+
+    // // Signup submission
+    // const onSignupSubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         await handleSignup(signupUsername, signupPassword, signupEmail);
+    //         alert("Signup successful. Please log in.");
+    //         // Optionally clear the form or navigate
+    //     } catch (error) {
+    //         console.error("Signup error:", error);
+    //         alert("An error occurred during signup.");
+    //     }
+    // };
+
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     // State for signup
@@ -18,35 +61,34 @@ export const Login = () => {
     const [message, setMessage] = useState("");
 
 
-    const { handleLogin, handleSignup } = userStore((state) => ({
+    const { handleLogin, isLoggedIn, handleSignup } = userStore((state) => ({
         handleLogin: state.handleLogin,
+        isLoggedIn: state.isLoggedIn,
         handleSignup: state.handleSignup,
     }));
 
-    // Login submission
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/home');
+        }
+    }, [isLoggedIn, navigate]);
+
     const onLoginSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const success = await handleLogin(loginUsername, loginPassword);
-            if (success) navigate("/home");
-            else alert("Login failed.");
-        } catch (error) {
-            console.error("Login error:", error);
-            alert("An error occurred during login.");
-        }
+        setMessage('');
+        const result = await handleLogin(loginUsername, loginPassword);
+        setMessage(result.message);
     };
 
-    // Signup submission
+
     const onSignupSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await handleSignup(signupUsername, signupPassword, signupEmail);
-            alert("Signup successful. Please log in.");
-            // Optionally clear the form or navigate
-        } catch (error) {
-            console.error("Signup error:", error);
-            alert("An error occurred during signup.");
-        }
+        setMessage('');
+        const result = await handleSignup(signupUsername, signupPassword, signupEmail);
+        setMessage(result.message);
+        setSignupUsername('');
+        setSignupPassword('');
+        setSignupEmail('');
     };
 
     return (
@@ -110,6 +152,8 @@ export const Login = () => {
                         Login
                     </button>
                 </form>
+                {message && <div className="text-base md:text-xl lg:text-3xl font-light mb-4 text-black text-center
+">{message}</div>}
             </div>
         </div>
     );
