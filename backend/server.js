@@ -1,27 +1,106 @@
+
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
+import dotenv from "dotenv";
+import expressListEndpoints from "express-list-endpoints";
+import userRoutes from "./routes/userRoutes";
+import { connectDB } from "./config/db";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.Promise = Promise;
+// dotenv.config();
+// const port = process.env.PORT;
+// const app = express();
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
-const port = process.env.PORT || 8080;
+// // Add middlewares to enable cors and json body parsing
+// app.use(cors()); // Enable CORS (Cross-Origin Resource Sharing)
+// app.use(express.json()); // Parse incoming JSON data
+// app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
+
+
+
+// app.use(userRoutes); // Use the user-controlled routes for user-related requests
+
+// //KANSKE SKA ANVÄNDA DOM HÄR
+// // app.use(contactRoutes); //for the contactform
+// // app.use(mediaRoutes); // for the images/film
+
+
+// // Connection to the database through Mongoose
+// connectDB();
+// // Create a dedicated endpoint to view endpoints in the browser
+// app.get("/", (req, res) => {
+//   const endpoints = expressListEndpoints(app);
+//   res.json(endpoints);
+//   console.log("List of Endpoints:");
+//   console.log(endpoints);
+// });
+
+// // app.use((err, req, res, next) => {
+// //   res.status(500).send(err);
+// // });
+
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   res.status(statusCode).json({
+//     message: err.message,
+//     stack: process.env.NODE_ENV === 'production' ?  : err.stack,
+//   });
+// });
+
+// // Start the server and listen for incoming requests on the specified port
+// app.listen(port, () => {
+//   console.log(`Server running on http://localhost:${port}`); // Display a message when the server is successfully started
+// });
+
+dotenv.config();
 const app = express();
+const port = process.env.PORT;
 
-// Add middlewares to enable cors and json body parsing
-app.use(cors());
-app.use(express.json());
 
-// Start defining your routes here
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+}));
+
+
+app.use(express.json()); // Parse incoming JSON data
+app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
+
+
+
+app.use(userRoutes);
+
+
+connectDB();
+
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  const endpoints = expressListEndpoints(app);
+  res.json(endpoints);
+  console.log("List of Endpoints:");
+  console.log(endpoints);
 });
 
-// Start the server
+
+app.use((err, req, res, next) => {
+  console.error(`Error: ${err.message}`);
+  res.status(500).send('Server Error');
+});
+
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
