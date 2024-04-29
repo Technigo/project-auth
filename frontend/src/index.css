@@ -11,3 +11,106 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+html {
+  background-color:rgb(178, 192, 183);
+}
+
+.mainContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.homePage, .logIn, .signUp, .loggedIn {
+  grid-column: 2 / 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* height: 100vh; */
+}
+
+.naviButton {
+  margin: 20px;
+}
+
+h1 {
+  color:rgb(70, 116, 117);
+  text-align: center;
+  font-size: 50px;
+  text-shadow: 2px 2px 4px #35353580;
+}
+
+button {
+  background-color: cadetblue;
+  border: solid;
+  border-color: azure;
+  border-radius: 23px;
+  margin: 40px;
+  padding: 10px;
+  font-size: 15px;
+  width: 140px;
+}
+
+button:hover {
+  color: cadetblue;
+  background-color: azure;
+  cursor: pointer;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.logIn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+h3 {
+color: rgb(70, 116, 117);
+text-align: center;
+font-size: 30px;
+}
+
+label {
+  color:rgb(39, 64, 65);
+  font-size: 20px;
+  padding: 10px;
+}
+
+input {
+  padding: 2px;
+  height: 2em;
+  border-radius: 10px;
+  
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 667px) {
+  .mainContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .homePage, .logIn, .signUp, .loggedIn {
+    grid-column: 1 / 2;
+  }
+}
+
+@media screen and (min-width: 668px) and (max-width: 1024px) {
+  .mainContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .homePage, .logIn, .signUp, .loggedIn {
+    grid-column: 1 / 3;
+  }
+}
