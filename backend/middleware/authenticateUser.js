@@ -22,7 +22,7 @@
 //     res.status(500).json({ success: false, response: e.message });
 //   }
 // };
-import { UserModel } from "../models/UserModel";
+import { UserModel } from "../models/userModel";
 import jwt from "jsonwebtoken";
 
 export const authenticateUser = async (req, res, next) => {

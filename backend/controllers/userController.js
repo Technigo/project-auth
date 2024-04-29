@@ -111,7 +111,7 @@
 //     }
 // });
 
-import { UserModel } from "../models/UserModel";
+import { UserModel } from "../models/userModel";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
