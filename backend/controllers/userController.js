@@ -173,7 +173,6 @@ export const registerUserController = asyncHandler(async (req, res) => {
     }
 });
 
-
 export const loginUserController = asyncHandler(async (req, res) => {
 
     const { username, password } = req.body;
