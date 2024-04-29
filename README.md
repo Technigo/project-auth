@@ -1,13 +1,15 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
+A simple authentication API built with Node.js and Express. It allows users to sign up, log in, and access protected routes with a valid token. The frontend is made with Tailwind CSS.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+I didnt understand the first codes that we were provided, I did everything a second time and used videos and lectures that I understood more of. If I had more time I would implement some sort of contact form in the /home directory and work more in the design.
+
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend: https://auth-project-fullstack.netlify.app/
+
+Backend: https://project-auth-api-mnx9.onrender.com/
