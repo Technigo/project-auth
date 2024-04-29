@@ -6,14 +6,7 @@
 // // jwt (JSON Web Tokens): We use jwt for authentication and authorization. It allows us to create and verify tokens that contain user identity information, such as user IDs or roles. These tokens are often sent with requests to secure routes and verify that a user has the necessary permissions to access certain resources. JWTs are stateless and efficient, making them a popular choice for secure communication between the client and server.
 // import jwt from "jsonwebtoken";
 
-// // Actual Functions here
 
-// // -----------------------
-// // -----------------------
-
-// // @desc    Register new user
-// // @route   POST api/register
-// // @access  Public
 
 // export const registerUserController = asyncHandler(async (req, res) => {
 //     // Extract email, username and password from the request body
