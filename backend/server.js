@@ -30,7 +30,9 @@ const User = mongoose.model("User", {
   },
 })
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header("Authorization") })
+  const user = await User.findOne({
+    accessToken: req.header("Authorization"),
+  }).exec()
   if (user) {
     req.user = user
     next()
@@ -65,7 +67,7 @@ app.get("/secrets", (req, res) => {
   res.send(" This is the secret page to show after logging or registration.")
 })
 app.post("/sessions", async (req, res) => {
-  const user = await User.findOne({ email: req.body.email })
+  const user = await User.findOne({ email: req.body.email }).exec()
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     res.json({ userId: user._id, accessToken: user.accessToken })
   } else {
