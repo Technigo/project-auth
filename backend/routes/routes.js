@@ -12,7 +12,7 @@ adminRouter.use(authenticateUser, authorizeUser(["admin"]));
 router.use("/admin", adminRouter);
 
 // add user
-router.post("/users", async (req, res) => {
+router.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
@@ -38,7 +38,7 @@ router.get("/users", async (req, res) => {
 });
 
 //log in user
-router.post("/sessions", async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (user && bcrypt.compareSync(password, user.password)) {
