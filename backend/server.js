@@ -66,6 +66,20 @@ app.post("/users", async (req, res) => {
   }
 });
 
+// Login endpoint to authenticate a user
+// Find the user by email, if user is found and password is correct, generate and return an access token
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+  if (!user || !bcrypt.compareSync(password, user.password)) {
+    return res.status(401).json({ message: "Invalid email or password" });
+  }
+
+  const accessToken = user.accessToken;
+  res.status(200).json({ accessToken });
+});
+
 // Route to access secrets after authentication
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
