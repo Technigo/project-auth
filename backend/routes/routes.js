@@ -5,6 +5,11 @@ import bcrypt from "bcrypt";
 import { authorizeUser, authenticateUser } from "../middleware/Middleware";
 
 const router = express.Router();
+const adminRouter = express.Router();
+adminRouter.use(authenticateUser, authorizeUser(["admin"]));
+
+// Add adminRouter to the main router
+router.use("/admin", adminRouter);
 
 // add user
 router.post("/users", async (req, res) => {
@@ -71,21 +76,23 @@ router.get("/secrets", authenticateUser, (req, res) => {
   );
 });
 
-// route for getting content behind authorization
-router.get("/admin", authenticateUser, authorizeUser(["admin"]), (req, res) => {
+// route for getting content behind authorization find me at /admin/admin
+adminRouter.get("/admin", (req, res) => {
   res.send(
     "This is the admin page - you are authorized to view this content  - so much admin stuff to do here!"
   );
 });
 
-//admin update user
-router.put(
-  "/admin/users/:id",
-  authenticateUser,
-  authorizeUser(["admin"]),
-  async (req, res) => {
+//admin update user -  find me at /admin/admin/users/:id
+adminRouter.put("/admin/users/:id", async (req, res) => {
+  try {
     const { id } = req.params;
     const { name, email, role, password } = req.body;
+
+    if (!name || !email || !role || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
     const salt = bcrypt.genSaltSync();
     const updatedUser = await User.findByIdAndUpdate(
       id,
@@ -97,34 +104,60 @@ router.put(
       },
       { new: true }
     );
-    if (updatedUser) {
-      res.json(updatedUser);
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
-  }
-);
 
-//endpoint for only updating the user role
-router.patch("/admin/users/:id", async (req, res) => {
-  const { id } = req.params;
-  const { role } = req.body;
-  const updated = await updateUserRole(id, role);
-  if (updated) {
-    res.json(updated);
-  } else {
-    res.status(404).json({ message: "User not found" });
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating the user" });
   }
 });
 
-//delete user
-router.delete("/admin/users/:id", async (req, res) => {
-  const { id } = req.params;
-  const deletedUser = await User.findByIdAndDelete(id);
-  if (deletedUser) {
-    res.json({ message: "user deleted", deletedUser });
-  } else {
-    res.status(404).json({ message: "User not found" });
+//endpoint for only updating the user role - find me at admin/admin/users/:id
+adminRouter.patch("/admin/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { role } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { role },
+      { new: true }
+    );
+    if (updatedUser) {
+      res.json({
+        message: "User role updated",
+        success: true,
+        response: updatedUser,
+      });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "An error occurred while updating the user" });
+  }
+});
+
+//delete user - find me at /admin/admin/users/:id
+adminRouter.delete("/admin/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (deletedUser) {
+      res.json({ message: "user deleted", deletedUser });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "An error occurred while deleting the user" });
   }
 });
 

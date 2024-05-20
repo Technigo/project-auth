@@ -2,6 +2,8 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 import router from "./routes/routes.js";
+import dotenv from "dotenv";
+
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl);
