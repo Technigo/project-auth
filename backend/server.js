@@ -1,25 +1,26 @@
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
+import router from "./routes/routes.js";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8787;
 const app = express();
 
 // Add middlewares to enable cors and json body parsing
-app.use(cors());
+//allow all for now, restrict later
+app.use(
+  cors({
+    origin: ["*"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
-
-// Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
-});
+app.use("/", router);
 
 // Start the server
 app.listen(port, () => {
