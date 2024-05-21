@@ -1,3 +1,13 @@
+import { Footer } from "./Footer";
+import { Header } from "./Header";
+import { MainSection } from "./MainSection";
+
 export const App = () => {
-  return <div>Find me in src/app.jsx!</div>;
+  return (
+    <>
+      <Header />
+      <MainSection />
+      <Footer />
+    </>
+  );
 };

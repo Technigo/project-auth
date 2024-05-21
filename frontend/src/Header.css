@@ -1,0 +1,13 @@
+.navigation {
+  display: flex;
+  padding: 30px;
+  justify-content: space-between;
+  background-color: antiquewhite;
+}
+
+.buttonstyle {
+  font-family: Impact, "Arial Narrow Bold", sans-serif;
+  border-radius: 20px;
+  padding: 5px 10px;
+  width: 100px;
+}
