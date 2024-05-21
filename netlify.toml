@@ -2,5 +2,10 @@
 # how it should build the JavaScript assets to deploy from.
 [build]
   base = "frontend/"
-  publish = "build/"
+  publish = "dist"
   command = "npm run build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

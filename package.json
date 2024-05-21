@@ -5,6 +5,9 @@
     "postinstall": "npm install --prefix backend"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1"
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "js": "^0.1.0",
+    "jsonwebtoken": "^9.0.2"
   }
 }
