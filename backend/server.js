@@ -1,14 +1,24 @@
+import bcrypt from "bcrypt";
 import cors from "cors";
+import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 
+dotenv.config();
+const { Schema } = mongoose;
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
+const userSchema = new Schema({
+  username: { type: String, unique: true, required: true },
+  email: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  accessToken: { type: String, default: () => bcrypt.genSaltSync() },
+});
+
+const User = mongoose.model("User", userSchema);
+
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -20,6 +30,28 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
+
+// Sign-up
+app.post("/signup", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    const user = new User({
+      username,
+      email,
+      password: bcrypt.hashSync(password, 10),
+    });
+    await user.save();
+    res.status(201).json({ id: user._id, accessToken: user.accessToken });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Could not sign up.", error: error.errors });
+  }
+});
+
+// Log-in
+
+//
 
 // Start the server
 app.listen(port, () => {
