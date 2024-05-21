@@ -56,11 +56,10 @@ const RegistrationFormStyled = styled.form`
   }
 `
 
-export const RegistrationForm = () => {
+export const Login = () => {
   const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
   })
@@ -76,10 +75,11 @@ export const RegistrationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await fetch(`${API_KEY}/users`, {
+      const response = await fetch(`${API_KEY}/sessions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
         body: JSON.stringify(formData),
       })
@@ -90,10 +90,10 @@ export const RegistrationForm = () => {
 
         navigate("/secrets")
       } else {
-        console.error("Registration failed:", response.statusText)
+        console.error("Login failed:", response.statusText)
       }
     } catch (error) {
-      console.error("Error registering:", error)
+      console.error("Error logging in:", error)
     }
   }
   const SwitchLabelWrapper = styled.div`
@@ -102,20 +102,9 @@ export const RegistrationForm = () => {
 
   return (
     <RegistrationContainer>
-      <h2>UserRegistration</h2>
+      <h2>UserLogin</h2>
+      <h2>Welcome Back!</h2>
       <RegistrationFormStyled onSubmit={handleSubmit}>
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          aria-label="Name"
-          placeholder="Your Full Name"
-        />
-
         <label htmlFor="email">Email:</label>
         <input
           type="email"
@@ -139,6 +128,9 @@ export const RegistrationForm = () => {
           aria-label="Password"
           placeholder="Your Password"
         />
+        <span>
+          Not aregistered yet? <a href="/registration">Sign Up</a>
+        </span>
 
         <SwitchLabelWrapper onClick={handleSubmit}>
           <SwitchLabel />

@@ -47,6 +47,16 @@ const app = express()
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(express.json())
+const cors = require("cors")
+
+// Enable CORS middleware
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow requests from this origin
+    methods: ["GET", "POST"], // Specify the allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Specify the allowed headers
+  })
+)
 
 // Start defining your routes here
 app.get("/", (req, res) => {
@@ -72,6 +82,26 @@ app.post("/sessions", async (req, res) => {
     res.json({ userId: user._id, accessToken: user.accessToken })
   } else {
     res.json({ notFound: true })
+  }
+})
+app.post("/logout", async (req, res) => {
+  try {
+    const accessToken = req.header("Authorization").split(" ")[1] // Extract the access token from the Authorization header
+
+    // Find the user by the access token and update the accessToken field to invalidate it
+    const user = await User.findOneAndUpdate(
+      { accessToken },
+      { accessToken: null }
+    ).exec()
+
+    if (user) {
+      res.status(200).json({ message: "Logout successful" })
+    } else {
+      res.status(401).json({ message: "Unauthorized" })
+    }
+  } catch (error) {
+    console.error("Error logging out:", error)
+    res.status(500).json({ message: "Internal server error" })
   }
 })
 

@@ -9,6 +9,11 @@
   font-style: normal;
   font-variation-settings: "slnt" 0;
   font-weight: normal;
+  padding: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
 }
 
 code {
