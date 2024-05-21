@@ -7,15 +7,10 @@ export const SignUpPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle sign up logic here
-  };
-
-  const toggleShowPassword = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   return (
@@ -38,20 +33,12 @@ export const SignUpPage = () => {
           required
         />
         <Input
-          type={showPassword ? "text" : "password"}
+          type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <label>
-          <input
-            type="checkbox"
-            checked={showPassword}
-            onChange={toggleShowPassword}
-          />
-          Show Password
-        </label>
         <StyledButton type="submit">Sign Up</StyledButton>
         <SmallText>
           Already have an account?{" "}

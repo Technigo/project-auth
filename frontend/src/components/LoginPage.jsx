@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { StyledHeading, SmallText } from "./StyledText.jsx";
 import { StyledButton } from "./StyledButton.jsx";
-import { AuthForm, Input } from "./AuthForm.jsx";
+import { AuthForm } from "./AuthForm.jsx"; // Import AuthForm without Input
+import { Input } from "./AuthForm.jsx"; // Import Input from AuthForm
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
