@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { StyledHeading, SmallText } from "./StyledText.jsx";
 import { StyledButton } from "./StyledButton.jsx";
 import { AuthForm, Input } from "./AuthForm.jsx";
@@ -7,14 +8,46 @@ export const SignUpPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Access the navigate function
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle sign up logic here
+
+    try {
+      const response = await fetch(
+        "https://project-auth-0pi0.onrender.com/users",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, password }),
+        }
+      );
+
+      if (response.ok) {
+        navigate("/login"); // Use navigate function to redirect to login page
+      } else {
+        const errorMessage = await response.text();
+        setError(errorMessage);
+      }
+    } catch (error) {
+      console.error("Signup failed:", error);
+      setError("Failed to create account. Please try again later.");
+    }
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        flexDirection: "column",
+      }}
+    >
       <StyledHeading fontWeight="bold">Create Account</StyledHeading>
       <StyledHeading>to get started now!</StyledHeading>
       <AuthForm onSubmit={handleSubmit}>
@@ -40,16 +73,12 @@ export const SignUpPage = () => {
           required
         />
         <StyledButton type="submit">Sign Up</StyledButton>
+        {error && <SmallText style={{ color: "red" }}>{error}</SmallText>}
         <SmallText>
           Already have an account?{" "}
-          <a
-            href="#fffffff;"
-            className="signup-link"
-            rel="noopener noreferrer"
-            style={{ color: "white" }}
-          >
+          <Link to="/login" className="login-link" style={{ color: "white" }}>
             Login Now
-          </a>
+          </Link>
         </SmallText>
       </AuthForm>
     </div>

@@ -11,3 +11,9 @@ export const SmallText = styled.p`
   font-size: 0.85em;
   color: #000000;
 `;
+
+export const SecretText = styled.p`
+  font-size: 1.5em;
+  color: #000000;
+  text-align: center;
+`;
