@@ -58,6 +58,7 @@ app.post("/login", async (req, res) => {
     /* console.log("Inside login: ", username, password); */
     const user = await User.findOne({ username: username });
     console.log("LoggedIn: ", user);
+    //Works until line 60 need to check code below
     if (user && bcrypt.compareSync(password, user.password)) {
       req.status(202).json({
         id: user._id,
