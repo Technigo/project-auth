@@ -11,16 +11,13 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
-//create a schema
-const User = mongoose.model("User", {
+//create schema
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
+    required: true,
   },
-  // email: {
-  //   type: String,
-  //   unique: true,
-  // },
   password: {
     type: String,
     required: true,
@@ -30,6 +27,9 @@ const User = mongoose.model("User", {
     default: () => bcrypt.genSaltSync(),
   },
 });
+
+//create model
+const User = mongoose.model("User", userSchema);
 
 // console.log(bcrypt.genSaltSync());
 
@@ -62,21 +62,41 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-//routes
-app.get("/", (req, res) => {
-  const endpoints = expressListEndpoints(app);
-  res.json(endpoints);
+//registration endpoint
+app.post("/register", async (req, res) => {
+  try {
+    const { name, password } = req.body;
+    const salt = bcrypt.genSaltSync();
+    const hashedPassword = bcrypt.hashSync(password, salt);
+
+    const newUser = new User({
+      name,
+      password: hashedPassword,
+      accessToken: bcrypt.genSaltSync(), //generate a new token
+    });
+
+    await newUser.save();
+    res.status(201).json({ id: newUser._id, accessToken: newUser.accessToken });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Could not create user", errors: error.errors });
+  }
 });
 
-//start defining your routes here
-// app.get("/", (req, res) => {
-//   res.send("Hello Technigo!");
-// });
+//sign-in endpoint
+app.post("/sessions", async (req, res) => {
+  const user = await User.findOne({ name: req.body.name });
+  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    res.json({ userId: user._id, accessToken: user.accessToken });
+  } else {
+    res.status(401).json({ notFound: true });
+  }
+});
 
-app.post("/dashboard", authenticateUser);
-app.post("/dashboard", async (req, res) => {
-  //this will only happen if the next() function is called from the middleware
-  //now we can access the req.user object from the middleware
+//authenticated endpoint
+app.get("/dashboard", authenticateUser, (req, res) => {
+  res.json({ message: "This is the secret dashboard!", user: req.user });
 });
 
 app.post("/sessions", async (req, res) => {
@@ -90,6 +110,12 @@ app.post("/sessions", async (req, res) => {
     // B) encrypted password does not match
     res.json({ notFound: true });
   }
+});
+
+//route to list all endpoints
+app.get("/", (req, res) => {
+  const endpoints = expressListEndpoints(app);
+  res.json(endpoints);
 });
 
 //start the server
