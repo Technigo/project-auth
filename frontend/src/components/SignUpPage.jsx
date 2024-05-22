@@ -9,7 +9,7 @@ export const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Access the navigate function
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ export const SignUpPage = () => {
       );
 
       if (response.ok) {
-        navigate("/login"); // Use navigate function to redirect to login page
+        navigate("/login");
       } else {
         const errorMessage = await response.text();
         setError(errorMessage);
