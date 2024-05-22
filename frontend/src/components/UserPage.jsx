@@ -5,12 +5,13 @@ import { IoIosArrowBack } from "react-icons/io"
 import animationData from "../assets/lottie.json"
 import { AuthContext } from "../contexts/AuthContext"
 import { LogoutButton } from "./LogoutButton"
+import "./UserPage.css"
 
 //authorize with access token from /user-page
 
 export const UserPage = () => {
   const { authState, logout } = useContext(AuthContext)
-  const { isAuthenticated, user, accessToken } = authState
+  const { isAuthenticated, accessToken } = authState
 
   const [loading, setLoading] = useState(true)
 
@@ -45,8 +46,8 @@ export const UserPage = () => {
 
   if (!isAuthenticated) {
     return (
-      <div>
-        You are not authorized to view this page. Please log in.
+      <div className="unauthorized-message">
+        <p>You are not authorized to view this page. Please log in.</p>
         <Link to={"/"} className="back-link">
           <IoIosArrowBack />
           Back to first page
@@ -57,9 +58,7 @@ export const UserPage = () => {
 
   return (
     <div className="user-page-container">
-      <h2 className="user-message">
-        Congratulations! You are logged in, {user.name}!
-      </h2>
+      <h2 className="user-message">Congratulations! You are logged in!</h2>
       <Lottie className="lottie" animationData={animationData} />
       <LogoutButton />
     </div>

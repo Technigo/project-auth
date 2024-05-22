@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   })
 
   const login = (user, accessToken) => {
-    localStorage.setItem("accessToken, accessToken")
+    localStorage.setItem("accessToken", accessToken)
     setAuthState({
       isAuthenticated: true,
       user,
