@@ -1,15 +1,23 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { StyledHeading, SmallText, SecretText } from "./StyledText.jsx";
 import { StyledButton } from "./StyledButton.jsx";
 import { AuthForm, Input } from "./AuthForm.jsx";
 
 export const LoginPage = () => {
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [accessToken, setAccessToken] = useState(null);
   const [secretMessage, setSecretMessage] = useState("");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState("");
+
+  useEffect(() => {
+    if (location.state?.message) {
+      setSuccess(location.state.message);
+    }
+  }, [location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,14 +37,14 @@ export const LoginPage = () => {
       if (response.ok) {
         const { accessToken } = await response.json();
         setAccessToken(accessToken);
-        setError(null);
+        setError(null); 
         fetchSecret(accessToken);
       } else {
         setError("Invalid email or password"); 
       }
     } catch (error) {
       console.error("Login failed:", error);
-      setError("Failed to log in. Please try again later.");
+      setError("Failed to log in. Please try again later."); 
     }
   };
 
@@ -88,6 +96,9 @@ export const LoginPage = () => {
         <>
           <StyledHeading fontWeight="bold">Welcome Back!</StyledHeading>
           <StyledHeading>Ready to dive in?</StyledHeading>
+          {success && (
+            <SmallText style={{ color: "green" }}>{success}</SmallText>
+          )}
           <AuthForm onSubmit={handleSubmit}>
             <Input
               type="email"
