@@ -9,6 +9,34 @@ a {
 }
 
 body {
-  background-color: rgb(247, 234, 250);
+  background: rgb(252, 156, 210);
+  background: linear-gradient(
+    157deg,
+    rgba(252, 156, 210, 1) 16%,
+    rgba(254, 195, 228, 1) 49%,
+    rgba(241, 209, 227, 1) 78%
+  );
   font-family: "Encode Sans Expanded", sans-serif;
+}
+
+button {
+  font-family: "Encode Sans Expanded", sans-serif;
+}
+
+.user-message {
+  font-family: "Gamja Flower", sans-serif;
+  color: white;
+  font-size: 36px;
+  text-align: center;
+}
+
+.lottie {
+  width: 280px;
+}
+
+.user-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }

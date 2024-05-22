@@ -8,6 +8,7 @@ body {
 }
 
 .form-container {
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -32,4 +33,26 @@ body {
   padding: 8px;
   border: 0.5px solid black;
   border-radius: 5px;
+}
+
+button {
+  font-family: "Encode Sans Expanded", sans-serif;
+}
+
+.title {
+  font-family: "Gamja Flower", sans-serif;
+  color: white;
+  font-size: 36px;
+  text-align: center;
+}
+
+.register-button {
+  margin-top: 20px;
+  height: 30px;
+  border-radius: 40px;
+  border: none;
+  background-color: #d56e90;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
 }

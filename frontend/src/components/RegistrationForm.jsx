@@ -31,6 +31,7 @@ export const RegistrationForm = () => {
 
   return (
     <div>
+      <h2 className="title">Register here!</h2>
       <form className="form-container" onSubmit={handleSubmit}>
         <div className="input-wrapper">
           <label htmlFor="name">First name:</label>
@@ -59,7 +60,7 @@ export const RegistrationForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}></input>
         </div>
-        <button type="submit">Register</button>
+        <button className="register-button" type="submit">Register</button>
       </form>
     </div>
   )
