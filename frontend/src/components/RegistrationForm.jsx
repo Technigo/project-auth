@@ -66,11 +66,9 @@ export const RegistrationForm = () => {
           Register
         </button>
       </form>
-      <Link to={"/"}>
-        <a className="back-link">
-          <IoIosArrowBack />
-          Back to first page
-        </a>
+      <Link to={"/"} className="back-link">
+        <IoIosArrowBack />
+        Back to first page
       </Link>
     </div>
   )

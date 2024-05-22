@@ -23,6 +23,7 @@ export const LoginForm = () => {
           navigate("/user-page")
 
           console.log(response)
+          console.log("Login was successful")
         }
       })
   }
@@ -58,11 +59,9 @@ export const LoginForm = () => {
           Login
         </button>
       </form>
-      <Link to={"/"}>
-        <a className="back-link">
-          <IoIosArrowBack />
-          Back to first page
-        </a>
+      <Link to={"/"} className="back-link">
+        <IoIosArrowBack />
+        Back to first page
       </Link>
     </>
   )
