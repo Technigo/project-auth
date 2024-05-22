@@ -1,3 +1,4 @@
 export const MyPages = () => {
-  return <div>MyPages</div>;
+  
+  return (<div>MyPages</div>)
 };

@@ -2,12 +2,12 @@ import { useState } from "react";
 import "./Registration.css";
 import { SignIn } from "./SignIn";
 
-export const Registration = () => {
+export const Registration = ({ setIsRegistering }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [isRegistered, setIsRegistered] = useState(false);
+  // const [isRegistered, setIsRegistered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
@@ -30,7 +30,7 @@ export const Registration = () => {
         setName("");
         setEmail("");
         setPassword("");
-        setIsRegistered(true);
+        /* setIsRegistered(true); */
         setIsLoading(false);
       } else {
         setMessage(result.message || "Registration failed!");
@@ -49,44 +49,44 @@ export const Registration = () => {
           <p>Loading..</p>
         </div>
       )}
-      {isRegistered ? (
-        <SignIn />
-      ) : (
-        <>
-          <h1>Register</h1>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="name">Name:</label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              placeholder="Anna Andersson"
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              placeholder="anna.andersson@mail.com"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              placeholder="password123"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button type="submit">Register</button>
-          </form>
-          <p>{message}</p>
-        </>
-      )}
+      <>
+        <h1>Register</h1>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            placeholder="Anna Andersson"
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            placeholder="anna.andersson@mail.com"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            placeholder="password123"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit">Register</button>
+        </form>
+        <p>{message}</p>
+        <p>
+          Already have an account?{" "}
+          <button onClick={() => setIsRegistering(false)}>Sign In</button>
+        </p>
+      </>
     </div>
   );
 };

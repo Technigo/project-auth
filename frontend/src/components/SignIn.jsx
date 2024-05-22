@@ -1,7 +1,8 @@
 import { useState } from "react";
+
 import "./SignIn.css";
 
-export const SignIn = () => {
+export const SignIn = ({ setIsRegistering }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -55,6 +56,11 @@ export const SignIn = () => {
         <button type="submit">Sign In</button>
       </form>
       <p>{message}</p>
+      <p>
+        {" "}
+        Not a registered user?{" "}
+        <button onClick={() => setIsRegistering(true)}>Register</button>
+      </p>
     </div>
   );
 };
