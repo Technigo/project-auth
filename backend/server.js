@@ -50,8 +50,25 @@ app.post("/signup", async (req, res) => {
 });
 
 // Log-in
+app.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username })
 
-//
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(200).json({ id: user._id, accessToken: user.accessToken });
+    } else {
+      res
+        .status(401)
+        .json({ message: "Invalid username or password.", error: error.errors });
+    }
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Could not login.", error: error.errors });
+  }
+})
+
 
 // Start the server
 app.listen(port, () => {
