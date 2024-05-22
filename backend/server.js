@@ -90,7 +90,11 @@ app.get("/my-pages", (req, res) => {
 app.post("/sign-in", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken });
+    res.json({
+      userId: user._id,
+      name: user.name,
+      accessToken: user.accessToken,
+    });
   } else {
     res.json({ notFound: true });
   }

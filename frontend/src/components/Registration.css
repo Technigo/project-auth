@@ -43,3 +43,13 @@ p {
   margin-top: 20px;
   text-align: center;
 }
+
+.login-link {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.register-link:hover {
+  text-decoration: none;
+}

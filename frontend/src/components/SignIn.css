@@ -29,3 +29,13 @@ p {
   margin-top: 20px;
   text-align: center;
 }
+
+.register-link {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.register-link:hover {
+  text-decoration: none;
+}
