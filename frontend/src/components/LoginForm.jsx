@@ -37,15 +37,29 @@ export const LoginForm = () => {
 
   return (
     <>
-      <label htmlFor="user-email">Fill in your mail: </label>
-      <input onChange={handleEmailChange} type="text" id="user-email"></input>
-      <label htmlFor="user-password">Fill in your password: </label>
-      <input
-        onChange={handlePasswordChange}
-        type="password"
-        id="user-password"
-      ></input>
-      <button onClick={login}> Login </button>
+      <h2 className="title">User login </h2>
+      <form className="form-container">
+        <div className="input-wrapper">
+          <label htmlFor="user-email"> Email adress: </label>
+          <input
+            onChange={handleEmailChange}
+            type="text"
+            id="user-email"
+            placeholder="example@email.com"
+          ></input>
+        </div>
+        <div className="input-wrapper">
+          <label htmlFor="user-password">Password: </label>
+          <input
+            onChange={handlePasswordChange}
+            type="password"
+            id="user-password"
+          ></input>
+        </div>
+        <button className="full-width" onClick={login}>
+          Login
+        </button>
+      </form>
     </>
   );
 };

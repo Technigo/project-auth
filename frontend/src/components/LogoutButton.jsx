@@ -4,12 +4,14 @@ export const LogoutButton = () => {
   const navigate = useNavigate();
 
   const logout = () => {
-    navigate("/login");
+    navigate("/");
   };
 
   return (
     <>
-      <button onClick={logout}> Log out</button>
+      <button className="full-width" onClick={logout}>
+        Log out
+      </button>
     </>
   );
 };
