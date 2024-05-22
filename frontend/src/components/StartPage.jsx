@@ -3,7 +3,6 @@ import { StyledHeading } from "./StyledText.jsx";
 import { StyledButton } from "./StyledButton.jsx";
 import styled from "styled-components";
 
-// StyledButtonContainer to hold the buttons
 const StyledButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
