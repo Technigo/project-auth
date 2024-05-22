@@ -46,6 +46,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(cors({
+  origin: 'https://cheerful-froyo-159f59.netlify.app'
+}));
+app.use(express.json());
+
 // Routes
 app.get("/", (req, res) => {
   const endpoints = expressListEndpoints(app);
