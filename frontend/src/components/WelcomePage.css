@@ -1,4 +1,4 @@
-button {
+.welcome-button {
   margin-top: 20px;
   height: 30px;
   border-radius: 40px;
@@ -10,7 +10,7 @@ button {
   width: 100px;
 }
 
-.welcome-buttons {
+.buttons-container {
   display: flex;
   gap: 20px;
   justify-content: center;
