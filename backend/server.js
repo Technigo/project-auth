@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
   res.json(endpoints)
 })
 
-app.use(authRouter)
+app.use("/", authRouter)
 
 app.listen(port, () => {
   console.log(`Chattservern lyssnar på port ${port}`)
