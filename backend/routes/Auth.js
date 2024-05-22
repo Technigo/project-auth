@@ -45,6 +45,10 @@ authRouter.post("/login", async (req, res) => {
   }
 })
 
+authRouter.get("/login", (req, res) => {
+  res.status(404).send("Not found") 
+})
+
 authRouter.get("/thoughts", authenticateUser, (req, res) => {
   res.send("Authenticated content")
 })
