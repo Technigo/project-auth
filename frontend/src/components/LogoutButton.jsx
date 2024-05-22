@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
 export const LogoutButton = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const logout = () => {
-    navigate("/");
-  };
+    navigate("/")
+  }
 
   return (
     <>
@@ -13,5 +13,5 @@ export const LogoutButton = () => {
         Log out
       </button>
     </>
-  );
-};
+  )
+}

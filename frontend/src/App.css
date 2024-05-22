@@ -40,3 +40,16 @@ button {
   align-items: center;
   padding: 20px;
 }
+
+/*Common styling for back-links*/
+.back-link {
+  color: #d56e90;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
