@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import expressListEndpoints from "express-list-endpoints";
 
 dotenv.config();
 const { Schema } = mongoose;
@@ -28,7 +29,8 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  const endpoints = expressListEndpoints(app)
+  res.json(endpoints)
 });
 
 // Sign-up
@@ -68,7 +70,6 @@ app.post("/login", async (req, res) => {
       .json({ message: "Could not login.", error: error.errors });
   }
 })
-
 
 // Start the server
 app.listen(port, () => {
