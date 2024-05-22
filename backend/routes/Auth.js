@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import User from "../model/User.js"
 import authenticateUser from "../middleware/authenticateUser.js"
+import Thought from "../model/Thought.js"
 
 const authRouter = express.Router()
 
@@ -51,8 +52,27 @@ authRouter.post("/login", async (req, res) => {
   }
 })
 
-authRouter.get("/thoughts", authenticateUser, (req, res) => {
-  res.send("Authenticated content")
+authRouter.get("/thoughts", authenticateUser, async (req, res) => {
+  try {
+    const userId = req.user._id
+    const userThoughts = await Thought.find({ user: userId })
+
+    res.status(200).json(userThoughts)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
+authRouter.post("/thoughts", authenticateUser, async (req, res) => {
+  try {
+    const { thought } = req.body
+    const userId = req.user._id
+    const newThought = new Thought({ text: thought, user: userId })
+    await newThought.save()
+    res.status(201).json({ message: "Thought saved successfully" })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
 })
 
 export default authRouter
