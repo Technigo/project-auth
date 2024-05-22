@@ -31,6 +31,8 @@ authRouter.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body
     const user = await User.findOne({ username })
+    console.log("Inkommande lösenord:", password)
+    console.log("Hashat lösenord i databasen:", user.password)
     if (!user) {
       return res.status(401).json({ error: "Invalid username or password" })
     }
@@ -39,14 +41,11 @@ authRouter.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid username or password" })
     }
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET)
+    console.log("Genererat JWT-token:", token)
     res.status(200).json({ token })
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
-})
-
-authRouter.get("/login", (req, res) => {
-  res.status(404).send("Not found") 
 })
 
 authRouter.get("/thoughts", authenticateUser, (req, res) => {
