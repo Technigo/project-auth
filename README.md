@@ -11,4 +11,4 @@ Describe how you approached to problem, and what tools and techniques you used t
 ## View it live
 
 Backend: https://project-auth-ziup.onrender.com
-Frontend:
+Frontend: https://project-auth-eliane.netlify.app

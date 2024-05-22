@@ -1,13 +1,24 @@
+/* basic css */
+
+/* import fonts Abril Fatface and Open Sans from Google Fonts*/
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+/* create variables for colours */
 :root {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --grey: #e6ddcc;
+  --yellow: #eed391;
+  --lightgreen: #685a27a;
+  --darkgreen: #436957;
+  --black: #000;
+  --white: #ffffff;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+/* basics */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Open Sans, sans-serif;
+  font-weight: 300;
+  color: var(--primary-blk);
 }

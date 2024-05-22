@@ -84,13 +84,15 @@ app.post("/register", async (req, res) => {
   }
 });
 
-//sign-in endpoint
-app.post("/sessions", async (req, res) => {
+//login endpoint
+app.post("/login", async (req, res) => {
+  //find user by name
   const user = await User.findOne({ name: req.body.name });
+  //check if password is correct
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     res.json({ userId: user._id, accessToken: user.accessToken });
   } else {
-    res.status(401).json({ notFound: true });
+    res.status(401).json({ message: "user name or password invalid" });
   }
 });
 
@@ -99,7 +101,7 @@ app.get("/dashboard", authenticateUser, (req, res) => {
   res.json({ message: "This is the secret dashboard!", user: req.user });
 });
 
-app.post("/sessions", async (req, res) => {
+app.post("/login", async (req, res) => {
   const user = await User.findOne({ name: req.body.name });
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     //success
