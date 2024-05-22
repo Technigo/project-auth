@@ -1,18 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { RegistrationForm } from "./components/RegistrationForm";
-import { LoginForm } from "./components/LoginForm";
-import { UserPage } from "./components/UserPage";
-
+import { RegistrationForm } from "./components/RegistrationForm"
+import { LoginForm } from "./components/LoginForm"
+import { UserPage } from "./components/UserPage"
+import "./App.css"
 
 export const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/registration" element={<RegistrationForm />}/>
-        <Route path="/login" element={<LoginForm />}/>
-        <Route path="/user-page" element={<UserPage/>}/>
-      </Routes>
-    </BrowserRouter>
-
+    <div className="app-container">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/registration" element={<RegistrationForm />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/user-page" element={<UserPage />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   )
-};
+}
