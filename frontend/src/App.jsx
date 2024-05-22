@@ -1,16 +1,20 @@
 import { useState } from "react";
 import { Registration } from "./components/Registration";
 import { SignIn } from "./components/SignIn";
+import { MyPages } from "./components/MyPages";
 
 export const App = () => {
-  // Default to show login-page
   const [isRegistering, setIsRegistering] = useState(false);
+  const [user, setUser] = useState(null);
+
   return (
-    <div>
-      {isRegistering ? (
+    <div className="app-container">
+      {user ? (
+        <MyPages user={user} />
+      ) : isRegistering ? (
         <Registration setIsRegistering={setIsRegistering} />
       ) : (
-        <SignIn setIsRegistering={setIsRegistering} />
+        <SignIn setIsRegistering={setIsRegistering} setUser={setUser} />
       )}
     </div>
   );

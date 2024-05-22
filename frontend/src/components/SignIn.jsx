@@ -1,8 +1,7 @@
 import { useState } from "react";
-
 import "./SignIn.css";
 
-export const SignIn = ({ setIsRegistering }) => {
+export const SignIn = ({ setIsRegistering, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -25,6 +24,7 @@ export const SignIn = ({ setIsRegistering }) => {
         setMessage("Sign in successful!");
         // You can also save the token to localStorage or context for further authenticated requests
         localStorage.setItem("accessToken", result.accessToken);
+        setUser({ id: result.iserID, name: result.name });
       } else {
         setMessage(result.message || "Sign in failed!");
       }
