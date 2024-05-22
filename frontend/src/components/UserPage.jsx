@@ -10,5 +10,6 @@ export const UserPage = () => {
       <Lottie className="lottie" animationData={animationData} />
       <button>Log out</button>
     </div>
+
   )
 }
