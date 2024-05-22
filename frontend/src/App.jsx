@@ -10,7 +10,7 @@ export const App = () => {
   return (
     <div className="app-container">
       {user ? (
-        <MyPages user={user} />
+        <MyPages user={user} setUser={setUser} />
       ) : isRegistering ? (
         <Registration setIsRegistering={setIsRegistering} />
       ) : (
