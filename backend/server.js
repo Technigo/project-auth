@@ -36,12 +36,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const authenticateUser = async (req, res, next) => {
+  const user = await User.findOne({ accessToken: req.header("Authorization") });
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    res.status(401).json({ loggedOut: true });
+  }
+};
+
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
-// Registration endpoint
+// Create user endpoint
 app.post("/users", async (req, res) => {
   const salt = bcrypt.genSaltSync(10);
 
@@ -64,9 +74,21 @@ app.post("/users", async (req, res) => {
   }
 });
 
-// Sign-in endpoint
-
 // Endpoint once user is signed in
+app.get("/user-page", authenticateUser);
+app.get("/user-page", (req, res) => {
+  res.json({ message: "You are logged in!" });
+});
+
+// Sign-in endpoint
+app.post("/sessions", async(req,res)=> {
+  const user= await User.findOne({email: req.body.email})
+  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    res.json({userId:user._id, accessToken: user.accessToken})
+  } else {
+    res.json({notFound:true})
+  }
+})
 
 // Start the server
 app.listen(port, () => {
