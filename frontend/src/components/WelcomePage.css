@@ -1,0 +1,17 @@
+.welcome-button {
+  margin-top: 20px;
+  height: 30px;
+  border-radius: 40px;
+  border: none;
+  background-color: #d56e90;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  width: 100px;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
