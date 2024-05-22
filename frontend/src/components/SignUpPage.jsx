@@ -11,7 +11,7 @@ export const SignUpPage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -27,10 +27,15 @@ export const SignUpPage = () => {
       );
 
       if (response.ok) {
-        navigate("/login");
+        navigate("/login", {
+          state: {
+            message: "Account created successfully. You can now log in.",
+          },
+        });
       } else {
-        const errorMessage = await response.text();
-        setError(errorMessage);
+        const errorMessage = await response.json();
+        console.error("Error response:", errorMessage);
+        setError(errorMessage.message || "Signup failed");
       }
     } catch (error) {
       console.error("Signup failed:", error);
