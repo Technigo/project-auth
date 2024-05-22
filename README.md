@@ -12,6 +12,6 @@ I started by creating separate components for login and signup functionalities. 
 
 ## View it live
 
-Backend:
+Backend: https://project-auth-0pi0.onrender.com/
 
 Frontend:
