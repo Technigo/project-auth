@@ -29,14 +29,14 @@ export const LoginPage = () => {
       if (response.ok) {
         const { accessToken } = await response.json();
         setAccessToken(accessToken);
-        setError(null); // Clear any previous errors
+        setError(null);
         fetchSecret(accessToken);
       } else {
-        setError("Invalid email or password"); // Set error message
+        setError("Invalid email or password"); 
       }
     } catch (error) {
       console.error("Login failed:", error);
-      setError("Failed to log in. Please try again later."); // Set generic error message
+      setError("Failed to log in. Please try again later.");
     }
   };
 
@@ -80,9 +80,7 @@ export const LoginPage = () => {
       {accessToken ? (
         <>
           <StyledHeading fontWeight="bold">You&apos;re in!</StyledHeading>
-          <StyledHeading>
-            You&apos;re in! What would you like to do first?
-          </StyledHeading>
+          <StyledHeading>What would you like to do first?</StyledHeading>
           <SecretText>{secretMessage}</SecretText>
           <StyledButton onClick={handleLogout}>Logout</StyledButton>
         </>
