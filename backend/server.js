@@ -31,20 +31,22 @@ const User = mongoose.model("User", {
 
 // Middleware to authenticate user with access token
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header("Authorization") });
-  if (user) {
-    req.user = user;
-    next();
-  } else {
-    res.status(401).json({ loggedOut: true });
+  const accessToken = req.header("Authorization");
+  if (!accessToken) {
+    return res.status(401).json({ error: "Unauthorized: Access token is missing" });
   }
+
+  const user = await User.findOne({ accessToken });
+  if (!user) {
+    return res.status(401).json({ error: "Unauthorized: Access token is invalid" });
+  }
+
+  req.user = user;
+  next();
 };
 
 const port = process.env.PORT || 8082;
 const app = express();
-
-app.use(cors());
-app.use(express.json());
 
 app.use(cors({
   origin: 'https://cheerful-froyo-159f59.netlify.app'
@@ -86,8 +88,7 @@ app.post("/login", async (req, res) => {
 });
 
 // Route to access secrets after authentication
-app.get("/secrets", authenticateUser);
-app.get("/secrets", (req, res) => {
+app.get("/secrets", authenticateUser, (req, res) => {
   res.json({ secret: "This is a super secret message" });
 });
 
