@@ -5,8 +5,8 @@
   "type": "module",
   "description": "Starter project to get up and running with express quickly",
   "scripts": {
-    "start": "node --env-file=.env server.js",
-    "dev": "nodemon server.js --exec babel-node"
+    "start": "node server.js",
+    "dev": "nodemon --env-file=.env server.js --exec babel-node"
   },
   "author": "",
   "license": "ISC",
