@@ -63,13 +63,22 @@ app.get("/", (req, res) => {
 app.post("/users", async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    if (!name) {
+      return res.status(400).json({ error: "Name is required" });
+    }
+    if (!email) {
+      return res.status(400).json({ error: "Email is required" });
+    }
+    if (!password) {
+      return res.status(400).json({ error: "Password is required" });
+    }
+
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
-    user.save();
+    await user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (err) {
-    res
-      .status(400)
-      .json({ message: "Could not create user", errors: err.errors });
+    console.error("User creation failed:", err);
+    res.status(400).json({ error: "Could not create user. Something went wrong." });
   }
 });
 
