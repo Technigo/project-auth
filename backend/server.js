@@ -10,7 +10,6 @@ const port = process.env.SERVER_PORT || 3001
 app.use(cors())
 app.use(express.json())
 
-
 mongoose.connect(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}`, {
   dbName: process.env.DB_NAME,
   user: process.env.DB_USER,
@@ -22,12 +21,10 @@ db.once("open", () => {
   console.log("Ansluten till databasen")
 })
 
-
 app.get("/", (req, res) => {
   const endpoints = listEndpoints(app)
   res.json(endpoints)
 })
-
 
 app.use(authRouter)
 
