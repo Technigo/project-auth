@@ -84,8 +84,18 @@ export const Registration = ({ setIsRegistering }) => {
         <p>{message}</p>
         <p>
           Already have an account?{" "}
-          <button onClick={() => setIsRegistering(false)}>Sign In</button>
+          <a
+            href="#"
+            className="login-link"
+            onClick={() => setIsRegistering(false)}
+          >
+            Sign in
+          </a>
         </p>
+        {/* <p>
+          Already have an account?{" "}
+          <button onClick={() => setIsRegistering(false)}>Sign In</button>
+        </p> */}
       </>
     </div>
   );
