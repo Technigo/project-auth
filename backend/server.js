@@ -2,7 +2,7 @@ import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
 import listEndpoints from "express-list-endpoints"
-import authRouter from "./routes/auth.js"
+import authRouter from "./routes/Auth.js"
 
 const app = express()
 const port = process.env.SERVER_PORT || 3001
@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
   res.json(endpoints)
 })
 
-app.use("/", authRouter)
+app.use(authRouter)
 
 app.listen(port, () => {
   console.log(`Chattservern lyssnar på port ${port}`)
