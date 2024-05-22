@@ -18,6 +18,15 @@ authRouter.post("/signup", async (req, res) => {
   }
 })
 
+authRouter.get("/signup", async (req, res) => {
+  try {
+    const users = await User.find()
+    res.status(200).json(users)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
 authRouter.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body
