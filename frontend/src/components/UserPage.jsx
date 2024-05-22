@@ -1,7 +1,11 @@
 //GET call from /user-page
+import { LogoutButton } from "./LogoutButton"
 
 export const UserPage = () => {
   return (
-    <div>UserPage</div>
+    <>UserPage
+    <LogoutButton></LogoutButton></>
+    
+
   )
 }
