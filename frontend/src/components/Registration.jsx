@@ -44,11 +44,6 @@ export const Registration = ({ setIsRegistering }) => {
 
   return (
     <div className="container">
-      {isLoading && (
-        <div className="loading-container">
-          <p>Loading..</p>
-        </div>
-      )}
       <>
         <h1>Register</h1>
         <form onSubmit={handleSubmit}>
@@ -81,6 +76,11 @@ export const Registration = ({ setIsRegistering }) => {
           />
           <button type="submit">Register</button>
         </form>
+        {isLoading && (
+          <div className="loading-container">
+            <p>Registering..</p>
+          </div>
+        )}
         <p>{message}</p>
         <p>
           Already have an account?{" "}

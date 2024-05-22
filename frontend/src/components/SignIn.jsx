@@ -6,8 +6,11 @@ export const SignIn = ({ setIsRegistering, setUser }) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
 
     try {
       const response = await fetch("https://auth-s0og.onrender.com/sign-in", {
@@ -24,12 +27,15 @@ export const SignIn = ({ setIsRegistering, setUser }) => {
         setMessage("Sign in successful!");
         // You can also save the token to localStorage or context for further authenticated requests
         localStorage.setItem("accessToken", result.accessToken);
-        setUser({ id: result.iserID, name: result.name });
+        setUser({ id: result.userId, name: result.name });
+        setIsLoading(false);
       } else {
         setMessage(result.message || "Sign in failed!");
       }
     } catch (error) {
       setMessage("An error occurred. Please try again later.");
+    } finally {
+      setIsLoading(false); // Reset isLoading after form submission is completed
     }
   };
 
@@ -55,6 +61,11 @@ export const SignIn = ({ setIsRegistering, setUser }) => {
         />
         <button type="submit">Sign In</button>
       </form>
+      {isLoading && (
+        <div className="loading-container">
+          <p>Signing in..</p>
+        </div>
+      )}
       <p>{message}</p>
       <p>
         Not a registered user?{" "}
