@@ -1,13 +1,16 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This weeks assignment was to build a backend API and a React frontend. The backend handles user authentication, while the frontend includes a registration form, token storage, and access to restricted (secret) content after login.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+Backend:
+I followed the codealong and added more specific error messages.
+
+Frontend:
+I started by creating separate components for login and signup functionalities. These components communicate with the backend API for user authentication and account creation. Using styled components for styling and React Router for navigation. Error handling was implemented to provide clear feedback to users. You should get errors if you try and create an account that already exists, if you try to log in without creating a user, if you write the wrong username/password, you should get a success message when you've succesfully created a user which will be displayed on the login page ect. If I had more time, I would refine error messages and enhance user experience with features like form validation. I also intended to create a separate component named AccountPage.jsx to handle account-related functions and content. However, due to issues with the login, I the the code intended for the "Account Page" within LoginPage.jsx. This decision was made to resolve the login issues.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Backend:
+Frontend:
