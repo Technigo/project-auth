@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import { SwitchLabel } from "./SwitchLabel"
 import { Link, useNavigate } from "react-router-dom"
-const API_KEY = "https://project-auth-2qfo.onrender.com"
 
 const StyledSection = styled.div`
   background-color: #ffd5c5;
@@ -30,29 +29,39 @@ export const Dashboard = () => {
     { id: 2, name: "Max" },
     { id: 3, name: "Bella" },
   ]
-
   const handleLogOut = async () => {
     try {
-      // Send a request to invalidate the access token
-      const response = await fetch(`${API_KEY}/logout`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
-
-      if (response.ok) {
-        // Remove the access token from local storage
+      const accessToken = localStorage.getItem("accessToken")
+      if (accessToken) {
         localStorage.removeItem("accessToken")
-        // Redirect the user to the login page
+
         navigate("/login")
       } else {
-        console.error("Logout failed:", response.statusText)
+        console.error("No access token found")
       }
     } catch (error) {
       console.error("Error logging out:", error)
     }
   }
+  // const handleLogOut = async () => {
+
+  // try {
+  //   const response = await fetch(`${process.env.REACT_APP_API_KEY}/logout`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //     },
+  //   })
+
+  //   if (response.ok) {
+  //     localStorage.removeItem("accessToken")
+  //     navigate("/login")
+  //   } else {
+  //     console.error("Logout failed:", response.statusText)
+  //   }
+  // } catch (error) {
+  //   console.error("Error logging out:", error)
+  // }
 
   return (
     <StyledSection>

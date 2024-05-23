@@ -57,6 +57,7 @@ const RegistrationFormStyled = styled.form`
 `
 
 export const RegistrationForm = () => {
+  const [error, setError] = useState(null)
   const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
@@ -90,10 +91,12 @@ export const RegistrationForm = () => {
 
         navigate("/secrets")
       } else {
-        console.error("Registration failed:", response.statusText)
+        const errorData = await response.json()
+        setError(errorData.error)
       }
     } catch (error) {
       console.error("Error registering:", error)
+      setError("Something went wrong")
     }
   }
   const SwitchLabelWrapper = styled.div`
@@ -139,7 +142,7 @@ export const RegistrationForm = () => {
           aria-label="Password"
           placeholder="Your Password"
         />
-
+        {error && <p>Something went wrong</p>}
         <SwitchLabelWrapper onClick={handleSubmit}>
           <SwitchLabel />
         </SwitchLabelWrapper>

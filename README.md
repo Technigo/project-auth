@@ -9,7 +9,6 @@ This project is a user authentication system built with React, Express.js, Mongo
 .MongoDB: For storing user data.
 .bcrypt: For hashing passwords before storing them in the database.
 .crypto: For generating secure access tokens.
-.dotenv: For managing environment variables securely.
 
 If more time were available, the next steps would include implementing user roles, adding more comprehensive validation and error handling.
 
@@ -22,7 +21,6 @@ GET
 POST
 ./users: Register a new user.
 ./sessions: Log in an existing user.
-./logout: Log out the user by invalidating the access token.
 
 ## View it live
 

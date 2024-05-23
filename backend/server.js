@@ -90,26 +90,26 @@ app.post("/sessions", async (req, res) => {
     res.json({ notFound: true })
   }
 })
-app.post("/logout", async (req, res) => {
-  try {
-    const accessToken = req.header("Authorization")
+// app.post("/logout", async (req, res) => {
+//   try {
+//     const accessToken = req.header("Authorization")
 
-    // Find the user by the access token and update the accessToken field to invalidate it
-    const user = await User.findOneAndUpdate(
-      { accessToken },
-      { accessToken: null }
-    ).exec()
+//     // Find the user by the access token and update the accessToken field to invalidate it
+//     const user = await User.findOneAndUpdate(
+//       { accessToken },
+//       { accessToken: null }
+//     ).exec()
 
-    if (user) {
-      res.status(200).json({ message: "Logout successful" })
-    } else {
-      res.status(401).json({ message: "Unauthorized" })
-    }
-  } catch (error) {
-    console.error("Error logging out:", error)
-    res.status(500).json({ message: "Internal server error" })
-  }
-})
+//     if (user) {
+//       res.status(200).json({ message: "Logout successful" })
+//     } else {
+//       res.status(401).json({ message: "Unauthorized" })
+//     }
+//   } catch (error) {
+//     console.error("Error logging out:", error)
+//     res.status(500).json({ message: "Internal server error" })
+//   }
+// })
 
 // Start the server
 app.listen(port, () => {
