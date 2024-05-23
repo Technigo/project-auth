@@ -1,5 +1,6 @@
 import { Button } from "./Button";
 import { Headline } from "./Headline";
+import { TextInput } from "./TextInput";
 
 export const Register = () => {
   return (
@@ -9,66 +10,42 @@ export const Register = () => {
         <div className="text-box">
           <p>Love to read and want to meet fellow book enthusiasts?</p>
           <p>
-            {" "}
             Register now for our OMC Book Club and dive into lively discussions, discover new genres, and share your
             favorite reads!
           </p>
-          <p>We can't wait to welcome you and embark on literary adventures together!</p>
         </div>
       </div>
-      <label>
-        First name
-        <input type="text" name="first-name" placeholder="Type your first name" required />
-      </label>
 
-      <label>
-        Last name
-        <input type="text" name="last-name" placeholder="Type your last name" required />
-      </label>
+      <TextInput
+        label={"First name"}
+        inputType={"text"}
+        inputName={"first-name"}
+        placeholder={"Type your first name"}
+      />
 
-      <label>
-        E-mail
-        <input type="email" name="email" placeholder="Type your e-mail" required />
-      </label>
+      <TextInput label={"Last name"} inputType={"text"} inputName={"last-name"} placeholder={"Type your last name"} />
+
+      <TextInput label={"E-mail"} inputType={"email"} inputName={"email"} placeholder={"Type your e-mail"} />
 
       <fieldset>
         <legend>Address</legend>
-
-        <label>
-          Street
-          <input type="text" name="street" placeholder="Type your street" required />
-        </label>
-
-        <div className="address-tablet-desktop">
+        <TextInput label={"Street"} inputType={"text"} inputName={"street"} placeholder={"Type your street"} />
+        <div className="input-tablet-desktop">
           <div className="postcode-box">
-            <label>
-              Post code
-              <input type="text" name="post-code" placeholder="xxx xx" required />
-            </label>
+            <TextInput label={"Post code"} inputType={"text"} inputName={"post-code"} placeholder={"xxx xx"} />
           </div>
 
           <div className="city-box">
-            <label>
-              City
-              <input type="text" name="city" placeholder="Type your city" required />
-            </label>
+            <TextInput label={"City"} inputType={"text"} inputName={"city"} placeholder={"Type your city"} />
           </div>
         </div>
       </fieldset>
 
-      <label>
-        Username
-        <input type="text" name="username" placeholder="Type your username" required />
-      </label>
+      <TextInput label={"Username"} inputType={"text"} inputName={"username"} placeholder={"Type your username"} />
 
-      <label>
-        Password
-        <input type="password" name="username" placeholder="Type your username" required />
-      </label>
+      <TextInput label={"password"} inputType={"password"} inputName={"password"} placeholder={"Type your password"} />
 
-      <div className="button-box">
-        <Button btnText={"Sign up"} />
-      </div>
+      <Button btnText={"Sign up"} />
     </form>
   );
 };

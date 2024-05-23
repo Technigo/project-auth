@@ -19,6 +19,12 @@ body {
   align-items: center;
 }
 
+.outer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 h2 {
   font-family: var(--title-font);
   font-size: 35px;
@@ -36,6 +42,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  text-align: center;
 }
 
 form {
@@ -72,10 +79,6 @@ input[type="email"] {
   border: 0.5px solid black;
 }
 
-.button-box {
-  margin: 10px 0;
-}
-
 button {
   background-color: var(--dark-purple);
   color: #fffcf5;
@@ -103,9 +106,13 @@ button {
     width: 580px;
   }
 
-  .address-tablet-desktop {
+  .input-tablet-desktop {
     display: flex;
     justify-content: space-between;
+  }
+
+  .input-tablet-desktop label {
+    width: 280px;
   }
 
   .postcode-box label {
@@ -114,6 +121,11 @@ button {
 
   .city-box label {
     width: 350px;
+  }
+
+  button {
+    width: 150px;
+    align-self: flex-end;
   }
 }
 
