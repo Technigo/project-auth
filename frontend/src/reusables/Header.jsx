@@ -13,10 +13,10 @@ const HeaderContainer = styled.section`
   background-size: cover;
   background-position: center;
   width: 100%;
-  height: 400px;
+  height: 300px;
 
   @media all and (min-width: 744px) {
-    height: 500px;
+    height: 400px;
   }
   @media all and (min-width: 1024px) {
     flex-direction: row;
@@ -26,12 +26,14 @@ const HeaderContainer = styled.section`
 
 const HeaderGlobe = styled.img`
   position: absolute;
-  left: -44px;
-  top: -44px;
-  width: 320px;
-  height: 320px;
+  left: -34px;
+  top: -34px;
+  width: 280px;
+  height: 280px;
 
   @media all and (min-width: 744px) {
+    left: -44px;
+    top: -44px;
     width: 380px;
     height: 380px;
   }
@@ -39,34 +41,11 @@ const HeaderGlobe = styled.img`
 
   } */
 `;
-
-const HeaderSlogan = styled.h1`
-  font-family: Abril Fatface, serif;
-  font-weight: 400;
-  font-size: 2em;
-  color: var(--grey);
-  /* background: var(--darkgreen); */
-  margin: 20px 0;
-  text-align: center;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
-
-  @media all and (min-width: 744px) {
-    font-size: 2.5em; // Adjust font size for larger screens
-  }
-  @media all and (min-width: 1024px) {
-    font-size: 3em; // Adjust font size for larger screens
-  }
-`;
-
 //component
 export const Header = () => {
   return (
     <HeaderContainer>
       <HeaderGlobe src={Globe} alt="globe with green background" />
-      <HeaderSlogan>
-        STEP OUT, STEP UP <br />
-        eGO GREEN
-      </HeaderSlogan>
     </HeaderContainer>
   );
 };
