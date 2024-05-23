@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 import expressListEndpoints from "express-list-endpoints";
 import passport from "passport";
 import session from "express-session";
-import { Strategy } from "passport-local";
+import { Strategy as LocalStrategy } from "passport-local";
 
 dotenv.config();
 const { Schema } = mongoose;
@@ -94,17 +94,21 @@ app.post("/signup", async (req, res) => {
 app.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/secrets",
-    failureRedirect: "/login",
+    successRedirect: `http://localhost:5173/secrets`,
+    failureRedirect: `http://localhost:5173/login`,
   })
 );
 
 // content page
 app.get("/secrets", checkAuthenticated, (req, res) => {
-  res.json({ ID: req.user._id, name: req.user.username, AccessToken: req.user.accessToken });
+  res.json({
+    ID: req.user._id,
+    name: req.user.username,
+    AccessToken: req.user.accessToken,
+  });
 });
 
-passport.use(new Strategy(authUser));
+passport.use(new LocalStrategy(authUser));
 passport.serializeUser((user, done) => {
   done(null, user);
 });
