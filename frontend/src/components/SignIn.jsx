@@ -1,5 +1,6 @@
 //imports
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { Form } from "../reusables/Form";
 import { Header } from "../reusables/Header";
 import { useState } from "react";
@@ -67,7 +68,9 @@ export const SignIn = () => {
         {message && <p>{message}</p>}
         <TextContainer>
           <p>Don&#39;t have an account yet?</p>
-          <StyledTitle>Register here</StyledTitle>
+          <Link to={`/registration`}>
+            <StyledTitle>Register here</StyledTitle>
+          </Link>
         </TextContainer>
       </FormWrapper>
     </SignInContainer>
