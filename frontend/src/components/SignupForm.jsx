@@ -10,26 +10,35 @@ export const SignupForm = () => {
 
   const handleChange = (e) => {
     setFormData({
-      ...formData, [e.target.name]: e.target.value
-    })
-  }
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    console.log(formData);
+
     try {
-      const response = await fetch("mongodb://localhost/project-mongo", {
+      const response = await fetch("http://localhost:8080/signup", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
-      })
-      if (!response.ok) throw new Error("Signup failed")
-      const result = await response.json()
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) throw new Error("Signup failed");
+      console.log("successful", formData);
     } catch (error) {
-      console.error("Error", error)
+      console.error("Error", error);
+    } finally {
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+      });
     }
-  }
+  };
 
   return (
     <>
@@ -66,5 +75,4 @@ export const SignupForm = () => {
       </form>
     </>
   );
-
 };

@@ -1,43 +1,50 @@
-import { useState } from 'react'
-import { BackHome } from './BackHome'
+import { useState } from "react";
+import { BackHome } from "./BackHome";
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
-	const [loginData, setLoginData] = useState({
-		username: '',
-		password: '',
-	})
+  const [loginData, setLoginData] = useState({
+    username: "",
+    password: "",
+  });
 
-	const handleChange = (e) => {
-		setLoginData({
-			...loginData,
-			[e.target.name]: e.target.value,
-		})
-	}
+  const navigate = useNavigate();
 
-	const handleSubmit = async (e) => {
-		e.preventDefault()
-		console.log("Form submitted");
-    console.log("Login Data:", loginData);
-		try {
-			const response = await fetch("http://localhost:8080/login", {
-				method: "POST",
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(loginData),
-			})
-			if (!response.ok) throw new Error('Failed to login') 
-			const result = await response.json()
-					console.log("Login successful:", result);
+  const handleChange = (e) => {
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-			} catch (error) {
-			console.error('Error', error)
-		}
-	}
+  const handleSubmit = async (e) => {
+    console.log(loginData);
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+      console.log(response);
+      if (!response.redirected) throw new Error("Failed to login");
+      console.log("Login successful:");
+      navigate("/secrets");
+    } catch (error) {
+      console.error("Error", error);
+    } finally {
+      setLoginData({
+        username: "",
+        password: "",
+      });
+    }
+  };
 
-	return (
-		<>
-			< BackHome />
+  return (
+    <>
+      <BackHome />
       <form onSubmit={handleSubmit}>
         <label>
           Username:
@@ -63,4 +70,4 @@ export const LoginForm = () => {
       </form>
     </>
   );
-}
+};

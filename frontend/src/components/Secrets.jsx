@@ -1,8 +1,18 @@
+import { useEffect } from "react";
 
-const Secrets = () => {
-  return (
-    <div>Secrets</div>
-  )
-}
+export const Secrets = () => {
+  useEffect(() => {
+    const fetchSecrets = async () => {
+      try {
+        const data = await fetch("localhost:8080/secrets");
+        const secrets = await data.json();
+        console.log(secrets);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchSecrets();
+  }, []);
 
-export default Secrets
+  return <div>Here is your secrets</div>;
+};
