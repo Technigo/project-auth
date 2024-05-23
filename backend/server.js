@@ -38,7 +38,6 @@ app.get("/", (req, res) => {
 app.post("/register", async (req, res) => {
   try {
     const { username, password } = req.body;
-    console.log(username, password);
     const user = new User({
       username: username,
       password: bcrypt.hashSync(password, 10),
@@ -55,39 +54,26 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
-    /* console.log("Inside login: ", username, password); */
     const user = await User.findOne({ username: username });
-    console.log("LoggedIn: ", user);
-    //Works until line 60 need to check code below
-    if (user && bcrypt.compareSync(password, user.password)) {
-      req.status(202).json({
-        id: user._id,
-        username: user.username,
-        accessTokes: user.accessToken,
-      });
-    } else {
-      /* if (user) {
-      //Check PW
-      if (user.password === bcrypt.hashSync(password, 10)) {
+
+    if (user) {
+      const isPasswordCorrect = await bcrypt.compare(password, user.password);
+      if (isPasswordCorrect) {
         res.status(202).json({
           id: user._id,
           username: user.username,
           accessTokes: user.accessToken,
-        }); */
-      res
-        .status(401)
-        .json({ message: "This password is incorrect.", error: err.errors });
+        });
+      } else {
+        res.status(401).json({ message: "This password is incorrect." });
+      }
+    } else {
+      res.status(404).json({ message: "User not found." });
     }
-    /* } else {
-      res.status(401).json({
-        message: "We couldn't find that username. Please check that spelling.",
-        error: err.errors,
-      });
-    } */
   } catch (err) {
     res.status(500).json({
       message: "Somethings wrong with the sign in. Please try again later.",
-      error: err.errors,
+      error: err.message,
     });
   }
 });
