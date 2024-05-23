@@ -19,10 +19,12 @@ const userSchema = new Schema({
   username: {
     type: String,
     unique: true,
+    required: true,
   },
   email: {
     type: String,
     unique: true,
+    required: true,
   },
   password: {
     type: String,
@@ -64,7 +66,6 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
-
 app.get("/users", async (req, res) => {
   const allUsers = await User.find().exec();
   if (allUsers.length > 0) {
@@ -85,7 +86,7 @@ app.post("/users", async (req, res) => {
       password: bcrypt.hashSync(password, salt),
       address,
     });
-    user.save();
+    await user.save();
     res.status(201).json({ userId: user._id, accessToken: user.accessToken });
   } catch (error) {
     res

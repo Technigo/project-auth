@@ -15,11 +15,37 @@ export const Register = () => {
   const [address, setAddress] = useState("");
   const [accessToken, setAccessToken] = useState("");
 
-  const handleChange = (event) => {};
+  // const [formData, setFormData] = useState({
+  //   fullname: "",
+  //   email: "",
+  //   street: "",
+  //   postcode: "",
+  //   city: "",
+  //   username: "",
+  //   password: "",
+  //   verifyingPassword: ""
+  // });
+
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormData((prevData) => ({
+  //    ...prevData,
+  //     [name]: value
+  //   }));
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setAddress(street + postCode + city);
+
+    // Check if passwords match
+    if (password !== verifyPassword) {
+      console.error("Passwords do not match");
+      return;
+    }
+
+    // Construct the address directly here
+    const constructedAddress = street + postCode + city;
+
     try {
       const response = await fetch("http://localhost:8080/users", {
         method: "POST",
@@ -28,7 +54,7 @@ export const Register = () => {
           username: username,
           email: email,
           password: password,
-          address: address,
+          address: constructedAddress,
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -139,47 +165,3 @@ export const Register = () => {
     </form>
   );
 };
-
-/* 
-  const [message, setMessage] = useState("");
-  const [charactersUsed, setCharactersUsed] = useState(0);
-  const [errorMessage, setErrorMessage] = useState("");
-
-
-  const handleChange = (event) => {
-    const newMessage = event.target.value;
-    setMessage(newMessage);
-    setCharactersUsed(newMessage.length);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (message.length < 5) {
-      setErrorMessage("Thought must be longer than 5 characters");
-      return;
-    } else if (message.length > 140) {
-      setErrorMessage("Thought must not exceed 140 characters");
-      return;
-    } else {
-      try {
-        const response = await fetch(apiUrl, {
-          method: "POST",
-          body: JSON.stringify({ message: message }),
-          headers: { "Content-Type": "application/json" },
-        });
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const result = await response.json();
-        const newThought = result.response;
-
-        setThoughts((previousThoughts) => [newThought, ...previousThoughts]);
-        setMessage("");
-        setErrorMessage("");
-        setCharactersUsed(0);
-      } catch (error) {
-        console.error("Error adding new thought:", error);
-      }
-    }
-  };
- */
