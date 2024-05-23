@@ -13,6 +13,7 @@
   text-align: center;
   margin: 0;
   padding-top: 20px;
+  font-family: var(--medium-font);
 }
 
 .homeSection {
@@ -69,4 +70,24 @@
 
 .accountButton:hover {
   background-color: var(--light-orange-color);
+}
+
+@media (min-width: 1024px) {
+  .homeContainer {
+    width: 550px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .homeContainer {
+    width: 750px;
+  }
+
+  .accountText {
+    font-size: 20px;
+  }
+
+  .accountButton {
+    font-size: 20px;
+  }
 }

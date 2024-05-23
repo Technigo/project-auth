@@ -39,3 +39,23 @@
 .navLink:hover {
   color: #cbf3f0;
 }
+
+@media (min-width: 745px) {
+  .navTitle {
+    font-size: 40px;
+  }
+
+  .navList {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .navTitle {
+    font-size: 50px;
+  }
+
+  .navList {
+    font-size: 26px;
+  }
+}

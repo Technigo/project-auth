@@ -28,7 +28,7 @@ const Home = () => {
         <p className="accountIntro">
           To get access to the kittens you need to log in.
         </p>
-        <p className="AccountText">Already have an account?</p>
+        <p className="accountText">Already have an account?</p>
         <Link to="/login">
           <button className="accountButton">Login</button>
         </Link>
