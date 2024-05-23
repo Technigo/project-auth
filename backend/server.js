@@ -101,7 +101,7 @@ app.post(
 
 // content page
 app.get("/secrets", checkAuthenticated, (req, res) => {
-  res.json({ secret: "This is a super secret message!", name: req.user.name });
+  res.json({ ID: req.user._id, name: req.user.username, AccessToken: req.user.accessToken });
 });
 
 passport.use(new Strategy(authUser));
