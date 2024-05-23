@@ -21,24 +21,20 @@ body {
 
 button {
   font-family: "Encode Sans Expanded", sans-serif;
-}
-
-.user-message {
-  font-family: "Gamja Flower", sans-serif;
+  margin-top: 20px;
+  height: 30px;
+  border-radius: 40px;
+  border: none;
+  background-color: #d56e90;
   color: white;
-  font-size: 36px;
-  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100px;
 }
 
-.lottie {
-  width: 280px;
-}
-
-.user-page-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+.full-width {
+  width: 100%;
 }
 
 /*Common styling for back-links*/

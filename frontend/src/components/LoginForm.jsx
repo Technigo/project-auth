@@ -1,4 +1,3 @@
-//POST request to sessions with email and password
 import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
@@ -46,7 +45,6 @@ export const LoginForm = () => {
         <div className="input-wrapper">
           <label htmlFor="user-email"> Email adress: </label>
           <input
-            // onChange={handleEmailChange}
             type="text"
             id="user-email"
             placeholder="example@email.com"
@@ -57,7 +55,6 @@ export const LoginForm = () => {
         <div className="input-wrapper">
           <label htmlFor="user-password">Password: </label>
           <input
-            // onChange={handlePasswordChange}
             type="password"
             id="user-password"
             value={password}

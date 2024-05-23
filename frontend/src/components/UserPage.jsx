@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Lottie from "lottie-react";
 import { IoIosArrowBack } from "react-icons/io";
-import animationData from "../assets/lottie.json";
+import Lottie from "lottie-react";
+import animationCat from "../assets/lottie-user.json";
+import animationUnauth from "../assets/lottie-unauth.json";
 import { AuthContext } from "../contexts/AuthContext";
 import { LogoutButton } from "./LogoutButton";
 import "./UserPage.css";
@@ -47,6 +48,7 @@ export const UserPage = () => {
   if (!isAuthenticated) {
     return (
       <div className="unauthorized-message">
+              <Lottie className="lottie" animationData={animationUnauth} />
         <p>You are not authorized to view this page. Please log in.</p>
         <Link to={"/"} className="back-link">
           <IoIosArrowBack />
@@ -59,7 +61,7 @@ export const UserPage = () => {
   return (
     <div className="user-page-container">
       <h2 className="user-message">Congratulations! You are logged in!</h2>
-      <Lottie className="lottie" animationData={animationData} />
+      <Lottie className="lottie" animationData={animationCat} />
       <LogoutButton />
     </div>
   );

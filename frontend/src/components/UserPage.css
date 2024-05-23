@@ -5,3 +5,21 @@
 .unauthorized-message p {
   padding-bottom: 10px;
 }
+
+.lottie {
+  width: 280px;
+}
+
+.user-message {
+  font-family: "Gamja Flower", sans-serif;
+  color: white;
+  font-size: 36px;
+  text-align: center;
+}
+
+.user-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}

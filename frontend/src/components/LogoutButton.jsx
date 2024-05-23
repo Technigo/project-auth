@@ -1,19 +1,13 @@
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { useContext } from "react"
 import { AuthContext } from "../contexts/AuthContext"
-import { useState } from "react"
 
 export const LogoutButton = () => {
-  const navigate = useNavigate()
-
-  const logout = () => {
-    navigate("/")
-  }
+  const { logout } = useContext(AuthContext)
 
   return (
-    <>
-      <button className="full-width" onClick={logout}>
-        Log out
-      </button>
-    </>
+    <Link to={"/"} onClick={logout} className="full-width">
+      <button className="full-width">Log out</button>{" "}
+    </Link>
   )
 }
