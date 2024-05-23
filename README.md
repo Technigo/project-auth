@@ -14,7 +14,7 @@ Every project should be deployed somewhere. Be sure to include the link to the d
 
 ## To do
 
-- Clear the registration form when the user has registered successfully
+- Clear the registration form when the user has registered successfully DONE
 
 - Make sure user is logged out when clicking log out button - should not be able to see the user-page again by writing it in the url. User-page only to be reached throguh the login
 

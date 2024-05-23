@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom"
+import { AuthContext } from "../contexts/AuthContext"
+import { useState } from "react"
 
 export const LogoutButton = () => {
   const navigate = useNavigate()
