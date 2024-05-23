@@ -1,11 +1,13 @@
 import { Button } from "./Button";
 import { Headline } from "./Headline";
 import { TextInput } from "./TextInput";
+import { Session } from "./Session";
 import { useState } from "react";
 
 export const LogIn = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [accessToken, setAccessToken] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,7 +25,8 @@ export const LogIn = () => {
         throw new Error("Network response was not ok");
       }
       const result = await response.json();
-      console.log(result);
+      setAccessToken(result.accessToken);
+      console.log("accessToken: ", accessToken);
     } catch (error) {
       console.error("Error logging in", error);
     }
@@ -31,34 +34,35 @@ export const LogIn = () => {
 
   return (
     <>
-    <form onSubmit={handleSubmit}>
-      <div className="title-box">
-        <Headline titleText={"Log in"} />
-        <div className="text-box">
-          <p>Welcome back, let the literary adventures continue!</p>
+      <form onSubmit={handleSubmit}>
+        <div className="title-box">
+          <Headline titleText={"Log in"} />
+          <div className="text-box">
+            <p>Welcome back, let the literary adventures continue!</p>
+          </div>
         </div>
-      </div>
-      <div className="input-tablet-desktop">
-        <TextInput
-          label={"Username"}
-          inputType={"text"}
-          inputName={"username"}
-          placeholder={"Type your username"}
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-        />
+        <div className="input-tablet-desktop">
+          <TextInput
+            label={"Username"}
+            inputType={"text"}
+            inputName={"username"}
+            placeholder={"Type your username"}
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
 
-        <TextInput
-          label={"Password"}
-          inputType={"password"}
-          inputName={"password"}
-          placeholder={"Type your password"}
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </div>
-      <Button btnText={"Log in"} />
-    </form>
+          <TextInput
+            label={"Password"}
+            inputType={"password"}
+            inputName={"password"}
+            placeholder={"Type your password"}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </div>
+        <Button btnText={"Log in"} />
+      </form>
+      {accessToken ? <Session accessToken={accessToken} /> : ""}
     </>
   );
 };
