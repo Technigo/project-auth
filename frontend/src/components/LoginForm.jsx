@@ -29,7 +29,8 @@ export const LoginForm = () => {
         body: JSON.stringify(loginData),
       });
       console.log(response);
-      if (!response.redirected) throw new Error("Failed to login");
+      if (!response.ok) throw new Error("Failed to login");
+
       navigate("/secrets");
     } catch (error) {
       console.error("Error", error);

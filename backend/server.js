@@ -46,7 +46,7 @@ const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect("/login");
+  res.status(401).send();
 };
 // Middleware for initializing session
 app.use(
@@ -91,13 +91,17 @@ app.post("/signup", async (req, res) => {
 });
 
 // Log-in
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: `http://localhost:5173/secrets`,
-    failureRedirect: `http://localhost:5173/login`,
-  })
-);
+app.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user) => {
+    if (err) return next(err);
+    if (!user) return res.status(401).send();
+
+    req.logIn(user, (err) => {
+      if (err) return next(err);
+      return res.status(200).send();
+    });
+  })(req, res, next);
+});
 
 // content page
 app.get("/secrets", checkAuthenticated, (req, res) => {
