@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 export const Sessions = () => {
   const navigate = useNavigate();
-
+  const [accessToken, setAccessToken] = useState("");
+  localStorage.setItem("accessToken", JSON.stringify(accessToken));
   const [userData, setUserData] = useState(null);
   useEffect(() => {
     const fetchSessions = async () => {
@@ -18,6 +19,7 @@ export const Sessions = () => {
         const sessions = await response.json();
         console.log(sessions);
         setUserData(sessions);
+        setAccessToken(sessions.AccessToken);
       } catch (error) {
         console.log(error);
       }
