@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom"
 import { SignupForm } from "../components/SignupForm";
 import { LoginForm } from "../components/LoginForm";
-import Homepage from "../components/Homepage";
-import Secrets from "../components/Secrets";
+import {Homepage} from "../components/Homepage";
+import {Secrets} from "../components/Secrets";
 
 export const AuthRoutes = () => {
   return (
