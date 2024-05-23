@@ -1,15 +1,6 @@
 import PropTypes from "prop-types";
 
 export const Button = ({ action }) => {
-  let isRegistration = true;
-  if (action === "Sign Up") {
-    isRegistration = true;
-  } else {
-    isRegistration = false;
-  }
-
-    const handleClick = 
-
   const handleSignUp = () => {
     console.log("Sign up:", action);
   };
@@ -18,12 +9,18 @@ export const Button = ({ action }) => {
     console.log("Sign in:", action);
   };
 
+  const handleClick = (event) => {
+    if (action === "Sign Up") {
+      handleSignUp(event);
+    }
+    if (action === "Sign In") {
+      handleSignIn(event);
+    }
+  };
+
   return (
     <>
-      <button
-        className="buttonstyle"
-        onClick={isRegistration ? handleSignUp : handleSignIn}
-      >
+      <button className="buttonstyle" onClick={handleClick}>
         {action}
       </button>
     </>
