@@ -19,6 +19,9 @@ const RegistrationContainer = styled.section`
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  @media all and (min-width: 1024px) {
+    width: 50%;
+  }
 `;
 
 const TextContainer = styled.div`
