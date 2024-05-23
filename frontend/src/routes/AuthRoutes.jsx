@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom"
 import { SignupForm } from "../components/SignupForm";
 import { LoginForm } from "../components/LoginForm";
 import {Homepage} from "../components/Homepage";
-import {Secrets} from "../components/Secrets";
+import {Sessions} from "../components/Sessions";
 
 export const AuthRoutes = () => {
   return (
@@ -10,7 +10,7 @@ export const AuthRoutes = () => {
       <Route path="/" element={<Homepage />} />
       <Route path="/signup" element={<SignupForm />} />
       <Route path="/login" element={<LoginForm />} />
-      <Route path="/secrets" element={<Secrets />} />
+      <Route path="/sessions" element={<Sessions />} />
     </Routes>
   );
 }

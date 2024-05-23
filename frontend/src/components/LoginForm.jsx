@@ -32,7 +32,7 @@ export const LoginForm = () => {
       console.log(response);
       if (!response.ok) throw new Error("Failed to login");
 
-      navigate("/secrets");
+      navigate("/sessions");
     } catch (error) {
       console.error("Error", error);
     } finally {

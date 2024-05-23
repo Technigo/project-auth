@@ -28,7 +28,6 @@ const port = process.env.PORT || 8080;
 const app = express();
 
 const authUser = async (username, password, done) => {
-  //Search the user, password in the DB to authenticate the user
   try {
     const user = await User.findOne({ username });
 
@@ -42,12 +41,25 @@ const authUser = async (username, password, done) => {
   }
 };
 
+// Function for authenticate by session
 const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
   res.status(401).send();
 };
+
+// Function for authenticate by token
+const authToken = async (req, res, next) => {
+  const user = await User.findOne({ accessToken: req.header("Authorization") });
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    res.status(401).json({ message: "You are not allowed to see our top secret message!"});
+  }
+};
+
 // Middleware for initializing session
 app.use(
   session({
@@ -112,14 +124,21 @@ app.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-// content page
-app.get("/secrets", checkAuthenticated, (req, res) => {
+// sessions - Authentication method 1 - by session
+app.get("/sessions", checkAuthenticated, (req, res) => {
   res.json({
     ID: req.user._id,
     name: req.user.username,
     AccessToken: req.user.accessToken,
   });
 });
+
+// secrets - Authentication method 2 - by Token
+app.get("/secrets", authToken);
+app.get("/secrets", (req, res) => {
+  res.json({ secret: "This is a super secret message" });
+});
+
 
 passport.use(new LocalStrategy(authUser));
 passport.serializeUser((user, done) => {

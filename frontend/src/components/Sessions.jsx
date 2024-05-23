@@ -1,32 +1,32 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Secrets = () => {
+export const Sessions = () => {
   const navigate = useNavigate();
 
   const [userData, setUserData] = useState(null);
   useEffect(() => {
-    const fetchSecrets = async () => {
+    const fetchSessions = async () => {
       try {
-        const response = await fetch("http://localhost:8080/secrets", {
+        const response = await fetch("http://localhost:8080/sessions", {
           credentials: "include", // Include the session cookie in the request to the backend
         });
 
         if (response.status === 401) navigate("/login"); // Send user back to login page if unauthorized
-        if (!response.ok) throw new Error("Failed to fetch secrets", response);
+        if (!response.ok) throw new Error("Failed to fetch sessions", response);
 
-        const secrets = await response.json();
-        console.log(secrets);
-        setUserData(secrets);
+        const sessions = await response.json();
+        console.log(sessions);
+        setUserData(sessions);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchSecrets();
+    fetchSessions();
   }, [navigate]);
 
   if (!userData) {
-    // Show loading while secrets are being fetched
+    // Show loading while Sessions are being fetched
     return <p>Loading...</p>;
   }
 
