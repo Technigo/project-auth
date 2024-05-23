@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import expressListEndpoints from "express-list-endpoints";
+import passport from "passport";
+import session from "express-session";
+import { Strategy } from "passport-local";
 
 dotenv.config();
 const { Schema } = mongoose;
@@ -23,14 +26,47 @@ const User = mongoose.model("User", userSchema);
 const port = process.env.PORT || 8080;
 const app = express();
 
+const authUser = async (username, password, done) => {
+  //Search the user, password in the DB to authenticate the user
+  try {
+    const user = await User.findOne({ username });
+
+    if (user && bcrypt.compareSync(password, user.password)) {
+      return done(null, user);
+    } else {
+      return done("error comparing passwords", false);
+    }
+  } catch (error) {
+    return done("error logging in", false);
+  }
+};
+
+const checkAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/login");
+};
+// Middleware for initializing session
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+// init passport on every route call
+app.use(passport.initialize());
+// allow passport to use "express-session"
+app.use(passport.session());
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  const endpoints = expressListEndpoints(app)
-  res.json(endpoints)
+  const endpoints = expressListEndpoints(app);
+  res.json(endpoints);
 });
 
 // Sign-up
@@ -52,25 +88,26 @@ app.post("/signup", async (req, res) => {
 });
 
 // Log-in
-app.post("/login", async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username })
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/secrets",
+    failureRedirect: "/login",
+  })
+);
 
-    if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(200).json({ id: user._id, accessToken: user.accessToken });
-    } else {
-      res
-        .status(401)
-        .json({ message: "Invalid username or password.", error: error.errors });
-    }
-  } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Could not login.", error: error.errors });
-  }
-})
+// content page
+app.post("/secrets", checkAuthenticated, (req, res) => {
+  res.json({ secret: "This is a super secret message!", name: req.user.name });
+});
 
+passport.use(new Strategy(authUser));
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
