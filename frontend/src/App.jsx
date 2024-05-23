@@ -1,11 +1,10 @@
-import { SignupForm } from "./components/SignupForm";
-import { LoginForm } from "./components/LoginForm"
+import { AuthRoutes } from "./routes/AuthRoutes";
+import { BrowserRouter } from "react-router-dom"
 
 export const App = () => {
   return (
-    <div>
-      <SignupForm />
-      <LoginForm/>
-    </div>
+    <BrowserRouter>
+      <AuthRoutes />
+    </BrowserRouter>
   );
 };
