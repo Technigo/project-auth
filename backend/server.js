@@ -103,11 +103,11 @@ app.post("/signup", async (req, res) => {
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user) => {
     if (err) return next(err);
-    if (!user) return res.status(401).send();
+    if (!user) return res.status(401).end();
 
     req.logIn(user, (err) => {
       if (err) return next(err);
-      return res.status(200).send();
+      return res.status(200).end();
     });
   })(req, res, next);
 });
