@@ -16,8 +16,13 @@ mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
 const userSchema = new Schema({
-  username: { type: String, unique: true, required: true },
-  email: { type: String, unique: true, required: true },
+  username: { type: String, unique: true, required: true, minLength: 8},
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+    match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  },
   password: { type: String, required: true },
   accessToken: { type: String, default: () => bcrypt.genSaltSync() },
 });
@@ -56,7 +61,9 @@ const authToken = async (req, res, next) => {
     req.user = user;
     next();
   } else {
-    res.status(401).json({ message: "You are not allowed to see our top secret message!"});
+    res
+      .status(401)
+      .json({ message: "You are not allowed to see our top secret message!" });
   }
 };
 
@@ -93,6 +100,22 @@ app.get("/", (req, res) => {
 
 // Sign-up
 app.post("/signup", async (req, res) => {
+  //  if (!username || !email || !password) {
+  //    return res.status(400).json({ message: "All fields are required." });
+  //  }
+  //  if (username.length < 5) {
+  //    return res
+  //      .status(400)
+  //      .json({ message: "Username must be at least 5 characters long." });
+  //  }
+  //  if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+  //    return res.status(400).json({ message: "Invalid email format." });
+  //  }
+  //  if (password.length < 8) {
+  //    return res
+  //      .status(400)
+  //      .json({ message: "Password must be at least 8 characters long." });
+  //  }
   try {
     const { username, email, password } = req.body;
     const user = new User({
@@ -138,7 +161,6 @@ app.get("/secrets", authToken);
 app.get("/secrets", (req, res) => {
   res.json({ secret: "This is a super secret message" });
 });
-
 
 passport.use(new LocalStrategy(authUser));
 passport.serializeUser((user, done) => {
