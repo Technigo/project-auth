@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import './Form.css'
 
 export const Form = ({ action }) => {
   const [username, setUsername] = useState("");
@@ -58,13 +59,13 @@ export const Form = ({ action }) => {
   };
 
   return (
-    <div>
-      {action} <span>Form</span>
+    <>
       <form>
-        <label>Username:</label>
-        <input value={username} onChange={handleUsername} />
-        <label>Password:</label>
-        <input value={password} onChange={handlePassword} />
+      {action} <span>Form</span>
+        <li><label>Username:</label>
+        <input value={username} onChange={handleUsername} /></li>
+        <li><label>Password:</label>
+        <input value={password} onChange={handlePassword} /></li>
         <button
           action="Submit"
           type="submit"
@@ -74,7 +75,7 @@ export const Form = ({ action }) => {
           Submit
         </button>
       </form>
-    </div>
+    </>
   );
 };
 

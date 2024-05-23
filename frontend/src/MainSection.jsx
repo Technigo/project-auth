@@ -3,9 +3,10 @@ import { Form } from "./Components/Form";
 
 export const MainSection = () => {
   return (
-    <div className="section">
-      Welcome to our Authentication Site. Please sign up here:
+    <section className="main">
+      <h2>Welcome to our Authentication Site. <br/> 
+      Please sign up here:</h2>
       <Form action={"Sign Up"} />
-    </div>
+    </section>
   );
 };
