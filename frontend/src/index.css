@@ -4,6 +4,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --dark-color: #ff9f1c;
+  --light-orange-color: #ffbf69;
+  --blue-dark-color: #2ec4b6;
+  --light-blue-color: #cbf3f0;
+  --pink-color: #ff006e;
+
+  --big-font: "Poetsen One";
 }
 
 body {
