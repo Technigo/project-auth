@@ -33,6 +33,11 @@ const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({
     accessToken: req.header("Authorization"),
   }).exec()
+  if (!accessToken) {
+    return res
+      .status(401)
+      .json({ error: "Unauthorized. Access token missing." })
+  }
   if (user) {
     req.user = user
     next()
@@ -51,19 +56,21 @@ const cors = require("cors")
 // Enable CORS middleware
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: true,
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 )
 
 // Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello Technigo!")
-})
+app.get("/", (req, res) => {})
 app.post("/users", async (req, res) => {
   try {
     const { name, email, password } = req.body
+    const existingUser = await User.findOne({ name }).exec()
+    if (existingUser) {
+      return res.status(409).json({ message: "Username already taken" })
+    }
     const user = new User({ name, email, password: bcrypt.hashSync(password) })
     user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
@@ -85,7 +92,7 @@ app.post("/sessions", async (req, res) => {
 })
 app.post("/logout", async (req, res) => {
   try {
-    const accessToken = req.header("Authorization").split(" ")[1] // Extract the access token from the Authorization header
+    const accessToken = req.header("Authorization")
 
     // Find the user by the access token and update the accessToken field to invalidate it
     const user = await User.findOneAndUpdate(

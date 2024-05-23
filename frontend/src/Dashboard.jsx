@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { SwitchLabel } from "./SwitchLabel"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 const API_KEY = "https://project-auth-2qfo.onrender.com"
 
 const StyledSection = styled.div`
@@ -65,9 +65,9 @@ export const Dashboard = () => {
       <section>
         <h2>Find a New Friend</h2>
         <p>Explore our available dogs and find your new furry friend!</p>
-        <a href="/">View Available Dogs</a>
+        <Link to="/">Rest of content coming soon...</Link>
       </section>
-      <SwitchLabelWrapper onClick={handleLogOut}>
+      <SwitchLabelWrapper onChange={handleLogOut}>
         <SwitchLabel />
       </SwitchLabelWrapper>
     </StyledSection>

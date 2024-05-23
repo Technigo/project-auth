@@ -98,6 +98,10 @@ export const Login = () => {
   }
   const SwitchLabelWrapper = styled.div`
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
   `
 
   return (
@@ -128,14 +132,14 @@ export const Login = () => {
           aria-label="Password"
           placeholder="Your Password"
         />
-        <span>
-          Not aregistered yet? <Link to="/registration">Sign Up</Link>
-        </span>
 
         <SwitchLabelWrapper onClick={handleSubmit}>
           <SwitchLabel />
         </SwitchLabelWrapper>
       </RegistrationFormStyled>
+      <span>
+        Not aregistered yet? <Link to="/registration">Sign Up</Link>
+      </span>
     </RegistrationContainer>
   )
 }
