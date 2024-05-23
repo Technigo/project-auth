@@ -3,7 +3,6 @@ import express from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-import { accessSync } from "fs";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl);
@@ -63,6 +62,16 @@ app.use(express.json());
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
+});
+
+
+app.get("/users", async (req, res) => {
+  const allUsers = await User.find().exec();
+  if (allUsers.length > 0) {
+    res.json(allUsers);
+  } else {
+    res.status(404).send("No users found");
+  }
 });
 
 app.post("/users", async (req, res) => {
