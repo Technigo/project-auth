@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BackHome } from './BackHome'
 
 export const LoginForm = () => {
 	const [loginData, setLoginData] = useState({
@@ -35,28 +36,31 @@ export const LoginForm = () => {
 	}
 
 	return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
-          type="text"
-          name="username"
-          id=""
-          value={loginData.username}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          name="password"
-          id=""
-          value={loginData.password}
-          onChange={handleChange}
-        />
-      </label>
-      <button type="submit">Login</button>
-    </form>
+		<>
+			< BackHome />
+      <form onSubmit={handleSubmit}>
+        <label>
+          Username:
+          <input
+            type="text"
+            name="username"
+            id=""
+            value={loginData.username}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            name="password"
+            id=""
+            value={loginData.password}
+            onChange={handleChange}
+          />
+        </label>
+        <button type="submit">Login</button>
+      </form>
+    </>
   );
 }
