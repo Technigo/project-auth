@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import "./RegistrationForm.css";
+import { AlertMessage } from "./AlertMessage";
 
 //POST to the API endpoint /users to create a new user (name, email, password)
 
@@ -20,6 +21,14 @@ export const RegistrationForm = () => {
     setPassword("");
   };
 
+  const getErrorMessage = () => {
+    if (registrationStatus.error === 409) {
+      return "User already exists";
+    } else {
+      return "Something went wrong. Please verify your information.";
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -36,12 +45,12 @@ export const RegistrationForm = () => {
         setRegistrationStatus({ error: null, success: true });
         console.log("User created successfully", data);
       } else {
-        setRegistrationStatus({ error: response.error, success: false });
+        setRegistrationStatus({ error: response.status, success: false });
         console.error("Error creating user", data);
       }
     } catch (error) {
       console.log(error.message);
-      setRegistrationStatus({ error: error, success: false });
+      setRegistrationStatus({ error: 400, success: false });
       console.error("Error creating user", error);
     }
   };
@@ -87,8 +96,13 @@ export const RegistrationForm = () => {
           Register
         </button>
       </form>
-      {registrationStatus.success && <p>Success!</p>}
-      {registrationStatus.error != null && <p>Error!</p>}
+
+      {registrationStatus.success && (
+        <AlertMessage type="success" message="User has been created" />
+      )}
+      {registrationStatus.error != null && (
+        <AlertMessage type="error" message={getErrorMessage()} />
+      )}
       <Link to={"/"} className="back-link">
         <IoIosArrowBack />
         Back to first page

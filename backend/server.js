@@ -69,19 +69,17 @@ app.post("/users", async (req, res) => {
 
     if (name === "" || email === "" || password === "") {
       res.status(400).json({});
-    }
-
-    if (User.findOne({ email })) {
+    } else if (User.findOne({ email })) {
       res.status(409).json({});
+    } else {
+      const user = new User({
+        name,
+        email,
+        password: bcrypt.hashSync(password, salt),
+      });
+      user.save();
+      res.status(201).json({ id: user._id, accessToken: user.accessToken });
     }
-
-    const user = new User({
-      name,
-      email,
-      password: bcrypt.hashSync(password, salt),
-    });
-    user.save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (error) {
     res.status(400).json({
       response: error.message,

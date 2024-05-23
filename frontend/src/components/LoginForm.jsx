@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { AuthContext } from "../contexts/AuthContext";
+import { AlertMessage } from "./AlertMessage";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -67,7 +68,9 @@ export const LoginForm = () => {
           Log in
         </button>
       </form>
-      {errorMessage != null && <p>{errorMessage}</p>}
+      {errorMessage != null && (
+        <AlertMessage type="error" message={errorMessage} />
+      )}
       <Link to={"/"} className="back-link">
         <IoIosArrowBack />
         Back to first page
