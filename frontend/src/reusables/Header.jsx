@@ -21,6 +21,7 @@ const HeaderContainer = styled.section`
   @media all and (min-width: 1024px) {
     flex-direction: row;
     width: 50%;
+    height: 100vh;
   }
 `;
 
@@ -37,9 +38,14 @@ const HeaderGlobe = styled.img`
     width: 380px;
     height: 380px;
   }
-  /* @media all and (min-width: 1024px) {
-
-  } */
+  @media all and (min-width: 1024px) {
+    left: -60px;
+    top: -60px;
+    width: 58%;
+    height: auto;
+    max-width: 590px;
+    max-height: 590px;
+  }
 `;
 //component
 export const Header = () => {

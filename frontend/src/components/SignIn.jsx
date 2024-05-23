@@ -10,6 +10,7 @@ const SignInContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
 
   @media all and (min-width: 1024px) {
     flex-direction: row;
