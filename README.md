@@ -23,5 +23,4 @@ Frontend: https://pink-authorization.netlify.app/
 
 * Registration: if a user selects a username/email that already exists - alert them to select another name
 * Login: if they write the wrong password but the email login exists - alert them that they wrote the wrong password DONE
-
-Unautorized users trying to go to /user-page on deployed page
+ 
