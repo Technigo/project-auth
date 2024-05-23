@@ -1,5 +1,9 @@
 import "./Footer.css";
 
 export const Footer = () => {
-  return <div className="footerbox">Made by Team Moonlight Flamingos</div>;
+  return (
+    <section className="footerbox">
+      <p>Made by Team Moonlight Flamingos</p>
+    </section>
+  );
 };
