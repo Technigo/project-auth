@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import expressListEndpoints from "express-list-endpoints";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 
 dotenv.config();
 
@@ -11,12 +12,18 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
-//create schema
-const userSchema = new mongoose.Schema({
+//create schema and model
+
+const { Schema, model } = mongoose;
+
+const userSchema = new Schema({
   name: {
     type: String,
     unique: true,
-    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
   },
   password: {
     type: String,
@@ -24,14 +31,11 @@ const userSchema = new mongoose.Schema({
   },
   accessToken: {
     type: String,
-    default: () => bcrypt.genSaltSync(),
+    default: () => crypto.randomBytes(128).toString("hex"),
   },
 });
 
-//create model
-const User = mongoose.model("User", userSchema);
-
-// console.log(bcrypt.genSaltSync());
+const User = model("User", userSchema);
 
 //defines the port the app will run on
 const port = process.env.PORT || 8080;
@@ -63,24 +67,28 @@ const authenticateUser = async (req, res, next) => {
 };
 
 //registration endpoint
-app.post("/register", async (req, res) => {
+app.post("/register", (req, res) => {
   try {
-    const { name, password } = req.body;
+    const { name, email, password } = req.body;
     const salt = bcrypt.genSaltSync();
-    const hashedPassword = bcrypt.hashSync(password, salt);
-
-    const newUser = new User({
+    const user = new User({
       name,
-      password: hashedPassword,
-      accessToken: bcrypt.genSaltSync(), //generate a new token
+      email,
+      password: bcrypt.hashSync(password, salt),
     });
-
-    await newUser.save();
-    res.status(201).json({ id: newUser._id, accessToken: newUser.accessToken });
+    user.save();
+    res.status(201).json({
+      success: true,
+      message: "User created",
+      id: user._id,
+      accessToken: user.accessToken,
+    });
   } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Could not create user", errors: error.errors });
+    res.status(400).json({
+      success: false,
+      message: "Could not create user",
+      errors: error,
+    });
   }
 });
 
@@ -97,8 +105,11 @@ app.post("/login", async (req, res) => {
 });
 
 //authenticated endpoint
-app.get("/dashboard", authenticateUser, (req, res) => {
-  res.json({ message: "This is the secret dashboard!", user: req.user });
+app.get("/dashboard", authenticateUser);
+app.get("/dashboard", (req, res) => {
+  res.json({
+    secret: "This is the secret dashboard!",
+  });
 });
 
 app.post("/login", async (req, res) => {
@@ -108,8 +119,6 @@ app.post("/login", async (req, res) => {
     res.json({ userId: user._id, accessToken: user.accessToken });
   } else {
     //failure
-    // A) user doesn not exist
-    // B) encrypted password does not match
     res.json({ notFound: true });
   }
 });

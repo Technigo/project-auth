@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 //styling
 const StyledButton = styled.button`
-  width: 300px;
+  width: 280px;
   background: var(--darkgreen);
   border: none;
   border-radius: 30px;
@@ -16,7 +16,7 @@ const StyledButton = styled.button`
   font-size: 1.25em;
 
   @media all and (min-width: 744px) {
-    width: 500px;
+    width: 450px;
   }
 `;
 

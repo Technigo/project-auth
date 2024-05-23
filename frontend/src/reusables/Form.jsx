@@ -28,7 +28,7 @@ const StyledForm = styled.form`
 `;
 
 const StyledInput = styled.input`
-  width: 300px;
+  width: 280px;
   background: var(--grey);
   border: none;
   border-radius: 30px;
@@ -38,7 +38,7 @@ const StyledInput = styled.input`
   font-size: 1.1em;
 
   @media all and (min-width: 744px) {
-    width: 500px;
+    width: 450px;
   }
 `;
 
