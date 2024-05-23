@@ -1,8 +1,19 @@
+import { Link } from "react-router-dom"
 
-const Homepage = () => {
+export const Homepage = () => {
   return (
-    <div>Homepage</div>
-  )
+    <div>
+      <h1>Welcome to TOP secret saver!</h1>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/signup">Sign up</Link>
+          </li>
+          <li>
+            <Link to="/login">Log in</Link>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  );
 }
-
-export default Homepage
