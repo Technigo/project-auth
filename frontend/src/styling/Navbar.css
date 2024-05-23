@@ -1,31 +1,32 @@
 .navbar {
   background-color: var(--dark-color);
-  padding: 20px;
+  padding: 5px 30px;
   width: 100%;
 }
 
-.navContainer {
+.navTitleSection {
   display: flex;
+  align-items: center;
 }
 
-.navHeading {
+.navTitle {
   color: white;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .logoIcon {
   height: 50px;
   width: 50px;
-  margin: 10px 5px;
 }
 
 .navList {
-  display: flex;
   align-items: center;
+  padding: 0;
+  display: flex;
 }
 
 .navItem {
-  margin: 10px;
+  margin-right: 20px;
   list-style-type: none;
 }
 
