@@ -16,23 +16,19 @@ export const Register = () => {
         </div>
       </div>
 
-      <TextInput
-        label={"First name"}
-        inputType={"text"}
-        inputName={"first-name"}
-        placeholder={"Type your first name"}
-      />
+      <TextInput label={"First name"} inputType={"text"} inputName={"firstname"} placeholder={"Type your first name"} />
 
-      <TextInput label={"Last name"} inputType={"text"} inputName={"last-name"} placeholder={"Type your last name"} />
+      <TextInput label={"Last name"} inputType={"text"} inputName={"lastname"} placeholder={"Type your last name"} />
 
       <TextInput label={"E-mail"} inputType={"email"} inputName={"email"} placeholder={"Type your e-mail"} />
 
       <fieldset>
         <legend>Address</legend>
         <TextInput label={"Street"} inputType={"text"} inputName={"street"} placeholder={"Type your street"} />
+
         <div className="input-tablet-desktop">
           <div className="postcode-box">
-            <TextInput label={"Post code"} inputType={"text"} inputName={"post-code"} placeholder={"xxx xx"} />
+            <TextInput label={"Post code"} inputType={"text"} inputName={"postcode"} placeholder={"xxx xx"} />
           </div>
 
           <div className="city-box">

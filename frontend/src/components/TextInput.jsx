@@ -1,7 +1,7 @@
 import { HandleFocus } from "../helpers/HandleFocus";
 
 export const TextInput = ({ inputType, inputName, placeholder, label }) => {
-  const { placeholder: ourPlaceholder, handleFocus, handleOnBlur } = HandleFocus(placeholder, inputName);
+  const { placeholder: initialPlaceholder, handleFocus, handleOnBlur } = HandleFocus(placeholder, inputName);
 
   return (
     <>
@@ -9,10 +9,11 @@ export const TextInput = ({ inputType, inputName, placeholder, label }) => {
         {label}
         <input
           type={inputType}
-          placeholder={ourPlaceholder}
+          placeholder={initialPlaceholder}
           name={inputName}
           onFocus={handleFocus}
           onBlur={(e) => handleOnBlur(e.target.value)}
+          required
         />
       </label>
     </>

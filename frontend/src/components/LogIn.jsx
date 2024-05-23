@@ -12,9 +12,14 @@ export const LogIn = () => {
         </div>
       </div>
       <div className="input-tablet-desktop">
-        <TextInput inputType={"text"} inputName={"username"} placeholder={"Type your username"} />
+        <TextInput label={"Username"} inputType={"text"} inputName={"username"} placeholder={"Type your username"} />
 
-        <TextInput inputType={"password"} inputName={"password"} placeholder={"Type your password"} />
+        <TextInput
+          label={"Password"}
+          inputType={"password"}
+          inputName={"password"}
+          placeholder={"Type your password"}
+        />
       </div>
       <Button btnText={"Log in"} />
     </form>
