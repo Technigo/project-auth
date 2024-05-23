@@ -30,8 +30,6 @@ export const LoginForm = () => {
       });
       console.log(response);
       if (!response.redirected) throw new Error("Failed to login");
-      const data = await response.json()
-      console.log("Login successful:", data);
       navigate("/secrets");
     } catch (error) {
       console.error("Error", error);
