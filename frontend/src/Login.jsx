@@ -1,6 +1,6 @@
 import { useState } from "react"
 import styled from "styled-components"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 const API_KEY = "https://project-auth-2qfo.onrender.com"
 import { SwitchLabel } from "./SwitchLabel"
 
@@ -129,7 +129,7 @@ export const Login = () => {
           placeholder="Your Password"
         />
         <span>
-          Not aregistered yet? <a href="/registration">Sign Up</a>
+          Not aregistered yet? <Link to="/registration">Sign Up</Link>
         </span>
 
         <SwitchLabelWrapper onClick={handleSubmit}>
