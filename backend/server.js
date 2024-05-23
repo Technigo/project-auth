@@ -1,8 +1,12 @@
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+import authRoutes from "./routes/auth";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+dotenv.config();
+
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
@@ -20,6 +24,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
+
+app.use("/api/auth", authRoutes);
 
 // Start the server
 app.listen(port, () => {
