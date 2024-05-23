@@ -32,6 +32,11 @@ export const LogIn = () => {
     }
   };
 
+  const logOut = () => {
+    setAccessToken("");
+    window.location.reload();
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -60,9 +65,10 @@ export const LogIn = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
         </div>
-        <Button btnText={"Log in"} />
+        <Button type={"submit"} btnText={"Log in"} />
       </form>
       {accessToken ? <Session accessToken={accessToken} /> : ""}
+      {accessToken ? <Button onClick={logOut} btnText={"Sign out"} /> : ""}
     </>
   );
 };

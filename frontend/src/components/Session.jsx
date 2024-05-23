@@ -22,6 +22,7 @@ export const Session = ({ accessToken }) => {
       console.error("Error fetching data:", error);
     }
   };
+
   useEffect(() => {
     if (accessToken) {
       fetchData(accessToken);
