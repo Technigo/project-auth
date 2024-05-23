@@ -36,8 +36,8 @@ export const Secrets = () => {
         <h2>Your account information</h2>
         <ul>
           <li>ID: {userData.ID} </li>
-          <li>Username: {}</li>
-          <li>Access Token: </li>
+          <li>Username: {userData.name}</li>
+          <li>Access Token:{userData.AccessToken} </li>
         </ul>
       </div>
     </>
