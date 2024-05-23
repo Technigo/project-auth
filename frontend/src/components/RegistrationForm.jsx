@@ -1,36 +1,36 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { IoIosArrowBack } from "react-icons/io";
-import "./RegistrationForm.css";
-import { AlertMessage } from "./AlertMessage";
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
+import "./RegistrationForm.css"
+import { AlertMessage } from "./AlertMessage"
 
 //POST to the API endpoint /users to create a new user (name, email, password)
 
 export const RegistrationForm = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [registrationStatus, setRegistrationStatus] = useState({
     error: null,
     success: false,
-  });
+  })
 
   const clearForm = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
-  };
+    setName("")
+    setEmail("")
+    setPassword("")
+  }
 
   const getErrorMessage = () => {
     if (registrationStatus.error === 409) {
-      return "User already exists";
+      return "User already exists"
     } else {
-      return "Something went wrong. Please verify your information.";
+      return "Something went wrong. Please verify your information."
     }
-  };
+  }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const response = await fetch("http://localhost:8080/users", {
         method: "POST",
@@ -38,37 +38,36 @@ export const RegistrationForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ name, email, password }),
-      });
-      const data = await response.json();
+      })
+      const data = await response.json()
       if (response.ok) {
-        clearForm();
-        setRegistrationStatus({ error: null, success: true });
-        console.log("User created successfully", data);
+        clearForm()
+        setRegistrationStatus({ error: null, success: true })
+        console.log("User created successfully", data)
       } else {
-        setRegistrationStatus({ error: response.status, success: false });
-        console.error("Error creating user", data);
+        setRegistrationStatus({ error: response.status, success: false })
+        console.error("Error creating user", data)
       }
     } catch (error) {
-      console.log(error.message);
-      setRegistrationStatus({ error: 400, success: false });
-      console.error("Error creating user", error);
+      console.log(error.message)
+      setRegistrationStatus({ error: 400, success: false })
+      console.error("Error creating user", error)
     }
-  };
+  }
 
   return (
     <div>
       <h2 className="title">Register here!</h2>
       <form className="form-container" onSubmit={handleSubmit}>
         <div className="input-wrapper">
-          <label htmlFor="name">First name:</label>
+          <label htmlFor="name">Name:</label>
           <input
             required={true}
             type="text"
             id="name"
             placeholder="Name McName"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></input>
+            onChange={(e) => setName(e.target.value)}></input>
         </div>
         <div className="input-wrapper">
           <label htmlFor="email">Email adress:</label>
@@ -78,8 +77,7 @@ export const RegistrationForm = () => {
             id="email"
             placeholder="example@email.com"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
+            onChange={(e) => setEmail(e.target.value)}></input>
         </div>
         <div className="input-wrapper">
           <label htmlFor="password">Password:</label>
@@ -89,8 +87,7 @@ export const RegistrationForm = () => {
             id="password"
             placeholder="*********"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
+            onChange={(e) => setPassword(e.target.value)}></input>
         </div>
         <button className="full-width" type="submit">
           Register
@@ -103,10 +100,18 @@ export const RegistrationForm = () => {
       {registrationStatus.error != null && (
         <AlertMessage type="error" message={getErrorMessage()} />
       )}
-      <Link to={"/"} className="back-link">
-        <IoIosArrowBack />
-        Back to first page
-      </Link>
+      <div className="registration-links">
+        <Link to={"/"} className="back-link">
+          <IoIosArrowBack />
+          Back to first page
+        </Link>
+        {registrationStatus.success && (
+          <Link to={"/login"} className="back-link">
+            Go to login
+            <IoIosArrowForward />
+          </Link>
+        )}
+      </div>
     </div>
-  );
-};
+  )
+}

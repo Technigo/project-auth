@@ -58,3 +58,7 @@ button {
   font-size: 14px;
 }
 
+.registration-links {
+  display: flex;
+  justify-content: space-between;
+}
