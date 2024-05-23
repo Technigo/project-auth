@@ -19,7 +19,7 @@ export const UserPage = () => {
   useEffect(() => {
     const fetchUserPage = async () => {
       try {
-        const response = await fetch("http://localhost:8080/user-page", {
+        const response = await fetch("https://bubblegum-auth.onrender.com/user-page", {
           headers: {
             Authorization: accessToken,
           },

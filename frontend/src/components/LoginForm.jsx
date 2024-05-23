@@ -16,7 +16,7 @@ export const LoginForm = () => {
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
-      const response = await fetch("http://localhost:8080/sessions", {
+      const response = await fetch("https://bubblegum-auth.onrender.com/sessions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

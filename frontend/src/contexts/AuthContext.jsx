@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("accessToken")
       if (token) {
         try {
-          const response = await fetch("http://localhost:8080/user-page", {
+          const response = await fetch("https://bubblegum-auth.onrender.com/user-page", {
             headers: {
               Authorization: token,
             },
