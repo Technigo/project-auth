@@ -1,13 +1,29 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This project is a user authentication system built with React, Express.js, MongoDB, bcrypt, and crypto. The application provides secure user registration, login, and access to protected routes.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+.React: For building the frontend.
+.Express.js: For handling backend routing and API logic.
+.MongoDB: For storing user data.
+.bcrypt: For hashing passwords before storing them in the database.
+.crypto: For generating secure access tokens.
+.dotenv: For managing environment variables securely.
+
+If more time were available, the next steps would include implementing user roles, adding more comprehensive validation and error handling.
+
+## API Endpoints
+
+GET
+./: Basic root route for testing, returns a welcome message.
+./secrets: Access a protected route, requires a valid access token.
+
+POST
+./users: Register a new user.
+./sessions: Log in an existing user.
+./logout: Log out the user by invalidating the access token.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+You can view the live project [here](https://)
