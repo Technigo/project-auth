@@ -1,1 +1,40 @@
+.navbar {
+  background-color: var(--dark-color);
+  padding: 20px;
+  width: 100%;
+}
 
+.navContainer {
+  display: flex;
+}
+
+.navHeading {
+  color: white;
+  font-size: 20px;
+}
+
+.logoIcon {
+  height: 50px;
+  width: 50px;
+  margin: 10px 5px;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+}
+
+.navItem {
+  margin: 10px;
+  list-style-type: none;
+}
+
+.navLink {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.navLink:hover {
+  color: #cbf3f0;
+}

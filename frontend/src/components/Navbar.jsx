@@ -5,6 +5,8 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navContainer">
+        <img src="/public/logoIcon.png" alt="Cat icon" className="logoIcon" />
+        <h1 className="navHeading">Cute kitties</h1>
         <ul className="navList">
           <li className="navItem">
             <Link to="/" className="navLink">
