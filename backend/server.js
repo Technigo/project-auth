@@ -10,7 +10,8 @@ import { Strategy } from "passport-local";
 
 dotenv.config();
 const { Schema } = mongoose;
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+const mongoUrl =
+  process.env.MONGO_URL || "mongodb://localhost/project-authentication";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
@@ -78,6 +79,8 @@ app.post("/signup", async (req, res) => {
       email,
       password: bcrypt.hashSync(password, 10),
     });
+    console.log(user);
+
     await user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (error) {
@@ -97,7 +100,7 @@ app.post(
 );
 
 // content page
-app.post("/secrets", checkAuthenticated, (req, res) => {
+app.get("/secrets", checkAuthenticated, (req, res) => {
   res.json({ secret: "This is a super secret message!", name: req.user.name });
 });
 
