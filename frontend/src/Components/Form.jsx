@@ -8,13 +8,14 @@ export const Form = ({ action }) => {
   const [usernameLengthCheck, setUsernameLengthCheck] = useState(true);
   const [passwordLengthCheck, setPasswordLengthCheck] = useState(true);
 
-  const MONGO = "localhost:8088/register";
+  const REGISTER_URL =
+    "https://project-auth-moonlight-flamingos.onrender.com/register";
 
   const handleSubmit = (event) => {
     console.log("Form name:", action);
     event.preventDefault();
 
-    // From the happy thoughts..
+    // Register a new user
 
     const fetchOptions = {
       method: "POST",
@@ -22,7 +23,7 @@ export const Form = ({ action }) => {
       headers: { "Content-Type": "application/json" },
     };
 
-    fetch(MONGO, fetchOptions)
+    fetch(REGISTER_URL, fetchOptions)
       .then((res) => res.json())
       .then((loggedIn) => {
         setAccess(loggedIn.accessToken);
