@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import "./SignIn.css";
 
 export const SignIn = ({ setIsRegistering, setUser }) => {
@@ -27,6 +28,8 @@ export const SignIn = ({ setIsRegistering, setUser }) => {
         setMessage("Sign in successful!");
         // You can also save the token to localStorage or context for further authenticated requests
         localStorage.setItem("accessToken", result.accessToken);
+        localStorage.setItem("userId", result.userId);
+        localStorage.setItem("userName", result.name);
         setUser({ id: result.userId, name: result.name });
         setIsLoading(false);
       } else {
