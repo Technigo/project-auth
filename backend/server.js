@@ -54,6 +54,10 @@ app.use(
     secret: "secret",
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      secure: false,
+      httpOnly: true, // Make session cookie unavailable to read in frontend for security
+    },
   })
 );
 // init passport on every route call
@@ -61,7 +65,12 @@ app.use(passport.initialize());
 // allow passport to use "express-session"
 app.use(passport.session());
 // Add middlewares to enable cors and json body parsing
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }) // Allow sending credentials from frontend to backend
+);
 app.use(express.json());
 
 // Start defining your routes here

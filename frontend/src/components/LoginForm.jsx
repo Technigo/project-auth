@@ -23,6 +23,7 @@ export const LoginForm = () => {
     try {
       const response = await fetch("http://localhost:8080/login", {
         method: "POST",
+        credentials: "include", // Include the session cookie in the request to the backend
         headers: {
           "Content-Type": "application/json",
         },
