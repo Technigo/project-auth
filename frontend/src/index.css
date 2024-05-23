@@ -1,13 +1,86 @@
 :root {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --title-font: "Playfair Display";
+  --text-font: "Work Sans";
+  --title-color: #683651;
+  --dark-purple: #683651;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: #fffcf5;
+  font-family: var(--text-font);
 }
+
+h2 {
+  font-family: var(--title-font);
+  font-size: 35px;
+  color: var(--title-color);
+}
+
+.title-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 25px 0;
+  gap: 15px;
+}
+
+.text-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+form {
+  margin: 10px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+fieldset label {
+  margin-bottom: 8px;
+}
+
+legend {
+  font-size: 18px;
+}
+
+fieldset {
+  border: none;
+  padding-top: 5px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  padding: 10px;
+  width: 100%;
+  border-radius: 3px;
+  border: 0.5px solid black;
+}
+
+.button-box {
+  margin: 20px 0;
+}
+
+button {
+  background-color: var(--dark-purple);
+  color: #fffcf5;
+  font-family: var(--title-font);
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 8px 0;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+/* 3D6E30 */
+/* 725982 */
+/* 683651 */
