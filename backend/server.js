@@ -118,9 +118,10 @@ app.post("/login", async (req, res) => {
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
   res.json({
+    message: "This is a super secret message",
+    success: true,
     id: req.user._id,
     name: req.user.username,
-    message: "This is a super secret message",
   });
 });
 
