@@ -2,7 +2,8 @@ import Lottie from "lottie-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import loading from "../assets/loading.json";
+import loadingAni from "../assets/loading.json";
+import unauthorisedAni from "../assets/401.json";
 import { BackHome } from "./BackHome";
 
 import "../styles/Secrets.css";
@@ -10,9 +11,12 @@ import "../styles/Secrets.css";
 export const Secrets = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [secrets, setSecrets] = useState(null);
   useEffect(() => {
+    setLoading(true);
+    setError(null);
     const fetchSecrets = async () => {
       try {
         const accessToken = JSON.parse(localStorage.getItem("access_token"));
@@ -32,6 +36,8 @@ export const Secrets = () => {
       } catch (error) {
         console.log(error);
         setError(error.message);
+      } finally {
+        setLoading(false);
       }
     };
     fetchSecrets();
@@ -40,8 +46,17 @@ export const Secrets = () => {
   return (
     <>
       <BackHome />
-      {error && <p>{error}</p>}
-      {secrets ? (
+      {error && (
+        <div className="error-container">
+          <p>{error}</p>
+          <Lottie
+            animationData={unauthorisedAni}
+            loop={true}
+            className="error"
+          />
+        </div>
+      )}
+      {secrets && (
         <div className="message-container">
           <h2 className="greeting">
             Hej {secrets.name} 👋 Check out your secret below!
@@ -58,8 +73,9 @@ export const Secrets = () => {
             Sign out
           </button>
         </div>
-      ) : (
-        <Lottie animationData={loading} loop={true} className="loading" />
+      )}
+      {loading && (
+        <Lottie animationData={loadingAni} loop={true} className="loading" />
       )}
     </>
   );
