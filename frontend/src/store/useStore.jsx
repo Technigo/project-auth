@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { redirect } from "react-router-dom";
 
 export const useStore = create((set, get) => ({
   formData: {
@@ -10,12 +11,23 @@ export const useStore = create((set, get) => ({
     username: "",
     password: "",
     verifyingPassword: "",
-    accessToken: "",
-    message: "",
   },
+  accessToken: "",
+  message: "",
+
+  // checkAccessToken: () => {
+  //   const storedAccessToken = localStorage.getItem("token");
+  //   if (storedAccessToken === null) {
+  //     return redirect("/");
+  //   } else {
+  //     set({ accessToken: storedAccessToken });
+  //   }
+  // },
 
   handleSubmitForm: async (event) => {
     event.preventDefault();
+    console.log("inside submitForm");
+
     const { formData } = get();
     const constructedAddress =
       formData.street + formData.postCode + formData.city;
@@ -42,14 +54,10 @@ export const useStore = create((set, get) => ({
       }
       const result = await response.json();
       console.log(result);
-      set((state) => ({
-        formData: {
-          ...state.formData,
-          accessToken: result.accessToken,
-        },
-      }));
-      //const updatedFormData = get().formData;
-      //console.log(updatedFormData.accessToken);
+      set((state) => ({ ...state, accessToken: result.accessToken }));
+      console.log(result);
+      const updatedAccessToken = get().accessToken;
+      localStorage.setItem("token", JSON.stringify(updatedAccessToken));
     } catch (error) {
       console.error("Error adding new user:", error);
     }
@@ -66,6 +74,7 @@ export const useStore = create((set, get) => ({
 
   handleSubmitLogin: async (event) => {
     event.preventDefault();
+    console.log("inside submitLogin");
     const { formData } = get();
     try {
       const response = await fetch("http://localhost:8080/sessions", {
@@ -80,39 +89,34 @@ export const useStore = create((set, get) => ({
         throw new Error("Network response was not ok");
       }
       const result = await response.json();
-      set((state) => ({
-        formData: {
-          ...state.formData,
-          accessToken: result.accessToken,
-        },
-      }));
+      set((state) => ({ ...state, accessToken: result.accessToken }));
+      console.log(result);
+      const updatedAccessToken = get().accessToken;
+      localStorage.setItem("token", JSON.stringify(updatedAccessToken));
     } catch (error) {
       console.error("Error logging in", error);
     }
   },
 
   fetchLoggedInData: async (accessToken) => {
+    // const testToken = localStorage.getItem("token")
     try {
       const response = await fetch("http://localhost:8080/logged-in", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: accessToken,
+          Authorization: accessToken, // testToken,
         },
       });
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
       const result = await response.json();
-      set((state) => ({
-        formData: {
-          ...state.formData,
-          message: result.message,
-        },
-      }));
+      set({ message: result.message });
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   },
 }));
+
+// localStorage.setItem("numberOfLikes", (parseInt(totalNumberOfLikes) + 1).toString());
