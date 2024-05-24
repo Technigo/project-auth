@@ -37,7 +37,7 @@ const authenticateUser = async (req, res, next) => {
     next();
   } else {
     res.status(401).json({
-      message: "Could not authorise.",
+      message: "Unauthorise access",
       success: false,
       error: "You are not allowed to see our top secret message!",
     });

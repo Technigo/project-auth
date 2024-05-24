@@ -30,11 +30,9 @@ export const Secrets = () => {
           }
         );
         const data = await response.json();
-        console.log(data);
-        if (!data.success) throw new Error("Failed to fetch secrets", response);
+        if (!data.success) throw new Error(data.message);
         setSecrets(data);
       } catch (error) {
-        console.log(error);
         setError(error.message);
       } finally {
         setLoading(false);
