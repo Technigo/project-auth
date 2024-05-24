@@ -8,13 +8,14 @@ export const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
-
+  const [loading, setLoading] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   //New function "handlelogin" where we use login from the global state
   const handleLogin = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch(
         "https://bubblegum-auth.onrender.com/sessions",
@@ -38,6 +39,8 @@ export const LoginForm = () => {
       }
     } catch (error) {
       console.error("Error logging in", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,8 +71,17 @@ export const LoginForm = () => {
           Log in
         </button>
       </form>
-      {errorMessage != null && (
-        <AlertMessage type="error" message={errorMessage} />
+
+      {loading ? (
+        <div>
+          <p className="user-loading"> Logging in...</p>
+        </div>
+      ) : (
+        <>
+          {errorMessage != null && (
+            <AlertMessage type="error" message={errorMessage} />
+          )}
+        </>
       )}
       <Link to={"/"} className="back-link">
         <IoIosArrowBack />

@@ -5,7 +5,7 @@ export const AlertMessage = ({ type, message }) => {
   return (
     <div
       className={`alert-message ${
-        type === "success" ? "background-success" : "background-error"
+        type === "success" ? "background-success" : "background-error" 
       }`}>
       <p>{message}</p>
     </div>

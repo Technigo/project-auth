@@ -62,3 +62,12 @@ button {
   display: flex;
   justify-content: space-between;
 }
+
+.user-loading {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  margin: 6px auto;
+  background-color: rgba(209, 204, 192, 1);
+  color: black;
+}
