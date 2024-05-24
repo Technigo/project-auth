@@ -24,6 +24,7 @@ export const Secrets = () => {
           }
         );
         const data = await response.json();
+        console.log(data);
         if (!data.success) throw new Error("Failed to fetch secrets", response);
         setSecrets(data);
       } catch (error) {
