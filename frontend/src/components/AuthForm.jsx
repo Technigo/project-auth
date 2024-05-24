@@ -89,7 +89,7 @@ const AuthForm = ({ login }) => {
           />
         </label>
         <button className="submit-btn" type="submit">
-          Sign up!
+          {login ? "Log in" : "Sign up"}
         </button>
       </form>
       {message && <p>{message}</p>}
