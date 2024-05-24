@@ -14,4 +14,4 @@ I started by creating separate components for login and signup functionalities. 
 
 Backend: https://project-auth-0pi0.onrender.com/
 
-Frontend:
+Frontend: https://cheerful-froyo-159f59.netlify.app/
