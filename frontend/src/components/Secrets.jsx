@@ -36,6 +36,14 @@ export const Secrets = () => {
           <p>{secrets.id}</p>
           <p>{secrets.name}</p>
           <p>{secrets.message}</p>
+          <button
+            onClick={() => {
+              localStorage.removeItem("accessToken");
+              navigate("/");
+            }}
+          >
+            Sign out
+          </button>
         </div>
       ) : (
         <p>Loading...</p>
