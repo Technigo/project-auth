@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import express from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+import expressListEndpoints from "express-list-endpoints";
+import asyncHandler from "express-async-handler";
 
 dotenv.config();
 
@@ -74,7 +76,8 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  const endpoints = expressListEndpoints(app);
+  res.json(endpoints);
 });
 
 //Registration Endpoint
@@ -85,9 +88,28 @@ app.post("/register", async (req, res) => {
     const hashedPassword = bcrypt.hashSync(password, 10);
     const user = new User({ username, email, password: hashedPassword });
     const savedUser = await user.save();
-    res.status(201).json({ id: savedUser._id });
-  } catch (error) {
-    res.status(400).json({ error: "Registration failed" });
+
+    // Generate access token for the registered user
+    const accessToken = generateAccessToken(savedUser._id);
+    res.status(201).json({ id: savedUser._id, accessToken });
+  } catch (err) {
+    console.error("Error creating user:", err); // Log the actual error for debugging
+    let errorMessage = "Could not create user";
+    if (err.code === 11000) {
+      // Duplicate key error
+      if (err.keyPattern && err.keyPattern.username) {
+        errorMessage = "Username already exists";
+      } else if (err.keyPattern && err.keyPattern.email) {
+        errorMessage = "Email already exists";
+      }
+    } else if (err.errors) {
+      // Validation errors
+      const errorFields = Object.keys(err.errors);
+      if (errorFields.length > 0) {
+        errorMessage = err.errors[errorFields[0]].message;
+      }
+    }
+    res.status(400).json({ message: errorMessage, errors: err.errors });
   }
 });
 
@@ -109,6 +131,22 @@ app.post("/login", async (req, res) => {
 app.get("/secrets", authenticateToken, (req, res) => {
   res.json({ secret: "This is secret content" });
 });
+
+app.get(
+  "/logged-in",
+  authenticateToken,
+  asyncHandler(async (req, res) => {
+    res.status(200).json({
+      success: true,
+      response: {
+        message: "User is logged in",
+      },
+    });
+  })
+);
+
+/* const secret = crypto.randomBytes(64).toString("hex");
+console.log(secret); */
 
 // Start the server
 app.listen(port, () => {
