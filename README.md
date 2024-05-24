@@ -1,13 +1,10 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This assignment involves creating a backend API with Mongoose for user registration, login, and an authenticated endpoint for logged-in users. The React frontend includes registration and login forms, a page for authenticated content, and a sign-out button that clears the access token from local storage. The API should validate user input, encrypt passwords with bcrypt, and handle unauthorized access with appropriate error messages.
 
 ## The problem
-
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We were confused by the instructions. Authentication using tokens was required, but we also implemented authentication using sessions with Passport.js for higher security.
 
 ## View it live
-
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Frontend: 
+Backend: 
