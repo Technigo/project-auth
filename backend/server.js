@@ -144,7 +144,7 @@ app.post("/login", (req, res, next) => {
       if (err) return next(err);
       return res.status(200).end();
     });
-  });
+  })(req, res, next);
 });
 
 // sessions - Authentication method 1 - by session

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { BackHome } from "./BackHome";
 import { useNavigate } from "react-router-dom";
+
+import { BackHome } from "./BackHome";
 
 export const LoginForm = () => {
   const [loginData, setLoginData] = useState({
@@ -32,8 +33,8 @@ export const LoginForm = () => {
           body: JSON.stringify(loginData),
         }
       );
-      console.log(response);
       if (!response.ok) throw new Error("Failed to login");
+      console.log("succesful",response);
 
       navigate("/sessions");
     } catch (error) {
