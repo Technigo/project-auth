@@ -1,7 +1,7 @@
 import { Footer } from "./Components/Footer";
 import { HomePage } from "./Components/HomePage";
-import "./App.css"
 import { Header } from "./Components/Header";
+import "./App.css"
 
 export const App = () => {
   return ( 

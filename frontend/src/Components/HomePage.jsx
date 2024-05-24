@@ -1,17 +1,17 @@
-import { BtnLogin, BtnSignIn, BtnSubmit } from "./Buttons";
+import { BtnLogin, BtnSignIn} from "./Buttons";
 import "./HomePage.css"
+import { SignInForm } from "./SignInForm";
 
 export const HomePage = () => {
   return (
     <div className="home-page-container">
-        <p>Welcome to Arnau's Authentication Project!</p>
-        <hr />
+        <h2>Welcome to Arnau's Authentication Project!</h2>
       <nav className="nav">
-        <p>If you already have an account:</p>
+        <p>If you already have an account</p>
         <BtnSignIn />
-        <hr />
-        <p>If you do not have one:</p>
         <BtnLogin />
+        <SignInForm />
+        <p>If you don't</p>
       </nav>
     </div>
   );

@@ -1,17 +1,16 @@
 .home-page-container {
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 310px;
 }
 
 .nav {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-}
-
-hr {
-  color: grey;
+  width: 100%;
 }
