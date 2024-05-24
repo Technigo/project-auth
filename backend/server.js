@@ -65,8 +65,6 @@ app.post("/signup", async (req, res) => {
       email,
       password: bcrypt.hashSync(password, 10),
     });
-    console.log(user);
-
     await user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (error) {
