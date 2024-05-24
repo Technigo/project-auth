@@ -69,6 +69,7 @@ app.post("/signup", async (req, res) => {
     await user.save();
     res.status(201).json({ message: "Sign up successfully", success: true });
   } catch (error) {
+    console.log(error.message);
     res.status(400).json({
       message: "Could not sign up.",
       success: false,
@@ -87,15 +88,15 @@ app.post("/login", async (req, res) => {
       res.status(200).json({ id: user._id, accessToken: user.accessToken });
     } else if (user) {
       res.status(401).json({
-        message: "Incorrect password.",
+        message: "Could not login.",
         success: false,
-        error: error.message,
+        error: "Incorrect password",
       });
     } else {
       res.status(401).json({
-        message: "Invalid username",
+        message: "Could not login.",
         success: false,
-        error: error.message,
+        error: "Invalid username",
       });
     }
   } catch (error) {
