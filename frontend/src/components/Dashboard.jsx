@@ -47,7 +47,9 @@ const ContentWrapper = styled.div`
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   margin: 50px;
   padding: 20px;
+
   @media all and (min-width: 1024px) {
+    width: 70%;
   }
 `;
 
