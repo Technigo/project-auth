@@ -38,6 +38,10 @@ const AuthForm = ({ login }) => {
       const data = await response.json();
       if (!data.success) throw new Error(data.error);
       setMessage(data.message);
+      localStorage.setItem(
+        "access_token",
+        JSON.stringify(formData.accessToken)
+      );
       console.log("successful", data);
       setTimeout(() => {
         navigate(`/${login ? "secrets" : "login"}`);
