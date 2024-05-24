@@ -59,7 +59,7 @@ export const Secrets = () => {
           </button>
         </div>
       ) : (
-        <Lottie animationData={loading} loop={true} className="animation" />
+        <Lottie animationData={loading} loop={true} className="loading" />
       )}
     </>
   );

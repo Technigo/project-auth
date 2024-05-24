@@ -7,7 +7,7 @@ import homeAnimation from "../assets/home-animation.json";
 export const Homepage = () => {
   return (
     <>
-      <h1>TOP secret saver!</h1>
+      {/* <h1>TOP secret saver!</h1> */}
       <nav className="navigation">
         <ul className="menu">
           <li className="menu-item">
@@ -21,7 +21,11 @@ export const Homepage = () => {
           </li>
         </ul>
       </nav>
-      <Lottie animationData={homeAnimation} loop={true} className="animation" />
+      <Lottie
+        animationData={homeAnimation}
+        loop={true}
+        className="homeAnimation"
+      />
     </>
   );
 };
