@@ -35,7 +35,7 @@ export const SignupForm = () => {
 
       // if (!response.ok) throw new Error();
       const data = await response.json();
-      if (!data.success) throw new Error(data.message);
+      if (!data.success) throw new Error(data.error);
       setMessage(data.message);
       console.log("successful", data);
       setTimeout(1000, () => {

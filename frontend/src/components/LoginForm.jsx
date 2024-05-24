@@ -34,9 +34,9 @@ export const LoginForm = () => {
         }
       );
       console.log(response);
-      if (!response.ok) throw new Error();
       console.log("succesful", response);
       const userData = await response.json();
+      if (!userData.success) throw new Error(userData.error);
       navigate("/secrets");
       localStorage.setItem("accessToken", JSON.stringify(userData.accessToken));
     } catch (error) {
