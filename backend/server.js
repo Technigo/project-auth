@@ -45,7 +45,13 @@ app.post("/register", async (req, res) => {
       password: bcrypt.hashSync(password, 10),
     });
     await user.save();
-    res.status(201).json({ message: "Registration Complete!", id: user._id, accessToken: user.accessToken });
+    res
+      .status(201)
+      .json({
+        message: "Registration Complete!",
+        id: user._id,
+        accessToken: user.accessToken,
+      });
   } catch (err) {
     res
       .status(400)
@@ -62,6 +68,7 @@ app.post("/login", async (req, res) => {
       const isPasswordCorrect = await bcrypt.compare(password, user.password);
       if (isPasswordCorrect) {
         res.status(202).json({
+          message: "Logged in",
           id: user._id,
           username: user.username,
           accessToken: user.accessToken,

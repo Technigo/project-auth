@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import "./Form.css";
+import Lottie from 'lottie-react'
+import animation from '../assets/orange-loading.json'
 
 
 
@@ -28,12 +30,15 @@ export const Form = ({
   action,
   isRegistered,
   setIsRegistered,
+  isLoggedIn,
+  setIsLoggedIn
 }) => {
   const [password, setPassword] = useState("");
   const [access, setAccess] = useState("");
   const [usernameLengthCheck, setUsernameLengthCheck] = useState(true);
   const [passwordLengthCheck, setPasswordLengthCheck] = useState(true);
   const [displayMessageState, setDisplayMessageState] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
 
   const REGISTER_URL =
     "https://project-auth-moonlight-flamingos.onrender.com/register";
@@ -46,10 +51,12 @@ export const Form = ({
     event.preventDefault();
 
     if (action === "Sign Up") {
+      setIsLoading(true)
       handleRegistration();
     }
 
-    if (action === "Log In ") {
+    if (action === "Log In") {
+      setIsLoading(true)
       handleSignIn();
     }
     setUsername("");
@@ -68,6 +75,7 @@ export const Form = ({
     fetch(REGISTER_URL, fetchOptions)
       .then((res) => res.json())
       .then((loggedIn) => {
+        setIsLoading(false)
         setIsRegistered(true);
         console.log(loggedIn.message);
         setDisplayMessageState(loggedIn.message);
@@ -90,17 +98,20 @@ export const Form = ({
     fetch(LOGIN_URL, fetchOptions)
       .then((res) => res.json())
       .then((loggedIn) => {
+        setIsLoading(false)
         setDisplayMessageState(loggedIn.message);
-        setAccess(loggedIn.accessToken);
-        console.log("Accesstoken log in:", access);
-        setUsername(loggedIn.username);
-        console.log("Accesstoken log in:", username);
+        // setAccess(loggedIn.accessToken);
+        /* console.log("Accesstoken log in:", access); */
+        /* setUsername(loggedIn.username); */
+        console.log("Accesstoken log in username:", loggedIn.username);
         localStorage.setItem("access_token", loggedIn.accessToken);
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+
 
   const handleUsername = (e) => {
     console.log("Username: ", e.target.value);
@@ -134,9 +145,18 @@ export const Form = ({
   //Do we need a different form because we don't need handleUsername &PW for the login...
   return (
     <>
-      {isRegistered ? (
-        displayMessageState
-      ) : (
+       {isLoading ? (
+  <div className="loading">
+    <Lottie
+      animationData={animation}
+      loop
+      autoPlay
+      style={{ width: 200, height: 200 }}
+    /><h4>Loading ...</h4>
+  </div>
+    ) : isRegistered ? (
+      displayMessageState
+    ) : (
         // "Registration Submitted"
         <form>
           {action} <span>Form</span>

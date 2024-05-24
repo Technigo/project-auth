@@ -1,7 +1,8 @@
-export const verifyAccessToken = ({ isLoggedIn, setIsLoggedIn }) => {
+export const VerifyAccessToken = ({ isLoggedIn, setIsLoggedIn }) => {
   // Function to retrieve the access token from local storage
 
   const getAccessToken = () => {
+    console.log(localStorage.getItem("access_token"));
     return localStorage.getItem("access_token");
   };
 
@@ -19,5 +20,5 @@ export const verifyAccessToken = ({ isLoggedIn, setIsLoggedIn }) => {
   console.log(getAccessToken());
   console.log("Verified access token: ", isLoggedIn);
 
-  return isLoggedIn;
+  return <>{isLoggedIn ? `Hej You!` : null}</>;
 };
