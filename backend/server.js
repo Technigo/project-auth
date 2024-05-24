@@ -86,8 +86,9 @@ app.use(passport.session());
 // Add middlewares to enable cors and json body parsing
 app.use(
   cors({
-    origin: true,
+    origin: "https://team-peace-auth.netlify.app/",
     credentials: true,
+    methods: ["GET", "POST"],
   }) // Allow sending credentials from frontend to backend
 );
 app.use(express.json());
