@@ -53,3 +53,9 @@ p {
 .register-link:hover {
   text-decoration: none;
 }
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}

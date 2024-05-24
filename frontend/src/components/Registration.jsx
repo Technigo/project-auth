@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Registration.css";
 import { SignIn } from "./SignIn";
+import { Loader } from "./Loader";
 
 export const Registration = ({ setIsRegistering }) => {
   const [name, setName] = useState("");
@@ -78,7 +79,7 @@ export const Registration = ({ setIsRegistering }) => {
         </form>
         {isLoading && (
           <div className="loading-container">
-            <p>Registering..</p>
+            <Loader />
           </div>
         )}
         <p>{message}</p>
