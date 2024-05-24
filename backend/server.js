@@ -85,7 +85,11 @@ app.post("/login", async (req, res) => {
     const user = await User.findOne({ username });
 
     if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(200).json({ id: user._id, accessToken: user.accessToken });
+      res.status(200).json({
+        message: "Login Successful.",
+        success: true,
+        accessToken: user.accessToken,
+      });
     } else if (user) {
       res.status(401).json({
         message: "Could not login.",
