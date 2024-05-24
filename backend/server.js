@@ -2,10 +2,10 @@ import bcrypt from "bcrypt";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import mongoose from "mongoose";
 import expressListEndpoints from "express-list-endpoints";
-import passport from "passport";
 import session from "express-session";
+import mongoose from "mongoose";
+import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 
 dotenv.config();
@@ -74,7 +74,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false,
+      secure: true,
       httpOnly: true, // Make session cookie unavailable to read in frontend for security
     },
   })
