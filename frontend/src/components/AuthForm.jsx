@@ -1,7 +1,9 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { BackHome } from "./BackHome";
-import PropTypes from "prop-types";
+
 import "../styles/AuthForm.css";
 
 const AuthForm = ({ login }) => {
@@ -64,7 +66,7 @@ const AuthForm = ({ login }) => {
             onChange={handleChange}
           />
         </label>
-        {login && (
+        {!login && (
           <label className="form-item">
             Email:
             <input
