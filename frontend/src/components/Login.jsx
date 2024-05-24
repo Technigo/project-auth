@@ -9,7 +9,7 @@ import { Button } from "../reusables/Button";
 const API_KEY = "http://localhost:8080";
 
 //styling
-const RegistrationSection = styled.section`
+const LoginSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,12 +44,12 @@ const StyledInput = styled.input`
 `;
 
 //component
-export const Registration = () => {
-  const [error, setError] = useState(null);
+export const Login = () => {
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     password: "",
   });
 
@@ -64,31 +64,30 @@ export const Registration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${API_KEY}/register`, {
+      const response = await fetch(`${API_KEY}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
         body: JSON.stringify(formData),
       });
-      if (response.ok) {
+      if (response.status === 200) {
         const data = await response.json();
         const accessToken = data.accessToken;
+        setMessage("Sign-in successful!");
         localStorage.setItem("accessToken", accessToken);
-
         navigate("/dashboard");
       } else {
-        const errorData = await response.json();
-        setError(errorData.error);
+        setMessage("Sign-in failed: Invalid name or password");
       }
     } catch (error) {
-      console.error("Error registering:", error);
-      setError("Something went wrong");
+      console.error("Login failed:", error);
     }
   };
 
   return (
-    <RegistrationSection>
+    <LoginSection>
       <Header />
       <StyledForm onSubmit={handleSubmit}>
         <StyledInput
@@ -103,17 +102,6 @@ export const Registration = () => {
         />
 
         <StyledInput
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-          aria-label="email"
-          required
-        />
-
-        <StyledInput
           type="password"
           id="password"
           name="password"
@@ -124,16 +112,16 @@ export const Registration = () => {
           required
         />
         {/* shows error message */}
-        {error && <p>Please try again!</p>}
+        {message && <p>{message}</p>}
       </StyledForm>
-      <Button onClick={handleSubmit}>Register</Button>
+      <Button onClick={handleSubmit}>Log in</Button>
       <p>If you already have an account</p>
-      <Link to={`/login`}>
-        <h2>Login here</h2>
+      <Link to={`/register`}>
+        <h2>Register</h2>
       </Link>
       <Link to={`/`}>
         <p>Home</p>
       </Link>
-    </RegistrationSection>
+    </LoginSection>
   );
 };

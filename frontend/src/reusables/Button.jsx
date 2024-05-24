@@ -15,10 +15,11 @@ const StyledButton = styled.button`
   font-family: "Abril Fatface", serif;
   font-weight: 400;
   font-size: 1.25em;
-  z-index: 1;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
   &:hover {
     cursor: pointer;
+    background: var(--lightgreen);
   }
 
   @media all and (min-width: 744px) {
