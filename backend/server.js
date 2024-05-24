@@ -16,7 +16,7 @@ mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
 const userSchema = new Schema({
-  username: { type: String, unique: true, required: true, minLength: 8},
+  username: { type: String, unique: true, required: true, minLength: 8 },
   email: {
     type: String,
     unique: true,
@@ -140,11 +140,11 @@ app.post("/login", (req, res, next) => {
     if (err) return next(err);
     if (!user) return res.status(401).end();
 
-    req.logIn(user, (err) => {
+    req.logIn(user, err => {
       if (err) return next(err);
       return res.status(200).end();
     });
-  })(req, res, next);
+  });
 });
 
 // sessions - Authentication method 1 - by session
