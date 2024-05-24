@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import loading from "../assets/loading.json";
+import { BackHome } from "./BackHome";
 
 export const Secrets = () => {
   const navigate = useNavigate();
@@ -31,6 +34,7 @@ export const Secrets = () => {
 
   return (
     <>
+      <BackHome />
       {secrets ? (
         <div>
           <p>{secrets.id}</p>
@@ -46,7 +50,7 @@ export const Secrets = () => {
           </button>
         </div>
       ) : (
-        <p>Loading...</p>
+        <Lottie animationData={loading} loop={true} className="animation" />
       )}
     </>
   );

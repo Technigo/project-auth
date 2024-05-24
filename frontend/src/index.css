@@ -24,6 +24,18 @@ body {
   align-items: center;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 10px solid #f5aaa3;
+  box-shadow: 8px 8px 10px #776ce9;
+  padding: 2rem;
+  height: 600px;
+  width: 600px;
+  gap: 2rem;
+}
+
 h1 {
   font-size: 3rem;
   font-weight: 600;
@@ -32,4 +44,8 @@ h1 {
 h2 {
   font-size: 1.5rem;
   font-weight: 500;
+}
+
+.animation {
+  width: 400px;
 }

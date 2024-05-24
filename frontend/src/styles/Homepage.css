@@ -1,14 +1,3 @@
-.home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 10px solid #f5aaa3;
-  box-shadow: 8px 8px 10px #776ce9;
-  padding: 2rem;
-  height: 600px;
-  gap: 2rem;
-}
-
 .menu {
   list-style: none;
   display: flex;
@@ -31,9 +20,5 @@
 .menu-item > * {
   text-decoration: none;
   color: black;
-  font-size: 24px;
-}
-
-.homeAnimation {
-  width: 400px;
+  font-size: 20px;
 }

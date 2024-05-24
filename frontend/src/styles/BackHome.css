@@ -1,0 +1,13 @@
+.back {
+  align-self: start;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+}
+
+.backBtn:hover {
+  transform: scale(1.2);
+}
