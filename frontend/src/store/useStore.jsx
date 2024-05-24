@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { redirect } from "react-router-dom";
 
 export const useStore = create((set, get) => ({
   formData: {
@@ -14,15 +13,6 @@ export const useStore = create((set, get) => ({
   },
   accessToken: "",
   message: "",
-
-  // checkAccessToken: () => {
-  //   const storedAccessToken = localStorage.getItem("token");
-  //   if (storedAccessToken === null) {
-  //     return redirect("/");
-  //   } else {
-  //     set({ accessToken: storedAccessToken });
-  //   }
-  // },
 
   handleSubmitForm: async (event) => {
     event.preventDefault();
@@ -105,18 +95,17 @@ export const useStore = create((set, get) => ({
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: accessToken, // testToken,
+          // prettier-ignore
+          "Authorization": accessToken, // testToken,
         },
       });
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const result = await response.json();
-      set({ message: result.message });
+      set((state) => ({ ...state, message: result.message }));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   },
 }));
-
-// localStorage.setItem("numberOfLikes", (parseInt(totalNumberOfLikes) + 1).toString());
