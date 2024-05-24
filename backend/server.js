@@ -61,17 +61,20 @@ app.get("/", (req, res) => {
 app.post("/signup", async (req, res) => {
   try {
     const { username, email, password } = req.body;
+
     const user = new User({
       username,
       email,
       password: bcrypt.hashSync(password, 10),
     });
     await user.save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
+    res.status(201).json({ message: "Sign up successfully", success: true });
   } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Could not sign up.", error: error.message });
+    res.status(400).json({
+      message: "Could not sign up.",
+      success: false,
+      error: error.message,
+    });
   }
 });
 
@@ -83,14 +86,27 @@ app.post("/login", async (req, res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({ id: user._id, accessToken: user.accessToken });
+    } else if (user) {
+      res.status(401).json({
+        message: "Incorrect password.",
+        success: false,
+        error: error.message,
+      });
     } else {
       res.status(401).json({
-        message: "Invalid username or password.",
+        message: "Invalid username",
+        success: false,
         error: error.message,
       });
     }
   } catch (error) {
-    res.status(400).json({ message: "Could not login.", error: error.message });
+    res
+      .status(400)
+      .json({
+        message: "Could not login. Something is wrong.",
+        success: false,
+        error: error.message,
+      });
   }
 });
 

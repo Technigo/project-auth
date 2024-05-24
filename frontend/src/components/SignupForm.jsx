@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { BackHome } from "./BackHome";
 
 export const SignupForm = () => {
+  const [message, setMessage] = useState(null);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -20,7 +21,6 @@ export const SignupForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     console.log(formData);
-
     try {
       const response = await fetch(
         "https://project-auth-lh3p.onrender.com/signup",
@@ -33,10 +33,12 @@ export const SignupForm = () => {
         }
       );
       if (!response.ok) throw new Error("Signup failed");
-      const userData = await response.json();
-      console.log("successful", userData);
-      navigate("/secrets");
-      localStorage.setItem("accessToken", JSON.stringify(userData.accessToken));
+      const data = await response.json();
+      setMessage(data.message);
+      console.log("successful", data);
+      setTimeout(1000, () => {
+        navigate("/login");
+      });
     } catch (error) {
       console.error("Error", error);
     } finally {
@@ -81,6 +83,7 @@ export const SignupForm = () => {
         </label>
         <button type="submit">Sign up!</button>
       </form>
+      {message && <p>{message}</p>}
     </>
   );
 };
