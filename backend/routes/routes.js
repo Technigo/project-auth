@@ -1,15 +1,43 @@
-import express, { response } from "express";
+import express from "express";
 import User from "../model/user-model";
-import listEndpoints from "express-list-endpoints";
 import bcrypt from "bcrypt";
-import { authorizeUser, authenticateUser } from "../middleware/Middleware";
+import {
+  authenticateUser,
+  logoutUser,
+  isLoggedIn,
+} from "../middleware/Middleware";
+import jwt from 'jsonwebtoken';
+import dotenv from "dotenv";
+
+dotenv.config()
+const SECRET = process.env.SECRET ||"toast is the best secret";
+//  console.log("routes SECRET: ", SECRET);
 
 const router = express.Router();
-const adminRouter = express.Router();
-adminRouter.use(authenticateUser, authorizeUser(["admin"]));
 
-// Add adminRouter to the main router
-router.use("/admin", adminRouter);
+//check if user already exists
+router.post("/exists", async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email: email });
+    if (user) {
+      res.status(400).json({
+        exists: true,
+        message: "User already exists",
+      });
+    } else {
+      res.status(200).json({
+        exists: false,
+        message: "User does not exist",
+      });
+    }
+  } catch (err) {
+    res.status(400).json({
+      message: "An error occurred while checking if user exists",
+      error: error.message,
+    });
+  }
+});
 
 // add user
 router.post("/signup", async (req, res) => {
@@ -21,6 +49,14 @@ router.post("/signup", async (req, res) => {
       email,
       password: bcrypt.hashSync(password, salt),
     }).save();
+
+    // Generate a new access token
+    const newAccessToken = jwt.sign({ id: newUser._id }, SECRET, {
+      expiresIn: "1h",
+    });
+    // Update the new user's access token
+    newUser.accessToken = newAccessToken;
+
     res.status(201).json({
       userId: newUser._id,
       accessToken: newUser.accessToken,
@@ -31,21 +67,72 @@ router.post("/signup", async (req, res) => {
       .json({ message: "Could not create user", errors: err.errors });
   }
 });
-// get all users in the database
-router.get("/users", async (req, res) => {
-  const users = await User.find();
-  res.json(users);
-});
 
 //log in user
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (user && bcrypt.compareSync(password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken });
-  } else {
-    res.status(400).json({ notFound: true, message: "User not found" });
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (user && bcrypt.compareSync(password, user.password)) {
+      //generate the access token
+      const newAccessToken = jwt.sign({ id: user._id }, SECRET, {
+        expiresIn: "1h",
+      });
+      // Send the access token back to the client
+      res.json({
+        userId: user._id,
+        accessToken: newAccessToken,
+        role: user.role,
+      });
+      // res.json({accessToken});
+    } else {
+      res.status(400).json({ notFound: true, message: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "An error occurred while logging in",
+      error: error.message,
+    });
   }
+});
+
+//route to verify if token is valid with middleware isLoggedIn
+router.get("/verify", authenticateUser, isLoggedIn, (req, res) => {
+  res.json({ message: "You are logged in" });
+});
+
+//route to get user role
+router.get("/role", authenticateUser, (req, res) => {
+  res.json({ role: req.user.role });
+ // console.log("role: ", req.user.role);
+});
+
+
+
+/*
+// delete these later after testing
+//add a test blacklist endpoint
+router.get("/blacklist", async (req, res) => {
+  try {
+    const blacklist = await Blacklist.find();
+    res.json(blacklist);
+  } catch (error) {
+    res.status(500).json({ message: "An error occurred while fetching the blacklist" , error: error.message });
+  }
+});
+
+router.post("/blacklist", async (req, res) => {
+  const { token } = req.body;
+  const newToken = await new Blacklist({
+    token,
+  }).save();
+});
+
+*/
+// Route to log out user
+router.post("/logout", authenticateUser, logoutUser, (req, res) => {
+  console.log('Logging out user'); // Log a message when the route is hit
+  res.json({ message: "You are now logged out" });
 });
 
 // Patch request to update user
@@ -65,130 +152,15 @@ router.patch("/users/:id", async (req, res) => {
   if (updatedUser) {
     res.json(updatedUser);
   } else {
-    res.status(404).json({ message: "User not found" });
+    res.status(404).json({ message: "User not found", error: error.message });
   }
 });
 
 //route for getting content behind authentication - lets update this with something that makes sense later :)
-router.get("/secrets", authenticateUser, (req, res) => {
+router.get("/secrets", authenticateUser, isLoggedIn, (req, res) => {
   res.send(
     "The password is potato - you are authenticated and can see this members only content  -lucky you!"
   );
-});
-
-// route for getting content behind authorization find me at /admin/admin
-adminRouter.get("/admin", (req, res) => {
-  res.send(
-    "This is the admin page - you are authorized to view this content  - so much admin stuff to do here!"
-  );
-});
-
-//admin update user -  find me at /admin/admin/users/:id
-adminRouter.put("/admin/users/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { name, email, role, password } = req.body;
-
-    if (!name || !email || !role || !password) {
-      return res.status(400).json({ error: "All fields are required" });
-    }
-
-    const salt = bcrypt.genSaltSync();
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
-      {
-        name,
-        email,
-        role,
-        password: bcrypt.hashSync(password, salt),
-      },
-      { new: true }
-    );
-
-    if (!updatedUser) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    res.json(updatedUser);
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while updating the user" });
-  }
-});
-
-//endpoint for only updating the user role - find me at admin/admin/users/:id
-adminRouter.patch("/admin/users/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { role } = req.body;
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
-      { role },
-      { new: true }
-    );
-    if (updatedUser) {
-      res.json({
-        message: "User role updated",
-        success: true,
-        response: updatedUser,
-      });
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "An error occurred while updating the user" });
-  }
-});
-
-//delete user - find me at /admin/admin/users/:id
-adminRouter.delete("/admin/users/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deletedUser = await User.findByIdAndDelete(id);
-    if (deletedUser) {
-      res.json({ message: "user deleted", deletedUser });
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "An error occurred while deleting the user" });
-  }
-});
-
-router.get("/", (req, res) => {
-  try {
-    const endpoints = listEndpoints(router);
-    const updatedEndpoints = endpoints.map((endpoint) => {
-      if (endpoint.path === "/") {
-        return {
-          path: endpoint.path,
-          methods: endpoint.methods,
-          queryParameters: [],
-        };
-      }
-      return {
-        path: endpoint.path,
-        methods: endpoint.methods,
-      };
-    });
-    res.json(updatedEndpoints);
-  } catch (error) {
-    // If an error occurred, create a new error with a custom message
-    const customError = new Error(
-      "An error occurred while fetching the endpoints"
-    );
-    res.status(404).json({
-      success: false,
-      response: error,
-      message: customError.message,
-    });
-  }
 });
 
 export default router;
