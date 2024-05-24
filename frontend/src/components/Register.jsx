@@ -100,7 +100,6 @@ export const Register = () => {
           handleChange("verifyingPassword", event.target.value)
         }
       />
-
       <Button type={"submit"} btnText={"Sign up"} />
     </form>
   );

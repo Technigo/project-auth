@@ -14,6 +14,22 @@ export const useStore = create((set, get) => ({
   accessToken: "",
   message: "",
 
+  resetState: () =>
+    set({
+      formData: {
+        name: "",
+        email: "",
+        street: "",
+        postCode: "",
+        city: "",
+        username: "",
+        password: "",
+        verifyingPassword: "",
+      },
+      accessToken: "",
+      message: "",
+    }),
+
   handleSubmitForm: async (event) => {
     event.preventDefault();
     console.log("inside submitForm");
@@ -79,7 +95,10 @@ export const useStore = create((set, get) => ({
         throw new Error("Network response was not ok");
       }
       const result = await response.json();
-      set((state) => ({ ...state, accessToken: result.accessToken }));
+      set((state) => ({
+        ...state,
+        accessToken: result.accessToken,
+      }));
       console.log(result);
       const updatedAccessToken = get().accessToken;
       localStorage.setItem("token", JSON.stringify(updatedAccessToken));
@@ -89,14 +108,12 @@ export const useStore = create((set, get) => ({
   },
 
   fetchLoggedInData: async (accessToken) => {
-    // const testToken = localStorage.getItem("token")
     try {
       const response = await fetch("http://localhost:8080/logged-in", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // prettier-ignore
-          "Authorization": accessToken, // testToken,
+          Authorization: accessToken,
         },
       });
       if (!response.ok) {
