@@ -1,22 +1,31 @@
 import { Link } from "react-router-dom";
+import Lottie from "lottie-react";
+
+import "../styles/Homepage.css";
+import homeAnimation from "../assets/home-animation.json";
 
 export const Homepage = () => {
   return (
-    <div>
-      <h1>Welcome to TOP secret saver!</h1>
-      <nav>
-        <ul>
-          <li>
+    <div className="home-container">
+      <h1>TOP secret saver!</h1>
+      <nav className="navigation">
+        <ul className="menu">
+          <li className="menu-item">
             <Link to="/signup">Sign up</Link>
           </li>
-          <li>
+          <li className="menu-item">
             <Link to="/login">Log in</Link>
           </li>
-          <li>
+          <li className="menu-item">
             <Link to="/secrets">Secrets</Link>
           </li>
         </ul>
       </nav>
+      <Lottie
+        animationData={homeAnimation}
+        loop={true}
+        className="homeAnimation"
+      />
     </div>
   );
 };
