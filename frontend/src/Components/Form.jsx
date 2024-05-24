@@ -11,6 +11,9 @@ export const Form = ({ action }) => {
 
   const REGISTER_URL =
     "https://project-auth-moonlight-flamingos.onrender.com/register";
+  
+    const LOGIN_URL =
+      "https://project-auth-moonlight-flamingos.onrender.com/login";
 
   const handleSubmit = (event) => {
     console.log("Form name:", action);
