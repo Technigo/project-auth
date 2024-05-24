@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Secrets = () => {
+  const navigate = useNavigate();
+
   const [secrets, setSecrets] = useState(null);
   useEffect(() => {
     const fetchSecrets = async () => {
@@ -10,9 +13,7 @@ export const Secrets = () => {
           "https://project-auth-lh3p.onrender.com/secrets",
           {
             headers: {
-              Authorization: `${accessToken}`,
-              credentials: "include", // Include the session cookie in the request to the backend
-              mode: "cors", // Ensure CORS is enabled
+              Authorization: accessToken,
             },
           }
         );
@@ -22,10 +23,11 @@ export const Secrets = () => {
         setSecrets(data.secret);
       } catch (error) {
         console.log(error);
+        navigate("/login");
       }
     };
     fetchSecrets();
-  }, []);
+  }, [navigate]);
 
   return (
     <>

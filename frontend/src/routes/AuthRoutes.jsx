@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom"
-import { SignupForm } from "../components/SignupForm";
+
+import { Homepage } from "../components/Homepage";
 import { LoginForm } from "../components/LoginForm";
-import {Homepage} from "../components/Homepage";
-import { Sessions } from "../components/Sessions";
 import { Secrets } from "../components/Secrets"
+import { SignupForm } from "../components/SignupForm";
 
 export const AuthRoutes = () => {
   return (
@@ -11,7 +11,6 @@ export const AuthRoutes = () => {
       <Route path="/" element={<Homepage />} />
       <Route path="/signup" element={<SignupForm />} />
       <Route path="/login" element={<LoginForm />} />
-      <Route path="/sessions" element={<Sessions />} />
       <Route path="/secrets" element={<Secrets />} />
     </Routes>
   );

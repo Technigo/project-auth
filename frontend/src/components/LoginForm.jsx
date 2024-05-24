@@ -8,6 +8,8 @@ export const LoginForm = () => {
     username: "",
     password: "",
   });
+  const [accessToken, setAccessToken] = useState("");
+  localStorage.setItem("accessToken", JSON.stringify(accessToken));
 
   const navigate = useNavigate();
 
@@ -26,8 +28,6 @@ export const LoginForm = () => {
         "https://project-auth-lh3p.onrender.com/login",
         {
           method: "POST",
-          credentials: "include", // Include the session cookie in the request to the backend
-          mode: "cors", // Ensure CORS is enabled
           headers: {
             "Content-Type": "application/json",
           },
@@ -36,8 +36,9 @@ export const LoginForm = () => {
       );
       if (!response.ok) throw new Error("Failed to login");
       console.log("succesful", response);
-
-      navigate("/sessions");
+      const userData = await response.json();
+      navigate("/secrets");
+      setAccessToken(userData.accessToken);
     } catch (error) {
       console.error("Error", error);
     } finally {
