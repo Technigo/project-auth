@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 //import
 import styled from "styled-components";
 
@@ -15,12 +16,16 @@ const StyledButton = styled.button`
   font-weight: 400;
   font-size: 1.25em;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   @media all and (min-width: 744px) {
     width: 450px;
   }
 `;
 
 //component
-export const Button = () => {
-  return <StyledButton>Sign In</StyledButton>;
+export const Button = ({ children, ...props }) => {
+  return <StyledButton {...props}>{children}</StyledButton>;
 };

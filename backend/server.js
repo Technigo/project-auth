@@ -13,9 +13,7 @@ mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
 //create schema and model
-
 const { Schema, model } = mongoose;
-
 const userSchema = new Schema({
   name: {
     type: String,
@@ -34,7 +32,6 @@ const userSchema = new Schema({
     default: () => crypto.randomBytes(128).toString("hex"),
   },
 });
-
 const User = model("User", userSchema);
 
 //defines the port the app will run on
@@ -61,13 +58,15 @@ const authenticateUser = async (req, res, next) => {
     req.user = user;
     next();
   } else {
-    res.status(401),
-      json({ loggedOut: true, message: "you have to log in to get access" });
+    res.status(401).json({
+      loggedOut: true,
+      message: "You have to log in to get access",
+    });
   }
 };
 
 //registration endpoint
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const salt = bcrypt.genSaltSync();
@@ -76,7 +75,7 @@ app.post("/register", (req, res) => {
       email,
       password: bcrypt.hashSync(password, salt),
     });
-    user.save();
+    await user.save();
     res.status(201).json({
       success: true,
       message: "User created",
@@ -92,34 +91,26 @@ app.post("/register", (req, res) => {
   }
 });
 
+//authenticated endpoint *super secret endpoint*
+app.get("/dashboard", authenticateUser, (req, res) => {
+  res.json({
+    secret: "This is the secret dashboard, only visible to logged-in users!",
+  });
+});
+
 //login endpoint
 app.post("/login", async (req, res) => {
   //find user by name
   const user = await User.findOne({ name: req.body.name });
   //check if password is correct
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    res.json({ userId: user._id, accessToken: user.accessToken });
-  } else {
-    res.status(401).json({ message: "user name or password invalid" });
-  }
-});
-
-//authenticated endpoint
-app.get("/dashboard", authenticateUser);
-app.get("/dashboard", (req, res) => {
-  res.json({
-    secret: "This is the secret dashboard!",
-  });
-});
-
-app.post("/login", async (req, res) => {
-  const user = await User.findOne({ name: req.body.name });
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
     //success
-    res.json({ userId: user._id, accessToken: user.accessToken });
+    res.status(200).json({ userId: user._id, accessToken: user.accessToken });
   } else {
     //failure
-    res.json({ notFound: true });
+    res
+      .status(401)
+      .json({ notFound: true, message: "Invalid name or password" });
   }
 });
 

@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 //imports
 import styled from "styled-components";
-import { Button } from "./Button";
 import { useState } from "react";
 
 //styling
@@ -19,7 +18,7 @@ const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 50px;
+  padding-top: 20px;
 
   @media all and (min-width: 744px) {
   }
@@ -32,7 +31,7 @@ const StyledInput = styled.input`
   background: var(--grey);
   border: none;
   border-radius: 30px;
-  padding: 10px 50px;
+  padding: 20px;
   height: 50px;
   margin: 20px;
   font-size: 1.1em;
@@ -58,6 +57,7 @@ export const Form = ({ title, handleSubmit }) => {
       <StyledForm onSubmit={onSubmit}>
         <StyledInput
           type="text"
+          name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Username"
@@ -65,12 +65,12 @@ export const Form = ({ title, handleSubmit }) => {
         />
         <StyledInput
           type="password"
+          name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           required
         />
-        <Button type="submit">{title}</Button>
       </StyledForm>
     </FormSection>
   );

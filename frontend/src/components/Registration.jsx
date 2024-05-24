@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Form } from "../reusables/Form";
 import { Header } from "../reusables/Header";
+import { Button } from "../reusables/Button";
 
 //styling
 const RegistrationContainer = styled.section`
@@ -46,8 +47,12 @@ export const Registration = () => {
       <Header />
       <FormWrapper>
         <Form />
+        <Button>Register</Button>
         <TextContainer>
           <p>If you already have an account, sign in on the</p>
+          <Link to={`/login`}>
+            <StyledTitle>Login here</StyledTitle>
+          </Link>
           <Link to={`/`}>
             <StyledTitle>Startpage</StyledTitle>
           </Link>
