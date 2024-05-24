@@ -1,0 +1,22 @@
+.footer-container {
+  position: fixed;
+  bottom: 0;
+  margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  background-color: #cbcbcb;
+  color: rgb(71, 70, 70);
+  width: 100%;
+}
+
+.footer-container p {
+  margin: 10px;
+  font-size: 0.85rem;
+}
+
+.logo {
+  height: 30px;
+}
