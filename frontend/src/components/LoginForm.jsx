@@ -27,6 +27,7 @@ export const LoginForm = () => {
         {
           method: "POST",
           credentials: "include", // Include the session cookie in the request to the backend
+          mode: "cors", // Ensure CORS is enabled
           headers: {
             "Content-Type": "application/json",
           },
@@ -34,7 +35,7 @@ export const LoginForm = () => {
         }
       );
       if (!response.ok) throw new Error("Failed to login");
-      console.log("succesful",response);
+      console.log("succesful", response);
 
       navigate("/sessions");
     } catch (error) {

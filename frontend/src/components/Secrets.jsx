@@ -11,6 +11,8 @@ export const Secrets = () => {
           {
             headers: {
               Authorization: `${accessToken}`,
+              credentials: "include", // Include the session cookie in the request to the backend
+              mode: "cors", // Ensure CORS is enabled
             },
           }
         );

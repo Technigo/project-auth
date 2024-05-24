@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import { BackHome } from "./BackHome";
 
 export const SignupForm = () => {
@@ -26,6 +27,7 @@ export const SignupForm = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            mode: 'cors', // Ensure CORS is enabled
           },
           body: JSON.stringify(formData),
         }
