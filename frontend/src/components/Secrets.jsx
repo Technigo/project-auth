@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import loading from "../assets/loading.json";
 import { BackHome } from "./BackHome";
 
-import "../styles/Secrets.css"
+import "../styles/Secrets.css";
 
 export const Secrets = () => {
   const navigate = useNavigate();
@@ -43,8 +43,10 @@ export const Secrets = () => {
       {error && <p>{error}</p>}
       {secrets ? (
         <div className="message-container">
+          <h2 className="greeting">
+            Hej {secrets.name} 👋 Check out your secret below!
+          </h2>
           <p>id: {secrets.id}</p>
-          <p>name: {secrets.name}</p>
           <p>secret: {secrets.message}</p>
           <button
             onClick={() => {
