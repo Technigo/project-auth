@@ -8,8 +8,6 @@ export const LoginForm = () => {
     username: "",
     password: "",
   });
-  const [accessToken, setAccessToken] = useState("");
-  localStorage.setItem("accessToken", JSON.stringify(accessToken));
 
   const navigate = useNavigate();
 
@@ -38,7 +36,7 @@ export const LoginForm = () => {
       console.log("succesful", response);
       const userData = await response.json();
       navigate("/secrets");
-      setAccessToken(userData.accessToken);
+      localStorage.setItem("accessToken", JSON.stringify(userData.accessToken));
     } catch (error) {
       console.error("Error", error);
     } finally {
