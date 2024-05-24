@@ -108,22 +108,29 @@ export const Form = ({
   const handleUsername = (e) => {
     console.log("Username: ", e.target.value);
     setUsername(e.target.value);
-    if (username.length <= 4) {
-      setUsernameLengthCheck(true);
-    } else {
+    if (e.target.value.length >= 4) {
       setUsernameLengthCheck(false);
+    } else {
+      setUsernameLengthCheck(true);
     }
   };
 
   const handlePassword = (e) => {
     console.log("PW: ", e.target.value);
     setPassword(e.target.value);
-    if (password.length <= 8) {
-      setPasswordLengthCheck(true);
-    } else {
+    if (e.target.value.length >= 8) {
       setPasswordLengthCheck(false);
+    } else {
+      setPasswordLengthCheck(true);
     }
   };
+
+  let disableButton = true;
+  if (usernameLengthCheck === true || passwordLengthCheck === true) {
+    disableButton = true;
+  } else {
+    disableButton = false;
+  }
 
   console.log("Display Message: ", displayMessage);
 
@@ -147,7 +154,7 @@ export const Form = ({
           <button
             action="Submit"
             type="submit"
-            disabled={usernameLengthCheck || passwordLengthCheck}
+            disabled={disableButton}
             onClick={handleSubmit}
           >
             Submit
@@ -164,6 +171,6 @@ Form.propTypes = {
   setIsLoggedIn: PropTypes.func,
   username: PropTypes.string,
   setUsername: PropTypes.func,
-  isRegistered:PropTypes.bool,
+  isRegistered: PropTypes.bool,
   setIsRegistered: PropTypes.func,
 };
