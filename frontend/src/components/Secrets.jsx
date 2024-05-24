@@ -20,7 +20,7 @@ export const Secrets = () => {
 
         if (!response.ok) throw new Error("Failed to fetch secrets", response);
         const data = await response.json();
-        setSecrets(data.secret);
+        setSecrets(data);
       } catch (error) {
         console.log(error);
         navigate("/login");
@@ -33,7 +33,9 @@ export const Secrets = () => {
     <>
       {secrets ? (
         <div>
-          <p>{secrets}</p>
+          <p>{secrets.id}</p>
+          <p>{secrets.name}</p>
+          <p>{secrets.message}</p>
         </div>
       ) : (
         <p>Loading...</p>

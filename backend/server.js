@@ -111,7 +111,11 @@ app.post("/login", async (req, res) => {
 // secrets - Authentication method 2 - by Token
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
-  res.json({ secret: "This is a super secret message" });
+  res.json({
+    id: req.user._id,
+    name: req.user.username,
+    message: "This is a super secret message",
+  });
 });
 
 // Start the server
