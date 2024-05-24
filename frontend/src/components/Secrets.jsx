@@ -50,7 +50,7 @@ export const Secrets = () => {
           <p>secret: {secrets.message}</p>
           <button
             onClick={() => {
-              localStorage.removeItem("accessToken");
+              localStorage.removeItem("access_token");
               navigate("/");
             }}
             className="signout-btn"
