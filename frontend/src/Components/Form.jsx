@@ -19,6 +19,19 @@ export const Form = ({ action }) => {
     console.log("Form name:", action);
     event.preventDefault();
 
+    if (action === "Sign Up") {  
+      handleRegistration();
+    }
+
+    if (action === "Sign in ") {
+      handleSignIn();
+    }
+
+    setUsername("");
+    setPassword("");
+  };
+
+  const handleRegistration = () => {
     // Register a new user
 
     const fetchOptions = {
@@ -36,9 +49,26 @@ export const Form = ({ action }) => {
       .catch((error) => {
         console.log(error);
       });
+  }
 
-    setUsername("");
-    setPassword("");
+  const handleSignIn = () => {
+    // Sign in user
+
+    const fetchOptions = {
+      method: "POST",
+      body: JSON.stringify({ username: username, password: password }),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    fetch(LOGIN_URL, fetchOptions)
+      .then((res) => res.json())
+      .then((loggedIn) => {
+        setAccess(loggedIn.accessToken);
+        console.log(access);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleUsername = (e) => {
