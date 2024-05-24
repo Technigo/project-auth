@@ -2,12 +2,28 @@ import { useStore } from "../store/useStore";
 import { Button } from "./Button";
 import { Headline } from "./Headline";
 import { TextInput } from "./TextInput";
+import { useState } from "react";
 
 export const Register = () => {
   const { formData, handleSubmitForm, handleChange } = useStore();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    try {
+      await handleSubmitForm(event);
+      // Redirect to /logged-in after successful login
+      window.location.href = "/logged-in";
+    } catch (error) {
+      console.error("Error logging in", error);
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <form onSubmit={handleSubmitForm}>
+    <form onSubmit={handleFormSubmit}>
       <div className="title-box">
         <Headline titleText={"Register"} />
         <div className="text-box">
@@ -100,7 +116,7 @@ export const Register = () => {
           handleChange("verifyingPassword", event.target.value)
         }
       />
-      <Button type={"submit"} btnText={"Sign up"} />
+      <Button type={"submit"} btnText={"Sign up"} disabled={isLoading} />
     </form>
   );
 };
