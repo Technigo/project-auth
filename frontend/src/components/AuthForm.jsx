@@ -41,6 +41,7 @@ const AuthForm = ({ login }) => {
       localStorage.setItem("access_token", JSON.stringify(data.accessToken));
       setTimeout(() => {
         navigate(`/${login ? "secrets" : "login"}`);
+        setMessage(null);
       }, 2000);
     } catch (error) {
       setMessage(error.message);
