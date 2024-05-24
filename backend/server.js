@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import expressListEndpoints from "express-list-endpoints";
+import mongoose from "mongoose";
 
 dotenv.config();
 const { Schema } = mongoose;
