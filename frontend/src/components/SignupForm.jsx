@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { BackHome } from "./BackHome";
 
@@ -8,7 +9,7 @@ export const SignupForm = () => {
     email: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const handleChange = e => {
     setFormData({
       ...formData,
@@ -27,13 +28,15 @@ export const SignupForm = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            mode: 'cors', // Ensure CORS is enabled
           },
           body: JSON.stringify(formData),
         }
       );
       if (!response.ok) throw new Error("Signup failed");
-      console.log("successful", formData);
+      const userData = await response.json();
+      console.log("successful", userData);
+      navigate("/secrets");
+      localStorage.setItem("accessToken", JSON.stringify(userData.accessToken));
     } catch (error) {
       console.error("Error", error);
     } finally {
