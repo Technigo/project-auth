@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../../styling/Auth.css";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -23,27 +24,35 @@ const Register = () => {
   };
 
   return (
-    <div className="registerContainer">
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
-        <label htmlFor="username">Username</label>
+    <div className="authContainer">
+      <h2 className="authTitle">Register</h2>
+      <form onSubmit={handleRegister} className="authForm">
+        <label htmlFor="username" className="authLabel">
+          Username
+        </label>
         <input
           type="text"
           id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          className="textInput"
         />
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" className="authLabel">
+          Password
+        </label>
         <input
           type="password"
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className="passwordInput"
         />
-        <button type="submit">Register</button>
-        {error & <p className="errorMessage">{error}</p>}
+        <button type="submit" className="authButton">
+          Register
+        </button>
+        {error && <p className="errorMessage">{error}</p>}
       </form>
     </div>
   );
