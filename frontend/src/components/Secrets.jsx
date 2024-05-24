@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import loading from "../assets/loading.json";
 import { BackHome } from "./BackHome";
 
+import "../styles/Secrets.css"
+
 export const Secrets = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
@@ -40,15 +42,16 @@ export const Secrets = () => {
       <BackHome />
       {error && <p>{error}</p>}
       {secrets ? (
-        <div>
-          <p>{secrets.id}</p>
-          <p>{secrets.name}</p>
-          <p>{secrets.message}</p>
+        <div className="message-container">
+          <p>id: {secrets.id}</p>
+          <p>name: {secrets.name}</p>
+          <p>secret: {secrets.message}</p>
           <button
             onClick={() => {
               localStorage.removeItem("accessToken");
               navigate("/");
             }}
+            className="signout-btn"
           >
             Sign out
           </button>

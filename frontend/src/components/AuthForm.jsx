@@ -23,6 +23,7 @@ const AuthForm = ({ login }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setMessage(null);
     try {
       const response = await fetch(
         `https://project-auth-lh3p.onrender.com/${login ? "login" : "signup"}`,
