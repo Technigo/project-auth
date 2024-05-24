@@ -2,6 +2,7 @@ import "./MainSection.css";
 import { Form } from "./Components/Form";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { SecretContent } from "./Components/SecretContent";
 
 export const MainSection = ({
   formSelect,
@@ -9,8 +10,11 @@ export const MainSection = ({
   setIsLoggedIn,
   isRegistered,
   setIsRegistered,
+  setFormSelect
 }) => {
   const [username, setUsername] = useState("");
+  const [displayMessageState, setDisplayMessageState] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   let showLogin = false;
   if (formSelect === "Log In") {
@@ -41,7 +45,14 @@ export const MainSection = ({
     <>
       <section className="main">
         {isLoggedIn ? (
-          "Logged in! "
+          <>
+            <p>Logged in!</p>
+            <SecretContent
+              setDisplayMessageState={setDisplayMessageState}
+              displayMessageState={displayMessageState}
+              setIsLoading={setIsLoading}
+            />
+          </>
         ) : showLogin ? (
           <>
             <h2>
@@ -56,6 +67,11 @@ export const MainSection = ({
               setIsRegistered={setIsRegistered}
               username={username}
               setUsername={setUsername}
+              setDisplayMessageState={setDisplayMessageState}
+              displayMessageState={displayMessageState}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+              setFormSelect={setFormSelect}
             />
           </>
         ) : (
@@ -72,6 +88,11 @@ export const MainSection = ({
               setIsRegistered={setIsRegistered}
               username={username}
               setUsername={setUsername}
+              setDisplayMessageState={setDisplayMessageState}
+              displayMessageState={displayMessageState}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+              setFormSelect={setFormSelect}
             />
           </>
         )}
@@ -86,4 +107,5 @@ MainSection.propTypes = {
   setIsLoggedIn: PropTypes.func,
   isRegistered: PropTypes.bool,
   setIsRegistered: PropTypes.func,
+  setFormSelect: PropTypes.func
 };

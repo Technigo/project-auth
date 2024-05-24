@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { Button } from "./Button";
 import "./Form.css";
 import Lottie from "lottie-react";
 import loading from "../assets/orange-loading.json";
@@ -13,12 +14,15 @@ export const Form = ({
   setIsRegistered,
   isLoggedIn,
   setIsLoggedIn,
+  setFormSelect,
+  displayMessageState,
+  setDisplayMessageState,
+  isLoading,
+  setIsLoading,
 }) => {
   const [password, setPassword] = useState("");
   const [usernameLengthCheck, setUsernameLengthCheck] = useState(true);
   const [passwordLengthCheck, setPasswordLengthCheck] = useState(true);
-  const [displayMessageState, setDisplayMessageState] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const REGISTER_URL =
     "https://project-auth-moonlight-flamingos.onrender.com/register";
@@ -131,15 +135,23 @@ export const Form = ({
           <h4>Loading ...</h4>
         </div>
       ) : displayText ? (
-        <div className="success">
-          <Lottie
-            animationData={success}
-            loop="false"
-            autoPlay
-            style={{ width: 200, height: 200 }}
+        <>
+          <div className="success">
+            <Lottie
+              animationData={success}
+              loop="false"
+              autoPlay
+              style={{ width: 200, height: 200 }}
+            />
+            {displayMessageState}
+          </div>
+
+          <Button
+            action="Log In"
+            setFormSelect={setFormSelect}
+            setIsRegistered={setIsRegistered}
           />
-          {displayMessageState}
-        </div>
+        </>
       ) : (
         <form>
           {action} <span>Form</span>
@@ -173,4 +185,9 @@ Form.propTypes = {
   setUsername: PropTypes.func,
   isRegistered: PropTypes.bool,
   setIsRegistered: PropTypes.func,
+  displayMessageState: PropTypes.string,
+  setDisplayMessageState: PropTypes.func,
+  isLoading: PropTypes.bool,
+  setIsLoading: PropTypes.func,
+  setFormSelect: PropTypes.string,
 };

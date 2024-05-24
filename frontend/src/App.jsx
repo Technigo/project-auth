@@ -17,6 +17,7 @@ export const App = () => {
       />
       <MainSection
         formSelect={formSelect}
+        setFormSelect={setFormSelect}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         isRegistered={isRegistered}
