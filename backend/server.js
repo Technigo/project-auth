@@ -45,7 +45,7 @@ const authenticateUser = async (req, res, next) => {
 // Add middlewares to enable cors and json body parsing
 app.use(
   cors({
-    origin: "https://team-peace-auth.netlify.app/",
+    origin: "https://team-peace-auth.netlify.app",
     methods: ["GET", "POST"],
   }) // Allow sending credentials from frontend to backend
 );
