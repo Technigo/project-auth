@@ -36,8 +36,9 @@ export const Form = ({
   const [access, setAccess] = useState("");
   const [usernameLengthCheck, setUsernameLengthCheck] = useState(true);
   const [passwordLengthCheck, setPasswordLengthCheck] = useState(true);
+  const [displayMessageState, setDisplayMessageState] = useState("");
 
-  let displayMessage = "";
+
 
   const REGISTER_URL =
     "https://project-auth-moonlight-flamingos.onrender.com/register";
@@ -74,7 +75,8 @@ export const Form = ({
       .then((loggedIn) => {
         setIsRegistered(true);
         console.log(loggedIn.message);
-        // displayMessage = loggedIn.message;
+        setDisplayMessageState(loggedIn.message);
+        
       })
       .catch((error) => {
         console.log(error);
@@ -132,15 +134,15 @@ export const Form = ({
     disableButton = false;
   }
 
-  console.log("Display Message: ", displayMessage);
+  console.log("Display Message State: ", displayMessageState);
 
   //Do we need a different form because we don't need handleUsername &PW for the login...
   return (
     <>
       {isRegistered ? (
-        //  {displayMessage}
-        "Registration Submitted"
+        displayMessageState
       ) : (
+        // "Registration Submitted"
         <form>
           {action} <span>Form</span>
           <li>
