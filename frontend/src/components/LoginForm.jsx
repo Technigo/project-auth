@@ -8,6 +8,7 @@ export const LoginForm = () => {
     username: "",
     password: "",
   });
+  const [message, setMessage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -32,13 +33,14 @@ export const LoginForm = () => {
           body: JSON.stringify(loginData),
         }
       );
-      if (!response.ok) throw new Error("Failed to login");
+      console.log(response);
+      if (!response.ok) throw new Error();
       console.log("succesful", response);
       const userData = await response.json();
       navigate("/secrets");
       localStorage.setItem("accessToken", JSON.stringify(userData.accessToken));
     } catch (error) {
-      console.error("Error", error);
+      setMessage(error.message);
     } finally {
       setLoginData({
         username: "",
@@ -73,6 +75,7 @@ export const LoginForm = () => {
         </label>
         <button type="submit">Login</button>
       </form>
+      {message && <p>{message}</p>}
     </>
   );
 };

@@ -20,7 +20,6 @@ export const SignupForm = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log(formData);
     try {
       const response = await fetch(
         "https://project-auth-lh3p.onrender.com/signup",
@@ -32,7 +31,9 @@ export const SignupForm = () => {
           body: JSON.stringify(formData),
         }
       );
-      if (!response.ok) throw new Error("Signup failed");
+      console.log(response);
+
+      if (!response.ok) throw new Error();
       const data = await response.json();
       setMessage(data.message);
       console.log("successful", data);
@@ -40,7 +41,7 @@ export const SignupForm = () => {
         navigate("/login");
       });
     } catch (error) {
-      console.error("Error", error);
+      setMessage(error.message);
     } finally {
       setFormData({
         username: "",

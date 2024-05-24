@@ -61,7 +61,6 @@ app.get("/", (req, res) => {
 app.post("/signup", async (req, res) => {
   try {
     const { username, email, password } = req.body;
-
     const user = new User({
       username,
       email,
@@ -100,13 +99,11 @@ app.post("/login", async (req, res) => {
       });
     }
   } catch (error) {
-    res
-      .status(400)
-      .json({
-        message: "Could not login. Something is wrong.",
-        success: false,
-        error: error.message,
-      });
+    res.status(400).json({
+      message: "Could not login. Something is wrong.",
+      success: false,
+      error: error.message,
+    });
   }
 });
 

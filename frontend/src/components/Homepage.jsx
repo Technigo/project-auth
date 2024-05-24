@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export const Homepage = () => {
   return (
@@ -12,8 +12,11 @@ export const Homepage = () => {
           <li>
             <Link to="/login">Log in</Link>
           </li>
+          <li>
+            <Link to="/secrets">Secrets</Link>
+          </li>
         </ul>
       </nav>
     </div>
   );
-}
+};
