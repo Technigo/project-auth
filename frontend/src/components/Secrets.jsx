@@ -20,6 +20,8 @@ export const Secrets = () => {
     const fetchSecrets = async () => {
       try {
         const accessToken = JSON.parse(localStorage.getItem("access_token"));
+        if (!accessToken)
+          throw new Error("Unauthorised access: please log in first.");
         const response = await fetch(
           "https://project-auth-lh3p.onrender.com/secrets",
           {
