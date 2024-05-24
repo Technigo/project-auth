@@ -33,6 +33,11 @@ export const Registration = ({ setIsRegistering }) => {
         setPassword("");
         /* setIsRegistered(true); */
         setIsLoading(false);
+
+        // Redirect to the sign-in form after successful registration
+        setTimeout(() => {
+          setIsRegistering(false);
+        }, 2000); // Redirect after 2 seconds
       } else {
         setMessage(result.message || "Registration failed!");
       }
