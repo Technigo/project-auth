@@ -1,15 +1,26 @@
-import {useState} from "react"
+import { useState } from "react";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { MainSection } from "./MainSection";
 
 export const App = () => {
   const [formSelect, setFormSelect] = useState("Sign Up");
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+
   return (
     <>
-      <Header formSelect={formSelect} setFormSelect={setFormSelect} />
-      <MainSection formSelect={formSelect} />
+      <Header
+        setFormSelect={setFormSelect}
+        isLoggedIn={isLoggedIn}
+        setIsRegistered={setIsRegistered}
+      />
+      <MainSection
+        formSelect={formSelect}
+        isLoggedIn={isLoggedIn}
+        isRegistered={isRegistered}
+        setIsRegistered={setIsRegistered}
+      />
       <Footer />
     </>
   );

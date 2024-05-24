@@ -1,12 +1,20 @@
 import "./MainSection.css";
 import { Form } from "./Components/Form";
 import PropTypes from "prop-types";
+import { useState } from 'react'
 
-export const MainSection = ({ formSelect }) => {
+export const MainSection = ({
+  formSelect,
+  isLoggedIn,
+  setIsLoggedIn,
+  isRegistered,
+  setIsRegistered,
+}) => {
   console.log("Inside Main:", formSelect);
 
-  let showLogin = false;
+  const [username, setUsername] = useState("");
 
+  let showLogin = false;
   if (formSelect === "Log In") {
     showLogin = true;
   } else {
@@ -18,13 +26,22 @@ export const MainSection = ({ formSelect }) => {
   return (
     <>
       <section className="main">
+        {localStorage.getItem("access_token") ? `Hej ${username}` : "not Hej"}
         {showLogin ? (
           <>
             <h2>
               Welcome Back! <br />
               Please log in here:
             </h2>
-            <Form action={"Log In"} />
+            <Form
+              action={"Log In"}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              isRegistered={isRegistered}
+              setIsRegistered={setIsRegistered}
+              username={username}
+              setUsername={setUsername}
+            />
           </>
         ) : (
           <>
@@ -32,7 +49,15 @@ export const MainSection = ({ formSelect }) => {
               Welcome to our Authentication Site. <br />
               Please sign up here:
             </h2>
-            <Form action={"Sign Up"} />
+            <Form
+              action={"Sign Up"}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              isRegistered={isRegistered}
+              setIsRegistered={setIsRegistered}       
+              username={username}
+              setUsername={setUsername}
+            />
           </>
         )}
       </section>
@@ -42,4 +67,8 @@ export const MainSection = ({ formSelect }) => {
 
 MainSection.propTypes = {
   formSelect: PropTypes.string,
+  isLoggedIn: PropTypes.bool,
+  setIsLoggedIn: PropTypes.func,
+  isRegistered: PropTypes.bool,
+  setIsRegistered: PropTypes.func,
 };

@@ -45,7 +45,7 @@ app.post("/register", async (req, res) => {
       password: bcrypt.hashSync(password, 10),
     });
     await user.save();
-    res.status(201).json({ id: user._id, accessToken: user.accessToken });
+    res.status(201).json({ message: "Registration Complete!", id: user._id, accessToken: user.accessToken });
   } catch (err) {
     res
       .status(400)
@@ -64,7 +64,7 @@ app.post("/login", async (req, res) => {
         res.status(202).json({
           id: user._id,
           username: user.username,
-          accessTokes: user.accessToken,
+          accessToken: user.accessToken,
         });
       } else {
         res.status(401).json({ message: "This password is incorrect." });
