@@ -12,7 +12,7 @@ export const Form = ({ action }) => {
   const REGISTER_URL =
     "https://project-auth-moonlight-flamingos.onrender.com/register";
   
-    const LOGIN_URL =
+  const LOGIN_URL =
       "https://project-auth-moonlight-flamingos.onrender.com/login";
 
   const handleSubmit = (event) => {
@@ -23,10 +23,9 @@ export const Form = ({ action }) => {
       handleRegistration();
     }
 
-    if (action === "Sign in ") {
+    if (action === "Log in ") {
       handleSignIn();
     }
-
     setUsername("");
     setPassword("");
   };
@@ -53,6 +52,7 @@ export const Form = ({ action }) => {
 
   const handleSignIn = () => {
     // Sign in user
+//Can we call both fetchOptions? If yes because the same do we only need it once?
 
     const fetchOptions = {
       method: "POST",
@@ -91,6 +91,7 @@ export const Form = ({ action }) => {
     }
   };
 
+  //Do we need a different form because we don't need handleUsername &PW for the login...
   return (
     <>
       <form>
@@ -98,7 +99,7 @@ export const Form = ({ action }) => {
         <li><label>Username:</label>
         <input value={username} onChange={handleUsername} /></li>
         <li><label>Password:</label>
-        <input value={password} onChange={handlePassword} /></li>
+        <input value={password} type="password" onChange={handlePassword} /></li>
         <button
           action="Submit"
           type="submit"

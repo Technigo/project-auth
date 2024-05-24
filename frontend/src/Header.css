@@ -18,6 +18,10 @@
   width: 40px;
 }
 
+p{
+  color: red;
+}
+
 .buttonstyle {
   font-family: Impact, "Arial Narrow Bold", sans-serif;
   border-radius: 20px;

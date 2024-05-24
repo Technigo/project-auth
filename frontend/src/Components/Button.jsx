@@ -1,19 +1,20 @@
 import PropTypes from "prop-types";
 
-export const Button = ({ action }) => {
+export const Button = ({ action, setFormSelect }) => {
   const handleSignUp = () => {
     console.log("Sign up:", action);
   };
 
   const handleSignIn = () => {
-    console.log("Sign in:", action);
+    console.log("Log in:", action);
   };
 
   const handleClick = (event) => {
+    setFormSelect(action);
     if (action === "Sign Up") {
       handleSignUp(event);
     }
-    if (action === "Sign In") {
+    if (action === "Log In") {
       handleSignIn(event);
     }
   };
@@ -29,4 +30,5 @@ export const Button = ({ action }) => {
 
 Button.propTypes = {
   action: PropTypes.string,
+  setFormSelect: PropTypes.string,
 };
