@@ -1,33 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useStore } from "../store/useStore";
 
-export const Session = ({ accessToken }) => {
-  const [message, setMessage] = useState("");
-
-  const fetchData = async (accessToken) => {
-    try {
-      const response = await fetch("http://localhost:8080/logged-in", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: accessToken,
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const result = await response.json();
-      setMessage(result.message);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+export const Session = () => {
+  const { formData, fetchLoggedInData } = useStore();
 
   useEffect(() => {
-    if (accessToken) {
-      fetchData(accessToken);
+    if (formData.accessToken) {
+      fetchLoggedInData(formData.accessToken);
     }
   }, []);
 
-  return <div>Session: You are logged in. {message}</div>;
+  return <div>Session: You are logged in. {formData.message}</div>;
 };

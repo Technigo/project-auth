@@ -1,64 +1,13 @@
+import { useStore } from "../store/useStore";
 import { Button } from "./Button";
 import { Headline } from "./Headline";
 import { TextInput } from "./TextInput";
-import { useState } from "react";
 
 export const Register = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    street: "",
-    postCode: "",
-    city: "",
-    username: "",
-    password: "",
-    verifyingPassword: "",
-  });
-
-  const handleChange = (fieldName, value) => {
-    setFormData({
-      ...formData,
-      [fieldName]: value,
-    });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    // Check if passwords match
-    if (formData.password !== formData.verifyingPassword) {
-      console.error("Passwords do not match");
-      return;
-    }
-
-    // Create the full address
-    const constructedAddress =
-      formData.street + formData.postCode + formData.city;
-
-    try {
-      const response = await fetch("http://localhost:8080/users", {
-        method: "POST",
-        body: JSON.stringify({
-          name: formData.name,
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-          address: constructedAddress,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const result = await response.json();
-      console.log(result);
-    } catch (error) {
-      console.error("Error adding new user:", error);
-    }
-  };
+  const { formData, handleSubmitForm, handleChange } = useStore();
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmitForm}>
       <div className="title-box">
         <Headline titleText={"Register"} />
         <div className="text-box">

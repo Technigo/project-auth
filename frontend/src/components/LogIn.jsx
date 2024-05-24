@@ -2,44 +2,14 @@ import { Button } from "./Button";
 import { Headline } from "./Headline";
 import { TextInput } from "./TextInput";
 import { Session } from "./Session";
-import { useState } from "react";
+import { useStore } from "../store/useStore";
 
 export const LogIn = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [accessToken, setAccessToken] = useState("");
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const response = await fetch("http://localhost:8080/sessions", {
-        method: "POST",
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const result = await response.json();
-      setAccessToken(result.accessToken);
-      console.log("accessToken: ", accessToken);
-    } catch (error) {
-      console.error("Error logging in", error);
-    }
-  };
-
-  const logOut = () => {
-    setAccessToken("");
-    window.location.reload();
-  };
+  const { formData, handleSubmitLogin, handleChange } = useStore();
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmitLogin}>
         <div className="title-box">
           <Headline titleText={"Log in"} />
           <div className="text-box">
@@ -52,8 +22,8 @@ export const LogIn = () => {
             inputType={"text"}
             inputName={"username"}
             placeholder={"Type your username"}
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            value={formData.username}
+            onChange={(event) => handleChange("username", event.target.value)}
           />
 
           <TextInput
@@ -61,14 +31,17 @@ export const LogIn = () => {
             inputType={"password"}
             inputName={"password"}
             placeholder={"Type your password"}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
+            value={formData.password}
+            onChange={(event) => handleChange("password", event.target.value)}
           />
         </div>
         <Button type={"submit"} btnText={"Log in"} />
       </form>
-      {accessToken ? <Session accessToken={accessToken} /> : ""}
-      {accessToken ? <Button onClick={logOut} btnText={"Sign out"} /> : ""}
+      {formData.accessToken ? (
+        <Session />
+      ) : (
+        ""
+      )}
     </>
   );
 };
