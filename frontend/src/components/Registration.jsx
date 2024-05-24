@@ -13,6 +13,21 @@ const RegistrationSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* min-height: 100vh; */
+
+  @media all and (min-width: 1024px) {
+    flex-direction: row;
+  }
+`;
+
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @media all and (min-width: 1024px) {
+    width: 50%;
+  }
 `;
 
 const StyledForm = styled.form`
@@ -37,9 +52,10 @@ const StyledInput = styled.input`
   height: 50px;
   margin: 10px;
   font-size: 1.1em;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
   @media all and (min-width: 744px) {
-    width: 450px;
+    width: 400px;
   }
 `;
 
@@ -90,50 +106,52 @@ export const Registration = () => {
   return (
     <RegistrationSection>
       <Header />
-      <StyledForm onSubmit={handleSubmit}>
-        <StyledInput
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Username"
-          aria-label="Name"
-          required
-        />
+      <FormWrapper>
+        <StyledForm onSubmit={handleSubmit}>
+          <StyledInput
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Username"
+            aria-label="Name"
+            required
+          />
 
-        <StyledInput
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-          aria-label="email"
-          required
-        />
+          <StyledInput
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+            aria-label="email"
+            required
+          />
 
-        <StyledInput
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Password"
-          aria-label="password"
-          required
-        />
-        {/* shows error message */}
-        {error && <p>Please try again!</p>}
-      </StyledForm>
-      <Button onClick={handleSubmit}>Register</Button>
-      <p>If you already have an account</p>
-      <Link to={`/login`}>
-        <h2>Login here</h2>
-      </Link>
-      <Link to={`/`}>
-        <p>Home</p>
-      </Link>
+          <StyledInput
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Password"
+            aria-label="password"
+            required
+          />
+          {/* shows error message */}
+          {error && <p>Please try again!</p>}
+        </StyledForm>
+        <Button onClick={handleSubmit}>Register</Button>
+        <p>If you already have an account</p>
+        <Link to={`/login`}>
+          <h2>Login here</h2>
+        </Link>
+        <Link to={`/`}>
+          <p>Home</p>
+        </Link>
+      </FormWrapper>
     </RegistrationSection>
   );
 };
