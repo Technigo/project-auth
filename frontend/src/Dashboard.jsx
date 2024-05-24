@@ -1,16 +1,38 @@
 import styled from "styled-components"
 import { SwitchLabel } from "./SwitchLabel"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const StyledSection = styled.div`
   background-color: #ffd5c5;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 20px;
   height: 100vh;
   padding: 128px 16px;
   gap: 16px;
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+  img {
+    width: 100px;
+    height: auto;
+    border-radius: 20px;
+  }
+  ul {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  li {
+    text-align: center;
+    padding: 5px;
+  }
+
   section {
     display: flex;
     align-items: center;
@@ -25,9 +47,10 @@ export const Dashboard = () => {
   const navigate = useNavigate()
   // Dummy data for adopted dogs
   const adoptedDogs = [
-    { id: 1, name: "Buddy" },
-    { id: 2, name: "Max" },
-    { id: 3, name: "Bella" },
+    { id: 1, name: "Buddy", img: "/dog4.jpg" },
+    { id: 2, name: "Max", img: "/dog3.jpg" },
+    { id: 3, name: "Bella", img: "/dog2.jpg" },
+    { id: 4, name: "Roy", img: "/rottie.jpg" },
   ]
   const handleLogOut = async () => {
     try {
@@ -65,16 +88,17 @@ export const Dashboard = () => {
 
   return (
     <StyledSection>
-      <h1>Your Adopted Dogs</h1>
+      <h1>Your Dogs 🐶</h1>
       <ul>
         {adoptedDogs.map((dog) => (
-          <li key={dog.id}>{dog.name}</li>
+          <div>
+            <li key={dog.id}>{dog.name}</li>
+            <img src={dog.img} alt="dog-image" />
+          </div>
         ))}
       </ul>
       <section>
-        <h2>Find a New Friend</h2>
-        <p>Explore our available dogs and find your new furry friend!</p>
-        <Link to="/">Rest of content coming soon...</Link>
+        <p>Rest of content coming soon...</p>
       </section>
       <SwitchLabelWrapper onChange={handleLogOut}>
         <SwitchLabel />
