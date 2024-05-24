@@ -6,11 +6,14 @@ export const Secrets = () => {
     const fetchSecrets = async () => {
       try {
         const accessToken = JSON.parse(localStorage.getItem("accessToken"));
-        const response = await fetch("http://localhost:8080/secrets", {
-          headers: {
-            Authorization: `${accessToken}`,
-          },
-        });
+        const response = await fetch(
+          "https://project-auth-lh3p.onrender.com/secrets",
+          {
+            headers: {
+              Authorization: `${accessToken}`,
+            },
+          }
+        );
 
         if (!response.ok) throw new Error("Failed to fetch secrets", response);
         const data = await response.json();

@@ -9,9 +9,12 @@ export const Sessions = () => {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const response = await fetch("http://localhost:8080/sessions", {
-          credentials: "include", // Include the session cookie in the request to the backend
-        });
+        const response = await fetch(
+          "https://project-auth-lh3p.onrender.com/sessions",
+          {
+            credentials: "include", // Include the session cookie in the request to the backend
+          }
+        );
 
         if (response.status === 401) navigate("/login"); // Send user back to login page if unauthorized
         if (!response.ok) throw new Error("Failed to fetch sessions", response);
