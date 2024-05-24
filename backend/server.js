@@ -3,10 +3,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import expressListEndpoints from "express-list-endpoints";
-import session from "express-session";
-import mongoose from "mongoose";
-import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
 
 dotenv.config();
 const { Schema } = mongoose;
@@ -32,62 +28,23 @@ const User = mongoose.model("User", userSchema);
 const port = process.env.PORT || 8080;
 const app = express();
 
-const authUser = async (username, password, done) => {
-  try {
-    const user = await User.findOne({ username });
-
-    if (user && bcrypt.compareSync(password, user.password)) {
-      return done(null, user);
-    } else {
-      return done("error comparing passwords", false);
-    }
-  } catch (error) {
-    return done("error logging in", false);
-  }
-};
-
-// Function for authenticate by session
-const checkAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.status(401).send();
-};
-
 // Function for authenticate by token
-const authToken = async (req, res, next) => {
+const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({ accessToken: req.header("Authorization") });
   if (user) {
     req.user = user;
     next();
   } else {
-    res
-      .status(401)
-      .json({ message: "You are not allowed to see our top secret message!" });
+    res.status(401).json({
+      Unauthorised: "You are not allowed to see our top secret message!",
+    });
   }
 };
 
-// Middleware for initializing session
-app.use(
-  session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: true,
-      httpOnly: true, // Make session cookie unavailable to read in frontend for security
-    },
-  })
-);
-// init passport on every route call
-app.use(passport.initialize());
-// allow passport to use "express-session"
-app.use(passport.session());
 // Add middlewares to enable cors and json body parsing
 app.use(
   cors({
     origin: "https://team-peace-auth.netlify.app/",
-    credentials: true,
     methods: ["GET", "POST"],
   }) // Allow sending credentials from frontend to backend
 );
@@ -101,22 +58,6 @@ app.get("/", (req, res) => {
 
 // Sign-up
 app.post("/signup", async (req, res) => {
-  //  if (!username || !email || !password) {
-  //    return res.status(400).json({ message: "All fields are required." });
-  //  }
-  //  if (username.length < 5) {
-  //    return res
-  //      .status(400)
-  //      .json({ message: "Username must be at least 5 characters long." });
-  //  }
-  //  if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
-  //    return res.status(400).json({ message: "Invalid email format." });
-  //  }
-  //  if (password.length < 8) {
-  //    return res
-  //      .status(400)
-  //      .json({ message: "Password must be at least 8 characters long." });
-  //  }
   try {
     const { username, email, password } = req.body;
     const user = new User({
@@ -131,45 +72,35 @@ app.post("/signup", async (req, res) => {
   } catch (error) {
     res
       .status(400)
-      .json({ message: "Could not sign up.", error: error.errors });
+      .json({ message: "Could not sign up.", error: error.message });
   }
 });
 
 // Log-in
-app.post("/login", (req, res, next) => {
-  passport.authenticate("local", (err, user) => {
-    if (err) return next(err);
-    if (!user) return res.status(401).end();
+app.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
 
-    req.logIn(user, err => {
-      if (err) return next(err);
-      return res.status(200).end();
-    });
-  })(req, res, next);
-});
-
-// sessions - Authentication method 1 - by session
-app.get("/sessions", checkAuthenticated, (req, res) => {
-  res.json({
-    ID: req.user._id,
-    name: req.user.username,
-    AccessToken: req.user.accessToken,
-  });
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(200).json({ id: user._id, accessToken: user.accessToken });
+    } else {
+      res.status(401).json({
+        message: "Invalid username or password.",
+        error: error.message,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ message: "Could not login.", error: error.message });
+  }
 });
 
 // secrets - Authentication method 2 - by Token
-app.get("/secrets", authToken);
+app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
   res.json({ secret: "This is a super secret message" });
 });
 
-passport.use(new LocalStrategy(authUser));
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-passport.deserializeUser((user, done) => {
-  done(null, user);
-});
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
