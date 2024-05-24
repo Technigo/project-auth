@@ -22,7 +22,6 @@ export const MainSection = ({
     showLogin = false;
   }
 
-
   console.log("Show Login inside main:", showLogin);
 
   return (
@@ -32,8 +31,10 @@ export const MainSection = ({
         <VerifyAccessToken
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}
-        /> 
-        {showLogin ? (
+        />
+        {localStorage.getItem("access_token") ? (
+          "Logged in! "
+        ) : showLogin ? (
           <>
             <h2>
               Welcome Back! <br />

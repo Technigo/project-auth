@@ -2,7 +2,8 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import "./Form.css";
 import Lottie from 'lottie-react'
-import animation from '../assets/orange-loading.json'
+import loading from '../assets/orange-loading.json'
+import success from '../assets/success-animation.json'
 
 
 
@@ -34,7 +35,7 @@ export const Form = ({
   setIsLoggedIn
 }) => {
   const [password, setPassword] = useState("");
-  const [access, setAccess] = useState("");
+ 
   const [usernameLengthCheck, setUsernameLengthCheck] = useState(true);
   const [passwordLengthCheck, setPasswordLengthCheck] = useState(true);
   const [displayMessageState, setDisplayMessageState] = useState("");
@@ -100,9 +101,7 @@ export const Form = ({
       .then((loggedIn) => {
         setIsLoading(false)
         setDisplayMessageState(loggedIn.message);
-        // setAccess(loggedIn.accessToken);
-        /* console.log("Accesstoken log in:", access); */
-        /* setUsername(loggedIn.username); */
+        setIsLoggedIn(true);
         console.log("Accesstoken log in username:", loggedIn.username);
         localStorage.setItem("access_token", loggedIn.accessToken);
       })
@@ -114,7 +113,6 @@ export const Form = ({
 
 
   const handleUsername = (e) => {
-    console.log("Username: ", e.target.value);
     setUsername(e.target.value);
     if (e.target.value.length >= 4) {
       setUsernameLengthCheck(false);
@@ -124,7 +122,6 @@ export const Form = ({
   };
 
   const handlePassword = (e) => {
-    console.log("PW: ", e.target.value);
     setPassword(e.target.value);
     if (e.target.value.length >= 8) {
       setPasswordLengthCheck(false);
@@ -148,14 +145,22 @@ export const Form = ({
        {isLoading ? (
   <div className="loading">
     <Lottie
-      animationData={animation}
+      animationData={loading}
       loop
       autoPlay
       style={{ width: 200, height: 200 }}
     /><h4>Loading ...</h4>
   </div>
     ) : isRegistered ? (
-      displayMessageState
+      <div className="success">
+      <Lottie
+      animationData={success}
+      loop="false"
+      autoPlay
+      style={{ width: 200, height: 200 }}
+    />
+      {displayMessageState}
+      </div>
     ) : (
         // "Registration Submitted"
         <form>
