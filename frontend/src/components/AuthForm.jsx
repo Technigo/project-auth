@@ -40,8 +40,8 @@ const AuthForm = ({ login }) => {
       setMessage(data.message);
       console.log("successful", data);
       setTimeout(() => {
-        navigate(`${login ? "secrets" : "login"}`);
-      }, 5000);
+        navigate(`/${login ? "secrets" : "login"}`);
+      }, 2000);
     } catch (error) {
       setMessage(error.message);
     } finally {
