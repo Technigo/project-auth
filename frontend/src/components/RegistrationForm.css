@@ -1,0 +1,73 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  width: 320px;
+}
+
+.input-wrapper {
+  margin-bottom: 15px;
+}
+
+.input-wrapper label {
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 8px;
+  border: 0.5px solid black;
+  border-radius: 5px;
+}
+
+button {
+  font-family: "Encode Sans Expanded", sans-serif;
+}
+
+.title {
+  font-family: "Gamja Flower", sans-serif;
+  color: white;
+  font-size: 36px;
+  text-align: center;
+}
+
+.register-button {
+  margin-top: 20px;
+  height: 30px;
+  border-radius: 40px;
+  border: none;
+  background-color: #d56e90;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.registration-links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-loading {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  margin: 6px auto;
+  background-color: rgba(209, 204, 192, 1);
+  color: black;
+}

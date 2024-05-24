@@ -1,0 +1,40 @@
+.unauthorized-message {
+  margin: 20px;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 300px;
+  margin: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+.unauthorized-message p {
+  padding-bottom: 10px;
+}
+
+.lottie {
+  width: 280px;
+}
+
+.user-message {
+  font-family: "Gamja Flower", sans-serif;
+  color: white;
+  font-size: 36px;
+  text-align: center;
+}
+
+.user-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}

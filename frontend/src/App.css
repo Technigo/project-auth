@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  background: rgb(252, 156, 210);
+  background: linear-gradient(
+    157deg,
+    rgba(252, 156, 210, 1) 16%,
+    rgba(254, 195, 228, 1) 49%,
+    rgba(241, 209, 227, 1) 78%
+  );
+  font-family: "Encode Sans Expanded", sans-serif;
+}
+
+button {
+  font-family: "Encode Sans Expanded", sans-serif;
+  margin-top: 20px;
+  height: 30px;
+  border-radius: 40px;
+  border: none;
+  background-color: #d56e90;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/*Common styling for back-links*/
+.back-link {
+  color: #d56e90;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}

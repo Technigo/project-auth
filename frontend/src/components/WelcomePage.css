@@ -1,0 +1,9 @@
+.buttons-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.title {
+  margin: 0 10px;
+}

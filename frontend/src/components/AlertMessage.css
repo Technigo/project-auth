@@ -1,0 +1,16 @@
+.alert-message {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  margin: 6px auto;
+}
+
+.background-error {
+  background-color: rgba(234, 134, 133, 1);
+  color: rgb(111, 3, 3);
+}
+
+.background-success {
+  background-color: rgba(29, 209, 161, 1);
+  color: rgb(6, 87, 67);
+}
