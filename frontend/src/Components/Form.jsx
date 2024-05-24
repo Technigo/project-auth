@@ -1,29 +1,9 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import "./Form.css";
-import Lottie from 'lottie-react'
-import loading from '../assets/orange-loading.json'
-import success from '../assets/success-animation.json'
-
-
-
-// export const verifyAccessToken = ({ isLoggedIn, setIsLoggedIn }) => {
-//   if (
-//     getAccessToken() &&
-//     getAccessToken() === !undefined &&
-//     getAccessToken() === !null
-//   ) {
-//     console.log("FOUND ACCESS TOKEN");
-//     setIsLoggedIn(true);
-//   } else {
-//     console.log("found nothing... sadness devours me...", getAccessToken());
-//     setIsLoggedIn(false);
-//   }
-//   console.log(getAccessToken());
-//   console.log("Verified access token: ", isLoggedIn);
-
-//   return isLoggedIn;
-// };
+import Lottie from "lottie-react";
+import loading from "../assets/orange-loading.json";
+import success from "../assets/success-animation.json";
 
 export const Form = ({
   username,
@@ -32,14 +12,13 @@ export const Form = ({
   isRegistered,
   setIsRegistered,
   isLoggedIn,
-  setIsLoggedIn
+  setIsLoggedIn,
 }) => {
   const [password, setPassword] = useState("");
- 
   const [usernameLengthCheck, setUsernameLengthCheck] = useState(true);
   const [passwordLengthCheck, setPasswordLengthCheck] = useState(true);
   const [displayMessageState, setDisplayMessageState] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const REGISTER_URL =
     "https://project-auth-moonlight-flamingos.onrender.com/register";
@@ -52,12 +31,12 @@ export const Form = ({
     event.preventDefault();
 
     if (action === "Sign Up") {
-      setIsLoading(true)
+      setIsLoading(true);
       handleRegistration();
     }
 
     if (action === "Log In") {
-      setIsLoading(true)
+      setIsLoading(true);
       handleSignIn();
     }
     setUsername("");
@@ -76,19 +55,17 @@ export const Form = ({
     fetch(REGISTER_URL, fetchOptions)
       .then((res) => res.json())
       .then((loggedIn) => {
-        setIsLoading(false)
+        setIsLoading(false);
         setIsRegistered(true);
-        console.log(loggedIn.message);
         setDisplayMessageState(loggedIn.message);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Somthing is wrong. Please check the error:", error);
       });
   };
 
   const handleSignIn = () => {
     // Sign in user
-    //Can we call both fetchOptions? If yes because the same do we only need it once?
 
     const fetchOptions = {
       method: "POST",
@@ -99,18 +76,15 @@ export const Form = ({
     fetch(LOGIN_URL, fetchOptions)
       .then((res) => res.json())
       .then((loggedIn) => {
-        setIsLoading(false)
+        setIsLoading(false);
         setDisplayMessageState(loggedIn.message);
         setIsLoggedIn(true);
-        console.log("Accesstoken log in username:", loggedIn.username);
         localStorage.setItem("access_token", loggedIn.accessToken);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Somthing is wrong. Please check the error:", error);
       });
   };
-
-
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -137,32 +111,36 @@ export const Form = ({
     disableButton = false;
   }
 
-  console.log("Display Message State: ", displayMessageState);
+  let displayText = true;
+  if (isRegistered === true || isLoggedIn === true) {
+    displayText = true;
+  } else {
+    displayText = false;
+  }
 
-  //Do we need a different form because we don't need handleUsername &PW for the login...
   return (
     <>
-       {isLoading ? (
-  <div className="loading">
-    <Lottie
-      animationData={loading}
-      loop
-      autoPlay
-      style={{ width: 200, height: 200 }}
-    /><h4>Loading ...</h4>
-  </div>
-    ) : isRegistered ? (
-      <div className="success">
-      <Lottie
-      animationData={success}
-      loop="false"
-      autoPlay
-      style={{ width: 200, height: 200 }}
-    />
-      {displayMessageState}
-      </div>
-    ) : (
-        // "Registration Submitted"
+      {isLoading ? (
+        <div className="loading">
+          <Lottie
+            animationData={loading}
+            loop
+            autoPlay
+            style={{ width: 200, height: 200 }}
+          />
+          <h4>Loading ...</h4>
+        </div>
+      ) : displayText ? (
+        <div className="success">
+          <Lottie
+            animationData={success}
+            loop="false"
+            autoPlay
+            style={{ width: 200, height: 200 }}
+          />
+          {displayMessageState}
+        </div>
+      ) : (
         <form>
           {action} <span>Form</span>
           <li>

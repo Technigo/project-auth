@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import "./Header.css";
 
-export const Header = ({ setFormSelect, setIsRegistered }) => {
+export const Header = ({ setFormSelect, setIsRegistered, isLoggedIn }) => {
   return (
     <section className="navigation">
       <div id="crypTech">
@@ -12,7 +12,7 @@ export const Header = ({ setFormSelect, setIsRegistered }) => {
         <h1>crypTech</h1>
       </div>
       <div className="buttons">
-        {localStorage.getItem("access_token") ? (
+        {isLoggedIn ? (
           <Button
             action="Log Out"
             setFormSelect={setFormSelect}
@@ -40,4 +40,5 @@ export const Header = ({ setFormSelect, setIsRegistered }) => {
 Header.propTypes = {
   setFormSelect: PropTypes.func,
   setIsRegistered: PropTypes.func,
+  isLoggedIn: PropTypes.bool,
 };

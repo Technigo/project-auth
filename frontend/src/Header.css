@@ -11,7 +11,7 @@
   align-items: center;
   gap: 20px;
   color: white;
-  font-family: "overpass"
+  font-family: "overpass";
 }
 
 #logo {
@@ -19,7 +19,6 @@
 }
 
 .buttonstyle {
-  font-family: Impact, "Arial Narrow Bold", sans-serif;
   border-radius: 20px;
   padding: 5px 10px;
   width: 100px;
@@ -28,4 +27,5 @@
 .buttons {
   display: flex;
   justify-content: space-evenly;
+  gap: 10px;
 }

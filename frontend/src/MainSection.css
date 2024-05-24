@@ -9,15 +9,10 @@
   align-items: center;
   color: white;
   gap: 2rem;
-
-  /*This would be scss so we would need to change everything to that if we want to currently the style for h2 is not registering because the folder is a normal css folder.*/
-
-
 }
-  .main > h2 {
-    font-family: "overpass";
-    font-size: 26px;
-  }
+.main > h2 {
+  font-size: 26px;
+}
 
 @media screen and (min-width: 768px) {
   .main {
@@ -25,10 +20,8 @@
     justify-content: space-evenly;
     align-items: center;
     gap: 0;
-
-    h2 {
-      font-size: 36px;
-    }
   }
-  
+  .main > h2 {
+    font-size: 36px;
+  }
 }

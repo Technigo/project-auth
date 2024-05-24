@@ -2,7 +2,6 @@ import "./MainSection.css";
 import { Form } from "./Components/Form";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { VerifyAccessToken } from "./Components/verifyAccessToken";
 
 export const MainSection = ({
   formSelect,
@@ -11,8 +10,6 @@ export const MainSection = ({
   isRegistered,
   setIsRegistered,
 }) => {
-  console.log("Inside Main:", formSelect);
-
   const [username, setUsername] = useState("");
 
   let showLogin = false;
@@ -22,17 +19,28 @@ export const MainSection = ({
     showLogin = false;
   }
 
-  console.log("Show Login inside main:", showLogin);
+  const verifyAccessToken = () => {
+    // Function to retrieve the access token from local storage
+    const getAccessToken = () => {
+      // const token = localStorage.getItem("access_token");
+      return localStorage.getItem("access_token");
+    };
+
+    const accessToken = getAccessToken();
+    if (accessToken && accessToken.length > 0) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  };
+
+  // Call the function to verify the access token
+  verifyAccessToken();
 
   return (
     <>
       <section className="main">
-        {/* {localStorage.getItem("access_token") ? `Hej ${username}` : "not Hej"} */}
-        <VerifyAccessToken
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
-        />
-        {localStorage.getItem("access_token") ? (
+        {isLoggedIn ? (
           "Logged in! "
         ) : showLogin ? (
           <>
