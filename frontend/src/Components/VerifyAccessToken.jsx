@@ -1,18 +1,22 @@
-import { Form } from "./Form";
-
 export const verifyAccessToken = ({ isLoggedIn, setIsLoggedIn }) => {
+  // Function to retrieve the access token from local storage
+
+  const getAccessToken = () => {
+    return localStorage.getItem("access_token");
+  };
+
   if (
-    Form.getAccessToken() &&
-    Form.getAccessToken() === !undefined &&
-    Form.getAccessToken() === !null
+    getAccessToken() &&
+    getAccessToken() === !undefined &&
+    getAccessToken() === !null
   ) {
     console.log("FOUND ACCESS TOKEN");
     setIsLoggedIn(true);
   } else {
-    console.log("found nothing... sadness devours me...", Form.getAccessToken());
+    console.log("found nothing... sadness devours me...", getAccessToken());
     setIsLoggedIn(false);
   }
-  console.log(Form.getAccessToken());
+  console.log(getAccessToken());
   console.log("Verified access token: ", isLoggedIn);
 
   return isLoggedIn;

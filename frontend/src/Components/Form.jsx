@@ -2,10 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import "./Form.css";
 
-// Function to retrieve the access token from local storage
-const getAccessToken = () => {
-  return localStorage.getItem("access_token");
-};
+
 
 // export const verifyAccessToken = ({ isLoggedIn, setIsLoggedIn }) => {
 //   if (
@@ -37,8 +34,6 @@ export const Form = ({
   const [usernameLengthCheck, setUsernameLengthCheck] = useState(true);
   const [passwordLengthCheck, setPasswordLengthCheck] = useState(true);
   const [displayMessageState, setDisplayMessageState] = useState("");
-
-
 
   const REGISTER_URL =
     "https://project-auth-moonlight-flamingos.onrender.com/register";
@@ -76,7 +71,6 @@ export const Form = ({
         setIsRegistered(true);
         console.log(loggedIn.message);
         setDisplayMessageState(loggedIn.message);
-        
       })
       .catch((error) => {
         console.log(error);
@@ -96,6 +90,7 @@ export const Form = ({
     fetch(LOGIN_URL, fetchOptions)
       .then((res) => res.json())
       .then((loggedIn) => {
+        setDisplayMessageState(loggedIn.message);
         setAccess(loggedIn.accessToken);
         console.log("Accesstoken log in:", access);
         setUsername(loggedIn.username);
