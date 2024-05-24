@@ -10,4 +10,4 @@ We were having some issues with setting the frontend functionallity up since we 
 ## View it live
 
 Backend: https://project-auth-moonlight-flamingos.onrender.com
-Frontend:
+Frontend: https://project-auth-moonlight-flamingos.netlify.app/
