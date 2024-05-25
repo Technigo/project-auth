@@ -1,64 +1,30 @@
+import { useStore } from "../store/useStore";
 import { Button } from "./Button";
 import { Headline } from "./Headline";
 import { TextInput } from "./TextInput";
 import { useState } from "react";
 
 export const Register = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    street: "",
-    postCode: "",
-    city: "",
-    username: "",
-    password: "",
-    verifyingPassword: "",
-  });
+  const { formData, handleSubmitForm, handleChange } = useStore();
+  const [isLoading, setIsLoading] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
-  const handleChange = (fieldName, value) => {
-    setFormData({
-      ...formData,
-      [fieldName]: value,
-    });
-  };
-
-  const handleSubmit = async (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
 
-    // Check if passwords match
-    if (formData.password !== formData.verifyingPassword) {
-      console.error("Passwords do not match");
-      return;
-    }
-
-    // Create the full address
-    const constructedAddress =
-      formData.street + formData.postCode + formData.city;
-
-    try {
-      const response = await fetch("http://localhost:8080/users", {
-        method: "POST",
-        body: JSON.stringify({
-          name: formData.name,
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-          address: constructedAddress,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const result = await response.json();
-      console.log(result);
-    } catch (error) {
-      console.error("Error adding new user:", error);
+    const success = await handleSubmitForm(event);
+    if (success) {
+      window.location.href = "/logged-in";
+    } else {
+      console.error("Error logging in");
+      setPasswordError(true);
+      setIsLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleFormSubmit}>
       <div className="title-box">
         <Headline titleText={"Register"} />
         <div className="text-box">
@@ -69,7 +35,6 @@ export const Register = () => {
           </p>
         </div>
       </div>
-
       <TextInput
         label={"Full name"}
         inputType={"text"}
@@ -86,7 +51,6 @@ export const Register = () => {
         value={formData.email}
         onChange={(event) => handleChange("email", event.target.value)}
       />
-
       <fieldset>
         <legend>Address</legend>
         <TextInput
@@ -122,7 +86,6 @@ export const Register = () => {
           </div>
         </div>
       </fieldset>
-
       <TextInput
         label={"Username"}
         inputType={"text"}
@@ -131,7 +94,6 @@ export const Register = () => {
         value={formData.username}
         onChange={(event) => handleChange("username", event.target.value)}
       />
-
       <TextInput
         label={"Password"}
         inputType={"password"}
@@ -140,7 +102,6 @@ export const Register = () => {
         value={formData.password}
         onChange={(event) => handleChange("password", event.target.value)}
       />
-
       <TextInput
         label={"Verifying password"}
         inputType={"password"}
@@ -151,8 +112,8 @@ export const Register = () => {
           handleChange("verifyingPassword", event.target.value)
         }
       />
-
-      <Button type={"submit"} btnText={"Sign up"} />
+      {passwordError && <p>Passwords do not match</p>}
+      <Button type={"submit"} btnText={"Sign up"} disabled={isLoading} />
     </form>
   );
 };

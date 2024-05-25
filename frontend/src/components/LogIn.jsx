@@ -1,45 +1,30 @@
 import { Button } from "./Button";
 import { Headline } from "./Headline";
 import { TextInput } from "./TextInput";
-import { Session } from "./Session";
+import { useStore } from "../store/useStore";
 import { useState } from "react";
 
 export const LogIn = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [accessToken, setAccessToken] = useState("");
+  const { formData, handleSubmitLogin, handleChange } = useStore();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/sessions", {
-        method: "POST",
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const result = await response.json();
-      setAccessToken(result.accessToken);
-      console.log("accessToken: ", accessToken);
+      await handleSubmitLogin(event);
+      // Redirect to /logged-in after successful login
+      window.location.href = "/logged-in";
     } catch (error) {
       console.error("Error logging in", error);
+      setIsLoading(false);
     }
-  };
-
-  const logOut = () => {
-    setAccessToken("");
-    window.location.reload();
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleFormSubmit}>
         <div className="title-box">
           <Headline titleText={"Log in"} />
           <div className="text-box">
@@ -52,8 +37,8 @@ export const LogIn = () => {
             inputType={"text"}
             inputName={"username"}
             placeholder={"Type your username"}
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            value={formData.username}
+            onChange={(event) => handleChange("username", event.target.value)}
           />
 
           <TextInput
@@ -61,14 +46,12 @@ export const LogIn = () => {
             inputType={"password"}
             inputName={"password"}
             placeholder={"Type your password"}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
+            value={formData.password}
+            onChange={(event) => handleChange("password", event.target.value)}
           />
         </div>
-        <Button type={"submit"} btnText={"Log in"} />
+        <Button type={"submit"} btnText={"Log in"} disabled={isLoading} />
       </form>
-      {accessToken ? <Session accessToken={accessToken} /> : ""}
-      {accessToken ? <Button onClick={logOut} btnText={"Sign out"} /> : ""}
     </>
   );
 };
