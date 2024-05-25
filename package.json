@@ -2,7 +2,8 @@
   "name": "project-auth-parent",
   "version": "1.0.0",
   "scripts": {
-    "postinstall": "npm install --prefix backend"
+    "postinstall": "npm install --prefix backend",
+    "build": "npm run build --prefix frontend"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
