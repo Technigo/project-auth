@@ -4,7 +4,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 310px;
+  width: 95%;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.443);
+  box-shadow: 2px 2px 20px 10px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  top: 0;
+  left: 0;
+  border: 2px solid white;
+  padding-bottom: 45px; 
 }
 
 .nav {
@@ -13,4 +23,12 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+}
+
+/* TABLET SCREENS min 745px ------------------------------------------------------------ */
+
+@media (min-width:745px){ 
+  .home-page-container {
+    width: 500px;
+  }
 }

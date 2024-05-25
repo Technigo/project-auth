@@ -21,5 +21,15 @@ code {
 body {
   margin: 0;
   width: 100%;
+  background-image: url("/keys-wall.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: 350%;
 }
 
+/* TABLET SCREENS min 745px ------------------------------------------------------------ */
+
+@media (min-width:745px){ 
+  body {
+  }
+}
