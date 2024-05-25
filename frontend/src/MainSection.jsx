@@ -3,6 +3,8 @@ import { Form } from "./Components/Form";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { SecretContent } from "./Components/SecretContent";
+import Lottie from "lottie-react";
+import success from "./assets/success-animation.json";
 
 export const MainSection = ({
   formSelect,
@@ -48,7 +50,16 @@ export const MainSection = ({
       <section className="main">
         {isLoggedIn ? (
           <>
-            <p>Logged in!</p>
+            <div className="success">
+              <Lottie
+                animationData={success}
+                loop="false"
+                autoPlay
+                style={{ width: 200, height: 200 }}
+              />
+              <p>Logged in!</p>
+            </div>
+
             <SecretContent
               setDisplayMessageState={setDisplayMessageState}
               displayMessageState={displayMessageState}
