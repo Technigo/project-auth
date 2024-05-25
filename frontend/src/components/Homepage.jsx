@@ -39,19 +39,18 @@ const BottomForm = styled.div`
   position: fixed;
   z-index: 0;
   bottom: 0;
-  width: 520px;
-  height: 260px;
-  border-radius: 260px 260px 0 0;
-
+  width: 280px;
+  height: 140px;
+  border-radius: 140px 140px 0 0;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 
   @media all and (min-width: 744px) {
-    width: 520px;
-    height: 260px;
-    border-radius: 260px 260px 0 0;
+    width: 400px;
+    height: 200px;
+    border-radius: 200px 200px 0 0;
   }
 `;
 
@@ -73,9 +72,7 @@ export const Homepage = () => {
       <Link to={`/registration`}>
         <ActionButton>Take action</ActionButton>
       </Link>
-      <BottomForm>
-        <p>Our Slogan goes here</p>
-      </BottomForm>
+      <BottomForm />
     </StyledSection>
   );
 };

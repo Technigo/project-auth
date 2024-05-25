@@ -60,9 +60,15 @@ const FormText = styled.p`
   padding: 0 20px;
 `;
 
+const ErrorText = styled.p`
+  color: var(--lightgreen);
+  font-size: 0.9em;
+  margin-top: -10px;
+`;
+
 //component
 export const Registration = () => {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({});
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -76,10 +82,41 @@ export const Registration = () => {
       ...formData,
       [name]: value,
     });
+    setError({
+      ...error,
+      [name]: "",
+      general: "",
+    });
+  };
+
+  const validateEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const newErrors = {};
+    if (!formData.name) {
+      newErrors.name = "Username is required";
+    }
+
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = "Invalid email format";
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setError(newErrors);
+      return;
+    }
+
     try {
       const response = await fetch(`${API_KEY}/register`, {
         method: "POST",
@@ -119,6 +156,8 @@ export const Registration = () => {
             aria-label="Name"
             required
           />
+          {/* show error message */}
+          {error.name && <ErrorText>{error.name}</ErrorText>}
 
           <StyledInput
             type="email"
@@ -130,6 +169,8 @@ export const Registration = () => {
             aria-label="email"
             required
           />
+          {/* show error message */}
+          {error.email && <ErrorText>{error.email}</ErrorText>}
 
           <StyledInput
             type="password"
@@ -141,8 +182,9 @@ export const Registration = () => {
             aria-label="password"
             required
           />
-          {/* shows error message */}
-          {error && <p>Please try again!</p>}
+          {/* show error message */}
+          {error.password && <ErrorText>{error.password}</ErrorText>}
+          {error.general && <ErrorText>{error.general}</ErrorText>}
         </StyledForm>
         <Button onClick={handleSubmit}>Register</Button>
         <FormText>If you already have an account👇</FormText>
