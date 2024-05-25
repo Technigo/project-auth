@@ -3,10 +3,11 @@ import { useStore } from "../store/useStore";
 import { Navigate } from "react-router-dom";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
-import "../styling/Session.css"
+import "../styling/Session.css";
 
 export const Session = () => {
-  const { message, fetchLoggedInData, resetState } = useStore();
+  const { message, fetchLoggedInData, resetSignUpData, resetLoginData } =
+    useStore();
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [text, setText] = useState("");
   const [error, setError] = useState(false);
@@ -35,7 +36,8 @@ export const Session = () => {
         "The username or password is incorrect. Please try signing in again."
       );
       localStorage.clear();
-      resetState();
+      resetSignUpData();
+      resetLoginData();
     } else {
       setText("You are not signed in.");
     }
@@ -43,7 +45,8 @@ export const Session = () => {
 
   const signOut = () => {
     localStorage.clear();
-    resetState();
+    resetSignUpData();
+    resetLoginData();
     setShouldRedirect(true);
   };
 
@@ -55,7 +58,13 @@ export const Session = () => {
     <div className="session-container">
       {message && <h1>{message}</h1>}
       <p className="session-in-text">{text}</p>
-      {message && <Button className="session-in-button" onClick={signOut} btnText={"Sign out"} />}
+      {message && (
+        <Button
+          className="session-in-button"
+          onClick={signOut}
+          btnText={"Sign out"}
+        />
+      )}
       {!message && (
         <Link to="/">
           <Button btnText={"Back to Login"} />

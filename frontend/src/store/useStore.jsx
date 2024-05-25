@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export const useStore = create((set, get) => ({
-  formData: {
+  signUpData: {
     name: "",
     email: "",
     street: "",
@@ -11,12 +11,18 @@ export const useStore = create((set, get) => ({
     password: "",
     verifyingPassword: "",
   },
+
+  loginData: {
+    username: "",
+    password: "",
+  },
+
   accessToken: "",
   message: "",
 
-  resetState: () =>
+  resetSignUpData: () =>
     set({
-      formData: {
+      signUpData: {
         name: "",
         email: "",
         street: "",
@@ -26,17 +32,23 @@ export const useStore = create((set, get) => ({
         password: "",
         verifyingPassword: "",
       },
-      accessToken: "",
-      message: "",
+    }),
+
+  resetLoginData: () =>
+    set({
+      loginData: {
+        username: "",
+        password: "",
+      },
     }),
 
   handleSubmitForm: async (event) => {
     event.preventDefault();
-    const { formData } = get();
+    const { signUpData } = get();
     const constructedAddress =
-      formData.street + formData.postCode + formData.city;
+      signUpData.street + signUpData.postCode + signUpData.city;
 
-    if (formData.password !== formData.verifyingPassword) {
+    if (signUpData.password !== signUpData.verifyingPassword) {
       console.error("Passwords do not match");
       return false;
     }
@@ -44,10 +56,10 @@ export const useStore = create((set, get) => ({
       const response = await fetch("http://localhost:8080/users", {
         method: "POST",
         body: JSON.stringify({
-          name: formData.name,
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
+          name: signUpData.name,
+          username: signUpData.username,
+          email: signUpData.email,
+          password: signUpData.password,
           address: constructedAddress,
         }),
         headers: { "Content-Type": "application/json" },
@@ -58,7 +70,7 @@ export const useStore = create((set, get) => ({
       const result = await response.json();
       set((state) => ({ ...state, accessToken: result.accessToken }));
       const updatedAccessToken = get().accessToken;
-      const updatedUsername = get().formData.username;
+      const updatedUsername = get().signUpData.username;
       localStorage.setItem("token", JSON.stringify(updatedAccessToken));
       localStorage.setItem("username", JSON.stringify(updatedUsername));
       return true;
@@ -68,10 +80,19 @@ export const useStore = create((set, get) => ({
     }
   },
 
-  handleChange: (fieldName, value) => {
+  handleSignUpChange: (fieldName, value) => {
     set((state) => ({
-      formData: {
-        ...state.formData,
+      signUpData: {
+        ...state.signUpData,
+        [fieldName]: value,
+      },
+    }));
+  },
+
+  handleLoginChange: (fieldName, value) => {
+    set((state) => ({
+      loginData: {
+        ...state.loginData,
         [fieldName]: value,
       },
     }));
@@ -79,13 +100,13 @@ export const useStore = create((set, get) => ({
 
   handleSubmitLogin: async (event) => {
     event.preventDefault();
-    const { formData } = get();
+    const { loginData } = get();
     try {
       const response = await fetch("http://localhost:8080/sessions", {
         method: "POST",
         body: JSON.stringify({
-          username: formData.username,
-          password: formData.password,
+          username: loginData.username,
+          password: loginData.password,
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -98,7 +119,7 @@ export const useStore = create((set, get) => ({
         accessToken: result.accessToken,
       }));
       const updatedAccessToken = get().accessToken;
-      const updatedUsername = get().formData.username;
+      const updatedUsername = get().loginData.username;
       localStorage.setItem("token", JSON.stringify(updatedAccessToken));
       localStorage.setItem("username", JSON.stringify(updatedUsername));
     } catch (error) {
