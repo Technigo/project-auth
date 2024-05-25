@@ -3,6 +3,7 @@ import { useStore } from "../store/useStore";
 import { Navigate } from "react-router-dom";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
+import "../styling/Session.css"
 
 export const Session = () => {
   const { message, fetchLoggedInData, resetState } = useStore();
@@ -51,10 +52,10 @@ export const Session = () => {
   }
 
   return (
-    <div>
+    <div className="session-container">
       {message && <h1>{message}</h1>}
-      {text}
-      {message && <Button onClick={signOut} btnText={"Sign out"} />}
+      <p className="session-in-text">{text}</p>
+      {message && <Button className="session-in-button" onClick={signOut} btnText={"Sign out"} />}
       {!message && (
         <Link to="/">
           <Button btnText={"Back to Login"} />

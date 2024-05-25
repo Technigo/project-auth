@@ -106,7 +106,7 @@ export const Register = () => {
         label={"Verifying password"}
         inputType={"password"}
         inputName={"verifyingPassword"}
-        placeholder={"Type your password"}
+        placeholder={"Re-enter your password"}
         value={formData.verifyingPassword}
         onChange={(event) =>
           handleChange("verifyingPassword", event.target.value)
