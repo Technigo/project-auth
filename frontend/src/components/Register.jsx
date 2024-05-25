@@ -7,17 +7,18 @@ import { useState } from "react";
 export const Register = () => {
   const { formData, handleSubmitForm, handleChange } = useStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
 
-    try {
-      await handleSubmitForm(event);
-      // Redirect to /logged-in after successful login
+    const success = await handleSubmitForm(event);
+    if (success) {
       window.location.href = "/logged-in";
-    } catch (error) {
-      console.error("Error logging in", error);
+    } else {
+      console.error("Error logging in");
+      setPasswordError(true);
       setIsLoading(false);
     }
   };
@@ -34,7 +35,6 @@ export const Register = () => {
           </p>
         </div>
       </div>
-
       <TextInput
         label={"Full name"}
         inputType={"text"}
@@ -51,7 +51,6 @@ export const Register = () => {
         value={formData.email}
         onChange={(event) => handleChange("email", event.target.value)}
       />
-
       <fieldset>
         <legend>Address</legend>
         <TextInput
@@ -87,7 +86,6 @@ export const Register = () => {
           </div>
         </div>
       </fieldset>
-
       <TextInput
         label={"Username"}
         inputType={"text"}
@@ -96,7 +94,6 @@ export const Register = () => {
         value={formData.username}
         onChange={(event) => handleChange("username", event.target.value)}
       />
-
       <TextInput
         label={"Password"}
         inputType={"password"}
@@ -105,7 +102,6 @@ export const Register = () => {
         value={formData.password}
         onChange={(event) => handleChange("password", event.target.value)}
       />
-
       <TextInput
         label={"Verifying password"}
         inputType={"password"}
@@ -116,6 +112,7 @@ export const Register = () => {
           handleChange("verifyingPassword", event.target.value)
         }
       />
+      {passwordError && <p>Passwords do not match</p>}
       <Button type={"submit"} btnText={"Sign up"} disabled={isLoading} />
     </form>
   );

@@ -32,17 +32,14 @@ export const useStore = create((set, get) => ({
 
   handleSubmitForm: async (event) => {
     event.preventDefault();
-    console.log("inside submitForm");
-
     const { formData } = get();
     const constructedAddress =
       formData.street + formData.postCode + formData.city;
 
     if (formData.password !== formData.verifyingPassword) {
       console.error("Passwords do not match");
-      return;
+      return false;
     }
-
     try {
       const response = await fetch("http://localhost:8080/users", {
         method: "POST",
@@ -59,13 +56,15 @@ export const useStore = create((set, get) => ({
         throw new Error("Network response was not ok");
       }
       const result = await response.json();
-      console.log(result);
       set((state) => ({ ...state, accessToken: result.accessToken }));
-      console.log(result);
       const updatedAccessToken = get().accessToken;
+      const updatedUsername = get().formData.username;
       localStorage.setItem("token", JSON.stringify(updatedAccessToken));
+      localStorage.setItem("username", JSON.stringify(updatedUsername));
+      return true;
     } catch (error) {
       console.error("Error adding new user:", error);
+      return false;
     }
   },
 
@@ -80,7 +79,6 @@ export const useStore = create((set, get) => ({
 
   handleSubmitLogin: async (event) => {
     event.preventDefault();
-    console.log("inside submitLogin");
     const { formData } = get();
     try {
       const response = await fetch("http://localhost:8080/sessions", {
@@ -99,9 +97,10 @@ export const useStore = create((set, get) => ({
         ...state,
         accessToken: result.accessToken,
       }));
-      console.log(result);
       const updatedAccessToken = get().accessToken;
+      const updatedUsername = get().formData.username;
       localStorage.setItem("token", JSON.stringify(updatedAccessToken));
+      localStorage.setItem("username", JSON.stringify(updatedUsername));
     } catch (error) {
       console.error("Error logging in", error);
     }

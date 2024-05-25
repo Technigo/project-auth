@@ -97,7 +97,7 @@ app.post("/users", async (req, res) => {
 
 app.get("/logged-in", authenticateUser);
 app.get("/logged-in", (req, res) => {
-  res.json({ message: "Only registered users can see this message" });
+  res.json({ message: "You are signed in." });
 });
 
 app.post("/sessions", async (req, res) => {

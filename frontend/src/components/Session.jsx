@@ -8,36 +8,43 @@ export const Session = () => {
   const { message, fetchLoggedInData, resetState } = useStore();
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [text, setText] = useState("");
+  const [error, setError] = useState(false);
+  let user = localStorage.getItem("username");
+  if (user) {
+    user = user.replace(/^"(.*)"$/, "$1");
+  }
 
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("token");
-    if (storedAccessToken === null) {
-      console.log("this should redirect to login page");
-      setShouldRedirect(true);
-    } else {
-      try {
-        const parsedToken = JSON.parse(storedAccessToken);
-        console.log("Parsed token:", parsedToken);
-        fetchLoggedInData(parsedToken);
-      } catch (error) {
-        console.error("Error parsing token:", error);
-        setShouldRedirect(true);
-      }
+    try {
+      const parsedToken = JSON.parse(storedAccessToken);
+      fetchLoggedInData(parsedToken);
+    } catch (err) {
+      setError(true);
+      console.error("Error parsing token:", err);
     }
   }, [fetchLoggedInData]);
+
+  useEffect(() => {
+    if (message) {
+      setText(`Welcome, ${user}! We're so happy to see you!`);
+      setError(false);
+    } else if (error) {
+      setText(
+        "The username or password is incorrect. Please try signing in again."
+      );
+      localStorage.clear();
+      resetState();
+    } else {
+      setText("You are not signed in.");
+    }
+  }, [message, error]);
 
   const signOut = () => {
     localStorage.clear();
     resetState();
+    setShouldRedirect(true);
   };
-
-  useEffect(() => {
-    if (message) {
-      setText(`Welcome! We're so happy to see you!`);
-    } else {
-      setText("You are not signed in.");
-    }
-  }, [message]);
 
   if (shouldRedirect) {
     return <Navigate replace to="/" />;
@@ -45,6 +52,7 @@ export const Session = () => {
 
   return (
     <div>
+      {message && <h1>{message}</h1>}
       {text}
       {message && <Button onClick={signOut} btnText={"Sign out"} />}
       {!message && (
