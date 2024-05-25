@@ -158,12 +158,17 @@ export const Form = ({
             {action} <span>Form</span>
           </div>
           <div>
-            <label>Username:</label>
-            <input value={username} onChange={handleUsername} />
+            <label htmlFor="username">Username:</label>
+            <input id="username" value={username} onChange={handleUsername} />
           </div>
           <div>
-            <label>Password:</label>
-            <input value={password} type="password" onChange={handlePassword} />
+            <label htmlFor="password">Password:</label>
+            <input
+              id="password"
+              value={password}
+              type="password"
+              onChange={handlePassword}
+            />
           </div>
           <button
             action="Submit"
