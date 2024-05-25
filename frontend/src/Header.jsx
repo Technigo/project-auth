@@ -4,7 +4,12 @@ import PropTypes from "prop-types";
 
 import "./Header.css";
 
-export const Header = ({ setFormSelect, setIsRegistered, isLoggedIn }) => {
+export const Header = ({
+  setFormSelect,
+  setIsRegistered,
+  isLoggedIn,
+  setIsLoggedIn,
+}) => {
   return (
     <section className="navigation">
       <div id="crypTech">
@@ -17,6 +22,7 @@ export const Header = ({ setFormSelect, setIsRegistered, isLoggedIn }) => {
             action="Log Out"
             setFormSelect={setFormSelect}
             setIsRegistered={setIsRegistered}
+            setIsLoggedIn={setIsLoggedIn}
           />
         ) : (
           <>
@@ -24,11 +30,13 @@ export const Header = ({ setFormSelect, setIsRegistered, isLoggedIn }) => {
               action="Sign Up"
               setFormSelect={setFormSelect}
               setIsRegistered={setIsRegistered}
+              setIsLoggedIn={setIsLoggedIn}
             />
             <Button
               action="Log In"
               setFormSelect={setFormSelect}
               setIsRegistered={setIsRegistered}
+              setIsLoggedIn={setIsLoggedIn}
             />
           </>
         )}
@@ -41,4 +49,5 @@ Header.propTypes = {
   setFormSelect: PropTypes.func,
   setIsRegistered: PropTypes.func,
   isLoggedIn: PropTypes.bool,
+  setIsLoggedIn: PropTypes.func,
 };

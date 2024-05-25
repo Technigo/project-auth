@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
       }
       if (endpoint.path === "/login") {
         endpoint.query = {
-          description: `In this endpoint you can login in a user with a POST request. Please sende the users password and username in a JSON file to log in and acces the token for the user.`,
+          description: `In this endpoint you can login in a user with a POST request. Please send the users password and username in a JSON file to log in and acces the token for the user.`,
         };
       }
       if (endpoint.path === "/secrets") {
@@ -150,7 +150,7 @@ app.post("/login", async (req, res) => {
 //Secrets Endpoint
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
-  res.json({ secret: `Super secrets... nobody will know.` });
+  res.json({ secret: `Super secrets... nobody will know. Well other signed in people will know I guess...` });
 });
 
 // Start the server

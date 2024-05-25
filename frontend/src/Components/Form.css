@@ -23,6 +23,17 @@ form {
   align-items: center;
 }
 
+#submitButton {
+  background-color: rgb(40, 91, 94);
+  border-color: rgb(181, 199, 200);
+}
+
+#submitButton:disabled {
+  background-color: rgba(75, 78, 78, 0.5);
+  color: rgba(255, 255, 255, 0.349);
+  border-color: rgba(181, 199, 200, 0.5);
+}
+
 @media screen and (min-width: 370px) {
   form {
     margin-right: 2rem;

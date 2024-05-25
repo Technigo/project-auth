@@ -13,6 +13,7 @@ export const App = () => {
       <Header
         setFormSelect={setFormSelect}
         isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
         setIsRegistered={setIsRegistered}
       />
       <MainSection

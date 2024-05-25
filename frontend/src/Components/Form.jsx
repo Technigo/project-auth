@@ -31,7 +31,6 @@ export const Form = ({
     "https://project-auth-moonlight-flamingos.onrender.com/login";
 
   const handleSubmit = (event) => {
-    console.log("Form name:", action);
     event.preventDefault();
 
     if (action === "Sign Up") {
@@ -82,7 +81,9 @@ export const Form = ({
       .then((loggedIn) => {
         setIsLoading(false);
         setDisplayMessageState(loggedIn.message);
-        setIsLoggedIn(true);
+        if (loggedIn.accessToken) {
+          setIsLoggedIn(true);
+        }
         localStorage.setItem("access_token", loggedIn.accessToken);
       })
       .catch((error) => {
@@ -171,6 +172,8 @@ export const Form = ({
             />
           </div>
           <button
+            id="submitButton"
+            className="buttonstyle"
             action="Submit"
             type="submit"
             disabled={disableButton}

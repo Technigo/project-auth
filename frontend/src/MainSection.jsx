@@ -1,7 +1,7 @@
 import "./MainSection.css";
 import { Form } from "./Components/Form";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SecretContent } from "./Components/SecretContent";
 
 export const MainSection = ({
@@ -10,7 +10,7 @@ export const MainSection = ({
   setIsLoggedIn,
   isRegistered,
   setIsRegistered,
-  setFormSelect
+  setFormSelect,
 }) => {
   const [username, setUsername] = useState("");
   const [displayMessageState, setDisplayMessageState] = useState("");
@@ -39,7 +39,9 @@ export const MainSection = ({
   };
 
   // Call the function to verify the access token
-  verifyAccessToken();
+  useEffect(() => {
+    verifyAccessToken();
+  }, [isLoggedIn]);
 
   return (
     <>
@@ -51,6 +53,7 @@ export const MainSection = ({
               setDisplayMessageState={setDisplayMessageState}
               displayMessageState={displayMessageState}
               setIsLoading={setIsLoading}
+              setIsLoggedIn={setIsLoggedIn}
             />
           </>
         ) : showLogin ? (
@@ -107,5 +110,5 @@ MainSection.propTypes = {
   setIsLoggedIn: PropTypes.func,
   isRegistered: PropTypes.bool,
   setIsRegistered: PropTypes.func,
-  setFormSelect: PropTypes.func
+  setFormSelect: PropTypes.func,
 };
