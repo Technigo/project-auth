@@ -124,7 +124,7 @@ app.post("/login", async (req, res) => {
 
   const accessToken = generateAccessToken(user._id);
   await User.findByIdAndUpdate(user._id, { accessToken });
-  res.json({ accessToken });
+  res.json({ accessToken, username: user.username });
 });
 
 // Authenticated endpoint
