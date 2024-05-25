@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./Button";
 import "./Form.css";
 import Lottie from "lottie-react";
 import loading from "../assets/orange-loading.json";
 import success from "../assets/success-animation.json";
+import alert from "../assets/orange-alert.json";
 
 export const Form = ({
   username,
@@ -12,7 +13,6 @@ export const Form = ({
   action,
   isMessage,
   setIsMessage,
-  isLoggedIn,
   setIsLoggedIn,
   setFormSelect,
   displayMessageState,
@@ -23,6 +23,8 @@ export const Form = ({
   const [password, setPassword] = useState("");
   const [usernameLengthCheck, setUsernameLengthCheck] = useState(true);
   const [passwordLengthCheck, setPasswordLengthCheck] = useState(true);
+  const [fetchStatus, setFetchStatus] = useState("");
+  const [successStatus, setSuccessStatus] = useState(false);
 
   const REGISTER_URL =
     "https://project-auth-moonlight-flamingos.onrender.com/register";
@@ -56,11 +58,16 @@ export const Form = ({
     };
 
     fetch(REGISTER_URL, fetchOptions)
-      .then((res) => res.json())
-      .then((loggedIn) => {
+      .then((res) => {
+        const status = res.status;
+        return res.json().then((response) => ({ status, response }));
+      })
+      .then(({ status, response }) => {
         setIsLoading(false);
         setIsMessage(true);
-        setDisplayMessageState(loggedIn.message);
+        setDisplayMessageState(response.message);
+        setFetchStatus(status);
+        console.log(status);
       })
       .catch((error) => {
         console.error("Somthing is wrong. Please check the error:", error);
@@ -77,15 +84,19 @@ export const Form = ({
     };
 
     fetch(LOGIN_URL, fetchOptions)
-      .then((res) => res.json())
-      .then((loggedIn) => {
+      .then((res) => {
+        const status = res.status;
+        return res.json().then((response) => ({ status, response }));
+      })
+      .then(({ status, response }) => {
         setIsLoading(false);
-        setDisplayMessageState(loggedIn.message);
+        setDisplayMessageState(response.message);
         setIsMessage(true);
-        if (loggedIn.accessToken) {
+        setFetchStatus(status);
+        if (response.accessToken) {
           setIsLoggedIn(true);
-          localStorage.setItem("access_token", loggedIn.accessToken);
-          localStorage.setItem("username", loggedIn.username);
+          localStorage.setItem("access_token", response.accessToken);
+          localStorage.setItem("username", response.username);
         }
       })
       .catch((error) => {
@@ -125,6 +136,12 @@ export const Form = ({
     displayText = false;
   }
 
+ 
+
+  useEffect(() => {
+    setSuccessStatus(fetchStatus >= 200 && fetchStatus < 300);
+  }, [fetchStatus]);
+
   return (
     <>
       {isLoading ? (
@@ -139,15 +156,27 @@ export const Form = ({
         </div>
       ) : displayText ? (
         <>
-          <div className="success">
-            <Lottie
-              animationData={success}
-              loop="false"
-              autoPlay
-              style={{ width: 200, height: 200 }}
-            />
-            {displayMessageState}
-          </div>
+          {successStatus ? (
+            <div className="success">
+              <Lottie
+                animationData={success}
+                loop="false"
+                autoPlay
+                style={{ width: 200, height: 200 }}
+              />
+              {displayMessageState}
+            </div>
+          ) : (
+            <div className="alert">
+              <Lottie
+                animationData={alert}
+                loop="false"
+                autoPlay
+                style={{ width: 200, height: 200 }}
+              />
+              {displayMessageState}
+            </div>
+          )}
 
           <Button
             action="Log In"

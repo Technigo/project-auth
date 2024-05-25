@@ -25,7 +25,6 @@ export const SecretContent = ({
       .then((loggedIn) => {
         setIsLoading(false);
         setDisplayMessageState(loggedIn.secret);
-        console.log("Secret: ", loggedIn);
       })
       .catch((error) => {
         console.error("Somthing is wrong. Please check the error:", error);

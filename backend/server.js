@@ -150,7 +150,7 @@ app.post("/login", async (req, res) => {
 //Secrets Endpoint
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
-  res.json({ secret: `Super secrets... nobody will know. Well other signed in people will know I guess...` });
+  res.status(200).json({ secret: `Super secrets... nobody will know. Well other signed in people will know I guess...` });
 });
 
 // Start the server

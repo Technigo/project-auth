@@ -13,7 +13,6 @@ export const Button = ({
     if (action === "Log Out") {
       // setIsLoggedIn(false);
       localStorage.clear();
-      console.log("Cleared Acces token:", localStorage.getItem("access_token"));
       setIsLoggedIn(false);
     }
   };

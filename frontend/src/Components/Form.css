@@ -17,7 +17,8 @@ form {
   font-family: "overpass";
 }
 
-.success {
+.success,
+.alert {
   display: flex;
   flex-direction: column;
   align-items: center;
