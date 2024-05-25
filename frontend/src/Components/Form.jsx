@@ -83,8 +83,9 @@ export const Form = ({
         setDisplayMessageState(loggedIn.message);
         if (loggedIn.accessToken) {
           setIsLoggedIn(true);
+          localStorage.setItem("access_token", loggedIn.accessToken);
+          localStorage.setItem("username", loggedIn.username);
         }
-        localStorage.setItem("access_token", loggedIn.accessToken);
       })
       .catch((error) => {
         console.error("Somthing is wrong. Please check the error:", error);

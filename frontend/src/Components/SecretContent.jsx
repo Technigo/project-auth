@@ -24,8 +24,8 @@ export const SecretContent = ({
       .then((res) => res.json())
       .then((loggedIn) => {
         setIsLoading(false);
-          setDisplayMessageState(loggedIn.secret);
-        console.log("Secret: ", loggedIn)
+        setDisplayMessageState(loggedIn.secret);
+        console.log("Secret: ", loggedIn);
       })
       .catch((error) => {
         console.error("Somthing is wrong. Please check the error:", error);
@@ -36,8 +36,9 @@ export const SecretContent = ({
 
   return (
     <div>
-      <p>Secret Content:</p>
-          {displayMessageState}
+      <h2>Hey {localStorage.getItem("username")}!</h2>
+      <h3>This is your secret content:</h3>
+      {displayMessageState}
     </div>
   );
 };
