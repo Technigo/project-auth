@@ -5,15 +5,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../reusables/Header";
 import { Button } from "../reusables/Button";
 
-// const API_KEY = "https://project-auth-ziup.onrender.com";
-const API_KEY = "http://localhost:8080";
+const API_KEY = "https://project-auth-ziup.onrender.com";
+// const API_KEY = "http://localhost:8080";
 
 //styling
 const RegistrationSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* min-height: 100vh; */
+  height: 100vh;
+  overflow: hidden;
 
   @media all and (min-width: 1024px) {
     flex-direction: row;
@@ -36,11 +37,6 @@ const StyledForm = styled.form`
   align-items: center;
   justify-content: center;
   padding-top: 20px;
-
-  @media all and (min-width: 744px) {
-  }
-  @media all and (min-width: 1024px) {
-  }
 `;
 
 const StyledInput = styled.input`
@@ -57,6 +53,11 @@ const StyledInput = styled.input`
   @media all and (min-width: 744px) {
     width: 400px;
   }
+`;
+
+const FormText = styled.p`
+  text-align: center;
+  padding: 0 20px;
 `;
 
 //component
@@ -144,7 +145,8 @@ export const Registration = () => {
           {error && <p>Please try again!</p>}
         </StyledForm>
         <Button onClick={handleSubmit}>Register</Button>
-        <p>If you already have an account</p>
+        <FormText>If you already have an account👇</FormText>
+
         <Link to={`/login`}>
           <h2>Login here</h2>
         </Link>

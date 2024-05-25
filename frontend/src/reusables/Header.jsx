@@ -13,7 +13,7 @@ const HeaderContainer = styled.section`
   background-size: cover;
   background-position: center;
   width: 100%;
-  height: 400px;
+  height: 300px;
 
   @media all and (min-width: 744px) {
     height: 400px;
@@ -27,10 +27,10 @@ const HeaderContainer = styled.section`
 
 const HeaderGlobe = styled.img`
   position: absolute;
-  left: -44px;
-  top: -44px;
-  width: 350px;
-  height: 350px;
+  left: -40px;
+  top: -40px;
+  width: 280px;
+  height: 280px;
 
   @media all and (min-width: 744px) {
     left: -50px;

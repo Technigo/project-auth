@@ -5,15 +5,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../reusables/Header";
 import { Button } from "../reusables/Button";
 
-// const API_KEY = "https://project-auth-ziup.onrender.com";
-const API_KEY = "http://localhost:8080";
+const API_KEY = "https://project-auth-ziup.onrender.com";
+// const API_KEY = "http://localhost:8080";
 
 //styling
 const LoginSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* min-height: 100vh; */
+  height: 100vh;
+  overflow: hidden;
 
   @media all and (min-width: 1024px) {
     flex-direction: row;
@@ -57,6 +58,11 @@ const StyledInput = styled.input`
   @media all and (min-width: 744px) {
     width: 400px;
   }
+`;
+
+const FormText = styled.p`
+  text-align: center;
+  padding: 0 20px;
 `;
 
 //component
@@ -133,7 +139,9 @@ export const Login = () => {
           {message && <p>{message}</p>}
         </StyledForm>
         <Button onClick={handleSubmit}>Log in</Button>
-        <p>If you don&rsquo;t have an account yet, create yours below.👇 </p>
+        <FormText>
+          If you don&rsquo;t have an account yet, create yours below.👇{" "}
+        </FormText>
         <Link to={`/registration`}>
           <h2>Register</h2>
         </Link>
