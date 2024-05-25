@@ -5,7 +5,7 @@ import { TextInput } from "./TextInput";
 import { useState } from "react";
 
 export const Register = () => {
-  const { formData, handleSubmitForm, handleChange } = useStore();
+  const { signUpData, handleSubmitForm, handleSignUpChange } = useStore();
   const [isLoading, setIsLoading] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
@@ -40,16 +40,16 @@ export const Register = () => {
         inputType={"text"}
         inputName={"fullname"}
         placeholder={"Type your full name"}
-        value={formData.name}
-        onChange={(event) => handleChange("name", event.target.value)}
+        value={signUpData.name}
+        onChange={(event) => handleSignUpChange("name", event.target.value)}
       />
       <TextInput
         label={"E-mail"}
         inputType={"email"}
         inputName={"email"}
         placeholder={"Type your e-mail"}
-        value={formData.email}
-        onChange={(event) => handleChange("email", event.target.value)}
+        value={signUpData.email}
+        onChange={(event) => handleSignUpChange("email", event.target.value)}
       />
       <fieldset>
         <legend>Address</legend>
@@ -58,8 +58,8 @@ export const Register = () => {
           inputType={"text"}
           inputName={"street"}
           placeholder={"Type your street"}
-          value={formData.street}
-          onChange={(event) => handleChange("street", event.target.value)}
+          value={signUpData.street}
+          onChange={(event) => handleSignUpChange("street", event.target.value)}
         />
 
         <div className="input-tablet-desktop">
@@ -69,8 +69,10 @@ export const Register = () => {
               inputType={"text"}
               inputName={"postcode"}
               placeholder={"xxx xx"}
-              value={formData.postCode.toString()}
-              onChange={(event) => handleChange("postCode", event.target.value)}
+              value={signUpData.postCode.toString()}
+              onChange={(event) =>
+                handleSignUpChange("postCode", event.target.value)
+              }
             />
           </div>
 
@@ -80,8 +82,10 @@ export const Register = () => {
               inputType={"text"}
               inputName={"city"}
               placeholder={"Type your city"}
-              value={formData.city}
-              onChange={(event) => handleChange("city", event.target.value)}
+              value={signUpData.city}
+              onChange={(event) =>
+                handleSignUpChange("city", event.target.value)
+              }
             />
           </div>
         </div>
@@ -91,25 +95,25 @@ export const Register = () => {
         inputType={"text"}
         inputName={"username"}
         placeholder={"Type your username"}
-        value={formData.username}
-        onChange={(event) => handleChange("username", event.target.value)}
+        value={signUpData.username}
+        onChange={(event) => handleSignUpChange("username", event.target.value)}
       />
       <TextInput
         label={"Password"}
         inputType={"password"}
         inputName={"password"}
         placeholder={"Type your password"}
-        value={formData.password}
-        onChange={(event) => handleChange("password", event.target.value)}
+        value={signUpData.password}
+        onChange={(event) => handleSignUpChange("password", event.target.value)}
       />
       <TextInput
         label={"Verifying password"}
         inputType={"password"}
         inputName={"verifyingPassword"}
         placeholder={"Re-enter your password"}
-        value={formData.verifyingPassword}
+        value={signUpData.verifyingPassword}
         onChange={(event) =>
-          handleChange("verifyingPassword", event.target.value)
+          handleSignUpChange("verifyingPassword", event.target.value)
         }
       />
       {passwordError && <p>Passwords do not match</p>}

@@ -5,7 +5,7 @@ import { useStore } from "../store/useStore";
 import { useState } from "react";
 
 export const LogIn = () => {
-  const { formData, handleSubmitLogin, handleChange } = useStore();
+  const { loginData, handleSubmitLogin, handleLoginChange } = useStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFormSubmit = async (event) => {
@@ -37,8 +37,10 @@ export const LogIn = () => {
             inputType={"text"}
             inputName={"username"}
             placeholder={"Type your username"}
-            value={formData.username}
-            onChange={(event) => handleChange("username", event.target.value)}
+            value={loginData.username}
+            onChange={(event) =>
+              handleLoginChange("username", event.target.value)
+            }
           />
 
           <TextInput
@@ -46,8 +48,10 @@ export const LogIn = () => {
             inputType={"password"}
             inputName={"password"}
             placeholder={"Type your password"}
-            value={formData.password}
-            onChange={(event) => handleChange("password", event.target.value)}
+            value={loginData.password}
+            onChange={(event) =>
+              handleLoginChange("password", event.target.value)
+            }
           />
         </div>
         <Button type={"submit"} btnText={"Log in"} disabled={isLoading} />
