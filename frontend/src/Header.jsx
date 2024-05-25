@@ -6,7 +6,7 @@ import "./Header.css";
 
 export const Header = ({
   setFormSelect,
-  setIsRegistered,
+  setIsMessage,
   isLoggedIn,
   setIsLoggedIn,
 }) => {
@@ -21,7 +21,7 @@ export const Header = ({
           <Button
             action="Log Out"
             setFormSelect={setFormSelect}
-            setIsRegistered={setIsRegistered}
+            setIsMessage={setIsMessage}
             setIsLoggedIn={setIsLoggedIn}
           />
         ) : (
@@ -29,13 +29,13 @@ export const Header = ({
             <Button
               action="Sign Up"
               setFormSelect={setFormSelect}
-              setIsRegistered={setIsRegistered}
+              setIsMessage={setIsMessage}
               setIsLoggedIn={setIsLoggedIn}
             />
             <Button
               action="Log In"
               setFormSelect={setFormSelect}
-              setIsRegistered={setIsRegistered}
+              setIsMessage={setIsMessage}
               setIsLoggedIn={setIsLoggedIn}
             />
           </>
@@ -47,7 +47,7 @@ export const Header = ({
 
 Header.propTypes = {
   setFormSelect: PropTypes.func,
-  setIsRegistered: PropTypes.func,
+  setIsMessage: PropTypes.func,
   isLoggedIn: PropTypes.bool,
   setIsLoggedIn: PropTypes.func,
 };

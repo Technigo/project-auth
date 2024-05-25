@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 export const Button = ({
   action,
   setFormSelect,
-  setIsRegistered,
+  setIsMessage,
   setIsLoggedIn,
 }) => {
   const handleClick = () => {
-    setIsRegistered(false);
+    setIsMessage(false);
     setFormSelect(action);
 
     if (action === "Log Out") {
@@ -34,6 +34,6 @@ export const Button = ({
 Button.propTypes = {
   action: PropTypes.string,
   setFormSelect: PropTypes.func,
-  setIsRegistered: PropTypes.func,
+  setIsMessage: PropTypes.func,
   setIsLoggedIn: PropTypes.func,
 };

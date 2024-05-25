@@ -8,8 +8,8 @@ export const MainSection = ({
   formSelect,
   isLoggedIn,
   setIsLoggedIn,
-  isRegistered,
-  setIsRegistered,
+  isMessage,
+  setIsMessage,
   setFormSelect,
 }) => {
   const [username, setUsername] = useState("");
@@ -66,8 +66,8 @@ export const MainSection = ({
               action={"Log In"}
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
-              isRegistered={isRegistered}
-              setIsRegistered={setIsRegistered}
+              isMessage={isMessage}
+              setIsMessage={setIsMessage}
               username={username}
               setUsername={setUsername}
               setDisplayMessageState={setDisplayMessageState}
@@ -87,8 +87,8 @@ export const MainSection = ({
               action={"Sign Up"}
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
-              isRegistered={isRegistered}
-              setIsRegistered={setIsRegistered}
+              isMessage={isMessage}
+              setIsMessage={setIsMessage}
               username={username}
               setUsername={setUsername}
               setDisplayMessageState={setDisplayMessageState}
@@ -108,7 +108,7 @@ MainSection.propTypes = {
   formSelect: PropTypes.string,
   isLoggedIn: PropTypes.bool,
   setIsLoggedIn: PropTypes.func,
-  isRegistered: PropTypes.bool,
-  setIsRegistered: PropTypes.func,
+  isMessage: PropTypes.bool,
+  setIsMessage: PropTypes.func,
   setFormSelect: PropTypes.func,
 };

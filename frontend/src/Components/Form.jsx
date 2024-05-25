@@ -10,8 +10,8 @@ export const Form = ({
   username,
   setUsername,
   action,
-  isRegistered,
-  setIsRegistered,
+  isMessage,
+  setIsMessage,
   isLoggedIn,
   setIsLoggedIn,
   setFormSelect,
@@ -59,7 +59,7 @@ export const Form = ({
       .then((res) => res.json())
       .then((loggedIn) => {
         setIsLoading(false);
-        setIsRegistered(true);
+        setIsMessage(true);
         setDisplayMessageState(loggedIn.message);
       })
       .catch((error) => {
@@ -81,6 +81,7 @@ export const Form = ({
       .then((loggedIn) => {
         setIsLoading(false);
         setDisplayMessageState(loggedIn.message);
+        setIsMessage(true);
         if (loggedIn.accessToken) {
           setIsLoggedIn(true);
           localStorage.setItem("access_token", loggedIn.accessToken);
@@ -118,7 +119,7 @@ export const Form = ({
   }
 
   let displayText = true;
-  if (isRegistered === true || isLoggedIn === true) {
+  if (isMessage) {
     displayText = true;
   } else {
     displayText = false;
@@ -151,7 +152,7 @@ export const Form = ({
           <Button
             action="Log In"
             setFormSelect={setFormSelect}
-            setIsRegistered={setIsRegistered}
+            setIsMessage={setIsMessage}
           />
         </>
       ) : (
@@ -194,8 +195,8 @@ Form.propTypes = {
   setIsLoggedIn: PropTypes.func,
   username: PropTypes.string,
   setUsername: PropTypes.func,
-  isRegistered: PropTypes.bool,
-  setIsRegistered: PropTypes.func,
+  isMessage: PropTypes.bool,
+  setIsMessage: PropTypes.func,
   displayMessageState: PropTypes.string,
   setDisplayMessageState: PropTypes.func,
   isLoading: PropTypes.bool,

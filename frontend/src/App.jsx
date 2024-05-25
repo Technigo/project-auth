@@ -6,7 +6,7 @@ import { MainSection } from "./MainSection";
 export const App = () => {
   const [formSelect, setFormSelect] = useState("Sign Up");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [isMessage, setIsMessage] = useState(false);
 
   return (
     <>
@@ -14,15 +14,15 @@ export const App = () => {
         setFormSelect={setFormSelect}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
-        setIsRegistered={setIsRegistered}
+        setIsMessage={setIsMessage}
       />
       <MainSection
         formSelect={formSelect}
         setFormSelect={setFormSelect}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
-        isRegistered={isRegistered}
-        setIsRegistered={setIsRegistered}
+        isMessage={isMessage}
+        setIsMessage={setIsMessage}
       />
       <Footer />
     </>
