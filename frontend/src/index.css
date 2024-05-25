@@ -126,7 +126,7 @@ button {
 
   button {
     width: 150px;
-    align-self: flex-end;
+    align-self: center;
   }
 }
 
