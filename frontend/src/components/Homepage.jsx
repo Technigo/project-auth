@@ -39,9 +39,6 @@ const BottomForm = styled.div`
   position: fixed;
   z-index: 0;
   bottom: 0;
-  /* width: 744px;
-  height: 372px;
-  border-radius: 372px 372px 0 0; */
   width: 520px;
   height: 260px;
   border-radius: 260px 260px 0 0;

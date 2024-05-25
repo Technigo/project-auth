@@ -34,14 +34,9 @@ const FormWrapper = styled.div`
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-
+  align-items: center;
+  justify-content: center;
   padding-top: 20px;
-
-  @media all and (min-width: 744px) {
-  }
-  @media all and (min-width: 1024px) {
-    /* width: 50%; */
-  }
 `;
 
 const StyledInput = styled.input`
@@ -99,8 +94,7 @@ export const Login = () => {
         const accessToken = data.accessToken;
         setMessage("Sign-in successful!");
         localStorage.setItem("accessToken", accessToken);
-        navigate("/dashboard", { state: { username: formData.name } });
-        // console.log(formData.name);
+        navigate("/dashboard");
       } else {
         setMessage("Sign-in failed: Invalid name or password");
       }
