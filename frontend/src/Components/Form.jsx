@@ -154,15 +154,17 @@ export const Form = ({
         </>
       ) : (
         <form>
-          {action} <span>Form</span>
-          <li>
+          <div>
+            {action} <span>Form</span>
+          </div>
+          <div>
             <label>Username:</label>
             <input value={username} onChange={handleUsername} />
-          </li>
-          <li>
+          </div>
+          <div>
             <label>Password:</label>
             <input value={password} type="password" onChange={handlePassword} />
-          </li>
+          </div>
           <button
             action="Submit"
             type="submit"
@@ -189,5 +191,5 @@ Form.propTypes = {
   setDisplayMessageState: PropTypes.func,
   isLoading: PropTypes.bool,
   setIsLoading: PropTypes.func,
-  setFormSelect: PropTypes.string,
+  setFormSelect: PropTypes.func,
 };

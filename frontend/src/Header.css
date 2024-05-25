@@ -1,8 +1,9 @@
 .navigation {
-  height: 10vh;
+  height: 20vh;
   display: flex;
-  padding: 30px;
-  justify-content: space-between;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -27,6 +28,19 @@
 
 .buttons {
   display: flex;
-  justify-content: space-evenly;
   gap: 10px;
+}
+
+@media screen and (min-width: 428px) {
+  .navigation {
+    height: 12vh;
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .navigation {
+    gap: 0;
+    justify-content: space-between;
+  }
 }
