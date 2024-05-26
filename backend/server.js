@@ -3,14 +3,14 @@ import crypto from "crypto";
 import bcrypt from "bcrypt";
 import express from "express";
 import mongoose from "mongoose";
+import expressListEndpoints from "express-list-endpoints";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
+// const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
+const mongoUrl = "mongodb://localhost/auth";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
-const { Schema, model } = mongoose;
-
-const userSchema = new Schema({
+const User = mongoose.model("User", {
   name: {
     type: String,
     unique: true,
@@ -29,7 +29,26 @@ const userSchema = new Schema({
   },
 });
 
-const User = model("User", userSchema);
+/// Documentation endpoints
+app.get("/", (req, res) => {
+  const endpoints = expressListEndpoints(app);
+  const documentation = {
+    Welcome: "This is the Authentication API!",
+    Endpoints: {
+      "/": "Get API documentation",
+      "/users": {
+        POST: "Create a new user",
+      },
+      "/sessions": {
+        POST: "Authenticate a returning user",
+      },
+      "/secrets": {
+        GET: "Get secret content (requires authentication)",
+      },
+    },
+  };
+  res.json(documentation);
+});
 
 //midleware function
 const authenticateUser = async (req, res, next) => {
@@ -72,7 +91,7 @@ app.post("/users", async (req, res) => {
       success: true,
       message: "User created",
       id: user._id,
-      accessToken: user.accessToken,
+      accessToken: user.accessToken
     });
   } catch (error) {
     res
@@ -81,17 +100,24 @@ app.post("/users", async (req, res) => {
   }
 });
 
-app.get("/secrets", authenticateUser);
-app.get("/secrets", (req, res) => {
-  res.json({ secret: "This is a super secret!" });
-});
 
 app.post("/sessions", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    res.status(200).json({
+      success: true,
+      message: "User authenticated",
+      id: user._id,
+      accessToken: user.accessToken
+    });
   } else {
-    res.json({ notFound: true });
+    res.status(401).json({ success: false, message: "Invalid email or password" });
   }
+});
+
+app.get("/secrets", authenticateUser);
+app.get("/secrets", (req, res) => {
+  res.json({ secret: "This is a super secret!" });
 });
 
 // Start the server
