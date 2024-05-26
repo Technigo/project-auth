@@ -82,9 +82,8 @@ app.post("/registration", async (req, res) => {
   }
 });
 
-app.get("/dashboard", authenticateUser);
-app.get("/dashboard", (req, res) => {
-  res.json({ message: "Your're logged in!" });
+app.get("/dashboard", authenticateUser, (req, res) => {
+  res.json({ message: "You're logged in!" });
 });
 
 app.post("/login", async (req, res) => {
@@ -96,7 +95,7 @@ app.post("/login", async (req, res) => {
       accrssToken: user.accessToken,
     });
   } else {
-    res.json({ notFound: true });
+    return res.status(400).json({ notFound: true });
   }
 });
 
