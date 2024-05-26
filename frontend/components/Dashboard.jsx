@@ -40,7 +40,7 @@ export const Dashboard = () => {
     <>
       <h1>Dashboard</h1>
       <p>This is a page you have to be logged into see!</p>
-      
+
       <Logout />
       {isAdmin ? (
         <button onClick={() => navigate('/admin')}>Log in to admin</button>

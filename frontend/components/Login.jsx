@@ -29,11 +29,7 @@ export const Login = () => {
         setMessage("Login successful!");
         navigate("/");
         // Store the token in session storage
-      sessionStorage.setItem('token', json.accessToken);
-          
-
-
-
+        sessionStorage.setItem('token', json.accessToken);
       })
       .catch((err) => {
         setMessage(err.message);
@@ -67,7 +63,7 @@ export const Login = () => {
       {message && (
         <div>
           <p>{message}</p>
-<Logout />
+          <Logout />
         </div>
       )}
     </div>

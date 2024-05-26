@@ -10,7 +10,7 @@ export const UpdateUser = () => {
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('user');
   const [password, setPassword] = useState('');
-const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const Update = async () => {
     console.log('Token:', token); // Log the token
     try {

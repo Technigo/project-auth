@@ -6,7 +6,6 @@ import { DeleteUser } from './forms/DeleteUser';
 import { CreateUser } from './forms/CreateUser';
 import { UpdateUserRole } from './forms/UpdateUserRole';
 
-
 export const Admin = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const API = apiKey + "/admin";

@@ -26,7 +26,6 @@ export const Logout = () => {
       setMessage("Logout successful! Please sign in.");
       navigate("/");
 
-
     } catch (error) {
       console.log(error);
     }
