@@ -11,4 +11,7 @@ We had issues storing the access token, but figured it out by  parsing the token
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+#### Backend:
+https://project-auth-kh49.onrender.com/
+
+#### Frontend:
