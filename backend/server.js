@@ -51,7 +51,6 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-const cors = require("cors")
 
 // Enable CORS middleware
 app.use(

@@ -138,7 +138,7 @@ export const Login = () => {
         </SwitchLabelWrapper>
       </RegistrationFormStyled>
       <span>
-        Not aregistered yet? <Link to="/registration">Sign Up</Link>
+        Not registered yet? <Link to="/registration">Sign Up</Link>
       </span>
     </RegistrationContainer>
   )
