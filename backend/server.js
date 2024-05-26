@@ -73,7 +73,23 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  const endpoints = expressListEndpoints(app);
+  const documentation = {
+    Welcome: "This is the Authentication API!",
+    Endpoints: {
+      "/": "Get API documentation",
+      "/users": {
+        POST: "Create a new user",
+      },
+      "/sessions": {
+        POST: "Authenticate a returning user",
+      },
+      "/secrets": {
+        GET: "Get secret content (requires authentication)",
+      },
+    },
+  };
+  res.json(documentation);
 });
 
 app.post("/users", async (req, res) => {
