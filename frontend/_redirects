@@ -1,0 +1,11 @@
+/exists https://project-auth-pqxu.onrender.com/exists 200
+/signup https://project-auth-pqxu.onrender.com/signup 200
+/login https://project-auth-pqxu.onrender.com/login 200
+/verify https://project-auth-pqxu.onrender.com/verify 200
+/role https://project-auth-pqxu.onrender.com//role 200
+/logout https://project-auth-pqxu.onrender.com/logout 200
+/users/:id https://project-auth-pqxu.onrender.com/users/:id 200
+/admin/users https://project-auth-pqxu.onrender.com/admin/users 200
+/admin https://project-auth-pqxu.onrender.com/admin 200
+/admin/users https://project-auth-pqxu.onrender.com/admin/users 200
+/admin/users/:id https://project-auth-pqxu.onrender.com/admin/users/:id 200
