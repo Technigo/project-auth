@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import crypto from "crypto";
+import expressListEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl);
@@ -63,7 +63,8 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+const endpoints = expressListEndpoints(app)
+res.json(endpoints)
 });
 
 app.get("/users", async (req, res) => {
