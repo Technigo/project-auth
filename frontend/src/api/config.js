@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://project-auth-ws3k.onrender.com/",
+  baseURL: "https://project-auth-jgzj.onrender.com/api",
 });
 
 export default instance;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../api/config";
 import "../../styling/Auth.css";
 
 const Login = () => {
@@ -12,13 +12,10 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "https://project-auth-ws3k.onrender.com/api/auth/login",
-        {
-          username,
-          password,
-        }
-      );
+      const response = await axios.post("/auth/login", {
+        username,
+        password,
+      });
 
       localStorage.setItem("token", response.data.token);
       navigate("/protected");
