@@ -12,6 +12,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("Trying to log in with:", username, password);
       const response = await axios.post("/auth/login", {
         username,
         password,

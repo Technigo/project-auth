@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Logout from "../auth/Logout";
 import axios from "../../api/config";
 
 const Protected = () => {
@@ -33,6 +34,7 @@ const Protected = () => {
     <div className="protectedContainer">
       <h1 className="protectedTitle">Protected Content</h1>
       <p>{message}</p>
+      <Logout />
     </div>
   );
 };
