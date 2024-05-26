@@ -29,28 +29,7 @@ const User = mongoose.model("User", {
   },
 });
 
-/// Documentation endpoints
-app.get("/", (req, res) => {
-  const endpoints = expressListEndpoints(app);
-  const documentation = {
-    Welcome: "This is the Authentication API!",
-    Endpoints: {
-      "/": "Get API documentation",
-      "/users": {
-        POST: "Create a new user",
-      },
-      "/sessions": {
-        POST: "Authenticate a returning user",
-      },
-      "/secrets": {
-        GET: "Get secret content (requires authentication)",
-      },
-    },
-  };
-  res.json(documentation);
-});
-
-//midleware function
+// Middleware function
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({ accessToken: req.header("Authorization") });
   if (user) {
@@ -62,8 +41,6 @@ const authenticateUser = async (req, res, next) => {
 };
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=8080 npm start
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -71,7 +48,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Start defining your routes here
+// Documentation endpoint
 app.get("/", (req, res) => {
   const endpoints = expressListEndpoints(app);
   const documentation = {
@@ -95,27 +72,24 @@ app.get("/", (req, res) => {
 app.post("/users", async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    //DO NOT STORE PLAINTEXT PASSWORD
+    // DO NOT STORE PLAINTEXT PASSWORD
     const salt = bcrypt.genSaltSync();
     const user = new User({
       name,
       email,
       password: bcrypt.hashSync(password, salt),
     });
-    user.save();
+    await user.save(); // Await the save operation
     res.status(201).json({
       success: true,
       message: "User created",
       id: user._id,
-      accessToken: user.accessToken
+      accessToken: user.accessToken,
     });
   } catch (error) {
-    res
-      .status(400)
-      .json({ success: false, message: "Could not create user", errors: error });
+    res.status(400).json({ success: false, message: "Could not create user", errors: error });
   }
 });
-
 
 app.post("/sessions", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
@@ -124,15 +98,14 @@ app.post("/sessions", async (req, res) => {
       success: true,
       message: "User authenticated",
       id: user._id,
-      accessToken: user.accessToken
+      accessToken: user.accessToken,
     });
   } else {
     res.status(401).json({ success: false, message: "Invalid email or password" });
   }
 });
 
-app.get("/secrets", authenticateUser);
-app.get("/secrets", (req, res) => {
+app.get("/secrets", authenticateUser, (req, res) => {
   res.json({ secret: "This is a super secret!" });
 });
 
