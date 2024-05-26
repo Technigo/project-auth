@@ -9,6 +9,8 @@ I started by using the code from the codealong in the backend, trying to figure 
 Being frustrated with backend I started creating the frontend and for a bit my project was all over the place.
 In the end I went back to finish and test backend and then finish a frontend that could also be used for our final project.
 
+If I had more time, I would add a loading animation page, because it takes forever on login and registration.
+
 ## View it live
 
 Backend: https://project-auth-ziup.onrender.com
