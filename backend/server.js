@@ -11,25 +11,13 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
-const connection = mongoose.connection;
-
-// Event listeners for the connection for debug
-connection.on("connected", () => {
- // console.log("Mongoose successfully connected to " + mongoUrl);
-});
-// Event listeners for the connection for debug
-connection.on("error", (error) => {
- // console.log("Mongoose connection error: " + error);
-});
-
 const port = process.env.PORT || 8787;
 const app = express();
 
 // Add middlewares to enable cors and json body parsing
-//allow all for now, restrict later
 app.use(
   cors({
-    origin: ["*", "http://localhost:5173"],
+    origin: ["https://auntauthy.netlify.app"],
     credentials: true,
     methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -44,7 +32,7 @@ app.get("/", (req, res) => {
   try {
     const endpoints = listEndpoints(router);
     const updatedEndpoints = endpoints.map((endpoint) => {
-      if ((endpoint.path === "/") || (endpoint.path === "/admin") ){
+      if (endpoint.path === "/" || endpoint.path === "/admin") {
         return {
           path: endpoint.path,
           methods: endpoint.methods,

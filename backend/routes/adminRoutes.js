@@ -1,13 +1,7 @@
 import express from "express";
 import User from "../model/user-model";
 import bcrypt from "bcrypt";
-import dotenv from "dotenv";
 import { authenticateUser, authorizeUser } from "../middleware/Middleware";
-import Blacklist from "../model/blacklist-model";
-import jwt from 'jsonwebtoken';
-dotenv.config()
-const SECRET = process.env.SECRET || "toast is the best secret";
-//console.log("adminroutes SECRET: ", SECRET);
 
 const adminRouter = express.Router();
 adminRouter.use(authenticateUser, authorizeUser(["admin"]));
@@ -16,9 +10,6 @@ adminRouter.use(authenticateUser, authorizeUser(["admin"]));
 adminRouter.get("/users", async (req, res) => {
   try {
     const users = await User.find();
-    //users.map((user) =>
-     // console.log(user.id));
-    //console.log(users);
     res.json(users);
   } catch (error) {
     res.status(500).json({
@@ -38,7 +29,6 @@ adminRouter.get("/", authenticateUser, authorizeUser(["admin"]), (req, res) => {
 adminRouter.post("/users", async (req, res) => {
   try {
     const { name, email, role, password } = req.body;
-
     if (!name || !email || !role || !password) {
       return res
         .status(400)

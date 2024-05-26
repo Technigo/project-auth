@@ -6,13 +6,11 @@ import {
   logoutUser,
   isLoggedIn,
 } from "../middleware/Middleware";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
-dotenv.config()
-const SECRET = process.env.SECRET ||"toast is the best secret";
-//  console.log("routes SECRET: ", SECRET);
-
+dotenv.config();
+const SECRET = process.env.SECRET || "toast is the best secret";
 const router = express.Router();
 
 //check if user already exists
@@ -84,7 +82,6 @@ router.post("/login", async (req, res) => {
         accessToken: newAccessToken,
         role: user.role,
       });
-      // res.json({accessToken});
     } else {
       res.status(400).json({ notFound: true, message: "User not found" });
     }
@@ -104,34 +101,11 @@ router.get("/verify", authenticateUser, isLoggedIn, (req, res) => {
 //route to get user role
 router.get("/role", authenticateUser, (req, res) => {
   res.json({ role: req.user.role });
- // console.log("role: ", req.user.role);
 });
 
-
-
-/*
-// delete these later after testing
-//add a test blacklist endpoint
-router.get("/blacklist", async (req, res) => {
-  try {
-    const blacklist = await Blacklist.find();
-    res.json(blacklist);
-  } catch (error) {
-    res.status(500).json({ message: "An error occurred while fetching the blacklist" , error: error.message });
-  }
-});
-
-router.post("/blacklist", async (req, res) => {
-  const { token } = req.body;
-  const newToken = await new Blacklist({
-    token,
-  }).save();
-});
-
-*/
 // Route to log out user
 router.post("/logout", authenticateUser, logoutUser, (req, res) => {
-  console.log('Logging out user'); // Log a message when the route is hit
+  console.log("Logging out user"); // Log a message when the route is hit
   res.json({ message: "You are now logged out" });
 });
 
@@ -154,13 +128,6 @@ router.patch("/users/:id", async (req, res) => {
   } else {
     res.status(404).json({ message: "User not found", error: error.message });
   }
-});
-
-//route for getting content behind authentication - lets update this with something that makes sense later :)
-router.get("/secrets", authenticateUser, isLoggedIn, (req, res) => {
-  res.send(
-    "The password is potato - you are authenticated and can see this members only content  -lucky you!"
-  );
 });
 
 export default router;
