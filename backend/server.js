@@ -1,27 +1,126 @@
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+import expressListEndpoints from "express-list-endpoints";
+import bcrypt from "bcrypt";
+import crypto from "crypto";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+dotenv.config();
+
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
+//create schema and model
+const { Schema, model } = mongoose;
+const userSchema = new Schema({
+  name: {
+    type: String,
+    unique: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  accessToken: {
+    type: String,
+    default: () => crypto.randomBytes(128).toString("hex"),
+  },
+});
+const User = model("User", userSchema);
+
+//defines the port the app will run on
 const port = process.env.PORT || 8080;
 const app = express();
 
-// Add middlewares to enable cors and json body parsing
+//add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
 
-// Start defining your routes here
-app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+//middleware to check if database is available
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState === 1) {
+    next();
+  } else {
+    res.status(503).json({ error: "service unavailable" });
+  }
 });
 
-// Start the server
+//middleware to authenticate user
+const authenticateUser = async (req, res, next) => {
+  const user = await User.findOne({ accessToken: req.header("Authorization") });
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    res.status(401).json({
+      loggedOut: true,
+      message: "You have to log in to get access",
+    });
+  }
+};
+
+//registration endpoint
+app.post("/register", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const salt = bcrypt.genSaltSync();
+    const user = new User({
+      name,
+      email,
+      password: bcrypt.hashSync(password, salt),
+    });
+    await user.save();
+    res.status(201).json({
+      success: true,
+      message: "User created",
+      id: user._id,
+      accessToken: user.accessToken,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Could not create user",
+      errors: error,
+    });
+  }
+});
+
+//authenticated endpoint *super secret endpoint*
+app.get("/dashboard", authenticateUser, (req, res) => {
+  res.json({
+    secret: "This is the secret dashboard, only visible to logged-in users!",
+  });
+});
+
+//login endpoint
+app.post("/login", async (req, res) => {
+  //find user by name
+  const user = await User.findOne({ name: req.body.name });
+  //check if password is correct
+  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    //success
+    res.status(200).json({ userId: user._id, accessToken: user.accessToken });
+  } else {
+    //failure
+    res
+      .status(401)
+      .json({ notFound: true, message: "Invalid name or password" });
+  }
+});
+
+//route to list all endpoints
+app.get("/", (req, res) => {
+  const endpoints = expressListEndpoints(app);
+  res.json(endpoints);
+});
+
+//start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
