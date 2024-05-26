@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../api/config";
 
 const Protected = () => {
   const [message, setMessage] = useState("");
@@ -15,14 +15,11 @@ const Protected = () => {
           return;
         }
 
-        const response = await axios.get(
-          "https://project-auth-ws3k.onrender.com/api/auth/protected",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get("/auth/protected", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setMessage(response.data.message);
       } catch (error) {
         localStorage.removeItem("token");

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "../../api/config";
 import { useNavigate } from "react-router-dom";
 import "../../styling/Auth.css";
 
@@ -12,10 +12,10 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "https://project-auth-ws3k.onrender.com/api/auth/register",
-        { username, password }
-      );
+      const response = await axios.post("/auth/register", {
+        username,
+        password,
+      });
       localStorage.setItem("token", response.data.token);
       navigate("/protected");
     } catch (error) {
