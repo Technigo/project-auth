@@ -7,7 +7,7 @@ API uses mongoose to include endpoints for user registration & sign-in, authenti
 
 ## The problem
 
-We had issues storing the access token, but figured it out by  parsing the token to JSON.
+We had issues storing the access token, but figured it out by parsing the token to JSON.
 
 ## View it live
 
@@ -15,3 +15,4 @@ We had issues storing the access token, but figured it out by  parsing the token
 https://project-auth-kh49.onrender.com/
 
 #### Frontend:
+https://heroic-beignet-77e068.netlify.app/logged-in
