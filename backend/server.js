@@ -93,7 +93,7 @@ app.post("/login", async (req, res) => {
     res.json({
       userId: user._id,
       name: user.name,
-      accrssToken: user.accessToken,
+      accessToken: user.accessToken,
     });
   } else {
     return res.status(400).json({ notFound: true });

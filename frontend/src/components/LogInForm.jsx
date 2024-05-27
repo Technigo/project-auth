@@ -38,6 +38,9 @@ export const LogInForm = () => {
       const data = await response.json();
       console.log("User logged in:", data);
 
+      //save the accessToken to localStorage
+      localStorage.setItem("accessToken", data.accessToken);
+
       setlogInData({
         email: "",
         password: "",
