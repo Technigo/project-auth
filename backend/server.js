@@ -17,8 +17,8 @@ app.use(express.json());
 
 // Connect to MongoDB
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
-mongoose.connect(mongoUrl);
-mongoose.Promise = Promise;
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.Promise = global.Promise;
 
 // Routes
 app.get("/", (req, res) => {
@@ -70,10 +70,6 @@ app.post("/api/login", async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-
-    // Save token to user document
-    user.accessToken = token;
-    await user.save();
 
     res.json({ token });
   } catch (error) {
