@@ -14,8 +14,8 @@ mongoose.Promise = Promise;
 const port = process.env.PORT || 8787;
 const app = express();
 
-
-const allowedOrigins = ["*"];
+/*
+const allowedOrigins = ["https://auntauthy.netlify.app", "https://aunt-authy.onrender.com", "https://project-auth-pqxu.onrender.com"];
 // Add middlewares to enable cors and json body parsing
 app.use(cors({
   origin: function (origin, callback) {
@@ -31,7 +31,9 @@ app.use(cors({
     return callback(null, true);
   }
 }));
+*/
 
+app.use(cors());
 app.use(express.json());
 app.use("/", router);
 app.use("/admin", adminRouter);

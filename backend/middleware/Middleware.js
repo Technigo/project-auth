@@ -76,7 +76,7 @@ const isLoggedIn = async (req, res, next) => {
 
     // Check if the user's token is in the blacklist, and if it is, tell them to get lost tho shall not pass
     const blacklist = await tokenBlacklist; // If tokenBlacklist is a promise
-    if (blacklist.includes(req.user.accessToken)) {
+    if (!blacklist.includes(req.user.accessToken)) {
       return (
         res
           .status(401)
