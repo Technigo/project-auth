@@ -82,7 +82,8 @@ app.post("/registration", async (req, res) => {
   }
 });
 
-app.get("/dashboard", authenticateUser, (req, res) => {
+app.get("/dashboard", authenticateUser);
+app.get("/dashboard", (req, res) => {
   res.json({ message: "You're logged in!" });
 });
 
