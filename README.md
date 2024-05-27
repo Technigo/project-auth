@@ -15,4 +15,4 @@ We had issues storing the access token, but figured it out by parsing the token 
 https://project-auth-kh49.onrender.com/
 
 #### Frontend:
-https://heroic-beignet-77e068.netlify.app/logged-in
+https://heroic-beignet-77e068.netlify.app/
