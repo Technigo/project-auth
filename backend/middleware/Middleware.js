@@ -19,6 +19,7 @@ const authenticateUser = async (req, res, next) => {
     if (bearer.length === 2 && bearer[0] === "Bearer") {
       const bearerToken = bearer[1];
       try {
+
         //decode the token 🤫
         const decoded = jwt.verify(bearerToken, SECRET);
         // find user with the decoded id
@@ -28,6 +29,7 @@ const authenticateUser = async (req, res, next) => {
           req.user = user;
           req.user.accessToken = bearerToken; // Set the access token for the user
           //move to the next middleware -> authorizeUser or isLoggedIn to see if token is valid (not stored in blacklist)
+          console.log(res.getHeaders());
           next();
         } else {
           res.status(401).json({
@@ -53,6 +55,7 @@ const authenticateUser = async (req, res, next) => {
 // authorize user
 const authorizeUser = (roles) => {
   return (req, res, next) => {
+
     //check if user role is in the roles array and can hang out with the cool kids
     if (!roles.includes(req.user.role)) {
       return res.status(403).json({
@@ -61,9 +64,34 @@ const authorizeUser = (roles) => {
         )}`,
       });
     }
+    console.log(res.getHeaders());
     next();
   };
 };
+
+
+//check if user is logged in
+const isLoggedIn = async (req, res, next) => {
+  if (req.user) {
+
+    // Check if the user's token is in the blacklist, and if it is, tell them to get lost tho shall not pass
+    const blacklist = await tokenBlacklist; // If tokenBlacklist is a promise
+    if (blacklist.includes(req.user.accessToken)) {
+      return (
+        res
+          .status(401)
+          .json({ message: "This token has been invalidated" })
+      );
+    }
+    console.log(res.getHeaders());
+    next();
+  } else {
+    //tell the user they are not logged in - those invalidated tokens are dead to us - begone ghost!
+    res.status(403).json({ message: "No user logged in" });
+  }
+
+};
+
 
 //log out user
 const logoutUser = async (req, res, next) => {
@@ -71,6 +99,7 @@ const logoutUser = async (req, res, next) => {
     if (!req.user || !req.user.accessToken) {
       return res.status(400).json({ message: "Invalid user or access token" });
     }
+
     // Add the token to the blacklist, so it can't be used again
     const token = req.user.accessToken;
     const blacklistEntry = new Blacklist({ token: token });
@@ -90,24 +119,5 @@ const logoutUser = async (req, res, next) => {
   }
 };
 
-//check if user is logged in
-const isLoggedIn = async (req, res, next) => {
-  if (req.user) {
-    // Check if the user's token is in the blacklist, and if it is, tell them to get lost tho shall not pass
-    const blacklist = await tokenBlacklist; // If tokenBlacklist is a promise
-    if (blacklist.includes(req.user.accessToken)) {
-      return (
-        res
-          .status(401)
-          .json({ message: "This token has been invalidated" })
-      );
-    }
-    next();
-  } else {
-    //tell the user they are not logged in - those invalidated tokens are dead to us - begone ghost!
-    res.status(403).json({ message: "No user logged in" });
-  }
-
-};
 
 export { authenticateUser, authorizeUser, logoutUser, isLoggedIn };

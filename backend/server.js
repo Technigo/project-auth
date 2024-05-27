@@ -19,6 +19,7 @@ const allowedOrigins = ["https://auntauthy.netlify.app", "https://aunt-authy.onr
 // Add middlewares to enable cors and json body parsing
 app.use(cors({
   origin: function (origin, callback) {
+    console.log('Origin:', origin);
     // Allow requests with no origin
     // (like mobile apps or curl requests)
     if(!origin) return callback(null, true);
