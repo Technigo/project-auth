@@ -14,15 +14,22 @@ mongoose.Promise = Promise;
 const port = process.env.PORT || 8787;
 const app = express();
 
+
+const allowedOrigins = ["https://auntauthy.netlify.app", "https://aunt-authy.onrender.com", "https://project-auth-pqxu.onrender.com"];
 // Add middlewares to enable cors and json body parsing
-app.use(
-  cors({
-    origin: ["*","https://auntauthy.netlify.app", "https://aunt-authy.onrender.com/", "https://project-auth-pqxu.onrender.com/"],
-    credentials: true,
-    methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin
+    // (like mobile apps or curl requests)
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 app.use(express.json());
 app.use("/", router);
