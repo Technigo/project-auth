@@ -107,8 +107,7 @@ const isLoggedIn = (req, res, next) => {
     //tell the user they are not logged in - those invalidated tokens are dead to us - begone ghost!
     res.status(403).json({ message: "No user logged in" });
   }
-  // give success message if user is logged in - you are in the club, party on! 🎉
-  res.json({ message: "You are logged in" });
+
 };
 
-module.exports = { authenticateUser, authorizeUser, logoutUser, isLoggedIn };
+export { authenticateUser, authorizeUser, logoutUser, isLoggedIn };
