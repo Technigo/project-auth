@@ -13,6 +13,7 @@ const Login = () => {
     e.preventDefault();
     try {
       console.log("Trying to log in with:", username, password);
+
       const response = await axios.post("/auth/login", {
         username,
         password,
@@ -21,6 +22,7 @@ const Login = () => {
       localStorage.setItem("token", response.data.token);
       navigate("/protected");
     } catch (error) {
+      console.error("Login failed:", error);
       setError("Invalid username or password");
     }
   };

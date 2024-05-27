@@ -16,9 +16,12 @@ const Register = () => {
         username,
         password,
       });
+      // Handle successfull response
+      console.log("Registration successfull:", response.data);
       localStorage.setItem("token", response.data.token);
       navigate("/protected");
     } catch (error) {
+      console.error("Registration failed:", error.response.data);
       setError("Registration failed. Please try again.");
     }
   };
