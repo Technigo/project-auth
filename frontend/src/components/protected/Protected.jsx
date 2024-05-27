@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import "../../styling/Protected.css";
 
 const Protected = () => {
@@ -16,14 +16,11 @@ const Protected = () => {
           throw new Error("No token found");
         }
 
-        const response = await axios.get(
-          "http://localhost:8080/api/protected",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axiosInstance.get("/api/protected", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         setProtectedData(response.data.message);
       } catch (error) {
