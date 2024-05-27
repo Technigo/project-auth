@@ -15,7 +15,7 @@ const port = process.env.PORT || 8787;
 const app = express();
 
 
-const allowedOrigins = ["https://auntauthy.netlify.app", "https://aunt-authy.onrender.com", "https://project-auth-pqxu.onrender.com"];
+const allowedOrigins = ["*"];
 // Add middlewares to enable cors and json body parsing
 app.use(cors({
   origin: function (origin, callback) {
