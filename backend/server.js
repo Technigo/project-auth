@@ -17,7 +17,7 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(
   cors({
-    origin: ["https://auntauthy.netlify.app", "https://aunt-authy.onrender.com/", "https://project-auth-pqxu.onrender.com/"],
+    origin: ["*","https://auntauthy.netlify.app", "https://aunt-authy.onrender.com/", "https://project-auth-pqxu.onrender.com/"],
     credentials: true,
     methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
