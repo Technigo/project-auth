@@ -9,4 +9,6 @@ const axiosInstance = axios.create({
   },
 });
 
+console.log("Axios baseURL:", axiosInstance.defaults.baseURL);
+
 export default axiosInstance;
