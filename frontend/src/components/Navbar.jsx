@@ -2,9 +2,6 @@ import { Link } from "react-router-dom";
 import "../styling/Navbar.css";
 
 const Navbar = () => {
-  // const location = useLocation();
-  const token = localStorage.getItem("token");
-
   return (
     <nav className="navbar">
       <div className="navContainer">
@@ -28,15 +25,6 @@ const Navbar = () => {
               Login
             </Link>
           </li>
-
-          {/* Contidional rendering based on authentication status */}
-          {token ? (
-            <li className="navItem">
-              <Link to="/logout" className="navLink">
-                Logout
-              </Link>
-            </li>
-          ) : null}
         </ul>
       </div>
     </nav>
