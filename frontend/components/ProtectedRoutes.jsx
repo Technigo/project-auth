@@ -7,11 +7,13 @@ export const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const token = sessionStorage.getItem('token');
+  const apiKey = import.meta.env.VITE_API_KEY;
+  const API = apiKey + "/verify";
 
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        const response = await fetch('https://project-auth-pqxu.onrender.com/verify', {
+        const response = await fetch(API, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
