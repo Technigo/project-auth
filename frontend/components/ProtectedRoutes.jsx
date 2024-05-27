@@ -11,7 +11,7 @@ export const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        const response = await fetch('/verify', {
+        const response = await fetch('https://project-auth-pqxu.onrender.com/verify', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
