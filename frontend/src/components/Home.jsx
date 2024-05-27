@@ -8,11 +8,7 @@ const Home = () => {
       <div className="homeIntro">
         <h1 className="homeTitle">Ready to see some very cute kitties?</h1>
         <div className="homeSection">
-          <img
-            src="/public/homeKitten.jpg"
-            alt="cute kitten"
-            className="homeImage"
-          />
+          <img src="/homeKitten.jpg" alt="cute kitten" className="homeImage" />
           <p className="homeText">
             "A cat will do what it wants, when it wants, and there is not a
             thing you can do about it"

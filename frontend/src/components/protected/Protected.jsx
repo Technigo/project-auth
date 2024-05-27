@@ -45,11 +45,7 @@ const Protected = () => {
     <div className="protectedWrapper">
       <div className="protectedContainer">
         <h1 className="protectedTitle">Here are the kittens!</h1>
-        <img
-          src="/public/Kittens.jpg"
-          alt="Cute kittens"
-          className="protectedImage"
-        />
+        <img src="/Kittens.jpg" alt="Cute kittens" className="protectedImage" />
         {protectedData ? (
           <p className="protectedMessage">{protectedData}</p>
         ) : (
