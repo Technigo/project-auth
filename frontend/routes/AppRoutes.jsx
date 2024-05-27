@@ -12,13 +12,12 @@ export const AppRoutes = () => {
   return (
     <Router>
       <Routes>
-
-        <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} fallbackComponent={<Home />} />
-        <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} fallbackComponent={<Dashboard />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
+      <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} fallbackComponent={<Dashboard />} />
         <Route path="/register" element={<Registration />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} fallbackComponent={<Home />} />
+        <Route path="/" element={<Home />} />
 
       </Routes>
     </Router>

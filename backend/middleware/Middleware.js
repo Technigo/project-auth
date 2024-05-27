@@ -21,8 +21,10 @@ const authenticateUser = async (req, res, next) => {
       try {
         //decode the token 🤫
         const decoded = jwt.verify(bearerToken, SECRET);
+        console.log("Decoded token: ", decoded); // Log the decoded token
         // find user with the decoded id
         const user = await User.findById(decoded.id);
+        console.log("Decoded token2: ", decoded); // Log the decoded token
         //check if user exists and ready to party like a request object
         if (user) {
           req.user = user;
@@ -37,6 +39,7 @@ const authenticateUser = async (req, res, next) => {
           });
         }
       } catch (err) {
+        console.error("Token verification error: ", err); // Log the error from jwt.verify()
         res.status(403).json({ loggedOut: true, message: "Invalid token" });
       }
     } else {
@@ -67,29 +70,30 @@ const authorizeUser = (roles) => {
   };
 };
 
-//check if user is logged in
+//check if user is logged in and the token is not in the blacklist
 const isLoggedIn = async (req, res, next) => {
   if (req.user) {
-    // Check if the user's token is in the blacklist, and if it is, tell them to get lost tho shall not pass
-    const blacklist = await tokenBlacklist;
+    try {
+      // Query the database to check if the token exists in the blacklist
+      const tokenInBlacklist = await Blacklist.findOne({ token: req.user.accessToken });
 
-    // Check if blacklist is undefined
-    if (!blacklist) {
+      // If the token is in the blacklist, return a 401 status
+      if (tokenInBlacklist) {
+        return res
+          .status(401)
+          .json({ message: "This token has been invalidated" });
+      }
+
+      // If the token is not in the blacklist, proceed to the next middleware function or route handler
+      next();
+    } catch (error) {
+      // If there's an error while querying the database, return a 500 status with a detailed error message
       return res
         .status(500)
-        .json({ message: "Error retrieving token blacklist" });
+        .json({ message: "Error retrieving token blacklist", error: error.message });
     }
-
-    // Check if the user's token is in the blacklist
-    if (!blacklist.includes(req.user.accessToken)) {
-      return res
-        .status(401)
-        .json({ message: "This token has been invalidated" });
-    }
-    console.log(res.getHeaders());
-    next();
   } else {
-    //tell the user they are not logged in - those invalidated tokens are dead to us - begone ghost!
+    // If the user is not logged in, return a 403 status
     res.status(403).json({ message: "No user logged in" });
   }
 };

@@ -1,8 +1,13 @@
 import express from "express";
 import User from "../model/user-model";
+import Blacklist from "../model/blacklist-model"
 import bcrypt from "bcrypt";
 import { authenticateUser, authorizeUser } from "../middleware/Middleware";
+import dotenv from "dotenv";
+import jwt from 'jsonwebtoken';
 
+dotenv.config();
+const SECRET = process.env.SECRET || "toast is the best secret";
 const adminRouter = express.Router();
 adminRouter.use(authenticateUser, authorizeUser(["admin"]));
 
@@ -20,7 +25,7 @@ adminRouter.get("/users", async (req, res) => {
 });
 
 // route for getting content behind authorization find me at /admin
-adminRouter.get("/", authenticateUser, authorizeUser(["admin"]), (req, res) => {
+adminRouter.get("/", (req, res) => {
   // This code will only run if the user is an admin
   res.render("admin");
 });

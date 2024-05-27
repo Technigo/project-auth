@@ -7,10 +7,11 @@ export const Dashboard = () => {
   const navigate = useNavigate();
   const apiKey = import.meta.env.VITE_API_KEY;
   const API = apiKey + "/role";
-  const token = sessionStorage.getItem('token');
+  
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = sessionStorage.getItem('token');
       await fetch(`${API}`, {
         method: 'GET',
         headers: {
@@ -34,7 +35,7 @@ export const Dashboard = () => {
 
     fetchData();
   }
-    , [token, API]);
+    , []);
 
   return (
     <>

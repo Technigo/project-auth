@@ -27,7 +27,7 @@ export const Login = () => {
       })
       .then((json) => {
         setMessage("Login successful!");
-        navigate("/");
+        navigate("/dashboard");
         // Store the token in session storage
         sessionStorage.setItem('token', json.accessToken);
       })

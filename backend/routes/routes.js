@@ -94,9 +94,15 @@ router.post("/login", async (req, res) => {
 });
 
 //route to verify if token is valid with middleware isLoggedIn
-router.get("/verify", authenticateUser, isLoggedIn, (req, res) => {
+router.get("/verify", authenticateUser,(req, res) => {
   res.json({ message: "You are logged in" });
 });
+
+
+//route to verify if token is valid with middleware isLoggedIn
+//router.get("/verify", authenticateUser, isLoggedIn,(req, res) => {
+//  res.json({ message: "You are logged in" });
+//});
 
 //route to get user role
 router.get("/role", authenticateUser, (req, res) => {

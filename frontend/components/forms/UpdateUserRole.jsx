@@ -8,9 +8,10 @@ export const UpdateUserRole = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const API = apiKey + "/admin";
   console.log(API);
-  const token = sessionStorage.getItem('token');
+
 
   const updateRole = async (e) => {
+    const token = sessionStorage.getItem('token');
     e.preventDefault();
     const id = e.target.id.value;
     const role = e.target.role.value;

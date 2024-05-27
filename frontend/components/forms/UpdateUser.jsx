@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 const API = apiKey + "/admin"
-const token = sessionStorage.getItem('token');
 
 export const UpdateUser = () => {
   const [id, setId] = useState('');
@@ -11,15 +10,19 @@ export const UpdateUser = () => {
   const [role, setRole] = useState('user');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+
   const Update = async () => {
+    const token = sessionStorage.getItem('token');
     console.log('Token:', token); // Log the token
     try {
+      console.log('API:', API); // Log the API
       const response = await fetch(`${API}/users/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
+
         body: JSON.stringify({ name, email, role, password }),
       });
       if (!response.ok) {
