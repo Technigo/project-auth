@@ -1,29 +1,29 @@
 import "./Buttons.css";
 
-export const BtnSignIn = () => {
+export const BtnSignIn = ({ onClick }) => {
   return (
     <div className="button-container">
-      <button onClick={() => console.log("Sign In button clicked")} type="button">
+      <button onClick={onClick} type="button">
         Sign In
       </button>
     </div>
   );
 };
 
-export const BtnLogin = () => {
+export const BtnLogin = ({ onClick }) => {
   return (
     <div className="button-container">
-      <button onClick={() => console.log("Login button clicked")} type="button">
+      <button onClick={onClick} type="button">
         Login
       </button>
     </div>
   );
 };
 
-export const BtnSubmit = () => {
+export const BtnSubmit = ({ onClick }) => {
   return (
     <div className="button-container">
-      <button onClick={() => console.log("Submit button clicked")} type="submit">
+      <button onClick={onClick} type="submit">
         Submit
       </button>
     </div>

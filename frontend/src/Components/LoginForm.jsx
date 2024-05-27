@@ -65,7 +65,7 @@ export const LoginForm = () => {
           <i className="bx bxs-envelope"></i>
           <br />
         </div>
-        <small>We'll never share your email with anyone else 🤣</small>
+        <small>We'll 'never' share your email with anyone else.</small>
         <div className="buttons">
           <div className="button-container">
             <button

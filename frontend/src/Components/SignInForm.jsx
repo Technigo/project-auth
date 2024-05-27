@@ -1,12 +1,15 @@
 import { useState } from "react";
-import "./SignInForm.css";
 import { BtnSignIn } from "./Buttons";
+import { useStore } from "../stores/storeData";
+import "./SignInForm.css";
 
 export const SignInForm = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const { hideForms } = useStore();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +28,7 @@ export const SignInForm = () => {
   return (
     <form onSubmit={handleSubmit} className="sign-in-container">
       <div>
-        <div class="input-field">
+        <div className="input-field">
           <input
             type="email"
             id="email"
@@ -35,9 +38,9 @@ export const SignInForm = () => {
             onChange={handleChange}
             required
           />
-          <i class="bx bxs-user"></i>
+          <i className="bx bxs-user"></i>
         </div>
-        <div class="input-field">
+        <div className="input-field">
           <input
             type="password"
             id="password"
@@ -47,10 +50,17 @@ export const SignInForm = () => {
             onChange={handleChange}
             required
           />
-          <i class="bx bxs-lock-alt"></i>
+          <i className="bx bxs-lock-alt"></i>
         </div>
       </div>
-      <BtnSignIn />
+      <div id="buttons">
+        <div className="button-container">
+          <button className="back-btn" onClick={hideForms} type="button">
+            back
+          </button>
+        </div>
+        <BtnSignIn />
+      </div>
     </form>
   );
 };
