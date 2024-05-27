@@ -1,20 +1,23 @@
 import { useState } from "react";
 import axios from "axios";
 import "../../styling/Auth.css";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/api/register", {
+      await axios.post("http://localhost:8080/api/register", {
         username,
         password,
       });
       console.log("Registration successfull");
+      navigate("/protected");
     } catch (error) {
       setError("Username already taken or server error. Please try again.");
       console.error("Registration error", error);
