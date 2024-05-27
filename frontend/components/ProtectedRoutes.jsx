@@ -10,6 +10,11 @@ export const ProtectedRoute = ({ children }) => {
   const API = apiKey + "/verify";
 
   const verifyToken = async () => {
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
     try {
       const response = await fetch(API, {
         method: 'GET',
