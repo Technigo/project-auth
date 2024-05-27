@@ -1,3 +1,10 @@
+import { BrowserRouter } from "react-router-dom"
+import { AuthRoutes } from "./routes/AuthRoutes"
+
 export const App = () => {
-  return <div>Find me in src/app.jsx!</div>;
-};
+  return (
+    <BrowserRouter>
+      <AuthRoutes />
+    </BrowserRouter>
+  )
+}
