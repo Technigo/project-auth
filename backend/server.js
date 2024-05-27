@@ -28,27 +28,6 @@ const userSchema = new Schema({
     type: String,
     required: [true, "Password is required"],
     minlength: [8, "Password must be at least 8 characters long"],
-    // validate: {
-    //   validator: function (value) {
-    //     return (
-    //       value &&
-    //       value.length >= 12 &&
-    //       /[A-Z]/.test(value) && // At least one uppercase letter
-    //       /[a-z]/.test(value) && // At least one lowercase letter
-    //       /[0-9]/.test(value) && // At least one number
-    //       /[!@#$%^&*(),.?":{}|<>]/.test(value) // At least one special character
-    //     );
-    //   },
-    //   message:
-    //     "Password must be at least 12 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character",
-    // },
-    // minlength: [3, "Password cannot be empty"],
-    // validate: {
-    //   validator: function (value) {
-    //     return value && value.trim().length > 0;
-    //   },
-    //   message: "Password cannot be empty",
-    // },
   },
   accessToken: {
     type: String,
@@ -79,21 +58,6 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-// // create middleware- if everything is ok, then tell express to continue execution
-// const authenticateUser = async (req, res, next) => {
-//   const user = await User.findOne({ accessToken: req.header("Authorization") });
-//   // if user is found based on accestoken they sent in, if found- attach the user-object to the request. Modifying the request inside the middleware
-//   if (user) {
-//     req.user = user;
-//     next();
-//   } else {
-//     //if not found, return an unauthorized statuscode with loggedOut-body to true
-//     res.status(401).json({
-//       message: ""Authentication missing och invalid."
-//       loggedOut: true });
-//   }
-// };
-
 // Defines the port the app will run on. Defaults to 8030, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
 // PORT=9000 npm start
@@ -109,33 +73,6 @@ app.get("/", (req, res) => {
   const endpoints = expressListEndpoints(app);
   res.json(endpoints);
 });
-
-// app.post("/register", async (req, res) => {
-//   try {
-//     const { name, email, password } = req.body;
-//     if (!name || !email || !password) {
-//       res
-//         .status(400)
-//         .json({ message: "Name, email, and password are required" });
-//       return;
-//     }
-
-//     const user = await new User({
-//       name,
-//       email,
-//       password: bcrypt.hashSync(password, 10),
-//     }).save();
-//     res.status(201).json({ id: user._id, accessToken: user.accessToken });
-//   } catch (err) {
-//     if (err.code === 11000) {
-//       res.status(400).json({ message: "Email or name already exists" });
-//     } else {
-//       res
-//         .status(400)
-//         .json({ message: "Could not create user", errors: err.errors });
-//     }
-//   }
-// });
 
 app.post("/register", async (req, res) => {
   try {
@@ -171,10 +108,6 @@ app.post("/register", async (req, res) => {
 app.get("/my-pages", authenticateUser, (req, res) => {
   res.json({ message: "This is your personal page" });
 });
-// app.get("/my-pages", authenticateUser);
-// app.get("/my-pages", (req, res) => {
-//   res.json({ message: "This is a super secret message" });
-// });
 
 // Allow the user to log in, not only register
 
@@ -202,19 +135,6 @@ app.post("/sign-in", async (req, res) => {
       .json({ message: "Internal server error", error: err.message });
   }
 });
-
-// app.post("/sign-in", async (req, res) => {
-//   const user = await User.findOne({ email: req.body.email });
-//   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-//     res.json({
-//       userId: user._id,
-//       name: user.name,
-//       accessToken: user.accessToken,
-//     });
-//   } else {
-//     res.json({ notFound: true });
-//   }
-// });
 
 // Start the server
 app.listen(port, () => {

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./Registration.css";
-import { SignIn } from "./SignIn";
 import { Loader } from "./Loader";
 
 export const Registration = ({ setIsRegistering }) => {
@@ -8,7 +7,6 @@ export const Registration = ({ setIsRegistering }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  // const [isRegistered, setIsRegistered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
@@ -31,7 +29,6 @@ export const Registration = ({ setIsRegistering }) => {
         setName("");
         setEmail("");
         setPassword("");
-        /* setIsRegistered(true); */
         setIsLoading(false);
 
         // Redirect to the sign-in form after successful registration
@@ -98,56 +95,7 @@ export const Registration = ({ setIsRegistering }) => {
             Sign in
           </a>
         </p>
-        {/* <p>
-          Already have an account?{" "}
-          <button onClick={() => setIsRegistering(false)}>Sign In</button>
-        </p> */}
       </>
     </div>
   );
 };
-
-//{isLoading ? (
-//   <div className="loading-container">
-//   <p>Loading thoughts...</p>
-// </div>
-// {loading && <h2 className="loading">Loading...</h2>}
-
-//   return (
-//     <div className="container">
-//       <h1>Register</h1>
-//       <form onSubmit={handleSubmit}>
-//         <label htmlFor="name">Name:</label>
-//         <input
-//           type="text"
-//           id="name"
-//           value={name}
-//           placeholder="Anna Andersson"
-//           onChange={(e) => setName(e.target.value)}
-//           required
-//         />
-//         <label htmlFor="email">Email:</label>
-//         <input
-//           type="email"
-//           id="email"
-//           value={email}
-//           placeholder="anna.andersson@mail.com"
-//           onChange={(e) => setEmail(e.target.value)}
-//           required
-//         />
-//         <label htmlFor="password">Password:</label>
-//         <input
-//           type="password"
-//           id="password"
-//           value={password}
-//           placeholder="password123"
-//           onChange={(e) => setPassword(e.target.value)}
-//           required
-//         />
-//         <button type="submit">Register</button>
-//       </form>
-//       <p>{message}</p>
-//       <SignIn />
-//     </div>
-//   );
-// };

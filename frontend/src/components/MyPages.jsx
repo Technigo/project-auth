@@ -50,14 +50,6 @@ export const MyPages = ({ user, setUser }) => {
     );
   }
 
-  // {
-  //   error && (
-  //     <div className="error-container">
-  //       <p>{error}</p>
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className="container">
       <h1>Welcome, {user.name}</h1>

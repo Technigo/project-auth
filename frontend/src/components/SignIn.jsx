@@ -81,11 +81,6 @@ export const SignIn = ({ setIsRegistering, setUser }) => {
           Register
         </a>
       </p>
-      {/* <p>
-        {" "}
-        Not a registered user?{" "}
-        <button className="register-button" onClick={() => setIsRegistering(true)}>Register</button>
-      </p> */}
     </div>
   );
 };
