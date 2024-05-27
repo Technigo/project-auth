@@ -12,11 +12,20 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axiosInstance.post("/api/register", {
+      const response = await axiosInstance.post("api/register", {
         username,
         password,
       });
+
+      // Extract token from response
+      const { token } = response.data;
+      // Store token in local storage
+      localStorage.setItem("token", token);
+
       console.log("Registration successfull");
+      // Check if token is stored
+      console.log("Stored token", localStorage.getItem("token"));
+
       navigate("/protected");
     } catch (error) {
       setError("Username already taken or server error. Please try again.");

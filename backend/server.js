@@ -17,8 +17,8 @@ app.use(express.json());
 
 // Connect to MongoDB
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.Promise = global.Promise;
+mongoose.connect(mongoUrl);
+mongoose.Promise = Promise;
 
 // Routes
 app.get("/", (req, res) => {
@@ -42,6 +42,10 @@ app.post("/api/register", async (req, res) => {
     // Create a new user
     user = new User({ username, password: hashedPassword });
     await user.save();
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiredIn: "1h",
+    });
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
