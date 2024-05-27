@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../../styling/Protected.css";
 
 const Protected = () => {
   const [protectedData, setProtectedData] = useState("");
@@ -41,16 +42,23 @@ const Protected = () => {
   };
 
   return (
-    <div className="protectedContainer">
-      <h1 className="protectedTitle">Protected Content</h1>
-      {protectedData ? (
-        <p className="protectedMessage">{protectedData}</p>
-      ) : (
-        <p className="errorMessage">{error}</p>
-      )}
-      <button onClick={handleLogout} className="logoutButton">
-        Logout
-      </button>
+    <div className="protectedWrapper">
+      <div className="protectedContainer">
+        <h1 className="protectedTitle">Here are the kittens!</h1>
+        <img
+          src="/public/Kittens.jpg"
+          alt="Cute kittens"
+          className="protectedImage"
+        />
+        {protectedData ? (
+          <p className="protectedMessage">{protectedData}</p>
+        ) : (
+          <p className="errorMessage">{error}</p>
+        )}
+        <button onClick={handleLogout} className="authButton">
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
