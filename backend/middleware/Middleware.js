@@ -91,14 +91,14 @@ const logoutUser = async (req, res, next) => {
 };
 
 //check if user is logged in
-const isLoggedIn = (req, res, next) => {
+const isLoggedIn = async (req, res, next) => {
   if (req.user) {
     // Check if the user's token is in the blacklist, and if it is, tell them to get lost tho shall not pass
-    if (tokenBlacklist.includes(req.user.accessToken)) {
+    const blacklist = await tokenBlacklist; // If tokenBlacklist is a promise
+    if (blacklist.includes(req.user.accessToken)) {
       return (
         res
           .status(401)
-          //tell the user they are not allowed to pass - like a bouncer at a club
           .json({ message: "This token has been invalidated" })
       );
     }
