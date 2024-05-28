@@ -19,15 +19,15 @@ export const Logout = () => {
           "Authorization": `Bearer ${yourToken}`
         },
       });
-      const data = await response.json();
-      console.log(data);
+      //const data = await response.json();
+      //console.log(data);
       // Let's Kon-Mari that token who does not spark joy anymore. it has no purpose and is no longer worthy of our neat session storage
       sessionStorage.removeItem('token');
       setMessage("Logout successful! Please sign in.");
       navigate("/");
 
     } catch (error) {
-      console.log(error);
+      setMessage(error);
     }
   };
 

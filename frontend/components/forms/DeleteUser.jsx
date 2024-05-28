@@ -1,8 +1,10 @@
+import { useState } from "react";
 
-export const DeleteUser = () => {
+export const DeleteUser = ({getUsers}) => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const API = apiKey + "/admin";
   const token = sessionStorage.getItem('token');
+  const [message, setMessage] = useState(""); // Move this line inside the DeleteUser component
 
   const Delete = async (e) => {
     e.preventDefault();
@@ -15,11 +17,14 @@ export const DeleteUser = () => {
           'Authorization': `Bearer ${token}`
         },
       });
-      const data = await response.json();
-      console.log(data);
+      //const data = await response.json();
+      //console.log(data);
+      setMessage('User deleted successfully');
+      getUsers();
     }
     catch (error) {
       console.error(error);
+      setMessage('An unexpected error occurred.');
     }
   }
   return (
@@ -28,6 +33,7 @@ export const DeleteUser = () => {
       <label>ID</label>
       <input type="text" name="id" />
       <button type="submit">Delete user</button>
+      {message && <p>{message}</p>}
     </form>
   );
 };

@@ -111,7 +111,6 @@ router.get("/role", authenticateUser, (req, res) => {
 
 // Route to log out user
 router.post("/logout", authenticateUser, logoutUser, (req, res) => {
-  console.log("Logging out user"); // Log a message when the route is hit
   res.json({ message: "You are now logged out" });
 });
 

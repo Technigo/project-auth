@@ -1,12 +1,11 @@
 import User from "../model/user-model";
 import dotenv from "dotenv";
 import Blacklist from "../model/blacklist-model";
-import { tokenBlacklist } from "../utility/tokenBlacklist";
 import jwt from "jsonwebtoken";
 
 dotenv.config();
 const SECRET = process.env.SECRET || "toast is the best secret";
-//console.log("middleware SECRET: ", SECRET);
+
 
 const authenticateUser = async (req, res, next) => {
   // Get the token from the request headers
@@ -21,16 +20,13 @@ const authenticateUser = async (req, res, next) => {
       try {
         //decode the token 🤫
         const decoded = jwt.verify(bearerToken, SECRET);
-        console.log("Decoded token: ", decoded); // Log the decoded token
         // find user with the decoded id
         const user = await User.findById(decoded.id);
-        console.log("Decoded token2: ", decoded); // Log the decoded token
         //check if user exists and ready to party like a request object
         if (user) {
           req.user = user;
           req.user.accessToken = bearerToken; // Set the access token for the user
           //move to the next middleware -> authorizeUser or isLoggedIn to see if token is valid (not stored in blacklist)
-          console.log(res.getHeaders());
           next();
         } else {
           res.status(401).json({
@@ -39,7 +35,6 @@ const authenticateUser = async (req, res, next) => {
           });
         }
       } catch (err) {
-        console.error("Token verification error: ", err); // Log the error from jwt.verify()
         res.status(403).json({ loggedOut: true, message: "Invalid token" });
       }
     } else {
@@ -65,7 +60,6 @@ const authorizeUser = (roles) => {
         )}`,
       });
     }
-    console.log(res.getHeaders());
     next();
   };
 };
@@ -116,7 +110,6 @@ const logoutUser = async (req, res, next) => {
     res.json({ message: "You are now logged out" });
   } catch (error) {
     // if we can let that user go, we will let them know - but if we can't, we will let the console know
-    console.error("Error logging out user: ", error);
     res.status(500).json({
       message: "An error occurred while logging out",
       error: error.message,

@@ -5,14 +5,12 @@ import { useEffect, useState } from 'react';
 export const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
-
   const apiKey = import.meta.env.VITE_API_KEY;
   const API = apiKey + "/verify";
 
+
   const verifyToken = async () => {
     const token = sessionStorage.getItem('token');
-    console.log("Token from session storage: ", token);
-    console.log(API);
 
     if (!token) {
       navigate('/login');

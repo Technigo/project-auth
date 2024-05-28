@@ -1,13 +1,12 @@
 import { useState } from 'react';
 
-export const UpdateUserRole = () => {
+export const UpdateUserRole = ({ getUsers }) => {
   const [id, setId] = useState('');
   const [role, setRole] = useState('user');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [message, setMessage] = useState('');
   const apiKey = import.meta.env.VITE_API_KEY;
   const API = apiKey + "/admin";
-  console.log(API);
+
 
 
   const updateRole = async (e) => {
@@ -17,7 +16,7 @@ export const UpdateUserRole = () => {
     const role = e.target.role.value;
 
     if (!id || !role) {
-      setError('Please fill in all fields');
+      setMessage('Please fill in all fields');
       return;
     }
 
@@ -34,19 +33,15 @@ export const UpdateUserRole = () => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+      setMessage('User role updated successfully');
+      getUsers();
 
-      const data = await response.json();
-      console.log(data);
-      setSuccess('User role updated successfully');
     } catch (error) {
-      console.error(error);
-      setError('An error occurred while updating the user role');
+      setMessage('An error occurred while updating the user role');
     }
   };
   return (
     <form onSubmit={updateRole}>
-      {error && <p>{error}</p>}
-      {success && <p>{success}</p>}
       <label>Update user role</label>
       <label>ID</label>
       <input type="text" name="id" value={id} onChange={(e) => setId(e.target.value.trim())} />
@@ -58,6 +53,7 @@ export const UpdateUserRole = () => {
         <option value="admin">Admin</option>
       </select>
       <button type="submit">Update role</button>
+      {message && <p>{message}</p>}
     </form>
   );
 };

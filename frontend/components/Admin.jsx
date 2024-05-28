@@ -6,6 +6,7 @@ import { DeleteUser } from './forms/DeleteUser';
 import { CreateUser } from './forms/CreateUser';
 import { UpdateUserRole } from './forms/UpdateUserRole';
 
+
 export const Admin = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const API = apiKey + "/admin";
@@ -39,13 +40,13 @@ export const Admin = () => {
       <p>Wow - so much admin stuff</p>
       <p>As an admin can you do lots of exclusive stuff: create and delete users, update user roles, and userinfo</p>
 
-      <UpdateUser />
-      <UpdateUserRole />
-      <DeleteUser />
-      <CreateUser />
+      <UpdateUser getUsers={getUsers} />
+      <UpdateUserRole getUsers={getUsers}/>
+      <DeleteUser  getUsers={getUsers}/>
+      <CreateUser getUsers={getUsers} />
       <Logout />
 
-      <button onClick={getUsers}>Get users</button>
+     
 
       {users.map(({ _id, name, email, role }) => (
         <div key={_id}>

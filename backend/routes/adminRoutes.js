@@ -1,10 +1,10 @@
 import express from "express";
 import User from "../model/user-model";
-import Blacklist from "../model/blacklist-model"
+//import Blacklist from "../model/blacklist-model"
 import bcrypt from "bcrypt";
 import { authenticateUser, authorizeUser } from "../middleware/Middleware";
 import dotenv from "dotenv";
-import jwt from 'jsonwebtoken';
+//import jwt from 'jsonwebtoken';
 
 dotenv.config();
 const SECRET = process.env.SECRET || "toast is the best secret";
@@ -62,28 +62,28 @@ adminRouter.put("/users/:id", async (req, res) => {
     const { id } = req.params;
     const { name, email, role, password } = req.body;
 
-    if (!name || !email || !role || !password) {
+    if (!(name || email || role || password)) {
       return res
         .status(400)
-        .json({ error: "All fields are required", error: error.message });
+        .json({
+          error: "At least noe field is required to update user data",
+          error: error.message,
+        });
     }
 
-    const salt = bcrypt.genSaltSync();
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
-      {
-        name,
-        email,
-        role,
-        password: bcrypt.hashSync(password, salt),
-      },
-      { new: true }
-    );
+    let update = {};
+    if (name) update.name = name;
+    if (email) update.email = email;
+    if (role) update.role = role;
+    if (password) {
+      const salt = bcrypt.genSaltSync();
+      update.password = bcrypt.hashSync(password, salt);
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(id, update, { new: true });
 
     if (!updatedUser) {
-      return res
-        .status(404)
-        .json({ error: "User not found", error: error.message });
+      return res.status(404).json({ error: "User not found" });
     }
 
     res.json(updatedUser);

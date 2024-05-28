@@ -3,13 +3,13 @@ import { useState } from 'react';
 const apiKey = import.meta.env.VITE_API_KEY;
 const API = apiKey + "/admin"
 
-export const CreateUser = () => {
+export const CreateUser = ({getUsers}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('user');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
-  const [serverError, setServerError] = useState('');
+  const [message, setMessage] = useState('');
   const Update = async () => {
     const token = sessionStorage.getItem('token');
     try {
@@ -22,17 +22,22 @@ export const CreateUser = () => {
         body: JSON.stringify({ name, email, role, password }),
       });
       if (!response.ok) {
+        setMessage('An error occurred while creating the user.');
         const errorData = await response.json();
         throw new Error(errorData.error);
+
+
       }
-      const data = await response.json();
-      console.log(data);
+      //const data = await response.json();
+      //console.log(data);
+      getUsers();
+      setMessage('User created successfully');
     } catch (error) {
       console.error(error);
       if (error.message.includes('E11000')) {
-        setServerError('A user with the same email already exists.');
+        setMessage('A user with the same email already exists.');
       } else {
-        setServerError('An unexpected error occurred.');
+        setMessage('An unexpected error occurred.');
       }
     }
   };
@@ -77,7 +82,7 @@ export const CreateUser = () => {
       <input type="password" name="password" onChange={e => setPassword(e.target.value.trim())} />
       {errors.password && <p>{errors.password}</p>}
       <button type="submit">Create user</button>
-      {serverError && <p>{serverError}</p>}
+      {message && <p>{message}</p>}
     </form>
   );
 }
