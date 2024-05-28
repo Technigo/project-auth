@@ -21,9 +21,12 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
+// created a login endpoint here
 app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  console.log(`Login with username: ${username} and password: ${password}`);
   res.json({ message: "Login route" });
-})
+});
 
 // Start the server
 app.listen(port, () => {

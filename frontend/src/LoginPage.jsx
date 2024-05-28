@@ -7,8 +7,21 @@ export const LoginPage = () => {
   const handleSubmit = (event) => {
     // prevent dedefault stops the page from reloading
     event.preventDefault();
-    
-    navigate("/private");
+
+    // fetch is for sending requests to the server. Post is for sending data to the server.
+    fetch("http://localhost:8080/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // here we are defining what data we are going to send to the server 
+      body: JSON.stringify({
+        username: event.target.username.value,
+        password: event.target.password.value,
+      }),
+    }).then(() => {
+      navigate("/private");
+    });
   };
   return (
     // here we have to first register an event handler for the form submission
