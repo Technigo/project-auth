@@ -14,14 +14,20 @@ export const LoginPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      // here we are defining what data we are going to send to the server 
+      // here we are defining what data we are going to send to the server
       body: JSON.stringify({
         username: event.target.username.value,
         password: event.target.password.value,
       }),
-    }).then(() => {
-      navigate("/private");
-    });
+    })
+    // here converting the response from json, which is a string, to an object that we can work with
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        // here we are saving the token in the local storage, so the user can stay logged in
+        localStorage.setItem("token", res.token);
+        navigate("/private");
+      });
   };
   return (
     // here we have to first register an event handler for the form submission
