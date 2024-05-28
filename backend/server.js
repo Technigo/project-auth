@@ -25,7 +25,17 @@ app.get("/", (req, res) => {
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   console.log(`Login with username: ${username} and password: ${password}`);
-  res.json({ message: "Login route" });
+  // here we are creating a token ... like you get a ticket to a festival, and the wristband is the token
+  res.json({ token: "1234" });
+});
+
+// here we are checking the token, if it is correct we get the message, if not we get a 401 error
+app.get("/private", async (req, res) => {
+  if (req.headers.authorization === "Bearer 1234") {
+    res.json({ message: "This is a secret message" });
+  } else {
+    res.status(401).json({ message: "Not authorized" });
+  }
 });
 
 // Start the server
