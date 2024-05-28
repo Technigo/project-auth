@@ -19,8 +19,11 @@ const Register = () => {
 
       // Extract token from response
       const { token } = response.data;
+
       // Store token in local storage
-      localStorage.setItem("token", token);
+      if (token) {
+        localStorage.setItem("token", token);
+      }
 
       console.log("Registration successfull");
       // Check if token is stored
