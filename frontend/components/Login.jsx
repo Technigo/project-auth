@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Logout } from "./Logout.jsx";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
@@ -9,7 +8,6 @@ export const Login = () => {
   const navigate = useNavigate();
   const apiKey = import.meta.env.VITE_API_KEY;
   const API = apiKey + "/login";
-
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -63,7 +61,6 @@ export const Login = () => {
       {message && (
         <div>
           <p>{message}</p>
-          <Logout />
         </div>
       )}
     </div>

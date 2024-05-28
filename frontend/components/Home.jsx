@@ -6,8 +6,8 @@ export const Home = () => {
   const [showLogin, setShowLogin] = useState(true);
   return (
     <>
-
       <h1>Home</h1>
+      <p>Welcome home old or new sailors!</p>
       {showLogin ? (
         <>
           <p>Not a member? Register here</p>

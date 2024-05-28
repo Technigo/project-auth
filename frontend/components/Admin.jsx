@@ -6,12 +6,12 @@ import { DeleteUser } from './forms/DeleteUser';
 import { CreateUser } from './forms/CreateUser';
 import { UpdateUserRole } from './forms/UpdateUserRole';
 
-
 export const Admin = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const API = apiKey + "/admin";
   const [users, setUsers] = useState([]);
   const token = sessionStorage.getItem('token');
+  const [message, setMessage] = useState("");
 
   const getUsers = useCallback(async () => {
     try {
@@ -24,8 +24,9 @@ export const Admin = () => {
       });
       const data = await response.json();
       setUsers(data);
+      setMessage('User fetched successfully');
     } catch (error) {
-      console.error('Failed to fetch users:', error);
+      setMessage('An unexpected error occurred.');
     }
   }, [API, token, setUsers]);
 
@@ -41,12 +42,12 @@ export const Admin = () => {
       <p>As an admin can you do lots of exclusive stuff: create and delete users, update user roles, and userinfo</p>
 
       <UpdateUser getUsers={getUsers} />
-      <UpdateUserRole getUsers={getUsers}/>
-      <DeleteUser  getUsers={getUsers}/>
+      <UpdateUserRole getUsers={getUsers} />
+      <DeleteUser getUsers={getUsers} />
       <CreateUser getUsers={getUsers} />
       <Logout />
 
-     
+
 
       {users.map(({ _id, name, email, role }) => (
         <div key={_id}>
@@ -58,6 +59,7 @@ export const Admin = () => {
           </ul>
         </div>
       ))}
+      {message && <p>{message}</p>}
     </div>
   );
 }

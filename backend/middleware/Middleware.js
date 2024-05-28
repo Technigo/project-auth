@@ -6,7 +6,6 @@ import jwt from "jsonwebtoken";
 dotenv.config();
 const SECRET = process.env.SECRET || "toast is the best secret";
 
-
 const authenticateUser = async (req, res, next) => {
   // Get the token from the request headers
   const bearerHeader = req.headers["authorization"];
@@ -69,7 +68,9 @@ const isLoggedIn = async (req, res, next) => {
   if (req.user) {
     try {
       // Query the database to check if the token exists in the blacklist
-      const tokenInBlacklist = await Blacklist.findOne({ token: req.user.accessToken });
+      const tokenInBlacklist = await Blacklist.findOne({
+        token: req.user.accessToken,
+      });
 
       // If the token is in the blacklist, return a 401 status
       if (tokenInBlacklist) {
@@ -82,9 +83,10 @@ const isLoggedIn = async (req, res, next) => {
       next();
     } catch (error) {
       // If there's an error while querying the database, return a 500 status with a detailed error message
-      return res
-        .status(500)
-        .json({ message: "Error retrieving token blacklist", error: error.message });
+      return res.status(500).json({
+        message: "Error retrieving token blacklist",
+        error: error.message,
+      });
     }
   } else {
     // If the user is not logged in, return a 403 status

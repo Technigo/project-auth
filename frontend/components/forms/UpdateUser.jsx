@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 
-
 const apiKey = import.meta.env.VITE_API_KEY;
 const API = apiKey + "/admin"
 
@@ -52,10 +51,10 @@ export const UpdateUser = ({ getUsers }) => {
       });
       if (response.ok) {
         setMessage("User updated successfully");
-getUsers();
+        getUsers();
       } else
         if (!response.ok) {
-          setErrors("An error occurred while updating the user." + response.statusText);
+          setMessage("An error occurred while updating the user." + response.statusText);
         }
 
     } catch (error) {

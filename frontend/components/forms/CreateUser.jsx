@@ -3,7 +3,7 @@ import { useState } from 'react';
 const apiKey = import.meta.env.VITE_API_KEY;
 const API = apiKey + "/admin"
 
-export const CreateUser = ({getUsers}) => {
+export const CreateUser = ({ getUsers }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('user');
@@ -25,11 +25,8 @@ export const CreateUser = ({getUsers}) => {
         setMessage('An error occurred while creating the user.');
         const errorData = await response.json();
         throw new Error(errorData.error);
-
-
       }
-      //const data = await response.json();
-      //console.log(data);
+
       getUsers();
       setMessage('User created successfully');
     } catch (error) {

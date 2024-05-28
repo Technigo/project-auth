@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const DeleteUser = ({getUsers}) => {
+export const DeleteUser = ({ getUsers }) => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const API = apiKey + "/admin";
   const token = sessionStorage.getItem('token');
@@ -10,15 +10,14 @@ export const DeleteUser = ({getUsers}) => {
     e.preventDefault();
     const id = e.target.id.value;
     try {
-      const response = await fetch(`${API}/users/${id}`, {
+      await fetch(`${API}/users/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
       });
-      //const data = await response.json();
-      //console.log(data);
+
       setMessage('User deleted successfully');
       getUsers();
     }

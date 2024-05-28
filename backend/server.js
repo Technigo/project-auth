@@ -16,9 +16,7 @@ const app = express();
 
 const allowedOrigins = [
   "https://auntauthy.netlify.app",
-  "https://aunt-authy.onrender.com",
-  "http://localhost:5173",
-  "http://localhost:8787",
+  "https://aunt-authy.onrender.com"
 ];
 
 app.use(

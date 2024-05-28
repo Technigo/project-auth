@@ -7,7 +7,7 @@ export const Dashboard = () => {
   const navigate = useNavigate();
   const apiKey = import.meta.env.VITE_API_KEY;
   const API = apiKey + "/role";
-  
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +40,7 @@ export const Dashboard = () => {
   return (
     <>
       <h1>Dashboard</h1>
-      <p>This is a page you have to be logged into see!</p>
+      <p>This is a page you have to be logged into see! </p>
 
       <Logout />
       {isAdmin ? (

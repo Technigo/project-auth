@@ -39,8 +39,7 @@ export const Registration = () => {
               }
               return res.json();
             })
-            .then((json) => {
-              console.log(json);
+            .then(() => {
               setMessage("Registration successful! Please sign in.");
               navigate("/login");
             })

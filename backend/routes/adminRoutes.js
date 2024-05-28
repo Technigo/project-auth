@@ -1,10 +1,8 @@
 import express from "express";
 import User from "../model/user-model";
-//import Blacklist from "../model/blacklist-model"
 import bcrypt from "bcrypt";
 import { authenticateUser, authorizeUser } from "../middleware/Middleware";
 import dotenv from "dotenv";
-//import jwt from 'jsonwebtoken';
 
 dotenv.config();
 const SECRET = process.env.SECRET || "toast is the best secret";
@@ -63,14 +61,12 @@ adminRouter.put("/users/:id", async (req, res) => {
     const { name, email, role, password } = req.body;
 
     if (!(name || email || role || password)) {
-      return res
-        .status(400)
-        .json({
-          error: "At least noe field is required to update user data",
-          error: error.message,
-        });
+      return res.status(400).json({
+        error: "At least noe field is required to update user data",
+        error: error.message,
+      });
     }
-
+    // make a new object to store the updated user data, if any field is updated
     let update = {};
     if (name) update.name = name;
     if (email) update.email = email;
