@@ -1,11 +1,13 @@
 .authContainer {
-  margin-top: 50px;
   padding: 30px;
   border: 10px dotted var(--light-orange-color);
+  width: 350px;
+  margin: 100px auto;
 }
 
 .authTitle {
   font-family: var(--medium-font);
+  font-size: 28px;
 }
 
 .authForm {
