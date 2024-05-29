@@ -51,7 +51,17 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   console.log(`Login with username: ${username} and password: ${password}`);
   // here we are creating a token ... like you get a ticket to a festival, and the wristband is the token
-  res.json({ token: "1234" });
+  return User.findOne({ username: req.body.username })
+    .then((user) => {
+      if (user && req.body.password === user.password) {
+        console.log("User found", user);
+        res.json({ token: "1234" });
+      } else {
+        console.log("User not found");
+        res.status(401).json({ message: "Could not log in" });
+        return
+      }
+    })
 });
 
 // here we are checking the token, if it is correct we get the message, if not we get a 401 error
