@@ -6,6 +6,18 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
+const User = mongoose.model("User", {
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
+
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
 // PORT=9000 npm start
@@ -21,7 +33,20 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
-// created a login endpoint here
+// here is the route for post sign up.
+app.post("/signup", async (req, res) => {
+  // here we are defining what kind of data we are going to get.
+  User.create({ username: req.body.username, password: req.body.password })
+    .then(() => {
+      res.status(201).json({ token: "1234" });
+    })
+    .catch((error) => {
+      console.log(error.message);
+      res.status(400).json({ message: "Could not create user", error });
+    });
+});
+
+// created a login endpoint here. POST/login is the endpoint. POST/sign up is also an endpoint. GET is also an endpoint. The endpoints like log in and user data gets stored in the database (mongoDB)
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   console.log(`Login with username: ${username} and password: ${password}`);
