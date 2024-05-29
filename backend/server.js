@@ -1,6 +1,8 @@
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
+// install bcrypt with npm install. https://nordvpn.com/sv/blog/what-is-bcrypt/
+import bcrypt from "bcrypt";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl);
@@ -15,6 +17,12 @@ const User = mongoose.model("User", {
   password: {
     type: String,
     required: true,
+  },
+  token: {
+    type: String,
+    default: () => {
+      return bcrypt.genSaltSync();
+    },
   },
 });
 
@@ -37,8 +45,8 @@ app.get("/", (req, res) => {
 app.post("/signup", async (req, res) => {
   // here we are defining what kind of data we are going to get.
   User.create({ username: req.body.username, password: req.body.password })
-    .then(() => {
-      res.status(201).json({ token: "1234" });
+    .then((user) => {
+      res.status(201).json({ token: user.token });
     })
     .catch((error) => {
       console.log(error.message);
@@ -51,26 +59,33 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   console.log(`Login with username: ${username} and password: ${password}`);
   // here we are creating a token ... like you get a ticket to a festival, and the wristband is the token
-  return User.findOne({ username: req.body.username })
-    .then((user) => {
-      if (user && req.body.password === user.password) {
-        console.log("User found", user);
-        res.json({ token: "1234" });
-      } else {
-        console.log("User not found");
-        res.status(401).json({ message: "Could not log in" });
-        return
-      }
-    })
+  return User.findOne({ username: req.body.username }).then((user) => {
+    if (user && req.body.password === user.password) {
+      console.log("User found", user);
+      res.json({ token: user.token });
+    } else {
+      console.log("User not found");
+      res.status(401).json({ message: "Could not log in" });
+      return;
+    }
+  });
 });
 
 // here we are checking the token, if it is correct we get the message, if not we get a 401 error
 app.get("/private", async (req, res) => {
-  if (req.headers.authorization === "Bearer 1234") {
-    res.json({ message: "This is a secret message" });
-  } else {
+  if (!req.headers.authorization) {
     res.status(401).json({ message: "Not authorized" });
   }
+
+  const user = await User.findOne({
+    token: req.headers.authorization.split(" ")[1],
+  });
+  if (!user) {
+    res.status(401).json({ message: "Not authorized" });
+  }
+
+  console.log(user);
+  res.json({ message: "This is a secret message" });
 });
 
 // Start the server
