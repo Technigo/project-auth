@@ -1,0 +1,93 @@
+.homeContainer {
+  width: 350px;
+  margin: 0 auto;
+}
+
+.homeIntro {
+  border: 10px dotted var(--dark-color);
+
+  margin: 100px 0 20px 0;
+}
+
+.homeTitle {
+  text-align: center;
+  margin: 0;
+  padding-top: 20px;
+  font-family: var(--medium-font);
+}
+
+.homeSection {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.homeImage {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 40px;
+}
+
+.homeText {
+  padding-left: 10px;
+  font-size: 20px;
+  font-family: var(--big-font);
+  color: var(--blue-dark-color);
+}
+
+.arrowIcon {
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: var(--pink-color);
+}
+
+.homeAccount {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  margin: 50px 0 100px 0;
+  background-color: var(--light-blue-color);
+  border-radius: 20px;
+}
+
+.accountIntro {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.accountButton {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--dark-color);
+  font-family: Montserrat;
+  font-weight: 600;
+  color: white;
+}
+
+.accountButton:hover {
+  background-color: var(--light-orange-color);
+}
+
+@media (min-width: 1024px) {
+  .homeContainer {
+    width: 550px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .homeContainer {
+    width: 750px;
+  }
+
+  .accountText {
+    font-size: 20px;
+  }
+
+  .accountButton {
+    font-size: 20px;
+  }
+}

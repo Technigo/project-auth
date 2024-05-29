@@ -1,0 +1,28 @@
+.protectedWrapper {
+  width: 100%;
+  margin: 100px 0;
+}
+
+.protectedContainer {
+  border: 20px dotted var(--dark-blue-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 350px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.protectedTitle {
+  font-family: var(--big-font);
+}
+
+.protectedImage {
+  height: 300px;
+  width: 350px;
+  object-fit: cover;
+}
+
+.protectedMessage {
+  margin: 30px;
+}

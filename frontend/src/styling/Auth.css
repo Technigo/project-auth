@@ -1,0 +1,54 @@
+.authContainer {
+  padding: 30px;
+  border: 10px dotted var(--light-orange-color);
+  width: 350px;
+  margin: 100px auto;
+}
+
+.authTitle {
+  font-family: var(--medium-font);
+  font-size: 28px;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.authLabel {
+  font-weight: 600;
+}
+
+.textInput {
+  padding: 5px;
+  margin-bottom: 10px;
+  background-color: var(--light-blue-color);
+  border-radius: 5px;
+  border: 2px solid var(--dark-blue-color);
+  display: block;
+  width: 280px;
+}
+
+.passwordInput {
+  padding: 5px;
+  margin-bottom: 20px;
+  background-color: var(--light-blue-color);
+  border-radius: 5px;
+  border: 2px solid var(--dark-blue-color);
+  display: block;
+  width: 280px;
+}
+
+.authButton {
+  padding: 10px;
+  width: 100px;
+  border-radius: 10px;
+  background-color: var(--dark-color);
+  border: none;
+  font-size: 20px;
+  font-family: var(--big-font);
+}
+
+.authButton:hover {
+  background-color: var(--light-orange-color);
+}

@@ -1,0 +1,61 @@
+.navbar {
+  background-color: var(--dark-color);
+  padding: 5px 30px;
+  width: 100%;
+}
+
+.navTitleSection {
+  display: flex;
+  align-items: center;
+}
+
+.navTitle {
+  color: white;
+  font-size: 30px;
+}
+
+.logoIcon {
+  height: 50px;
+  width: 50px;
+}
+
+.navList {
+  align-items: center;
+  padding: 0;
+  display: flex;
+}
+
+.navItem {
+  margin-right: 20px;
+  list-style-type: none;
+}
+
+.navLink {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.navLink:hover {
+  color: #cbf3f0;
+}
+
+@media (min-width: 745px) {
+  .navTitle {
+    font-size: 40px;
+  }
+
+  .navList {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .navTitle {
+    font-size: 50px;
+  }
+
+  .navList {
+    font-size: 26px;
+  }
+}
