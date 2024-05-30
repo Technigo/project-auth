@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export const SignupPage = () => {
   const [error, setError] = useState(false);
@@ -34,18 +35,23 @@ export const SignupPage = () => {
       });
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Sign up</h1>
-      {error && <p>Something went wrong</p>}
-      <label>
-        Username:
-        <input type="text" name="username" />
-      </label>
-      <label>
-        Password:
-        <input type="password" name="password" />
-      </label>
-      <button type="submit">Sign up</button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <h1>Sign up</h1>
+        {error && <p>Something went wrong</p>}
+        <label>
+          Username:
+          <input type="text" name="username" />
+        </label>
+        <label>
+          Password:
+          <input type="password" name="password" />
+        </label>
+        <button type="submit">Sign up</button>
+      </form>
+      <p>
+        <Link to="/">Log in</Link>
+      </p>
+    </>
   );
 };
