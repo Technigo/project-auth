@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../reusables/Header";
 import { Button } from "../reusables/Button";
 
-const API_KEY = "https://project-auth-ziup.onrender.com";
 // const API_KEY = "http://localhost:8080";
 
 //styling
@@ -76,6 +75,8 @@ export const Registration = () => {
     password: "",
   });
 
+  const apiEnv = import.meta.env.VITE_API_KEY;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -118,7 +119,7 @@ export const Registration = () => {
     }
 
     try {
-      const response = await fetch(`${API_KEY}/register`, {
+      const response = await fetch(`${apiEnv}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

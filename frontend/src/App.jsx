@@ -12,7 +12,7 @@ export const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/logout" element={<Homepage />} />
+        {/* <Route path="/logout" element={<Homepage />} /> */}
       </Routes>
     </BrowserRouter>
   );
