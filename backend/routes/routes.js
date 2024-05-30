@@ -1,6 +1,5 @@
 import express from "express";
 import User from "../model/user-model";
-import bcrypt from "bcrypt";
 import {
   authenticateUser,
   logoutUser,
@@ -38,26 +37,23 @@ router.post("/exists", async (req, res) => {
 });
 
 // add user
-router.post("/signup", async (req, res) => {
+router.post("/user", async (req, res) => {
   const { name, email, password } = req.body;
   try {
-    const salt = bcrypt.genSaltSync();
     const newUser = await new User({
       name,
       email,
-      password: bcrypt.hashSync(password, salt),
+      password,
     }).save();
 
     // Generate a new access token
     const newAccessToken = jwt.sign({ id: newUser._id }, SECRET, {
       expiresIn: "1h",
     });
-    // Update the new user's access token
-    newUser.accessToken = newAccessToken;
 
     res.status(201).json({
       userId: newUser._id,
-      accessToken: newUser.accessToken,
+      accessToken: newAccessToken,
     });
   } catch (err) {
     res
@@ -71,7 +67,7 @@ router.post("/session", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (user && bcrypt.compareSync(password, user.password)) {
+    if (user && (await user.matchPassword(password))) {
       //generate the access token
       const newAccessToken = jwt.sign({ id: user._id }, SECRET, {
         expiresIn: "1h",
@@ -112,20 +108,21 @@ router.post("/logout", authenticateUser, logoutUser, (req, res) => {
 router.patch("/users/:id", async (req, res) => {
   const { id } = req.params;
   const { name, email, password } = req.body;
-  const salt = bcrypt.genSaltSync();
-  const updatedUser = await User.findByIdAndUpdate(
-    id,
-    {
-      name,
-      email,
-      password: bcrypt.hashSync(password, salt),
-    },
-    { new: true }
-  );
-  if (updatedUser) {
-    res.json(updatedUser);
-  } else {
-    res.status(404).json({ message: "User not found", error: error.message });
+  try {
+    const user = await User.findById(id);
+    if (user) {
+      user.name = name;
+      user.email = email;
+      user.password = password;
+      const updatedUser = await user.save();
+      res.json(updatedUser);
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   }
 });
 

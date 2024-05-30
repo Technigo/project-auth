@@ -1,5 +1,5 @@
 /exists https://project-auth-pqxu.onrender.com/exists 200
-/signup https://project-auth-pqxu.onrender.com/signup 200
+/user https://project-auth-pqxu.onrender.com/user 200
 /session https://project-auth-pqxu.onrender.com/session 200
 /verify https://project-auth-pqxu.onrender.com/verify 200
 /role https://project-auth-pqxu.onrender.com/role 200

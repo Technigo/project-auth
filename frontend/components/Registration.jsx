@@ -8,7 +8,7 @@ export const Registration = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const apiKey = import.meta.env.VITE_API_KEY;
-  const signup = apiKey + "/signup";
+  const signup = apiKey + "/user";
   const exist = apiKey + "/exists";
 
   const handleRegistration = (event) => {

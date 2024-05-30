@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 import listEndpoints from "express-list-endpoints";
 dotenv.config();
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/aunty";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
@@ -16,7 +16,9 @@ const app = express();
 
 const allowedOrigins = [
   "https://auntauthy.netlify.app",
+  "http://localhost:8787",
   "https://aunt-authy.onrender.com",
+  "http://localhost:5174",
 ];
 
 app.use(
@@ -53,7 +55,7 @@ app.get("/", (req, res) => {
         "This route renders the admin page. It requires admin authorization.",
       "/exists":
         "This route checks if a user with the provided email already exists in the database. It expects a JSON body with an 'email' field.",
-      "/signup":
+      "/user":
         "This route creates a new user with the provided name, email, and password. The password is hashed before being stored in the database. Upon successful creation, it returns the new user's ID and a JWT access token.",
       "/session":
         "This route logs in a user with the provided email and password. If the email and password match a user in the database, it returns the user's ID, a new JWT access token, and the user's role.",

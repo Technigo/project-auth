@@ -62,25 +62,21 @@ adminRouter.put("/users/:id", async (req, res) => {
 
     if (!(name || email || role || password)) {
       return res.status(400).json({
-        error: "At least noe field is required to update user data",
-        error: error.message,
+        error: "At least one field is required to update user data",
       });
     }
-    // make a new object to store the updated user data, if any field is updated
-    let update = {};
-    if (name) update.name = name;
-    if (email) update.email = email;
-    if (role) update.role = role;
-    if (password) {
-      const salt = bcrypt.genSaltSync();
-      update.password = bcrypt.hashSync(password, salt);
-    }
 
-    const updatedUser = await User.findByIdAndUpdate(id, update, { new: true });
-
-    if (!updatedUser) {
+    const user = await User.findById(id);
+    if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (role) user.role = role;
+    if (password) user.password = password;
+
+    const updatedUser = await user.save();
 
     res.json(updatedUser);
   } catch (error) {
