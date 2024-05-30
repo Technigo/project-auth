@@ -119,7 +119,7 @@ export const Registration = () => {
     }
 
     try {
-      const response = await fetch(`${apiEnv}/register`, {
+      const response = await fetch(`${apiEnv}register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

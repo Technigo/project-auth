@@ -82,7 +82,7 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${apiEnv}/login`, {
+      const response = await fetch(`${apiEnv}login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
