@@ -32,9 +32,7 @@ adminRouter.post("/users", async (req, res) => {
   try {
     const { name, email, role, password } = req.body;
     if (!name || !email || !role || !password) {
-      return res
-        .status(400)
-        .json({ error: "All fields are required", error: error.message });
+      return res.status(400).json({ error: "All fields are required" });
     }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
