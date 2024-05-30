@@ -1,13 +1,18 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
+Developed a backend API and frontend registration & sign-in form. 
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+API uses mongoose to include endpoints for user registration & sign-in, authenticated endpoint accessible only to logged-in users, storing and removing access tokens.
+
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We had issues storing the access token, but figured it out by parsing the token to JSON.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+#### Backend:
+https://project-auth-kh49.onrender.com/
+
+#### Frontend:
+https://heroic-beignet-77e068.netlify.app/

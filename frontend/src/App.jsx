@@ -1,3 +1,11 @@
+import { BrowserRouter } from "react-router-dom";
+import { Home } from "./components/Home";
+import { RouteList } from "./components/RouteList";
+
 export const App = () => {
-  return <div>Find me in src/app.jsx!</div>;
+  return (
+    <BrowserRouter>
+      <RouteList />
+    </BrowserRouter>
+  );
 };

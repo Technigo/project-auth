@@ -1,13 +1,135 @@
 :root {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --title-font: "Playfair Display";
+  --text-font: "Work Sans";
+  --title-color: #683651;
+  --dark-purple: #683651;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: #fffcf5;
+  font-family: var(--text-font);
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.outer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+h2 {
+  font-family: var(--title-font);
+  font-size: 35px;
+  color: var(--title-color);
+}
+
+.title-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 15px;
+}
+
+.text-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  gap: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  /* margin-bottom: 20px; */
+  font-weight: 400;
+}
+
+legend {
+  font-size: 18px;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding-top: 5px;
+  gap: 15px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid black;
+}
+
+button {
+  background-color: var(--dark-purple);
+  color: #fffcf5;
+  font-family: var(--title-font);
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  padding: 8px;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  form {
+    width: 440px;
+  }
+
+  h2 {
+    font-size: 45px;
+  }
+}
+
+@media (min-width: 768px) {
+  form {
+    width: 580px;
+  }
+
+  .input-tablet-desktop {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .input-tablet-desktop label {
+    width: 280px;
+  }
+
+  .postcode-box label {
+    width: 200px;
+  }
+
+  .city-box label {
+    width: 350px;
+  }
+
+  button {
+    width: 150px;
+    align-self: center;
+  }
+}
+
+/* 3D6E30 */
+/* 725982 */
+/* 683651 */
