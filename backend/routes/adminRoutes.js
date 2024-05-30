@@ -50,8 +50,7 @@ adminRouter.post("/users", async (req, res) => {
     res.json(savedUser);
   } catch (error) {
     res.status(500).json({
-      error: "An error occurred while adding the user",
-      error: error.message,
+      error: "An error occurred while adding the user"
     });
   }
 });
