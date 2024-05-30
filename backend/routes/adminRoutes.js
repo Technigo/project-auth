@@ -1,6 +1,5 @@
 import express from "express";
 import User from "../model/user-model";
-import bcryptjs from "bcryptjs";
 import { authenticateUser, authorizeUser } from "../middleware/Middleware";
 import dotenv from "dotenv";
 
@@ -37,12 +36,17 @@ adminRouter.post("/users", async (req, res) => {
         .status(400)
         .json({ error: "All fields are required", error: error.message });
     }
-    const salt = bcryptjs.genSaltSync();
+    const existingUser = await User.findOne({ email: { email } });
+    if (existingUser) {
+      return res
+        .status(400)
+        .send({ message: "User with this email already exists" });
+    }
     const newUser = new User({
       name,
       email,
       role,
-      password: bcryptjs.hashSync(password, salt),
+      password,
     });
     const savedUser = await newUser.save();
     res.json(savedUser);

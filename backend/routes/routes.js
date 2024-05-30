@@ -40,6 +40,13 @@ router.post("/exists", async (req, res) => {
 router.post("/user", async (req, res) => {
   const { name, email, password } = req.body;
   try {
+    // check for duplicate user, and ensure that the input is treated as a literal value ($eq) to protect against NoSQL injection
+    const existingUser = await User.findOne({ email: { $eq: email } });
+    if (existingUser) {
+      return res
+        .status(400)
+        .send({ message: "User with this email already exists" });
+    }
     const newUser = await new User({
       name,
       email,
