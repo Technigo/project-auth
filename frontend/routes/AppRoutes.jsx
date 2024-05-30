@@ -18,7 +18,7 @@ export const AppRoutes = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} fallbackComponent={<Home />} />
         <Route path="/" element={<Home />} />
-
+        <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </Router>
 
