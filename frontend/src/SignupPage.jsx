@@ -9,7 +9,7 @@ export const SignupPage = () => {
     event.preventDefault();
 
     // fetch is for sending requests to the server. Post is for sending data to the server.
-    fetch("http://localhost:8080/signup", {
+    fetch("https://project-auth-jcs.onrender.com/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
