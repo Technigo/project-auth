@@ -1,7 +1,7 @@
 {
   "name": "project-auth-backend",
   "version": "1.0.0",
-  "description": "Project Aunt Authy - a test project for authentication - authentication with JWT, bcrypt, express, mongoose, and one strict Aunt Authy",
+  "description": "Project Aunt Authy - a test project for authentication - authentication with JWT, bcryptjs, express, mongoose, and one strict Aunt Authy",
   "scripts": {
     "start": "babel-node server.js",
     "dev": "nodemon server.js --exec babel-node"

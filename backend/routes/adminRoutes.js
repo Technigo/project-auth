@@ -1,6 +1,6 @@
 import express from "express";
 import User from "../model/user-model";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import { authenticateUser, authorizeUser } from "../middleware/Middleware";
 import dotenv from "dotenv";
 
@@ -37,12 +37,12 @@ adminRouter.post("/users", async (req, res) => {
         .status(400)
         .json({ error: "All fields are required", error: error.message });
     }
-    const salt = bcrypt.genSaltSync();
+    const salt = bcryptjs.genSaltSync();
     const newUser = new User({
       name,
       email,
       role,
-      password: bcrypt.hashSync(password, salt),
+      password: bcryptjs.hashSync(password, salt),
     });
     const savedUser = await newUser.save();
     res.json(savedUser);
