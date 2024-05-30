@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const SignupPage = () => {
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     // prevent dedefault stops the page from reloading
@@ -18,9 +20,13 @@ export const SignupPage = () => {
         password: event.target.password.value,
       }),
     })
-    // here converting the response from json, which is a string, to an object that we can work with
+      // here converting the response from json, which is a string, to an object that we can work with
       .then((res) => res.json())
       .then((res) => {
+        if (res.error) {
+          setError(true);
+          return;
+        }
         console.log(res);
         // here we are saving the token in the local storage, so the user can stay logged in
         localStorage.setItem("token", res.token);
@@ -30,6 +36,7 @@ export const SignupPage = () => {
   return (
     <form onSubmit={handleSubmit}>
       <h1>Sign up</h1>
+      {error && <p>Something went wrong</p>}
       <label>
         Username:
         <input type="text" name="username" />
