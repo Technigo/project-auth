@@ -67,7 +67,7 @@ router.post("/signup", async (req, res) => {
 });
 
 //log in user
-router.post("/login", async (req, res) => {
+router.post("/session", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });

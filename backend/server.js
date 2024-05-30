@@ -16,7 +16,7 @@ const app = express();
 
 const allowedOrigins = [
   "https://auntauthy.netlify.app",
-  "https://aunt-authy.onrender.com"
+  "https://aunt-authy.onrender.com",
 ];
 
 app.use(
@@ -55,7 +55,7 @@ app.get("/", (req, res) => {
         "This route checks if a user with the provided email already exists in the database. It expects a JSON body with an 'email' field.",
       "/signup":
         "This route creates a new user with the provided name, email, and password. The password is hashed before being stored in the database. Upon successful creation, it returns the new user's ID and a JWT access token.",
-      "/login":
+      "/session":
         "This route logs in a user with the provided email and password. If the email and password match a user in the database, it returns the user's ID, a new JWT access token, and the user's role.",
       "/verify":
         "This route verifies if a user is authenticated by checking their JWT access token. and if their token is not stored in our blacklist. If the token is valid, it returns a message saying the user is logged in.",

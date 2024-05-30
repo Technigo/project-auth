@@ -7,7 +7,7 @@ export const Login = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const apiKey = import.meta.env.VITE_API_KEY;
-  const API = apiKey + "/login";
+  const API = apiKey + "/session";
 
   const handleLogin = (event) => {
     event.preventDefault();
