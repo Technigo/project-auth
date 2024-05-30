@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+
 //use matchPassword method to compare the entered password with the hashed password in the database
 userSchema.methods.matchPassword = async function(enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
