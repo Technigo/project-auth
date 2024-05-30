@@ -34,7 +34,7 @@ export const CreateUser = ({ getUsers }) => {
       if (error.message.includes('E11000')) {
         setMessage('A user with the same email already exists.');
       } else {
-        setMessage('An unexpected error occurred.');
+        setMessage(`An unexpected error occurred: ${error.message}`);
       }
     }
   };
