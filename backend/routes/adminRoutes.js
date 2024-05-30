@@ -36,7 +36,7 @@ adminRouter.post("/users", async (req, res) => {
         .status(400)
         .json({ error: "All fields are required", error: error.message });
     }
-    const existingUser = await User.findOne({ email: { email } });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res
         .status(400)
