@@ -30,11 +30,10 @@ export const CreateUser = ({ getUsers }) => {
       getUsers();
       setMessage('User created successfully');
     } catch (error) {
-      console.error(error);
-      if (error.message.includes('E11000')) {
+      // check if it includes the error message from the backend
+      if (error.message.includes('User with this email already exists')) {
         setMessage('A user with the same email already exists.');
       } else {
-        console.log(error);
         setMessage(`An unexpected error occurred: ${error.message}`);
       }
     }
