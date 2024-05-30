@@ -24,7 +24,7 @@ export const CreateUser = ({ getUsers }) => {
       if (!response.ok) {
         const errorData = await response.json();
         setMessage(errorData.message || 'An error occurred while creating the user.');
-        throw new Error(errorData.error);
+        throw new Error(errorData.message || 'An error occurred while creating the user.');
       }
 
       getUsers();
