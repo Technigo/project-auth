@@ -22,8 +22,8 @@ export const CreateUser = ({ getUsers }) => {
         body: JSON.stringify({ name, email, role, password }),
       });
       if (!response.ok) {
-        setMessage('An error occurred while creating the user.');
         const errorData = await response.json();
+        setMessage(errorData.message || 'An error occurred while creating the user.');
         throw new Error(errorData.error);
       }
 
