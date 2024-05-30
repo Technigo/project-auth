@@ -1,0 +1,69 @@
+.sign-in-container {
+  z-index: 10;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.837);
+  box-shadow: 2px 2px 20px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  height: 190px;
+  backdrop-filter: blur(2px);
+  border-radius: 6px;
+  top: 0;
+  left: 0;
+  border: 2px solid white;
+}
+
+.sign-in-container > div {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-field {
+  padding: 0 5px;
+  margin: 5px;
+  display: flex;
+  border-radius: 6px;
+  background-color: white;
+  border: 1px solid rgb(219, 218, 218);
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.input-field i{
+  position: absolute;
+  right: 10px;
+  color: grey;
+}
+
+.sign-in-container input {
+  padding: 8px 16px;
+  padding-left: 1px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  margin: 3px 0;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* TABLET SCREENS min 745px ------------------------------------------------------------ */
+
+@media (min-width: 745px) {
+}
