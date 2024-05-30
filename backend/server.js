@@ -10,25 +10,44 @@ dotenv.config()
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/Authorization"
 mongoose.connect(mongoUrl)
 mongoose.Promise = Promise
-
-const User = mongoose.model("User", {
+const SALT_ROUNDS = 12
+const passwordValidator = (password) => {
+  const regex = /^(?=.*[A-Z])(?=.*d)[A-Za-zd]{8,}$/
+  return regex.test(password)
+}
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
+    minLength: 5,
   },
   email: {
     type: String,
     unique: true,
+    required: [true, "Email is required"],
+    match: [/\S+@\S+\.\S+/, "Email is invalid"],
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "Password is required"],
+    validate: {
+      validator: passwordValidator,
+      message:
+        "Password must contain at least one uppercase letter, one number, and be at least 8 characters long",
+    },
   },
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
   },
 })
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password") || this.isNew) {
+    this.password = await bcrypt.hash(this.password, SALT_ROUNDS)
+  }
+  next()
+})
+const User = mongoose.model("User", userSchema)
 const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({
     accessToken: req.header("Authorization"),
@@ -62,7 +81,6 @@ app.use(
 )
 
 // Start defining your routes here
-app.get("/", (req, res) => {})
 app.post("/users", async (req, res) => {
   try {
     const { name, email, password } = req.body
@@ -89,26 +107,6 @@ app.post("/sessions", async (req, res) => {
     res.json({ notFound: true })
   }
 })
-// app.post("/logout", async (req, res) => {
-//   try {
-//     const accessToken = req.header("Authorization")
-
-//     // Find the user by the access token and update the accessToken field to invalidate it
-//     const user = await User.findOneAndUpdate(
-//       { accessToken },
-//       { accessToken: null }
-//     ).exec()
-
-//     if (user) {
-//       res.status(200).json({ message: "Logout successful" })
-//     } else {
-//       res.status(401).json({ message: "Unauthorized" })
-//     }
-//   } catch (error) {
-//     console.error("Error logging out:", error)
-//     res.status(500).json({ message: "Internal server error" })
-//   }
-// })
 
 // Start the server
 app.listen(port, () => {
