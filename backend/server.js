@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 // install bcrypt with npm install. https://nordvpn.com/sv/blog/what-is-bcrypt/
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl);
@@ -20,9 +21,7 @@ const User = mongoose.model("User", {
   },
   token: {
     type: String,
-    default: () => {
-      return bcrypt.genSaltSync();
-    },
+    default: () => crypto.randomBytes(128).toString("hex"),
   },
 });
 
@@ -43,13 +42,18 @@ app.get("/", (req, res) => {
 
 // here is the route for post sign up.
 app.post("/signup", async (req, res) => {
+  // https://heynode.com/blog/2020-04/salt-and-hash-passwords-bcrypt/
+  const salt = bcrypt.genSaltSync(10);
+
   // here we are defining what kind of data we are going to get.
-  User.create({ username: req.body.username, password: req.body.password })
+  User.create({
+    username: req.body.username,
+    password: bcrypt.hashSync(req.body.password, salt),
+  })
     .then((user) => {
       res.status(201).json({ token: user.token });
     })
     .catch((error) => {
-      console.log(error.message);
       res.status(400).json({ message: "Could not create user", error });
     });
 });
@@ -57,14 +61,11 @@ app.post("/signup", async (req, res) => {
 // created a login endpoint here. POST/login is the endpoint. POST/sign up is also an endpoint. GET is also an endpoint. The endpoints like log in and user data gets stored in the database (mongoDB)
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  console.log(`Login with username: ${username} and password: ${password}`);
   // here we are creating a token ... like you get a ticket to a festival, and the wristband is the token
   return User.findOne({ username: req.body.username }).then((user) => {
-    if (user && req.body.password === user.password) {
-      console.log("User found", user);
+    if (user && bcrypt.compareSync(req.body.password, user.password)) {
       res.json({ token: user.token });
     } else {
-      console.log("User not found");
       res.status(401).json({ message: "Could not log in" });
       return;
     }
@@ -82,9 +83,8 @@ app.get("/private", async (req, res) => {
   });
   if (!user) {
     res.status(401).json({ message: "Not authorized" });
+    return;
   }
-
-  console.log(user);
   res.json({ message: "This is a secret message" });
 });
 
