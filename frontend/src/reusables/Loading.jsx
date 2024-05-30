@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Loading = styled.div`
-  border: 4px solid var(--darkgreen) (0, 0, 0, 0.1);
+  border: 4px solid rgba(67, 105, 87, 0.1);
   width: 36px;
   height: 36px;
   border-radius: 50%;
