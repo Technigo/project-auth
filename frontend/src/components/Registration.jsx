@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../reusables/Header";
 import { Button } from "../reusables/Button";
 
-// const API_KEY = "http://localhost:8080";
+// const apiEnv = "http://localhost:8080/";
 
 //styling
 const RegistrationSection = styled.section`

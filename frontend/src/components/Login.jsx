@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../reusables/Header";
 import { Button } from "../reusables/Button";
+import { Loading } from "../reusables/Loading";
 
-// const API_KEY = "http://localhost:8080";
+// const apiEnv = "http://localhost:8080/";
 
 //styling
 const LoginSection = styled.section`
@@ -63,6 +64,7 @@ const FormText = styled.p`
 export const Login = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -81,6 +83,7 @@ export const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch(`${apiEnv}login`, {
         method: "POST",
@@ -97,10 +100,14 @@ export const Login = () => {
         localStorage.setItem("accessToken", accessToken);
         navigate("/dashboard");
       } else {
-        setMessage("Sign-in failed: Invalid name or password");
+        const errorData = await response.json();
+        setMessage(`Sign-in failed: ${errorData.message}`);
       }
     } catch (error) {
       console.error("Login failed:", error);
+      setMessage("An error occurred. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -133,7 +140,8 @@ export const Login = () => {
           {/* show error message */}
           {message && <p>{message}</p>}
         </StyledForm>
-        <Button onClick={handleSubmit}>Log in</Button>
+        {/* Conditionally render loading spinner or login button */}
+        {loading ? <Loading /> : <Button onClick={handleSubmit}>Login</Button>}
         <FormText>
           If you don&rsquo;t have an account yet, create yours below.👇{" "}
         </FormText>
