@@ -1,13 +1,11 @@
 # Project Auth API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This assignment was to build an API with authentication to implement a registration flow and a frontend with forms to register, sign in, and view some content once logged in.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+Struggled a lot with where to salt the password, then found Technigo's example of how to solve it. This was a hard project and it helped a lot to break it down into lots of little steps. So first I just created the React components with no back end. Then I set up the API endpoints but didn't put any code in them yet. After that I made the login form send a POST request to the API but didn't try to code the login check yet.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+https://project-auth-jcs.netlify.app/
